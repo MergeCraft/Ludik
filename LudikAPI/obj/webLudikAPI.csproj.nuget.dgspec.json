@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\LudikAPI.csproj": {}
+    "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\webLudikAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\LudikAPI.csproj": {
+    "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\webLudikAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\LudikAPI.csproj",
-        "projectName": "LudikAPI",
-        "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\LudikAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\webLudikAPI.csproj",
+        "projectName": "webLudikAPI",
+        "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\webLudikAPI.csproj",
         "packagesPath": "C:\\Users\\Santiago\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\obj\\",
         "projectStyle": "PackageReference",
