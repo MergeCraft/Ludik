@@ -6,11 +6,11 @@ namespace Dominio
 {
 	public class Estudiante : Usuario
 	{
-		private List<PerfilEstudiante> perfiles;
+        public List<PerfilEstudiante> perfiles;
 
-		private List<Hito> hitos;
+        public List<Hito> hitos;
 
-		private List<PreguntaRespuestaSeguridad> preguntasSeguridad;
+        public List<PreguntaRespuestaSeguridad> preguntasSeguridad;
 
 		public Boolean constrastarRespuestas(PreguntaRespuestaSeguridad pRS)
 		{

@@ -7,9 +7,9 @@ namespace Dominio
     {
         public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        private String pregunta;
+        public String pregunta;
 
-		private String respuesta;
+        public String respuesta;
         public bool coincide(PreguntaRespuestaSeguridad pRS)
 		{
 			return true;

@@ -9,25 +9,25 @@ namespace Dominio
     {
         public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        private String nombre;
+        public String nombre;
 
-		private String ciudad;
+        public String ciudad;
 
-		private String materia;
+        public String materia;
 
-		private DateTime fCreacion;
+        public DateTime fCreacion;
 
-		private TablaEquivalencia tablaEquivalencia;
+        public TablaEquivalencia tablaEquivalencia;
 
-		private Tienda tienda;
+        public Tienda tienda;
 
-		private List<TablaClasificacion> tablasClasificacion;
+        public List<TablaClasificacion> tablasClasificacion;
 
-		private List<PerfilEstudiante> alumnos;
+        public List<PerfilEstudiante> alumnos;
 
-		private List<SolicitudUnion> solicitudes;
+        public List<SolicitudUnion> solicitudes;
 
-		private EnlaceUnion enlaceUnion;
+        public EnlaceUnion enlaceUnion;
 
         public void asignarMedalla(PerfilEstudiante pEstudiante, Medalla m)
 		{

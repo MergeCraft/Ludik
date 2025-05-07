@@ -6,19 +6,19 @@ namespace Dominio
 {
 	public class Profesor : Usuario
 	{
-		private String correo;
+        public String correo;
 
-		private List<Medalla> medallas;
+        public List<Medalla> medallas;
 
-		private List<TablaEquivalencia> tablasEquivalencia;
+        public List<TablaEquivalencia> tablasEquivalencia;
 
-		private List<Grupo> grupos;
+        public List<Grupo> grupos;
 
-		private Medalla[] medalla;
+        public Medalla[] medalla;
 
-		private TablaEquivalencia[] tablaEquivalencia;
+        public TablaEquivalencia[] tablaEquivalencia;
 
-		private Grupo[] grupo;
+        public Grupo[] grupo;
 
 		public void asignarMedalla(Medalla medalla, Grupo grupo, PerfilEstudiante pEstudiante)
 		{

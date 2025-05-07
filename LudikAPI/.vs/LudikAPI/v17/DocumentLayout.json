@@ -3,46 +3,25 @@
   "WorkspaceRootPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\repositoriosef\\irepositoriousuarioef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\repositoriosef\\repositorioestudiantesef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriousuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\repositoriosef\\repositorioequivalenciasef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositorio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriogrupos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriorendimientoperiodos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesentidades\\ivalidable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriosolicitudesunion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesentidades\\ientity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriotablaclasificacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriotablasequivalencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriotiendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriohitos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositorioperfilestudiantegrupo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{176661C3-34FF-4CF1-99D1-325FA3C044CB}|..\\PruebasUnitarias\\PruebasUnitarias.csproj|c:\\users\\santiago\\documents\\github\\ludik\\pruebasunitarias\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\profesor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\repositoriosef\\context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\barraprogreso.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\tienda.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -54,16 +33,13 @@
       "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\tablaequivalencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\tablaclasificacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\solicitudunion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\rendimientoperiodo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\recompensa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\recompensa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\profesor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\preguntarespuestaseguridad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -87,19 +63,115 @@
       "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\grupo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\equivalencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\estudiante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\estudiante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\equivalencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\enlaceunion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesentidades\\ivalidable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\barraprogreso.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesentidades\\ientity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\accesodatos.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\logicanegocio.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\repositoriosef\\repositorioenlacesuniongrupoef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\repositoriosef\\repositoriotiendasef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\repositoriosef\\repositoriousuariosef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\repositoriosef\\repositoriotablasequivalenciaef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\repositoriosef\\repositoriosolocitudesunionef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\repositoriosef\\repositoriorendimientoperiodosef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\repositoriosef\\repositoriorecompensasef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\repositoriosef\\repositorioprofesoresef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\repositoriosef\\repositoriopreguntasseguridadef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\repositoriosef\\repositoriopinesef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\repositoriosef\\repositorioperfilestudiantegrupoef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositorioperfilestudiantegrupo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\repositoriosef\\repositoriomedallasef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\repositoriosef\\repositoriohitosef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\repositoriosef\\repositoriogruposef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriomedallas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriohitos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositorioestudiantes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositorioequivalencias.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositorioenlacesuniongrupo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositorio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C1374FE7-0096-42EB-B0B8-C1ED0C853FD9}|..\\LogicaAplicacion\\LogicaAplicacion.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicaaplicacion\\logicaaplicacion.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriotablasequivalencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriotablasclasificacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriousuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriorendimientoperiodos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriosolicitudesunion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriotiendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{176661C3-34FF-4CF1-99D1-325FA3C044CB}|..\\PruebasUnitarias\\PruebasUnitarias.csproj|c:\\users\\santiago\\documents\\github\\ludik\\pruebasunitarias\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\tablaclasificacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\entidades\\rendimientoperiodo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriorecompensas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -114,52 +186,28 @@
       "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriopines.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriomedallas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositoriogrupos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositorioequivalencias.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositorioenlacesuniongrupo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\interfacesrepositorio\\irepositorioestudiantes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C1374FE7-0096-42EB-B0B8-C1ED0C853FD9}|..\\LogicaAplicacion\\LogicaAplicacion.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicaaplicacion\\logicaaplicacion.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EC71056F-48D2-4356-9790-394B78D10C3E}|..\\AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\accesodatos\\accesodatos.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}|..\\LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\logicanegocio\\logicanegocio.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApiLudika.csproj|c:\\users\\santiago\\documents\\github\\ludik\\ludikapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApiLudika.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApi.csproj|c:\\users\\santiago\\documents\\github\\ludik\\ludikapi\\webapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApi.csproj|solutionrelative:webapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApiLudika.csproj|c:\\users\\santiago\\documents\\github\\ludik\\ludikapi\\ludikapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
-      "RelativeMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApiLudika.csproj|solutionrelative:ludikapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+      "AbsoluteMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApi.csproj|c:\\users\\santiago\\documents\\github\\ludik\\ludikapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApi.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApiLudika.csproj|c:\\users\\santiago\\documents\\github\\ludik\\ludikapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApiLudika.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApi.csproj|c:\\users\\santiago\\documents\\github\\ludik\\ludikapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApi.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApiLudika.csproj|c:\\users\\santiago\\documents\\github\\ludik\\ludikapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApiLudika.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApi.csproj|c:\\users\\santiago\\documents\\github\\ludik\\ludikapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApi.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApiLudika.csproj|c:\\users\\santiago\\documents\\github\\ludik\\ludikapi\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApiLudika.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApi.csproj|c:\\users\\santiago\\documents\\github\\ludik\\ludikapi\\ludikapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApi.csproj|solutionrelative:ludikapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApi.csproj|c:\\users\\santiago\\documents\\github\\ludik\\ludikapi\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7FBED670-6F59-4A72-BFD9-DE48B77BB564}|WebApi.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -169,593 +217,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 10,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "IRepositorioSolicitudesUnion.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioSolicitudesUnion.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioSolicitudesUnion.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioSolicitudesUnion.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioSolicitudesUnion.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:47:49.099Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "IRepositorioRendimientoPeriodos.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioRendimientoPeriodos.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioRendimientoPeriodos.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioRendimientoPeriodos.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioRendimientoPeriodos.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:47:15.148Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "IRepositorioUsuarios.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioUsuarios.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioUsuarios.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioUsuarios.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioUsuarios.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:48:55.649Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IRepositorio.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorio.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorio.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorio.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorio.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:36:14.893Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "IRepositorioUsuarioEF.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\IRepositorioUsuarioEF.cs",
-              "RelativeDocumentMoniker": "..\\AccesoDatos\\RepositoriosEF\\IRepositorioUsuarioEF.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\IRepositorioUsuarioEF.cs",
-              "RelativeToolTip": "..\\AccesoDatos\\RepositoriosEF\\IRepositorioUsuarioEF.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T13:54:40.645Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "IRepositorioTablaClasificacion.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTablaClasificacion.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTablaClasificacion.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTablaClasificacion.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTablaClasificacion.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:48:07.122Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "IRepositorioTablasEquivalencia.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTablasEquivalencia.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTablasEquivalencia.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTablasEquivalencia.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTablasEquivalencia.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:48:24.77Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "IRepositorioTiendas.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTiendas.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTiendas.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTiendas.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTiendas.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:48:39.723Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "IRepositorioHitos.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioHitos.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioHitos.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioHitos.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioHitos.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA4AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:42:12.304Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "IRepositorioPerfilEstudianteGrupo.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPerfilEstudianteGrupo.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPerfilEstudianteGrupo.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPerfilEstudianteGrupo.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPerfilEstudianteGrupo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:44:06.081Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "UnitTest1.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\PruebasUnitarias\\UnitTest1.cs",
-              "RelativeDocumentMoniker": "..\\PruebasUnitarias\\UnitTest1.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\PruebasUnitarias\\UnitTest1.cs",
-              "RelativeToolTip": "..\\PruebasUnitarias\\UnitTest1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T13:43:31.6Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Usuario.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Usuario.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Usuario.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Usuario.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Usuario.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABIAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-06T22:21:54.062Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "BarraProgreso.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\BarraProgreso.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\BarraProgreso.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\BarraProgreso.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\BarraProgreso.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T13:24:33.175Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Tienda.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Tienda.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Tienda.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Tienda.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Tienda.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:53:33.326Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "Tema.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Tema.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Tema.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Tema.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Tema.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:53:39.031Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "TablaEquivalencia.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\TablaEquivalencia.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\TablaEquivalencia.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\TablaEquivalencia.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\TablaEquivalencia.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:53:43.686Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "TablaClasificacion.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\TablaClasificacion.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\TablaClasificacion.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\TablaClasificacion.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\TablaClasificacion.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAxwBYAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:53:48.111Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "SolicitudUnion.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\SolicitudUnion.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\SolicitudUnion.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\SolicitudUnion.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\SolicitudUnion.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:54:19.523Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Profesor.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Profesor.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Profesor.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Profesor.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Profesor.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:54:48.206Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "RendimientoPeriodo.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\RendimientoPeriodo.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\RendimientoPeriodo.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\RendimientoPeriodo.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\RendimientoPeriodo.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:54:41.349Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "Recompensa.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Recompensa.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Recompensa.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Recompensa.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Recompensa.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:54:44.622Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "PreguntaRespuestaSeguridad.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\PreguntaRespuestaSeguridad.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\PreguntaRespuestaSeguridad.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\PreguntaRespuestaSeguridad.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\PreguntaRespuestaSeguridad.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAxwAwAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:56:22.836Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "Potenciador.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Potenciador.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Potenciador.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Potenciador.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Potenciador.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:56:53.981Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "PIN.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\PIN.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\PIN.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\PIN.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\PIN.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAqwBUAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:56:56.846Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "PerfilEstudiante.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\PerfilEstudiante.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\PerfilEstudiante.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\PerfilEstudiante.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\PerfilEstudiante.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAQwB8AAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:57:04.458Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "Medalla.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Medalla.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Medalla.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Medalla.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Medalla.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAgwBIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T13:15:36.046Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "Hito.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Hito.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Hito.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Hito.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Hito.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAxwA0AAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T13:22:55.126Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "Grupo.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Grupo.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Grupo.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Grupo.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Grupo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwB4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T13:23:36.686Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "Equivalencia.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Equivalencia.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Equivalencia.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Equivalencia.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Equivalencia.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T13:24:04.476Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "Estudiante.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Estudiante.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Estudiante.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Estudiante.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Estudiante.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:54:54.005Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "EnlaceUnion.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\EnlaceUnion.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\EnlaceUnion.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\EnlaceUnion.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\EnlaceUnion.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T13:24:19.278Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "IValidable.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesEntidades\\IValidable.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesEntidades\\IValidable.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesEntidades\\IValidable.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesEntidades\\IValidable.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:52:34.489Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "IEntity.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesEntidades\\IEntity.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesEntidades\\IEntity.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesEntidades\\IEntity.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesEntidades\\IEntity.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:52:32.287Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "IRepositorioRecompensas.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioRecompensas.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioRecompensas.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioRecompensas.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioRecompensas.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:46:53.268Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "IRepositorioProfesores.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioProfesores.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioProfesores.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioProfesores.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioProfesores.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:46:11.732Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 35,
-              "Title": "IRepositorioPreguntasSeguridad.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPreguntasSeguridad.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPreguntasSeguridad.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPreguntasSeguridad.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPreguntasSeguridad.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:45:47.589Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 36,
-              "Title": "IRepositorioPines.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPines.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPines.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPines.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPines.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:45:17.166Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 38,
-              "Title": "IRepositorioGrupos.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioGrupos.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioGrupos.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioGrupos.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioGrupos.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:41:51.504Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 37,
-              "Title": "IRepositorioMedallas.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioMedallas.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioMedallas.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioMedallas.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioMedallas.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:42:38.089Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 40,
-              "Title": "IRepositorioEnlacesUnionGrupo.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEnlacesUnionGrupo.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEnlacesUnionGrupo.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEnlacesUnionGrupo.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEnlacesUnionGrupo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:39:12.834Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 39,
-              "Title": "IRepositorioEquivalencias.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEquivalencias.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEquivalencias.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEquivalencias.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEquivalencias.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:40:45.785Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 41,
-              "Title": "IRepositorioEstudiantes.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEstudiantes.cs",
-              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEstudiantes.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEstudiantes.cs",
-              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEstudiantes.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T12:41:25.273Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 42,
-              "Title": "LogicaAplicacion",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaAplicacion\\LogicaAplicacion.csproj",
-              "RelativeDocumentMoniker": "..\\LogicaAplicacion\\LogicaAplicacion.csproj",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaAplicacion\\LogicaAplicacion.csproj",
-              "RelativeToolTip": "..\\LogicaAplicacion\\LogicaAplicacion.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-05-07T12:26:41.599Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 43,
-              "Title": "AccesoDatos",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\AccesoDatos.csproj",
-              "RelativeDocumentMoniker": "..\\AccesoDatos\\AccesoDatos.csproj",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\AccesoDatos.csproj",
-              "RelativeToolTip": "..\\AccesoDatos\\AccesoDatos.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-05-07T12:24:51.786Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 46,
-              "Title": "WebApiLudika.csproj",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\WebApi.csproj",
-              "RelativeDocumentMoniker": "WebApi.csproj",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\WebApi.csproj",
-              "RelativeToolTip": "WebApi.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-05-06T22:06:30.477Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
@@ -774,46 +237,332 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\Properties\\launchSettings.json",
-              "RelativeToolTip": "Properties\\launchSettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-29T07:29:35.758Z",
+              "DocumentIndex": 6,
+              "Title": "Usuario.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Usuario.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Usuario.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Usuario.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Usuario.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T22:21:54.062Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-29T07:29:26.264Z",
+              "DocumentIndex": 5,
+              "Title": "Context.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\Context.cs",
+              "RelativeDocumentMoniker": "..\\AccesoDatos\\RepositoriosEF\\Context.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\Context.cs",
+              "RelativeToolTip": "..\\AccesoDatos\\RepositoriosEF\\Context.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAgwC8AAABaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T17:46:51.604Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\Program.cs",
-              "RelativeToolTip": "Program.cs",
+              "DocumentIndex": 4,
+              "Title": "IEntity.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesEntidades\\IEntity.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesEntidades\\IEntity.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesEntidades\\IEntity.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesEntidades\\IEntity.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T07:28:07.243Z",
+              "WhenOpened": "2025-05-07T12:52:32.287Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 3,
+              "Title": "IValidable.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesEntidades\\IValidable.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesEntidades\\IValidable.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesEntidades\\IValidable.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesEntidades\\IValidable.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:52:34.489Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IRepositorioGrupos.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioGrupos.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioGrupos.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioGrupos.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioGrupos.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAcAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:41:51.504Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RepositorioEquivalenciasEF.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioEquivalenciasEF.cs",
+              "RelativeDocumentMoniker": "..\\AccesoDatos\\RepositoriosEF\\RepositorioEquivalenciasEF.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioEquivalenciasEF.cs",
+              "RelativeToolTip": "..\\AccesoDatos\\RepositoriosEF\\RepositorioEquivalenciasEF.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T17:20:03.343Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RepositorioEstudiantesEF.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioEstudiantesEF.cs",
+              "RelativeDocumentMoniker": "..\\AccesoDatos\\RepositoriosEF\\RepositorioEstudiantesEF.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioEstudiantesEF.cs",
+              "RelativeToolTip": "..\\AccesoDatos\\RepositoriosEF\\RepositorioEstudiantesEF.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T17:12:54.37Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Tienda.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Tienda.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Tienda.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Tienda.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Tienda.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAoAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:53:33.326Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Tema.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Tema.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Tema.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Tema.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Tema.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:53:39.031Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "TablaEquivalencia.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\TablaEquivalencia.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\TablaEquivalencia.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\TablaEquivalencia.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\TablaEquivalencia.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:53:43.686Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "SolicitudUnion.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\SolicitudUnion.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\SolicitudUnion.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\SolicitudUnion.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\SolicitudUnion.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:54:19.523Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Recompensa.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Recompensa.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Recompensa.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Recompensa.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Recompensa.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAoAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:54:44.622Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Profesor.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Profesor.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Profesor.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Profesor.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Profesor.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABQAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:54:48.206Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "PreguntaRespuestaSeguridad.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\PreguntaRespuestaSeguridad.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\PreguntaRespuestaSeguridad.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\PreguntaRespuestaSeguridad.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\PreguntaRespuestaSeguridad.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAxwAkAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:56:22.836Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Potenciador.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Potenciador.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Potenciador.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Potenciador.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Potenciador.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:56:53.981Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "PIN.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\PIN.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\PIN.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\PIN.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\PIN.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAowAoAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:56:56.846Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "PerfilEstudiante.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\PerfilEstudiante.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\PerfilEstudiante.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\PerfilEstudiante.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\PerfilEstudiante.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAA1wAsAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:57:04.458Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Medalla.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Medalla.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Medalla.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Medalla.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Medalla.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAA1wBEAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T13:15:36.046Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Hito.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Hito.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Hito.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Hito.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Hito.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAA1wAsAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T13:22:55.126Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Grupo.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Grupo.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Grupo.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Grupo.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Grupo.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB0AAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T13:23:36.686Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Estudiante.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Estudiante.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Estudiante.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Estudiante.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Estudiante.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAgAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:54:54.005Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Equivalencia.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Equivalencia.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\Equivalencia.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\Equivalencia.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\Equivalencia.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T13:24:04.476Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "EnlaceUnion.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\EnlaceUnion.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\EnlaceUnion.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\EnlaceUnion.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\EnlaceUnion.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAsAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T13:24:19.278Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "BarraProgreso.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\BarraProgreso.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\BarraProgreso.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\BarraProgreso.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\BarraProgreso.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T13:24:33.175Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "AccesoDatos.csproj",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\AccesoDatos.csproj",
+              "RelativeDocumentMoniker": "..\\AccesoDatos\\AccesoDatos.csproj",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\AccesoDatos.csproj",
+              "RelativeToolTip": "..\\AccesoDatos\\AccesoDatos.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-07T12:24:51.786Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
               "Title": "LogicaNegocio.csproj",
               "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\LogicaNegocio.csproj",
               "RelativeDocumentMoniker": "..\\LogicaNegocio\\LogicaNegocio.csproj",
@@ -826,7 +575,514 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "RepositorioTiendasEF.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioTiendasEF.cs",
+              "RelativeDocumentMoniker": "..\\AccesoDatos\\RepositoriosEF\\RepositorioTiendasEF.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioTiendasEF.cs",
+              "RelativeToolTip": "..\\AccesoDatos\\RepositoriosEF\\RepositorioTiendasEF.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T17:13:25.588Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "RepositorioUsuariosEF.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioUsuariosEF.cs",
+              "RelativeDocumentMoniker": "..\\AccesoDatos\\RepositoriosEF\\RepositorioUsuariosEF.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioUsuariosEF.cs",
+              "RelativeToolTip": "..\\AccesoDatos\\RepositoriosEF\\RepositorioUsuariosEF.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAwAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T13:54:40.645Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "RepositorioTablasEquivalenciaEF.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioTablasEquivalenciaEF.cs",
+              "RelativeDocumentMoniker": "..\\AccesoDatos\\RepositoriosEF\\RepositorioTablasEquivalenciaEF.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioTablasEquivalenciaEF.cs",
+              "RelativeToolTip": "..\\AccesoDatos\\RepositoriosEF\\RepositorioTablasEquivalenciaEF.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T17:13:45.757Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "RepositorioSolocitudesUnionEF.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioSolocitudesUnionEF.cs",
+              "RelativeDocumentMoniker": "..\\AccesoDatos\\RepositoriosEF\\RepositorioSolocitudesUnionEF.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioSolocitudesUnionEF.cs",
+              "RelativeToolTip": "..\\AccesoDatos\\RepositoriosEF\\RepositorioSolocitudesUnionEF.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T17:16:04.325Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "RepositorioEnlacesUnionGrupoEF.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioEnlacesUnionGrupoEF.cs",
+              "RelativeDocumentMoniker": "..\\AccesoDatos\\RepositoriosEF\\RepositorioEnlacesUnionGrupoEF.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioEnlacesUnionGrupoEF.cs",
+              "RelativeToolTip": "..\\AccesoDatos\\RepositoriosEF\\RepositorioEnlacesUnionGrupoEF.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T17:20:47.927Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "RepositorioRendimientoPeriodosEF.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioRendimientoPeriodosEF.cs",
+              "RelativeDocumentMoniker": "..\\AccesoDatos\\RepositoriosEF\\RepositorioRendimientoPeriodosEF.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioRendimientoPeriodosEF.cs",
+              "RelativeToolTip": "..\\AccesoDatos\\RepositoriosEF\\RepositorioRendimientoPeriodosEF.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T17:16:50.401Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "RepositorioRecompensasEF.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioRecompensasEF.cs",
+              "RelativeDocumentMoniker": "..\\AccesoDatos\\RepositoriosEF\\RepositorioRecompensasEF.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioRecompensasEF.cs",
+              "RelativeToolTip": "..\\AccesoDatos\\RepositoriosEF\\RepositorioRecompensasEF.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T17:17:25.582Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "RepositorioProfesoresEF.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioProfesoresEF.cs",
+              "RelativeDocumentMoniker": "..\\AccesoDatos\\RepositoriosEF\\RepositorioProfesoresEF.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioProfesoresEF.cs",
+              "RelativeToolTip": "..\\AccesoDatos\\RepositoriosEF\\RepositorioProfesoresEF.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T17:12:37.279Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "RepositorioPreguntasSeguridadEF.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioPreguntasSeguridadEF.cs",
+              "RelativeDocumentMoniker": "..\\AccesoDatos\\RepositoriosEF\\RepositorioPreguntasSeguridadEF.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioPreguntasSeguridadEF.cs",
+              "RelativeToolTip": "..\\AccesoDatos\\RepositoriosEF\\RepositorioPreguntasSeguridadEF.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T17:17:47.55Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "RepositorioPinesEF.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioPinesEF.cs",
+              "RelativeDocumentMoniker": "..\\AccesoDatos\\RepositoriosEF\\RepositorioPinesEF.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioPinesEF.cs",
+              "RelativeToolTip": "..\\AccesoDatos\\RepositoriosEF\\RepositorioPinesEF.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T17:18:07.675Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "RepositorioPerfilEstudianteGrupoEF.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioPerfilEstudianteGrupoEF.cs",
+              "RelativeDocumentMoniker": "..\\AccesoDatos\\RepositoriosEF\\RepositorioPerfilEstudianteGrupoEF.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioPerfilEstudianteGrupoEF.cs",
+              "RelativeToolTip": "..\\AccesoDatos\\RepositoriosEF\\RepositorioPerfilEstudianteGrupoEF.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwA0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T17:18:43.722Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "IRepositorioPerfilEstudianteGrupo.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPerfilEstudianteGrupo.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPerfilEstudianteGrupo.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPerfilEstudianteGrupo.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPerfilEstudianteGrupo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:44:06.081Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "RepositorioMedallasEF.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioMedallasEF.cs",
+              "RelativeDocumentMoniker": "..\\AccesoDatos\\RepositoriosEF\\RepositorioMedallasEF.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioMedallasEF.cs",
+              "RelativeToolTip": "..\\AccesoDatos\\RepositoriosEF\\RepositorioMedallasEF.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T17:19:04.978Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "RepositorioHitosEF.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioHitosEF.cs",
+              "RelativeDocumentMoniker": "..\\AccesoDatos\\RepositoriosEF\\RepositorioHitosEF.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioHitosEF.cs",
+              "RelativeToolTip": "..\\AccesoDatos\\RepositoriosEF\\RepositorioHitosEF.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAoAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T17:19:24.256Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "RepositorioGruposEF.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioGruposEF.cs",
+              "RelativeDocumentMoniker": "..\\AccesoDatos\\RepositoriosEF\\RepositorioGruposEF.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\AccesoDatos\\RepositoriosEF\\RepositorioGruposEF.cs",
+              "RelativeToolTip": "..\\AccesoDatos\\RepositoriosEF\\RepositorioGruposEF.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T17:06:31.461Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "IRepositorioMedallas.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioMedallas.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioMedallas.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioMedallas.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioMedallas.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:42:38.089Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "IRepositorioHitos.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioHitos.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioHitos.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioHitos.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioHitos.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:42:12.304Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "IRepositorioEstudiantes.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEstudiantes.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEstudiantes.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEstudiantes.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEstudiantes.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAgAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:41:25.273Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "IRepositorioEquivalencias.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEquivalencias.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEquivalencias.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEquivalencias.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEquivalencias.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:40:45.785Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "IRepositorioEnlacesUnionGrupo.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEnlacesUnionGrupo.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEnlacesUnionGrupo.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEnlacesUnionGrupo.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioEnlacesUnionGrupo.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAqwAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:39:12.834Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "IRepositorio.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorio.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorio.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorio.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:36:14.893Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 47,
+              "Title": "LogicaAplicacion.csproj",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaAplicacion\\LogicaAplicacion.csproj",
+              "RelativeDocumentMoniker": "..\\LogicaAplicacion\\LogicaAplicacion.csproj",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaAplicacion\\LogicaAplicacion.csproj",
+              "RelativeToolTip": "..\\LogicaAplicacion\\LogicaAplicacion.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-07T12:26:41.599Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "IRepositorioTablasEquivalencia.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTablasEquivalencia.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTablasEquivalencia.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTablasEquivalencia.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTablasEquivalencia.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:48:24.77Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "IRepositorioTablasClasificacion.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTablasClasificacion.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTablasClasificacion.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTablasClasificacion.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTablasClasificacion.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:48:07.122Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "IRepositorioRendimientoPeriodos.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioRendimientoPeriodos.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioRendimientoPeriodos.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioRendimientoPeriodos.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioRendimientoPeriodos.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:47:15.148Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "IRepositorioUsuarios.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioUsuarios.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioUsuarios.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioUsuarios.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioUsuarios.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:48:55.649Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "IRepositorioSolicitudesUnion.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioSolicitudesUnion.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioSolicitudesUnion.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioSolicitudesUnion.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioSolicitudesUnion.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:47:49.099Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
+              "Title": "IRepositorioTiendas.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTiendas.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTiendas.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTiendas.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioTiendas.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:48:39.723Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 54,
+              "Title": "UnitTest1.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\PruebasUnitarias\\UnitTest1.cs",
+              "RelativeDocumentMoniker": "..\\PruebasUnitarias\\UnitTest1.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\PruebasUnitarias\\UnitTest1.cs",
+              "RelativeToolTip": "..\\PruebasUnitarias\\UnitTest1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T13:43:31.6Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 55,
+              "Title": "TablaClasificacion.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\TablaClasificacion.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\TablaClasificacion.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\TablaClasificacion.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\TablaClasificacion.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAxwBYAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:53:48.111Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 56,
+              "Title": "RendimientoPeriodo.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\RendimientoPeriodo.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\Entidades\\RendimientoPeriodo.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\Entidades\\RendimientoPeriodo.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\Entidades\\RendimientoPeriodo.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAIBJwA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:54:41.349Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 57,
+              "Title": "IRepositorioRecompensas.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioRecompensas.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioRecompensas.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioRecompensas.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioRecompensas.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:46:53.268Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 58,
+              "Title": "IRepositorioProfesores.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioProfesores.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioProfesores.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioProfesores.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioProfesores.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:46:11.732Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 59,
+              "Title": "IRepositorioPreguntasSeguridad.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPreguntasSeguridad.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPreguntasSeguridad.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPreguntasSeguridad.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPreguntasSeguridad.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:45:47.589Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 60,
+              "Title": "IRepositorioPines.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPines.cs",
+              "RelativeDocumentMoniker": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPines.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPines.cs",
+              "RelativeToolTip": "..\\LogicaNegocio\\InterfacesRepositorio\\IRepositorioPines.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:45:17.166Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 61,
+              "Title": "WebApi.csproj",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\WebApi.csproj",
+              "RelativeDocumentMoniker": "WebApi.csproj",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\WebApi.csproj",
+              "RelativeToolTip": "WebApi.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-06T22:06:30.477Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 62,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-29T07:29:35.758Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 63,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-29T07:29:26.264Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 64,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T07:28:07.243Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 65,
               "Title": "LudikAPI.http",
               "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\LudikAPI.http",
               "RelativeDocumentMoniker": "LudikAPI.http",
@@ -839,7 +1095,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 66,
               "Title": "HomeController.cs",
               "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "Controllers\\HomeController.cs",

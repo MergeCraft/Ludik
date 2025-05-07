@@ -8,11 +8,11 @@ namespace Dominio
     {
         public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        private int valorMin;
+        public int valorMin;
 
-		private int valorMax;
+        public int valorMax;
 
-		private TablaEquivalencia tablaEquivalencia;
+        public TablaEquivalencia tablaEquivalencia;
 
         public void EsValido()
         {

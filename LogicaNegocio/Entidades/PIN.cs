@@ -8,17 +8,17 @@ namespace Dominio
     {
         public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        private int idUsuario;
+        public int idUsuario;
 
-		private String pin;
+        public String pin;
 
-		private DateTime fCreacion;
+        public DateTime fCreacion;
 
-		private DateTime fExpiracion;
+        public DateTime fExpiracion;
 
-		private int tiempoDeVida;
+        public int tiempoDeVida;
 
-		private Boolean fueUtilizado;
+        public Boolean fueUtilizado;
         public String generarPin()
 		{
 			return null;

@@ -8,9 +8,9 @@ namespace Dominio
     {
         public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        private List<Recompensa> Recompesas;
+        public List<Recompensa> Recompesas;
 
-		private Recompensa[] recompensa;
+        public Recompensa[] recompensa;
 
         public void EsValido()
         {

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "SWJf1ffOYZI=",
+  "dgSpecHash": "8f92RcK0ZwQ=",
   "success": true,
   "projectFilePath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LogicaAplicacion\\LogicaAplicacion.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Santiago\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

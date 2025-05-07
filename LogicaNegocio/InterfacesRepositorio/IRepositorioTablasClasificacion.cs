@@ -4,7 +4,7 @@ using LogicaNegocio.InterfacesRepositorio;
 
 namespace InterfacesRepositorio
 {
-	public interface IRepositorioTablaClasificacion : IRepositorio<TablaClasificacion>
+	public interface IRepositorioTablasClasificacion : IRepositorio<TablaClasificacion>
 	{
 	}
 

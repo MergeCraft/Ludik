@@ -7,15 +7,15 @@ namespace Dominio
 	{
         public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        private int imagenPerfi;
+        public int imagenPerfi;
 
-		private String nombre;
+        public String nombre;
 
-		private String nombreUsuario;
+        public String nombreUsuario;
 
-		private String apellido;
+        public String apellido;
 
-		private String contraseña;
+        public String contraseña;
         public void EsValido()
         {
             throw new NotImplementedException();

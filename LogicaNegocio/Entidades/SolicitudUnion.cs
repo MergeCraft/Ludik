@@ -7,9 +7,9 @@ namespace Dominio
     {
         public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        private Estudiante estudiante;
+        public Estudiante estudiante;
 
-		private Estudiante estudiante2;
+        public Estudiante estudiante2;
         public void EsValido()
         {
             throw new NotImplementedException();

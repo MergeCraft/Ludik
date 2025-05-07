@@ -7,9 +7,9 @@ namespace Dominio
     {
         public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        private String codigoBase;
+        public String codigoBase;
 
-		private DateTime expiracion;
+        public DateTime expiracion;
 
         public void EsValido()
         {

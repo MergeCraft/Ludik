@@ -7,9 +7,9 @@ namespace Dominio
     {
         public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        private int cantMedallasRequeridas;
+        public int cantMedallasRequeridas;
 
-		private Recompensa recompensa;
+        public Recompensa recompensa;
 
         public bool cumple(int cantMedallasPerfiles)
 		{

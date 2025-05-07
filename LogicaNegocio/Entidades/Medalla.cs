@@ -7,15 +7,15 @@ namespace Dominio
     {
         public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        private String nombre;
+        public String nombre;
 
-		private String descripcion;
+        public String descripcion;
 
-		private String icono;
+        public String icono;
 
-		private int monedasOtorgadas;
+        public int monedasOtorgadas;
 
-		private Boolean asignacionMutua;
+        public Boolean asignacionMutua;
 
         public void EsValido()
         {

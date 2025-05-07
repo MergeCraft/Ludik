@@ -8,11 +8,11 @@ namespace Dominio
     {
         public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        private String nombre;
+        public String nombre;
 
-		private String imagen;
+        public String imagen;
 
-		private int precio;
+        public int precio;
         public void EsValido()
         {
             throw new NotImplementedException();

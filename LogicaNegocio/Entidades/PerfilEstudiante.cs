@@ -9,25 +9,25 @@ namespace Dominio
     {
         public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        private int avatarGrupo;
+        public int avatarGrupo;
 
-		private String enlaceAvatar;
+        public String enlaceAvatar;
 
-		private int metaCalificacion;
+        public int metaCalificacion;
 
-		private Estudiante estudiante;
+        public Estudiante estudiante;
 
-		private int monedas;
+        public int monedas;
 
-		private List<Medalla> medallasObtenidas;
+        public List<Medalla> medallasObtenidas;
 
-		private List<RendimientoPeriodo> historialRendimientoPeriodos;
+        public List<RendimientoPeriodo> historialRendimientoPeriodos;
 
-		private Grupo grupo;
+        public Grupo grupo;
 
-		private List<Recompensa> inventario;
+        public List<Recompensa> inventario;
 
-		private BarraProgreso barraProgreso;
+        public BarraProgreso barraProgreso;
 
         public void asignarMedalla(Medalla m)
 		{

@@ -9,11 +9,11 @@ namespace Dominio
     {
         public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        private String nombre;
+        public String nombre;
 
-		private List<Equivalencia> equivalencias;
+        public List<Equivalencia> equivalencias;
 
-		private Equivalencia[] equivalencia;
+        public Equivalencia[] equivalencia;
         public int maxCalificacionSegun(List<Medalla> medallas)
 		{
 			return 0;

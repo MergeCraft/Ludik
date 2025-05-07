@@ -8,24 +8,19 @@ using InterfacesRepositorio;
 
 namespace AccesoDatos.RepositoriosEF
 {
-    public class IRepositorioUsuarioEF : IRepositorioUsuarios
+    public class RepositorioSolocitudesUnionEF : IRepositorioSolicitudesUnion
     {
-        public void Add(Usuario unObjeto)
+        public void Add(SolicitudUnion unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Usuario> GetAll()
+        public IEnumerable<SolicitudUnion> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Usuario GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Usuario loginUsuario(string identificador, string hashContrasena)
+        public SolicitudUnion GetById(int id)
         {
             throw new NotImplementedException();
         }
@@ -35,12 +30,12 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public void Remove(Usuario unObjeto)
+        public void Remove(SolicitudUnion unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Usuario unObjeto)
+        public void Update(SolicitudUnion unObjeto)
         {
             throw new NotImplementedException();
         }
