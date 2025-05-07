@@ -1,21 +1,26 @@
 using Dominio;
+using LogicaNegocio.InterfacesEntidades;
 
 namespace Dominio
 {
-	public class Hito
-	{
-		private int cantMedallasRequeridas;
+	public class Hito : IEntity, IValidable
+    {
+        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        private int cantMedallasRequeridas;
 
 		private Recompensa recompensa;
 
-		private Recompensa recompensa;
-
-		public bool cumple(int cantMedallasPerfiles)
+        public bool cumple(int cantMedallasPerfiles)
 		{
-			return null;
+			return true;
 		}
 
-	}
+        public void EsValido()
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }
 

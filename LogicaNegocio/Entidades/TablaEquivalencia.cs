@@ -1,20 +1,20 @@
 using System;
 using System.Collections.Generic;
 using Dominio;
+using LogicaNegocio.InterfacesEntidades;
 
 namespace Dominio
 {
-	public class TablaEquivalencia
-	{
-		private int id;
+	public class TablaEquivalencia : IEntity, IValidable
+    {
+        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-		private String nombre;
+        private String nombre;
 
 		private List<Equivalencia> equivalencias;
 
 		private Equivalencia[] equivalencia;
-
-		public int maxCalificacionSegun(List<Medalla> medallas)
+        public int maxCalificacionSegun(List<Medalla> medallas)
 		{
 			return 0;
 		}
@@ -29,7 +29,11 @@ namespace Dominio
 			return 0;
 		}
 
-	}
+        public void EsValido()
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }
 

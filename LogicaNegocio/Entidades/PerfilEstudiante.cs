@@ -1,14 +1,15 @@
 using System;
 using Dominio;
 using System.Collections.Generic;
+using LogicaNegocio.InterfacesEntidades;
 
 namespace Dominio
 {
-	public class PerfilEstudiante
-	{
-		private int id;
+	public class PerfilEstudiante : IEntity, IValidable
+    {
+        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-		private int avatarGrupo;
+        private int avatarGrupo;
 
 		private String enlaceAvatar;
 
@@ -28,22 +29,17 @@ namespace Dominio
 
 		private BarraProgreso barraProgreso;
 
-		private Estudiante estudiante;
-
-		private RendimientoPeriodo[] rendimientoPeriodo;
-
-		private Medalla[] medalla;
-
-		private Recompensa[] recompensa;
-
-		private BarraProgreso barraProgreso;
-
-		public void asignarMedalla(Medalla m)
+        public void asignarMedalla(Medalla m)
 		{
 
 		}
 
-		public void quitarMedalla(Medalla m)
+        public void EsValido()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void quitarMedalla(Medalla m)
 		{
 
 		}

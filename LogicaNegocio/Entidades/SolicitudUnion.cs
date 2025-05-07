@@ -1,16 +1,20 @@
 using Dominio;
+using LogicaNegocio.InterfacesEntidades;
 
 namespace Dominio
 {
-	public class SolicitudUnion
-	{
-		private int id;
+	public class SolicitudUnion : IEntity, IValidable
+    {
+        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-		private Estudiante estudiante;
+        private Estudiante estudiante;
 
-		private Estudiante estudiante;
-
-	}
+		private Estudiante estudiante2;
+        public void EsValido()
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }
 

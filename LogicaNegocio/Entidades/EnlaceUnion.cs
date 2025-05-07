@@ -1,16 +1,22 @@
 using System;
+using LogicaNegocio.InterfacesEntidades;
 
 namespace Dominio
 {
-	public class EnlaceUnion
-	{
-		private int id;
+	public class EnlaceUnion : IEntity, IValidable
+    {
+        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-		private String codigoBase;
+        private String codigoBase;
 
 		private DateTime expiracion;
 
-		public String generarCodigoBase()
+        public void EsValido()
+        {
+            throw new NotImplementedException();
+        }
+
+        public String generarCodigoBase()
 		{
 			return null;
 		}

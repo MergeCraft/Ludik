@@ -1,15 +1,16 @@
-using vistaCompleta.observer;
+
 using System;
 using Dominio;
 using System.Collections.Generic;
+using LogicaNegocio.InterfacesEntidades;
 
 namespace Dominio
 {
-	public class TablaClasificacion : Observador
-	{
-		private int id;
+	public class TablaClasificacion : IEntity, IValidable
+    {
+        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-		private String nombre;
+        private String nombre;
 
 		private Medalla medallaAsociada;
 
@@ -19,15 +20,18 @@ namespace Dominio
 
 		private Medalla medalla;
 
-
-		/// <see>vistaCompleta.observer.Observador#actualizar(vistaCompleta.observer.Observable, vistaCompleta.observer.Evento)</see>
-		///  
-		public void actualizar(Observable origen, Evento evento)
+        /// <see>vistaCompleta.observer.Observador#actualizar(vistaCompleta.observer.Observable, vistaCompleta.observer.Evento)</see>
+        ///  
+        public void actualizar()
 		{
 
 		}
 
-	}
+        public void EsValido()
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }
 

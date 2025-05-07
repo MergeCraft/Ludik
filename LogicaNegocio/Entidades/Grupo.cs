@@ -1,14 +1,15 @@
 using System;
 using Dominio;
 using System.Collections.Generic;
+using LogicaNegocio.InterfacesEntidades;
 
 namespace Dominio
 {
-	public class Grupo
-	{
-		private int id;
+	public class Grupo : IEntity, IValidable
+    {
+        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-		private String nombre;
+        private String nombre;
 
 		private String ciudad;
 
@@ -28,17 +29,7 @@ namespace Dominio
 
 		private EnlaceUnion enlaceUnion;
 
-		private Tienda tienda;
-
-		private TablaEquivalencia tablaEquivalencia;
-
-		private SolicitudUnion[] solicitudUnion;
-
-		private TablaClasificacion[] tablaClasificacion;
-
-		private EnlaceUnion enlaceUnion;
-
-		public void asignarMedalla(PerfilEstudiante pEstudiante, Medalla m)
+        public void asignarMedalla(PerfilEstudiante pEstudiante, Medalla m)
 		{
 
 		}
@@ -60,10 +51,14 @@ namespace Dominio
 
 		public bool estudiantePertenece(PerfilEstudiante pEstudiante)
 		{
-			return null;
+			return true;
 		}
 
-	}
+        public void EsValido()
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }
 

@@ -1,19 +1,22 @@
 using System.Collections.Generic;
 using Dominio;
+using LogicaNegocio.InterfacesEntidades;
 
 namespace Dominio
 {
-	public class Equivalencia
-	{
-		private int id;
+	public class Equivalencia : IEntity, IValidable
+    {
+        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-		private int nota;
+        private int nota;
 
 		private List<Medalla> medallasNecesarias;
 
-		private Medalla[] medalla;
-
-	}
+        public void EsValido()
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }
 

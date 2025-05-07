@@ -1,12 +1,13 @@
 using System;
+using LogicaNegocio.InterfacesEntidades;
 
 namespace Dominio
 {
-	public abstract class Usuario
+    public abstract class Usuario : IEntity, IValidable
 	{
-		private int id;
+        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-		private int imagenPerfi;
+        private int imagenPerfi;
 
 		private String nombre;
 
@@ -15,8 +16,11 @@ namespace Dominio
 		private String apellido;
 
 		private String contraseña;
-
-	}
+        public void EsValido()
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }
 

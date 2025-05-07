@@ -1,13 +1,14 @@
 using System;
 using Dominio;
+using LogicaNegocio.InterfacesEntidades;
 
 namespace Dominio
 {
-	public class PIN
-	{
-		private int id;
+	public class PIN : IEntity, IValidable
+    {
+        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-		private int idUsuario;
+        private int idUsuario;
 
 		private String pin;
 
@@ -18,10 +19,7 @@ namespace Dominio
 		private int tiempoDeVida;
 
 		private Boolean fueUtilizado;
-
-		private Usuario usuario;
-
-		public String generarPin()
+        public String generarPin()
 		{
 			return null;
 		}
@@ -31,7 +29,11 @@ namespace Dominio
 
 		}
 
-	}
+        public void EsValido()
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }
 

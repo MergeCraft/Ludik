@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiLudika", "WebApiLudika.csproj", "{7FBED670-6F59-4A72-BFD9-DE48B77BB564}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi.csproj", "{7FBED670-6F59-4A72-BFD9-DE48B77BB564}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicaNegocio", "..\LogicaNegocio\LogicaNegocio.csproj", "{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicaAplicacion", "..\LogicaAplicacion\LogicaAplicacion.csproj", "{C1374FE7-0096-42EB-B0B8-C1ED0C853FD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccesoDatos", "..\AccesoDatos\AccesoDatos.csproj", "{EC71056F-48D2-4356-9790-394B78D10C3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PruebasUnitarias", "..\PruebasUnitarias\PruebasUnitarias.csproj", "{176661C3-34FF-4CF1-99D1-325FA3C044CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C5FBAE3-C397-44A5-B52F-4C73065E62D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1374FE7-0096-42EB-B0B8-C1ED0C853FD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1374FE7-0096-42EB-B0B8-C1ED0C853FD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1374FE7-0096-42EB-B0B8-C1ED0C853FD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1374FE7-0096-42EB-B0B8-C1ED0C853FD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC71056F-48D2-4356-9790-394B78D10C3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC71056F-48D2-4356-9790-394B78D10C3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC71056F-48D2-4356-9790-394B78D10C3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC71056F-48D2-4356-9790-394B78D10C3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{176661C3-34FF-4CF1-99D1-325FA3C044CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{176661C3-34FF-4CF1-99D1-325FA3C044CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{176661C3-34FF-4CF1-99D1-325FA3C044CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{176661C3-34FF-4CF1-99D1-325FA3C044CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
