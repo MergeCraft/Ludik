@@ -11,8 +11,11 @@
 - [ ] Alineación de indentación, espacios y tabuladores uniformes.   
 
 ### Legibilidad y nomenclatura
-- [ ] Variables y funciones con nombres self-documenting (e.g. `calcularTotal()` vs `ct()`).  
-- [ ] Evitar abreviaturas oscuras; preferir `userAge` en lugar de `uA`.  
+- [ ] Variables y funciones con nombres claros y descriptivos (e.g. `calcularTotal()` vs `ct()`).  
+- [ ] Evitar abreviaturas oscuras; preferir `ObtenerResultadosDeBusqueda` en lugar de `GetRslt`. Claridad sobre brevedad.
+- [ ] Clases, métodos y constantes tienen nombres en PascalCase. Ejemplo: UsuarioService, CalcularPromedio
+- [ ] Parámetros de métodos y variables locales en camelCase. Ejemplo: cantidadUsuarios, nombreArchivo
+- [ ] El nombre de un interfaz debe comenzar con una "I" mayúscula. Ejemplo: IUsuario
 - [ ] Agrupar propiedades relacionadas en objetos o estructuras.  
 
 ### Modularidad y responsabilidad única
@@ -21,29 +24,28 @@
 - [ ] Validar que no existan “God objects” o clases que hagan todo.  
 
 ### Complejidad y acoplamiento
-- [ ] Evitar dependencias circulares y duplicación (DRY).  
-- [ ] Usar inyección de dependencias para facilitar mocks en tests.  
+- [ ] No hay codigo duplicado (DRY).  
 
 ### Código muerto y comentarios
 - [ ] Eliminar bloques comentados o variables no usadas.  
-- [ ] Comentarios solo para explicar “por qué”, no “qué”.  
-- [ ] Documentar intenciones complejas o algoritmos no triviales.  
-
+- [ ] Hay comentarios solo para explicar “por qué”, no “qué”.  
+- [ ] Documentar intenciones complejas o algoritmos no triviales. 
+- [ ] Cada metodo tiene pre y pos condición. 
+ 
 ### Performance y recursos
-- [ ] Detectar loops costosos o recursiones profundas.  
-- [ ] Revisar uso de memoria en colecciones grandes.  
+- [ ] No hay loops costosos o recursiones profundas.  
+- [ ] Se reviso el uso de memoria en colecciones grandes.  
 
 ## 3. Pruebas y validación
 
 ### Cobertura y alcance
-- [ ] Cobertura mínima del 80 % de líneas críticas; priorizar lógica de negocio.  
-- [ ] Tests para rutas felices, bordes (nulos, límites de arrays) y casos de error.  
+- [ ] Hay una cobertura mínima del 70 % de líneas críticas; priorizar lógica de negocio.  
+- [ ] Hay tests para rutas felices, bordes (nulos, límites de arrays, etc) y casos de error.  
 
 ### Tipos de pruebas
-- [ ] Unitarias: aislar funciones con mocks/stubs a dependencias externas.  
-- [ ] Integración: interacción entre módulos, base de datos o API externas.  
-- [ ] Contract tests: asegurar que clientes y servicios coincidan en contratos (Pact).  
+- [ ] Hay pruebas Unitarias.  
+- [ ] Hay pruebas de Integración (interacción entre módulos, base de datos).  
 
 ### Revisión de resultados
 - [ ] Validar logs de test en busca de warnings o errores silenciosos.  
-- [ ] Revisar flakiness: tests que fallan intermitentemente deben corregirse o marcarse.   
+- [ ] No hay pruebas que fallan intermitentemente (si las hay, deben corregirse o marcarse).   
