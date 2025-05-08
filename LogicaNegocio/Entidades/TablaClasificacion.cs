@@ -10,15 +10,15 @@ namespace Dominio
     {
         public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        private String nombre;
+        public String nombre;
 
-		private Medalla medallaAsociada;
+        public Medalla medallaAsociada;
 
-		private List<PerfilEstudiante> participantes;
+        public List<PerfilEstudiante> participantes;
 
-		private PerfilEstudiante[] perfilEstudiante;
+        public PerfilEstudiante[] perfilEstudiante;
 
-		private Medalla medalla;
+        public Medalla medalla;
 
         /// <see>vistaCompleta.observer.Observador#actualizar(vistaCompleta.observer.Observable, vistaCompleta.observer.Evento)</see>
         ///  

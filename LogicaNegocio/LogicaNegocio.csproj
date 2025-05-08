@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Excepciones\" />
-    <Folder Include="ValueObject\" />
   </ItemGroup>
 
   <ItemGroup>

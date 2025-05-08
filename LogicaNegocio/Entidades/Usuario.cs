@@ -1,5 +1,6 @@
 using System;
 using LogicaNegocio.InterfacesEntidades;
+using LogicaNegocio.ValueObjects;
 
 namespace Dominio
 {
@@ -9,13 +10,11 @@ namespace Dominio
 
         public int imagenPerfi;
 
-        public String nombre;
+        public NombreCompleto NombreCompleto { get; set; }
 
-        public String nombreUsuario;
-
-        public String apellido;
-
-        public String contraseña;
+        public NombreUsuario nombreUsuario { get; set; }
+        
+        public Contrasenia contrasenia { get; set; }
         public void EsValido()
         {
             throw new NotImplementedException();

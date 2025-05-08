@@ -1,4 +1,5 @@
 using Dominio;
+using LogicaNegocio.ValueObjects;
 using System;
 using System.Collections.Generic;
 
@@ -6,7 +7,7 @@ namespace Dominio
 {
 	public class Profesor : Usuario
 	{
-        public String correo;
+        public Email correo;
 
         public List<Medalla> medallas;
 

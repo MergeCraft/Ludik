@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Dominio;
 using LogicaNegocio.InterfacesEntidades;
+using LogicaNegocio.ValueObject;
 
 namespace Dominio
 {
@@ -9,13 +10,11 @@ namespace Dominio
     {
         public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        private DateTime fInicio;
+        public RangoFechas rangofecha;
 
-		private DateTime fFin;
+        public String notaObtenida;
 
-		private String notaObtenida;
-
-		private List<Medalla> medallasObtuvoEstudiante;
+        public List<Medalla> medallasObtuvoEstudiante;
 
         public void EsValido()
         {
