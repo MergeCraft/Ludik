@@ -10,17 +10,17 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioPinesEF : IRepositorioPines
     {
-        public void Add(PIN unObjeto)
+        public void Add(Pin unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<PIN> GetAll()
+        public IEnumerable<Pin> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public PIN GetById(int id)
+        public Pin GetById(int id)
         {
             throw new NotImplementedException();
         }
@@ -30,12 +30,12 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public void Remove(PIN unObjeto)
+        public void Remove(Pin unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(PIN unObjeto)
+        public void Update(Pin unObjeto)
         {
             throw new NotImplementedException();
         }

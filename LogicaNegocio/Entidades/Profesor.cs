@@ -15,12 +15,6 @@ namespace Dominio
 
         public List<Grupo> grupos;
 
-        public Medalla[] medalla;
-
-        public TablaEquivalencia[] tablaEquivalencia;
-
-        public Grupo[] grupo;
-
 		public void asignarMedalla(Medalla medalla, Grupo grupo, PerfilEstudiante pEstudiante)
 		{
 

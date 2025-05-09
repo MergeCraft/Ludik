@@ -4,7 +4,7 @@ using LogicaNegocio.InterfacesRepositorio;
 
 namespace InterfacesRepositorio
 {
-	public interface IRepositorioPines : IRepositorio<PIN>
+	public interface IRepositorioPines : IRepositorio<Pin>
 	{
 	}
 

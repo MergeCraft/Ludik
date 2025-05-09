@@ -2,6 +2,7 @@ using System;
 using Dominio;
 using System.Collections.Generic;
 using LogicaNegocio.InterfacesEntidades;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio
 {
@@ -15,7 +16,8 @@ namespace Dominio
 
         public int metaCalificacion;
 
-        public Estudiante estudiante;
+        [ForeignKey(nameof(Estudiante))]
+        public int estudianteId { get; set; } // Clave foránea
 
         public int monedas;
 
@@ -23,7 +25,8 @@ namespace Dominio
 
         public List<RendimientoPeriodo> historialRendimientoPeriodos;
 
-        public Grupo grupo;
+        [ForeignKey(nameof(Grupo))]
+        public int grupoId { get; set; } // Clave foránea
 
         public List<Recompensa> inventario;
 

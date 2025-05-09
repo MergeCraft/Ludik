@@ -12,8 +12,6 @@ namespace Dominio
         public String nombre;
 
         public List<Equivalencia> equivalencias;
-
-        public Equivalencia[] equivalencia;
         public int maxCalificacionSegun(List<Medalla> medallas)
 		{
 			return 0;

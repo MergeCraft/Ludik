@@ -10,8 +10,6 @@ namespace Dominio
 
         public List<Recompensa> Recompesas;
 
-        public Recompensa[] recompensa;
-
         public void EsValido()
         {
             throw new NotImplementedException();

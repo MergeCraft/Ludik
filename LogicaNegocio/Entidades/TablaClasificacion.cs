@@ -3,6 +3,7 @@ using System;
 using Dominio;
 using System.Collections.Generic;
 using LogicaNegocio.InterfacesEntidades;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio
 {
@@ -16,9 +17,8 @@ namespace Dominio
 
         public List<PerfilEstudiante> participantes;
 
-        public PerfilEstudiante[] perfilEstudiante;
-
-        public Medalla medalla;
+        [ForeignKey(nameof(Grupo))]
+        public int grupoId { get; set; } // Clave foránea
 
         /// <see>vistaCompleta.observer.Observador#actualizar(vistaCompleta.observer.Observable, vistaCompleta.observer.Evento)</see>
         ///  

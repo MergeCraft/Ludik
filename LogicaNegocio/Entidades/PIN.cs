@@ -4,7 +4,7 @@ using LogicaNegocio.InterfacesEntidades;
 
 namespace Dominio
 {
-	public class PIN : IEntity, IValidable
+	public class Pin : IEntity, IValidable
     {
         public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 

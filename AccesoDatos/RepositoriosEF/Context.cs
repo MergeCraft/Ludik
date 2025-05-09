@@ -33,7 +33,7 @@ namespace AccesoDatos.RepositoriosEF
         public DbSet<RendimientoPeriodo> RendimientosPeriodos { get; set; }
         public DbSet<PreguntaRespuestaSeguridad> PreguntasRespuestasSeguridad { get; set; }
         public DbSet<Potenciador> Potenciadores { get; set; }
-        public DbSet<PIN> Pines { get; set; }
+        public DbSet<Pin> Pines { get; set; }
         public DbSet<Hito> Hitos { get; set; }
         public DbSet<Equivalencia> Equivalencias { get; set; }
         public DbSet<EnlaceUnion> EnlacesUnion { get; set; }
@@ -52,21 +52,10 @@ namespace AccesoDatos.RepositoriosEF
 
         //Configurar las entidades de la base de datos 
 
-        /*
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Articulo>()
-                .HasIndex(a => new { a.Nombre, a.Codigo })
-                .IsUnique();
-            modelBuilder.Entity<Articulo>()
-                .HasIndex(a => a.Codigo)
-            .IsUnique();
 
-            modelBuilder.Entity<Configuracion>()
-                .HasIndex(p => p.Nombre)
-                .IsUnique();
-
+           
         }
-        */
     }
 }

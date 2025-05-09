@@ -2,6 +2,7 @@ using System;
 using Dominio;
 using System.Collections.Generic;
 using LogicaNegocio.InterfacesEntidades;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio
 {
@@ -28,6 +29,9 @@ namespace Dominio
         public List<SolicitudUnion> solicitudes;
 
         public EnlaceUnion enlaceUnion;
+
+        [ForeignKey(nameof(Profesor))]
+        public int profesorId { get; set; } // Clave foránea
 
         public void asignarMedalla(PerfilEstudiante pEstudiante, Medalla m)
 		{
