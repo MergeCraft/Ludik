@@ -1,56 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React from "react";
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
+    <div className="landing-container">
+      <header className="landing-header">
+        <div className="logo-section">
+          <img src="./assets/logo.png" alt="Ludik Logo" className="logo" />
+        </div>
+        <button className="button">Iniciar sesión</button>
       </header>
+
+      <main className="hero-section">
+        <div className="hero-section-faded">
+          <h1 className="hero-title">Gamifica el aprendizaje</h1>
+          <p className="hero-subtitle">
+            Una bitácora educativa diseñada para motivar, recompensar y facilitar el seguimiento de los estudiantes.
+          </p>
+          <button className="button">Comenzar ahora</button>
+        </div>
+      </main>
+
+      <section className="features-section">
+        <div className="feature fade-in delay-1">
+          <h3>🎖️ Sistema de Medallas</h3>
+          <p>Recompensa la participación y el esfuerzo de forma visual y motivadora.</p>
+        </div>
+        <div className="feature fade-in delay-2">
+          <h3>📊 Seguimiento Visual</h3>
+          <p>Conoce tu progreso con barras personalizadas y tablas de equivalencia.</p>
+        </div>
+        <div className="feature fade-in delay-3">
+          <h3>👨‍🏫 Herramienta Docente</h3>
+          <p>Diseñada para simplificar la gestión de grupos y evaluaciones.</p>
+        </div>
+      </section>
     </div>
   );
 }
