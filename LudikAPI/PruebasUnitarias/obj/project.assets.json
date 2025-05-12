@@ -5514,11 +5514,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\desarrollo\\ludikApi\\PruebasUnitarias\\PruebasUnitarias.csproj",
+      "projectUniqueName": "D:\\desarrollo\\ludik\\ludikApi\\PruebasUnitarias\\PruebasUnitarias.csproj",
       "projectName": "PruebasUnitarias",
-      "projectPath": "D:\\desarrollo\\ludikApi\\PruebasUnitarias\\PruebasUnitarias.csproj",
+      "projectPath": "D:\\desarrollo\\ludik\\ludikApi\\PruebasUnitarias\\PruebasUnitarias.csproj",
       "packagesPath": "C:\\Users\\renato rios\\.nuget\\packages\\",
-      "outputPath": "D:\\desarrollo\\ludikApi\\PruebasUnitarias\\obj\\",
+      "outputPath": "D:\\desarrollo\\ludik\\ludikApi\\PruebasUnitarias\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

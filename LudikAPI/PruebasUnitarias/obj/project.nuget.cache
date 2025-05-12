@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "a8IX9O75vr7vOHgtKrBGXpHdlugIVEn5jCXmwPWzrwU1GVnAZJPjgY/+Vx3qy7DoJCc/lbzMWDg4iakjTQKNcw==",
+  "dgSpecHash": "SJD7tAw3XONYVarDvqDKhYAQGor+O7JoAozI2s+PqebBnOp5roTHWbl4A/nFFzOvJINAezsV0cbb9CQwSAfhag==",
   "success": true,
-  "projectFilePath": "D:\\desarrollo\\ludikApi\\PruebasUnitarias\\PruebasUnitarias.csproj",
+  "projectFilePath": "D:\\desarrollo\\ludik\\ludikApi\\PruebasUnitarias\\PruebasUnitarias.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\renato rios\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",
     "C:\\Users\\renato rios\\.nuget\\packages\\microsoft.codecoverage\\17.8.0\\microsoft.codecoverage.17.8.0.nupkg.sha512",

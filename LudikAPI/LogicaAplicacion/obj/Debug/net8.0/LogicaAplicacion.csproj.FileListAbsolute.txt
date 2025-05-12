@@ -9,3 +9,15 @@ D:\desarrollo\ludikApi\LogicaAplicacion\obj\Debug\net8.0\LogicaAplicacion.dll
 D:\desarrollo\ludikApi\LogicaAplicacion\obj\Debug\net8.0\refint\LogicaAplicacion.dll
 D:\desarrollo\ludikApi\LogicaAplicacion\obj\Debug\net8.0\LogicaAplicacion.pdb
 D:\desarrollo\ludikApi\LogicaAplicacion\obj\Debug\net8.0\ref\LogicaAplicacion.dll
+D:\desarrollo\ludik\ludikApi\LogicaAplicacion\bin\Debug\net8.0\LogicaAplicacion.deps.json
+D:\desarrollo\ludik\ludikApi\LogicaAplicacion\bin\Debug\net8.0\LogicaAplicacion.dll
+D:\desarrollo\ludik\ludikApi\LogicaAplicacion\bin\Debug\net8.0\LogicaAplicacion.pdb
+D:\desarrollo\ludik\ludikApi\LogicaAplicacion\obj\Debug\net8.0\LogicaAplicacion.GeneratedMSBuildEditorConfig.editorconfig
+D:\desarrollo\ludik\ludikApi\LogicaAplicacion\obj\Debug\net8.0\LogicaAplicacion.AssemblyInfoInputs.cache
+D:\desarrollo\ludik\ludikApi\LogicaAplicacion\obj\Debug\net8.0\LogicaAplicacion.AssemblyInfo.cs
+D:\desarrollo\ludik\ludikApi\LogicaAplicacion\obj\Debug\net8.0\LogicaAplicacion.csproj.CoreCompileInputs.cache
+D:\desarrollo\ludik\ludikApi\LogicaAplicacion\obj\Debug\net8.0\LogicaAplicacion.sourcelink.json
+D:\desarrollo\ludik\ludikApi\LogicaAplicacion\obj\Debug\net8.0\LogicaAplicacion.dll
+D:\desarrollo\ludik\ludikApi\LogicaAplicacion\obj\Debug\net8.0\refint\LogicaAplicacion.dll
+D:\desarrollo\ludik\ludikApi\LogicaAplicacion\obj\Debug\net8.0\LogicaAplicacion.pdb
+D:\desarrollo\ludik\ludikApi\LogicaAplicacion\obj\Debug\net8.0\ref\LogicaAplicacion.dll

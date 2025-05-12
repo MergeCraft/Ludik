@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rgUH6s/7Q7W59FPHOSUisbxON0sPDNOewkXkNn5sHLSAg+8Sgv2eCLcpGrkAVyO2AYyzN4SBTgsJ2If7G2zoqw==",
+  "dgSpecHash": "IXO61CyMApb135z0ccKBYk31ekRlbKzQrjBVzn1GqACT8dQ1qETKonlouB9jKOnmxKCCbOuFdKx1HMPVNCfKpw==",
   "success": true,
-  "projectFilePath": "D:\\desarrollo\\ludikApi\\WebApi\\WebApi.csproj",
+  "projectFilePath": "D:\\desarrollo\\ludik\\ludikApi\\WebApi\\WebApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\renato rios\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\renato rios\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

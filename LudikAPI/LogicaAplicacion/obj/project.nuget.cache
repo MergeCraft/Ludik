@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DKxORZtuJbe5I5mPHWCMxZt7h7Gtj16TGkxTjM3siMZpSq0qxnGShMvGNocmAmiXJcSrZEVBBPwLvwFNi8YbRA==",
+  "dgSpecHash": "OMmnyOTfIRbYXL798npYbjG3EuWdCspnCf/ukBUPYb8L/GBsxvQOmeAXzpscGqNjYEERztBGXdCdw/HRbK+Bmg==",
   "success": true,
-  "projectFilePath": "D:\\desarrollo\\ludikApi\\LogicaAplicacion\\LogicaAplicacion.csproj",
+  "projectFilePath": "D:\\desarrollo\\ludik\\ludikApi\\LogicaAplicacion\\LogicaAplicacion.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

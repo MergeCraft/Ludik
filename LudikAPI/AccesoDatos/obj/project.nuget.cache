@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EAlEK91b/xQV+PRgU4d/RnTgEmaFCJmHvod8xvSopcY2hm7Q5PXHU8rViFYT8T+IxYw4puC4RVh1L2bQ7sJQ9Q==",
+  "dgSpecHash": "onkWEvpc3ZYi83K6pGMnkOAejsYDDYOHeWnDRTK/bOu3Lbj0hSE4Pq74LzhuFlxc9nVm/G+sf1zjtg+gco0tkQ==",
   "success": true,
-  "projectFilePath": "D:\\desarrollo\\ludikApi\\AccesoDatos\\AccesoDatos.csproj",
+  "projectFilePath": "D:\\desarrollo\\ludik\\ludikApi\\AccesoDatos\\AccesoDatos.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\renato rios\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\renato rios\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

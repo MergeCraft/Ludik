@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1mC/W0Q5Jqg1iYjThpt5qB9jRIHAaAmM5T16IJ/zLpgrYQfmxIOz89Vbz5E+FC7S3s0jvTquLL13ayQIoemIbA==",
+  "dgSpecHash": "OpT6MH6CLxLdbkbzmkhtc5v9rcI9JoQhibPxRIDfG46BhzPOi9zVHgrvouuTMmYaIZmUxUCz80yWynm9pr0ZUA==",
   "success": true,
-  "projectFilePath": "D:\\desarrollo\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj",
+  "projectFilePath": "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\renato rios\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.4\\microsoft.entityframeworkcore.abstractions.9.0.4.nupkg.sha512"
   ],

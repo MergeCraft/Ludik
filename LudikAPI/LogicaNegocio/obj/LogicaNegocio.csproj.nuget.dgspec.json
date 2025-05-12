@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\desarrollo\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj": {}
+    "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj": {}
   },
   "projects": {
-    "D:\\desarrollo\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj": {
+    "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\desarrollo\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj",
+        "projectUniqueName": "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj",
         "projectName": "LogicaNegocio",
-        "projectPath": "D:\\desarrollo\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj",
+        "projectPath": "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj",
         "packagesPath": "C:\\Users\\renato rios\\.nuget\\packages\\",
-        "outputPath": "D:\\desarrollo\\ludikApi\\LogicaNegocio\\obj\\",
+        "outputPath": "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

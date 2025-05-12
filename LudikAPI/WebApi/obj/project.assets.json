@@ -4887,11 +4887,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\desarrollo\\ludikApi\\WebApi\\WebApi.csproj",
+      "projectUniqueName": "D:\\desarrollo\\ludik\\ludikApi\\WebApi\\WebApi.csproj",
       "projectName": "WebApi",
-      "projectPath": "D:\\desarrollo\\ludikApi\\WebApi\\WebApi.csproj",
+      "projectPath": "D:\\desarrollo\\ludik\\ludikApi\\WebApi\\WebApi.csproj",
       "packagesPath": "C:\\Users\\renato rios\\.nuget\\packages\\",
-      "outputPath": "D:\\desarrollo\\ludikApi\\WebApi\\obj\\",
+      "outputPath": "D:\\desarrollo\\ludik\\ludikApi\\WebApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4913,14 +4913,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\desarrollo\\ludikApi\\AccesoDatos\\AccesoDatos.csproj": {
-              "projectPath": "D:\\desarrollo\\ludikApi\\AccesoDatos\\AccesoDatos.csproj"
+            "D:\\desarrollo\\ludik\\ludikApi\\AccesoDatos\\AccesoDatos.csproj": {
+              "projectPath": "D:\\desarrollo\\ludik\\ludikApi\\AccesoDatos\\AccesoDatos.csproj"
             },
-            "D:\\desarrollo\\ludikApi\\LogicaAplicacion\\LogicaAplicacion.csproj": {
-              "projectPath": "D:\\desarrollo\\ludikApi\\LogicaAplicacion\\LogicaAplicacion.csproj"
+            "D:\\desarrollo\\ludik\\ludikApi\\LogicaAplicacion\\LogicaAplicacion.csproj": {
+              "projectPath": "D:\\desarrollo\\ludik\\ludikApi\\LogicaAplicacion\\LogicaAplicacion.csproj"
             },
-            "D:\\desarrollo\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj": {
-              "projectPath": "D:\\desarrollo\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj"
+            "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj": {
+              "projectPath": "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj"
             }
           }
         }
