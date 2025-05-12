@@ -1,6 +1,0 @@
-@LudikAPI_HostAddress = http://localhost:5017
-
-GET {{LudikAPI_HostAddress}}/home/
-Accept: application/json
-
-###
