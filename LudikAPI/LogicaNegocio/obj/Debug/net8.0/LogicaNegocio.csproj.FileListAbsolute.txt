@@ -1,0 +1,12 @@
+D:\desarrollo\ludikApi\LogicaNegocio\bin\Debug\net8.0\LogicaNegocio.deps.json
+D:\desarrollo\ludikApi\LogicaNegocio\bin\Debug\net8.0\LogicaNegocio.dll
+D:\desarrollo\ludikApi\LogicaNegocio\bin\Debug\net8.0\LogicaNegocio.pdb
+D:\desarrollo\ludikApi\LogicaNegocio\obj\Debug\net8.0\LogicaNegocio.GeneratedMSBuildEditorConfig.editorconfig
+D:\desarrollo\ludikApi\LogicaNegocio\obj\Debug\net8.0\LogicaNegocio.AssemblyInfoInputs.cache
+D:\desarrollo\ludikApi\LogicaNegocio\obj\Debug\net8.0\LogicaNegocio.AssemblyInfo.cs
+D:\desarrollo\ludikApi\LogicaNegocio\obj\Debug\net8.0\LogicaNegocio.csproj.CoreCompileInputs.cache
+D:\desarrollo\ludikApi\LogicaNegocio\obj\Debug\net8.0\LogicaNegocio.dll
+D:\desarrollo\ludikApi\LogicaNegocio\obj\Debug\net8.0\refint\LogicaNegocio.dll
+D:\desarrollo\ludikApi\LogicaNegocio\obj\Debug\net8.0\LogicaNegocio.pdb
+D:\desarrollo\ludikApi\LogicaNegocio\obj\Debug\net8.0\ref\LogicaNegocio.dll
+D:\desarrollo\ludikApi\LogicaNegocio\obj\Debug\net8.0\LogicaNegocio.csproj.AssemblyReference.cache

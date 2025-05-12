@@ -1,0 +1,17 @@
+D:\desarrollo\ludikApi\AccesoDatos\bin\Debug\net8.0\AccesoDatos.deps.json
+D:\desarrollo\ludikApi\AccesoDatos\bin\Debug\net8.0\AccesoDatos.runtimeconfig.json
+D:\desarrollo\ludikApi\AccesoDatos\bin\Debug\net8.0\AccesoDatos.dll
+D:\desarrollo\ludikApi\AccesoDatos\bin\Debug\net8.0\AccesoDatos.pdb
+D:\desarrollo\ludikApi\AccesoDatos\bin\Debug\net8.0\LogicaNegocio.dll
+D:\desarrollo\ludikApi\AccesoDatos\bin\Debug\net8.0\LogicaNegocio.pdb
+D:\desarrollo\ludikApi\AccesoDatos\obj\Debug\net8.0\AccesoDatos.csproj.AssemblyReference.cache
+D:\desarrollo\ludikApi\AccesoDatos\obj\Debug\net8.0\AccesoDatos.GeneratedMSBuildEditorConfig.editorconfig
+D:\desarrollo\ludikApi\AccesoDatos\obj\Debug\net8.0\AccesoDatos.AssemblyInfoInputs.cache
+D:\desarrollo\ludikApi\AccesoDatos\obj\Debug\net8.0\AccesoDatos.AssemblyInfo.cs
+D:\desarrollo\ludikApi\AccesoDatos\obj\Debug\net8.0\AccesoDatos.csproj.CoreCompileInputs.cache
+D:\desarrollo\ludikApi\AccesoDatos\obj\Debug\net8.0\AccesoDa.B2719C34.Up2Date
+D:\desarrollo\ludikApi\AccesoDatos\obj\Debug\net8.0\AccesoDatos.dll
+D:\desarrollo\ludikApi\AccesoDatos\obj\Debug\net8.0\refint\AccesoDatos.dll
+D:\desarrollo\ludikApi\AccesoDatos\obj\Debug\net8.0\AccesoDatos.pdb
+D:\desarrollo\ludikApi\AccesoDatos\obj\Debug\net8.0\AccesoDatos.genruntimeconfig.cache
+D:\desarrollo\ludikApi\AccesoDatos\obj\Debug\net8.0\ref\AccesoDatos.dll
