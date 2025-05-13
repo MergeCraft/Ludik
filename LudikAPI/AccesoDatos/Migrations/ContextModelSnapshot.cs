@@ -69,10 +69,20 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("profesorId")
+                    b.Property<int>("ProfesorId")
                         .HasColumnType("int");
 
+                    b.Property<string>("nombre")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ProfesorId")
+                        .HasDatabaseName("IX_Grupo_ProfesorId");
+
+                    b.HasIndex("nombre");
 
                     b.ToTable("Grupos");
                 });
@@ -98,7 +108,14 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Nombre");
 
                     b.ToTable("Medallas");
                 });
@@ -111,13 +128,17 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("estudianteId")
+                    b.Property<int>("EstudianteId")
                         .HasColumnType("int");
 
-                    b.Property<int>("grupoId")
+                    b.Property<int>("GrupoId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GrupoId", "EstudianteId")
+                        .IsUnique()
+                        .HasDatabaseName("UX_PerfilEstudiante_GrupoId_EstudianteId");
 
                     b.ToTable("PerfilesEstudiantes");
                 });
@@ -161,7 +182,14 @@ namespace AccesoDatos.Migrations
                         .HasMaxLength(13)
                         .HasColumnType("nvarchar(13)");
 
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Nombre");
 
                     b.ToTable("Recompensas");
 
@@ -210,10 +238,17 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<int>("grupoId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Nombre");
 
                     b.ToTable("TablasClasificacion");
                 });
@@ -226,7 +261,14 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Nombre");
 
                     b.ToTable("TablasEquivalencia");
                 });
@@ -238,6 +280,9 @@ namespace AccesoDatos.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("GrupoId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -263,20 +308,13 @@ namespace AccesoDatos.Migrations
 
                             b1.Property<string>("Apellido")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)");
+                                .HasMaxLength(20)
+                                .HasColumnType("nvarchar(20)");
 
                             b1.Property<string>("Nombre")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-                        });
-
-                    b.ComplexProperty<Dictionary<string, object>>("nombreUsuario", "Dominio.Usuario.nombreUsuario#NombreUsuario", b1 =>
-                        {
-                            b1.IsRequired();
-
-                            b1.Property<string>("Nombre")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
+                                .HasMaxLength(20)
+                                .HasColumnType("nvarchar(20)");
                         });
 
                     b.HasKey("Id");
@@ -329,6 +367,88 @@ namespace AccesoDatos.Migrations
                         });
 
                     b.Navigation("contrasenia")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Dominio.Estudiante", b =>
+                {
+                    b.OwnsOne("LogicaNegocio.ValueObjects.NombreUsuario", "nombreUsuario", b1 =>
+                        {
+                            b1.Property<int>("EstudianteId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Nombre")
+                                .IsRequired()
+                                .ValueGeneratedOnUpdateSometimes()
+                                .HasMaxLength(20)
+                                .HasColumnType("nvarchar(20)");
+
+                            b1.HasKey("EstudianteId");
+
+                            b1.HasIndex("Nombre")
+                                .IsUnique()
+                                .HasFilter("[nombreUsuario_Nombre] IS NOT NULL");
+
+                            b1.ToTable("Usuarios");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EstudianteId");
+                        });
+
+                    b.Navigation("nombreUsuario")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Dominio.Profesor", b =>
+                {
+                    b.OwnsOne("LogicaNegocio.ValueObjects.NombreUsuario", "nombreUsuario", b1 =>
+                        {
+                            b1.Property<int>("ProfesorId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Nombre")
+                                .IsRequired()
+                                .ValueGeneratedOnUpdateSometimes()
+                                .HasMaxLength(20)
+                                .HasColumnType("nvarchar(20)");
+
+                            b1.HasKey("ProfesorId");
+
+                            b1.HasIndex("Nombre")
+                                .IsUnique()
+                                .HasFilter("[nombreUsuario_Nombre] IS NOT NULL");
+
+                            b1.ToTable("Usuarios");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ProfesorId");
+                        });
+
+                    b.OwnsOne("LogicaNegocio.ValueObjects.Email", "correo", b1 =>
+                        {
+                            b1.Property<int>("ProfesorId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Correro")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(450)");
+
+                            b1.HasKey("ProfesorId");
+
+                            b1.HasIndex("Correro")
+                                .IsUnique()
+                                .HasFilter("[correo_Correro] IS NOT NULL");
+
+                            b1.ToTable("Usuarios");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ProfesorId");
+                        });
+
+                    b.Navigation("correo")
+                        .IsRequired();
+
+                    b.Navigation("nombreUsuario")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

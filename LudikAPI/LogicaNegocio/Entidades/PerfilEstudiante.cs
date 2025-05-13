@@ -17,7 +17,7 @@ namespace Dominio
         public int metaCalificacion;
 
         [ForeignKey(nameof(Estudiante))]
-        public int estudianteId { get; set; } // Clave foránea
+        public int EstudianteId { get; set; } // Clave foránea
 
         public int monedas;
 
@@ -26,7 +26,7 @@ namespace Dominio
         public List<RendimientoPeriodo> historialRendimientoPeriodos;
 
         [ForeignKey(nameof(Grupo))]
-        public int grupoId { get; set; } // Clave foránea
+        public int GrupoId { get; set; } // Clave foránea
 
         public List<Recompensa> inventario;
 

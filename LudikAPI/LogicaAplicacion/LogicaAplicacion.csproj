@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="DTOsMappers\UsuarioMappers\" />
+    <Folder Include="InterfacesCasosUsos\" />
+  </ItemGroup>
+
 </Project>

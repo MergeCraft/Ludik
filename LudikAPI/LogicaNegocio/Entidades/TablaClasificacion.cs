@@ -4,14 +4,16 @@ using Dominio;
 using System.Collections.Generic;
 using LogicaNegocio.InterfacesEntidades;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dominio
 {
 	public class TablaClasificacion : IEntity, IValidable
     {
         public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public String nombre;
+        [Required]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "El nombre de la TablaClasificacion  debe tener entre 3 y 50 caracteres.")]
+        public String Nombre;
 
         public Medalla medallaAsociada;
 

@@ -21,6 +21,19 @@
           "build/netstandard2.0/Microsoft.CodeCoverage.targets": {}
         }
       },
+      "Microsoft.EntityFrameworkCore.Abstractions/9.0.4": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.NET.Test.Sdk/17.8.0": {
         "type": "package",
         "dependencies": {
@@ -1708,6 +1721,19 @@
         "build": {
           "build/net6.0/xunit.runner.visualstudio.props": {}
         }
+      },
+      "LogicaNegocio/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Abstractions": "9.0.4"
+        },
+        "compile": {
+          "bin/placeholder/LogicaNegocio.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/LogicaNegocio.dll": {}
+        }
       }
     }
   },
@@ -1829,6 +1855,21 @@
         "lib/netcoreapp3.1/Microsoft.VisualStudio.CodeCoverage.Shim.dll",
         "microsoft.codecoverage.17.8.0.nupkg.sha512",
         "microsoft.codecoverage.nuspec"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.Abstractions/9.0.4": {
+      "sha512": "E0pkWzI0liqu2ogqJ1kohk2eGkYRhf5tI75HGF6IQDARsshY/0w+prGyLvNuUeV7B8I7vYQZ4CzAKYKxw7b9gQ==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.abstractions/9.0.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll",
+        "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.xml",
+        "microsoft.entityframeworkcore.abstractions.9.0.4.nupkg.sha512",
+        "microsoft.entityframeworkcore.abstractions.nuspec"
       ]
     },
     "Microsoft.NET.Test.Sdk/17.8.0": {
@@ -5497,10 +5538,16 @@
         "xunit.runner.visualstudio.2.5.3.nupkg.sha512",
         "xunit.runner.visualstudio.nuspec"
       ]
+    },
+    "LogicaNegocio/1.0.0": {
+      "type": "project",
+      "path": "../LogicaNegocio/LogicaNegocio.csproj",
+      "msbuildProject": "../LogicaNegocio/LogicaNegocio.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "LogicaNegocio >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 17.8.0",
       "coverlet.collector >= 6.0.0",
       "xunit >= 2.5.3",
@@ -5508,23 +5555,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\renato rios\\.nuget\\packages\\": {},
+    "C:\\Users\\Santiago\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\desarrollo\\ludik\\ludikApi\\PruebasUnitarias\\PruebasUnitarias.csproj",
+      "projectUniqueName": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\PruebasUnitarias\\PruebasUnitarias.csproj",
       "projectName": "PruebasUnitarias",
-      "projectPath": "D:\\desarrollo\\ludik\\ludikApi\\PruebasUnitarias\\PruebasUnitarias.csproj",
-      "packagesPath": "C:\\Users\\renato rios\\.nuget\\packages\\",
-      "outputPath": "D:\\desarrollo\\ludik\\ludikApi\\PruebasUnitarias\\obj\\",
+      "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\PruebasUnitarias\\PruebasUnitarias.csproj",
+      "packagesPath": "C:\\Users\\Santiago\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\PruebasUnitarias\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\renato rios\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Santiago\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -5539,7 +5586,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\LogicaNegocio\\LogicaNegocio.csproj": {
+              "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\LogicaNegocio\\LogicaNegocio.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -5551,7 +5602,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net8.0": {
@@ -5590,7 +5642,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
