@@ -58,14 +58,14 @@ namespace AccesoDatos.RepositoriosEF
                     correo.HasIndex(c => c.Correro).IsUnique();
                 });
 
-                entity.OwnsOne(p => p.nombreUsuario, nombreUsuario =>
+                entity.OwnsOne(p => p.NombreUsuario, nombreUsuario =>
                 {
                     nombreUsuario.HasIndex(nu => nu.Nombre).IsUnique();
                 });
             });
 
             modelBuilder.Entity<Estudiante>()
-                .OwnsOne(e => e.nombreUsuario)
+                .OwnsOne(e => e.NombreUsuario)
                 .HasIndex(e => e.Nombre)
                 .IsUnique();
 

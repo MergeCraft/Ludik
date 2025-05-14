@@ -349,6 +349,27 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("Dominio.Usuario", b =>
                 {
+                    b.OwnsOne("LogicaNegocio.ValueObjects.NombreUsuario", "NombreUsuario", b1 =>
+                        {
+                            b1.Property<int>("UsuarioId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Nombre")
+                                .IsRequired()
+                                .HasMaxLength(20)
+                                .HasColumnType("nvarchar(20)");
+
+                            b1.HasKey("UsuarioId");
+
+                            b1.HasIndex("Nombre")
+                                .IsUnique();
+
+                            b1.ToTable("Usuarios");
+
+                            b1.WithOwner()
+                                .HasForeignKey("UsuarioId");
+                        });
+
                     b.OwnsOne("LogicaNegocio.ValueObjects.Contrasenia", "contrasenia", b1 =>
                         {
                             b1.Property<int>("UsuarioId")
@@ -366,64 +387,15 @@ namespace AccesoDatos.Migrations
                                 .HasForeignKey("UsuarioId");
                         });
 
-                    b.Navigation("contrasenia")
+                    b.Navigation("NombreUsuario")
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("Dominio.Estudiante", b =>
-                {
-                    b.OwnsOne("LogicaNegocio.ValueObjects.NombreUsuario", "nombreUsuario", b1 =>
-                        {
-                            b1.Property<int>("EstudianteId")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("Nombre")
-                                .IsRequired()
-                                .ValueGeneratedOnUpdateSometimes()
-                                .HasMaxLength(20)
-                                .HasColumnType("nvarchar(20)");
-
-                            b1.HasKey("EstudianteId");
-
-                            b1.HasIndex("Nombre")
-                                .IsUnique()
-                                .HasFilter("[nombreUsuario_Nombre] IS NOT NULL");
-
-                            b1.ToTable("Usuarios");
-
-                            b1.WithOwner()
-                                .HasForeignKey("EstudianteId");
-                        });
-
-                    b.Navigation("nombreUsuario")
+                    b.Navigation("contrasenia")
                         .IsRequired();
                 });
 
             modelBuilder.Entity("Dominio.Profesor", b =>
                 {
-                    b.OwnsOne("LogicaNegocio.ValueObjects.NombreUsuario", "nombreUsuario", b1 =>
-                        {
-                            b1.Property<int>("ProfesorId")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("Nombre")
-                                .IsRequired()
-                                .ValueGeneratedOnUpdateSometimes()
-                                .HasMaxLength(20)
-                                .HasColumnType("nvarchar(20)");
-
-                            b1.HasKey("ProfesorId");
-
-                            b1.HasIndex("Nombre")
-                                .IsUnique()
-                                .HasFilter("[nombreUsuario_Nombre] IS NOT NULL");
-
-                            b1.ToTable("Usuarios");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ProfesorId");
-                        });
-
                     b.OwnsOne("LogicaNegocio.ValueObjects.Email", "correo", b1 =>
                         {
                             b1.Property<int>("ProfesorId")
@@ -446,9 +418,6 @@ namespace AccesoDatos.Migrations
                         });
 
                     b.Navigation("correo")
-                        .IsRequired();
-
-                    b.Navigation("nombreUsuario")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

@@ -33,3 +33,7 @@ C:\Users\Santiago\Documents\GitHub\Ludik\LudikAPI\LogicaAplicacion\obj\Debug\net
 C:\Users\Santiago\Documents\GitHub\Ludik\LudikAPI\LogicaAplicacion\obj\Debug\net8.0\refint\LogicaAplicacion.dll
 C:\Users\Santiago\Documents\GitHub\Ludik\LudikAPI\LogicaAplicacion\obj\Debug\net8.0\LogicaAplicacion.pdb
 C:\Users\Santiago\Documents\GitHub\Ludik\LudikAPI\LogicaAplicacion\obj\Debug\net8.0\ref\LogicaAplicacion.dll
+C:\Users\Santiago\Documents\GitHub\Ludik\LudikAPI\LogicaAplicacion\bin\Debug\net8.0\LogicaNegocio.dll
+C:\Users\Santiago\Documents\GitHub\Ludik\LudikAPI\LogicaAplicacion\bin\Debug\net8.0\LogicaNegocio.pdb
+C:\Users\Santiago\Documents\GitHub\Ludik\LudikAPI\LogicaAplicacion\obj\Debug\net8.0\LogicaAplicacion.csproj.AssemblyReference.cache
+C:\Users\Santiago\Documents\GitHub\Ludik\LudikAPI\LogicaAplicacion\obj\Debug\net8.0\LogicaAp.7CDA08B3.Up2Date

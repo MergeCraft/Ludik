@@ -36,7 +36,7 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var usr = _db.Usuarios
-            .SingleOrDefault(u =>(u.nombreUsuario.Nombre == identificador)&& u.contrasenia.Clave == hashContrasena);
+            .SingleOrDefault(u =>(u.NombreUsuario.Nombre == identificador)&& u.contrasenia.Clave == hashContrasena);
             return usr;
             }
             catch (UsuarioNoValidoExeption ex)

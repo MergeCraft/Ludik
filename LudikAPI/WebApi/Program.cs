@@ -1,4 +1,8 @@
 using System.Text;
+using AccesoDatos.RepositoriosEF;
+using InterfacesRepositorio;
+using LogicaAplicacion.ImplementacionCasosUsos.Usuarios;
+using LogicaAplicacion.InterfacesCasosUsos.Usuario;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -14,15 +18,21 @@ var ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WebApi
 builder.Services.AddSwaggerGen(opciones =>
     {
         opciones.IncludeXmlComments(ruta);
-        opciones.SwaggerDoc("v0", new Microsoft.OpenApi.Models.OpenApiInfo
+        opciones.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
         {
             Title = "API de Ludik",
-            Version = "v0",
+            Version = "v1",
             Description = "Bitacora digital de logros de aprendizaje.",
             Contact = new OpenApiContact { Email = "renatoriosx@gmail.com" }
         });
     }
 );
+
+
+//se inyectan los repositorios necesarios
+builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
+//casos de uso Usuario
+builder.Services.AddScoped<ILogin, LoginPrueba>();
 
 //Servicios necesarios para autenticacion
 var claveDificil = "UnaContraseniaSeguraEsLargaTiene:0123,caracteresEspeciales;*#seguridad";
@@ -60,3 +70,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+public partial class Program { }

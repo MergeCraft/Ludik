@@ -1086,6 +1086,9 @@
         }
       },
       "LogicaAplicacion/1.0.0": {
+        "dependencies": {
+          "LogicaNegocio": "1.0.0"
+        },
         "runtime": {
           "LogicaAplicacion.dll": {
             "assemblyVersion": "1.0.0.0",
