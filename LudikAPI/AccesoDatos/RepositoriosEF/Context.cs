@@ -44,11 +44,62 @@ namespace AccesoDatos.RepositoriosEF
 
 
         //Configurar las entidades de la base de datos 
-
+        //me gustaria agregar al nombreUsuario que sea unico con Data Annotations (en la entidad)eso se puede ?
+        //En C# y Entity Framework, la unicidad no se puede garantizar directamente con Data Annotations, pero sí puedes hacerlo formas complementarias->
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
 
-           
+
+            modelBuilder.Entity<Profesor>(entity =>
+            {
+                entity.OwnsOne(p => p.correo, correo =>
+                {
+                    correo.HasIndex(c => c.Correro).IsUnique();
+                });
+
+                entity.OwnsOne(p => p.NombreUsuario, nombreUsuario =>
+                {
+                    nombreUsuario.HasIndex(nu => nu.Nombre).IsUnique();
+                });
+            });
+
+            modelBuilder.Entity<Estudiante>()
+                .OwnsOne(e => e.NombreUsuario)
+                .HasIndex(e => e.Nombre)
+                .IsUnique();
+
+            modelBuilder.Entity<Grupo>()
+                .HasIndex(g => g.nombre);
+
+            // Índice no único para listar rápidamente todos los grupos de un profesor
+            modelBuilder.Entity<Grupo>()
+                .HasIndex(g => g.ProfesorId)
+                .HasDatabaseName("IX_Grupo_ProfesorId");
+
+            // (Opcional) Índice único compuesto para evitar que un mismo estudiante se una dos veces
+            modelBuilder.Entity<PerfilEstudiante>()
+                .HasIndex(pe => new { pe.GrupoId, pe.EstudianteId })
+                .IsUnique()
+                .HasDatabaseName("UX_PerfilEstudiante_GrupoId_EstudianteId");
+
+            modelBuilder.Entity<TablaEquivalencia>(te =>
+            {
+                te.HasIndex(x => x.Nombre);
+            });
+            modelBuilder.Entity<TablaClasificacion>(te =>
+            {
+                te.HasIndex(x => x.Nombre);
+            });
+            modelBuilder.Entity<Medalla>(m =>
+            {
+                m.HasIndex(x => x.Nombre);
+            });
+            modelBuilder.Entity<Recompensa>(r =>
+            {
+                r.HasIndex(x => x.Nombre);
+            });
+
         }
     }
 }

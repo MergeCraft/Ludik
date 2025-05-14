@@ -10,14 +10,14 @@ namespace Dominio
     {
         public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public int avatarGrupo;
+        public int avatarGrupoId;
 
         public String enlaceAvatar;
 
         public int metaCalificacion;
 
         [ForeignKey(nameof(Estudiante))]
-        public int estudianteId { get; set; } // Clave foránea
+        public int EstudianteId { get; set; } 
 
         public int monedas;
 
@@ -26,7 +26,7 @@ namespace Dominio
         public List<RendimientoPeriodo> historialRendimientoPeriodos;
 
         [ForeignKey(nameof(Grupo))]
-        public int grupoId { get; set; } // Clave foránea
+        public int GrupoId { get; set; }
 
         public List<Recompensa> inventario;
 
