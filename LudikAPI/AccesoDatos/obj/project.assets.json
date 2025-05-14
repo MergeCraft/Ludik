@@ -4740,23 +4740,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Santiago\\.nuget\\packages\\": {},
+    "C:\\Users\\renato rios\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\AccesoDatos\\AccesoDatos.csproj",
+      "projectUniqueName": "D:\\desarrollo\\ludik\\ludikApi\\AccesoDatos\\AccesoDatos.csproj",
       "projectName": "AccesoDatos",
-      "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\AccesoDatos\\AccesoDatos.csproj",
-      "packagesPath": "C:\\Users\\Santiago\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\AccesoDatos\\obj\\",
+      "projectPath": "D:\\desarrollo\\ludik\\ludikApi\\AccesoDatos\\AccesoDatos.csproj",
+      "packagesPath": "C:\\Users\\renato rios\\.nuget\\packages\\",
+      "outputPath": "D:\\desarrollo\\ludik\\ludikApi\\AccesoDatos\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Santiago\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\renato rios\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4772,8 +4772,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\LogicaNegocio\\LogicaNegocio.csproj": {
-              "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\LogicaNegocio\\LogicaNegocio.csproj"
+            "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj": {
+              "projectPath": "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj"
             }
           }
         }
@@ -4787,8 +4787,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.200"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -4821,7 +4820,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

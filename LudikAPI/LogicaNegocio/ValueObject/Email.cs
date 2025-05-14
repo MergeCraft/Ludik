@@ -7,9 +7,9 @@ namespace LogicaNegocio.ValueObjects
     public record Email
     {
         [Required]
-        [EmailAddress(ErrorMessage = "El formato del correo no es válido.")]
+        [EmailAddress(ErrorMessage = "El formato del correo no es vï¿½lido.")]
         [RegularExpression(@"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
-       ErrorMessage = "El correo contiene caracteres no permitidos o formato inválido.")]
+       ErrorMessage = "El correo contiene caracteres no permitidos o formato invï¿½lido.")]
         public string Correro { get; set; }
 
         public Email(string correro)

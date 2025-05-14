@@ -8,11 +8,11 @@ namespace LogicaNegocio.ValueObjects
     {
         [Required]//que es requerido
         [StringLength(20, MinimumLength = 3, ErrorMessage = "El nombre debe tener entre 3 y 20 caracteres.")]
-        [RegularExpression("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$", ErrorMessage = "El nombre solo puede contener letras y espacios.")]
+        [RegularExpression("^[a-zA-Zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\s]+$", ErrorMessage = "El nombre solo puede contener letras y espacios.")]
         public string Nombre { get; set; }
         [Required]
         [StringLength(20, MinimumLength = 3, ErrorMessage = "El apellido debe tener entre 3 y 20 caracteres.")]
-        [RegularExpression("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$", ErrorMessage = "El apellido solo puede contener letras y espacios.")]//RegularExpresion sirve para verificar que no van caracteres especiales
+        [RegularExpression("^[a-zA-Zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\s]+$", ErrorMessage = "El apellido solo puede contener letras y espacios.")]//RegularExpresion sirve para verificar que no van caracteres especiales
         public string Apellido { get; set; }
 
         public NombreCompleto(string nombre, string apellido)

@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "MuAS847gSCM=",
+  "dgSpecHash": "pjjcU0howW/weh4MBK+8HZhnwzN5qQ94xY1u5La3WeBX0hKYlyNwJhSrBZ5Fm09IgCJXu4md1kUNvRs1clhUlA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\LogicaAplicacion\\LogicaAplicacion.csproj",
+  "projectFilePath": "D:\\desarrollo\\ludik\\ludikApi\\LogicaAplicacion\\LogicaAplicacion.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Santiago\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.4\\microsoft.entityframeworkcore.abstractions.9.0.4.nupkg.sha512"
+    "C:\\Users\\renato rios\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.4\\microsoft.entityframeworkcore.abstractions.9.0.4.nupkg.sha512"
   ],
   "logs": []
 }

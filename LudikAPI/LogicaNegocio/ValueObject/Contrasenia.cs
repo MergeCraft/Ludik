@@ -9,7 +9,7 @@ namespace LogicaNegocio.ValueObjects
     {
         [Required]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$",
-       ErrorMessage = "La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial.")]
+       ErrorMessage = "La contraseï¿½a debe tener al menos 8 caracteres, incluyendo una mayï¿½scula, una minï¿½scula, un nï¿½mero y un carï¿½cter especial.")]
         public string Clave { get; set; }
 
         public Contrasenia(string clave)
