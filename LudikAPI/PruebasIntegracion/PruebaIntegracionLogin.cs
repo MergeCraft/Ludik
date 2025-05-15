@@ -1,19 +1,18 @@
-﻿using System.Net.Http;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Newtonsoft.Json;
-using Xunit;
-using WebApi;
-// Asegúrate de que este sea el namespace correcto donde está tu clase Program
 
-namespace PruebasUnitarias.PruebasDeIntegracion
+namespace PruebasIntegracion
 {
-    public class IntegracionLogin : IClassFixture<WebApplicationFactory<Program>>
+    public class PruebaIntegracionLogin : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
 
-        public IntegracionLogin(WebApplicationFactory<Program> factory)
+        public PruebaIntegracionLogin(WebApplicationFactory<Program> factory)
         {
             _client = factory.CreateClient();
         }
@@ -21,7 +20,6 @@ namespace PruebasUnitarias.PruebasDeIntegracion
         [Fact]
         public async Task Login_ConCredencialesValidas_DebeRetornarToken()
         {
-            // Configura las credenciales de prueba
             var loginDto = new
             {
                 NombreUsuario = "Pedro25",
@@ -34,7 +32,9 @@ namespace PruebasUnitarias.PruebasDeIntegracion
             // Ejecuta la solicitud al endpoint de login
             var response = await _client.PostAsync("/api/usuario/login", content);
 
-            response.EnsureSuccessStatusCode(); // Asegura que el status sea 2xx
+            var errorBody = await response.Content.ReadAsStringAsync();
+            Console.WriteLine("ERROR BODY: " + errorBody);
+            Assert.True(response.IsSuccessStatusCode, $"StatusCode: {response.StatusCode}, Body: {errorBody}");
 
             var responseBody = await response.Content.ReadAsStringAsync();
             Assert.Contains("token", responseBody.ToLower());

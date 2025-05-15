@@ -2321,10 +2321,7 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.4"
         },
         "runtime": {
-          "AccesoDatos.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "AccesoDatos.dll": {}
         },
         "compile": {
           "AccesoDatos.dll": {}
@@ -2335,10 +2332,7 @@
           "LogicaNegocio": "1.0.0"
         },
         "runtime": {
-          "LogicaAplicacion.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "LogicaAplicacion.dll": {}
         },
         "compile": {
           "LogicaAplicacion.dll": {}
@@ -2349,10 +2343,7 @@
           "Microsoft.EntityFrameworkCore.Abstractions": "9.0.4"
         },
         "runtime": {
-          "LogicaNegocio.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "LogicaNegocio.dll": {}
         },
         "compile": {
           "LogicaNegocio.dll": {}
@@ -2367,10 +2358,7 @@
           "Swashbuckle.AspNetCore": "6.4.0"
         },
         "runtime": {
-          "WebApi.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "WebApi.dll": {}
         },
         "compile": {
           "WebApi.dll": {}

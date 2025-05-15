@@ -18,6 +18,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AccesoDatos\AccesoDatos.csproj" />
+    <ProjectReference Include="..\LogicaAplicacion\LogicaAplicacion.csproj" />
+    <ProjectReference Include="..\LogicaNegocio\LogicaNegocio.csproj" />
+    <ProjectReference Include="..\WebApi\WebApi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 

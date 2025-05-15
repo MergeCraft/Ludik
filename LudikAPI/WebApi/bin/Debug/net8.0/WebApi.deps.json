@@ -1079,10 +1079,7 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.4"
         },
         "runtime": {
-          "AccesoDatos.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "AccesoDatos.dll": {}
         }
       },
       "LogicaAplicacion/1.0.0": {
@@ -1090,10 +1087,7 @@
           "LogicaNegocio": "1.0.0"
         },
         "runtime": {
-          "LogicaAplicacion.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "LogicaAplicacion.dll": {}
         }
       },
       "LogicaNegocio/1.0.0": {
@@ -1101,10 +1095,7 @@
           "Microsoft.EntityFrameworkCore.Abstractions": "9.0.4"
         },
         "runtime": {
-          "LogicaNegocio.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "LogicaNegocio.dll": {}
         }
       }
     }
