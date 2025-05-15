@@ -9,65 +9,76 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Agregar servicios al contenedor
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+// Configurar Swagger
 var ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WebApi.xml");
 builder.Services.AddSwaggerGen(opciones =>
-    {
-        opciones.IncludeXmlComments(ruta);
-        opciones.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
-        {
-            Title = "API de Ludik",
-            Version = "v1",
-            Description = "Bitacora digital de logros de aprendizaje.",
-            Contact = new OpenApiContact { Email = "renatoriosx@gmail.com" }
-        });
-    }
-);
+{
+	opciones.IncludeXmlComments(ruta);
+	opciones.SwaggerDoc("v1", new OpenApiInfo
+	{
+		Title = "API de Ludik",
+		Version = "v1",
+		Description = "Bitácora digital de logros de aprendizaje.",
+		Contact = new OpenApiContact { Email = "renatoriosx@gmail.com" }
+	});
+});
 
-
-//se inyectan los repositorios necesarios
+// Inyectar repositorios y casos de uso
 builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
-//casos de uso Usuario
 builder.Services.AddScoped<ILogin, LoginPrueba>();
 
-//Servicios necesarios para autenticacion
+// Configurar autenticación JWT
 var claveDificil = "UnaContraseniaSeguraEsLargaTiene:0123,caracteresEspeciales;*#seguridad";
 var claveDificilEncriptada = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(claveDificil));
 
-//Registro de servicios JWT 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(opt =>
-    {
-        opt.TokenValidationParameters = new TokenValidationParameters
-        {
-            //Definir la verificaciones  a realizar
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            ValidateLifetime = false,
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = claveDificilEncriptada
-        };
-    });
+	.AddJwtBearer(opt =>
+	{
+		opt.TokenValidationParameters = new TokenValidationParameters
+		{
+			ValidateIssuer = false,
+			ValidateAudience = false,
+			ValidateLifetime = false,
+			ValidateIssuerSigningKey = true,
+			IssuerSigningKey = claveDificilEncriptada
+		};
+	});
+
+// Configurar CORS
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy("AllowReactApp",
+		policy =>
+		{
+			policy.WithOrigins("http://localhost:3000")
+				  .AllowAnyHeader()
+				  .AllowAnyMethod();
+		});
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configurar el pipeline de la aplicación
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+	app.UseSwagger();
+	app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
-app.UseAuthentication();// agregamos este para el uso de la token , van en orden(es importante)
-app.UseAuthorization();
 
+// Aplicar la política CORS
+app.UseCors("AllowReactApp");
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
+
 public partial class Program { }
