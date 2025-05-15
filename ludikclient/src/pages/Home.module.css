@@ -1,0 +1,91 @@
+.heroSection {
+  flex: 1;
+  padding: 3rem 2rem;
+  text-align: center;
+
+  background-image: url("../assets/portada.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  position: relative;
+  color: white;
+  isolation: isolate;
+}
+
+.heroSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  /* oscurece la imagen */
+  z-index: -1;
+}
+
+
+.heroTitle {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--letras-secundario);
+}
+
+.heroSubtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.featuresSection {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 3rem 2rem;
+  flex-wrap: wrap;
+  background-color: var(--secundario);
+}
+
+.feature {
+  background-color: var(--terciario);
+  padding: 1.5rem;
+  border-radius: 12px;
+  max-width: 300px;
+  flex: 1;
+  min-width: 250px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  font-weight: bold;
+}
+
+.feature p{
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.menuComenzar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 6rem;
+}
+
+.botonComienzo {
+  width: 250px;
+}
+
+.botonCuenta {
+  background-color: var(--blanco-principal);
+  box-shadow: 0 3px 0 3px var(--blanco-secundario);
+  color: var(--boton-principal);
+}
+
+.botonCuenta:active {
+  box-shadow: 0 0 0 2px var(--blanco-secundario);
+  transform: translateY(3px);
+  outline: none;
+}
