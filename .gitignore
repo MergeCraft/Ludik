@@ -1,411 +1,137 @@
 
-# User-specific files
-*.rsuser
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
-
-# User-specific files (MonoDevelop/Xamarin Studio)
-*.userprefs
-
-# Mono auto generated files
-mono_crash.*
-
-# Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-[Ww][Ii][Nn]32/
-[Aa][Rr][Mm]/
-[Aa][Rr][Mm]64/
-bld/
-[Bb]in/
-[Oo]bj/
-[Ll]og/
-[Ll]ogs/
-
-# Visual Studio 2015/2017 cache/options directory
-.vs/
-# Uncomment if you have tasks that create the project's static files in wwwroot
-#wwwroot/
-
-# Visual Studio 2017 auto generated files
-Generated\ Files/
-
-# MSTest test Results
-[Tt]est[Rr]esult*/
-[Bb]uild[Ll]og.*
-
-# NUnit
-*.VisualState.xml
-TestResult.xml
-nunit-*.xml
-
-# Build Results of an ATL Project
-[Dd]ebugPS/
-[Rr]eleasePS/
-dlldata.c
-
-# Benchmark Results
-BenchmarkDotNet.Artifacts/
-
-# .NET Core
-project.lock.json
-project.fragment.lock.json
-artifacts/
-
-# ASP.NET Scaffolding
-ScaffoldingReadMe.txt
-
-# StyleCop
-StyleCopReport.xml
-
-# Files built by Visual Studio
-*_i.c
-*_p.c
-*_h.h
-*.ilk
-*.meta
-*.obj
-*.iobj
-*.pch
-*.pdb
-*.ipdb
-*.pgc
-*.pgd
-*.rsp
-*.sbr
-*.tlb
-*.tli
-*.tlh
-*.tmp
-*.tmp_proj
-*_wpftmp.csproj
-*.log
-*.tlog
-*.vspscc
-*.vssscc
-.builds
-*.pidb
-*.svclog
-*.scc
-
-# Chutzpah Test files
-_Chutzpah*
-
-# Visual C++ cache files
-ipch/
-*.aps
-*.ncb
-*.opendb
-*.opensdf
-*.sdf
-*.cachefile
-*.VC.db
-*.VC.VC.opendb
-
-# Visual Studio profiler
-*.psess
-*.vsp
-*.vspx
-*.sap
-
-# Visual Studio Trace Files
-*.e2e
-
-# TFS 2012 Local Workspace
-$tf/
-
-# Guidance Automation Toolkit
-*.gpState
-
-# ReSharper is a .NET coding add-in
-_ReSharper*/
-*.[Rr]e[Ss]harper
-*.DotSettings.user
-
-# TeamCity is a build add-in
-_TeamCity*
-
-# DotCover is a Code Coverage Tool
-*.dotCover
-
-# AxoCover is a Code Coverage Tool
-.axoCover/*
-!.axoCover/settings.json
-
-# Coverlet is a free, cross platform Code Coverage Tool
-coverage*.json
-coverage*.xml
-coverage*.info
-
-# Visual Studio code coverage results
-*.coverage
-*.coveragexml
-
-# NCrunch
-_NCrunch_*
-.*crunch*.local.xml
-nCrunchTemp_*
-
-# MightyMoose
-*.mm.*
-AutoTest.Net/
-
-# Web workbench (sass)
-.sass-cache/
-
-# Installshield output folder
-[Ee]xpress/
-
-# DocProject is a documentation generator add-in
-DocProject/buildhelp/
-DocProject/Help/*.HxT
-DocProject/Help/*.HxC
-DocProject/Help/*.hhc
-DocProject/Help/*.hhk
-DocProject/Help/*.hhp
-DocProject/Help/Html2
-DocProject/Help/html
-
-# Click-Once directory
-publish/
-
-# Publish Web Output
-*.[Pp]ublish.xml
-*.azurePubxml
-# Note: Comment the next line if you want to checkin your web deploy settings,
-# but database connection strings (with potential passwords) will be unencrypted
-*.pubxml
-*.publishproj
-
-# Microsoft Azure Web App publish settings. Comment the next line if you want to
-# checkin your Azure Web App publish settings, but sensitive information contained
-# in these scripts will be unencrypted
-PublishScripts/
-
-# NuGet Packages
-*.nupkg
-# NuGet Symbol Packages
-*.snupkg
-# The packages folder can be ignored because of Package Restore
-**/[Pp]ackages/*
-# except build/, which is used as an MSBuild target.
-!**/[Pp]ackages/build/
-# Uncomment if necessary however generally it will be regenerated when needed
-#!**/[Pp]ackages/repositories.config
-# NuGet v3's project.json files produces more ignorable files
-*.nuget.props
-*.nuget.targets
-
-# Microsoft Azure Build Output
-csx/
-*.build.csdef
-
-# Microsoft Azure Emulator
-ecf/
-rcf/
-
-# Windows Store app package directories and files
-AppPackages/
-BundleArtifacts/
-Package.StoreAssociation.xml
-_pkginfo.txt
-*.appx
-*.appxbundle
-*.appxupload
-
-# Visual Studio cache files
-# files ending in .cache can be ignored
-*.[Cc]ache
-# but keep track of directories ending in .cache
-!?*.[Cc]ache/
-
-# Others
-ClientBin/
-~$*
-*~
-*.dbmdl
-*.dbproj.schemaview
-*.jfm
-*.pfx
-*.publishsettings
-orleans.codegen.cs
-
-# Including strong name files can present a security risk
-# (https://github.com/github/gitignore/pull/2483#issue-259490424)
-#*.snk
-
-# Since there are multiple workflows, uncomment next line to ignore bower_components
-# (https://github.com/github/gitignore/pull/1529#issuecomment-104372622)
-#bower_components/
-
-# RIA/Silverlight projects
-Generated_Code/
-
-# Backup & report files from converting an old project file
-# to a newer Visual Studio version. Backup files are not needed,
-# because we have git ;-)
-_UpgradeReport_Files/
-Backup*/
-UpgradeLog*.XML
-UpgradeLog*.htm
-ServiceFabricBackup/
-*.rptproj.bak
-
-# SQL Server files
-*.mdf
-*.ldf
-*.ndf
-
-# Business Intelligence projects
-*.rdl.data
-*.bim.layout
-*.bim_*.settings
-*.rptproj.rsuser
-*- [Bb]ackup.rdl
-*- [Bb]ackup ([0-9]).rdl
-*- [Bb]ackup ([0-9][0-9]).rdl
-
-# Microsoft Fakes
-FakesAssemblies/
-
-# GhostDoc plugin setting file
-*.GhostDoc.xml
-
-# Node.js Tools for Visual Studio
-.ntvs_analysis.dat
-node_modules/
-
-# Visual Studio 6 build log
-*.plg
-
-# Visual Studio 6 workspace options file
-*.opt
-
-# Visual Studio 6 auto-generated workspace file (contains which files were open etc.)
-*.vbw
-
-# Visual Studio 6 auto-generated project file (contains which files were open etc.)
-*.vbp
-
-# Visual Studio 6 workspace and project file (working project files containing files to include in project)
-*.dsw
-*.dsp
-
-# Visual Studio 6 technical files
-*.ncb
-*.aps
-
-# Visual Studio LightSwitch build output
-**/*.HTMLClient/GeneratedArtifacts
-**/*.DesktopClient/GeneratedArtifacts
-**/*.DesktopClient/ModelManifest.xml
-**/*.Server/GeneratedArtifacts
-**/*.Server/ModelManifest.xml
-_Pvt_Extensions
-
-# Paket dependency manager
-.paket/paket.exe
-paket-files/
-
-# FAKE - F# Make
-.fake/
-
-# CodeRush personal settings
-.cr/personal
-
-# Python Tools for Visual Studio (PTVS)
-__pycache__/
-*.pyc
-
-# Cake - Uncomment if you are using it
-# tools/**
-# !tools/packages.config
-
-# Tabs Studio
-*.tss
-
-# Telerik's JustMock configuration file
-*.jmconfig
-
-# BizTalk build output
-*.btp.cs
-*.btm.cs
-*.odx.cs
-*.xsd.cs
-
-# OpenCover UI analysis results
-OpenCover/
-
-# Azure Stream Analytics local run output
-ASALocalRun/
-
-# MSBuild Binary and Structured Log
-*.binlog
-
-# NVidia Nsight GPU debugger configuration file
-*.nvuser
-
-# MFractors (Xamarin productivity tool) working folder
-.mfractor/
-
-# Local History for Visual Studio
-.localhistory/
-
-# Visual Studio History (VSHistory) files
-.vshistory/
-
-# BeatPulse healthcheck temp database
-healthchecksdb
-
-# Backup folder for Package Reference Convert tool in Visual Studio 2017
-MigrationBackup/
-
-# Ionide (cross platform F# VS Code tools) working folder
-.ionide/
-
-# Fody - auto-generated XML schema
-FodyWeavers.xsd
-
-# VS Code files for those working on multiple tools
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-*.code-workspace
-
-# Local History for Visual Studio Code
-.history/
-
-# Windows Installer files from build outputs
-*.cab
-*.msi
-*.msix
-*.msm
-*.msp
-
+# ─────────────────────────────────────────────────────────────
+# Configuraciones y archivos de usuario específicos de IDEs
+# ─────────────────────────────────────────────────────────────
+# Visual Studio
+*.rsuser                  # Ajustes de usuario de VS  
+*.suo                     # Opciones de usuario (solution user options)  
+*.user                    # Archivos de usuario genéricos  
+*.userosscache            # Caché de usuario  
+*.sln.docstates           # Estados del documento de la solución  
+.vs/                      # Carpeta de configuración/caché de VS  
+*.futdcache.v2            # Caché de VS  
+*.vspscc *.vssscc         # Integración de control de código fuente MS  
 # JetBrains Rider
-*.sln.iml
+*.sln.iml                 # Metadatos de proyecto Rider  
+# Visual Studio Code
+.vscode/                  # Configuración de VS Code  
+!.vscode/settings.json    
+!.vscode/tasks.json       
+!.vscode/launch.json      
+!.vscode/extensions.json  
+*.code-workspace          # Workspaces compartidos  
 
-# Visual Studio local files
-.vs/
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
+# ─────────────────────────────────────────────────────────────
+# Archivos y carpetas generados por compilación y artefactos
+# ─────────────────────────────────────────────────────────────
+# Binarios y objetos
+[Bb]in/                   # Salida de compilación  
+[Oo]bj/                   # Archivos intermedios  
+*.dll *.exe *.appx        # Ejecutables y librerías  
+*.pdb                     # Símbolos de depuración  
+*.ilk                     # Archivos incrementales  
+*.meta                    # Metadatos Unity / VS  
 
-# Visual Studio cache
-*.futdcache.v2
+# Carpetas de configuración de compilación
+[Dd]ebug*/                # Builds en modo Debug  
+[Rr]elease*/              # Builds en modo Release  
+x64/ x86/ [Ww][Ii][Nn]32/ # Plataformas específicas  
+[Aa][Rr][Mm]*/            # Plataformas ARM  
+bld/                      # Carpetas de build personalizadas  
+csx/ *.build.csdef        # Azure build artifacts  
 
-# Metadatos de proyecto
-**/ludikapi.metadata.v7.bin
-**/ludikapi.projects.v7.bin
+# Resultados de publicación
+PublishScripts/           # Azure publish scripts  
+*.pubxml *.publishproj    # Publicaciones web  
+*.[Pp]ublish.xml          # Archivos publish generados  
 
-# Layout de documentos de VS
-**/DocumentLayout.json
+# Logs y reportes
+[Ll]og*/ [Ll]ogs/         # Carpetas de logs  
+*.log                     # Archivos de log sueltos  
+*.tlog                    # Logs de compilación MSBuild  
+
+# ─────────────────────────────────────────────────────────────
+# Dependencias y paquetes
+# ─────────────────────────────────────────────────────────────
+# NuGet
+**/[Pp]ackages/*          # Carpeta de paquetes (restore)  
+!**/[Pp]ackages/build/    # Retener targets de MSBuild  
+*.nupkg                   # Paquetes NuGet  
+*.snupkg                  # Paquetes de símbolos  
+*.nuget.props *.nuget.targets
+
+# Paket
+.paket/paket.exe  
+paket-files/              # Dependencias de Paket  
+
+# Node.js / React
+node_modules/             # Dependencias npm  
+# (Descomentar si usas Bower)
+# bower_components/       
+
+# Python (PTVS)
+__pycache__/  
+*.pyc                     # Bytecode Python  
+
+# ─────────────────────────────────────────────────────────────
+# Archivos específicos de backend ASP.NET Core
+# ─────────────────────────────────────────────────────────────
+# .NET Core / ASP.NET Core
+project.lock.json         # Lock files antiguos  
+project.fragment.lock.json  
+artifacts/                # Paquetes generados por CLI  
+ScaffoldingReadMe.txt     # ASP.NET scaffolding  
+*.azurePubxml             # Publish settings Azure  
+ecf/ rcf/                 # Emulador Azure  
+*.dbmdl                   # Modelos de base de datos  
+**/ludikapi.metadata.v7.bin  
+**/ludikapi.projects.v7.bin  
+
+# Carpeta wwwroot (si genera archivos estáticos)
+# wwwroot/                
+
+# ─────────────────────────────────────────────────────────────
+# Bases de datos y archivos temporales
+# ─────────────────────────────────────────────────────────────
+*.mdf *.ldf *.ndf         # Bases de datos SQL Server  
+healthchecksdb            # BD temporal healthchecks  
+*.dbproj.schemaview       # Esquema de proyecto DB  
+*.dbmdl                   # Modelo de base de datos local  
+
+# ─────────────────────────────────────────────────────────────
+# Pruebas y cobertura
+# ─────────────────────────────────────────────────────────────
+# xUnit / MSTest / NUnit
+[Tt]est[Rr]esult*/        # Resultados de tests  
+TestResult.xml  
+nunit-*.xml  
+*.VisualState.xml         # State snapshots  
+# Cobertura
+coverage*.json coverage*.xml coverage*.info  
+*.coverage *.coveragexml  # Resultados cobertura VS  
+
+# Herramientas de terceros
+BenchmarkDotNet.Artifacts/ # Resultados de BenchmarkDotNet  
+_Chutzpah*                # Archivos de pruebas Chutzpah  
+_ReSharper*/              # Archivos de ReSharper  
+*.[Rr]e[Ss]harper          # Ajustes ReSharper  
+*.DotSettings.user        # Ajustes de capa de dotsettings  
+_NCrunch_* nCrunchTemp_*  # NCrunch  
+.axoCover/*               # AxoCover coverage  
+!.axoCover/settings.json  # Retener configuración  
+*.dotCover                # DotCover results  
+OpenCover/                # OpenCover UI  
+
+# ─────────────────────────────────────────────────────────────
+# Miscellaneous / varios
+# ─────────────────────────────────────────────────────────────
+~$*                       # Archivos temporales Office  
+*~                        # Archivos de backup  
+*.tmp *.tmp_proj          # Archivos temporales  
+*.cachefile *.sdf         # Cachés varias  
+.pfx                      # Certificados sensibles  
+*.publishsettings         # Publicación de Azure  
+*.rptproj.bak             # Backup informes SSRS  
+Backup*/ _UpgradeReport*  # Backups migración VS  
+UpgradeLog*.XML *.htm     # Logs migración  
+MigrationBackup/ ServiceFabricBackup/  
