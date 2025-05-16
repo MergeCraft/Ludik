@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "pjjcU0howW/weh4MBK+8HZhnwzN5qQ94xY1u5La3WeBX0hKYlyNwJhSrBZ5Fm09IgCJXu4md1kUNvRs1clhUlA==",
+  "dgSpecHash": "wfTEK8uMJqk=",
   "success": true,
-  "projectFilePath": "D:\\desarrollo\\ludik\\ludikApi\\LogicaAplicacion\\LogicaAplicacion.csproj",
+  "projectFilePath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\LogicaAplicacion\\LogicaAplicacion.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\renato rios\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.4\\microsoft.entityframeworkcore.abstractions.9.0.4.nupkg.sha512"
+    "C:\\Users\\Santiago\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
+    "C:\\Users\\Santiago\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.4\\microsoft.entityframeworkcore.abstractions.9.0.4.nupkg.sha512"
   ],
   "logs": []
 }

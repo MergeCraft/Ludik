@@ -23,7 +23,7 @@ namespace PruebasIntegracion
             var loginDto = new
             {
                 NombreUsuario = "Pedro25",
-                Contrasenia = "4732Mmsi"
+                Contrasenia = "$2a$12$ExB5Kc8y2M8bt37GhWtg/eFfVFF3UGFYKiExuX7UW40l1Bx.tmD9K"
             };
 
             var json = JsonConvert.SerializeObject(loginDto);

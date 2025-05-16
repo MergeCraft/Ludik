@@ -7,7 +7,7 @@ namespace InterfacesRepositorio
 {
 	public interface IRepositorioUsuarios : IRepositorio<Usuario>
 	{
-		Usuario loginUsuario(String identificador, String hashContrasena);
+		Usuario loginUsuario(String identificador);
 
 	}
 

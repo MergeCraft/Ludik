@@ -535,3 +535,4 @@ C:\Users\Santiago\Documents\GitHub\Ludik\LudikAPI\WebApi\obj\Debug\net8.0\WebApi
 C:\Users\Santiago\Documents\GitHub\Ludik\LudikAPI\WebApi\obj\Debug\net8.0\WebApi.pdb
 C:\Users\Santiago\Documents\GitHub\Ludik\LudikAPI\WebApi\obj\Debug\net8.0\WebApi.genruntimeconfig.cache
 C:\Users\Santiago\Documents\GitHub\Ludik\LudikAPI\WebApi\obj\Debug\net8.0\ref\WebApi.dll
+C:\Users\Santiago\Documents\GitHub\Ludik\ludikApi\WebApi\bin\Debug\net8.0\BCrypt.Net-Next.dll

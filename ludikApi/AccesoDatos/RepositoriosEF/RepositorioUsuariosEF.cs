@@ -31,12 +31,12 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public Usuario loginUsuario(string identificador, string hashContrasena)
+        public Usuario loginUsuario(string identificador)
         {
             try
             {
                 var usr = _db.Usuarios
-            .SingleOrDefault(u =>(u.NombreUsuario.Nombre == identificador)&& u.contrasenia.Clave == hashContrasena);
+            .SingleOrDefault(u =>(u.NombreUsuario.Nombre == identificador));
             return usr;
             }
             catch (UsuarioNoValidoExeption ex)

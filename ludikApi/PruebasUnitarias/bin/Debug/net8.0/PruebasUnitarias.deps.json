@@ -380,6 +380,17 @@
           "lib/netstandard2.0/Azure.Identity.dll": {}
         }
       },
+      "BCrypt.Net-Next/4.0.3": {
+        "runtime": {
+          "lib/net6.0/BCrypt.Net-Next.dll": {
+            "assemblyVersion": "4.0.3.0",
+            "fileVersion": "4.0.3.0"
+          }
+        },
+        "compile": {
+          "lib/net6.0/BCrypt.Net-Next.dll": {}
+        }
+      },
       "coverlet.collector/6.0.0": {},
       "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.15": {
         "dependencies": {
@@ -2321,7 +2332,10 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.4"
         },
         "runtime": {
-          "AccesoDatos.dll": {}
+          "AccesoDatos.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "AccesoDatos.dll": {}
@@ -2332,7 +2346,10 @@
           "LogicaNegocio": "1.0.0"
         },
         "runtime": {
-          "LogicaAplicacion.dll": {}
+          "LogicaAplicacion.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "LogicaAplicacion.dll": {}
@@ -2340,10 +2357,14 @@
       },
       "LogicaNegocio/1.0.0": {
         "dependencies": {
+          "BCrypt.Net-Next": "4.0.3",
           "Microsoft.EntityFrameworkCore.Abstractions": "9.0.4"
         },
         "runtime": {
-          "LogicaNegocio.dll": {}
+          "LogicaNegocio.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "LogicaNegocio.dll": {}
@@ -2358,7 +2379,10 @@
           "Swashbuckle.AspNetCore": "6.4.0"
         },
         "runtime": {
-          "WebApi.dll": {}
+          "WebApi.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "WebApi.dll": {}
@@ -4113,6 +4137,13 @@
       "sha512": "sha512-Sf4BoE6Q3jTgFkgBkx7qztYOFELBCo+wQgpYDwal/qJ1unBH73ywPztIJKXBXORRzAeNijsuxhk94h0TIMvfYg==",
       "path": "azure.identity/1.11.4",
       "hashPath": "azure.identity.1.11.4.nupkg.sha512"
+    },
+    "BCrypt.Net-Next/4.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-W+U9WvmZQgi5cX6FS5GDtDoPzUCV4LkBLkywq/kRZhuDwcbavOzcDAr3LXJFqHUi952Yj3LEYoWW0jbEUQChsA==",
+      "path": "bcrypt.net-next/4.0.3",
+      "hashPath": "bcrypt.net-next.4.0.3.nupkg.sha512"
     },
     "coverlet.collector/6.0.0": {
       "type": "package",

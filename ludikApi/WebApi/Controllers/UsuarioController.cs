@@ -1,5 +1,6 @@
 ﻿using LogicaAplicacion.DTOs.UsuarioDTOs;
 using LogicaAplicacion.InterfacesCasosUsos.Usuario;
+using LogicaNegocio.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

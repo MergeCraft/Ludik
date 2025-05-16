@@ -7,11 +7,12 @@ using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.UsuarioDTOs;
 using LogicaAplicacion.DTOsMappers.UsuarioMappers;
 using LogicaAplicacion.InterfacesCasosUsos.Usuario;
+using LogicaNegocio.InterfacesEntidades;
 using LogicaNegocio.ValueObjects;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Usuarios
 {
-    public class LoginPrueba : ILogin
+    public class LoginPrueba : ILogin, IVerificarContrasenia
     {
         private IRepositorioUsuarios _repositorioUsuarios;
         public LoginPrueba(IRepositorioUsuarios repo)
@@ -20,15 +21,22 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Usuarios
         }
         public UsuarioConRolDto Ejecutar(string nombreUsuario, string psw)
         {
-            var usr = _repositorioUsuarios.loginUsuario(nombreUsuario,psw);
-            if (usr == null )
+            var usr = _repositorioUsuarios.loginUsuario(nombreUsuario);
+            if (usr != null && VerificarContrasenia(psw, usr.contrasenia.Clave))
             {
-                return null;
+
+                return UsuarioConRolDtoMapper.toDto(usr);
             }
             else
             {
-                return UsuarioConRolDtoMapper.toDto(usr);
+                return null;
             }
+        }
+
+      
+        public bool VerificarContrasenia(string contrasenia, string hash)
+        {
+            return BCrypt.Net.BCrypt.Verify(contrasenia, hash);
         }
     }
 }

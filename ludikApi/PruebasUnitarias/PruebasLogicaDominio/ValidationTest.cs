@@ -68,6 +68,7 @@ namespace PruebasUnitarias.PruebasLogicaNegocio
 
                 Assert.Empty(errors);
             }
+           
         }
     }
 }
