@@ -5,14 +5,33 @@ using System.Text;
 using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
+using LogicaNegocio.Excepciones;
 
 namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioEstudiantesEF : IRepositorioEstudiantes
     {
-        public void Add(Estudiante unObjeto)
+        private readonly Context _db;
+        public RepositorioEstudiantesEF()
         {
-            throw new NotImplementedException();
+            _db = new Context();
+        }
+        public void Add(Estudiante estudianteNuevo)
+        {
+            try
+            {
+                if (estudianteNuevo == null)
+                {
+                    throw new UsuarioNoValidoExeption();
+                }
+              
+                _db.Usuarios.Add(estudianteNuevo);
+                _db.SaveChanges();
+            }
+            catch (UsuarioNoValidoExeption ex)
+            {
+                throw new UsuarioNoValidoExeption("El Usuario no es valido.");
+            }
         }
 
         public void asignarMedalla(int idAlumno, int idMedalla)

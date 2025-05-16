@@ -16,9 +16,23 @@ namespace AccesoDatos.RepositoriosEF
         {
             _db = new Context();
         }
-        public void Add(Usuario unObjeto)
+        public void Add(Usuario usuarioNuevo)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (usuarioNuevo == null)
+                {
+                    throw new UsuarioNoValidoExeption();
+                }
+
+                usuarioNuevo.EsValido();
+                _db.Usuarios.Add(usuarioNuevo);
+                _db.SaveChanges();
+            }
+            catch (UsuarioNoValidoExeption ex)
+            {
+                throw new UsuarioNoValidoExeption("El Usuario no es valido.");
+            }
         }
 
         public IEnumerable<Usuario> GetAll()

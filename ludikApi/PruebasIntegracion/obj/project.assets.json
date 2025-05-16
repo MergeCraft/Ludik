@@ -9675,9 +9675,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\PruebasIntegracion\\PruebasIntegracion.csproj",
+      "projectUniqueName": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\PruebasIntegracion\\PruebasIntegracion.csproj",
       "projectName": "PruebasIntegracion",
-      "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\PruebasIntegracion\\PruebasIntegracion.csproj",
+      "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\PruebasIntegracion\\PruebasIntegracion.csproj",
       "packagesPath": "C:\\Users\\Santiago\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\PruebasIntegracion\\obj\\",
       "projectStyle": "PackageReference",
@@ -9701,17 +9701,17 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\AccesoDatos\\AccesoDatos.csproj": {
-              "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\AccesoDatos\\AccesoDatos.csproj"
+            "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\AccesoDatos\\AccesoDatos.csproj": {
+              "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\AccesoDatos\\AccesoDatos.csproj"
             },
-            "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\LogicaAplicacion\\LogicaAplicacion.csproj": {
-              "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\LogicaAplicacion\\LogicaAplicacion.csproj"
+            "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\LogicaAplicacion\\LogicaAplicacion.csproj": {
+              "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\LogicaAplicacion\\LogicaAplicacion.csproj"
             },
-            "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj": {
-              "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj"
+            "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\LogicaNegocio\\LogicaNegocio.csproj": {
+              "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\LogicaNegocio\\LogicaNegocio.csproj"
             },
-            "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\WebApi\\WebApi.csproj": {
-              "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\WebApi\\WebApi.csproj"
+            "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\WebApi\\WebApi.csproj": {
+              "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\WebApi\\WebApi.csproj"
             }
           }
         }

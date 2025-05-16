@@ -109,9 +109,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\LogicaAplicacion\\LogicaAplicacion.csproj",
+      "projectUniqueName": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\LogicaAplicacion\\LogicaAplicacion.csproj",
       "projectName": "LogicaAplicacion",
-      "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\LogicaAplicacion\\LogicaAplicacion.csproj",
+      "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\LogicaAplicacion\\LogicaAplicacion.csproj",
       "packagesPath": "C:\\Users\\Santiago\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\LogicaAplicacion\\obj\\",
       "projectStyle": "PackageReference",
@@ -135,8 +135,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj": {
-              "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\LogicaNegocio\\LogicaNegocio.csproj"
+            "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\LogicaNegocio\\LogicaNegocio.csproj": {
+              "projectPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\LudikAPI\\LogicaNegocio\\LogicaNegocio.csproj"
             }
           }
         }

@@ -11,8 +11,9 @@ namespace Dominio
         public List<Hito> hitos;
 
         public List<PreguntaRespuestaSeguridad> preguntasSeguridad;
+        
 
-		public Boolean constrastarRespuestas(PreguntaRespuestaSeguridad pRS)
+        public Boolean constrastarRespuestas(PreguntaRespuestaSeguridad pRS)
 		{
 			return true;
 		}

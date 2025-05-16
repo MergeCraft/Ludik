@@ -1,5 +1,41 @@
 [
   {
+    "ContainingType": "WebApi.Controllers.EstudianteController",
+    "Method": "AltaEstudiante",
+    "RelativePath": "api/Estudiante/alta",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "estudianteDto",
+        "Type": "LogicaAplicacion.DTOs.UsuarioDTOs.EstudianteAltaDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 201
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
     "ContainingType": "WebApi.Controllers.UsuarioController",
     "Method": "Login",
     "RelativePath": "api/Usuario/login",
