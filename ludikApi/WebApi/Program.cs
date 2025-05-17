@@ -24,7 +24,7 @@ builder.Services.AddSwaggerGen(opciones =>
 	{
 		Title = "API de Ludik",
 		Version = "v1",
-		Description = "Bit�cora digital de logros de aprendizaje.",
+		Description = "Bitácora digital de logros de aprendizaje.",
 		Contact = new OpenApiContact { Email = "renatoriosx@gmail.com" }
 	});
 });
@@ -35,8 +35,7 @@ builder.Services.AddScoped<IRepositorioEstudiantes, RepositorioEstudiantesEF>();
 builder.Services.AddScoped<ILogin, LoginPrueba>();
 builder.Services.AddScoped<IAlta, AltaEstudiante>();
 
-
-// Configurar autenticaci�n JWT
+// Configurar autenticación JWT
 var claveDificil = "UnaContraseniaSeguraEsLargaTiene:0123,caracteresEspeciales;*#seguridad";
 var claveDificilEncriptada = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(claveDificil));
 
@@ -53,21 +52,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 		};
 	});
 
-// Configurar CORS
+// ✅ Configurar CORS correctamente
 builder.Services.AddCors(options =>
 {
-	options.AddPolicy("AllowReactApp",
-		policy =>
-		{
-			policy.WithOrigins("http://localhost:3000")
-				  .AllowAnyHeader()
-				  .AllowAnyMethod();
-		});
+	options.AddPolicy("AllowAll",
+		policy => policy.AllowAnyOrigin()
+						.AllowAnyHeader()
+						.AllowAnyMethod());
 });
+
 
 var app = builder.Build();
 
-// Configurar el pipeline de la aplicaci�n
+// Configurar el pipeline
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
@@ -76,8 +73,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Aplicar la pol�tica CORS
-app.UseCors("AllowReactApp");
+// ✅ CORS debe ir antes de autenticación/autorización
+app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();
