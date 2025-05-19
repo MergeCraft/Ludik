@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import styles from "./LoginPage.module.css";
 import { iniciarSesion } from "../features/auth/auth.js";
+import * as Toast from "../lib/toastify.js";
+import styles from "./LoginPage.module.css";
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,8 @@ export const LoginPage = () => {
       await iniciarSesion({ usuario, contrasena }, dispatch);
       navigate("/");
     } catch (error) {
-      alert("Login inválido");
+      console.error("Se ejecutó notificarError con:", error.message);
+      Toast.notificarError(error.message);
     }
   };
 
