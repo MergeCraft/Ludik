@@ -8,7 +8,8 @@
 
 ## 2. Calidad y estilo de código
 
-- [ ] Se respetan convenciones de estilo (nombres de clases y atributos en PascalCase, nombres de métodos y camelCase, indentación, etc).
+- [ ] Nombres de clases, metodos y constantes en PascalCase.
+- [ ] Nombres de parametros en metodos y variables locales en camelCase.
 - [ ] No hay código muerto ni duplicado; se extrae lógica común.
 - [ ] No hay `Console.WriteLine`, bloques de depuración ni código comentado innecesario.
 

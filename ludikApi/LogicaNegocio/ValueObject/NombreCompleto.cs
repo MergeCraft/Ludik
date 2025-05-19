@@ -6,7 +6,7 @@ namespace LogicaNegocio.ValueObjects
     [ComplexType]
     public record NombreCompleto
     {
-        [Required]//que es requerido
+        [Required]
         [StringLength(20, MinimumLength = 3, ErrorMessage = "El nombre debe tener entre 3 y 20 caracteres.")]
         [RegularExpression("^[a-zA-Z������������\\s]+$", ErrorMessage = "El nombre solo puede contener letras y espacios.")]
         public string Nombre { get; set; }

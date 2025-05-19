@@ -950,3 +950,4 @@ C:\Users\Santiago\Documents\GitHub\Ludik\ludikApi\PruebasIntegracion\obj\Debug\n
 C:\Users\Santiago\Documents\GitHub\Ludik\ludikApi\PruebasIntegracion\obj\Debug\net8.0\PruebasIntegracion.genruntimeconfig.cache
 C:\Users\Santiago\Documents\GitHub\Ludik\ludikApi\PruebasIntegracion\obj\Debug\net8.0\ref\PruebasIntegracion.dll
 C:\Users\Santiago\Documents\GitHub\Ludik\ludikApi\PruebasIntegracion\bin\Debug\net8.0\BCrypt.Net-Next.dll
+D:\desarrollo\ludik\ludikAPI\PruebasIntegracion\bin\Debug\net8.0\BCrypt.Net-Next.dll

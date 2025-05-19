@@ -1,28 +1,52 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\",
+  "WorkspaceRootPath": "D:\\desarrollo\\ludik\\ludikApi\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{036C2A05-AAA6-40E1-A031-5DC6A390913D}|LogicaAplicacion\\LogicaAplicacion.csproj|c:\\users\\santiago\\documents\\github\\ludik\\ludikapi\\logicaaplicacion\\implementacioncasosusos\\usuarios\\loginprueba.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0C94FCCF-FA64-48E3-8F4D-9142B512EA4D}|PruebasUnitarias\\PruebasUnitarias.csproj|d:\\desarrollo\\ludik\\ludikapi\\pruebasunitarias\\pruebaslogicaaplicacion\\pruebaslogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C94FCCF-FA64-48E3-8F4D-9142B512EA4D}|PruebasUnitarias\\PruebasUnitarias.csproj|solutionrelative:pruebasunitarias\\pruebaslogicaaplicacion\\pruebaslogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{036C2A05-AAA6-40E1-A031-5DC6A390913D}|LogicaAplicacion\\LogicaAplicacion.csproj|d:\\desarrollo\\ludik\\ludikapi\\logicaaplicacion\\implementacioncasosusos\\usuarios\\loginprueba.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{036C2A05-AAA6-40E1-A031-5DC6A390913D}|LogicaAplicacion\\LogicaAplicacion.csproj|solutionrelative:logicaaplicacion\\implementacioncasosusos\\usuarios\\loginprueba.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3C58EDB1-222B-4321-BAD8-7116A1DE99C4}|AccesoDatos\\AccesoDatos.csproj|c:\\users\\santiago\\documents\\github\\ludik\\ludikapi\\accesodatos\\repositoriosef\\repositoriousuariosef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3C58EDB1-222B-4321-BAD8-7116A1DE99C4}|AccesoDatos\\AccesoDatos.csproj|solutionrelative:accesodatos\\repositoriosef\\repositoriousuariosef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5EADFB47-F842-439C-88B5-144B16AC24AA}|LogicaNegocio\\LogicaNegocio.csproj|c:\\users\\santiago\\documents\\github\\ludik\\ludikapi\\logicanegocio\\interfacesrepositorios\\irepositoriousuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5EADFB47-F842-439C-88B5-144B16AC24AA}|LogicaNegocio\\LogicaNegocio.csproj|solutionrelative:logicanegocio\\interfacesrepositorios\\irepositoriousuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ludik/True/SqlTable/dbo.Usuarios.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{78FBF70E-CBB9-4485-B369-EDB6270B5AF8}|PruebasIntegracion\\PruebasIntegracion.csproj|c:\\users\\santiago\\documents\\github\\ludik\\ludikapi\\pruebasintegracion\\pruebaintegracionlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5EADFB47-F842-439C-88B5-144B16AC24AA}|LogicaNegocio\\LogicaNegocio.csproj|d:\\desarrollo\\ludik\\ludikapi\\logicanegocio\\valueobject\\nombrecompleto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5EADFB47-F842-439C-88B5-144B16AC24AA}|LogicaNegocio\\LogicaNegocio.csproj|solutionrelative:logicanegocio\\valueobject\\nombrecompleto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5EADFB47-F842-439C-88B5-144B16AC24AA}|LogicaNegocio\\LogicaNegocio.csproj|d:\\desarrollo\\ludik\\ludikapi\\logicanegocio\\valueobject\\nombreusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5EADFB47-F842-439C-88B5-144B16AC24AA}|LogicaNegocio\\LogicaNegocio.csproj|solutionrelative:logicanegocio\\valueobject\\nombreusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C94FCCF-FA64-48E3-8F4D-9142B512EA4D}|PruebasUnitarias\\PruebasUnitarias.csproj|d:\\desarrollo\\ludik\\ludikapi\\pruebasunitarias\\pruebaslogicadominio\\pruebaslogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C94FCCF-FA64-48E3-8F4D-9142B512EA4D}|PruebasUnitarias\\PruebasUnitarias.csproj|solutionrelative:pruebasunitarias\\pruebaslogicadominio\\pruebaslogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5EADFB47-F842-439C-88B5-144B16AC24AA}|LogicaNegocio\\LogicaNegocio.csproj|d:\\desarrollo\\ludik\\ludikapi\\logicanegocio\\entidades\\profesor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5EADFB47-F842-439C-88B5-144B16AC24AA}|LogicaNegocio\\LogicaNegocio.csproj|solutionrelative:logicanegocio\\entidades\\profesor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5EADFB47-F842-439C-88B5-144B16AC24AA}|LogicaNegocio\\LogicaNegocio.csproj|d:\\desarrollo\\ludik\\ludikapi\\logicanegocio\\interfacesentidades\\iencriptacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5EADFB47-F842-439C-88B5-144B16AC24AA}|LogicaNegocio\\LogicaNegocio.csproj|solutionrelative:logicanegocio\\interfacesentidades\\iencriptacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3C58EDB1-222B-4321-BAD8-7116A1DE99C4}|AccesoDatos\\AccesoDatos.csproj|d:\\desarrollo\\ludik\\ludikapi\\accesodatos\\repositoriosef\\repositoriousuariosef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3C58EDB1-222B-4321-BAD8-7116A1DE99C4}|AccesoDatos\\AccesoDatos.csproj|solutionrelative:accesodatos\\repositoriosef\\repositoriousuariosef.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5EADFB47-F842-439C-88B5-144B16AC24AA}|LogicaNegocio\\LogicaNegocio.csproj|d:\\desarrollo\\ludik\\ludikapi\\logicanegocio\\interfacesrepositorios\\irepositoriousuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5EADFB47-F842-439C-88B5-144B16AC24AA}|LogicaNegocio\\LogicaNegocio.csproj|solutionrelative:logicanegocio\\interfacesrepositorios\\irepositoriousuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78FBF70E-CBB9-4485-B369-EDB6270B5AF8}|PruebasIntegracion\\PruebasIntegracion.csproj|d:\\desarrollo\\ludik\\ludikapi\\pruebasintegracion\\pruebaintegracionlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{78FBF70E-CBB9-4485-B369-EDB6270B5AF8}|PruebasIntegracion\\PruebasIntegracion.csproj|solutionrelative:pruebasintegracion\\pruebaintegracionlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E652CECA-67D3-406A-9CB8-67465B4C94E8}|WebApi\\WebApi.csproj|c:\\users\\santiago\\documents\\github\\ludik\\ludikapi\\webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E652CECA-67D3-406A-9CB8-67465B4C94E8}|WebApi\\WebApi.csproj|d:\\desarrollo\\ludik\\ludikapi\\webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E652CECA-67D3-406A-9CB8-67465B4C94E8}|WebApi\\WebApi.csproj|solutionrelative:webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -46,10 +70,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d84ee353-0bef-5a41-a649-8f89aca5d84d}"
             }
           ]
         },
@@ -59,33 +79,59 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "RepositorioUsuariosEF.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\AccesoDatos\\RepositoriosEF\\RepositorioUsuariosEF.cs",
-              "RelativeDocumentMoniker": "AccesoDatos\\RepositoriosEF\\RepositorioUsuariosEF.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\AccesoDatos\\RepositoriosEF\\RepositorioUsuariosEF.cs",
-              "RelativeToolTip": "AccesoDatos\\RepositoriosEF\\RepositorioUsuariosEF.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAwwCwAAAANAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "NombreCompleto.cs",
+              "DocumentMoniker": "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\ValueObject\\NombreCompleto.cs",
+              "RelativeDocumentMoniker": "LogicaNegocio\\ValueObject\\NombreCompleto.cs",
+              "ToolTip": "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\ValueObject\\NombreCompleto.cs",
+              "RelativeToolTip": "LogicaNegocio\\ValueObject\\NombreCompleto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T14:00:21.768Z",
+              "WhenOpened": "2025-05-19T17:13:23.078Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "NombreUsuario.cs",
+              "DocumentMoniker": "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\ValueObject\\NombreUsuario.cs",
+              "RelativeDocumentMoniker": "LogicaNegocio\\ValueObject\\NombreUsuario.cs",
+              "ToolTip": "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\ValueObject\\NombreUsuario.cs",
+              "RelativeToolTip": "LogicaNegocio\\ValueObject\\NombreUsuario.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T17:13:12.175Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Profesor.cs",
+              "DocumentMoniker": "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\Entidades\\Profesor.cs",
+              "RelativeDocumentMoniker": "LogicaNegocio\\Entidades\\Profesor.cs",
+              "ToolTip": "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\Entidades\\Profesor.cs",
+              "RelativeToolTip": "LogicaNegocio\\Entidades\\Profesor.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T13:29:06.307Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PruebasLogin.cs",
+              "DocumentMoniker": "D:\\desarrollo\\ludik\\ludikApi\\PruebasUnitarias\\PruebasLogicaAplicacion\\PruebasLogin.cs",
+              "RelativeDocumentMoniker": "PruebasUnitarias\\PruebasLogicaAplicacion\\PruebasLogin.cs",
+              "ToolTip": "D:\\desarrollo\\ludik\\ludikApi\\PruebasUnitarias\\PruebasLogicaAplicacion\\PruebasLogin.cs",
+              "RelativeToolTip": "PruebasUnitarias\\PruebasLogicaAplicacion\\PruebasLogin.cs",
+              "ViewState": "AQIAAFoAAAAAAAAAAAAowAkAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T12:59:58.303Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "IRepositorioUsuarios.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\LogicaNegocio\\InterfacesRepositorios\\IRepositorioUsuarios.cs",
-              "RelativeDocumentMoniker": "LogicaNegocio\\InterfacesRepositorios\\IRepositorioUsuarios.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\LogicaNegocio\\InterfacesRepositorios\\IRepositorioUsuarios.cs",
-              "RelativeToolTip": "LogicaNegocio\\InterfacesRepositorios\\IRepositorioUsuarios.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T13:58:37.782Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "dbo.Usuarios [Data]",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ludik/True/SqlTable/dbo.Usuarios.sql",
               "ToolTip": "dbo.Usuarios [Data]",
@@ -95,39 +141,95 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "LoginPrueba.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\LogicaAplicacion\\ImplementacionCasosUsos\\Usuarios\\LoginPrueba.cs",
+              "DocumentMoniker": "D:\\desarrollo\\ludik\\ludikApi\\LogicaAplicacion\\ImplementacionCasosUsos\\Usuarios\\LoginPrueba.cs",
               "RelativeDocumentMoniker": "LogicaAplicacion\\ImplementacionCasosUsos\\Usuarios\\LoginPrueba.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\LogicaAplicacion\\ImplementacionCasosUsos\\Usuarios\\LoginPrueba.cs",
+              "ToolTip": "D:\\desarrollo\\ludik\\ludikApi\\LogicaAplicacion\\ImplementacionCasosUsos\\Usuarios\\LoginPrueba.cs",
               "RelativeToolTip": "LogicaAplicacion\\ImplementacionCasosUsos\\Usuarios\\LoginPrueba.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAvwCgAAAAFAAAAAAAAAA==",
+              "ViewState": "AQIAABAAAAAAAAAAAAAqwCYAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-16T13:49:31.634Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
+              "Title": "IEncriptacion.cs",
+              "DocumentMoniker": "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\InterfacesEntidades\\IEncriptacion.cs",
+              "RelativeDocumentMoniker": "LogicaNegocio\\InterfacesEntidades\\IEncriptacion.cs",
+              "ToolTip": "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\InterfacesEntidades\\IEncriptacion.cs",
+              "RelativeToolTip": "LogicaNegocio\\InterfacesEntidades\\IEncriptacion.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T14:19:38.83Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PruebasLogin.cs",
+              "DocumentMoniker": "D:\\desarrollo\\ludik\\ludikApi\\PruebasUnitarias\\PruebasLogicaDominio\\PruebasLogin.cs",
+              "RelativeDocumentMoniker": "PruebasUnitarias\\PruebasLogicaDominio\\PruebasLogin.cs",
+              "ToolTip": "D:\\desarrollo\\ludik\\ludikApi\\PruebasUnitarias\\PruebasLogicaDominio\\PruebasLogin.cs",
+              "RelativeToolTip": "PruebasUnitarias\\PruebasLogicaDominio\\PruebasLogin.cs",
+              "ViewState": "AQIAAB8AAAAAAAAAAAAQwDEAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T17:24:51.334Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "RepositorioUsuariosEF.cs",
+              "DocumentMoniker": "D:\\desarrollo\\ludik\\ludikApi\\AccesoDatos\\RepositoriosEF\\RepositorioUsuariosEF.cs",
+              "RelativeDocumentMoniker": "AccesoDatos\\RepositoriosEF\\RepositorioUsuariosEF.cs",
+              "ToolTip": "D:\\desarrollo\\ludik\\ludikApi\\AccesoDatos\\RepositoriosEF\\RepositorioUsuariosEF.cs",
+              "RelativeToolTip": "AccesoDatos\\RepositoriosEF\\RepositorioUsuariosEF.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T14:00:21.768Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IRepositorioUsuarios.cs",
+              "DocumentMoniker": "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\InterfacesRepositorios\\IRepositorioUsuarios.cs",
+              "RelativeDocumentMoniker": "LogicaNegocio\\InterfacesRepositorios\\IRepositorioUsuarios.cs",
+              "ToolTip": "D:\\desarrollo\\ludik\\ludikApi\\LogicaNegocio\\InterfacesRepositorios\\IRepositorioUsuarios.cs",
+              "RelativeToolTip": "LogicaNegocio\\InterfacesRepositorios\\IRepositorioUsuarios.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T13:58:37.782Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "PruebaIntegracionLogin.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\PruebasIntegracion\\PruebaIntegracionLogin.cs",
+              "DocumentMoniker": "D:\\desarrollo\\ludik\\ludikApi\\PruebasIntegracion\\PruebaIntegracionLogin.cs",
               "RelativeDocumentMoniker": "PruebasIntegracion\\PruebaIntegracionLogin.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\PruebasIntegracion\\PruebaIntegracionLogin.cs",
+              "ToolTip": "D:\\desarrollo\\ludik\\ludikApi\\PruebasIntegracion\\PruebaIntegracionLogin.cs",
               "RelativeToolTip": "PruebasIntegracion\\PruebaIntegracionLogin.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAACUAAAAAAAAAAAAAAA==",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-16T13:47:07.604Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 11,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\WebApi\\Program.cs",
+              "DocumentMoniker": "D:\\desarrollo\\ludik\\ludikApi\\WebApi\\Program.cs",
               "RelativeDocumentMoniker": "WebApi\\Program.cs",
-              "ToolTip": "C:\\Users\\Santiago\\Documents\\GitHub\\Ludik\\ludikApi\\WebApi\\Program.cs",
+              "ToolTip": "D:\\desarrollo\\ludik\\ludikApi\\WebApi\\Program.cs",
               "RelativeToolTip": "WebApi\\Program.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAAAACEAAAAZAAAAAAAAAA==",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-15T13:31:54.521Z",
               "EditorCaption": ""

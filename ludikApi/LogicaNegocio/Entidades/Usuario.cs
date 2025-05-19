@@ -9,13 +9,13 @@ namespace Dominio
 	{
         public int Id { get; set; }
 
-        public int imagenPerfil;
+        public int ImagenPerfil;
         [Required]
         public NombreCompleto NombreCompleto { get; set; }
         [Required]
         public NombreUsuario NombreUsuario { get; set; }
         [Required]
-        public Contrasenia contrasenia { get; set; }
+        public Contrasenia Contrasenia { get; set; }
         public void EsValido()
         {
             throw new NotImplementedException();

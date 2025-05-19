@@ -1033,3 +1033,6 @@ D:\desarrollo\ludik\ludikApi\PruebasUnitarias\bin\Debug\net8.0\AccesoDatos.pdb
 D:\desarrollo\ludik\ludikApi\PruebasUnitarias\bin\Debug\net8.0\LogicaAplicacion.pdb
 D:\desarrollo\ludik\ludikApi\PruebasUnitarias\obj\Debug\net8.0\MvcTestingAppManifest.json
 C:\Users\Santiago\Documents\GitHub\Ludik\ludikApi\PruebasUnitarias\bin\Debug\net8.0\BCrypt.Net-Next.dll
+D:\desarrollo\ludik\ludikAPI\PruebasUnitarias\bin\Debug\net8.0\BCrypt.Net-Next.dll
+D:\desarrollo\ludik\ludikAPI\PruebasUnitarias\bin\Debug\net8.0\Castle.Core.dll
+D:\desarrollo\ludik\ludikAPI\PruebasUnitarias\bin\Debug\net8.0\Moq.dll

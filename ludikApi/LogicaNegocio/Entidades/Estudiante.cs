@@ -18,8 +18,6 @@ namespace Dominio
 		}
 
 
-		/// <see>vistaCompleta.observer.Observador#actualizar(vistaCompleta.observer.Observable, vistaCompleta.observer.Evento)</see>
-		///  
 		public void actualizar()
 		{
 

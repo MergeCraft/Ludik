@@ -1052,10 +1052,7 @@
           "Microsoft.EntityFrameworkCore.Abstractions": "9.0.4"
         },
         "runtime": {
-          "LogicaNegocio.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "LogicaNegocio.dll": {}
         }
       }
     }
