@@ -2,8 +2,10 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./lib/fontawesome";
 import "./App.css"; // O tu CSS general
-import './lib/fontawesome';
 import Layout from "./components/Layout";
 import Home from "./pages/Home"; // Este tendrá el main y section
 import LoginPage from "./pages/LoginPage";
@@ -23,6 +25,10 @@ function App() {
           </Route>
         </Routes>
       </Router>
+
+      <ToastContainer 
+        hideProgressBar={true} 
+      />
     </Provider>
   );
 }

@@ -4,6 +4,9 @@
   --boton-principal: rgba(4, 110, 155, 1);
   --secundario-boton-princial: #003e59;
   --boton-secundario: rgba(7, 155, 4, 1);
+  --secundario-boton-secundario: #076404;
+  --boton-terciario: #9B0404;
+  --secundario-boton-terciario: #640404;
   --letras-secundario: rgba(73, 192, 248, 1);
   --principal: rgba(19, 31, 36, 1);
   --secundario: rgba(35, 53, 60, 1);
@@ -35,7 +38,8 @@ body {
 
 .button:active {
   box-shadow: 0 0 0 2px var(--secundario-boton-princial);
-  transform: translateY(3px); /* Simula la presión */
+  transform: translateY(3px);
+  /* Simula la presión */
   outline: none;
 }
 
