@@ -36,7 +36,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
 
 
             Profesor profesorNuevo = ProfesorAltaMapper.fromDto(profesorAltaDto);
-            profesorNuevo.contrasenia.Clave = EncriptarContrasenia(profesorNuevo.contrasenia.Clave);
+            profesorNuevo.Contrasenia.Clave = EncriptarContrasenia(profesorNuevo.Contrasenia.Clave);
             _repositorioProfesores.Add(profesorNuevo);
         }
 

@@ -30,7 +30,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
                 throw new Exception("El nombre de usuario ya está en uso.");
 
             Estudiante estudianteNuevo = EstudianteAltaMapper.fromDto(estudianteAltaDto);
-            estudianteNuevo.contrasenia.Clave = EncriptarContrasenia(estudianteNuevo.contrasenia.Clave);
+            estudianteNuevo.Contrasenia.Clave = EncriptarContrasenia(estudianteNuevo.Contrasenia.Clave);
             _repositorioEstudiantes.Add(estudianteNuevo);
         }
 

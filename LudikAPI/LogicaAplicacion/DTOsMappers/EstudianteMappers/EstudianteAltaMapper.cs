@@ -27,7 +27,7 @@ namespace LogicaAplicacion.DTOsMappers.EstudianteMappers
             {
                 NombreUsuario = new NombreUsuario(dto.NombreUsuario),
                 NombreCompleto = new NombreCompleto(dto.Nombre, dto.Apellido),
-                contrasenia = new Contrasenia(dto.Contrasenia)
+                Contrasenia = new Contrasenia(dto.Contrasenia)
             };
         }
     }

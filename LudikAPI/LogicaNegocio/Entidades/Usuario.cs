@@ -22,8 +22,8 @@ namespace Dominio
                 throw new Exception("Nombre completo requerido");
             if (NombreUsuario == null)
                 throw new Exception("Nombre de usuario requerido");
-            if (contrasenia == null)
-                throw new Exception("Contraseña requerida");
+            if (Contrasenia == null)
+                throw new Exception("Contraseï¿½a requerida");
         }
     }
 

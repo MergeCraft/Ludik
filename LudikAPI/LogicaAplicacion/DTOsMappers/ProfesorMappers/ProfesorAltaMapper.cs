@@ -30,7 +30,7 @@ namespace LogicaAplicacion.DTOsMappers.ProfesorMappers
                 correo = new Email(dto.Email),
                 NombreUsuario = new NombreUsuario(dto.NombreUsuario),
                 NombreCompleto = new NombreCompleto(dto.Nombre, dto.Apellido),
-                contrasenia = new Contrasenia(dto.Contrasenia)
+                Contrasenia = new Contrasenia(dto.Contrasenia)
             };
         }
     }
