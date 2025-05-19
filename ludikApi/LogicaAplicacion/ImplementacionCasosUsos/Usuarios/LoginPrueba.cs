@@ -19,6 +19,8 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Usuarios
         {
             _repositorioUsuarios = repo;
         }
+        //PreCondificon : el usuario no se encuentra logueado pero si registrado en la base de datos
+        //PostCondicion : el usuario se loguea en el sistema 
         public UsuarioConRolDto Ejecutar(string nombreUsuario, string psw)
         {
             var usr = _repositorioUsuarios.loginUsuario(nombreUsuario);

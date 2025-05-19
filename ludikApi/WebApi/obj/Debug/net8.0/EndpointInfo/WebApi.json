@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "API de Ludik",
-    "description": "Bit�cora digital de logros de aprendizaje.",
+    "description": "Bitácora digital de logros de aprendizaje.",
     "contact": {
       "email": "renatoriosx@gmail.com"
     },
@@ -30,6 +30,61 @@
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/EstudianteAltaDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/api/Profesor/alta": {
+      "post": {
+        "tags": [
+          "Profesor"
+        ],
+        "summary": "Este endpoint permite registrar un nuevo Profesor en el sistema.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfesorAltaDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfesorAltaDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfesorAltaDto"
               }
             }
           }
@@ -189,6 +244,32 @@
           }
         },
         "additionalProperties": { }
+      },
+      "ProfesorAltaDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "nombreUsuario": {
+            "type": "string",
+            "nullable": true
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "apellido": {
+            "type": "string",
+            "nullable": true
+          },
+          "contrasenia": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       },
       "UsuarioLoginPruebaDto": {
         "type": "object",

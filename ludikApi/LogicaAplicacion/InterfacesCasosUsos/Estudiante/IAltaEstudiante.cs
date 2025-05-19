@@ -7,7 +7,7 @@ using LogicaAplicacion.DTOs.UsuarioDTOs;
 
 namespace LogicaAplicacion.InterfacesCasosUsos.Estudiante
 {
-    public interface IAlta
+    public interface IAltaEstudiante
     {
         void Ejecutar(EstudianteAltaDto estudianteAltaDto);
     }

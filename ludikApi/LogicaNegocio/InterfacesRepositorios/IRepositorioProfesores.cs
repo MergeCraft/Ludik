@@ -6,7 +6,9 @@ namespace InterfacesRepositorio
 {
 	public interface IRepositorioProfesores : IRepositorio<Profesor>
 	{
-	}
+        bool ExisteNombreUsuario(string nombreUsuario);
+        bool ExisiteMailProfesor(string emailUsuario);
+    }
 
 }
 

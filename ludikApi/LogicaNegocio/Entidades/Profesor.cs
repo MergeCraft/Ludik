@@ -9,15 +9,15 @@ namespace Dominio
 	public class Profesor : Usuario
 	{
         [Required]
-        public Email correo;
+        public Email correo { get; set; }
 
-        public List<Medalla> medallas;
+        public List<Medalla> medallas { get; set; }
 
-        public List<TablaEquivalencia> tablasEquivalencia;
+        public List<TablaEquivalencia> tablasEquivalencia { get; set; }
 
-        public List<Grupo> grupos;
+        public List<Grupo> grupos { get; set; }
 
-		public void asignarMedalla(Medalla medalla, Grupo grupo, PerfilEstudiante pEstudiante)
+        public void asignarMedalla(Medalla medalla, Grupo grupo, PerfilEstudiante pEstudiante)
 		{
 
 		}

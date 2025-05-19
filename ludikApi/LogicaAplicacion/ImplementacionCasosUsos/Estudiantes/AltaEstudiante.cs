@@ -12,7 +12,7 @@ using LogicaNegocio.InterfacesEntidades;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
 {
-    public class AltaEstudiante : IAlta,IEncriptacion
+    public class AltaEstudiante : IAltaEstudiante,IEncriptacion
     {
         private readonly IRepositorioEstudiantes _repositorioEstudiantes;
         public AltaEstudiante(IRepositorioEstudiantes repo)

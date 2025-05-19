@@ -113,9 +113,14 @@ namespace AccesoDatos.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int?>("ProfesorId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Nombre");
+
+                    b.HasIndex("ProfesorId");
 
                     b.ToTable("Medallas");
                 });
@@ -266,9 +271,14 @@ namespace AccesoDatos.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int?>("ProfesorId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Nombre");
+
+                    b.HasIndex("ProfesorId");
 
                     b.ToTable("TablasEquivalencia");
                 });
@@ -347,6 +357,29 @@ namespace AccesoDatos.Migrations
                     b.HasDiscriminator().HasValue("Profesor");
                 });
 
+            modelBuilder.Entity("Dominio.Grupo", b =>
+                {
+                    b.HasOne("Dominio.Profesor", null)
+                        .WithMany("grupos")
+                        .HasForeignKey("ProfesorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Dominio.Medalla", b =>
+                {
+                    b.HasOne("Dominio.Profesor", null)
+                        .WithMany("medallas")
+                        .HasForeignKey("ProfesorId");
+                });
+
+            modelBuilder.Entity("Dominio.TablaEquivalencia", b =>
+                {
+                    b.HasOne("Dominio.Profesor", null)
+                        .WithMany("tablasEquivalencia")
+                        .HasForeignKey("ProfesorId");
+                });
+
             modelBuilder.Entity("Dominio.Usuario", b =>
                 {
                     b.OwnsOne("LogicaNegocio.ValueObjects.NombreUsuario", "NombreUsuario", b1 =>
@@ -401,15 +434,15 @@ namespace AccesoDatos.Migrations
                             b1.Property<int>("ProfesorId")
                                 .HasColumnType("int");
 
-                            b1.Property<string>("Correro")
+                            b1.Property<string>("Correo")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(450)");
 
                             b1.HasKey("ProfesorId");
 
-                            b1.HasIndex("Correro")
+                            b1.HasIndex("Correo")
                                 .IsUnique()
-                                .HasFilter("[correo_Correro] IS NOT NULL");
+                                .HasFilter("[correo_Correo] IS NOT NULL");
 
                             b1.ToTable("Usuarios");
 
@@ -419,6 +452,15 @@ namespace AccesoDatos.Migrations
 
                     b.Navigation("correo")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Dominio.Profesor", b =>
+                {
+                    b.Navigation("grupos");
+
+                    b.Navigation("medallas");
+
+                    b.Navigation("tablasEquivalencia");
                 });
 #pragma warning restore 612, 618
         }

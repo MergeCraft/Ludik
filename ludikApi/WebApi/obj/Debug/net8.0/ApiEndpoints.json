@@ -36,6 +36,42 @@
     ]
   },
   {
+    "ContainingType": "WebApi.Controllers.ProfesorController",
+    "Method": "AltaProfesor",
+    "RelativePath": "api/Profesor/alta",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ProfesorDto",
+        "Type": "LogicaAplicacion.DTOs.ProfesorDTOs.ProfesorAltaDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 201
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
     "ContainingType": "WebApi.Controllers.UsuarioController",
     "Method": "Login",
     "RelativePath": "api/Usuario/login",

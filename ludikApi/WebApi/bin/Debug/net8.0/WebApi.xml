@@ -14,5 +14,15 @@
             500 Internal Server Error: Si ocurre un error inesperado durante el procesamiento.
             </returns>
         </member>
+        <member name="M:WebApi.Controllers.ProfesorController.AltaProfesor(LogicaAplicacion.DTOs.ProfesorDTOs.ProfesorAltaDto)">
+            <summary>
+            Este endpoint permite registrar un nuevo Profesor en el sistema.
+            </summary>
+            <returns>
+            201 Created: Si el estudiante fue registrado correctamente.
+            400 Bad Request: Si los datos enviados son inválidos o faltan.
+            500 Internal Server Error: Si ocurre un error inesperado durante el procesamiento.
+            </returns>
+        </member>
     </members>
 </doc>

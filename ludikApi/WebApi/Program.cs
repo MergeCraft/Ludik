@@ -2,8 +2,10 @@ using System.Text;
 using AccesoDatos.RepositoriosEF;
 using InterfacesRepositorio;
 using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;
+using LogicaAplicacion.ImplementacionCasosUsos.Profesores;
 using LogicaAplicacion.ImplementacionCasosUsos.Usuarios;
 using LogicaAplicacion.InterfacesCasosUsos.Estudiante;
+using LogicaAplicacion.InterfacesCasosUsos.Profesor;
 using LogicaAplicacion.InterfacesCasosUsos.Usuario;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -32,8 +34,12 @@ builder.Services.AddSwaggerGen(opciones =>
 // Inyectar repositorios y casos de uso
 builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
 builder.Services.AddScoped<IRepositorioEstudiantes, RepositorioEstudiantesEF>();
+builder.Services.AddScoped<IRepositorioProfesores, RepositorioProfesoresEF>();
+
 builder.Services.AddScoped<ILogin, LoginPrueba>();
-builder.Services.AddScoped<IAlta, AltaEstudiante>();
+builder.Services.AddScoped<IAltaEstudiante, AltaEstudiante>();
+builder.Services.AddScoped<IAltaProfesor, AltaProfesor>();
+
 
 // Configurar autenticación JWT
 var claveDificil = "UnaContraseniaSeguraEsLargaTiene:0123,caracteresEspeciales;*#seguridad";

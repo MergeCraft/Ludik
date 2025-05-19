@@ -10,9 +10,9 @@ namespace WebApi.Controllers
     [ApiController]
     public class EstudianteController : ControllerBase
     {
-        private readonly IAlta _altaEstudiante;
+        private readonly IAltaEstudiante _altaEstudiante;
 
-        public EstudianteController(IAlta altaEstudiante)
+        public EstudianteController(IAltaEstudiante altaEstudiante)
         {
             _altaEstudiante = altaEstudiante;
         }
