@@ -18,7 +18,12 @@ namespace Dominio
         public Contrasenia contrasenia { get; set; }
         public void EsValido()
         {
-            throw new NotImplementedException();
+            if (NombreCompleto == null)
+                throw new Exception("Nombre completo requerido");
+            if (NombreUsuario == null)
+                throw new Exception("Nombre de usuario requerido");
+            if (contrasenia == null)
+                throw new Exception("Contraseña requerida");
         }
     }
 

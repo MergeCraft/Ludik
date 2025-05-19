@@ -14,10 +14,21 @@ namespace LogicaNegocio.ValueObjects
 
         public Contrasenia(string clave)
         {
+            if (!EsContraseniaValida(clave))
+                throw new ValidationException("La contraseña no cumple con los requisitos de seguridad");
+
             Clave = clave;
-           
         }
-        
+
+        private bool EsContraseniaValida(string clave)
+        {
+            return clave.Length >= 8 &&
+                   clave.Any(char.IsUpper) &&
+                   clave.Any(char.IsLower) &&
+                   clave.Any(char.IsDigit) &&
+                   clave.Any(c => !char.IsLetterOrDigit(c));
+        }
+
 
     }
 

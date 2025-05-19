@@ -14,6 +14,7 @@
         "tags": [
           "Estudiante"
         ],
+        "summary": "Este endpoint permite registrar un nuevo estudiante en el sistema.",
         "requestBody": {
           "content": {
             "application/json": {

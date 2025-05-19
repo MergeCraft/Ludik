@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
 using LogicaNegocio.Excepciones;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
 {
@@ -33,7 +34,11 @@ namespace AccesoDatos.RepositoriosEF
                 throw new UsuarioNoValidoExeption("El Usuario no es valido.");
             }
         }
-
+        public bool ExisteNombreUsuario(string nombreUsuario)
+        {
+            return _db.Usuarios
+                .Any(u => u.NombreUsuario.Nombre == nombreUsuario);
+        }
         public void asignarMedalla(int idAlumno, int idMedalla)
         {
             throw new NotImplementedException();

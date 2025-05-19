@@ -55,7 +55,7 @@ namespace AccesoDatos.RepositoriosEF
             {
                 entity.OwnsOne(p => p.correo, correo =>
                 {
-                    correo.HasIndex(c => c.Correro).IsUnique();
+                    correo.HasIndex(c => c.Correo).IsUnique();
                 });
 
                 entity.OwnsOne(p => p.NombreUsuario, nombreUsuario =>

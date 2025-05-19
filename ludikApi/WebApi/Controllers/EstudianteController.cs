@@ -17,6 +17,15 @@ namespace WebApi.Controllers
             _altaEstudiante = altaEstudiante;
         }
 
+        /// <summary>
+        /// Este endpoint permite registrar un nuevo estudiante en el sistema.
+        /// </summary>
+        /// <returns>
+        /// 201 Created: Si el estudiante fue registrado correctamente.
+        /// 400 Bad Request: Si los datos enviados son inválidos o faltan.
+        /// 500 Internal Server Error: Si ocurre un error inesperado durante el procesamiento.
+        /// </returns>
+
         [HttpPost("alta")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

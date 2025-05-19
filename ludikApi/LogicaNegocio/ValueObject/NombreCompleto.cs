@@ -17,11 +17,23 @@ namespace LogicaNegocio.ValueObjects
 
         public NombreCompleto(string nombre, string apellido)
         {
+            if (!EsNombreValido(nombre))
+                throw new ValidationException("Nombre inválido");
+            if (!EsNombreValido(apellido))
+                throw new ValidationException("Apellido inválido");
+
             Nombre = nombre;
             Apellido = apellido;
         }
 
-        
+        private bool EsNombreValido(string valor)
+        {
+            return !string.IsNullOrWhiteSpace(valor) &&
+                   valor.Length >= 3 && valor.Length <= 20 &&
+                   valor.All(c => char.IsLetter(c) || c == ' ');
+        }
+
+
 
     }
 
