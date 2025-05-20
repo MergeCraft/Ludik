@@ -19,8 +19,8 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
         {
             _repositorioEstudiantes = repo;
         }
-        //PreCondificon : el usuario no se encuentra registrado en la base de datos
-        //PostCondicion : el usuario se encuentra registrado en la base de datos
+        //Pre: el usuario no se encuentra registrado en la base de datos
+        //Pos: el usuario se encuentra registrado en la base de datos
         public void Ejecutar(EstudianteAltaDto estudianteAltaDto)
         {
             if (estudianteAltaDto == null)

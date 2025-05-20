@@ -16,7 +16,7 @@ namespace LogicaNegocio.ValueObjects
         public NombreUsuario(string nombre)
         {
             if (string.IsNullOrWhiteSpace(nombre) || nombre.Length < 3 || nombre.Length > 20)
-                throw new ValidationException("Nombre de usuario inválido debe tener entre 3-20 caracteres");
+                throw new ValidationException("Nombre de usuario invï¿½lido debe tener entre 3-20 caracteres");
 
             Nombre = nombre;
         }
