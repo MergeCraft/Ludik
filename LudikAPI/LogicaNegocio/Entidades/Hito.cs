@@ -5,11 +5,11 @@ namespace Dominio
 {
 	public class Hito : IEntity, IValidable
     {
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Id { get; set; }
 
-        public int cantMedallasRequeridas;
+        public int cantMedallasRequeridas { get; set; }
 
-        public Recompensa recompensa;
+        public Recompensa recompensa { get; set; }
 
         public bool cumple(int cantMedallasPerfiles)
 		{

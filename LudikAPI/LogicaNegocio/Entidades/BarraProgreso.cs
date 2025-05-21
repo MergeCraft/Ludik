@@ -6,13 +6,13 @@ namespace Dominio
 {
 	public class BarraProgreso : IEntity, IValidable
     {
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Id { get; set; }
 
-        public int valorMin;
+        public int valorMin { get; set; }
 
-        public int valorMax;
+        public int valorMax { get; set; }
 
-        public TablaEquivalencia tablaEquivalencia;
+        public TablaEquivalencia tablaEquivalencia { get; set; }
 
         public void EsValido()
         {

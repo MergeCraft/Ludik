@@ -7,9 +7,9 @@ namespace Dominio
 {
 	public class Tienda : IEntity, IValidable
     {
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Id { get; set; }
 
-        public List<Recompensa> Recompesas;
+        public List<Recompensa> Recompesas { get; set; }
 
         [ForeignKey(nameof(Grupo))]
         public int GrupoId { get; set; } // Clave foránea

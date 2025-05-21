@@ -5,20 +5,40 @@ using System.Text;
 using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
+using LogicaNegocio.Excepciones;
 
 namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioGruposEF : IRepositorioGrupos
 
     {
+        private readonly Context _db;
+        public RepositorioGruposEF()
+        {
+            _db = new Context();
+        }
         public void aceptarSolicitud(SolicitudUnion idSolicitud)
         {
             throw new NotImplementedException();
         }
 
-        public void Add(Grupo unObjeto)
+        public void Add(Grupo unGrupo)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (unGrupo == null)
+                {
+                    throw new GrupoNoValidoExeption();
+                }
+
+                unGrupo.EsValido();
+                _db.Grupos.Add(unGrupo);
+                _db.SaveChanges();
+            }
+            catch (GrupoNoValidoExeption ex)
+            {
+                throw new GrupoNoValidoExeption("El Usuario no es valido.");
+            }
         }
 
         public int calcularNotaEstudiante(int idAlumno, int idGrupo)
