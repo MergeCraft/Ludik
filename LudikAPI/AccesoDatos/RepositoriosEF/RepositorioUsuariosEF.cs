@@ -22,16 +22,16 @@ namespace AccesoDatos.RepositoriosEF
             {
                 if (usuarioNuevo == null)
                 {
-                    throw new UsuarioNoValidoExeption();
+                    throw new UsuarioNoValidoException();
                 }
 
                 usuarioNuevo.EsValido();
                 _db.Usuarios.Add(usuarioNuevo);
                 _db.SaveChanges();
             }
-            catch (UsuarioNoValidoExeption ex)
+            catch (UsuarioNoValidoException ex)
             {
-                throw new UsuarioNoValidoExeption("El Usuario no es valido.");
+                throw new UsuarioNoValidoException("El Usuario no es valido.");
             }
         }
 
@@ -50,10 +50,10 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var usr = _db.Usuarios
-            .SingleOrDefault(u =>(u.NombreUsuario.Nombre == identificador));
+            .SingleOrDefault(u =>(u.NombreUsuario.Valor == identificador));
             return usr;
             }
-            catch (UsuarioNoValidoExeption ex)
+            catch (UsuarioNoValidoException ex)
             {
                 throw ex;
             }

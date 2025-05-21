@@ -5,14 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
+using LogicaNegocio.Excepciones;
 
 namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioMedallasEF : IRepositorioMedallas
     {
-        public void Add(Medalla unObjeto)
+        private readonly Context _db;
+        public RepositorioMedallasEF()
         {
-            throw new NotImplementedException();
+            _db = new Context();
+        }
+        public void Add(Medalla unaMedalla)
+        {
+            try
+            {
+                unaMedalla.EsValido();
+                _db.Medallas.Add(unaMedalla);
+                _db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new MedallaNoValidaException(e.Message);
+            }
         }
 
         public IEnumerable<Medalla> GetAll()
@@ -25,10 +40,11 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public List<Medalla> obtenerMedallasAsignablesMutuamente(int idGrupo)
+        public List<Medalla> ObtenerMedallasAsignablesMutuamente(int idGrupo)
         {
             throw new NotImplementedException();
         }
+
 
         public void Remove(int id)
         {

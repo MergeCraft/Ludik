@@ -23,21 +23,21 @@ namespace AccesoDatos.RepositoriosEF
             {
                 if (estudianteNuevo == null)
                 {
-                    throw new UsuarioNoValidoExeption();
+                    throw new UsuarioNoValidoException();
                 }
               
                 _db.Usuarios.Add(estudianteNuevo);
                 _db.SaveChanges();
             }
-            catch (UsuarioNoValidoExeption ex)
+            catch (UsuarioNoValidoException ex)
             {
-                throw new UsuarioNoValidoExeption("El Usuario no es valido.");
+                throw new UsuarioNoValidoException("El Usuario no es valido.");
             }
         }
         public bool ExisteNombreUsuario(string nombreUsuario)
         {
             return _db.Usuarios
-                .Any(u => u.NombreUsuario.Nombre == nombreUsuario);
+                .Any(u => u.NombreUsuario.Valor == nombreUsuario);
         }
         public void asignarMedalla(int idAlumno, int idMedalla)
         {

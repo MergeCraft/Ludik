@@ -10,14 +10,14 @@ namespace LogicaNegocio.ValueObjects
         [Required]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$",
        ErrorMessage = "La contrase�a debe tener al menos 8 caracteres, incluyendo una may�scula, una min�scula, un n�mero y un car�cter especial.")]
-        public string Clave { get; set; }
+        public string Valor { get; set; }
 
         public Contrasenia(string clave)
         {
             if (!EsContraseniaValida(clave))
                 throw new ValidationException("La contraseña no cumple con los requisitos de seguridad");
 
-            Clave = clave;
+            Valor = clave;
         }
 
         private bool EsContraseniaValida(string clave)

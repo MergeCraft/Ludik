@@ -23,15 +23,15 @@ namespace AccesoDatos.RepositoriosEF
             {
                 if (profesorNuevo == null)
                 {
-                    throw new UsuarioNoValidoExeption();
+                    throw new UsuarioNoValidoException();
                 }
 
                 _db.Usuarios.Add(profesorNuevo);
                 _db.SaveChanges();
             }
-            catch (UsuarioNoValidoExeption ex)
+            catch (UsuarioNoValidoException ex)
             {
-                throw new UsuarioNoValidoExeption("El Usuario no es valido.");
+                throw new UsuarioNoValidoException("El Usuario no es valido.");
             }
         }
 
@@ -39,7 +39,7 @@ namespace AccesoDatos.RepositoriosEF
         {
             return _db.Usuarios
                 .OfType<Profesor>() // Filtra solo objetos que son Profesor
-                .Any(p => p.correo.Correo == emailUsuario); // Compara el valor dentro del ValueObject
+                .Any(p => p.email.Valor == emailUsuario); // Compara el valor dentro del ValueObject
         }
 
        
@@ -47,7 +47,7 @@ namespace AccesoDatos.RepositoriosEF
         public bool ExisteNombreUsuario(string nombreUsuario)
         {
             return _db.Usuarios
-                .Any(u => u.NombreUsuario.Nombre == nombreUsuario);
+                .Any(u => u.NombreUsuario.Valor == nombreUsuario);
         }
 
         public IEnumerable<Profesor> GetAll()

@@ -110,12 +110,12 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
 
             Assert.NotNull(capturado);
             // La contraseña debe estar hasheada (no es igual al texto plano)
-            Assert.NotEqual("Secret#123", capturado.Contrasenia.Clave);
-            Assert.True(BCrypt.Net.BCrypt.Verify("Secret#123", capturado.Contrasenia.Clave));
+            Assert.NotEqual("Secret#123", capturado.Contrasenia.Valor);
+            Assert.True(BCrypt.Net.BCrypt.Verify("Secret#123", capturado.Contrasenia.Valor));
 
             // Verificar mapeo de email y usuario
-            Assert.Equal("ana@ejemplo.com", capturado.correo.Correo);
-            Assert.Equal("anaProf", capturado.NombreUsuario.Nombre);
+            Assert.Equal("ana@ejemplo.com", capturado.email.Valor);
+            Assert.Equal("anaProf", capturado.NombreUsuario.Valor);
 
             // (Opcional) si tu mapper también inicializa NombreCompleto:
             // Assert.Equal("Ana", capturado.NombreCompleto.Nombre);

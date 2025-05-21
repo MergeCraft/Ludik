@@ -11,7 +11,7 @@ namespace LogicaNegocio.ValueObjects
         [EmailAddress(ErrorMessage = "El formato del correo no es v�lido.")]
         [RegularExpression(@"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
        ErrorMessage = "El correo contiene caracteres no permitidos o formato inv�lido.")]
-        public string Correo { get; private set; }
+        public string Valor { get; private set; }
 
         // Constructor sin parámetros requerido por EF
         private Email() { }
@@ -21,7 +21,7 @@ namespace LogicaNegocio.ValueObjects
             if (!EsValido(correo))
                 throw new ValidationException("El correo no cumple con los requisitos de seguridad.");
 
-            Correo = correo;
+            Valor = correo;
         }
 
         public static bool EsValido(string correo)

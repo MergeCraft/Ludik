@@ -53,20 +53,20 @@ namespace AccesoDatos.RepositoriosEF
 
             modelBuilder.Entity<Profesor>(entity =>
             {
-                entity.OwnsOne(p => p.correo, correo =>
+                entity.OwnsOne(p => p.email, correo =>
                 {
-                    correo.HasIndex(c => c.Correo).IsUnique();
+                    correo.HasIndex(c => c.Valor).IsUnique();
                 });
 
                 entity.OwnsOne(p => p.NombreUsuario, nombreUsuario =>
                 {
-                    nombreUsuario.HasIndex(nu => nu.Nombre).IsUnique();
+                    nombreUsuario.HasIndex(nu => nu.Valor).IsUnique();
                 });
             });
 
             modelBuilder.Entity<Estudiante>()
                 .OwnsOne(e => e.NombreUsuario)
-                .HasIndex(e => e.Nombre)
+                .HasIndex(e => e.Valor)
                 .IsUnique();
 
             modelBuilder.Entity<Grupo>()
