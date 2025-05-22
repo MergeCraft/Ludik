@@ -12,7 +12,6 @@ namespace AccesoDatos.RepositoriosEF
     public class Context : DbContext
     {
         //Aqui se definen las tablas de la base de datos
-        public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Profesor> Profesores { get; set; }
         public DbSet<Estudiante> Estudiantes { get; set; }
         public DbSet<Recompensa> Recompensas { get; set; }
@@ -47,19 +46,72 @@ namespace AccesoDatos.RepositoriosEF
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Usuario>().UseTpcMappingStrategy();
 
+            modelBuilder.Entity<Estudiante>().ToTable("Estudiantes");
+            modelBuilder.Entity<Profesor>().ToTable("Profesores");
+
+            //Configurar Owned types de Usuario en Profesor
             modelBuilder.Entity<Profesor>(entity =>
             {
-                entity.OwnsOne(p => p.email, correo =>
+                // Owned NombreCompleto (propio de Usuario)
+                entity.OwnsOne(p => p.NombreCompleto, nc =>
                 {
-                    correo.HasIndex(c => c.Valor).IsUnique();
+                    nc.Property(x => x.Nombre).HasColumnName("Nombre");
+                    nc.Property(x => x.Apellido).HasColumnName("Apellido");
                 });
 
-                entity.OwnsOne(p => p.NombreUsuario, nombreUsuario =>
+                // Owned NombreUsuario (propio de Usuario)
+                entity.OwnsOne(p => p.NombreUsuario, nu =>
                 {
-                    nombreUsuario.HasIndex(nu => nu.Valor).IsUnique();
+                    nu.Property(x => x.Valor).HasColumnName("NombreUsuario")
+                                              .IsRequired();
+                    nu.HasIndex(x => x.Valor).IsUnique();
+                });
+
+                // Owned Contrasenia (propio de Usuario)
+                entity.OwnsOne(p => p.Contrasenia, c =>
+                {
+                    c.Property(x => x.Valor).HasColumnName("Contrasenia")
+                                             .IsRequired();
+                });
+
+                // Owned Email (propio de Profesor)
+                entity.OwnsOne(p => p.email, correo =>
+                {
+                    correo.Property(x => x.Valor).HasColumnName("Email")
+                                                 .IsRequired();
+                    correo.HasIndex(x => x.Valor).IsUnique();
                 });
             });
+
+            //Configura Owned types de Usuario en Estudiante
+            modelBuilder.Entity<Estudiante>(entity =>
+            {
+                // Owned NombreCompleto
+                entity.OwnsOne(e => e.NombreCompleto, nc =>
+                {
+                    nc.Property(x => x.Nombre).HasColumnName("Nombre");
+                    nc.Property(x => x.Apellido).HasColumnName("Apellido");
+                });
+
+                // Owned NombreUsuario
+                entity.OwnsOne(e => e.NombreUsuario, nu =>
+                {
+                    nu.Property(x => x.Valor).HasColumnName("NombreUsuario")
+                                              .IsRequired();
+                    nu.HasIndex(x => x.Valor).IsUnique();
+                });
+
+                // Owned Contrasenia
+                entity.OwnsOne(e => e.Contrasenia, c =>
+                {
+                    c.Property(x => x.Valor).HasColumnName("Contrasenia")
+                                             .IsRequired();
+                });
+
+            });
+
 
             modelBuilder.Entity<Estudiante>()
                 .OwnsOne(e => e.NombreUsuario)

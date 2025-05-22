@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 
 namespace LogicaNegocio.ValueObjects
 {
-    [ComplexType]
     public record Email
     {
         [Required]

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LogicaNegocio.ValueObject
 {
-    [Owned]
+
     public record RangoFechas
     {
         public DateTime fechaInicio { get; set; }

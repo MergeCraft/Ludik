@@ -26,7 +26,7 @@ namespace AccesoDatos.RepositoriosEF
                     throw new UsuarioNoValidoException();
                 }
 
-                _db.Usuarios.Add(profesorNuevo);
+                _db.Profesores.Add(profesorNuevo);
                 _db.SaveChanges();
             }
             catch (UsuarioNoValidoException ex)
@@ -35,18 +35,19 @@ namespace AccesoDatos.RepositoriosEF
             }
         }
 
+        //TODO: hacer que existe nombre usuario busque en las tablas de estudiantes y profesores
         public bool ExisiteMailProfesor(string emailUsuario)
         {
-            return _db.Usuarios
+            return _db.Profesores
                 .OfType<Profesor>() // Filtra solo objetos que son Profesor
                 .Any(p => p.email.Valor == emailUsuario); // Compara el valor dentro del ValueObject
         }
 
-       
 
+        //TODO: hacer que existe nombre usuario busque en las tablas de estudiantes y profesores
         public bool ExisteNombreUsuario(string nombreUsuario)
         {
-            return _db.Usuarios
+            return _db.Profesores
                 .Any(u => u.NombreUsuario.Valor == nombreUsuario);
         }
 

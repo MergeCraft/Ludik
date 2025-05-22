@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LogicaNegocio.ValueObjects
 {
-    [Owned]
+
     public record NombreUsuario
     {
         [Required]
