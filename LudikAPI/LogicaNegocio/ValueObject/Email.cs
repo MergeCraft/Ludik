@@ -13,15 +13,15 @@ namespace LogicaNegocio.ValueObjects
        ErrorMessage = "El correo contiene caracteres no permitidos o formato inv�lido.")]
         public string Valor { get; private set; }
 
-        // Constructor sin parámetros requerido por EF
+
         private Email() { }
 
-        public Email(string correo)
+        public Email(string Valor)
         {
-            if (!EsValido(correo))
+            if (!EsValido(Valor))
                 throw new ValidationException("El correo no cumple con los requisitos de seguridad.");
 
-            Valor = correo;
+            this.Valor = Valor;
         }
 
         public static bool EsValido(string correo)

@@ -77,6 +77,11 @@ namespace WebApi.Controllers
             {
                 return BadRequest(new { Error = mException.Message });
             }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new { Error = "Ocurrió un error. " + e.Message });
+            }
         }
 
         // PUT api/<MedallaController>/5

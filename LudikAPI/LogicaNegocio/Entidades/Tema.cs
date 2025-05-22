@@ -5,9 +5,9 @@ namespace Dominio
 {
 	public class Tema : Recompensa
 	{
-        public String codigoHexadecimal;
+        public String codigoHexadecimal { get; set; }
 
-	}
+    }
 
 }
 

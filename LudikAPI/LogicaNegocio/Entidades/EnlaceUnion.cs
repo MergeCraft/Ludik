@@ -5,11 +5,11 @@ namespace Dominio
 {
 	public class EnlaceUnion : IEntity, IValidable
     {
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Id { get; set; }
 
-        public String codigoBase;
+        public String codigoBase { get; set; }
 
-        public DateTime expiracion;
+        public DateTime expiracion { get; set; }
 
         public void EsValido()
         {

@@ -9,16 +9,16 @@ namespace Dominio
 {
 	public class RendimientoPeriodo : IEntity, IValidable
     {
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Id { get; set; }
 
-        public RangoFechas rangofecha;
+        public RangoFechas rangofecha { get; set; }
 
-        public String notaObtenida;
+        public String notaObtenida { get; set; }
 
-        public List<Medalla> medallasObtuvoEstudiante;
+        public List<Medalla> medallasObtuvoEstudiante { get; set; }
 
         [ForeignKey(nameof(PerfilEstudiante))]
-        public int perfilEstudianteId { get; set; } // Clave foránea
+        public int perfilEstudianteId { get; set; } // Clave forï¿½nea
 
 
         public void EsValido()

@@ -12,12 +12,12 @@ namespace LogicaNegocio.ValueObjects
        ErrorMessage = "La contrase�a debe tener al menos 8 caracteres, incluyendo una may�scula, una min�scula, un n�mero y un car�cter especial.")]
         public string Valor { get; set; }
 
-        public Contrasenia(string clave)
+        public Contrasenia(string Valor)
         {
-            if (!EsContraseniaValida(clave))
+            if (!EsContraseniaValida(Valor))
                 throw new ValidationException("La contraseña no cumple con los requisitos de seguridad");
 
-            Valor = clave;
+            this.Valor = Valor;
         }
 
         private bool EsContraseniaValida(string clave)

@@ -13,12 +13,12 @@ namespace LogicaNegocio.ValueObjects
         public string Valor { get; set; }
 
         private NombreUsuario() { }
-        public NombreUsuario(string nombre)
+        public NombreUsuario(string Valor)
         {
-            if (string.IsNullOrWhiteSpace(nombre) || nombre.Length < 3 || nombre.Length > 20)
-                throw new ValidationException("Nombre de usuario inv�lido debe tener entre 3-20 caracteres");
+            if (string.IsNullOrWhiteSpace(Valor) || Valor.Length < 3 || Valor.Length > 20)
+                throw new ValidationException("Nombre de usuario invalido debe tener entre 3-20 caracteres");
 
-            Valor = nombre;
+            this.Valor = Valor;
         }
 
     }

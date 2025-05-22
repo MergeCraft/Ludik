@@ -8,12 +8,12 @@ namespace Dominio
 {
 	public class TablaEquivalencia : IEntity, IValidable
     {
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Id { get; set; }
         [Required]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "El nombre de la Tabla debe tener entre 3 y 50 caracteres.")]
-        public String Nombre;
+        public String Nombre { get; set; }
 
-        public List<Equivalencia> equivalencias;
+        public List<Equivalencia> equivalencias { get; set; }
         public int maxCalificacionSegun(List<Medalla> medallas)
 		{
 			return 0;

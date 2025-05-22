@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
 using LogicaNegocio.Excepciones;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
 {
@@ -23,6 +24,12 @@ namespace AccesoDatos.RepositoriosEF
                 unaMedalla.EsValido();
                 _db.Medallas.Add(unaMedalla);
                 _db.SaveChanges();
+            }
+            catch (DbUpdateException dbEx)
+            {
+                // Si tiene InnerException, muestra el detalle en la respuesta HTTP
+                var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
+                throw new MedallaNoValidaException($"Error al guardar en la BD: {detalle}");
             }
             catch (Exception e)
             {

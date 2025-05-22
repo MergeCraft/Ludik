@@ -43,9 +43,6 @@ namespace AccesoDatos.RepositoriosEF
         }
 
 
-        //Configurar las entidades de la base de datos 
-        //me gustaria agregar al nombreUsuario que sea unico con Data Annotations (en la entidad)eso se puede ?
-        //En C# y Entity Framework, la unicidad no se puede garantizar directamente con Data Annotations, pero sí puedes hacerlo formas complementarias->
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
