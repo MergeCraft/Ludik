@@ -64,41 +64,75 @@ namespace AccesoDatos.RepositoriosEF
                 });
             });
 
+            // Estudiante - NombreUsuario único
             modelBuilder.Entity<Estudiante>()
                 .OwnsOne(e => e.NombreUsuario)
                 .HasIndex(e => e.Nombre)
                 .IsUnique();
 
+            // Grupo - Índices
             modelBuilder.Entity<Grupo>()
-                .HasIndex(g => g.nombre);
-
-            // Índice no único para listar rápidamente todos los grupos de un profesor
+                .HasIndex(g => g.Nombre);
             modelBuilder.Entity<Grupo>()
                 .HasIndex(g => g.ProfesorId)
                 .HasDatabaseName("IX_Grupo_ProfesorId");
 
-            // (Opcional) Índice único compuesto para evitar que un mismo estudiante se una dos veces
+            // PerfilEstudiante - clave compuesta única
             modelBuilder.Entity<PerfilEstudiante>()
                 .HasIndex(pe => new { pe.GrupoId, pe.EstudianteId })
                 .IsUnique()
                 .HasDatabaseName("UX_PerfilEstudiante_GrupoId_EstudianteId");
 
-            modelBuilder.Entity<TablaEquivalencia>(te =>
-            {
-                te.HasIndex(x => x.Nombre);
-            });
-            modelBuilder.Entity<TablaClasificacion>(te =>
-            {
-                te.HasIndex(x => x.Nombre);
-            });
-            modelBuilder.Entity<Medalla>(m =>
-            {
-                m.HasIndex(x => x.Nombre);
-            });
-            modelBuilder.Entity<Recompensa>(r =>
-            {
-                r.HasIndex(x => x.Nombre);
-            });
+            // SolicitudUnion
+            modelBuilder.Entity<SolicitudUnion>()
+                .HasOne(s => s.Estudiante)
+                .WithMany()
+                .HasForeignKey(s => s.EstudianteId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SolicitudUnion>()
+                .HasOne(s => s.Grupo)
+                .WithMany(g => g.Solicitudes)
+                .HasForeignKey(s => s.GrupoId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Grupo -> TablaEquivalencia
+            modelBuilder.Entity<Grupo>()
+                .HasOne(g => g.TablaEquivalencia)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict); 
+
+            // Grupo -> Tienda
+            modelBuilder.Entity<Grupo>()
+                .HasOne(g => g.Tienda)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Grupo -> EnlaceUnion
+            modelBuilder.Entity<Grupo>()
+                .HasOne(g => g.EnlaceUnion)
+                .WithOne()
+                .HasForeignKey<Grupo>(g => g.EnlaceUnionId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // PerfilEstudiante
+            modelBuilder.Entity<PerfilEstudiante>()
+                .HasOne(pe => pe.Estudiante)
+                .WithMany(e => e.perfiles)
+                .HasForeignKey(pe => pe.EstudianteId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<PerfilEstudiante>()
+                .HasOne(pe => pe.Grupo)
+                .WithMany(g => g.Alumnos)
+                .HasForeignKey(pe => pe.GrupoId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Otros índices
+            modelBuilder.Entity<TablaEquivalencia>().HasIndex(te => te.Nombre);
+            modelBuilder.Entity<TablaClasificacion>().HasIndex(tc => tc.Nombre);
+            modelBuilder.Entity<Medalla>().HasIndex(m => m.Nombre);
+            modelBuilder.Entity<Recompensa>().HasIndex(r => r.Nombre);
 
         }
     }

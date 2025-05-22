@@ -12,12 +12,14 @@ namespace Dominio
 
         public int avatarGrupoId { get; set; }
 
-        public String enlaceAvatar { get; set; }
+        public string enlaceAvatar { get; set; }
 
         public int metaCalificacion { get; set; }
 
         [ForeignKey(nameof(Estudiante))]
-        public int EstudianteId { get; set; } 
+        public int EstudianteId { get; set; }
+
+        public Estudiante Estudiante { get; set; }  
 
         public int monedas { get; set; }
 
@@ -28,24 +30,21 @@ namespace Dominio
         [ForeignKey(nameof(Grupo))]
         public int GrupoId { get; set; }
 
+        public Grupo Grupo { get; set; } 
+
         public List<Recompensa> inventario { get; set; }
 
         public BarraProgreso barraProgreso { get; set; }
 
-        public void asignarMedalla(Medalla m)
-		{
+        public void asignarMedalla(Medalla m) { }
 
-		}
+        public void quitarMedalla(Medalla m) { }
 
         public void EsValido()
         {
             throw new NotImplementedException();
         }
-
-        public void quitarMedalla(Medalla m)
-		{
-
-		}
+       
 
 	}
 

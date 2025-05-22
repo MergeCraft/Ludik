@@ -5,6 +5,7 @@ using AccesoDatos.RepositoriosEF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,9 +13,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20250522174644_Inicial")]
+    partial class Inicial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,7 +99,7 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("EnlaceUnionId")
+                    b.Property<int?>("EnlaceUnionId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("FCreacion")
@@ -127,7 +130,8 @@ namespace AccesoDatos.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EnlaceUnionId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[EnlaceUnionId] IS NOT NULL");
 
                     b.HasIndex("Nombre");
 
@@ -577,8 +581,7 @@ namespace AccesoDatos.Migrations
                     b.HasOne("Dominio.EnlaceUnion", "EnlaceUnion")
                         .WithOne()
                         .HasForeignKey("Dominio.Grupo", "EnlaceUnionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Dominio.Profesor", null)
                         .WithMany("grupos")

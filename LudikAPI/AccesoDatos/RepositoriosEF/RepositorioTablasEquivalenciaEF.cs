@@ -10,6 +10,11 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioTablasEquivalenciaEF : IRepositorioTablasEquivalencia
     {
+        private readonly Context _db;
+        public RepositorioTablasEquivalenciaEF()
+        {
+            _db = new Context();
+        }
         public void Add(TablaEquivalencia unObjeto)
         {
             throw new NotImplementedException();
@@ -22,7 +27,7 @@ namespace AccesoDatos.RepositoriosEF
 
         public TablaEquivalencia GetById(int id)
         {
-            throw new NotImplementedException();
+            return _db.TablasEquivalencia.FirstOrDefault(t => t.Id == id);
         }
 
         public void Remove(int id)

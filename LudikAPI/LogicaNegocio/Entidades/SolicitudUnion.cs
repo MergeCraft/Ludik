@@ -8,12 +8,10 @@ namespace Dominio
     {
         public int Id { get; set; }
 
-        public Estudiante estudiante { get; set; }
-
-        public Estudiante estudiante2 { get; set; }
-
-        [ForeignKey(nameof(Grupo))]
-        public int grupoId { get; set; } // Clave foránea
+        public int EstudianteId { get; set; }
+        public Estudiante Estudiante { get; set; }
+        public int GrupoId { get; set; }
+        public Grupo Grupo { get; set; }
         public void EsValido()
         {
             throw new NotImplementedException();

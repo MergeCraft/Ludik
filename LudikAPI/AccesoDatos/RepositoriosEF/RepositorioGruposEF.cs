@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
 using LogicaNegocio.Excepciones;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
 {
@@ -30,14 +32,29 @@ namespace AccesoDatos.RepositoriosEF
                 {
                     throw new GrupoNoValidoExeption();
                 }
-
-                unGrupo.EsValido();
+                if (unGrupo.TablaEquivalencia != null)
+                {
+                    _db.Entry(unGrupo.TablaEquivalencia).State = EntityState.Unchanged;
+                }
+                if (unGrupo.EnlaceUnion != null)
+                {
+                    _db.Entry(unGrupo.EnlaceUnion).State = EntityState.Added;
+                }
+                if (unGrupo.Tienda != null)
+                {
+                    _db.Entry(unGrupo.Tienda).State = EntityState.Added;
+                }
                 _db.Grupos.Add(unGrupo);
                 _db.SaveChanges();
             }
+            catch (DbUpdateException dbEx)
+            {
+                var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
+                throw new GrupoNoValidoExeption($"Error al guardar en la BD: {detalle}");
+            }
             catch (GrupoNoValidoExeption ex)
             {
-                throw new GrupoNoValidoExeption("El Usuario no es valido.");
+                throw new GrupoNoValidoExeption("El Grupo no es válido.");
             }
         }
 

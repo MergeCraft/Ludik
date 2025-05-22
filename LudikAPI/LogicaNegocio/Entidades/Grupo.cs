@@ -12,25 +12,31 @@ namespace Dominio
         public int Id { get; set; }
         [Required]
         [StringLength(30, MinimumLength = 3, ErrorMessage = "El nombre del grupo debe tener entre 3 y 30 caracteres.")]
-        public String nombre { get; set; } 
+        public String Nombre { get; set; } 
 
-        public String ciudad { get; set; }
+        public String Institucion { get; set; }
 
-        public String materia { get; set; }
+        public String Materia { get; set; }
 
-        public DateTime fCreacion { get; set; }
+        public DateTime FCreacion { get; set; }
+        public int TablaEquivalenciaId { get; set; }
+
         [Required]
-        public TablaEquivalencia tablaEquivalencia { get; set; }
+        [ForeignKey(nameof(TablaEquivalenciaId))]
+        public TablaEquivalencia TablaEquivalencia { get; set; }
 
-        public Tienda tienda { get; set; }
+        public Tienda Tienda { get; set; }
 
-        public List<TablaClasificacion> tablasClasificacion { get; set; }
+        public List<TablaClasificacion> TablasClasificacion { get; set; }
 
-        public List<PerfilEstudiante> alumnos { get; set; }
+        public List<PerfilEstudiante> Alumnos { get; set; }
 
-        public List<SolicitudUnion> solicitudes { get; set; }
+        public List<SolicitudUnion> Solicitudes { get; set; }
 
-        public EnlaceUnion enlaceUnion { get; set; }
+        public int EnlaceUnionId { get; set; }
+
+        [ForeignKey("EnlaceUnionId")]
+        public EnlaceUnion EnlaceUnion { get; set; }
 
         [ForeignKey(nameof(Profesor))]
         public int ProfesorId { get; set; } 
