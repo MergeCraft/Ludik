@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import styles from "./SignupPage.module.css";
 
 export const SignupPage = () => {
+  const navigate = useNavigate();
   const [isProfesor, setIsProfesor] = useState(false);
 
   const handleSwitchChange = () => {
     setIsProfesor(!isProfesor);
   };
+
+  useEffect(() => {
+    const userData = JSON.parse(sessionStorage.getItem("userData")); // o localStorage
+
+    if (userData?.rol === "Profesor") {
+      navigate("/profesor");
+    } else if (userData?.rol === "Estudiante") {
+      navigate("/studentGroups");
+    }else{
+      navigate("/");
+    }
+  }, [navigate]);
 
   return (
     <main className={styles.container}>

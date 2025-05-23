@@ -24,3 +24,7 @@ export const iniciarSesion = async ({ usuario, contrasena }, dispatch) => {
 
   return data;
 };
+
+export const cerrarSesion = (dispatch) => {
+  sessionStorage.removeItem("userData");
+};

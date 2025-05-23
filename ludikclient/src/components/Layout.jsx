@@ -1,15 +1,27 @@
-// src/components/Layout.js
 import React from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import styles from "./Layout.module.css";
-import FloatingButton from "./FloatingButton";
+import FloatingButton from "./HeaderMenu";
 
 function Layout() {
   const navigate = useNavigate();
-  const location = useLocation(); // Usamos useLocation para obtener la ruta actual
+  const location = useLocation();
 
-  // Verificamos si la ruta actual es "/login" para mostrar "Registrarse"
   const isLoginPage = location.pathname === "/login";
+
+  // Detectar si hay usuario logueado con sessionStorage y userData
+  const userDataString = sessionStorage.getItem("userData");
+  let isLoggedIn = false;
+  if (userDataString) {
+    try {
+      const userData = JSON.parse(userDataString);
+      if (userData.token && userData.email) {
+        isLoggedIn = true;
+      }
+    } catch (error) {
+      console.error("Error parsing userData from sessionStorage", error);
+    }
+  }
 
   return (
     <div className={styles.layoutContainer}>
@@ -19,16 +31,21 @@ function Layout() {
             src="./assets/logo.png"
             alt="Ludik Logo"
             className={styles.logoImage}
-            onClick={() => navigate("/")} // Redirige al home
-            style={{ cursor: "pointer" }} // Cambia el cursor a mano para indicar que es clickeable
+            onClick={() => navigate("/")}
+            style={{ cursor: "pointer" }}
           />
         </div>
-        <button className="button" onClick={() => navigate(isLoginPage ? "/signup" : "/login")}>
-          {isLoginPage ? "Registrarse" : "Iniciar sesión"}
-        </button>
+
+        {isLoggedIn && <FloatingButton />}
+        {!isLoggedIn && (
+          <button className="button" onClick={() => navigate(isLoginPage ? "/signup" : "/login")}>
+            {isLoginPage ? "Registrarse" : "Iniciar sesión"}
+          </button>
+        )}
       </header>
 
-      <FloatingButton />
+      
+
       <Outlet />
     </div>
   );

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { iniciarSesion } from "../features/auth/auth.js";
 import * as Toast from "../lib/toastify.js";
@@ -23,12 +24,23 @@ export const LoginPage = () => {
     e.preventDefault();
     try {
       await iniciarSesion({ usuario, contrasena }, dispatch);
-      navigate("/");
+      navigate("/studentGroups");
     } catch (error) {
-      console.error("Se ejecutó notificarError con:", error.message);
       Toast.notificarError(error.message);
     }
   };
+
+  useEffect(() => {
+    const userData = JSON.parse(sessionStorage.getItem("userData")); // o localStorage
+
+    if (userData?.rol === "Profesor") {
+      navigate("/profesor");
+    } else if (userData?.rol === "Estudiante") {
+      navigate("/studentGroups");
+    } else {
+      navigate("/");
+    }
+  }, [navigate]);
 
   return (
     <main className={styles.container}>
