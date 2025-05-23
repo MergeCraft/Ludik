@@ -10,6 +10,11 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioHitosEF : IRepositorioHitos
     {
+        private readonly Context _db;
+        public RepositorioHitosEF(Context db)
+        {
+            _db = db;
+        }
         public void Add(Hito unObjeto)
         {
             throw new NotImplementedException();

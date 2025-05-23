@@ -18,7 +18,7 @@ namespace WebApi.Controllers
             _login = login;
         }
         /// <summary>
-        /// Este endpoint permite loguear un usuario en el sistema.
+        /// Este endpoint permite que un usuario se autentifique en el sistema.
         /// </summary>
         /// <returns>
         /// 200 Ok: Si el usuario fue logueado correctamente devuelve una token.
@@ -32,23 +32,25 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult Login([FromBody] UsuarioLoginPruebaDto usr)
+        public async Task<IActionResult> Login([FromBody] UsuarioDto usr)
         {
+            if (usr == null)
+                return BadRequest("Lo campos de NombreUsuario y contraseña con obligatorios.");
+
             try
             {
-                if (usr == null)
-                {
-                    return BadRequest("Lo campos de NombreUsuario y contraseña con obligatorios.");
-                }
+                //TODO: refactorizar para hacer uso de polimorfismo en lugar de preguntarle el tipo de usuario o considerar ponerle un nombreTipo
+                var usuarioDto = await _login.Ejecutar(usr.NombreUsuario, usr.Contrasenia);
 
-                var usuario = _login.Ejecutar(usr.NombreUsuario, usr.Contrasenia);
-                if (usuario == null)
-                {
-                    return BadRequest("No se encontró ningún usuario con los datos recibidos.");
-                }
+                string token = ManejadorJwt.ManejadorJwt.GenerarToken(usuarioDto.NombreUsuario, usuarioDto.Rol);
 
-                string token = ManejadorJwt.ManejadorJwt.GenerarToken(usr.NombreUsuario, usuario.Rol);
-                return Ok(new { Token = token, Rol = usuario.Rol, Email = usuario.NombreUsuario, UsuarioId = usuario.Id });
+                return Ok(new
+                {
+                    Token = token,
+                    Rol = usuarioDto.Rol,
+                    NombreUsuario = usuarioDto.NombreUsuario,
+                    UsuarioId = usuarioDto.Id
+                });
             }
             catch (UnauthorizedAccessException ex)
             {

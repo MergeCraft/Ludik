@@ -10,6 +10,11 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioPreguntasSeguridadEF : IRepositorioPreguntasSeguridad
     {
+        private readonly Context _db;
+        public RepositorioPreguntasSeguridadEF(Context db)
+        {
+            _db = db;
+        }
         public void Add(PreguntaRespuestaSeguridad unObjeto)
         {
             throw new NotImplementedException();

@@ -10,6 +10,7 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioEnlacesUnionGrupoEF : IRepositorioEnlacesUnionGrupo
     {
+
         public void Add(EnlaceUnion unObjeto)
         {
             throw new NotImplementedException();

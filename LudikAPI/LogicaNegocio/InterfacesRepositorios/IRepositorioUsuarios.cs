@@ -7,7 +7,7 @@ namespace InterfacesRepositorio
 {
 	public interface IRepositorioUsuarios : IRepositorio<Usuario>
 	{
-		Usuario loginUsuario(String identificador);
+		Task<Usuario> loginUsuario(String identificador);
 
 	}
 

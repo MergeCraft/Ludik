@@ -13,9 +13,9 @@ namespace AccesoDatos.RepositoriosEF
     public class RepositorioMedallasEF : IRepositorioMedallas
     {
         private readonly Context _db;
-        public RepositorioMedallasEF()
+        public RepositorioMedallasEF(Context db)
         {
-            _db = new Context();
+            _db = db;
         }
         public void Add(Medalla unaMedalla)
         {

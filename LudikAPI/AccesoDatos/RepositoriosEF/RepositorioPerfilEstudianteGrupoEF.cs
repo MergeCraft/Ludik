@@ -10,6 +10,11 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioPerfilEstudianteGrupoEF : IRepositorioPerfilEstudianteGrupo
     {
+        private readonly Context _db;
+        public RepositorioPerfilEstudianteGrupoEF(Context db)
+        {
+            _db = db;
+        }
         public void Add(PerfilEstudiante unObjeto)
         {
             throw new NotImplementedException();

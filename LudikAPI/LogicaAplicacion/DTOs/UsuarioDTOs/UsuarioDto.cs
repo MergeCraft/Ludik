@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.DTOs.UsuarioDTOs
 {
-    public class UsuarioLoginPruebaDto
+    public class UsuarioDto
     {
         public string NombreUsuario { get; set; }
         public string Contrasenia { get; set; }

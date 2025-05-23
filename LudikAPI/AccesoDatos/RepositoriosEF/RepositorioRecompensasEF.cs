@@ -10,6 +10,11 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioRecompensasEF : IRepositorioRecompensas
     {
+        private readonly Context _db;
+        public RepositorioRecompensasEF(Context db)
+        {
+            _db = db;
+        }
         public void Add(Recompensa unObjeto)
         {
             throw new NotImplementedException();

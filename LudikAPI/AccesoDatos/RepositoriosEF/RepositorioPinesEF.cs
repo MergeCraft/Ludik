@@ -10,6 +10,11 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioPinesEF : IRepositorioPines
     {
+        private readonly Context _db;
+        public RepositorioPinesEF(Context db)
+        {
+            _db = db;
+        }
         public void Add(Pin unObjeto)
         {
             throw new NotImplementedException();

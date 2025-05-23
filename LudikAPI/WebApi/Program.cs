@@ -10,10 +10,18 @@ using LogicaAplicacion.InterfacesCasosUsos.Medalla;
 using LogicaAplicacion.InterfacesCasosUsos.Profesor;
 using LogicaAplicacion.InterfacesCasosUsos.Usuario;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Se obtiene la cadena de conexion a la BD desde appsettings.json
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// Registra Context usando AddDbContext
+builder.Services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
 
 // Agregar servicios al contenedor
 builder.Services.AddControllers();
@@ -33,20 +41,20 @@ builder.Services.AddSwaggerGen(opciones =>
 	});
 });
 
-// Inyectar repositorios y casos de uso
+// Inyeccion repositorios
 builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
 builder.Services.AddScoped<IRepositorioEstudiantes, RepositorioEstudiantesEF>();
 builder.Services.AddScoped<IRepositorioProfesores, RepositorioProfesoresEF>();
 builder.Services.AddScoped<IRepositorioMedallas, RepositorioMedallasEF>();
 
-
-builder.Services.AddScoped<ILogin, LoginPrueba>();
+//Inyeccion casos de uso
+builder.Services.AddScoped<ILogin, Login>();
 builder.Services.AddScoped<IAltaEstudiante, AltaEstudiante>();
 builder.Services.AddScoped<IAltaProfesor, AltaProfesor>();
 builder.Services.AddScoped<IAltaMedalla, AltaMedalla>();
 
 
-// Configurar autenticación JWT
+// Configuracion autenticación JWT
 var claveDificil = "UnaContraseniaSeguraEsLargaTiene:0123,caracteresEspeciales;*#seguridad";
 var claveDificilEncriptada = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(claveDificil));
 
@@ -63,7 +71,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 		};
 	});
 
-// ✅ Configurar CORS correctamente
 builder.Services.AddCors(options =>
 {
 	options.AddPolicy("AllowAll",
@@ -84,7 +91,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// ✅ CORS debe ir antes de autenticación/autorización
+// CORS debe ir antes de autenticación/autorización
 app.UseCors("AllowAll");
 
 app.UseAuthentication();

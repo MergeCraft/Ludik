@@ -10,6 +10,11 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioRendimientoPeriodosEF : IRepositorioRendimientoPeriodos
     {
+        private readonly Context _db;
+        public RepositorioRendimientoPeriodosEF(Context db)
+        {
+            _db = db;
+        }
         public void Add(RendimientoPeriodo unObjeto)
         {
             throw new NotImplementedException();

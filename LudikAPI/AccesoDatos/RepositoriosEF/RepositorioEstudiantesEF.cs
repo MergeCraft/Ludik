@@ -13,10 +13,11 @@ namespace AccesoDatos.RepositoriosEF
     public class RepositorioEstudiantesEF : IRepositorioEstudiantes
     {
         private readonly Context _db;
-        public RepositorioEstudiantesEF()
+        public RepositorioEstudiantesEF(Context db)
         {
-            _db = new Context();
+            _db = db;
         }
+
         public void Add(Estudiante estudianteNuevo)
         {
             try

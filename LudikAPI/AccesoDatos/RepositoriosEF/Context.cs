@@ -11,6 +11,19 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class Context : DbContext
     {
+        public Context(DbContextOptions<Context> options) : base(options)
+        {
+        }
+
+        // OnConfiguring queda de respaldo
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=ludik;Integrated Security=True;Encrypt=False");
+            }
+        }
+
         //Aqui se definen las tablas de la base de datos
         public DbSet<Profesor> Profesores { get; set; }
         public DbSet<Estudiante> Estudiantes { get; set; }
@@ -32,14 +45,6 @@ namespace AccesoDatos.RepositoriosEF
         public DbSet<BarraProgreso> BarrasProgreso { get; set; }
 
 
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=ludik;Integrated Security=True;Encrypt=False");
-            }
-        }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

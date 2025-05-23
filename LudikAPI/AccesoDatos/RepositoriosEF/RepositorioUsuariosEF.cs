@@ -6,19 +6,20 @@ using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
 using LogicaNegocio.Excepciones;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioUsuariosEF : IRepositorioUsuarios
     {
         private readonly Context _db;
-        public RepositorioUsuariosEF()
+        public RepositorioUsuariosEF(Context db)
         {
-            _db = new Context();
+            _db = db;
         }
         public void Add(Usuario usuarioNuevo)
         {
-           
+
         }
 
         public IEnumerable<Usuario> GetAll()
@@ -32,17 +33,32 @@ namespace AccesoDatos.RepositoriosEF
         }
 
         //TODO: hacer que login busque en las tablas de estudiantes y profesores
-        public Usuario loginUsuario(string identificador)
+        public async Task<Usuario> loginUsuario(string identificador)
         {
             try
             {
-                var usr = _db.Estudiantes
-            .SingleOrDefault(u =>(u.NombreUsuario.Valor == identificador));
-            return usr;
+                var estudiante = await _db.Estudiantes
+                    .SingleOrDefaultAsync(e => e.NombreUsuario.Valor == identificador);
+
+                if (estudiante != null)
+                    return estudiante;
+
+                var profesor = await _db.Profesores
+                    .SingleOrDefaultAsync(p => p.NombreUsuario.Valor == identificador);
+
+                if (profesor != null)
+                    return profesor;
+
+                throw new UsuarioNoValidoException($"Usuario con '{identificador}' no encontrado.");
             }
-            catch (UsuarioNoValidoException ex)
+            catch (UsuarioNoValidoException)
             {
-                throw ex;
+                // Re-lanzamos la excepción
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar loguear usuario.", ex);
             }
         }
 

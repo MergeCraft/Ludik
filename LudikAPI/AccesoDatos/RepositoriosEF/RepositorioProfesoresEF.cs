@@ -13,9 +13,9 @@ namespace AccesoDatos.RepositoriosEF
     public class RepositorioProfesoresEF : IRepositorioProfesores
     {
         private readonly Context _db;
-        public RepositorioProfesoresEF()
+        public RepositorioProfesoresEF(Context db)
         {
-            _db = new Context();
+            _db = db;
         }
         public void Add(Profesor profesorNuevo)
         {

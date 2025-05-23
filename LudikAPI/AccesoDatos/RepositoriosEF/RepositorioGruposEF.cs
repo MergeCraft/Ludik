@@ -11,6 +11,11 @@ namespace AccesoDatos.RepositoriosEF
     public class RepositorioGruposEF : IRepositorioGrupos
 
     {
+        private readonly Context _db;
+        public RepositorioGruposEF(Context db)
+        {
+            _db = db;
+        }
         public void aceptarSolicitud(SolicitudUnion idSolicitud)
         {
             throw new NotImplementedException();

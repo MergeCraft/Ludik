@@ -10,6 +10,11 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioTablasEquivalenciaEF : IRepositorioTablasEquivalencia
     {
+        private readonly Context _db;
+        public RepositorioTablasEquivalenciaEF(Context db)
+        {
+            _db = db;
+        }
         public void Add(TablaEquivalencia unObjeto)
         {
             throw new NotImplementedException();

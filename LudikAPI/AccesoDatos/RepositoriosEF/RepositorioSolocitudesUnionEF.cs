@@ -10,6 +10,11 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioSolocitudesUnionEF : IRepositorioSolicitudesUnion
     {
+        private readonly Context _db;
+        public RepositorioSolocitudesUnionEF(Context db)
+        {
+            _db = db;
+        }
         public void Add(SolicitudUnion unObjeto)
         {
             throw new NotImplementedException();
