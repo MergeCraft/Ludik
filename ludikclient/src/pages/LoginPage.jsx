@@ -23,9 +23,8 @@ export const LoginPage = () => {
     e.preventDefault();
     try {
       await iniciarSesion({ usuario, contrasena }, dispatch);
-      navigate("/");
+      navigate("/studentGroups");
     } catch (error) {
-      console.error("Se ejecutó notificarError con:", error.message);
       Toast.notificarError(error.message);
     }
   };
