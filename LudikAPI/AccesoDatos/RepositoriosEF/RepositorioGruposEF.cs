@@ -70,7 +70,7 @@ namespace AccesoDatos.RepositoriosEF
 
         public Grupo GetById(int id)
         {
-            throw new NotImplementedException();
+            return _db.Grupos.FirstOrDefault(t => t.Id == id);
         }
 
         public List<Estudiante> obtenerAlumnosDelGrupo(int idGrupo)
@@ -118,9 +118,27 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public void Update(Grupo unObjeto)
+        public void Update(Grupo grupoNuevo)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (grupoNuevo == null)
+                {
+                    throw new GrupoNoValidoExeption("El usuario no puede ser null.");
+                }
+               // grupoNuevo.EsValido();
+                var grupoExistente = _db.Grupos.Find(grupoNuevo.Id);
+                if (grupoExistente == null)
+                {
+                    throw new Exception("grupo no encontrado");
+                }
+                _db.Entry(grupoExistente).CurrentValues.SetValues(grupoNuevo);
+                _db.SaveChanges();
+            }
+            catch (GrupoNoValidoExeption ex)
+            {
+                throw ex;
+            }
         }
     }
 }
