@@ -11,7 +11,7 @@ namespace Dominio
         public Estudiante estudiante { get; set; }
 
         [ForeignKey(nameof(Grupo))]
-        public int grupoId { get; set; } // Clave for�nea
+        public int grupoId { get; set; }
         public void EsValido()
         {
             throw new NotImplementedException();

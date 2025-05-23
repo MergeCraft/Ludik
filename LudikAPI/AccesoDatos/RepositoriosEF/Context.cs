@@ -112,6 +112,55 @@ namespace AccesoDatos.RepositoriosEF
 
             });
 
+            modelBuilder.Entity<RendimientoPeriodo>(rp =>
+            {
+                // Le indicamos a EF que RangoFechas es un "owned type" de RendimientoPeriodo
+                rp.OwnsOne(r => r.rangofecha, rf =>
+                {
+                    // Estas dos propiedades se incluirán como columnas en la tabla RendimientosPeriodos
+                    rf.Property(x => x.fechaInicio)
+                        .HasColumnName("FechaInicio")
+                        .IsRequired();
+
+                    rf.Property(x => x.fechaFin)
+                        .HasColumnName("FechaFin")
+                        .IsRequired();
+                });
+            });
+
+            // CONFIGURACIÓN DE PERFIL ESTUDIANTE Y RELACIONES
+            modelBuilder.Entity<PerfilEstudiante>(pe =>
+            {
+                // 1) Relación PerfilEstudiante → Estudiante (Uno a Muchos): 
+                //    cuando se borre Estudiante, se eliminan sus perfiles.
+                pe.HasOne<Estudiante>()
+                  .WithMany(e => e.perfiles)
+                  .HasForeignKey(p => p.EstudianteId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+                // 2) Relación 1:1 PerfilEstudiante → BarraProgreso: 
+                //    La FK está en BarrasProgreso (perfilEstudianteId). 
+                //    Usamos OnDelete(Cascade) aquí, para que al borrar el perfil también borre la barra.
+                pe.HasOne(p => p.barraProgreso)
+                    .WithOne()
+                    .HasForeignKey<BarraProgreso>(b => b.perfilEstudianteId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                // 3) Relación PerfilEstudiante → Grupo (Muchos a Uno):
+                //    NO queremos cascada aquí (evita ciclos de múltiple cascada).
+                pe.HasOne<Grupo>()
+                  .WithMany(g => g.alumnos)
+                  .HasForeignKey(p => p.GrupoId)
+                  .OnDelete(DeleteBehavior.Restrict);             // SIN BORRADO EN CASCADA
+
+                // 4)índice compuesto para evitar duplicados de GrupoId+EstudianteId
+                pe.HasIndex(pe2 => new { pe2.GrupoId, pe2.EstudianteId })
+                    .IsUnique()
+                    .HasDatabaseName("UX_PerfilEstudiante_GrupoId_EstudianteId");
+
+
+
+            });
 
             modelBuilder.Entity<Estudiante>()
                 .OwnsOne(e => e.NombreUsuario)
@@ -126,7 +175,7 @@ namespace AccesoDatos.RepositoriosEF
                 .HasIndex(g => g.ProfesorId)
                 .HasDatabaseName("IX_Grupo_ProfesorId");
 
-            // (Opcional) Índice único compuesto para evitar que un mismo estudiante se una dos veces
+            // Índice único compuesto para evitar que un mismo estudiante se una dos veces
             modelBuilder.Entity<PerfilEstudiante>()
                 .HasIndex(pe => new { pe.GrupoId, pe.EstudianteId })
                 .IsUnique()
@@ -136,14 +185,17 @@ namespace AccesoDatos.RepositoriosEF
             {
                 te.HasIndex(x => x.Nombre);
             });
+
             modelBuilder.Entity<TablaClasificacion>(te =>
             {
                 te.HasIndex(x => x.Nombre);
             });
+
             modelBuilder.Entity<Medalla>(m =>
             {
                 m.HasIndex(x => x.Nombre);
             });
+
             modelBuilder.Entity<Recompensa>(r =>
             {
                 r.HasIndex(x => x.Nombre);

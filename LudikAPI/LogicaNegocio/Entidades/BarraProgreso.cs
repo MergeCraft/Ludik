@@ -1,6 +1,7 @@
 using Dominio;
 using LogicaNegocio.InterfacesEntidades;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio
 {
@@ -13,6 +14,9 @@ namespace Dominio
         public int valorMax { get; set; }
 
         public TablaEquivalencia tablaEquivalencia { get; set; }
+
+        [ForeignKey(nameof(PerfilEstudiante))]
+        public int perfilEstudianteId { get; set; }
 
         public void EsValido()
         {
