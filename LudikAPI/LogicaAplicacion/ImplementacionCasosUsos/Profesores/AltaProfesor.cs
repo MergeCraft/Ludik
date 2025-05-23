@@ -21,8 +21,8 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
         {
             _repositorioProfesores = repo;
         }
-        //PreCondificon : el usuario no se encuentra registrado en la base de datos
-        //PostCondicion : el usuario se encuentra registrado en la base de datos
+        //Pre: el usuario no se encuentra registrado en la base de datos
+        //Pos: se registra el profesor en la base de datos
         public void Ejecutar(ProfesorAltaDto profesorAltaDto)
         {
             if (profesorAltaDto == null)
@@ -36,7 +36,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
 
 
             Profesor profesorNuevo = ProfesorAltaMapper.fromDto(profesorAltaDto);
-            profesorNuevo.Contrasenia.Clave = EncriptarContrasenia(profesorNuevo.Contrasenia.Clave);
+            profesorNuevo.Contrasenia.Valor = EncriptarContrasenia(profesorNuevo.Contrasenia.Valor);
             _repositorioProfesores.Add(profesorNuevo);
         }
 

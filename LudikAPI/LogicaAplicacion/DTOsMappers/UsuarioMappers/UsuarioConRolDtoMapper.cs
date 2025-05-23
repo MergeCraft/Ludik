@@ -24,7 +24,7 @@ namespace LogicaAplicacion.DTOsMappers.UsuarioMappers
             return new UsuarioConRolDto
             {
 
-                NombreUsuario = usuario.NombreUsuario.Nombre,
+                NombreUsuario = usuario.NombreUsuario.Valor,
                 Rol = rol,
                 Id = usuario.Id
             };

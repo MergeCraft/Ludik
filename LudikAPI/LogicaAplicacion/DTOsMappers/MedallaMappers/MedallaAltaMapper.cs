@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Dominio;
+using LogicaAplicacion.DTOs.MedallaDTOs;
+
+namespace LogicaAplicacion.DTOsMappers.MedallaMappers
+{
+    public class MedallaAltaMapper
+    {
+
+        public static MedallaAltaDto toDto(string urlImagen, string nombre, string descripcion,
+            int cantidadMedallasBrinda, bool esAsignacionMutua)
+        {
+            return new MedallaAltaDto
+            {
+                UrlImagen = urlImagen,
+                Nombre = nombre,
+                Descripcion = descripcion,
+                CantidadMedallasBrinda = cantidadMedallasBrinda,
+                EsAsignacionMutua = esAsignacionMutua
+            };
+        }
+
+        public static Medalla fromDto(MedallaAltaDto dto)
+        {
+
+            return new Medalla{
+                icono = dto.UrlImagen,
+                Nombre = dto.Nombre,
+                descripcion = dto.Descripcion,
+                monedasOtorgadas = dto.CantidadMedallasBrinda,
+                tieneAsignacionMutua = dto.EsAsignacionMutua
+            };
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

@@ -7,9 +7,9 @@ namespace InterfacesRepositorio
 {
 	public interface IRepositorioMedallas : IRepositorio<Medalla>
 	{
-		List<Medalla> obtenerMedallasAsignablesMutuamente(int idGrupo);
+		List<Medalla> ObtenerMedallasAsignablesMutuamente(int idGrupo);
 
-	}
+    }
 
 }
 

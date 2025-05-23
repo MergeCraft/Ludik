@@ -24,7 +24,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Usuarios
         public UsuarioConRolDto Ejecutar(string nombreUsuario, string psw)
         {
             var usr = _repositorioUsuarios.loginUsuario(nombreUsuario);
-            if (usr != null && VerificarContrasenia(psw, usr.Contrasenia.Clave)) {
+            if (usr != null && VerificarContrasenia(psw, usr.Contrasenia.Valor)) {
 
                 return UsuarioConRolDtoMapper.toDto(usr);
             } else {

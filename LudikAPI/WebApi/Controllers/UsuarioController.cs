@@ -21,7 +21,7 @@ namespace WebApi.Controllers
         /// Este endpoint permite loguear un usuario en el sistema.
         /// </summary>
         /// <returns>
-        /// 200 Created: Si el usuario fue logueado correctamente devuelve una token.
+        /// 200 Ok: Si el usuario fue logueado correctamente devuelve una token.
         /// 400 Bad Request: Si los datos enviados son inválidos o faltan.
         /// 401 Unauthorized: Si las credenciales son incorrectas.
         /// 500 Internal Server Error: Si ocurre un error inesperado durante el procesamiento.

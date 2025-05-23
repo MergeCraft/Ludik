@@ -18,21 +18,7 @@ namespace AccesoDatos.RepositoriosEF
         }
         public void Add(Usuario usuarioNuevo)
         {
-            try
-            {
-                if (usuarioNuevo == null)
-                {
-                    throw new UsuarioNoValidoExeption();
-                }
-
-                usuarioNuevo.EsValido();
-                _db.Usuarios.Add(usuarioNuevo);
-                _db.SaveChanges();
-            }
-            catch (UsuarioNoValidoExeption ex)
-            {
-                throw new UsuarioNoValidoExeption("El Usuario no es valido.");
-            }
+           
         }
 
         public IEnumerable<Usuario> GetAll()
@@ -45,15 +31,16 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
+        //TODO: hacer que login busque en las tablas de estudiantes y profesores
         public Usuario loginUsuario(string identificador)
         {
             try
             {
-                var usr = _db.Usuarios
-            .SingleOrDefault(u =>(u.NombreUsuario.Nombre == identificador));
+                var usr = _db.Estudiantes
+            .SingleOrDefault(u =>(u.NombreUsuario.Valor == identificador));
             return usr;
             }
-            catch (UsuarioNoValidoExeption ex)
+            catch (UsuarioNoValidoException ex)
             {
                 throw ex;
             }

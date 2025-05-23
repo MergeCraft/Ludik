@@ -9,31 +9,31 @@ namespace Dominio
 {
 	public class Grupo : IEntity, IValidable
     {
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Id { get; set; }
         [Required]
         [StringLength(30, MinimumLength = 3, ErrorMessage = "El nombre del grupo debe tener entre 3 y 30 caracteres.")]
-        public String nombre;
+        public String nombre { get; set; }
 
-        public String ciudad;
+        public String ciudad { get; set; }
 
-        public String materia;
+        public String materia { get; set; }
 
-        public DateTime fCreacion;
+        public DateTime fCreacion { get; set; }
         [Required]
-        public TablaEquivalencia tablaEquivalencia;
+        public TablaEquivalencia tablaEquivalencia { get; set; }
 
-        public Tienda tienda;
+        public Tienda tienda { get; set; }
 
-        public List<TablaClasificacion> tablasClasificacion;
+        public List<TablaClasificacion> tablasClasificacion { get; set; }
 
-        public List<PerfilEstudiante> alumnos;
+        public List<PerfilEstudiante> alumnos { get; set; }
 
-        public List<SolicitudUnion> solicitudes;
+        public List<SolicitudUnion> solicitudes { get; set; }
 
-        public EnlaceUnion enlaceUnion;
+        public EnlaceUnion enlaceUnion { get; set; }
 
         [ForeignKey(nameof(Profesor))]
-        public int ProfesorId { get; set; } // Clave foránea
+        public int ProfesorId { get; set; } // Clave forï¿½nea
 
         public void asignarMedalla(PerfilEstudiante pEstudiante, Medalla m)
 		{

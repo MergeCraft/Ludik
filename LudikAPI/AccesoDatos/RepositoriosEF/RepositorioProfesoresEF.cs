@@ -23,31 +23,32 @@ namespace AccesoDatos.RepositoriosEF
             {
                 if (profesorNuevo == null)
                 {
-                    throw new UsuarioNoValidoExeption();
+                    throw new UsuarioNoValidoException();
                 }
 
-                _db.Usuarios.Add(profesorNuevo);
+                _db.Profesores.Add(profesorNuevo);
                 _db.SaveChanges();
             }
-            catch (UsuarioNoValidoExeption ex)
+            catch (UsuarioNoValidoException ex)
             {
-                throw new UsuarioNoValidoExeption("El Usuario no es valido.");
+                throw new UsuarioNoValidoException("El Usuario no es valido.");
             }
         }
 
+        //TODO: hacer que existe nombre usuario busque en las tablas de estudiantes y profesores
         public bool ExisiteMailProfesor(string emailUsuario)
         {
-            return _db.Usuarios
+            return _db.Profesores
                 .OfType<Profesor>() // Filtra solo objetos que son Profesor
-                .Any(p => p.correo.Correo == emailUsuario); // Compara el valor dentro del ValueObject
+                .Any(p => p.email.Valor == emailUsuario); // Compara el valor dentro del ValueObject
         }
 
-       
 
+        //TODO: hacer que existe nombre usuario busque en las tablas de estudiantes y profesores
         public bool ExisteNombreUsuario(string nombreUsuario)
         {
-            return _db.Usuarios
-                .Any(u => u.NombreUsuario.Nombre == nombreUsuario);
+            return _db.Profesores
+                .Any(u => u.NombreUsuario.Valor == nombreUsuario);
         }
 
         public IEnumerable<Profesor> GetAll()

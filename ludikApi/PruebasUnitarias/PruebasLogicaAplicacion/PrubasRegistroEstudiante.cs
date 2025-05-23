@@ -79,11 +79,11 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
 
             Assert.NotNull(capturado);
             // Verificar que la contraseña se haya hasheado
-            Assert.NotEqual("miSecreto.5", capturado.Contrasenia.Clave);
-            Assert.True(BCrypt.Net.BCrypt.Verify("miSecreto.5", capturado.Contrasenia.Clave));
+            Assert.NotEqual("miSecreto.5", capturado.Contrasenia.Valor);
+            Assert.True(BCrypt.Net.BCrypt.Verify("miSecreto.5", capturado.Contrasenia.Valor));
 
             // Verificar mapeo correcto del DTO
-            Assert.Equal("maria99", capturado.NombreUsuario.Nombre);
+            Assert.Equal("maria99", capturado.NombreUsuario.Valor);
             Assert.Equal("María", capturado.NombreCompleto.Nombre);
             Assert.Equal("López", capturado.NombreCompleto.Apellido);
         }

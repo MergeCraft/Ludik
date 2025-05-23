@@ -27,7 +27,7 @@ namespace LogicaAplicacion.DTOsMappers.ProfesorMappers
         {
             return new Profesor
             {
-                correo = new Email(dto.Email),
+                email = new Email(dto.Email),
                 NombreUsuario = new NombreUsuario(dto.NombreUsuario),
                 NombreCompleto = new NombreCompleto(dto.Nombre, dto.Apellido),
                 Contrasenia = new Contrasenia(dto.Contrasenia)

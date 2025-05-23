@@ -23,21 +23,22 @@ namespace AccesoDatos.RepositoriosEF
             {
                 if (estudianteNuevo == null)
                 {
-                    throw new UsuarioNoValidoExeption();
+                    throw new UsuarioNoValidoException();
                 }
               
-                _db.Usuarios.Add(estudianteNuevo);
+                _db.Estudiantes.Add(estudianteNuevo);
                 _db.SaveChanges();
             }
-            catch (UsuarioNoValidoExeption ex)
+            catch (UsuarioNoValidoException ex)
             {
-                throw new UsuarioNoValidoExeption("El Usuario no es valido.");
+                throw new UsuarioNoValidoException("El Usuario no es valido.");
             }
         }
+        //TODO: hacer que existe nombre usuario busque en las tablas de estudiantes y profesores
         public bool ExisteNombreUsuario(string nombreUsuario)
         {
-            return _db.Usuarios
-                .Any(u => u.NombreUsuario.Nombre == nombreUsuario);
+            return _db.Estudiantes
+                .Any(u => u.NombreUsuario.Valor == nombreUsuario);
         }
         public void asignarMedalla(int idAlumno, int idMedalla)
         {

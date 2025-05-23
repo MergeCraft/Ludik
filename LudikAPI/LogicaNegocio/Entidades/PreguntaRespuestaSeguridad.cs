@@ -5,11 +5,11 @@ namespace Dominio
 {
 	public class PreguntaRespuestaSeguridad : IEntity, IValidable
     {
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Id { get; set; }
 
-        public String pregunta;
+        public String pregunta { get; set; }
 
-        public String respuesta;
+        public String respuesta { get; set; }
         public bool coincide(PreguntaRespuestaSeguridad pRS)
 		{
 			return true;

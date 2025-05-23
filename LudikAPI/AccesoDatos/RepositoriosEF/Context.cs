@@ -12,7 +12,6 @@ namespace AccesoDatos.RepositoriosEF
     public class Context : DbContext
     {
         //Aqui se definen las tablas de la base de datos
-        public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Profesor> Profesores { get; set; }
         public DbSet<Estudiante> Estudiantes { get; set; }
         public DbSet<Recompensa> Recompensas { get; set; }
@@ -43,30 +42,129 @@ namespace AccesoDatos.RepositoriosEF
         }
 
 
-        //Configurar las entidades de la base de datos 
-        //me gustaria agregar al nombreUsuario que sea unico con Data Annotations (en la entidad)eso se puede ?
-        //En C# y Entity Framework, la unicidad no se puede garantizar directamente con Data Annotations, pero sí puedes hacerlo formas complementarias->
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Usuario>().UseTpcMappingStrategy();
 
+            modelBuilder.Entity<Estudiante>().ToTable("Estudiantes");
+            modelBuilder.Entity<Profesor>().ToTable("Profesores");
+
+            //Configurar Owned types de Usuario en Profesor
             modelBuilder.Entity<Profesor>(entity =>
             {
-                entity.OwnsOne(p => p.correo, correo =>
+                // Owned NombreCompleto (propio de Usuario)
+                entity.OwnsOne(p => p.NombreCompleto, nc =>
                 {
-                    correo.HasIndex(c => c.Correo).IsUnique();
+                    nc.Property(x => x.Nombre).HasColumnName("Nombre");
+                    nc.Property(x => x.Apellido).HasColumnName("Apellido");
                 });
 
-                entity.OwnsOne(p => p.NombreUsuario, nombreUsuario =>
+                // Owned NombreUsuario (propio de Usuario)
+                entity.OwnsOne(p => p.NombreUsuario, nu =>
                 {
-                    nombreUsuario.HasIndex(nu => nu.Nombre).IsUnique();
+                    nu.Property(x => x.Valor).HasColumnName("NombreUsuario")
+                                              .IsRequired();
+                    nu.HasIndex(x => x.Valor).IsUnique();
                 });
+
+                // Owned Contrasenia (propio de Usuario)
+                entity.OwnsOne(p => p.Contrasenia, c =>
+                {
+                    c.Property(x => x.Valor).HasColumnName("Contrasenia")
+                                             .IsRequired();
+                });
+
+                // Owned Email (propio de Profesor)
+                entity.OwnsOne(p => p.email, correo =>
+                {
+                    correo.Property(x => x.Valor).HasColumnName("Email")
+                                                 .IsRequired();
+                    correo.HasIndex(x => x.Valor).IsUnique();
+                });
+            });
+
+            //Configura Owned types de Usuario en Estudiante
+            modelBuilder.Entity<Estudiante>(entity =>
+            {
+                // Owned NombreCompleto
+                entity.OwnsOne(e => e.NombreCompleto, nc =>
+                {
+                    nc.Property(x => x.Nombre).HasColumnName("Nombre");
+                    nc.Property(x => x.Apellido).HasColumnName("Apellido");
+                });
+
+                // Owned NombreUsuario
+                entity.OwnsOne(e => e.NombreUsuario, nu =>
+                {
+                    nu.Property(x => x.Valor).HasColumnName("NombreUsuario")
+                                              .IsRequired();
+                    nu.HasIndex(x => x.Valor).IsUnique();
+                });
+
+                // Owned Contrasenia
+                entity.OwnsOne(e => e.Contrasenia, c =>
+                {
+                    c.Property(x => x.Valor).HasColumnName("Contrasenia")
+                                             .IsRequired();
+                });
+
+            });
+
+            modelBuilder.Entity<RendimientoPeriodo>(rp =>
+            {
+                // Le indicamos a EF que RangoFechas es un "owned type" de RendimientoPeriodo
+                rp.OwnsOne(r => r.rangofecha, rf =>
+                {
+                    // Estas dos propiedades se incluirán como columnas en la tabla RendimientosPeriodos
+                    rf.Property(x => x.fechaInicio)
+                        .HasColumnName("FechaInicio")
+                        .IsRequired();
+
+                    rf.Property(x => x.fechaFin)
+                        .HasColumnName("FechaFin")
+                        .IsRequired();
+                });
+            });
+
+            // CONFIGURACIÓN DE PERFIL ESTUDIANTE Y RELACIONES
+            modelBuilder.Entity<PerfilEstudiante>(pe =>
+            {
+                // 1) Relación PerfilEstudiante → Estudiante (Uno a Muchos): 
+                //    cuando se borre Estudiante, se eliminan sus perfiles.
+                pe.HasOne<Estudiante>()
+                  .WithMany(e => e.perfiles)
+                  .HasForeignKey(p => p.EstudianteId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+                // 2) Relación 1:1 PerfilEstudiante → BarraProgreso: 
+                //    La FK está en BarrasProgreso (perfilEstudianteId). 
+                //    Usamos OnDelete(Cascade) aquí, para que al borrar el perfil también borre la barra.
+                pe.HasOne(p => p.barraProgreso)
+                    .WithOne()
+                    .HasForeignKey<BarraProgreso>(b => b.perfilEstudianteId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                // 3) Relación PerfilEstudiante → Grupo (Muchos a Uno):
+                //    NO queremos cascada aquí (evita ciclos de múltiple cascada).
+                pe.HasOne<Grupo>()
+                  .WithMany(g => g.alumnos)
+                  .HasForeignKey(p => p.GrupoId)
+                  .OnDelete(DeleteBehavior.Restrict);             // SIN BORRADO EN CASCADA
+
+                // 4)índice compuesto para evitar duplicados de GrupoId+EstudianteId
+                pe.HasIndex(pe2 => new { pe2.GrupoId, pe2.EstudianteId })
+                    .IsUnique()
+                    .HasDatabaseName("UX_PerfilEstudiante_GrupoId_EstudianteId");
+
+
+
             });
 
             modelBuilder.Entity<Estudiante>()
                 .OwnsOne(e => e.NombreUsuario)
-                .HasIndex(e => e.Nombre)
+                .HasIndex(e => e.Valor)
                 .IsUnique();
 
             modelBuilder.Entity<Grupo>()
@@ -77,7 +175,7 @@ namespace AccesoDatos.RepositoriosEF
                 .HasIndex(g => g.ProfesorId)
                 .HasDatabaseName("IX_Grupo_ProfesorId");
 
-            // (Opcional) Índice único compuesto para evitar que un mismo estudiante se una dos veces
+            // Índice único compuesto para evitar que un mismo estudiante se una dos veces
             modelBuilder.Entity<PerfilEstudiante>()
                 .HasIndex(pe => new { pe.GrupoId, pe.EstudianteId })
                 .IsUnique()
@@ -87,14 +185,17 @@ namespace AccesoDatos.RepositoriosEF
             {
                 te.HasIndex(x => x.Nombre);
             });
+
             modelBuilder.Entity<TablaClasificacion>(te =>
             {
                 te.HasIndex(x => x.Nombre);
             });
+
             modelBuilder.Entity<Medalla>(m =>
             {
                 m.HasIndex(x => x.Nombre);
             });
+
             modelBuilder.Entity<Recompensa>(r =>
             {
                 r.HasIndex(x => x.Nombre);

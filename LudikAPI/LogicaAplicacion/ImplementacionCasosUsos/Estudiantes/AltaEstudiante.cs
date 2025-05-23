@@ -24,13 +24,13 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
         public void Ejecutar(EstudianteAltaDto estudianteAltaDto)
         {
             if (estudianteAltaDto == null)
-                throw new ArgumentNullException(nameof(estudianteAltaDto), "El DTO no puede ser nulo.");
+                throw new ArgumentNullException(nameof(estudianteAltaDto), "No se puede dar de alta un estudiante si no se tienen los datos necesarios.");
 
             if (_repositorioEstudiantes.ExisteNombreUsuario(estudianteAltaDto.NombreUsuario))
                 throw new Exception("El nombre de usuario ya está en uso.");
 
             Estudiante estudianteNuevo = EstudianteAltaMapper.fromDto(estudianteAltaDto);
-            estudianteNuevo.Contrasenia.Clave = EncriptarContrasenia(estudianteNuevo.Contrasenia.Clave);
+            estudianteNuevo.Contrasenia.Valor = EncriptarContrasenia(estudianteNuevo.Contrasenia.Valor);
             _repositorioEstudiantes.Add(estudianteNuevo);
         }
 

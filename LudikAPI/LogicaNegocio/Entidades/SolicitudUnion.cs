@@ -6,14 +6,12 @@ namespace Dominio
 {
 	public class SolicitudUnion : IEntity, IValidable
     {
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Id { get; set; }
 
-        public Estudiante estudiante;
-
-        public Estudiante estudiante2;
+        public Estudiante estudiante { get; set; }
 
         [ForeignKey(nameof(Grupo))]
-        public int grupoId { get; set; } // Clave foránea
+        public int grupoId { get; set; }
         public void EsValido()
         {
             throw new NotImplementedException();

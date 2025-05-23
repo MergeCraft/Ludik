@@ -9,7 +9,7 @@ namespace Dominio
 	public class Profesor : Usuario
 	{
         [Required]
-        public Email correo { get; set; }
+        public Email email { get; set; }
 
         public List<Medalla> medallas { get; set; }
 

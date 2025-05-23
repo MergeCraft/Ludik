@@ -8,29 +8,30 @@ namespace Dominio
 {
 	public class PerfilEstudiante : IEntity, IValidable
     {
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Id { get; set; }
 
-        public int avatarGrupoId;
+        public int avatarGrupoId { get; set; }
 
-        public String enlaceAvatar;
+        public String enlaceAvatar { get; set; }
 
-        public int metaCalificacion;
+        public int metaCalificacion { get; set; }
 
         [ForeignKey(nameof(Estudiante))]
         public int EstudianteId { get; set; } 
 
-        public int monedas;
+        public int monedas { get; set; }
 
-        public List<Medalla> medallasObtenidas;
+        public List<Medalla> medallasObtenidas { get; set; }
 
-        public List<RendimientoPeriodo> historialRendimientoPeriodos;
+        public List<RendimientoPeriodo> historialRendimientoPeriodos { get; set; }
 
         [ForeignKey(nameof(Grupo))]
         public int GrupoId { get; set; }
 
-        public List<Recompensa> inventario;
+        public List<Recompensa> inventario { get; set; }
 
-        public BarraProgreso barraProgreso;
+        public BarraProgreso barraProgreso { get; set; }
+
 
         public void asignarMedalla(Medalla m)
 		{

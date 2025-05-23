@@ -9,7 +9,7 @@ namespace Dominio
 	{
         public int Id { get; set; }
 
-        public int ImagenPerfil;
+        public int ImagenPerfil { get; set; }
         [Required]
         public NombreCompleto NombreCompleto { get; set; }
         [Required]

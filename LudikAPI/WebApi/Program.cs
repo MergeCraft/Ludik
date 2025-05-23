@@ -2,9 +2,11 @@ using System.Text;
 using AccesoDatos.RepositoriosEF;
 using InterfacesRepositorio;
 using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;
+using LogicaAplicacion.ImplementacionCasosUsos.Medallas;
 using LogicaAplicacion.ImplementacionCasosUsos.Profesores;
 using LogicaAplicacion.ImplementacionCasosUsos.Usuarios;
 using LogicaAplicacion.InterfacesCasosUsos.Estudiante;
+using LogicaAplicacion.InterfacesCasosUsos.Medalla;
 using LogicaAplicacion.InterfacesCasosUsos.Profesor;
 using LogicaAplicacion.InterfacesCasosUsos.Usuario;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -35,10 +37,13 @@ builder.Services.AddSwaggerGen(opciones =>
 builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
 builder.Services.AddScoped<IRepositorioEstudiantes, RepositorioEstudiantesEF>();
 builder.Services.AddScoped<IRepositorioProfesores, RepositorioProfesoresEF>();
+builder.Services.AddScoped<IRepositorioMedallas, RepositorioMedallasEF>();
+
 
 builder.Services.AddScoped<ILogin, LoginPrueba>();
 builder.Services.AddScoped<IAltaEstudiante, AltaEstudiante>();
 builder.Services.AddScoped<IAltaProfesor, AltaProfesor>();
+builder.Services.AddScoped<IAltaMedalla, AltaMedalla>();
 
 
 // Configurar autenticación JWT
