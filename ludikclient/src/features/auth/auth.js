@@ -1,4 +1,4 @@
-import { loginSuccess } from "./userSlice.js";
+import { loginSuccess, logout } from "./userSlice.js";
 import { url } from "../../app/url.js";
 
 // Función que realiza login y gestiona Redux + sessionStorage
@@ -11,11 +11,8 @@ export const iniciarSesion = async ({ usuario, contrasena }, dispatch) => {
 
   if (!response.ok) {
     const errorMessage = await response.text(); // o response.json() si sabes que la API devuelve JSON
-    console.log(errorMessage);
     throw new Error(errorMessage);
   }
-
-  console.log(response);
 
   const data = await response.json(); // asumimos que devuelve { Token, Rol, Email, UsuarioId }
 
@@ -25,6 +22,23 @@ export const iniciarSesion = async ({ usuario, contrasena }, dispatch) => {
   return data;
 };
 
+export const registrarse = async (data, tipoUsuario) => {
+  const endpoint = tipoUsuario === "profesor" ? "/api/profesor/alta" : "/api/estudiante/alta";
+  console.log(data);
+  const response = await fetch(`${url}${endpoint}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    console.log(errorData);
+    throw new Error(errorData.error);
+  }
+};
+
 export const cerrarSesion = (dispatch) => {
   sessionStorage.removeItem("userData");
+  dispatch(logout());
 };

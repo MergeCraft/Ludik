@@ -46,8 +46,8 @@ const HeaderMenu = () => {
             </li>
           </div>
           <div>
-            <li>
-              <FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" onClick={handleLogout} /> Cerrar Sesion
+            <li onClick={handleLogout}>
+              <FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" /> Cerrar Sesion
             </li>
           </div>
         </ul>
