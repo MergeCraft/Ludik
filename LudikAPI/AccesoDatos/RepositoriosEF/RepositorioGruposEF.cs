@@ -32,17 +32,17 @@ namespace AccesoDatos.RepositoriosEF
                 {
                     throw new GrupoNoValidoExeption();
                 }
-                if (unGrupo.TablaEquivalencia != null)
+                if (unGrupo.tablaEquivalencia != null)
                 {
-                    _db.Entry(unGrupo.TablaEquivalencia).State = EntityState.Unchanged;
+                    _db.Entry(unGrupo.tablaEquivalencia).State = EntityState.Unchanged;
                 }
-                if (unGrupo.EnlaceUnion != null)
+                if (unGrupo.enlaceUnion != null)
                 {
-                    _db.Entry(unGrupo.EnlaceUnion).State = EntityState.Added;
+                    _db.Entry(unGrupo.enlaceUnion).State = EntityState.Added;
                 }
-                if (unGrupo.Tienda != null)
+                if (unGrupo.tienda != null)
                 {
-                    _db.Entry(unGrupo.Tienda).State = EntityState.Added;
+                    _db.Entry(unGrupo.tienda).State = EntityState.Added;
                 }
                 _db.Grupos.Add(unGrupo);
                 _db.SaveChanges();

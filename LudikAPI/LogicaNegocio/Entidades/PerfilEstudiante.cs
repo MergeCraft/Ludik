@@ -33,8 +33,6 @@ namespace Dominio
         public BarraProgreso barraProgreso { get; set; }
 
 
-        public BarraProgreso barraProgreso { get; set; }
-
         public void asignarMedalla(Medalla m) { }
 
         public void quitarMedalla(Medalla m) { }

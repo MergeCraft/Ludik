@@ -22,13 +22,12 @@ namespace LogicaAplicacion.DTOsMappers.GrupoMappers
         {
             return new Grupo
             {
-                Nombre = dto.Nombre,
-                TablaEquivalenciaId = tabla.Id,
-                TablaEquivalencia = tabla,
+                nombre = dto.Nombre,
+                tablaEquivalencia = tabla,
                 ProfesorId = dto.ProfesorId,
-                Institucion = dto.Institucion ?? "",
-                Materia = dto.Materia ?? "",
-                FCreacion = DateTime.Now 
+                institucion = dto.Institucion ?? "",
+                materia = dto.Materia ?? "",
+                fCreacion = DateTime.Now 
             };
         }
     }

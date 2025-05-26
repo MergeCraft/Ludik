@@ -43,9 +43,9 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
                 expiracion = DateTime.UtcNow.AddDays(7)
             };
 
-            grupo.EnlaceUnion = enlace;
+            grupo.enlaceUnion = enlace;
             var tienda = new Tienda();
-            grupo.Tienda = tienda;
+            grupo.tienda = tienda;
 
             _repositorioGrupo.Add(grupo);
 

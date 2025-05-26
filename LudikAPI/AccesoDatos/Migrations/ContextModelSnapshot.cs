@@ -103,12 +103,8 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("EnlaceUnionId")
+                    b.Property<int>("ProfesorId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ciudad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("enlaceUnionId")
                         .HasColumnType("int");
@@ -116,19 +112,15 @@ namespace AccesoDatos.Migrations
                     b.Property<DateTime>("fCreacion")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("institucion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("materia")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Materia")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
@@ -137,11 +129,6 @@ namespace AccesoDatos.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EnlaceUnionId")
-                        .IsUnique();
-
-                    b.HasIndex("Nombre");
 
                     b.HasIndex("ProfesorId")
                         .HasDatabaseName("IX_Grupo_ProfesorId");
@@ -248,15 +235,6 @@ namespace AccesoDatos.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("GrupoId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TablaClasificacionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("avatarGrupoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("barraProgresoId")
                         .HasColumnType("int");
 
                     b.Property<int?>("TablaClasificacionId")
@@ -581,32 +559,8 @@ namespace AccesoDatos.Migrations
                         .HasForeignKey("TablaEquivalenciaId");
                 });
 
-            modelBuilder.Entity("Dominio.BarraProgreso", b =>
-                {
-                    b.HasOne("Dominio.TablaEquivalencia", "tablaEquivalencia")
-                        .WithMany()
-                        .HasForeignKey("tablaEquivalenciaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("tablaEquivalencia");
-                });
-
-            modelBuilder.Entity("Dominio.Equivalencia", b =>
-                {
-                    b.HasOne("Dominio.TablaEquivalencia", null)
-                        .WithMany("equivalencias")
-                        .HasForeignKey("TablaEquivalenciaId");
-                });
-
             modelBuilder.Entity("Dominio.Grupo", b =>
                 {
-                    b.HasOne("Dominio.EnlaceUnion", "EnlaceUnion")
-                        .WithOne()
-                        .HasForeignKey("Dominio.Grupo", "EnlaceUnionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Dominio.Profesor", null)
                         .WithMany("grupos")
                         .HasForeignKey("ProfesorId")
@@ -987,58 +941,6 @@ namespace AccesoDatos.Migrations
                     b.Navigation("barraProgreso")
                         .IsRequired();
 
-                    b.Navigation("historialRendimientoPeriodos");
-
-                    b.Navigation("inventario");
-
-                    b.Navigation("medallasObtenidas");
-                });
-
-            modelBuilder.Entity("Dominio.RendimientoPeriodo", b =>
-                {
-                    b.Navigation("medallasObtuvoEstudiante");
-                });
-
-            modelBuilder.Entity("Dominio.TablaClasificacion", b =>
-                {
-                    b.Navigation("participantes");
-                });
-
-            modelBuilder.Entity("Dominio.TablaEquivalencia", b =>
-                {
-                    b.Navigation("equivalencias");
-                });
-
-            modelBuilder.Entity("Dominio.Tienda", b =>
-                {
-                    b.Navigation("Recompesas");
-                });
-
-            modelBuilder.Entity("Dominio.Estudiante", b =>
-                {
-                    b.Navigation("hitos");
-
-                    b.Navigation("perfiles");
-
-                    b.Navigation("preguntasSeguridad");
-                });
-
-            modelBuilder.Entity("Dominio.Equivalencia", b =>
-                {
-                    b.Navigation("medallasNecesarias");
-                });
-
-            modelBuilder.Entity("Dominio.Grupo", b =>
-                {
-                    b.Navigation("Alumnos");
-
-                    b.Navigation("Solicitudes");
-
-                    b.Navigation("TablasClasificacion");
-                });
-
-            modelBuilder.Entity("Dominio.PerfilEstudiante", b =>
-                {
                     b.Navigation("historialRendimientoPeriodos");
 
                     b.Navigation("inventario");

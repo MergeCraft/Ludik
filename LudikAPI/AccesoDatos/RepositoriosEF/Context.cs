@@ -175,7 +175,7 @@ namespace AccesoDatos.RepositoriosEF
 
             // Grupo - Índices
             modelBuilder.Entity<Grupo>()
-                .HasIndex(g => g.Nombre);
+                .HasIndex(g => g.nombre);
             modelBuilder.Entity<Grupo>()
                 .HasIndex(g => g.ProfesorId)
                 .HasDatabaseName("IX_Grupo_ProfesorId");

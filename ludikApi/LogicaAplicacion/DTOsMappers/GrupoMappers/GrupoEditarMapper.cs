@@ -10,11 +10,10 @@ namespace LogicaAplicacion.DTOsMappers.GrupoMappers
             return new GrupoEditarDto
             {
                 Id = grupo.Id,
-                Nombre = grupo.Nombre,
-                TablaEquivalenciaId = grupo.TablaEquivalenciaId,
+                Nombre = grupo.nombre,
                 ProfesorId = grupo.ProfesorId,
-                Institucion = grupo.Institucion,
-                Materia = grupo.Materia
+                Institucion = grupo.institucion,
+                Materia = grupo.materia
             };
         }
 
@@ -23,21 +22,19 @@ namespace LogicaAplicacion.DTOsMappers.GrupoMappers
             return new Grupo
             {
                 Id = grupoDto.Id,
-                Nombre = grupoDto.Nombre,
-                TablaEquivalenciaId = grupoDto.TablaEquivalenciaId,
+                nombre = grupoDto.Nombre,
                 ProfesorId = grupoDto.ProfesorId,
-                Institucion = grupoDto.Institucion,
-                Materia = grupoDto.Materia
+                institucion = grupoDto.Institucion,
+                materia = grupoDto.Materia
             };
         }
 
         public static void UpdateFromDto(GrupoEditarDto grupoDto, Grupo grupoExistente)
         {
-            grupoExistente.Nombre = grupoDto.Nombre;
-            grupoExistente.TablaEquivalenciaId = grupoDto.TablaEquivalenciaId;
+            grupoExistente.nombre = grupoDto.Nombre;
             grupoExistente.ProfesorId = grupoDto.ProfesorId;
-            grupoExistente.Institucion = grupoDto.Institucion;
-            grupoExistente.Materia = grupoDto.Materia;
+            grupoExistente.institucion = grupoDto.Institucion;
+            grupoExistente.materia = grupoDto.Materia;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Dominio
         [StringLength(30, MinimumLength = 3, ErrorMessage = "El nombre del grupo debe tener entre 3 y 30 caracteres.")]
         public String nombre { get; set; }
 
-        public String ciudad { get; set; }
+        public String institucion { get; set; }
 
         public String materia { get; set; }
 
