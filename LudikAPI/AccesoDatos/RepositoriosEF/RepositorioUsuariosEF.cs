@@ -17,21 +17,21 @@ namespace AccesoDatos.RepositoriosEF
         {
             _db = db;
         }
-        public void Add(Usuario usuarioNuevo)
-        {
 
-        }
-
-        public IEnumerable<Usuario> GetAll()
+        public Task AddAsync(Usuario unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public Usuario GetById(int id)
+        public Task<IEnumerable<Usuario>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
+        public Task<Usuario> GetByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task<Usuario> loginUsuario(string identificador)
         {
@@ -62,17 +62,17 @@ namespace AccesoDatos.RepositoriosEF
             }
         }
 
-        public void Remove(int id)
+        public Task RemoveAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(Usuario unObjeto)
+        public Task RemoveAsync(Usuario unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Usuario unObjeto)
+        public Task UpdateAsync(Usuario unObjeto)
         {
             throw new NotImplementedException();
         }

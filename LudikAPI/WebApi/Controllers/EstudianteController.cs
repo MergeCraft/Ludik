@@ -1,5 +1,6 @@
 ﻿using LogicaAplicacion.DTOs.UsuarioDTOs;
 using LogicaAplicacion.InterfacesCasosUsos.Estudiante;
+using LogicaNegocio.Excepciones;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -30,20 +31,22 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult AltaEstudiante([FromBody] EstudianteAltaDto estudianteDto)
+        public async Task<IActionResult> AltaEstudiante([FromBody] EstudianteAltaDto estudianteDto)
         {
+            if (estudianteDto == null)
+                return BadRequest("Debe enviar los datos del estudiante.");
+
             try
             {
-                if (estudianteDto == null)
-                {
-                    return BadRequest("Debe enviar los datos del estudiante.");
-                }
-
-                _altaEstudiante.Ejecutar(estudianteDto);
+                await _altaEstudiante.EjecutarAsync(estudianteDto);
 
                 return StatusCode(StatusCodes.Status201Created, "Estudiante registrado correctamente.");
             }
             catch (ValidationException ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+            }
+            catch (UsuarioNoValidoException ex)
             {
                 return BadRequest(new { Error = ex.Message });
             }

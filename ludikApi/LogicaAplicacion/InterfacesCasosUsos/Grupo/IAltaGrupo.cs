@@ -10,7 +10,7 @@ namespace LogicaAplicacion.InterfacesCasosUsos.Grupo
 {
     public interface IAltaGrupo
     {
-        void Ejecutar(GrupoAltaDto grupoAltaDto);
+        Task EjecutarAsync(GrupoAltaDto grupoAltaDto);
 
     }
 }

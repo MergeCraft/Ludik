@@ -7,7 +7,7 @@ namespace InterfacesRepositorio
 {
 	public interface IRepositorioMedallas : IRepositorio<Medalla>
 	{
-		List<Medalla> ObtenerMedallasAsignablesMutuamente(int idGrupo);
+        Task<List<Medalla>> ObtenerMedallasAsignablesMutuamenteAsync(int idGrupo);
 
     }
 

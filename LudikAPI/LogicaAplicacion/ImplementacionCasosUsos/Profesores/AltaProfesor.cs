@@ -23,21 +23,23 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
         }
         //Pre: el usuario no se encuentra registrado en la base de datos
         //Pos: se registra el profesor en la base de datos
-        public void Ejecutar(ProfesorAltaDto profesorAltaDto)
+        public async Task EjecutarAsync(ProfesorAltaDto profesorAltaDto)
         {
             if (profesorAltaDto == null)
                 throw new ArgumentNullException(nameof(profesorAltaDto), "El DTO no puede ser nulo.");
 
-            if (_repositorioProfesores.ExisteNombreUsuario(profesorAltaDto.NombreUsuario))
+            bool existeUsuario = await _repositorioProfesores.ExisteNombreUsuarioAsync(profesorAltaDto.NombreUsuario);
+            if (existeUsuario)
                 throw new Exception("El nombre de usuario ya está en uso.");
 
-            if(_repositorioProfesores.ExisiteMailProfesor(profesorAltaDto.Email))
+            bool existeMail = await _repositorioProfesores.ExisiteMailProfesorAsync(profesorAltaDto.Email);
+            if (existeMail)
                 throw new Exception("El email de usuario ya está en uso.");
-
 
             Profesor profesorNuevo = ProfesorAltaMapper.fromDto(profesorAltaDto);
             profesorNuevo.Contrasenia.Valor = EncriptarContrasenia(profesorNuevo.Contrasenia.Valor);
-            _repositorioProfesores.Add(profesorNuevo);
+
+            await _repositorioProfesores.AddAsync(profesorNuevo);
         }
 
         public string EncriptarContrasenia(string contrasenia)

@@ -15,32 +15,33 @@ namespace AccesoDatos.RepositoriosEF
         {
             _db = db;
         }
-        public void Add(SolicitudUnion unObjeto)
+
+        public Task AddAsync(SolicitudUnion unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<SolicitudUnion> GetAll()
+        public Task<IEnumerable<SolicitudUnion>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public SolicitudUnion GetById(int id)
+        public Task<SolicitudUnion> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(int id)
+        public Task RemoveAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(SolicitudUnion unObjeto)
+        public Task RemoveAsync(SolicitudUnion unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(SolicitudUnion unObjeto)
+        public Task UpdateAsync(SolicitudUnion unObjeto)
         {
             throw new NotImplementedException();
         }

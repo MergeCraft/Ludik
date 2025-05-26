@@ -19,15 +19,13 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Medallas
         }
         //Pre: Recibe un DTO con los datos de la medalla a crear
         //Pos: Se crea una medalla en la base de datos
-        public void Ejecutar(MedallaAltaDto medallaAltaDto)
+        public async Task EjecutarAsync(MedallaAltaDto medallaAltaDto)
         {
-            if(medallaAltaDto == null)
-                throw new ArgumentNullException(nameof(medallaAltaDto), "No se puede crear una medalla sin tener datos."); 
+            if (medallaAltaDto == null)
+                throw new ArgumentNullException(nameof(medallaAltaDto), "No se puede crear una medalla sin tener datos.");
 
-            
             Medalla medallaNueva = MedallaAltaMapper.fromDto(medallaAltaDto);
-            _repositorioMedallas.Add(medallaNueva);
-
+            await _repositorioMedallas.AddAsync(medallaNueva);
         }
     }
 }

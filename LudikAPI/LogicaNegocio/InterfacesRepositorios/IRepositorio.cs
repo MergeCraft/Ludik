@@ -2,18 +2,14 @@ namespace LogicaNegocio.InterfacesRepositorio
 {
     public interface IRepositorio<T> where T : class
 	{
-		void Add(T unObjeto);
+        Task AddAsync(T unObjeto);
+        Task RemoveAsync(int id);
+        Task RemoveAsync(T unObjeto);
+        Task UpdateAsync(T unObjeto);
+        Task<T> GetByIdAsync(int id);
+        Task<IEnumerable<T>> GetAllAsync();
 
-		void Remove(int id);
-
-		void Remove(T unObjeto);
-
-		void Update(T unObjeto);
-
-		T GetById(int id);
-		IEnumerable<T> GetAll();
-
-	}
+    }
 
 }
 

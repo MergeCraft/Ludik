@@ -6,8 +6,8 @@ namespace InterfacesRepositorio
 {
 	public interface IRepositorioProfesores : IRepositorio<Profesor>
 	{
-        bool ExisteNombreUsuario(string nombreUsuario);
-        bool ExisiteMailProfesor(string emailUsuario);
+        Task<bool> ExisteNombreUsuarioAsync(string nombreUsuario);
+        Task<bool> ExisiteMailProfesorAsync(string emailUsuario);
     }
 
 }

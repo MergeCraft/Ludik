@@ -31,16 +31,14 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult AltaGrupo([FromBody] GrupoAltaDto GrupoDto)
+        public async Task<IActionResult> AltaGrupo([FromBody] GrupoAltaDto grupoDto)
         {
             try
             {
-                if (GrupoDto == null)
-                {
+                if (grupoDto == null)
                     return BadRequest("Debe enviar los datos del grupo.");
-                }
 
-                _altaGrupo.Ejecutar(GrupoDto);
+                await _altaGrupo.EjecutarAsync(grupoDto);
 
                 return StatusCode(StatusCodes.Status201Created, "Grupo registrado correctamente.");
             }
@@ -67,14 +65,14 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult EditarGrupo([FromBody] GrupoEditarDto grupoDto)
+        public async Task<IActionResult> EditarGrupo([FromBody] GrupoEditarDto grupoDto)
         {
             try
             {
                 if (grupoDto == null)
                     return BadRequest("Debe enviar los datos del grupo a editar.");
 
-                _editarGrupo.Ejecutar(grupoDto);
+                await _editarGrupo.EjecutarAsync(grupoDto);
 
                 return Ok("Grupo actualizado correctamente.");
             }

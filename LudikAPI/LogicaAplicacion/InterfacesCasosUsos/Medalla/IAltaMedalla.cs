@@ -9,7 +9,7 @@ namespace LogicaAplicacion.InterfacesCasosUsos.Medalla
 {
     public interface IAltaMedalla
     {
-        void Ejecutar(MedallaAltaDto medallaAltaDto);
+        Task EjecutarAsync(MedallaAltaDto medallaAltaDto);
 
     }
 }

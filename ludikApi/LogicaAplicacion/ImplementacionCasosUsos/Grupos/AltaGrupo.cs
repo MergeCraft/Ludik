@@ -26,12 +26,12 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
         //TODO:refactirizar cuando se haga el requerimiento funcional de tienda y enlaces de union 
 
 
-        public void Ejecutar(GrupoAltaDto grupoAltaDto)
+        public async Task EjecutarAsync(GrupoAltaDto grupoAltaDto)
         {
             if (grupoAltaDto == null)
                 throw new ArgumentNullException(nameof(grupoAltaDto), "El DTO no puede ser nulo.");
 
-            var tabla = _repoTablasEquivalencia.GetById(grupoAltaDto.TablaEquivalenciaId);
+            var tabla = await _repoTablasEquivalencia.GetByIdAsync(grupoAltaDto.TablaEquivalenciaId);
             if (tabla == null)
                 throw new Exception("No se encontró la tabla de equivalencia especificada.");
 
@@ -44,14 +44,12 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
             };
 
             grupo.enlaceUnion = enlace;
-            var tienda = new Tienda();
-            grupo.tienda = tienda;
+            grupo.tienda = new Tienda();
 
-            _repositorioGrupo.Add(grupo);
-
+            await _repositorioGrupo.AddAsync(grupo);
         }
 
-        
+
     }
     
 }
