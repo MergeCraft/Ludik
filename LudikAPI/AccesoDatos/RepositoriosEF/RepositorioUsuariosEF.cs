@@ -32,7 +32,7 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        //TODO: hacer que login busque en las tablas de estudiantes y profesores
+
         public async Task<Usuario> loginUsuario(string identificador)
         {
             try

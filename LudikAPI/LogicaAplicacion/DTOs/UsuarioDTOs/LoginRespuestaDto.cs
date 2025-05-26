@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.DTOs.UsuarioDTOs
 {
-    public class UsuarioDto
+    public class LoginRespuestaDto
     {
+        public string Token { get; set; }
+        public string Rol { get; set; }
         public string NombreUsuario { get; set; }
-        public string Contrasenia { get; set; }
+        public int Id { get; set; }
     }
 }

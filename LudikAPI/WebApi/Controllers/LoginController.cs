@@ -1,5 +1,7 @@
-﻿using LogicaAplicacion.DTOs.UsuarioDTOs;
+﻿using Azure.Core;
+using LogicaAplicacion.DTOs.UsuarioDTOs;
 using LogicaAplicacion.InterfacesCasosUsos.Usuario;
+using LogicaNegocio.Excepciones;
 using LogicaNegocio.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -9,14 +11,15 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuarioController : ControllerBase
+    public class LoginController : ControllerBase
     {
-        private ILogin _login;
+        private readonly ILogin _login;
 
-        public UsuarioController(ILogin login)
+        public LoginController(ILogin login)
         {
             _login = login;
         }
+
         /// <summary>
         /// Este endpoint permite que un usuario se autentifique en el sistema.
         /// </summary>
@@ -32,34 +35,56 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Login([FromBody] UsuarioDto usr)
+        public async Task<IActionResult> Login([FromBody] LoginSolicitudDto usr)
         {
             if (usr == null)
                 return BadRequest("Lo campos de NombreUsuario y contraseña con obligatorios.");
 
             try
             {
-                //TODO: refactorizar para hacer uso de polimorfismo en lugar de preguntarle el tipo de usuario o considerar ponerle un nombreTipo
+
                 var usuarioDto = await _login.Ejecutar(usr.NombreUsuario, usr.Contrasenia);
+
+                if (usuarioDto == null)
+                    return Unauthorized("Credenciales incorrectas.");
+
 
                 string token = ManejadorJwt.ManejadorJwt.GenerarToken(usuarioDto.NombreUsuario, usuarioDto.Rol);
 
-                return Ok(new
+                var respuesta = new LoginRespuestaDto
                 {
                     Token = token,
                     Rol = usuarioDto.Rol,
                     NombreUsuario = usuarioDto.NombreUsuario,
-                    UsuarioId = usuarioDto.Id
-                });
+                    Id = usuarioDto.Id
+
+                };
+
+                return Ok(respuesta);
             }
-            catch (UnauthorizedAccessException ex)
+            catch (UsuarioNoValidoException ex)
             {
-                return Unauthorized(new { Error = "Credenciales incorrectas. " + ex.Message });
+                // 401 porque el usuario no existe
+                return Unauthorized(new { Error = ex.Message });
+            }
+            catch (ContraseniaNoValidaException ex)
+            {
+                // 401 porque la contraseña no coincide
+                return Unauthorized(new { Error = ex.Message });
+            }
+            catch (ArgumentNullException ex)
+            {
+                // 400 si faltó algún parámetro en la entrada
+                return BadRequest(new { Error = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = "Ocurrió un error inesperado. " + ex.Message });
+                // 500 para cualquier otro error inesperado
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new { Error = "Ocurrió un error inesperado. " + ex.Message });
             }
         }
+
     }
+
 }
