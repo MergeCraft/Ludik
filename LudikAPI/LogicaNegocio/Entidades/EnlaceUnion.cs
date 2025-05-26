@@ -15,7 +15,10 @@ namespace Dominio
         {
             throw new NotImplementedException();
         }
-
+        public EnlaceUnion()
+        {
+            
+        }
         public String generarCodigoBase()
 		{
 			return null;

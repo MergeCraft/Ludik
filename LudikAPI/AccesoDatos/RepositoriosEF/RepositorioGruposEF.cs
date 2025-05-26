@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
+using LogicaNegocio.Excepciones;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
 {
@@ -21,9 +24,38 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public void Add(Grupo unObjeto)
+        public void Add(Grupo unGrupo)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (unGrupo == null)
+                {
+                    throw new GrupoNoValidoExeption();
+                }
+                if (unGrupo.TablaEquivalencia != null)
+                {
+                    _db.Entry(unGrupo.TablaEquivalencia).State = EntityState.Unchanged;
+                }
+                if (unGrupo.EnlaceUnion != null)
+                {
+                    _db.Entry(unGrupo.EnlaceUnion).State = EntityState.Added;
+                }
+                if (unGrupo.Tienda != null)
+                {
+                    _db.Entry(unGrupo.Tienda).State = EntityState.Added;
+                }
+                _db.Grupos.Add(unGrupo);
+                _db.SaveChanges();
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
+                throw new GrupoNoValidoExeption($"Error al guardar en la BD: {detalle}");
+            }
+            catch (GrupoNoValidoExeption ex)
+            {
+                throw new GrupoNoValidoExeption("El Grupo no es válido.");
+            }
         }
 
         public int calcularNotaEstudiante(int idAlumno, int idGrupo)
@@ -38,7 +70,7 @@ namespace AccesoDatos.RepositoriosEF
 
         public Grupo GetById(int id)
         {
-            throw new NotImplementedException();
+            return _db.Grupos.FirstOrDefault(t => t.Id == id);
         }
 
         public List<Estudiante> obtenerAlumnosDelGrupo(int idGrupo)
@@ -86,9 +118,27 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public void Update(Grupo unObjeto)
+        public void Update(Grupo grupoNuevo)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (grupoNuevo == null)
+                {
+                    throw new GrupoNoValidoExeption("El usuario no puede ser null.");
+                }
+               // grupoNuevo.EsValido();
+                var grupoExistente = _db.Grupos.Find(grupoNuevo.Id);
+                if (grupoExistente == null)
+                {
+                    throw new Exception("grupo no encontrado");
+                }
+                _db.Entry(grupoExistente).CurrentValues.SetValues(grupoNuevo);
+                _db.SaveChanges();
+            }
+            catch (GrupoNoValidoExeption ex)
+            {
+                throw ex;
+            }
         }
     }
 }

@@ -167,15 +167,15 @@ namespace AccesoDatos.RepositoriosEF
 
             });
 
+            // Estudiante - NombreUsuario único
             modelBuilder.Entity<Estudiante>()
                 .OwnsOne(e => e.NombreUsuario)
                 .HasIndex(e => e.Valor)
                 .IsUnique();
 
+            // Grupo - Índices
             modelBuilder.Entity<Grupo>()
-                .HasIndex(g => g.nombre);
-
-            // Índice no único para listar rápidamente todos los grupos de un profesor
+                .HasIndex(g => g.Nombre);
             modelBuilder.Entity<Grupo>()
                 .HasIndex(g => g.ProfesorId)
                 .HasDatabaseName("IX_Grupo_ProfesorId");

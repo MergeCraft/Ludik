@@ -17,7 +17,7 @@ namespace Dominio
         public int metaCalificacion { get; set; }
 
         [ForeignKey(nameof(Estudiante))]
-        public int EstudianteId { get; set; } 
+        public int EstudianteId { get; set; }
 
         public int monedas { get; set; }
 
@@ -33,20 +33,17 @@ namespace Dominio
         public BarraProgreso barraProgreso { get; set; }
 
 
-        public void asignarMedalla(Medalla m)
-		{
+        public BarraProgreso barraProgreso { get; set; }
 
-		}
+        public void asignarMedalla(Medalla m) { }
+
+        public void quitarMedalla(Medalla m) { }
 
         public void EsValido()
         {
             throw new NotImplementedException();
         }
-
-        public void quitarMedalla(Medalla m)
-		{
-
-		}
+       
 
 	}
 

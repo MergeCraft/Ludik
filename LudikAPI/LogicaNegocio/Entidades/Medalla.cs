@@ -24,7 +24,7 @@ namespace Dominio
             if (string.IsNullOrWhiteSpace(Nombre) || Nombre.Length < 5 || Nombre.Length > 30)
                 throw new MedallaNoValidaException("El nombre de la medalla no cumple las restricciones.");
             if (descripcion.Length > 50)
-                throw new MedallaNoValidaException("La descripción de la medalla no puede superar los 50 caracteres.");
+                throw new MedallaNoValidaException("La descripci�n de la medalla no puede superar los 50 caracteres.");
             if(monedasOtorgadas < 0)
                 throw new MedallaNoValidaException("La cantidad de monedas otorgadas no puede ser menor a 0.");
 

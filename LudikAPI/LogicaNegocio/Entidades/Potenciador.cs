@@ -9,7 +9,7 @@ namespace Dominio
 
         public double multiplicador { get; set; }
 
-	}
+    }
 
 }
 

@@ -27,7 +27,7 @@ namespace AccesoDatos.RepositoriosEF
 
         public TablaEquivalencia GetById(int id)
         {
-            throw new NotImplementedException();
+            return _db.TablasEquivalencia.FirstOrDefault(t => t.Id == id);
         }
 
         public void Remove(int id)

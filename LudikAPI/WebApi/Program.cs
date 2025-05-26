@@ -45,12 +45,21 @@ builder.Services.AddSwaggerGen(opciones =>
 builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
 builder.Services.AddScoped<IRepositorioEstudiantes, RepositorioEstudiantesEF>();
 builder.Services.AddScoped<IRepositorioProfesores, RepositorioProfesoresEF>();
+builder.Services.AddScoped<IRepositorioGrupos, RepositorioGruposEF>();
+builder.Services.AddScoped<IRepositorioTablasEquivalencia, RepositorioTablasEquivalenciaEF>();
+
+
 builder.Services.AddScoped<IRepositorioMedallas, RepositorioMedallasEF>();
 
 //Inyeccion casos de uso
 builder.Services.AddScoped<ILogin, Login>();
 builder.Services.AddScoped<IAltaEstudiante, AltaEstudiante>();
 builder.Services.AddScoped<IAltaProfesor, AltaProfesor>();
+builder.Services.AddScoped<IAltaGrupo, AltaGrupo>();
+builder.Services.AddScoped<IEditarGrupo, EditarGrupo>();
+
+
+
 builder.Services.AddScoped<IAltaMedalla, AltaMedalla>();
 
 
