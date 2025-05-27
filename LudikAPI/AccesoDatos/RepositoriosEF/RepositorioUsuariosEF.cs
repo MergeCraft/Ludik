@@ -12,8 +12,8 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioUsuariosEF : IRepositorioUsuarios
     {
-        private readonly Context _db;
-        public RepositorioUsuariosEF(Context db)
+        private readonly ContextoDb _db;
+        public RepositorioUsuariosEF(ContextoDb db)
         {
             _db = db;
         }

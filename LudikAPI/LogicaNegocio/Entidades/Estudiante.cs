@@ -24,7 +24,12 @@ namespace Dominio
 
 		}
 
-	}
+        protected override string getTipoUsuario()
+        {
+            return "Estudiante";
+        }
+
+    }
 
 }
 

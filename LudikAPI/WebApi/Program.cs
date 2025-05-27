@@ -1,5 +1,6 @@
 using System.Text;
 using AccesoDatos.RepositoriosEF;
+using Dominio;
 using InterfacesRepositorio;
 using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;
 using LogicaAplicacion.ImplementacionCasosUsos.Grupos;
@@ -12,6 +13,7 @@ using LogicaAplicacion.InterfacesCasosUsos.Medalla;
 using LogicaAplicacion.InterfacesCasosUsos.Profesor;
 using LogicaAplicacion.InterfacesCasosUsos.Usuario;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -19,11 +21,17 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Se obtiene la cadena de conexion a la BD desde appsettings.json
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme);
+builder.Services.AddIdentityCore<Usuario>()
+    .AddEntityFrameworkStores<ContextoDb>()
+    .AddApiEndpoints();
 
-// Registra Context usando AddDbContext
-builder.Services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
+// Se obtiene la cadena de conexion a la BD desde appsettings.json
+var cadenaDeConexionBD = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// Registra ContextoDb usando AddDbContext
+builder.Services.AddDbContext<ContextoDb>(options => options.UseSqlServer(cadenaDeConexionBD));
 
 // Agregar servicios al contenedor
 builder.Services.AddControllers();
@@ -108,6 +116,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapIdentityApi<Usuario>();
 
 app.Run();
 

@@ -10,8 +10,8 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioPerfilEstudianteGrupoEF : IRepositorioPerfilEstudianteGrupo
     {
-        private readonly Context _db;
-        public RepositorioPerfilEstudianteGrupoEF(Context db)
+        private readonly ContextoDb _db;
+        public RepositorioPerfilEstudianteGrupoEF(ContextoDb db)
         {
             _db = db;
         }

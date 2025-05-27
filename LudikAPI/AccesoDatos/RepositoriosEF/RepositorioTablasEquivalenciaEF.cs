@@ -10,8 +10,8 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioTablasEquivalenciaEF : IRepositorioTablasEquivalencia
     {
-        private readonly Context _db;
-        public RepositorioTablasEquivalenciaEF(Context db)
+        private readonly ContextoDb _db;
+        public RepositorioTablasEquivalenciaEF(ContextoDb db)
         {
             _db = db;
         }

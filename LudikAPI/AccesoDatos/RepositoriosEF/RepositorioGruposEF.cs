@@ -14,8 +14,8 @@ namespace AccesoDatos.RepositoriosEF
     public class RepositorioGruposEF : IRepositorioGrupos
 
     {
-        private readonly Context _db;
-        public RepositorioGruposEF(Context db)
+        private readonly ContextoDb _db;
+        public RepositorioGruposEF(ContextoDb db)
         {
             _db = db;
         }

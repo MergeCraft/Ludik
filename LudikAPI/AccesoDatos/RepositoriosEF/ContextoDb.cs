@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dominio;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace AccesoDatos.RepositoriosEF
 {
-    public class Context : DbContext
+    public class ContextoDb : IdentityDbContext<Usuario, IdentityRole, string>
     {
-        public Context(DbContextOptions<Context> options) : base(options)
+        public ContextoDb(DbContextOptions<ContextoDb> options) : base(options)
         {
         }
 

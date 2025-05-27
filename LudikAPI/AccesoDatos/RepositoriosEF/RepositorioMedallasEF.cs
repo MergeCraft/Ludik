@@ -12,8 +12,8 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioMedallasEF : IRepositorioMedallas
     {
-        private readonly Context _db;
-        public RepositorioMedallasEF(Context db)
+        private readonly ContextoDb _db;
+        public RepositorioMedallasEF(ContextoDb db)
         {
             _db = db;
         }
