@@ -21,35 +21,63 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 builder.Services.AddAuthorization();
-builder.Services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme);
+builder.Services.AddAuthentication()
+    .AddCookie(IdentityConstants.ApplicationScheme)
+    .AddBearerToken(IdentityConstants.BearerScheme);
+
 builder.Services.AddIdentityCore<Usuario>()
     .AddEntityFrameworkStores<ContextoDb>()
     .AddApiEndpoints();
 
-// Se obtiene la cadena de conexion a la BD desde appsettings.json
 var cadenaDeConexionBD = builder.Configuration.GetConnectionString("DefaultConnection");
 
-// Registra ContextoDb usando AddDbContext
 builder.Services.AddDbContext<ContextoDb>(options => options.UseSqlServer(cadenaDeConexionBD));
 
-// Agregar servicios al contenedor
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
+// -------------------------------
+// Configura JWT Authentication
+// -------------------------------
 
-// Configurar Swagger
-var ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WebApi.xml");
-builder.Services.AddSwaggerGen(opciones =>
+// Lee configuración JWT desde appsettings.json
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+var claveDificil = jwtSettings.GetValue<string>("Key");
+var issuer = jwtSettings.GetValue<string>("Issuer");
+var audience = jwtSettings.GetValue<string>("Audience");
+
+var claveDificilEncriptada = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(claveDificil));
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = issuer,
+            ValidAudience = audience,
+            IssuerSigningKey = claveDificilEncriptada,
+            ClockSkew = TimeSpan.Zero
+        };
+    });
+
+// -------------------------------
+// Configura Authorization (políticas/roles)
+// -------------------------------
+
+builder.Services.AddAuthorization(options =>
 {
-	opciones.IncludeXmlComments(ruta);
-	opciones.SwaggerDoc("v1", new OpenApiInfo
-	{
-		Title = "API de Ludik",
-		Version = "v1",
-		Description = "Bitácora digital de logros de aprendizaje.",
-		Contact = new OpenApiContact { Email = "renatoriosx@gmail.com" }
-	});
+    options.AddPolicy("EsAdministrador", policy => policy.RequireRole("Administrador"));
+    options.AddPolicy("EsProfesor", policy => policy.RequireRole("Profesor"));
+    options.AddPolicy("EsEstudiante", policy => policy.RequireRole("Estudiante"));
 });
+
+
 
 // Inyeccion repositorios
 builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
@@ -57,8 +85,6 @@ builder.Services.AddScoped<IRepositorioEstudiantes, RepositorioEstudiantesEF>();
 builder.Services.AddScoped<IRepositorioProfesores, RepositorioProfesoresEF>();
 builder.Services.AddScoped<IRepositorioGrupos, RepositorioGruposEF>();
 builder.Services.AddScoped<IRepositorioTablasEquivalencia, RepositorioTablasEquivalenciaEF>();
-
-
 builder.Services.AddScoped<IRepositorioMedallas, RepositorioMedallasEF>();
 
 //Inyeccion casos de uso
@@ -67,28 +93,26 @@ builder.Services.AddScoped<IAltaEstudiante, AltaEstudiante>();
 builder.Services.AddScoped<IAltaProfesor, AltaProfesor>();
 builder.Services.AddScoped<IAltaGrupo, AltaGrupo>();
 builder.Services.AddScoped<IEditarGrupo, EditarGrupo>();
-
-
-
 builder.Services.AddScoped<IAltaMedalla, AltaMedalla>();
 
+// -------------------------------
+//      Swagger y CORS
+// -------------------------------
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
 
-// Configuracion autenticación JWT
-var claveDificil = "UnaContraseniaSeguraEsLargaTiene:0123,caracteresEspeciales;*#seguridad";
-var claveDificilEncriptada = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(claveDificil));
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-	.AddJwtBearer(opt =>
-	{
-		opt.TokenValidationParameters = new TokenValidationParameters
-		{
-			ValidateIssuer = false,
-			ValidateAudience = false,
-			ValidateLifetime = false,
-			ValidateIssuerSigningKey = true,
-			IssuerSigningKey = claveDificilEncriptada
-		};
-	});
+var ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WebApi.xml");
+builder.Services.AddSwaggerGen(opciones =>
+{
+    opciones.IncludeXmlComments(ruta);
+    opciones.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "API de Ludik",
+        Version = "v1",
+        Description = "Bitácora digital de logros de aprendizaje.",
+        Contact = new OpenApiContact { Email = "renatoriosx@gmail.com" }
+    });
+});
 
 builder.Services.AddCors(options =>
 {
@@ -100,6 +124,26 @@ builder.Services.AddCors(options =>
 
 
 var app = builder.Build();
+
+// -------------------------------
+// Seed Roles al iniciar la app
+// -------------------------------
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var roles = new[] { "Administrador", "Profesor", "Estudiante" };
+
+    foreach (var rolNombre in roles)
+    {
+        var existe = await roleManager.RoleExistsAsync(rolNombre);
+        if (!existe)
+        {
+            await roleManager.CreateAsync(new IdentityRole(rolNombre));
+        }
+    }
+}
+
 
 if (app.Environment.IsDevelopment())
 {

@@ -6,10 +6,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dominio
 {
-	public class Profesor : Usuario
+	public class Profesor: Usuario
 	{
-        [Required]
-        public Email email { get; set; }
 
         public List<Medalla> medallas { get; set; }
 
@@ -21,10 +19,6 @@ namespace Dominio
 		{
 
 		}
-        protected override string getTipoUsuario()
-        {
-            return "Profesor";
-        }
 
     }
 

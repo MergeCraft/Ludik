@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace AccesoDatos.RepositoriosEF
 {
-    public class ContextoDb : IdentityDbContext<Usuario, IdentityRole, string>
+    public class ContextoDb : IdentityDbContext<Usuario>
     {
         public ContextoDb(DbContextOptions<ContextoDb> options) : base(options)
         {
@@ -53,71 +53,23 @@ namespace AccesoDatos.RepositoriosEF
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Usuario>().UseTpcMappingStrategy();
+            modelBuilder.Entity<Usuario>().UseTptMappingStrategy();
 
             modelBuilder.Entity<Estudiante>().ToTable("Estudiantes");
             modelBuilder.Entity<Profesor>().ToTable("Profesores");
 
-            //Configurar Owned types de Usuario en Profesor
-            modelBuilder.Entity<Profesor>(entity =>
-            {
-                // Owned NombreCompleto (propio de Usuario)
-                entity.OwnsOne(p => p.NombreCompleto, nc =>
-                {
-                    nc.Property(x => x.Nombre).HasColumnName("Nombre");
-                    nc.Property(x => x.Apellido).HasColumnName("Apellido");
-                });
+            modelBuilder.Entity<Estudiante>()
+                .HasOne<Usuario>()
+                .WithOne()
+                .HasForeignKey<Estudiante>(e => e.Id)
+                .OnDelete(DeleteBehavior.Cascade);
 
-                // Owned NombreUsuario (propio de Usuario)
-                entity.OwnsOne(p => p.NombreUsuario, nu =>
-                {
-                    nu.Property(x => x.Valor).HasColumnName("NombreUsuario")
-                                              .IsRequired();
-                    nu.HasIndex(x => x.Valor).IsUnique();
-                });
+            modelBuilder.Entity<Profesor>()
+                .HasOne<Usuario>()
+                .WithOne()
+                .HasForeignKey<Profesor>(p => p.Id)
+                .OnDelete(DeleteBehavior.Cascade);
 
-                // Owned Contrasenia (propio de Usuario)
-                entity.OwnsOne(p => p.Contrasenia, c =>
-                {
-                    c.Property(x => x.Valor).HasColumnName("Contrasenia")
-                                             .IsRequired();
-                });
-
-                // Owned Email (propio de Profesor)
-                entity.OwnsOne(p => p.email, correo =>
-                {
-                    correo.Property(x => x.Valor).HasColumnName("Email")
-                                                 .IsRequired();
-                    correo.HasIndex(x => x.Valor).IsUnique();
-                });
-            });
-
-            //Configura Owned types de Usuario en Estudiante
-            modelBuilder.Entity<Estudiante>(entity =>
-            {
-                // Owned NombreCompleto
-                entity.OwnsOne(e => e.NombreCompleto, nc =>
-                {
-                    nc.Property(x => x.Nombre).HasColumnName("Nombre");
-                    nc.Property(x => x.Apellido).HasColumnName("Apellido");
-                });
-
-                // Owned NombreUsuario
-                entity.OwnsOne(e => e.NombreUsuario, nu =>
-                {
-                    nu.Property(x => x.Valor).HasColumnName("NombreUsuario")
-                                              .IsRequired();
-                    nu.HasIndex(x => x.Valor).IsUnique();
-                });
-
-                // Owned Contrasenia
-                entity.OwnsOne(e => e.Contrasenia, c =>
-                {
-                    c.Property(x => x.Valor).HasColumnName("Contrasenia")
-                                             .IsRequired();
-                });
-
-            });
 
             modelBuilder.Entity<RendimientoPeriodo>(rp =>
             {
@@ -169,11 +121,6 @@ namespace AccesoDatos.RepositoriosEF
 
             });
 
-            // Estudiante - NombreUsuario único
-            modelBuilder.Entity<Estudiante>()
-                .OwnsOne(e => e.NombreUsuario)
-                .HasIndex(e => e.Valor)
-                .IsUnique();
 
             // Grupo - Índices
             modelBuilder.Entity<Grupo>()
@@ -206,6 +153,80 @@ namespace AccesoDatos.RepositoriosEF
             modelBuilder.Entity<Recompensa>(r =>
             {
                 r.HasIndex(x => x.Nombre);
+            });
+
+            modelBuilder.Entity<Usuario>(b =>
+            {
+                b.ToTable("Usuarios");                          // AspNetUsers → Usuarios
+                b.Property(u => u.Id).HasColumnName("UsuarioId");
+                b.Property(u => u.UserName).HasColumnName("NombreUsuario");
+                b.Property(u => u.NormalizedUserName).HasColumnName("NombreUsuarioNormalizado");
+                b.Property(u => u.Email).HasColumnName("Correo");
+                b.Property(u => u.NormalizedEmail).HasColumnName("CorreoNormalizado");
+                b.Property(u => u.EmailConfirmed).HasColumnName("CorreoConfirmado");
+                b.Property(u => u.PasswordHash).HasColumnName("ContraseniaHash");
+                b.Property(u => u.SecurityStamp).HasColumnName("EstampaSeguridad");
+                b.Property(u => u.ConcurrencyStamp).HasColumnName("EstampaConcurrencia");
+                b.Property(u => u.PhoneNumber).HasColumnName("Telefono");
+                b.Property(u => u.PhoneNumberConfirmed).HasColumnName("TelefonoConfirmado");
+                b.Property(u => u.TwoFactorEnabled).HasColumnName("AutenticacionDosFactores");
+                b.Property(u => u.LockoutEnd).HasColumnName("FinBloqueo");
+                b.Property(u => u.LockoutEnabled).HasColumnName("BloqueoHabilitado");
+                b.Property(u => u.AccessFailedCount).HasColumnName("IntentosFallidos");
+            });
+
+            modelBuilder.Entity<IdentityRole>(b =>
+            {
+                b.ToTable("Roles");                             // AspNetRoles → Roles
+                b.Property(r => r.Id).HasColumnName("RolId");
+                b.Property(r => r.Name).HasColumnName("NombreRol");
+                b.Property(r => r.NormalizedName).HasColumnName("NombreRolNormalizado");
+                b.Property(r => r.ConcurrencyStamp).HasColumnName("EstampaConcurrencia");
+            });
+
+            modelBuilder.Entity<IdentityUserRole<string>>(b =>
+            {
+                b.ToTable("UsuariosRoles");                     // AspNetUserRoles → UsuariosRoles
+                b.Property(ur => ur.UserId).HasColumnName("UsuarioId");
+                b.Property(ur => ur.RoleId).HasColumnName("RolId");
+            });
+
+            modelBuilder.Entity<IdentityUserClaim<string>>(b =>
+            {
+                b.ToTable("ReclamacionesUsuario");               // AspNetUserClaims → ReclamacionesUsuario
+                b.Property(uc => uc.Id).HasColumnName("ReclamacionUsuarioId");
+                b.Property(uc => uc.UserId).HasColumnName("UsuarioId");
+                b.Property(uc => uc.ClaimType).HasColumnName("TipoReclamacion");
+                b.Property(uc => uc.ClaimValue).HasColumnName("ValorReclamacion");
+            });
+
+            modelBuilder.Entity<IdentityUserLogin<string>>(b =>
+            {
+                b.ToTable("IniciosSesionUsuario");               // AspNetUserLogins → IniciosSesionUsuario
+                b.HasKey(l => new { l.LoginProvider, l.ProviderKey });
+                b.Property(l => l.LoginProvider).HasColumnName("Proveedor");
+                b.Property(l => l.ProviderKey).HasColumnName("ClaveProveedor");
+                b.Property(l => l.ProviderDisplayName).HasColumnName("NombreProveedor");
+                b.Property(l => l.UserId).HasColumnName("UsuarioId");
+            });
+
+            modelBuilder.Entity<IdentityRoleClaim<string>>(b =>
+            {
+                b.ToTable("ReclamacionesRoles");                 // AspNetRoleClaims → ReclamacionesRoles
+                b.Property(rc => rc.Id).HasColumnName("ReclamacionRolId");
+                b.Property(rc => rc.RoleId).HasColumnName("RolId");
+                b.Property(rc => rc.ClaimType).HasColumnName("TipoReclamacion");
+                b.Property(rc => rc.ClaimValue).HasColumnName("ValorReclamacion");
+            });
+
+            modelBuilder.Entity<IdentityUserToken<string>>(b =>
+            {
+                b.ToTable("TokensUsuario");                      // AspNetUserTokens → TokensUsuario
+                b.HasKey(t => new { t.UserId, t.LoginProvider, t.Name });
+                b.Property(t => t.UserId).HasColumnName("UsuarioId");
+                b.Property(t => t.LoginProvider).HasColumnName("Proveedor");
+                b.Property(t => t.Name).HasColumnName("NombreToken");
+                b.Property(t => t.Value).HasColumnName("ValorToken");
             });
 
         }

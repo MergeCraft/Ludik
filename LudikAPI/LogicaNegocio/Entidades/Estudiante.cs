@@ -4,7 +4,7 @@ using System;
 
 namespace Dominio
 {
-	public class Estudiante : Usuario
+	public class Estudiante: Usuario
 	{
         public List<PerfilEstudiante> perfiles { get; set; }
 
@@ -24,10 +24,6 @@ namespace Dominio
 
 		}
 
-        protected override string getTipoUsuario()
-        {
-            return "Estudiante";
-        }
 
     }
 

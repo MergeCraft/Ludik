@@ -8,7 +8,7 @@ namespace LogicaAplicacion.DTOs.UsuarioDTOs
 {
     public class UsuarioConRolDto
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string NombreUsuario { get; set; }
         public string Rol { get; set; }
     }
