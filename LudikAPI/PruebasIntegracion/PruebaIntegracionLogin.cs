@@ -30,7 +30,7 @@ namespace PruebasIntegracion
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             // Ejecuta la solicitud al endpoint de login
-            var response = await _client.PostAsync("/api/usuario/login", content);
+            var response = await _client.PostAsync("/api/login/login", content);
 
             var errorBody = await response.Content.ReadAsStringAsync();
             Console.WriteLine("ERROR BODY: " + errorBody);

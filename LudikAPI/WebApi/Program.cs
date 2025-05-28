@@ -59,6 +59,7 @@ builder.Services.AddScoped<IAltaEstudiante, AltaEstudiante>();
 builder.Services.AddScoped<IAltaProfesor, AltaProfesor>();
 builder.Services.AddScoped<IAltaGrupo, AltaGrupo>();
 builder.Services.AddScoped<IEditarGrupo, EditarGrupo>();
+builder.Services.AddScoped<IBajaGrupo, BajaGrupo>();
 
 
 

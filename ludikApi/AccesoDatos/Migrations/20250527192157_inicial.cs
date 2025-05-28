@@ -21,7 +21,8 @@ namespace AccesoDatos.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     codigoBase = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    expiracion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    expiracion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    urlCompleta = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

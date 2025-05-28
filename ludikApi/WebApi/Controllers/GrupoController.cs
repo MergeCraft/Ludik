@@ -4,6 +4,7 @@ using LogicaAplicacion.InterfacesCasosUsos.Grupo;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using LogicaAplicacion.DTOs.GrupoDTOs;
+using LogicaNegocio.Excepciones;
 
 namespace WebApi.Controllers
 {
@@ -13,10 +14,12 @@ namespace WebApi.Controllers
     {
         private readonly IAltaGrupo _altaGrupo;
         private readonly IEditarGrupo _editarGrupo;
-        public GrupoController(IAltaGrupo altaGrupo, IEditarGrupo editarGrupo)
+        private readonly IBajaGrupo _bajaGrupo;
+        public GrupoController(IAltaGrupo altaGrupo, IEditarGrupo editarGrupo, IBajaGrupo bajaGrupo)
         {
             _altaGrupo = altaGrupo;
             _editarGrupo = editarGrupo;
+            _bajaGrupo = bajaGrupo;
         }
         /// <summary>
         /// Este endpoint permite registrar un nuevo grupo en el sistema.
@@ -83,6 +86,34 @@ namespace WebApi.Controllers
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Error = "Ocurrió un error inesperado. " + ex.Message });
+            }
+        }
+        /// <summary>
+        /// Este endpoint permite eliminar un grupo existente.
+        /// </summary>
+        /// <returns>
+        /// 200 OK: Si el grupo fue eliminado correctamente.
+        /// 404 Not Found: Si el grupo no existe.
+        /// 500 Internal Server Error: Si ocurre un error inesperado durante el procesamiento.
+        /// </returns>
+        [HttpDelete("eliminar/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> EliminarGrupo(int id)
+        {
+            try
+            {
+                await _bajaGrupo.EjecutarAsync(id);
+                return Ok("Grupo eliminado correctamente.");
+            }
+            catch (GrupoNoValidoExeption ex)
+            {
+                return NotFound(new { Error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = "Error inesperado: " + ex.Message });
             }
         }
     }

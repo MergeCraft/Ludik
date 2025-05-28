@@ -6,6 +6,7 @@ using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.UsuarioDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;
 using LogicaNegocio.ValueObjects;
+using LogicaNegocio.Excepciones;
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion
 {
@@ -21,40 +22,36 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
         }
 
         [Fact]
-        public void Ejecutar_DtoNulo_LanzaArgumentNullException()
+        public async Task Ejecutar_DtoNulo_LanzaArgumentNullException()
         {
             // Arrange
             EstudianteAltaDto dto = null!;
 
             // Act & Assert
-            var ex = Assert.Throws<ArgumentNullException>(
-                () => _service.Ejecutar(dto)
-            );
+            var ex = await Assert.ThrowsAsync<ArgumentNullException>(() => _service.EjecutarAsync(dto));
             Assert.Contains("estudianteAltaDto", ex.ParamName);
         }
 
         [Fact]
-        public void Ejecutar_NombreUsuarioExiste_LanzaException()
+        public async Task Ejecutar_NombreUsuarioExiste_LanzaUsuarioNoValidoException()
         {
             // Arrange
             var dto = new EstudianteAltaDto
             {
-                NombreUsuario = "Pedro25",
+                NombreUsuario = "pedro25",
                 Nombre = "Juan",
                 Apellido = "Pérez",
-                Contrasenia = "camaracaC52."
+                Contrasenia = "Camaracac52."
             };
-            _repoMock.Setup(r => r.ExisteNombreUsuario("Pedro25")).Returns(true);
+            _repoMock.Setup(r => r.ExisteNombreUsuarioAsync("pedro25")).ReturnsAsync(true);
 
             // Act & Assert
-            var ex = Assert.Throws<Exception>(
-                () => _service.Ejecutar(dto)
-            );
+            var ex = await Assert.ThrowsAsync<UsuarioNoValidoException>(() => _service.EjecutarAsync(dto));
             Assert.Equal("El nombre de usuario ya está en uso.", ex.Message);
         }
 
         [Fact]
-        public void Ejecutar_DatosValidos_AgregaEstudianteConContraseniaHasheada()
+        public async Task Ejecutar_DatosValidos_AgregaEstudianteConContraseniaHasheada()
         {
             // Arrange
             var dto = new EstudianteAltaDto
@@ -62,27 +59,24 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
                 NombreUsuario = "maria99",
                 Nombre = "María",
                 Apellido = "López",
-                Contrasenia = "miSecreto.5"
+                Contrasenia = "Misecreto.5"
             };
-            _repoMock.Setup(r => r.ExisteNombreUsuario("maria99")).Returns(false);
+            _repoMock.Setup(r => r.ExisteNombreUsuarioAsync("maria99")).ReturnsAsync(false);
 
             Estudiante capturado = null!;
             _repoMock
-                .Setup(r => r.Add(It.IsAny<Estudiante>()))
-                .Callback<Estudiante>(e => capturado = e);
+                .Setup(r => r.AddAsync(It.IsAny<Estudiante>()))
+                .Callback<Estudiante>(e => capturado = e)
+                .Returns(Task.CompletedTask);
 
             // Act
-            _service.Ejecutar(dto);
+            await _service.EjecutarAsync(dto);
 
             // Assert
-            _repoMock.Verify(r => r.Add(It.IsAny<Estudiante>()), Times.Once);
-
+            _repoMock.Verify(r => r.AddAsync(It.IsAny<Estudiante>()), Times.Once);
             Assert.NotNull(capturado);
-            // Verificar que la contraseña se haya hasheado
-            Assert.NotEqual("miSecreto.5", capturado.Contrasenia.Valor);
-            Assert.True(BCrypt.Net.BCrypt.Verify("miSecreto.5", capturado.Contrasenia.Valor));
-
-            // Verificar mapeo correcto del DTO
+            Assert.NotEqual("misecreto.5", capturado.Contrasenia.Valor);
+            Assert.True(BCrypt.Net.BCrypt.Verify("Misecreto.5", capturado.Contrasenia.Valor));
             Assert.Equal("maria99", capturado.NombreUsuario.Valor);
             Assert.Equal("María", capturado.NombreCompleto.Nombre);
             Assert.Equal("López", capturado.NombreCompleto.Apellido);

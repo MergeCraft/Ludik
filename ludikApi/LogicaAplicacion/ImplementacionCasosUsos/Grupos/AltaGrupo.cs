@@ -37,13 +37,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
 
             var grupo = GrupoAltaMapper.fromDto(grupoAltaDto, tabla);
 
-            var enlace = new EnlaceUnion
-            {
-                codigoBase = "soyLaUrlDeUnion",
-                expiracion = DateTime.UtcNow.AddDays(7)
-            };
-
-            grupo.enlaceUnion = enlace;
+            grupo.enlaceUnion = EnlaceUnion.CrearNuevo();
             grupo.tienda = new Tienda();
 
             await _repositorioGrupo.AddAsync(grupo);

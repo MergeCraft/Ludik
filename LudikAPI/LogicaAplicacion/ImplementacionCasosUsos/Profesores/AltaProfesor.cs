@@ -10,6 +10,7 @@ using LogicaAplicacion.DTOs.UsuarioDTOs;
 using LogicaAplicacion.DTOsMappers.EstudianteMappers;
 using LogicaAplicacion.DTOsMappers.ProfesorMappers;
 using LogicaAplicacion.InterfacesCasosUsos.Profesor;
+using LogicaNegocio.Excepciones;
 using LogicaNegocio.InterfacesEntidades;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
@@ -30,11 +31,11 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
 
             bool existeUsuario = await _repositorioProfesores.ExisteNombreUsuarioAsync(profesorAltaDto.NombreUsuario);
             if (existeUsuario)
-                throw new Exception("El nombre de usuario ya está en uso.");
+                throw new UsuarioNoValidoException("El nombre de usuario ya está en uso.");
 
             bool existeMail = await _repositorioProfesores.ExisiteMailProfesorAsync(profesorAltaDto.Email);
             if (existeMail)
-                throw new Exception("El email de usuario ya está en uso.");
+                throw new UsuarioNoValidoException("El mail de profesor ya está en uso.");
 
             Profesor profesorNuevo = ProfesorAltaMapper.fromDto(profesorAltaDto);
             profesorNuevo.Contrasenia.Valor = EncriptarContrasenia(profesorNuevo.Contrasenia.Valor);

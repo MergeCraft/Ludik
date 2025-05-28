@@ -96,10 +96,32 @@ namespace AccesoDatos.RepositoriosEF
 
         public async Task RemoveAsync(int id)
         {
-            throw new NotImplementedException();
+            var grupo = await _db.Grupos
+                .Include(g => g.alumnos)
+                .Include(g => g.solicitudes)
+                .Include(g => g.tablasClasificacion)
+                .Include(g => g.enlaceUnion)
+                .Include(g => g.tienda)
+                .FirstOrDefaultAsync(g => g.Id == id);
+
+            if (grupo == null)
+                throw new GrupoNoValidoExeption("El grupo no existe.");
+
+            _db.PerfilesEstudiantes.RemoveRange(grupo.alumnos);
+            _db.SolicitudesUnion.RemoveRange(grupo.solicitudes);
+            _db.TablasClasificacion.RemoveRange(grupo.tablasClasificacion);
+
+            if (grupo.enlaceUnion != null)
+                _db.EnlacesUnion.Remove(grupo.enlaceUnion);
+
+            if (grupo.tienda != null)
+                _db.Tiendas.Remove(grupo.tienda);
+
+            _db.Grupos.Remove(grupo);
+            await _db.SaveChangesAsync();
         }
 
-       
+
 
         public Task<TablaEquivalencia> obtenerTablaDelGrupoAsync(int idGrupo)
         {

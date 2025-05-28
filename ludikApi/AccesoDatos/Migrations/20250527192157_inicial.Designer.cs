@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20250526135456_inicial")]
+    [Migration("20250527192157_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -71,6 +71,10 @@ namespace AccesoDatos.Migrations
 
                     b.Property<DateTime>("expiracion")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("urlCompleta")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
