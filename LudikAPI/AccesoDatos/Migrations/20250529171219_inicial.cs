@@ -295,8 +295,7 @@ namespace AccesoDatos.Migrations
                     fCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
                     tablaEquivalenciaId = table.Column<int>(type: "int", nullable: false),
                     enlaceUnionId = table.Column<int>(type: "int", nullable: false),
-                    ProfesorId = table.Column<int>(type: "int", nullable: false),
-                    ProfesorId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ProfesorId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -308,10 +307,11 @@ namespace AccesoDatos.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Grupos_Profesores_ProfesorId1",
-                        column: x => x.ProfesorId1,
+                        name: "FK_Grupos_Profesores_ProfesorId",
+                        column: x => x.ProfesorId,
                         principalTable: "Profesores",
-                        principalColumn: "UsuarioId");
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Grupos_TablasEquivalencia_tablaEquivalenciaId",
                         column: x => x.tablaEquivalenciaId,
@@ -582,11 +582,6 @@ namespace AccesoDatos.Migrations
                 name: "IX_Grupos_nombre",
                 table: "Grupos",
                 column: "nombre");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Grupos_ProfesorId1",
-                table: "Grupos",
-                column: "ProfesorId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Grupos_tablaEquivalenciaId",

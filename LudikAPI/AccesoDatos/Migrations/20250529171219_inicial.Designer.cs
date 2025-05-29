@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250529144621_inicial")]
+    [Migration("20250529171219_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -104,10 +104,8 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ProfesorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProfesorId1")
+                    b.Property<string>("ProfesorId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("enlaceUnionId")
@@ -136,8 +134,6 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("ProfesorId")
                         .HasDatabaseName("IX_Grupo_ProfesorId");
-
-                    b.HasIndex("ProfesorId1");
 
                     b.HasIndex("enlaceUnionId");
 
@@ -792,7 +788,9 @@ namespace AccesoDatos.Migrations
                 {
                     b.HasOne("Dominio.Profesor", null)
                         .WithMany("grupos")
-                        .HasForeignKey("ProfesorId1");
+                        .HasForeignKey("ProfesorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Dominio.EnlaceUnion", "enlaceUnion")
                         .WithMany()

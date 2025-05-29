@@ -33,7 +33,7 @@ namespace Dominio
         public EnlaceUnion enlaceUnion { get; set; }
 
         [ForeignKey(nameof(Profesor))]
-        public int ProfesorId { get; set; } // Clave for�nea
+        public string ProfesorId { get; set; } // Clave for�nea
 
         public void asignarMedalla(PerfilEstudiante pEstudiante, Medalla m)
 		{

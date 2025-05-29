@@ -7,7 +7,7 @@ namespace LogicaAplicacion.DTOsMappers.GrupoMappers
 {
     public class GrupoAltaMapper
     {
-        public static GrupoAltaDto toDto(string nombre, int tablaEquivalenciaId, int profesorId, string? institucion = null, string? materia = null)
+        public static GrupoAltaDto toDto(string nombre, int tablaEquivalenciaId, string profesorId, string? institucion = null, string? materia = null)
         {
             return new GrupoAltaDto
             {
