@@ -25,6 +25,7 @@ namespace LogicaAplicacion.DTOsMappers.EstudianteMappers
         {
             return new Estudiante
             {
+                UserName = dto.NombreUsuario,
                 NombreCompleto = new NombreCompleto(dto.Nombre, dto.Apellido)
 
             };

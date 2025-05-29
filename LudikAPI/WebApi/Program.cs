@@ -69,7 +69,7 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
-builder.Services.AddSingleton<ManejadorJwt>();
+builder.Services.AddSingleton<ManejadorJwt>(); 
 
 // -------------------------------
 // Configura Authorization (políticas/roles)
@@ -165,8 +165,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-//TODO: ELIMINAR SI NO ES NECESARIO
-//app.MapIdentityApi<Usuario>();
 
 app.Run();
 

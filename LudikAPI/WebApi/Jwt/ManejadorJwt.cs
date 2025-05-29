@@ -16,19 +16,16 @@ namespace WebApi.Jwt
 
         public string GenerarToken(string usuarioId, string nombreUsuario, string rol)
         {
-            // 1. Leer valores desde appsettings.json (o variables de entorno)
             var jwtConfig = _configuracion.GetSection("JwtSettings");
             string claveSecreta = jwtConfig.GetValue<string>("ClaveSecreta");
             string issuer = jwtConfig.GetValue<string>("Issuer");
             string audience = jwtConfig.GetValue<string>("Audience");
             int expiracionDias = jwtConfig.GetValue<int>("ExpiracionDias");
 
-            // 2. Preparar la clave simétrica
             var keyBytes = Encoding.UTF8.GetBytes(claveSecreta);
             var signingKey = new SymmetricSecurityKey(keyBytes);
             var credentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha512Signature);
 
-            // 3. Definir los claims: ID, Username, Rol
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, usuarioId),          // Subject: ID de usuario
@@ -37,7 +34,6 @@ namespace WebApi.Jwt
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())      // Token ID único
             };
 
-            // 4. Crear el token
             var tokenDescriptor = new JwtSecurityToken(
                 issuer: issuer,
                 audience: audience,
@@ -46,7 +42,6 @@ namespace WebApi.Jwt
                 signingCredentials: credentials
             );
 
-            // 5. Retornar el JWT en string
             return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
         }
 

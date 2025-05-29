@@ -30,7 +30,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult AltaEstudiante([FromBody] EstudianteAltaDto estudianteDto)
+        public async Task<IActionResult> AltaEstudiante([FromBody] EstudianteAltaDto estudianteDto)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace WebApi.Controllers
                     return BadRequest("Debe enviar los datos del estudiante.");
                 }
 
-                _altaEstudiante.EjecutarAsync(estudianteDto);
+                await _altaEstudiante.EjecutarAsync(estudianteDto);
 
                 return StatusCode(StatusCodes.Status201Created, "Estudiante registrado correctamente.");
             }

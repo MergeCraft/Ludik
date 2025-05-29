@@ -24,6 +24,20 @@ namespace AccesoDatos.RepositoriosEF
 
         public void Add(Usuario usuarioNuevo)
         {
+            try
+            {
+                if (usuarioNuevo == null)
+                {
+                    throw new UsuarioNoValidoException();
+                }
+
+                _db.Users.Add(usuarioNuevo);
+                _db.SaveChanges();
+            }
+            catch (UsuarioNoValidoException ex)
+            {
+                throw new UsuarioNoValidoException("El Usuario no es valido.");
+            }
 
         }
 
