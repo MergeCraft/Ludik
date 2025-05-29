@@ -8,6 +8,7 @@ using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.UsuarioDTOs;
 using LogicaAplicacion.DTOsMappers.EstudianteMappers;
 using LogicaAplicacion.InterfacesCasosUsos.Estudiante;
+using LogicaNegocio.Excepciones;
 using LogicaNegocio.InterfacesEntidades;
 using Microsoft.AspNetCore.Identity;
 

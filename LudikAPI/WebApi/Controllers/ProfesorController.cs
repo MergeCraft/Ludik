@@ -29,8 +29,11 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult AltaProfesor([FromBody] ProfesorAltaDto ProfesorDto)
+        public async Task<IActionResult> AltaProfesor([FromBody] ProfesorAltaDto profesorDto)
         {
+            if (profesorDto == null)
+                return BadRequest("Debe enviar los datos del profesor.");
+
             try
             {
                 if (ProfesorDto == null)

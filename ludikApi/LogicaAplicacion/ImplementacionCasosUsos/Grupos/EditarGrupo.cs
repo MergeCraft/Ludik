@@ -18,18 +18,17 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
         {
             _repositorioGrupo = repo;
         }
-        public void Ejecutar(GrupoEditarDto grupoDto)
+        public async Task EjecutarAsync(GrupoEditarDto grupoDto)
         {
-           if (grupoDto == null) {
+            if (grupoDto == null)
                 throw new ArgumentNullException(nameof(grupoDto), "El DTO no puede ser nulo.");
-            }
-            var grupo = _repositorioGrupo.GetById(grupoDto.Id);
-            GrupoEditarDtoMapper.UpdateFromDto(grupoDto, grupo);
+
+            var grupo = await _repositorioGrupo.GetByIdAsync(grupoDto.Id);
             if (grupo == null)
-            {
                 throw new Exception("No se encontró el grupo especificado.");
-            }
-            _repositorioGrupo.Update(grupo);
+
+            GrupoEditarDtoMapper.UpdateFromDto(grupoDto, grupo);
+            await _repositorioGrupo.UpdateAsync(grupo);
         }
     }
 }

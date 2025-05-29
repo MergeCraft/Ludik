@@ -67,6 +67,10 @@ namespace AccesoDatos.Migrations
                     b.Property<DateTime>("expiracion")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("urlCompleta")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("EnlacesUnion");

@@ -11,8 +11,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AccesoDatos.Migrations
 {
+<<<<<<<< HEAD:LudikAPI/AccesoDatos/Migrations/20250529171219_inicial.Designer.cs
     [DbContext(typeof(ContextoDb))]
     [Migration("20250529171219_inicial")]
+========
+    [DbContext(typeof(Context))]
+    [Migration("20250527192157_inicial")]
+>>>>>>>> 320b966483780c5c630604aae384bb4b6af635cf:LudikAPI/AccesoDatos/Migrations/20250527192157_inicial.Designer.cs
     partial class inicial
     {
         /// <inheritdoc />
@@ -69,6 +74,10 @@ namespace AccesoDatos.Migrations
 
                     b.Property<DateTime>("expiracion")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("urlCompleta")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

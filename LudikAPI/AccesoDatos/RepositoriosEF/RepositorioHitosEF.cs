@@ -15,32 +15,33 @@ namespace AccesoDatos.RepositoriosEF
         {
             _db = db;
         }
-        public void Add(Hito unObjeto)
+
+        public Task AddAsync(Hito unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Hito> GetAll()
+        public Task<IEnumerable<Hito>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Hito GetById(int id)
+        public Task<Hito> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(int id)
+        public Task RemoveAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(Hito unObjeto)
+        public Task RemoveAsync(Hito unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Hito unObjeto)
+        public Task UpdateAsync(Hito unObjeto)
         {
             throw new NotImplementedException();
         }

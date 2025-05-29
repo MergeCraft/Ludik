@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LogicaAplicacion.DTOs.GrupoDTOs;
-using LogicaAplicacion.DTOs.ProfesorDTOs;
 
 namespace LogicaAplicacion.InterfacesCasosUsos.Grupo
 {
-    public interface IAltaGrupo
+    public interface IBajaGrupo
     {
-        Task EjecutarAsync(GrupoAltaDto grupoAltaDto);
-
+        Task EjecutarAsync(int grupoId);
     }
 }

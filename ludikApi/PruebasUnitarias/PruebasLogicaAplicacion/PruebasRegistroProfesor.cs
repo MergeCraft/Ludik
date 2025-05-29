@@ -6,6 +6,7 @@ using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.ProfesorDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Profesores;
 using LogicaNegocio.ValueObjects;
+using LogicaNegocio.Excepciones;
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion
 {
@@ -22,20 +23,20 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
         }
 
         [Fact]
-        public void Ejecutar_DtoNulo_LanzaArgumentNullException()
+        public async Task EjecutarAsync_DtoNulo_LanzaArgumentNullException()
         {
             // Arrange
             ProfesorAltaDto dto = null!;
 
             // Act & Assert
-            var ex = Assert.Throws<ArgumentNullException>(
+            var ex = await Assert.ThrowsAsync<ArgumentNullException>(
                 () => _service.EjecutarAsync(dto)
             );
             Assert.Contains("profesorAltaDto", ex.ParamName);
         }
 
         [Fact]
-        public void Ejecutar_NombreUsuarioExiste_LanzaException()
+        public async Task EjecutarAsync_NombreUsuarioExiste_LanzaException()
         {
             // Arrange
             var dto = new ProfesorAltaDto
@@ -46,19 +47,20 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
                 Apellido = "González",
                 Contrasenia = "Abc12345!"
             };
+
             _repoMock
-                .Setup(r => r.ExisteNombreUsuario("pepito123"))
-                .Returns(true);
+                .Setup(r => r.ExisteNombreUsuarioAsync("pepito123"))
+                .ReturnsAsync(true);
 
             // Act & Assert
-            var ex = Assert.Throws<Exception>(
+            var ex = await Assert.ThrowsAsync<UsuarioNoValidoException>(
                 () => _service.EjecutarAsync(dto)
             );
             Assert.Equal("El nombre de usuario ya está en uso.", ex.Message);
         }
 
         [Fact]
-        public void Ejecutar_EmailExiste_LanzaException()
+        public async Task EjecutarAsync_EmailExiste_LanzaException()
         {
             // Arrange
             var dto = new ProfesorAltaDto
@@ -69,58 +71,54 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
                 Apellido = "González",
                 Contrasenia = "Abc12345!"
             };
+
             _repoMock
-                .Setup(r => r.ExisteNombreUsuario("pepito123"))
-                .Returns(false);
+                .Setup(r => r.ExisteNombreUsuarioAsync("pepito123"))
+                .ReturnsAsync(false);
             _repoMock
-                .Setup(r => r.ExisiteMailProfesor("pepito@dominio.com"))
-                .Returns(true);
+                .Setup(r => r.ExisiteMailProfesorAsync("pepito@dominio.com"))
+                .ReturnsAsync(true);
 
             // Act & Assert
-            var ex = Assert.Throws<Exception>(
+            var ex = await Assert.ThrowsAsync<UsuarioNoValidoException>(
                 () => _service.EjecutarAsync(dto)
             );
-            Assert.Equal("El email de usuario ya está en uso.", ex.Message);
+            Assert.Equal("El mail de profesor ya está en uso.", ex.Message);
         }
 
         [Fact]
-        public void Ejecutar_DatosValidos_AgregaProfesorConContraseniaHasheada()
+        public async Task EjecutarAsync_DatosValidos_AgregaProfesorConContraseniaHasheada()
         {
             // Arrange
             var dto = new ProfesorAltaDto
             {
                 Email = "ana@ejemplo.com",
-                NombreUsuario = "anaProf",
+                NombreUsuario = "anaprof",
                 Nombre = "Ana",
                 Apellido = "López",
                 Contrasenia = "Secret#123"
             };
-            _repoMock.Setup(r => r.ExisteNombreUsuario("anaProf")).Returns(false);
-            _repoMock.Setup(r => r.ExisiteMailProfesor("ana@ejemplo.com")).Returns(false);
+
+            _repoMock.Setup(r => r.ExisteNombreUsuarioAsync("anaprof"))
+                     .ReturnsAsync(false);
+            _repoMock.Setup(r => r.ExisiteMailProfesorAsync("ana@ejemplo.com"))
+                     .ReturnsAsync(false);
 
             Profesor capturado = null!;
-            _repoMock
-                .Setup(r => r.Add(It.IsAny<Profesor>()))
-                .Callback<Profesor>(p => capturado = p);
+            _repoMock.Setup(r => r.AddAsync(It.IsAny<Profesor>()))
+                     .Callback<Profesor>(p => capturado = p)
+                     .Returns(Task.CompletedTask);
 
             // Act
-            _service.EjecutarAsync(dto);
+            await _service.EjecutarAsync(dto);
 
             // Assert
-            _repoMock.Verify(r => r.Add(It.IsAny<Profesor>()), Times.Once);
-
+            _repoMock.Verify(r => r.AddAsync(It.IsAny<Profesor>()), Times.Once);
             Assert.NotNull(capturado);
-            // La contraseña debe estar hasheada (no es igual al texto plano)
             Assert.NotEqual("Secret#123", capturado.Contrasenia.Valor);
             Assert.True(BCrypt.Net.BCrypt.Verify("Secret#123", capturado.Contrasenia.Valor));
-
-            // Verificar mapeo de email y usuario
             Assert.Equal("ana@ejemplo.com", capturado.email.Valor);
-            Assert.Equal("anaProf", capturado.NombreUsuario.Valor);
-
-            // (Opcional) si tu mapper también inicializa NombreCompleto:
-            // Assert.Equal("Ana", capturado.NombreCompleto.Nombre);
-            // Assert.Equal("López", capturado.NombreCompleto.Apellido);
+            Assert.Equal("anaprof", capturado.NombreUsuario.Valor);
         }
     }
 */

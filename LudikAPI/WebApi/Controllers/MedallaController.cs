@@ -66,11 +66,11 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult Post([FromBody] MedallaAltaDto medallaDto)
+        public async Task<IActionResult> Post([FromBody] MedallaAltaDto medallaDto)
         {
             try
             {
-                _altaMedalla.Ejecutar(medallaDto);
+                await _altaMedalla.EjecutarAsync(medallaDto);
                 return StatusCode(StatusCodes.Status201Created, "Medalla creada correctamente.");
             }
             catch (MedallaNoValidaException mException)

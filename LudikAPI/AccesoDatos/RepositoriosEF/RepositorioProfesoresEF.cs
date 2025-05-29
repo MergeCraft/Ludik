@@ -7,6 +7,7 @@ using Dominio;
 using InterfacesRepositorio;
 using LogicaNegocio.Excepciones;
 using LogicaNegocio.ValueObjects;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
 {
@@ -17,7 +18,7 @@ namespace AccesoDatos.RepositoriosEF
         {
             _db = db;
         }
-        public void Add(Profesor profesorNuevo)
+        public async Task AddAsync(Profesor profesorNuevo)
         {
             try
             {
@@ -26,37 +27,37 @@ namespace AccesoDatos.RepositoriosEF
                     throw new UsuarioNoValidoException();
                 }
 
-                _db.Profesores.Add(profesorNuevo);
-                _db.SaveChanges();
+                await _db.Profesores.AddAsync(profesorNuevo);
+                await _db.SaveChangesAsync();
             }
-            catch (UsuarioNoValidoException ex)
+            catch (UsuarioNoValidoException)
             {
                 throw new UsuarioNoValidoException("El Usuario no es valido.");
             }
         }
 
 
-        public IEnumerable<Profesor> GetAll()
+        public async Task<IEnumerable<Profesor>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Profesor GetById(int id)
+        public async Task<Profesor> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(int id)
+        public async Task RemoveAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(Profesor unObjeto)
+        public async Task RemoveAsync(Profesor unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Profesor unObjeto)
+        public async Task UpdateAsync(Profesor unObjeto)
         {
             throw new NotImplementedException();
         }

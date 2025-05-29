@@ -46,7 +46,7 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public Usuario GetById(int id)
+        public Task<Usuario> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -73,17 +73,17 @@ namespace AccesoDatos.RepositoriosEF
             return await _userManager.GetRolesAsync(usuario);
         }
 
-        public void Remove(int id)
+        public Task RemoveAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(Usuario unObjeto)
+        public Task RemoveAsync(Usuario unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Usuario unObjeto)
+        public Task UpdateAsync(Usuario unObjeto)
         {
             throw new NotImplementedException();
         }

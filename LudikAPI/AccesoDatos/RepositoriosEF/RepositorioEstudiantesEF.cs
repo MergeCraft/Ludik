@@ -18,24 +18,15 @@ namespace AccesoDatos.RepositoriosEF
             _db = db;
         }
 
-        public void Add(Estudiante estudianteNuevo)
+        public async Task AddAsync(Estudiante estudianteNuevo)
         {
-            try
-            {
-                if (estudianteNuevo == null)
-                {
-                    throw new UsuarioNoValidoException();
-                }
-              
-                _db.Estudiantes.Add(estudianteNuevo);
-                _db.SaveChanges();
-            }
-            catch (UsuarioNoValidoException ex)
-            {
-                throw new UsuarioNoValidoException("El Usuario no es valido.");
-            }
+            if (estudianteNuevo == null)
+                throw new UsuarioNoValidoException("El Usuario no es válido.");
+
+            _db.Estudiantes.Add(estudianteNuevo);
+            await _db.SaveChangesAsync();
         }
-      
+
         public void asignarMedalla(int idAlumno, int idMedalla)
         {
             throw new NotImplementedException();
@@ -51,7 +42,7 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public Estudiante GetById(int id)
+        public Task<Estudiante> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -61,17 +52,17 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public void Remove(int id)
+        public Task RemoveAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(Estudiante unObjeto)
+        public Task RemoveAsync(Estudiante unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Estudiante unObjeto)
+        public Task UpdateAsync(Estudiante unObjeto)
         {
             throw new NotImplementedException();
         }

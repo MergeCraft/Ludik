@@ -15,7 +15,8 @@ namespace AccesoDatos.RepositoriosEF
         {
             _db = db;
         }
-        public void Add(RendimientoPeriodo unObjeto)
+
+        public Task AddAsync(RendimientoPeriodo unObjeto)
         {
             throw new NotImplementedException();
         }
@@ -25,27 +26,27 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public IEnumerable<RendimientoPeriodo> GetAll()
+        public Task<IEnumerable<RendimientoPeriodo>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public RendimientoPeriodo GetById(int id)
+        public Task<RendimientoPeriodo> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(int id)
+        public Task RemoveAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(RendimientoPeriodo unObjeto)
+        public Task RemoveAsync(RendimientoPeriodo unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(RendimientoPeriodo unObjeto)
+        public Task UpdateAsync(RendimientoPeriodo unObjeto)
         {
             throw new NotImplementedException();
         }
