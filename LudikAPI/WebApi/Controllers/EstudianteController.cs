@@ -39,7 +39,7 @@ namespace WebApi.Controllers
                     return BadRequest("Debe enviar los datos del estudiante.");
                 }
 
-                _altaEstudiante.Ejecutar(estudianteDto);
+                _altaEstudiante.EjecutarAsync(estudianteDto);
 
                 return StatusCode(StatusCodes.Status201Created, "Estudiante registrado correctamente.");
             }

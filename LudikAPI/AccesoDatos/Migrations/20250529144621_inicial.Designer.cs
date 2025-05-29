@@ -4,6 +4,7 @@ using AccesoDatos.RepositoriosEF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20250529144621_inicial")]
+    partial class inicial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,8 +24,6 @@ namespace AccesoDatos.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.HasSequence("UsuarioSequence");
 
             modelBuilder.Entity("Dominio.BarraProgreso", b =>
                 {
@@ -106,6 +107,9 @@ namespace AccesoDatos.Migrations
                     b.Property<int>("ProfesorId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ProfesorId1")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("enlaceUnionId")
                         .HasColumnType("int");
 
@@ -133,6 +137,8 @@ namespace AccesoDatos.Migrations
                     b.HasIndex("ProfesorId")
                         .HasDatabaseName("IX_Grupo_ProfesorId");
 
+                    b.HasIndex("ProfesorId1");
+
                     b.HasIndex("enlaceUnionId");
 
                     b.HasIndex("nombre");
@@ -150,8 +156,8 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("EstudianteId")
-                        .HasColumnType("int");
+                    b.Property<string>("EstudianteId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("cantMedallasRequeridas")
                         .HasColumnType("int");
@@ -187,8 +193,8 @@ namespace AccesoDatos.Migrations
                     b.Property<int?>("PerfilEstudianteId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProfesorId")
-                        .HasColumnType("int");
+                    b.Property<string>("ProfesorId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("RendimientoPeriodoId")
                         .HasColumnType("int");
@@ -231,8 +237,9 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("EstudianteId")
-                        .HasColumnType("int");
+                    b.Property<string>("EstudianteId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("GrupoId")
                         .HasColumnType("int");
@@ -306,8 +313,8 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("EstudianteId")
-                        .HasColumnType("int");
+                    b.Property<string>("EstudianteId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("pregunta")
                         .IsRequired()
@@ -400,8 +407,8 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("estudianteId")
-                        .HasColumnType("int");
+                    b.Property<string>("estudianteId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("grupoId")
                         .HasColumnType("int");
@@ -458,8 +465,8 @@ namespace AccesoDatos.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("ProfesorId")
-                        .HasColumnType("int");
+                    b.Property<string>("ProfesorId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -491,21 +498,243 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("Dominio.Usuario", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("UsuarioId");
+
+                    b.Property<int>("AccessFailedCount")
                         .HasColumnType("int")
-                        .HasDefaultValueSql("NEXT VALUE FOR [UsuarioSequence]");
+                        .HasColumnName("IntentosFallidos");
 
-                    SqlServerPropertyBuilderExtensions.UseSequence(b.Property<int>("Id"));
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("EstampaConcurrencia");
 
-                    b.Property<int>("ImagenPerfil")
-                        .HasColumnType("int");
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("Correo");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit")
+                        .HasColumnName("CorreoConfirmado");
+
+                    b.Property<string>("ImagenPerfil")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit")
+                        .HasColumnName("BloqueoHabilitado");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset")
+                        .HasColumnName("FinBloqueo");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("CorreoNormalizado");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("NombreUsuarioNormalizado");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ContraseniaHash");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Telefono");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit")
+                        .HasColumnName("TelefonoConfirmado");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("EstampaSeguridad");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit")
+                        .HasColumnName("AutenticacionDosFactores");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("NombreUsuario");
 
                     b.HasKey("Id");
 
-                    b.ToTable((string)null);
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
 
-                    b.UseTpcMappingStrategy();
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NombreUsuarioNormalizado] IS NOT NULL");
+
+                    b.ToTable("Usuarios", (string)null);
+
+                    b.UseTptMappingStrategy();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("RolId");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("EstampaConcurrencia");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("NombreRol");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("NombreRolNormalizado");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NombreRolNormalizado] IS NOT NULL");
+
+                    b.ToTable("Roles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("ReclamacionRolId");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("TipoReclamacion");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ValorReclamacion");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("RolId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("ReclamacionesRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("ReclamacionUsuarioId");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("TipoReclamacion");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ValorReclamacion");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("UsuarioId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ReclamacionesUsuario", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("Proveedor");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("ClaveProveedor");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("NombreProveedor");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("UsuarioId");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("IniciosSesionUsuario", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("UsuarioId");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("RolId");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UsuariosRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("UsuarioId");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("Proveedor");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("NombreToken");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ValorToken");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("TokensUsuario", (string)null);
                 });
 
             modelBuilder.Entity("Dominio.Potenciador", b =>
@@ -563,9 +792,7 @@ namespace AccesoDatos.Migrations
                 {
                     b.HasOne("Dominio.Profesor", null)
                         .WithMany("grupos")
-                        .HasForeignKey("ProfesorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProfesorId1");
 
                     b.HasOne("Dominio.EnlaceUnion", "enlaceUnion")
                         .WithMany()
@@ -692,9 +919,7 @@ namespace AccesoDatos.Migrations
                 {
                     b.HasOne("Dominio.Estudiante", "estudiante")
                         .WithMany()
-                        .HasForeignKey("estudianteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("estudianteId");
 
                     b.HasOne("Dominio.Grupo", null)
                         .WithMany("solicitudes")
@@ -738,30 +963,12 @@ namespace AccesoDatos.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Dominio.Estudiante", b =>
+            modelBuilder.Entity("Dominio.Usuario", b =>
                 {
-                    b.OwnsOne("LogicaNegocio.ValueObjects.Contrasenia", "Contrasenia", b1 =>
-                        {
-                            b1.Property<int>("EstudianteId")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("Valor")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Contrasenia");
-
-                            b1.HasKey("EstudianteId");
-
-                            b1.ToTable("Estudiantes");
-
-                            b1.WithOwner()
-                                .HasForeignKey("EstudianteId");
-                        });
-
                     b.OwnsOne("LogicaNegocio.ValueObjects.NombreCompleto", "NombreCompleto", b1 =>
                         {
-                            b1.Property<int>("EstudianteId")
-                                .HasColumnType("int");
+                            b1.Property<string>("UsuarioId")
+                                .HasColumnType("nvarchar(450)");
 
                             b1.Property<string>("Apellido")
                                 .IsRequired()
@@ -775,147 +982,84 @@ namespace AccesoDatos.Migrations
                                 .HasColumnType("nvarchar(20)")
                                 .HasColumnName("Nombre");
 
-                            b1.HasKey("EstudianteId");
+                            b1.HasKey("UsuarioId");
 
-                            b1.ToTable("Estudiantes");
-
-                            b1.WithOwner()
-                                .HasForeignKey("EstudianteId");
-                        });
-
-                    b.OwnsOne("LogicaNegocio.ValueObjects.NombreUsuario", "NombreUsuario", b1 =>
-                        {
-                            b1.Property<int>("EstudianteId")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("Valor")
-                                .IsRequired()
-                                .HasMaxLength(20)
-                                .HasColumnType("nvarchar(20)")
-                                .HasColumnName("NombreUsuario");
-
-                            b1.HasKey("EstudianteId");
-
-                            b1.HasIndex("Valor")
-                                .IsUnique()
-                                .HasFilter("[NombreUsuario] IS NOT NULL");
-
-                            b1.ToTable("Estudiantes");
+                            b1.ToTable("Usuarios");
 
                             b1.WithOwner()
-                                .HasForeignKey("EstudianteId");
+                                .HasForeignKey("UsuarioId");
                         });
-
-                    b.Navigation("Contrasenia")
-                        .IsRequired();
 
                     b.Navigation("NombreCompleto")
                         .IsRequired();
+                });
 
-                    b.Navigation("NombreUsuario")
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Dominio.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Dominio.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dominio.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Dominio.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Dominio.Estudiante", b =>
+                {
+                    b.HasOne("Dominio.Usuario", null)
+                        .WithOne()
+                        .HasForeignKey("Dominio.Estudiante", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("Dominio.Profesor", b =>
                 {
-                    b.OwnsOne("LogicaNegocio.ValueObjects.Contrasenia", "Contrasenia", b1 =>
-                        {
-                            b1.Property<int>("ProfesorId")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("Valor")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Contrasenia");
-
-                            b1.HasKey("ProfesorId");
-
-                            b1.ToTable("Profesores");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ProfesorId");
-                        });
-
-                    b.OwnsOne("LogicaNegocio.ValueObjects.NombreCompleto", "NombreCompleto", b1 =>
-                        {
-                            b1.Property<int>("ProfesorId")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("Apellido")
-                                .IsRequired()
-                                .HasMaxLength(20)
-                                .HasColumnType("nvarchar(20)")
-                                .HasColumnName("Apellido");
-
-                            b1.Property<string>("Nombre")
-                                .IsRequired()
-                                .HasMaxLength(20)
-                                .HasColumnType("nvarchar(20)")
-                                .HasColumnName("Nombre");
-
-                            b1.HasKey("ProfesorId");
-
-                            b1.ToTable("Profesores");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ProfesorId");
-                        });
-
-                    b.OwnsOne("LogicaNegocio.ValueObjects.NombreUsuario", "NombreUsuario", b1 =>
-                        {
-                            b1.Property<int>("ProfesorId")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("Valor")
-                                .IsRequired()
-                                .HasMaxLength(20)
-                                .HasColumnType("nvarchar(20)")
-                                .HasColumnName("NombreUsuario");
-
-                            b1.HasKey("ProfesorId");
-
-                            b1.HasIndex("Valor")
-                                .IsUnique()
-                                .HasFilter("[NombreUsuario] IS NOT NULL");
-
-                            b1.ToTable("Profesores");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ProfesorId");
-                        });
-
-                    b.OwnsOne("LogicaNegocio.ValueObjects.Email", "email", b1 =>
-                        {
-                            b1.Property<int>("ProfesorId")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("Valor")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(450)")
-                                .HasColumnName("Email");
-
-                            b1.HasKey("ProfesorId");
-
-                            b1.HasIndex("Valor")
-                                .IsUnique()
-                                .HasFilter("[Email] IS NOT NULL");
-
-                            b1.ToTable("Profesores");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ProfesorId");
-                        });
-
-                    b.Navigation("Contrasenia")
-                        .IsRequired();
-
-                    b.Navigation("NombreCompleto")
-                        .IsRequired();
-
-                    b.Navigation("NombreUsuario")
-                        .IsRequired();
-
-                    b.Navigation("email")
+                    b.HasOne("Dominio.Usuario", null)
+                        .WithOne()
+                        .HasForeignKey("Dominio.Profesor", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

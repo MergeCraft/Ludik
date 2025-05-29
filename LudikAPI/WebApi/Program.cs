@@ -43,7 +43,7 @@ builder.Services
 // -------------------------------
 
 // Lee configuración JWT desde appsettings.json
-var jwtSettings = builder.Configuration.GetSection("Jwt");
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var claveDificil = jwtSettings.GetValue<string>("Key");
 var issuer = jwtSettings.GetValue<string>("Issuer");
 var audience = jwtSettings.GetValue<string>("Audience");
@@ -165,7 +165,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapIdentityApi<Usuario>();
+//TODO: ELIMINAR SI NO ES NECESARIO
+//app.MapIdentityApi<Usuario>();
 
 app.Run();
 

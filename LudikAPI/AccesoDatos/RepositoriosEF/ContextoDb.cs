@@ -173,6 +173,21 @@ namespace AccesoDatos.RepositoriosEF
                 b.Property(u => u.LockoutEnd).HasColumnName("FinBloqueo");
                 b.Property(u => u.LockoutEnabled).HasColumnName("BloqueoHabilitado");
                 b.Property(u => u.AccessFailedCount).HasColumnName("IntentosFallidos");
+                
+                //Indicamos que NombreCompleto es un objeto "owned" de Usuario,
+                //    por lo que sus propiedades se incorporarán a la misma tabla "Usuarios".
+                b.OwnsOne(u => u.NombreCompleto, nc =>
+                {
+                    nc.Property(x => x.Nombre)
+                        .HasColumnName("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    nc.Property(x => x.Apellido)
+                        .HasColumnName("Apellido")
+                        .IsRequired()
+                        .HasMaxLength(20);
+                });
             });
 
             modelBuilder.Entity<IdentityRole>(b =>

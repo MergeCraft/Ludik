@@ -17,7 +17,7 @@ namespace Dominio
         public int metaCalificacion { get; set; }
 
         [ForeignKey(nameof(Estudiante))]
-        public int EstudianteId { get; set; }
+        public String EstudianteId { get; set; }
 
         public int monedas { get; set; }
 

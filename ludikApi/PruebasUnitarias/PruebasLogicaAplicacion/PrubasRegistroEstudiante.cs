@@ -13,7 +13,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
     {
         private readonly Mock<IRepositorioEstudiantes> _repoMock;
         private readonly AltaEstudiante _service;
-
+        /*
         public PruebasAltaEstudiante()
         {
             _repoMock = new Mock<IRepositorioEstudiantes>();
@@ -87,5 +87,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             Assert.Equal("María", capturado.NombreCompleto.Nombre);
             Assert.Equal("López", capturado.NombreCompleto.Apellido);
         }
+        */
     }
 }

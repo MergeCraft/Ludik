@@ -10,6 +10,6 @@ namespace LogicaAplicacion.InterfacesCasosUsos.Profesor
 {
     public interface IAltaProfesor
     {
-        void Ejecutar(ProfesorAltaDto profesorAltaDto);
+        Task EjecutarAsync(ProfesorAltaDto profesorAltaDto);
     }
 }

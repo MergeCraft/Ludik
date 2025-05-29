@@ -35,21 +35,6 @@ namespace AccesoDatos.RepositoriosEF
             }
         }
 
-        //TODO: hacer que existe nombre usuario busque en las tablas de estudiantes y profesores
-        public bool ExisiteMailProfesor(string emailUsuario)
-        {
-            return _db.Profesores
-                .OfType<Profesor>() // Filtra solo objetos que son Profesor
-                .Any(p => p.email.Valor == emailUsuario); // Compara el valor dentro del ValueObject
-        }
-
-
-        //TODO: hacer que existe nombre usuario busque en las tablas de estudiantes y profesores
-        public bool ExisteNombreUsuario(string nombreUsuario)
-        {
-            return _db.Profesores
-                .Any(u => u.NombreUsuario.Valor == nombreUsuario);
-        }
 
         public IEnumerable<Profesor> GetAll()
         {

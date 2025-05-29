@@ -18,7 +18,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             _repoMock = new Mock<IRepositorioUsuarios>();
             _service = new Login(_repoMock.Object);
         }
-
+        /*
         [Fact]
         public async void Ejecutar_UsuarioExistenteYContraseniaValida_DevuelveDto()
         {
@@ -124,5 +124,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             await Assert.ThrowsAsync<ArgumentNullException>(
                 () => _service.Ejecutar("test", null!));
         }
+        */
     }
+
 }

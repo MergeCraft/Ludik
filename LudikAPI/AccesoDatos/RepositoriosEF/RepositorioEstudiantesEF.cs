@@ -35,12 +35,7 @@ namespace AccesoDatos.RepositoriosEF
                 throw new UsuarioNoValidoException("El Usuario no es valido.");
             }
         }
-        //TODO: hacer que existe nombre usuario busque en las tablas de estudiantes y profesores
-        public bool ExisteNombreUsuario(string nombreUsuario)
-        {
-            return _db.Estudiantes
-                .Any(u => u.NombreUsuario.Valor == nombreUsuario);
-        }
+      
         public void asignarMedalla(int idAlumno, int idMedalla)
         {
             throw new NotImplementedException();
@@ -81,7 +76,7 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public List<Medalla> verMedallasAlumno(int idAlumno, int idGrupo)
+        public List<Medalla> getMedallasAlumno(int idAlumno, int idGrupo)
         {
             throw new NotImplementedException();
         }
