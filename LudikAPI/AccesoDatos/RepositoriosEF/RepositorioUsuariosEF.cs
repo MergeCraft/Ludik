@@ -51,6 +51,11 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
+        public Task<IEnumerable<Usuario>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
 
         public async Task<Usuario> GetUsuarioPorNombreAsync(string nombreUsuario)
         {
@@ -71,6 +76,11 @@ namespace AccesoDatos.RepositoriosEF
         public async Task<IList<string>> GetRolesAsync(Usuario usuario)
         {
             return await _userManager.GetRolesAsync(usuario);
+        }
+
+        public Task AddAsync(Usuario unObjeto)
+        {
+            throw new NotImplementedException();
         }
 
         public Task RemoveAsync(int id)

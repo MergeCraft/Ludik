@@ -68,7 +68,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
             // Persistir datos extra de la entidad Profesor en su tabla específica
             //    Recordar que Profesor hereda de Usuario, y en Identity se guardó la información básica.
             //    Aquí simplemente guardamos los campos adicionales (medallas, tablasEquivalencia, etc).
-            _repositorioProfesores.Add(profesorNuevo);
+            _repositorioProfesores.AddAsync(profesorNuevo);
         }
     }
 }

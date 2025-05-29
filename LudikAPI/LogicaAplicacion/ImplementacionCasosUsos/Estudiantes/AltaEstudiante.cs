@@ -58,7 +58,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
                 throw new InvalidOperationException($"No se pudo asignar el rol: {erroresRol}");
             }
 
-            _repositorioEstudiantes.Add(estudianteNuevo);
+            _repositorioEstudiantes.AddAsync(estudianteNuevo);
         }
     
 

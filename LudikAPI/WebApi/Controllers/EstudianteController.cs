@@ -33,8 +33,10 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> AltaEstudiante([FromBody] EstudianteAltaDto estudianteDto)
         {
-            if (estudianteDto == null)
-                return BadRequest("Debe enviar los datos del estudiante.");
+            try
+            {
+                if (estudianteDto == null)
+                    return BadRequest("Debe enviar los datos del estudiante.");
 
                 await _altaEstudiante.EjecutarAsync(estudianteDto);
 
@@ -50,7 +52,8 @@ namespace WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = "Ocurrió un error inesperado. " + ex.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new { Error = "Ocurrió un error inesperado. " + ex.Message });
             }
         }
     }
