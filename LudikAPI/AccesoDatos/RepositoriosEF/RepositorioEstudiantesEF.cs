@@ -76,5 +76,10 @@ namespace AccesoDatos.RepositoriosEF
         {
             throw new NotImplementedException();
         }
+
+        public Task<IEnumerable<Estudiante>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
