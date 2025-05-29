@@ -25,6 +25,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
         //Pos: se registra el profesor en la base de datos
         public void Ejecutar(ProfesorAltaDto profesorAltaDto)
         {
+            //TODO: refactorizar
             if (profesorAltaDto == null)
                 throw new ArgumentNullException(nameof(profesorAltaDto), "El DTO no puede ser nulo.");
 
@@ -36,7 +37,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
 
 
             Profesor profesorNuevo = ProfesorAltaMapper.fromDto(profesorAltaDto);
-            profesorNuevo.Contrasenia.Valor = EncriptarContrasenia(profesorNuevo.Contrasenia.Valor);
+            //profesorNuevo.Contrasenia.Valor = EncriptarContrasenia(profesorNuevo.Contrasenia.Valor);
             _repositorioProfesores.Add(profesorNuevo);
         }
 

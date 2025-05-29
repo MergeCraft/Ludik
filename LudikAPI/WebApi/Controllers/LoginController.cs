@@ -1,11 +1,9 @@
-﻿using Azure.Core;
-using LogicaAplicacion.DTOs.UsuarioDTOs;
+﻿using LogicaAplicacion.DTOs.UsuarioDTOs;
 using LogicaAplicacion.InterfacesCasosUsos.Usuario;
 using LogicaNegocio.Excepciones;
-using LogicaNegocio.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Jwt;
 
 namespace WebApi.Controllers
 {
@@ -14,10 +12,12 @@ namespace WebApi.Controllers
     public class LoginController : ControllerBase
     {
         private readonly ILogin _login;
+        private readonly ManejadorJwt _manejadorJwt;
 
-        public LoginController(ILogin login)
+        public LoginController(ILogin login, ManejadorJwt manejadorJwt)
         {
             _login = login;
+            _manejadorJwt = manejadorJwt;
         }
 
         /// <summary>
@@ -37,19 +37,19 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Login([FromBody] LoginSolicitudDto usr)
         {
-            if (usr == null)
-                return BadRequest("Lo campos de NombreUsuario y contraseña con obligatorios.");
+            if (usr == null || string.IsNullOrEmpty(usr.NombreUsuario) || string.IsNullOrEmpty(usr.Contrasenia))
+                return BadRequest("Los campos NombreUsuario y Contrasenia son obligatorios.");
 
             try
             {
 
                 var usuarioDto = await _login.Ejecutar(usr.NombreUsuario, usr.Contrasenia);
 
-                if (usuarioDto == null)
-                    return Unauthorized("Credenciales incorrectas.");
-
-
-                string token = ManejadorJwt.ManejadorJwt.GenerarToken(usuarioDto.NombreUsuario, usuarioDto.Rol);
+                string token = _manejadorJwt.GenerarToken(
+                    usuarioDto.Id,
+                    usuarioDto.NombreUsuario,
+                    usuarioDto.Rol
+                );
 
                 var respuesta = new LoginRespuestaDto
                 {
@@ -57,31 +57,26 @@ namespace WebApi.Controllers
                     Rol = usuarioDto.Rol,
                     NombreUsuario = usuarioDto.NombreUsuario,
                     Id = usuarioDto.Id
-
                 };
 
                 return Ok(respuesta);
             }
             catch (UsuarioNoValidoException ex)
             {
-                // 401 porque el usuario no existe
                 return Unauthorized(new { Error = ex.Message });
             }
             catch (ContraseniaNoValidaException ex)
             {
-                // 401 porque la contraseña no coincide
                 return Unauthorized(new { Error = ex.Message });
             }
             catch (ArgumentNullException ex)
             {
-                // 400 si faltó algún parámetro en la entrada
                 return BadRequest(new { Error = ex.Message });
             }
             catch (Exception ex)
             {
-                // 500 para cualquier otro error inesperado
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    new { Error = "Ocurrió un error inesperado. " + ex.Message });
+                    new { Error = $"Ocurrió un error inesperado. {ex.Message}" });
             }
         }
 

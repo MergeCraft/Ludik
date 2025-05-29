@@ -31,7 +31,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
                 NombreUsuario = new NombreUsuario("Pedro25"),
                 Contrasenia = new Contrasenia(hash)
             };
-            _repoMock.Setup(r => r.loginUsuario("Pedro25"))
+            _repoMock.Setup(r => r.GetUsuarioPorNombreAsync("Pedro25"))
                 .ReturnsAsync(usuario);
 
 
@@ -48,7 +48,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
         {
             // Arrange
             _repoMock
-                .Setup(r => r.loginUsuario("invitado"))
+                .Setup(r => r.GetUsuarioPorNombreAsync("invitado"))
                 .ReturnsAsync((Usuario)null);
 
                 // Act & Assert
@@ -70,7 +70,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             };
 
             _repoMock
-                .Setup(r => r.loginUsuario("JulioProfe"))
+                .Setup(r => r.GetUsuarioPorNombreAsync("JulioProfe"))
                 .ReturnsAsync(usuarioReal);
 
             // Act & Assert
@@ -117,7 +117,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             };
 
             _repoMock
-                .Setup(r => r.loginUsuario("test"))
+                .Setup(r => r.GetUsuarioPorNombreAsync("test"))
                 .ReturnsAsync(usuario);
 
             // Act & Assert

@@ -23,6 +23,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
         //Pos: el usuario se encuentra registrado en la base de datos
         public void Ejecutar(EstudianteAltaDto estudianteAltaDto)
         {
+            //TODO: refactorizar
             if (estudianteAltaDto == null)
                 throw new ArgumentNullException(nameof(estudianteAltaDto), "No se puede dar de alta un estudiante si no se tienen los datos necesarios.");
 
@@ -30,7 +31,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
                 throw new Exception("El nombre de usuario ya está en uso.");
 
             Estudiante estudianteNuevo = EstudianteAltaMapper.fromDto(estudianteAltaDto);
-            estudianteNuevo.Contrasenia.Valor = EncriptarContrasenia(estudianteNuevo.Contrasenia.Valor);
+            //estudianteNuevo.Contrasenia.Valor = EncriptarContrasenia(estudianteNuevo.Contrasenia.Valor);
             _repositorioEstudiantes.Add(estudianteNuevo);
         }
 

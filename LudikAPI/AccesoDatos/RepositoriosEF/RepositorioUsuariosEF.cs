@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dominio;
+
 using InterfacesRepositorio;
 using LogicaNegocio.Excepciones;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
@@ -13,10 +15,13 @@ namespace AccesoDatos.RepositoriosEF
     public class RepositorioUsuariosEF : IRepositorioUsuarios
     {
         private readonly ContextoDb _db;
-        public RepositorioUsuariosEF(ContextoDb db)
+        private readonly UserManager<Usuario> _userManager;
+        public RepositorioUsuariosEF(ContextoDb db, UserManager<Usuario> userManager)
         {
             _db = db;
+            _userManager = userManager;
         }
+
         public void Add(Usuario usuarioNuevo)
         {
 
@@ -33,33 +38,25 @@ namespace AccesoDatos.RepositoriosEF
         }
 
 
-        public async Task<Usuario> loginUsuario(string identificador)
+        public async Task<Usuario> GetUsuarioPorNombreAsync(string nombreUsuario)
         {
-            try
-            {
-                var estudiante = await _db.Estudiantes
-                    .SingleOrDefaultAsync(e => e.NombreUsuario.Valor == identificador);
+            var usuario = await _db.Users
+                .SingleOrDefaultAsync(e => e.UserName == nombreUsuario);
 
-                if (estudiante != null)
-                    return estudiante;
+            if (usuario != null)
+                return usuario;
 
-                var profesor = await _db.Profesores
-                    .SingleOrDefaultAsync(p => p.NombreUsuario.Valor == identificador);
+            throw new UsuarioNoValidoException($"Usuario con '{nombreUsuario}' no encontrado.");
+        }
 
-                if (profesor != null)
-                    return profesor;
+        public async Task<bool> VerificarContrasenaAsync(Usuario usuario, string clave)
+        {
+            return await _userManager.CheckPasswordAsync(usuario, clave);
+        }
 
-                throw new UsuarioNoValidoException($"Usuario con '{identificador}' no encontrado.");
-            }
-            catch (UsuarioNoValidoException)
-            {
-                // Re-lanzamos la excepción
-                throw;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al intentar loguear usuario.", ex);
-            }
+        public async Task<IList<string>> GetRolesAsync(Usuario usuario)
+        {
+            return await _userManager.GetRolesAsync(usuario);
         }
 
         public void Remove(int id)

@@ -8,9 +8,9 @@ namespace LogicaAplicacion.DTOs.UsuarioDTOs
 {
     public class LoginRespuestaDto
     {
-        public string Token { get; set; }
-        public string Rol { get; set; }
+        public string Id { get; set; }
         public string NombreUsuario { get; set; }
-        public int Id { get; set; }
+        public string? Token { get; set; }
+        public string? Rol { get; set; }
     }
 }

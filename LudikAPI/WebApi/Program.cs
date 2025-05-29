@@ -18,22 +18,25 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using WebApi.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
-
-
-builder.Services.AddAuthorization();
-builder.Services.AddAuthentication()
-    .AddCookie(IdentityConstants.ApplicationScheme)
-    .AddBearerToken(IdentityConstants.BearerScheme);
-
-builder.Services.AddIdentityCore<Usuario>()
-    .AddEntityFrameworkStores<ContextoDb>()
-    .AddApiEndpoints();
 
 var cadenaDeConexionBD = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<ContextoDb>(options => options.UseSqlServer(cadenaDeConexionBD));
+// -------------------------------
+// Configura Identity y sus servicios
+// -------------------------------
+builder.Services.AddAuthorization();
+
+
+builder.Services
+    .AddIdentity<Usuario, IdentityRole>()
+    .AddEntityFrameworkStores<ContextoDb>()
+    .AddDefaultTokenProviders();
+
+
 
 // -------------------------------
 // Configura JWT Authentication
@@ -65,6 +68,8 @@ builder.Services.AddAuthentication(options =>
             ClockSkew = TimeSpan.Zero
         };
     });
+
+builder.Services.AddSingleton<ManejadorJwt>();
 
 // -------------------------------
 // Configura Authorization (políticas/roles)
