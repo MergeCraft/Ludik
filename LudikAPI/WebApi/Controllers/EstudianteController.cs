@@ -33,7 +33,9 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> AltaEstudiante([FromBody] EstudianteAltaDto estudianteDto)
         {
-            if (estudianteDto == null)
+            try
+            {
+                if (estudianteDto == null)
                 return BadRequest("Debe enviar los datos del estudiante.");
 
                 await _altaEstudiante.EjecutarAsync(estudianteDto);
