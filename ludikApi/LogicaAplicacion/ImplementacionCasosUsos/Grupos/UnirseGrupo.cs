@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
 {
-    internal class UnirseGrupo
+    public class UnirseGrupo
     {
     }
 }
