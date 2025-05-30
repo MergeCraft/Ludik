@@ -173,6 +173,13 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
+        public async Task<Grupo> ObtenerPorEnlaceAsync(string codigoBase)
+        {
+            return await _db.Grupos
+                    .Include(g => g.enlaceUnion) 
+                    .FirstOrDefaultAsync(g => g.enlaceUnion.codigoBase == codigoBase);
+        }
+
 
 
         // Métodos aún no implementados asincrónicamente (podemos discutir su diseño si querés)

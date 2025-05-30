@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using LogicaAplicacion.DTOs.GrupoDTOs;
 using LogicaNegocio.Excepciones;
+using Microsoft.AspNetCore.Routing;
 
 namespace WebApi.Controllers
 {
@@ -15,11 +16,13 @@ namespace WebApi.Controllers
         private readonly IAltaGrupo _altaGrupo;
         private readonly IEditarGrupo _editarGrupo;
         private readonly IBajaGrupo _bajaGrupo;
-        public GrupoController(IAltaGrupo altaGrupo, IEditarGrupo editarGrupo, IBajaGrupo bajaGrupo)
+        private readonly LinkGenerator _linkGenerator;
+        public GrupoController(IAltaGrupo altaGrupo, IEditarGrupo editarGrupo, IBajaGrupo bajaGrupo, LinkGenerator linkGenerator)
         {
             _altaGrupo = altaGrupo;
             _editarGrupo = editarGrupo;
             _bajaGrupo = bajaGrupo;
+            _linkGenerator = linkGenerator;
         }
         /// <summary>
         /// Este endpoint permite registrar un nuevo grupo en el sistema.

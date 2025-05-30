@@ -10,7 +10,17 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioEnlacesUnionGrupoEF : IRepositorioEnlacesUnionGrupo
     {
+        private readonly ContextoDb _db;
+        public RepositorioEnlacesUnionGrupoEF(ContextoDb db)
+        {
+            _db = db;
+        }
         public Task AddAsync(EnlaceUnion unObjeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> ExisteSolicitudPendiente(int idEstudiante, int idGrupo)
         {
             throw new NotImplementedException();
         }
@@ -26,6 +36,16 @@ namespace AccesoDatos.RepositoriosEF
         }
 
         public string obtenerCodigoInvitacion(int idGrupo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<EnlaceUnion> ObtenerPorCodigoAsync(string codigo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Grupo> ObtenerPorEnlaceAsync(string codigoBase)
         {
             throw new NotImplementedException();
         }

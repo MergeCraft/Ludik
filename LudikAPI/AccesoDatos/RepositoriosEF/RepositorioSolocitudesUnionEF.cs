@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
+using LogicaNegocio.ValueObject;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
 {
@@ -16,9 +18,21 @@ namespace AccesoDatos.RepositoriosEF
             _db = db;
         }
 
-        public Task AddAsync(SolicitudUnion unObjeto)
+        public async Task AddAsync(SolicitudUnion unObjeto)
         {
-            throw new NotImplementedException();
+            if (unObjeto == null)
+                throw new ArgumentNullException(nameof(unObjeto), "La solicitud de unión no puede ser nula.");
+
+            await _db.SolicitudesUnion.AddAsync(unObjeto);
+            await _db.SaveChangesAsync();
+        }
+
+        public async Task<bool> ExisteSolicitudPendiente(int idEstudiante, int idGrupo)
+        {
+            return await _db.SolicitudesUnion
+                .AnyAsync(s => s.estudianteId == idEstudiante
+                            && s.grupoId == idGrupo
+                            && s.Estado == EstadoSolicitud.Pendiente);
         }
 
         public Task<IEnumerable<SolicitudUnion>> GetAllAsync()
