@@ -42,9 +42,9 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public Task<Estudiante> GetByIdAsync(int id)
+        public async Task<Estudiante> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _db.Estudiantes.FindAsync(id);
         }
 
         public Task<IEnumerable<Estudiante>> GetAllAsync()

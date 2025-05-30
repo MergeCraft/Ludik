@@ -24,6 +24,7 @@ namespace InterfacesRepositorio
         Task reiniciarLogrosDeGrupoAsync(int idGrupo);
 
         Task<List<TablaClasificacion>> obtenerTablasDeClasificacionDeGrupoAsync(int idGrupo);
+        Task<Grupo> ObtenerPorEnlaceAsync(string codigoBase);
 
     }
 
