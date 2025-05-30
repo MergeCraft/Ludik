@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using WebApi.Jwt;
@@ -31,8 +32,26 @@ builder.Services.AddDbContext<ContextoDb>(options => options.UseSqlServer(cadena
 builder.Services.AddAuthorization();
 
 
-builder.Services
-    .AddIdentity<Usuario, IdentityRole>()
+builder.Services.AddIdentity<Usuario, IdentityRole> (opciones =>
+{
+    // ===== Validaciones de Contraseña =====
+    opciones.Password.RequireDigit = true;                   // Al menos un dígito [0-9]
+    opciones.Password.RequireLowercase = true;               // Al menos una minúscula [a-z]
+    opciones.Password.RequireUppercase = true;               // Al menos una mayúscula [A-Z]
+    opciones.Password.RequireNonAlphanumeric = true;         // Al menos un carácter no alfanumérico (por ejemplo, !, @, #)
+    opciones.Password.RequiredLength = 8;                    // Longitud mínima de 8 caracteres
+
+    // ===== Validaciones de Usuario =====
+    opciones.User.RequireUniqueEmail = true;                  // El email debe ser único
+    opciones.User.AllowedUserNameCharacters =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+
+    // ===== Bloqueo de usuario =====
+    opciones.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    opciones.Lockout.MaxFailedAccessAttempts = 5;
+    opciones.Lockout.AllowedForNewUsers = true;
+
+})
     .AddEntityFrameworkStores<ContextoDb>()
     .AddDefaultTokenProviders();
 

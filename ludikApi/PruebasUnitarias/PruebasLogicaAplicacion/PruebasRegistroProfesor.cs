@@ -41,7 +41,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             // Arrange
             var dto = new ProfesorAltaDto
             {
-                Email = "pepito@dominio.com",
+                Correo = "pepito@dominio.com",
                 NombreUsuario = "pepito123",
                 Nombre = "Pepito",
                 Apellido = "González",
@@ -65,7 +65,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             // Arrange
             var dto = new ProfesorAltaDto
             {
-                Email = "pepito@dominio.com",
+                Correo = "pepito@dominio.com",
                 NombreUsuario = "pepito123",
                 Nombre = "Pepito",
                 Apellido = "González",
@@ -92,7 +92,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             // Arrange
             var dto = new ProfesorAltaDto
             {
-                Email = "ana@ejemplo.com",
+                Correo = "ana@ejemplo.com",
                 NombreUsuario = "anaprof",
                 Nombre = "Ana",
                 Apellido = "López",

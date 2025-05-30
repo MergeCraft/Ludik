@@ -23,6 +23,7 @@ namespace LogicaAplicacion.DTOs.UsuarioDTOs
         public string Apellido { get; set; }
 
         [Required(ErrorMessage = "La contrasenia es obligatoria.")]
+        [DataType(DataType.Password)]
         [StringLength(30, MinimumLength = 8, ErrorMessage = "La contrasenia debe tener al menos 8 caracteres.")]
         public string Contrasenia { get; set; }
 

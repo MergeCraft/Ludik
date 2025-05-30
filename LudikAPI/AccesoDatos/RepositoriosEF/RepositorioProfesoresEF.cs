@@ -20,20 +20,22 @@ namespace AccesoDatos.RepositoriosEF
         }
         public async Task AddAsync(Profesor profesorNuevo)
         {
+
+            if (profesorNuevo == null)
+                throw new UsuarioNoValidoException();
+            
+            await _db.Profesores.AddAsync(profesorNuevo);
             try
             {
-                if (profesorNuevo == null)
-                {
-                    throw new UsuarioNoValidoException();
-                }
-
-                _db.Profesores.Add(profesorNuevo);
                 await _db.SaveChangesAsync();
             }
-            catch (UsuarioNoValidoException)
+            catch (DbUpdateException ex)
             {
-                throw new UsuarioNoValidoException("El Usuario no es valido.");
+                throw new UsuarioNoValidoException(
+                    "Error al persistir el profesor en la base de datos. " + ex.Message
+                );
             }
+
         }
 
 

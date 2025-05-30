@@ -34,20 +34,23 @@ namespace WebApi.Controllers
             if (profesorDto == null)
                 return BadRequest("Debe enviar los datos del profesor.");
 
+            // Verificar las DataAnnotations en el DTO
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             try
             {
-                if (profesorDto == null)
+                var resultado = await _altaProfesor.EjecutarAsync(profesorDto);
+                if (!resultado.Succeeded)
                 {
-                    return BadRequest("Debe enviar los datos del profesor.");
+                    // Agregar cada error de IdentityResult a ModelState y retornar BadRequest
+                    foreach (var error in resultado.Errors)
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    
+                    return BadRequest(ModelState);
                 }
 
-                await _altaProfesor.EjecutarAsync(profesorDto);
-
                 return StatusCode(StatusCodes.Status201Created, "Profesor registrado correctamente.");
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(new { Error = ex.Message });
             }
             catch (Exception ex)
             {
