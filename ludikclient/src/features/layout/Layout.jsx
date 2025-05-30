@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import styles from "./Layout.module.css";
-import FloatingButton from "./HeaderMenu";
+import FloatingButton from "./components/HeaderMenu";
 
 function Layout() {
   const navigate = useNavigate();

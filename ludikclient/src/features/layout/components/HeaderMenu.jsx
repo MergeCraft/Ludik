@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./HeaderMenu.module.css";
-import { cerrarSesion } from "../features/auth/auth.js";
+import { cerrarSesion } from "../../auth/auth.js";
 
 const HeaderMenu = () => {
   const dispatch = useDispatch();

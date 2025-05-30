@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { iniciarSesion } from "../features/auth/auth.js";
-import * as Toast from "../lib/toastify.js";
+import { iniciarSesion } from "./auth.js";
+import * as Toast from "../../lib/toastify.js";
 import styles from "./LoginPage.module.css";
 
 export const LoginPage = () => {

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import styles from "./SignupPage.module.css";
-import { registrarse } from "../features/auth/auth.js";
-import * as Toast from "../lib/toastify.js";
+import { registrarse } from "./auth.js";
+import * as Toast from "../../lib/toastify.js";
 
 export const SignupPage = () => {
   const navigate = useNavigate();
