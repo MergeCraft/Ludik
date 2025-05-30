@@ -27,7 +27,7 @@ namespace AccesoDatos.RepositoriosEF
                     throw new UsuarioNoValidoException();
                 }
 
-                await _db.Profesores.AddAsync(profesorNuevo);
+                _db.Profesores.Add(profesorNuevo);
                 await _db.SaveChangesAsync();
             }
             catch (UsuarioNoValidoException)

@@ -36,12 +36,12 @@ namespace WebApi.Controllers
 
             try
             {
-                if (ProfesorDto == null)
+                if (profesorDto == null)
                 {
                     return BadRequest("Debe enviar los datos del profesor.");
                 }
 
-                _altaProfesor.EjecutarAsync(ProfesorDto);
+                await _altaProfesor.EjecutarAsync(profesorDto);
 
                 return StatusCode(StatusCodes.Status201Created, "Profesor registrado correctamente.");
             }
