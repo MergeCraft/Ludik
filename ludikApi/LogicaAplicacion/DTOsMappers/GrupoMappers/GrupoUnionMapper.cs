@@ -9,7 +9,7 @@ namespace LogicaAplicacion.DTOsMappers.GrupoMappers
 {
     public class GrupoUnionMapper
     {
-        public static SolicitudUnion CrearSolicitud(int estudianteId, Grupo grupo)
+        public static SolicitudUnion CrearSolicitud(string estudianteId, Grupo grupo)
         {
             return new SolicitudUnion
             {

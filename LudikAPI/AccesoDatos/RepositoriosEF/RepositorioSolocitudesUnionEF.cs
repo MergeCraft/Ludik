@@ -27,7 +27,8 @@ namespace AccesoDatos.RepositoriosEF
             await _db.SaveChangesAsync();
         }
 
-        public async Task<bool> ExisteSolicitudPendiente(int idEstudiante, int idGrupo)
+        //TODO: evaluar hacer metodo que compare si dos strings son iguales
+        public async Task<bool> ExisteSolicitudPendiente(string idEstudiante, int idGrupo)
         {
             return await _db.SolicitudesUnion
                 .AnyAsync(s => s.estudianteId == idEstudiante

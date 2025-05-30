@@ -6,7 +6,7 @@ namespace InterfacesRepositorio
 {
 	public interface IRepositorioSolicitudesUnion : IRepositorio<SolicitudUnion>
 	{
-        Task<bool> ExisteSolicitudPendiente(int idEstudiante, int idGrupo);
+        Task<bool> ExisteSolicitudPendiente(string idEstudiante, int idGrupo);
     }
 
 }

@@ -9,7 +9,7 @@ namespace Dominio
     {
         public int Id { get; set; }
         [ForeignKey(nameof(estudiante))]
-        public int estudianteId { get; set; }
+        public string estudianteId { get; set; }
         public Estudiante estudiante { get; set; }
 
         public EstadoSolicitud Estado { get; set; } = EstadoSolicitud.Pendiente;

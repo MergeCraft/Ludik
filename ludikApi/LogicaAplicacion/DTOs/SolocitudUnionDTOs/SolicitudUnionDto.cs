@@ -8,7 +8,7 @@ namespace LogicaAplicacion.DTOs.SolocitudUnionDTOs
 {
     public class SolicitudUnionDto
     {
-        public int IdEstudiante { get; set; }
+        public string IdEstudiante { get; set; }
         public string CodigoEnlace { get; set; }
     }
 }

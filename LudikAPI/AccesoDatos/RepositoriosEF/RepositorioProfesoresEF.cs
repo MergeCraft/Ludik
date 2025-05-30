@@ -20,7 +20,8 @@ namespace AccesoDatos.RepositoriosEF
         }
         public async Task AddAsync(Profesor profesorNuevo)
         {
-
+            //Todo: eliminar metodo si se comprueba que no se usa este codigo
+            /*
             if (profesorNuevo == null)
                 throw new UsuarioNoValidoException();
             
@@ -31,11 +32,10 @@ namespace AccesoDatos.RepositoriosEF
             }
             catch (DbUpdateException ex)
             {
-                throw new UsuarioNoValidoException(
-                    "Error al persistir el profesor en la base de datos. " + ex.Message
-                );
+                var sqlMsg = ex.InnerException?.Message ?? ex.Message;
+                throw new UsuarioNoValidoException("Error al intentar guardar los datos en la base de datos. " + sqlMsg);
             }
-
+            */
         }
 
 
