@@ -6,19 +6,19 @@ namespace Dominio
 {
 	public class Pin : IEntity, IValidable
     {
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Id { get; set; }
 
-        public int idUsuario;
+        public int idUsuario { get; set; }
 
-        public String pin;
+        public String pin { get; set; }
 
-        public DateTime fCreacion;
+        public DateTime fCreacion { get; set; }
 
-        public DateTime fExpiracion;
+        public DateTime fExpiracion { get; set; }
 
-        public int tiempoDeVida;
+        public int tiempoDeVida { get; set; }
 
-        public Boolean fueUtilizado;
+        public Boolean fueUtilizado { get; set; }
         public String generarPin()
 		{
 			return null;

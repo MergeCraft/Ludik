@@ -4,35 +4,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dominio;
+
 using InterfacesRepositorio;
 using LogicaNegocio.Excepciones;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioUsuariosEF : IRepositorioUsuarios
     {
-        private readonly Context _db;
-        public RepositorioUsuariosEF()
+        private readonly ContextoDb _db;
+        private readonly UserManager<Usuario> _userManager;
+        public RepositorioUsuariosEF(ContextoDb db, UserManager<Usuario> userManager)
         {
-            _db = new Context();
+            _db = db;
+            _userManager = userManager;
         }
+
         public void Add(Usuario usuarioNuevo)
         {
             try
             {
                 if (usuarioNuevo == null)
                 {
-                    throw new UsuarioNoValidoExeption();
+                    throw new UsuarioNoValidoException();
                 }
 
-                usuarioNuevo.EsValido();
-                _db.Usuarios.Add(usuarioNuevo);
+                _db.Users.Add(usuarioNuevo);
                 _db.SaveChanges();
             }
-            catch (UsuarioNoValidoExeption ex)
+            catch (UsuarioNoValidoException ex)
             {
-                throw new UsuarioNoValidoExeption("El Usuario no es valido.");
+                throw new UsuarioNoValidoException("El Usuario no es valido.");
             }
+
         }
 
         public IEnumerable<Usuario> GetAll()
@@ -40,36 +46,54 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public Usuario GetById(int id)
+        public Task<Usuario> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Usuario loginUsuario(string identificador)
-        {
-            try
-            {
-                var usr = _db.Usuarios
-            .SingleOrDefault(u =>(u.NombreUsuario.Nombre == identificador));
-            return usr;
-            }
-            catch (UsuarioNoValidoExeption ex)
-            {
-                throw ex;
-            }
-        }
-
-        public void Remove(int id)
+        public Task<IEnumerable<Usuario>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(Usuario unObjeto)
+
+        public async Task<Usuario> GetUsuarioPorNombreAsync(string nombreUsuario)
+        {
+            var usuario = await _db.Users
+                .SingleOrDefaultAsync(e => e.UserName == nombreUsuario);
+
+            if (usuario != null)
+                return usuario;
+
+            throw new UsuarioNoValidoException($"Usuario con '{nombreUsuario}' no encontrado.");
+        }
+
+        public async Task<bool> VerificarContrasenaAsync(Usuario usuario, string clave)
+        {
+            return await _userManager.CheckPasswordAsync(usuario, clave);
+        }
+
+        public async Task<IList<string>> GetRolesAsync(Usuario usuario)
+        {
+            return await _userManager.GetRolesAsync(usuario);
+        }
+
+        public Task AddAsync(Usuario unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Usuario unObjeto)
+        public Task RemoveAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveAsync(Usuario unObjeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAsync(Usuario unObjeto)
         {
             throw new NotImplementedException();
         }

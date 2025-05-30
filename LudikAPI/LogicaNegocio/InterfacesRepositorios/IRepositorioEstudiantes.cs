@@ -13,8 +13,7 @@ namespace InterfacesRepositorio
 
 		void quitarMedalla(int idAlumno, int idMedalla);
 
-		List<Medalla> verMedallasAlumno(int idAlumno, int idGrupo);
-        bool ExisteNombreUsuario(string nombreUsuario);
+		List<Medalla> getMedallasAlumno(int idAlumno, int idGrupo);
 
     }
 

@@ -6,10 +6,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dominio
 {
-	public class Profesor : Usuario
+	public class Profesor: Usuario
 	{
-        [Required]
-        public Email correo { get; set; }
 
         public List<Medalla> medallas { get; set; }
 
@@ -22,7 +20,7 @@ namespace Dominio
 
 		}
 
-	}
+    }
 
 }
 

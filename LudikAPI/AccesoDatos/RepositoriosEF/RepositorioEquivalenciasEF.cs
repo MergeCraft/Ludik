@@ -10,32 +10,38 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioEquivalenciasEF : IRepositorioEquivalencias
     {
-        public void Add(Equivalencia unObjeto)
+        private readonly ContextoDb _db;
+        public RepositorioEquivalenciasEF(ContextoDb db)
+        {
+            _db = db;
+        }
+
+        public Task AddAsync(Equivalencia unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Equivalencia> GetAll()
+        public Task<IEnumerable<Equivalencia>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Equivalencia GetById(int id)
+        public Task<Equivalencia> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(int id)
+        public Task RemoveAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(Equivalencia unObjeto)
+        public Task RemoveAsync(Equivalencia unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Equivalencia unObjeto)
+        public Task UpdateAsync(Equivalencia unObjeto)
         {
             throw new NotImplementedException();
         }

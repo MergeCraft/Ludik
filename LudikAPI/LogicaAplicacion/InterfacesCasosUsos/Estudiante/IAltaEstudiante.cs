@@ -9,6 +9,6 @@ namespace LogicaAplicacion.InterfacesCasosUsos.Estudiante
 {
     public interface IAltaEstudiante
     {
-        void Ejecutar(EstudianteAltaDto estudianteAltaDto);
+        Task EjecutarAsync(EstudianteAltaDto estudianteAltaDto);
     }
 }

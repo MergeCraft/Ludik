@@ -7,25 +7,26 @@ namespace InterfacesRepositorio
 {
 	public interface IRepositorioGrupos : IRepositorio<Grupo>
 	{
-		TablaEquivalencia obtenerTablaDelGrupo(int idGrupo);
+        Task<TablaEquivalencia> obtenerTablaDelGrupoAsync(int idGrupo);
 
-		int calcularNotaEstudiante(int idAlumno, int idGrupo);
+        Task<int> calcularNotaEstudianteAsync(int idAlumno, int idGrupo);
 
-		void aceptarSolicitud(SolicitudUnion idSolicitud);
+        Task aceptarSolicitudAsync(SolicitudUnion idSolicitud);
 
-		void rechazarSolicitud(SolicitudUnion idSolictud);
+        Task rechazarSolicitudAsync(SolicitudUnion idSolictud);
 
-		List<Grupo> obtenerGruposPorProfesor(int idProfesor);
+        Task<List<Grupo>> obtenerGruposPorProfesorAsync(int idProfesor);
 
-		void unirseAGrupo(int idAlumno, Grupo grupo);
+        Task unirseAGrupoAsync(int idAlumno, Grupo grupo);
 
-		List<Estudiante> obtenerAlumnosDelGrupo(int idGrupo);
+        Task<List<Estudiante>> obtenerAlumnosDelGrupoAsync(int idGrupo);
 
-		void reiniciarLogrosDeGrupo(int idGrupo);
+        Task reiniciarLogrosDeGrupoAsync(int idGrupo);
 
-		List<TablaClasificacion> obtenerTablasDeClasificacionDeGrupo(int idGrupo);
+        Task<List<TablaClasificacion>> obtenerTablasDeClasificacionDeGrupoAsync(int idGrupo);
+        Task<Grupo> ObtenerPorEnlaceAsync(string codigoBase);
 
-	}
+    }
 
 }
 

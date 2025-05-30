@@ -10,32 +10,38 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioPerfilEstudianteGrupoEF : IRepositorioPerfilEstudianteGrupo
     {
-        public void Add(PerfilEstudiante unObjeto)
+        private readonly ContextoDb _db;
+        public RepositorioPerfilEstudianteGrupoEF(ContextoDb db)
+        {
+            _db = db;
+        }
+
+        public Task AddAsync(PerfilEstudiante unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<PerfilEstudiante> GetAll()
+        public Task<IEnumerable<PerfilEstudiante>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public PerfilEstudiante GetById(int id)
+        public Task<PerfilEstudiante> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(int id)
+        public Task RemoveAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(PerfilEstudiante unObjeto)
+        public Task RemoveAsync(PerfilEstudiante unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(PerfilEstudiante unObjeto)
+        public Task UpdateAsync(PerfilEstudiante unObjeto)
         {
             throw new NotImplementedException();
         }

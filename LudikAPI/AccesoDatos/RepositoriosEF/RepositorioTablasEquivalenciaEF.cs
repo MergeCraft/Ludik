@@ -5,37 +5,45 @@ using System.Text;
 using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioTablasEquivalenciaEF : IRepositorioTablasEquivalencia
     {
-        public void Add(TablaEquivalencia unObjeto)
+        private readonly ContextoDb _db;
+        public RepositorioTablasEquivalenciaEF(ContextoDb db)
+        {
+            _db = db;
+        }
+
+        public Task AddAsync(TablaEquivalencia unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<TablaEquivalencia> GetAll()
+        public Task<IEnumerable<TablaEquivalencia>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public TablaEquivalencia GetById(int id)
+       
+        public async Task<TablaEquivalencia> GetByIdAsync(int id)
+        {
+            return await _db.TablasEquivalencia.FirstOrDefaultAsync(t => t.Id == id);
+        }
+
+        public Task RemoveAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(int id)
+        public Task RemoveAsync(TablaEquivalencia unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(TablaEquivalencia unObjeto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(TablaEquivalencia unObjeto)
+        public Task UpdateAsync(TablaEquivalencia unObjeto)
         {
             throw new NotImplementedException();
         }

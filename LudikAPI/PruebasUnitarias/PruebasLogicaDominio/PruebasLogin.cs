@@ -22,12 +22,12 @@ namespace PruebasUnitarias.PruebasLogicaNegocio
         public class PruebasLogin
         {
             private readonly Mock<IRepositorioUsuarios> _mockRepo;
-            private readonly LoginPrueba _loginPrueba;
+            private readonly Login _login;
 
             public PruebasLogin()
             {
                 _mockRepo = new Mock<IRepositorioUsuarios>();
-                _loginPrueba = new LoginPrueba(_mockRepo.Object);
+                _login = new Login(_mockRepo.Object);
             }
 
             // --- VerificarContrasenia: casos éxito/error ---

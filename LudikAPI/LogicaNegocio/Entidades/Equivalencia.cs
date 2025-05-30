@@ -6,11 +6,11 @@ namespace Dominio
 {
 	public class Equivalencia : IEntity, IValidable
     {
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Id { get; set; }
 
-        public int nota;
+        public int nota { get; set; }
 
-        public List<Medalla> medallasNecesarias;
+        public List<Medalla> medallasNecesarias { get; set; }
 
         public void EsValido()
         {

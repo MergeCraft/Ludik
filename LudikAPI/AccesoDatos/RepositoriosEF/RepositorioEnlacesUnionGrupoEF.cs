@@ -10,17 +10,27 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioEnlacesUnionGrupoEF : IRepositorioEnlacesUnionGrupo
     {
-        public void Add(EnlaceUnion unObjeto)
+        private readonly ContextoDb _db;
+        public RepositorioEnlacesUnionGrupoEF(ContextoDb db)
+        {
+            _db = db;
+        }
+        public Task AddAsync(EnlaceUnion unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<EnlaceUnion> GetAll()
+        public Task<bool> ExisteSolicitudPendiente(int idEstudiante, int idGrupo)
         {
             throw new NotImplementedException();
         }
 
-        public EnlaceUnion GetById(int id)
+        public Task<IEnumerable<EnlaceUnion>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<EnlaceUnion> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -30,17 +40,27 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public void Remove(int id)
+        public Task<EnlaceUnion> ObtenerPorCodigoAsync(string codigo)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(EnlaceUnion unObjeto)
+        public Task<Grupo> ObtenerPorEnlaceAsync(string codigoBase)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(EnlaceUnion unObjeto)
+        public Task RemoveAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveAsync(EnlaceUnion unObjeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAsync(EnlaceUnion unObjeto)
         {
             throw new NotImplementedException();
         }

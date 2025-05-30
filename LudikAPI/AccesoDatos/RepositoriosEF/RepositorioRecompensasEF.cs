@@ -10,32 +10,38 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioRecompensasEF : IRepositorioRecompensas
     {
-        public void Add(Recompensa unObjeto)
+        private readonly ContextoDb _db;
+        public RepositorioRecompensasEF(ContextoDb db)
+        {
+            _db = db;
+        }
+
+        public Task AddAsync(Recompensa unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Recompensa> GetAll()
+        public Task<IEnumerable<Recompensa>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Recompensa GetById(int id)
+        public Task<Recompensa> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(int id)
+        public Task RemoveAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(Recompensa unObjeto)
+        public Task RemoveAsync(Recompensa unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Recompensa unObjeto)
+        public Task UpdateAsync(Recompensa unObjeto)
         {
             throw new NotImplementedException();
         }

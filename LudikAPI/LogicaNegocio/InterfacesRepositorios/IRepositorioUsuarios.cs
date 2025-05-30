@@ -7,9 +7,11 @@ namespace InterfacesRepositorio
 {
 	public interface IRepositorioUsuarios : IRepositorio<Usuario>
 	{
-		Usuario loginUsuario(String identificador);
+		Task<Usuario> GetUsuarioPorNombreAsync(String nombreUsuario);
+        Task<bool> VerificarContrasenaAsync(Usuario usuario, string contrasena);
 
-	}
+        Task<IList<string>> GetRolesAsync(Usuario usuario);
+    }
 
 }
 

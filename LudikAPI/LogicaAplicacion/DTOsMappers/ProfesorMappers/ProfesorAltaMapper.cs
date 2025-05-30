@@ -16,7 +16,7 @@ namespace LogicaAplicacion.DTOsMappers.ProfesorMappers
         {
             return new ProfesorAltaDto
             {
-                Email = email,
+                Correo = email,
                 NombreUsuario = nombreUsuario,
                 Nombre = nombre,
                 Apellido = apellido,
@@ -27,10 +27,10 @@ namespace LogicaAplicacion.DTOsMappers.ProfesorMappers
         {
             return new Profesor
             {
-                correo = new Email(dto.Email),
-                NombreUsuario = new NombreUsuario(dto.NombreUsuario),
+                UserName = dto.NombreUsuario,
                 NombreCompleto = new NombreCompleto(dto.Nombre, dto.Apellido),
-                Contrasenia = new Contrasenia(dto.Contrasenia)
+                Email = dto.Correo,
+
             };
         }
     }

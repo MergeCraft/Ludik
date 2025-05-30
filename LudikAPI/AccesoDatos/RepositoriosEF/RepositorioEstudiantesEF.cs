@@ -12,33 +12,21 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioEstudiantesEF : IRepositorioEstudiantes
     {
-        private readonly Context _db;
-        public RepositorioEstudiantesEF()
+        private readonly ContextoDb _db;
+        public RepositorioEstudiantesEF(ContextoDb db)
         {
-            _db = new Context();
+            _db = db;
         }
-        public void Add(Estudiante estudianteNuevo)
+
+        public async Task AddAsync(Estudiante estudianteNuevo)
         {
-            try
-            {
-                if (estudianteNuevo == null)
-                {
-                    throw new UsuarioNoValidoExeption();
-                }
-              
-                _db.Usuarios.Add(estudianteNuevo);
-                _db.SaveChanges();
-            }
-            catch (UsuarioNoValidoExeption ex)
-            {
-                throw new UsuarioNoValidoExeption("El Usuario no es valido.");
-            }
+            if (estudianteNuevo == null)
+                throw new UsuarioNoValidoException("El Usuario no es válido.");
+
+            _db.Estudiantes.Add(estudianteNuevo);
+            await _db.SaveChangesAsync();
         }
-        public bool ExisteNombreUsuario(string nombreUsuario)
-        {
-            return _db.Usuarios
-                .Any(u => u.NombreUsuario.Nombre == nombreUsuario);
-        }
+
         public void asignarMedalla(int idAlumno, int idMedalla)
         {
             throw new NotImplementedException();
@@ -54,7 +42,12 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public Estudiante GetById(int id)
+        public async Task<Estudiante> GetByIdAsync(int id)
+        {
+            return await _db.Estudiantes.FindAsync(id);
+        }
+
+        public Task<IEnumerable<Estudiante>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
@@ -64,24 +57,26 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public void Remove(int id)
+        public Task RemoveAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(Estudiante unObjeto)
+        public Task RemoveAsync(Estudiante unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Estudiante unObjeto)
+        public Task UpdateAsync(Estudiante unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public List<Medalla> verMedallasAlumno(int idAlumno, int idGrupo)
+        public List<Medalla> getMedallasAlumno(int idAlumno, int idGrupo)
         {
             throw new NotImplementedException();
         }
+
+
     }
 }

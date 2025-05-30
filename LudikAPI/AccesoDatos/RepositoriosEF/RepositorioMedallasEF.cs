@@ -5,44 +5,70 @@ using System.Text;
 using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
+using LogicaNegocio.Excepciones;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioMedallasEF : IRepositorioMedallas
     {
-        public void Add(Medalla unObjeto)
+        private readonly ContextoDb _db;
+        public RepositorioMedallasEF(ContextoDb db)
         {
-            throw new NotImplementedException();
+            _db = db;
+        }
+        public async Task AddAsync(Medalla unaMedalla)
+        {
+            try
+            {
+                unaMedalla.EsValido();
+                await _db.Medallas.AddAsync(unaMedalla);
+                await _db.SaveChangesAsync();
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
+                throw new MedallaNoValidaException($"Error al guardar en la BD: {detalle}");
+            }
+            catch (Exception e)
+            {
+                throw new MedallaNoValidaException(e.Message);
+            }
         }
 
-        public IEnumerable<Medalla> GetAll()
+        public async Task<IEnumerable<Medalla>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Este método aún no está implementado en el repositorio de Medallas.");
+
         }
 
-        public Medalla GetById(int id)
+        public async Task<Medalla> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Este método aún no está implementado en el repositorio de Medallas.");
+
         }
 
-        public List<Medalla> obtenerMedallasAsignablesMutuamente(int idGrupo)
+        public async Task RemoveAsync(int id)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Este método aún no está implementado en el repositorio de Medallas.");
+
         }
 
-        public void Remove(int id)
+        public async Task RemoveAsync(Medalla unObjeto)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Este método aún no está implementado en el repositorio de Medallas.");
+
         }
 
-        public void Remove(Medalla unObjeto)
+        public async Task UpdateAsync(Medalla unObjeto)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Este método aún no está implementado en el repositorio de Medallas.");
+
         }
 
-        public void Update(Medalla unObjeto)
+        public async Task<List<Medalla>> ObtenerMedallasAsignablesMutuamenteAsync(int idGrupo)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Este método aún no está implementado en el repositorio de Medallas.");
         }
     }
 }

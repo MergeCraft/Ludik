@@ -10,32 +10,38 @@ namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioPreguntasSeguridadEF : IRepositorioPreguntasSeguridad
     {
-        public void Add(PreguntaRespuestaSeguridad unObjeto)
+        private readonly ContextoDb _db;
+        public RepositorioPreguntasSeguridadEF(ContextoDb db)
+        {
+            _db = db;
+        }
+
+        public Task AddAsync(PreguntaRespuestaSeguridad unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<PreguntaRespuestaSeguridad> GetAll()
+        public Task<IEnumerable<PreguntaRespuestaSeguridad>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public PreguntaRespuestaSeguridad GetById(int id)
+        public Task<PreguntaRespuestaSeguridad> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(int id)
+        public Task RemoveAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(PreguntaRespuestaSeguridad unObjeto)
+        public Task RemoveAsync(PreguntaRespuestaSeguridad unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(PreguntaRespuestaSeguridad unObjeto)
+        public Task UpdateAsync(PreguntaRespuestaSeguridad unObjeto)
         {
             throw new NotImplementedException();
         }

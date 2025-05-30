@@ -10,39 +10,102 @@ using LogicaAplicacion.DTOs.UsuarioDTOs;
 using LogicaAplicacion.DTOsMappers.EstudianteMappers;
 using LogicaAplicacion.DTOsMappers.ProfesorMappers;
 using LogicaAplicacion.InterfacesCasosUsos.Profesor;
+using LogicaNegocio.Excepciones;
 using LogicaNegocio.InterfacesEntidades;
+using Microsoft.AspNetCore.Identity;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
 {
-    public class AltaProfesor : IAltaProfesor, IEncriptacion
+    public class AltaProfesor : IAltaProfesor
     {
+        private readonly UserManager<Usuario> _userManager;
         private readonly IRepositorioProfesores _repositorioProfesores;
-        public AltaProfesor(IRepositorioProfesores repo)
+
+        public AltaProfesor(
+            UserManager<Usuario> userManager,
+            IRepositorioProfesores repositorioProfesores
+        )
         {
-            _repositorioProfesores = repo;
+            _userManager = userManager;
+            _repositorioProfesores = repositorioProfesores;
         }
-        //PreCondificon : el usuario no se encuentra registrado en la base de datos
-        //PostCondicion : el usuario se encuentra registrado en la base de datos
-        public void Ejecutar(ProfesorAltaDto profesorAltaDto)
+
+        // Pre: el DTO no puede ser nulo.
+        // Pos: crea un nuevo usuario-Profesor en Identity y persiste sus datos extra en la tabla Profesores.
+        public async Task<IdentityResult> EjecutarAsync(ProfesorAltaDto profesorAltaDto)
         {
             if (profesorAltaDto == null)
-                throw new ArgumentNullException(nameof(profesorAltaDto), "El DTO no puede ser nulo.");
+            {
+                return IdentityResult.Failed(
+                    new IdentityError
+                    {
+                        Code = "ArgNull",
+                        Description = "Se deben de brindar los datos para poder registrarse."
+                    }
+                );
+            }
 
-            if (_repositorioProfesores.ExisteNombreUsuario(profesorAltaDto.NombreUsuario))
-                throw new Exception("El nombre de usuario ya está en uso.");
+            var profesorNuevo = ProfesorAltaMapper.fromDto(profesorAltaDto);
 
-            if(_repositorioProfesores.ExisiteMailProfesor(profesorAltaDto.Email))
-                throw new Exception("El email de usuario ya está en uso.");
+            var erroresValidacion = new List<IdentityError>();
+            var existeNombre = await _userManager.FindByNameAsync(profesorAltaDto.NombreUsuario);
+            if (existeNombre != null)
+            {
+                erroresValidacion.Add(new IdentityError
+                {
+                    Code = "DuplicateUserName",
+                    Description = "El nombre de usuario ya está en uso."
+                });
+            }
+
+            var existeEmail = await _userManager.FindByEmailAsync(profesorAltaDto.Correo);
+            if (existeEmail != null)
+            {
+                erroresValidacion.Add(new IdentityError
+                {
+                    Code = "DuplicateEmail",
+                    Description = "El correo electrónico ya está en uso."
+                });
+            }
+
+            if (erroresValidacion.Count > 0)
+            {
+                return IdentityResult.Failed(erroresValidacion.ToArray());
+            }
+
+            var resultadoCreacion = await _userManager.CreateAsync(profesorNuevo, profesorAltaDto.Contrasenia);
+            if (!resultadoCreacion.Succeeded)
+                return resultadoCreacion;
+
+            var rolAsignado = await _userManager.AddToRoleAsync(profesorNuevo, "Profesor");
+            if (!rolAsignado.Succeeded)
+            {
+                // Si falla la asignación de rol,  eliminar el usuario para no dejar datos huérfanos
+                await _userManager.DeleteAsync(profesorNuevo);
+                return IdentityResult.Failed(rolAsignado.Errors.ToArray());
+            }
+            
+            try
+            {
+                // Persistir datos extra de la entidad Profesor en su tabla específica
+                //    Recordar que Profesor hereda de Usuario, y en Identity se guardó la información básica.
+                await _repositorioProfesores.AddAsync(profesorNuevo);
+            }
+            catch (Exception ex)
+            {
+                // Si falla el guardado en la tabla Profesores, revertimos el usuario
+                await _userManager.DeleteAsync(profesorNuevo);
+
+                return IdentityResult.Failed(new IdentityError
+                {
+                    Code = "DbError",
+                    Description = $"No se pudo persistir datos en la tabla Profesores. {ex.Message}"
+                });
+            }
 
 
-            Profesor profesorNuevo = ProfesorAltaMapper.fromDto(profesorAltaDto);
-            profesorNuevo.Contrasenia.Clave = EncriptarContrasenia(profesorNuevo.Contrasenia.Clave);
-            _repositorioProfesores.Add(profesorNuevo);
-        }
-
-        public string EncriptarContrasenia(string contrasenia)
-        {
-            return BCrypt.Net.BCrypt.HashPassword(contrasenia);
+            return IdentityResult.Success;
+            
         }
     }
 }
