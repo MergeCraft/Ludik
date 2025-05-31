@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace WebApi.Jwt
 {
-    public class ManejadorJwt
+    public class ManejadorJwt : IManejadorJwt
     {
         private readonly IConfiguration _configuracion;
 
@@ -17,10 +17,10 @@ namespace WebApi.Jwt
         public string GenerarToken(string usuarioId, string nombreUsuario, string rol)
         {
             var jwtConfig = _configuracion.GetSection("JwtSettings");
-            string claveSecreta = jwtConfig.GetValue<string>("ClaveSecreta");
+            string claveSecreta = jwtConfig.GetValue<string>("Key");
             string issuer = jwtConfig.GetValue<string>("Issuer");
             string audience = jwtConfig.GetValue<string>("Audience");
-            int expiracionDias = jwtConfig.GetValue<int>("ExpiracionDias");
+            int validezMinutos = jwtConfig.GetValue<int>("TokenValidityInMinutes");
 
             var keyBytes = Encoding.UTF8.GetBytes(claveSecreta);
             var signingKey = new SymmetricSecurityKey(keyBytes);
@@ -38,7 +38,7 @@ namespace WebApi.Jwt
                 issuer: issuer,
                 audience: audience,
                 claims: claims,
-                expires: DateTime.UtcNow.AddDays(expiracionDias),
+                expires: DateTime.UtcNow.AddMinutes(validezMinutos),
                 signingCredentials: credentials
             );
 

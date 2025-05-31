@@ -60,6 +60,7 @@ builder.Services.AddIdentity<Usuario, IdentityRole> (opciones =>
 // -------------------------------
 // Configura JWT Authentication
 // -------------------------------
+builder.Services.AddScoped<IManejadorJwt, ManejadorJwt>();
 
 // Lee configuración JWT desde appsettings.json
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");

@@ -22,30 +22,6 @@ namespace AccesoDatos.RepositoriosEF
             _userManager = userManager;
         }
 
-        public void Add(Usuario usuarioNuevo)
-        {
-            try
-            {
-                if (usuarioNuevo == null)
-                {
-                    throw new UsuarioNoValidoException();
-                }
-
-                _db.Users.Add(usuarioNuevo);
-                _db.SaveChanges();
-            }
-            catch (UsuarioNoValidoException ex)
-            {
-                throw new UsuarioNoValidoException("El Usuario no es valido.");
-            }
-
-        }
-
-        public IEnumerable<Usuario> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<Usuario> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
@@ -59,6 +35,9 @@ namespace AccesoDatos.RepositoriosEF
 
         public async Task<Usuario> GetUsuarioPorNombreAsync(string nombreUsuario)
         {
+            if (string.IsNullOrWhiteSpace(nombreUsuario))
+                throw new ArgumentNullException(nameof(nombreUsuario));
+
             var usuario = await _db.Users
                 .SingleOrDefaultAsync(e => e.UserName == nombreUsuario);
 
@@ -70,17 +49,25 @@ namespace AccesoDatos.RepositoriosEF
 
         public async Task<bool> VerificarContrasenaAsync(Usuario usuario, string clave)
         {
+            if (usuario == null) 
+                throw new ArgumentNullException(nameof(usuario));
             return await _userManager.CheckPasswordAsync(usuario, clave);
         }
 
         public async Task<IList<string>> GetRolesAsync(Usuario usuario)
         {
+            if(usuario == null) 
+                throw new ArgumentNullException(nameof(usuario));
             return await _userManager.GetRolesAsync(usuario);
         }
 
-        public Task AddAsync(Usuario unObjeto)
+        public async Task AddAsync(Usuario usuarioNuevo)
         {
-            throw new NotImplementedException();
+            if(usuarioNuevo == null)
+                throw new UsuarioNoValidoException("El usuario proporcionado no es válido.");
+
+            await _db.Users.AddAsync(usuarioNuevo);
+            await _db.SaveChangesAsync();
         }
 
         public Task RemoveAsync(int id)
