@@ -20,8 +20,8 @@ namespace AccesoDatos.RepositoriosEF
 
         public async Task AddAsync(Estudiante estudianteNuevo)
         {
-            if (estudianteNuevo == null)
-                throw new UsuarioNoValidoException("El Usuario no es válido.");
+            if(estudianteNuevo == null)
+                throw new ArgumentNullException(nameof(estudianteNuevo), "El estudiante no puede ser nulo.");
 
             _db.Estudiantes.Add(estudianteNuevo);
             await _db.SaveChangesAsync();

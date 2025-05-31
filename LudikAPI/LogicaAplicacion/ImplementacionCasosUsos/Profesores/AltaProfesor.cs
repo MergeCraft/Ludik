@@ -19,15 +19,15 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
     public class AltaProfesor : IAltaProfesor
     {
         private readonly UserManager<Usuario> _userManager;
-        private readonly IRepositorioProfesores _repositorioProfesores;
+
 
         public AltaProfesor(
-            UserManager<Usuario> userManager,
-            IRepositorioProfesores repositorioProfesores
+            UserManager<Usuario> userManager
+
         )
         {
             _userManager = userManager;
-            _repositorioProfesores = repositorioProfesores;
+
         }
 
         // Pre: el DTO no puede ser nulo.
@@ -85,23 +85,6 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
                 return IdentityResult.Failed(rolAsignado.Errors.ToArray());
             }
             
-            try
-            {
-                // Persistir datos extra de la entidad Profesor en su tabla específica
-                //    Recordar que Profesor hereda de Usuario, y en Identity se guardó la información básica.
-                await _repositorioProfesores.AddAsync(profesorNuevo);
-            }
-            catch (Exception ex)
-            {
-                // Si falla el guardado en la tabla Profesores, revertimos el usuario
-                await _userManager.DeleteAsync(profesorNuevo);
-
-                return IdentityResult.Failed(new IdentityError
-                {
-                    Code = "DbError",
-                    Description = $"No se pudo persistir datos en la tabla Profesores. {ex.Message}"
-                });
-            }
 
 
             return IdentityResult.Success;

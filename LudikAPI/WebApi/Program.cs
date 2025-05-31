@@ -42,7 +42,7 @@ builder.Services.AddIdentity<Usuario, IdentityRole> (opciones =>
     opciones.Password.RequiredLength = 8;                    // Longitud mínima de 8 caracteres
 
     // ===== Validaciones de Usuario =====
-    opciones.User.RequireUniqueEmail = true;                  // El email debe ser único
+    opciones.User.RequireUniqueEmail = false;                  // El email debe ser único
     opciones.User.AllowedUserNameCharacters =
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 
@@ -60,7 +60,7 @@ builder.Services.AddIdentity<Usuario, IdentityRole> (opciones =>
 // -------------------------------
 // Configura JWT Authentication
 // -------------------------------
-builder.Services.AddScoped<IManejadorJwt, ManejadorJwt>();
+builder.Services.AddSingleton<IManejadorJwt, ManejadorJwt>();
 
 // Lee configuración JWT desde appsettings.json
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
@@ -89,8 +89,6 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
-builder.Services.AddSingleton<ManejadorJwt>(); 
-
 // -------------------------------
 // Configura Authorization (políticas/roles)
 // -------------------------------
@@ -104,7 +102,7 @@ builder.Services.AddAuthorization(options =>
 
 
 
-// Inyeccion repositorios
+// Inyeccion de dependencias repositorios
 builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
 builder.Services.AddScoped<IRepositorioEstudiantes, RepositorioEstudiantesEF>();
 builder.Services.AddScoped<IRepositorioProfesores, RepositorioProfesoresEF>();
@@ -112,7 +110,7 @@ builder.Services.AddScoped<IRepositorioGrupos, RepositorioGruposEF>();
 builder.Services.AddScoped<IRepositorioTablasEquivalencia, RepositorioTablasEquivalenciaEF>();
 builder.Services.AddScoped<IRepositorioMedallas, RepositorioMedallasEF>();
 
-//Inyeccion casos de uso
+//Inyeccion de dependencias casos de uso
 builder.Services.AddScoped<ILogin, Login>();
 builder.Services.AddScoped<IAltaEstudiante, AltaEstudiante>();
 builder.Services.AddScoped<IAltaProfesor, AltaProfesor>();
