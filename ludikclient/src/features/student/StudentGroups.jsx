@@ -1,7 +1,7 @@
 import React from "react";
-import GroupStudentItem from "../components/GroupStudentItem.jsx";
+import GroupStudentItem from "./components/GroupStudentItem.jsx";
 import styles from "./StudentGroups.module.css";
-import genericGroupImage from "../assets/genericGroupImage.png";
+import genericGroupImage from "../../assets/genericGroupImage.png";
 
 const groupData = [
   { name: "Liceo 13", grade: "2° C", students: 32, imgSrc: genericGroupImage },

@@ -6,11 +6,11 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./lib/fontawesome";
 import "./App.css"; // O tu CSS general
-import Layout from "./components/Layout";
-import Home from "./pages/Home"; // Este tendrá el main y section
-import LoginPage from "./pages/LoginPage";
-import SignupPage from "./pages/SignupPage";
-import StudentGroups from "./pages/StudentGroups.jsx";
+import Layout from "./features/layout/Layout";
+import Home from "./features/home/Home.jsx"; // Este tendrá el main y section
+import LoginPage from "./features/auth/LoginPage";
+import SignupPage from "./features/auth/SignupPage";
+import StudentGroups from "./features/student/StudentGroups.jsx";
 
 function App() {
   return (
