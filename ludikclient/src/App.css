@@ -1,16 +1,16 @@
 :root {
-  --blanco-principal: rgba(217, 217, 217, 1);
-  --blanco-secundario: rgb(200, 200, 200);
-  --boton-principal: rgba(4, 110, 155, 1);
+  --blanco-principal: #d9d9d9;
+  --blanco-secundario: #c8c8c8;
+  --boton-principal: #046e9b;
   --secundario-boton-princial: #003e59;
-  --boton-secundario: rgba(7, 155, 4, 1);
+  --boton-secundario: #079b04;
   --secundario-boton-secundario: #076404;
   --boton-terciario: #9B0404;
   --secundario-boton-terciario: #640404;
-  --letras-secundario: rgba(73, 192, 248, 1);
-  --principal: rgba(19, 31, 36, 1);
-  --secundario: rgba(35, 53, 60, 1);
-  --terciario: hsl(197, 28%, 30%);
+  --letras-secundario: #49c0f8;
+  --principal: #131f24;
+  --secundario: #23353c;
+  --terciario: #375662;
 }
 
 body {
@@ -23,7 +23,7 @@ body {
 /* === Estilos reutilizables === */
 
 .button {
-  background-color: #046e9b;
+  background-color: var(--boton-principal);
   border: none;
   box-shadow: 0 3px 0 3px var(--secundario-boton-princial);
   border-radius: 10px;
@@ -38,6 +38,27 @@ body {
 
 .button:active {
   box-shadow: 0 0 0 2px var(--secundario-boton-princial);
+  transform: translateY(3px);
+  /* Simula la presión */
+  outline: none;
+}
+
+.button-secondary{
+  background-color: var(--boton-secundario);
+  border: none;
+  box-shadow: 0 3px 0 3px var(--secundario-boton-secundario);
+  border-radius: 10px;
+  color: var(--blanco-principal);
+  font-size: 16px;
+  padding: 10px 26px;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  transition: transform 0.2s, box-shadow 0.2s ease;
+}
+
+.button-secondary:active {
+  box-shadow: 0 0 0 2px var(--secundario-boton-secundario);
   transform: translateY(3px);
   /* Simula la presión */
   outline: none;
@@ -61,6 +82,14 @@ body {
 
 .delay-3 {
   animation-delay: 0.6s;
+}
+
+.delay-4 {
+  animation-delay: 0.8s;
+}
+
+.delay-5 {
+  animation-delay: 1s;
 }
 
 @keyframes fadeUp {

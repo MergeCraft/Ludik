@@ -37,14 +37,7 @@ function Layout() {
         </div>
 
         {isLoggedIn && <FloatingButton />}
-        {!isLoggedIn && (
-          <button className="button" onClick={() => navigate(isLoginPage ? "/signup" : "/login")}>
-            {isLoginPage ? "Registrarse" : "Iniciar sesión"}
-          </button>
-        )}
       </header>
-
-      
 
       <Outlet />
     </div>

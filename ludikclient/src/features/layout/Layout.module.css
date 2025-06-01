@@ -1,28 +1,42 @@
-/* src/components/Layout.module.css */
-
-.layoutContainer {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
 .header {
   background-color: var(--secundario);
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: flex-end;
   padding: 0.4rem 1rem;
+  position: relative;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  height: 55px;
 }
 
 .logoArea {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
 }
 
 .logoImage {
   height: 40px;
-  margin-top: 10px;
+  cursor: pointer;
 }
 
+.desktopOnly {
+  display: inline;
+}
+
+.mobileOnly {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktopOnly {
+    display: none;
+  }
+
+  .mobileOnly {
+    display: inline;
+  }
+}
