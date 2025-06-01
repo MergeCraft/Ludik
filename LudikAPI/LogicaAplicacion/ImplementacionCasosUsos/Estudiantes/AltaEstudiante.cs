@@ -17,15 +17,10 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
     public class AltaEstudiante : IAltaEstudiante
     {
         private readonly UserManager<Usuario> _userManager;
-        private readonly IRepositorioEstudiantes _repositorioEstudiantes;
 
-        public AltaEstudiante(
-            UserManager<Usuario> userManager,
-            IRepositorioEstudiantes repositorioEstudiantes
-        )
+        public AltaEstudiante(UserManager<Usuario> userManager)
         {
             _userManager = userManager;
-            _repositorioEstudiantes = repositorioEstudiantes;
         }
 
         // Pre:  el DTO no puede ser nulo.
@@ -58,7 +53,6 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
                 throw new InvalidOperationException($"No se pudo asignar el rol: {erroresRol}");
             }
 
-            _repositorioEstudiantes.AddAsync(estudianteNuevo);
         }
     
 

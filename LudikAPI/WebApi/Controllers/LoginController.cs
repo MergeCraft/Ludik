@@ -12,9 +12,9 @@ namespace WebApi.Controllers
     public class LoginController : ControllerBase
     {
         private readonly ILogin _login;
-        private readonly ManejadorJwt _manejadorJwt;
+        private readonly IManejadorJwt _manejadorJwt;
 
-        public LoginController(ILogin login, ManejadorJwt manejadorJwt)
+        public LoginController(ILogin login, IManejadorJwt manejadorJwt)
         {
             _login = login;
             _manejadorJwt = manejadorJwt;
@@ -37,8 +37,8 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Login([FromBody] LoginSolicitudDto usr)
         {
-            if (usr == null || string.IsNullOrEmpty(usr.NombreUsuario) || string.IsNullOrEmpty(usr.Contrasenia))
-                return BadRequest("Los campos NombreUsuario y Contrasenia son obligatorios.");
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             try
             {

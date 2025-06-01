@@ -182,7 +182,7 @@ namespace AccesoDatos.RepositoriosEF
 
 
 
-        // Métodos aún no implementados asincrónicamente (podemos discutir su diseño si querés)
+        //TODO: Métodos aún no implementados asincrónicamente (podemos discutir su diseño si querés)
 
 
     }
