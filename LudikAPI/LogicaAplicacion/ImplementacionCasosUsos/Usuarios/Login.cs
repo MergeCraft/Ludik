@@ -25,6 +25,9 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Usuarios
         //Pos: el usuario se loguea en el sistema 
         public async Task<LoginRespuestaDto> Ejecutar(string nombreUsuario, string psw)
         {
+            if (psw == null)
+                throw new ArgumentNullException(nameof(psw), "La contraseña no puede ser vacia.");
+
             var usr = await _repositorioUsuarios.GetUsuarioPorNombreAsync(nombreUsuario);
             if (usr == null)
                 throw new UsuarioNoValidoException("Nombre de usuario incorrecto.");

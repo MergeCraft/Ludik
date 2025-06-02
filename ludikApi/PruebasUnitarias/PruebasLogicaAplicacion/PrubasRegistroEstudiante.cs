@@ -7,33 +7,36 @@ using LogicaAplicacion.DTOs.UsuarioDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;
 using LogicaNegocio.ValueObjects;
 using LogicaNegocio.Excepciones;
+using Microsoft.AspNetCore.Identity;
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion
 {
     public class PruebasAltaEstudiante
     {
-        private readonly Mock<IRepositorioEstudiantes> _repoMock;
-        private readonly AltaEstudiante _service;
-        /*
+        private readonly Mock<UserManager<Usuario>> _userManagerMock;
+
         public PruebasAltaEstudiante()
         {
-            _repoMock = new Mock<IRepositorioEstudiantes>();
-            _service = new AltaEstudiante(_repoMock.Object);
+            var storeMock = new Mock<IUserStore<Usuario>>();
+            _userManagerMock = new Mock<UserManager<Usuario>>(
+                storeMock.Object, null, null, null, null, null, null, null, null
+            );
         }
 
         [Fact]
         public async Task Ejecutar_DtoNulo_LanzaArgumentNullException()
         {
             // Arrange
+            var service = new AltaEstudiante(_userManagerMock.Object);
             EstudianteAltaDto dto = null!;
 
             // Act & Assert
-            var ex = await Assert.ThrowsAsync<ArgumentNullException>(() => _service.EjecutarAsync(dto));
+            var ex = await Assert.ThrowsAsync<ArgumentNullException>(() => service.EjecutarAsync(dto));
             Assert.Contains("estudianteAltaDto", ex.ParamName);
         }
 
         [Fact]
-        public async Task Ejecutar_NombreUsuarioExiste_LanzaUsuarioNoValidoException()
+        public async Task Ejecutar_NombreUsuarioExiste_LanzaInvalidOperationException()
         {
             // Arrange
             var dto = new EstudianteAltaDto
@@ -43,15 +46,19 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
                 Apellido = "Pérez",
                 Contrasenia = "Camaracac52."
             };
-            _repoMock.Setup(r => r.ExisteNombreUsuarioAsync("pedro25")).ReturnsAsync(true);
+
+            _userManagerMock.Setup(x => x.FindByNameAsync("pedro25"))
+                .ReturnsAsync(new Usuario()); // Simula que ya existe
+
+            var service = new AltaEstudiante(_userManagerMock.Object);
 
             // Act & Assert
-            var ex = await Assert.ThrowsAsync<UsuarioNoValidoException>(() => _service.EjecutarAsync(dto));
+            var ex = await Assert.ThrowsAsync<InvalidOperationException>(() => service.EjecutarAsync(dto));
             Assert.Equal("El nombre de usuario ya está en uso.", ex.Message);
         }
 
         [Fact]
-        public async Task Ejecutar_DatosValidos_AgregaEstudianteConContraseniaHasheada()
+        public async Task Ejecutar_DatosValidos_CreaUsuarioYAsignaRol()
         {
             // Arrange
             var dto = new EstudianteAltaDto
@@ -61,26 +68,26 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
                 Apellido = "López",
                 Contrasenia = "Misecreto.5"
             };
-            _repoMock.Setup(r => r.ExisteNombreUsuarioAsync("maria99")).ReturnsAsync(false);
 
-            Estudiante capturado = null!;
-            _repoMock
-                .Setup(r => r.AddAsync(It.IsAny<Estudiante>()))
-                .Callback<Estudiante>(e => capturado = e)
-                .Returns(Task.CompletedTask);
+            _userManagerMock.Setup(x => x.FindByNameAsync("maria99"))
+                .ReturnsAsync((Usuario)null!); // No existe aún
+
+            _userManagerMock.Setup(x =>
+                    x.CreateAsync(It.IsAny<Usuario>(), "Misecreto.5"))
+                .ReturnsAsync(IdentityResult.Success);
+
+            _userManagerMock.Setup(x =>
+                    x.AddToRoleAsync(It.IsAny<Usuario>(), "Estudiante"))
+                .ReturnsAsync(IdentityResult.Success);
+
+            var service = new AltaEstudiante(_userManagerMock.Object);
 
             // Act
-            await _service.EjecutarAsync(dto);
+            await service.EjecutarAsync(dto);
 
             // Assert
-            _repoMock.Verify(r => r.AddAsync(It.IsAny<Estudiante>()), Times.Once);
-            Assert.NotNull(capturado);
-            Assert.NotEqual("misecreto.5", capturado.Contrasenia.Valor);
-            Assert.True(BCrypt.Net.BCrypt.Verify("Misecreto.5", capturado.Contrasenia.Valor));
-            Assert.Equal("maria99", capturado.NombreUsuario.Valor);
-            Assert.Equal("María", capturado.NombreCompleto.Nombre);
-            Assert.Equal("López", capturado.NombreCompleto.Apellido);
+            _userManagerMock.Verify(x => x.CreateAsync(It.IsAny<Usuario>(), "Misecreto.5"), Times.Once);
+            _userManagerMock.Verify(x => x.AddToRoleAsync(It.IsAny<Usuario>(), "Estudiante"), Times.Once);
         }
-        */
     }
 }

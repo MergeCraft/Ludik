@@ -1,10 +1,14 @@
 ﻿using Dominio;
 using InterfacesRepositorio;
+using LogicaAplicacion.DTOs.UsuarioDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Usuarios;
 using LogicaNegocio.Excepciones;
 using LogicaNegocio.ValueObjects;
 using Moq;
-
+using Xunit;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion
 {
@@ -18,113 +22,114 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             _repoMock = new Mock<IRepositorioUsuarios>();
             _service = new Login(_repoMock.Object);
         }
-        /*
+
         [Fact]
-        public async void Ejecutar_UsuarioExistenteYContraseniaValida_DevuelveDto()
+        public async Task Ejecutar_UsuarioExistenteYContraseniaValida_DevuelveDto()
         {
             // Arrange
-            var plainPwd = "4732Mmsi.";
-            var hash = BCrypt.Net.BCrypt.HashPassword(plainPwd);
-
+            var plainPwd = "4732mmsi.";
             var usuario = new Profesor
             {
-                NombreUsuario = new NombreUsuario("Pedro25"),
-                Contrasenia = new Contrasenia(hash)
+                Id = "1",
+                UserName = "pedro25"
             };
-            _repoMock.Setup(r => r.GetUsuarioPorNombreAsync("Pedro25"))
+
+            _repoMock.Setup(r => r.GetUsuarioPorNombreAsync("pedro25"))
                 .ReturnsAsync(usuario);
 
+            _repoMock.Setup(r => r.VerificarContrasenaAsync(usuario, plainPwd))
+                .ReturnsAsync(true);
+
+            _repoMock.Setup(r => r.GetRolesAsync(usuario))
+                .ReturnsAsync(new List<string> { "Profesor" });
 
             // Act
-            var result = await _service.Ejecutar("Pedro25", plainPwd);
+            var result = await _service.Ejecutar("pedro25", plainPwd);
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal("Pedro25", result.NombreUsuario);
+            Assert.Equal("pedro25", result.NombreUsuario);
+            Assert.Equal("1", result.Id);
+            Assert.Equal("Profesor", result.Rol);
         }
 
         [Fact]
-        public async void Ejecutar_UsuarioNoExiste_LanzaUsuarioNoValidoException()
+        public async Task Ejecutar_UsuarioNoExiste_LanzaUsuarioNoValidoException()
         {
             // Arrange
-            _repoMock
-                .Setup(r => r.GetUsuarioPorNombreAsync("invitado"))
-                .ReturnsAsync((Usuario)null);
+            _repoMock.Setup(r => r.GetUsuarioPorNombreAsync("invitado"))
+                .ReturnsAsync((Usuario)null!);
 
-                // Act & Assert
+            // Act & Assert
             await Assert.ThrowsAsync<UsuarioNoValidoException>(
                 () => _service.Ejecutar("invitado", "cualquier"));
         }
 
         [Fact]
-        public async void Ejecutar_ContraseniaIncorrecta_LanzaContraseniaNoValidaException()
+        public async Task Ejecutar_ContraseniaIncorrecta_LanzaContraseniaNoValidaException()
         {
             // Arrange
-            var hashCorrecto = BCrypt.Net.BCrypt.HashPassword("4732Mmsi.");
-
-
-            var usuarioReal = new Profesor
+            var usuario = new Profesor
             {
-                NombreUsuario = new NombreUsuario("JulioProfe"),
-                Contrasenia = new Contrasenia(hashCorrecto)
+                Id = "2",
+                UserName = "julioprofe"
             };
 
-            _repoMock
-                .Setup(r => r.GetUsuarioPorNombreAsync("JulioProfe"))
-                .ReturnsAsync(usuarioReal);
+            _repoMock.Setup(r => r.GetUsuarioPorNombreAsync("julioprofe"))
+                .ReturnsAsync(usuario);
+
+            _repoMock.Setup(r => r.VerificarContrasenaAsync(usuario, "incorrecta"))
+                .ReturnsAsync(false);
 
             // Act & Assert
             await Assert.ThrowsAsync<ContraseniaNoValidaException>(
-                () => _service.Ejecutar("JulioProfe", "incorrecta"));
+                () => _service.Ejecutar("julioprofe", "incorrecta"));
         }
 
         [Fact]
-        public void VerificarContrasenia_EmptyPassword_ReturnsTrue()
+        public async Task Ejecutar_UsuarioSinRol_LanzaExcepcion()
         {
             // Arrange
-            var hashEmpty = BCrypt.Net.BCrypt.HashPassword(string.Empty);
+            var usuario = new Estudiante
+            {
+                Id = "3",
+                UserName = "sinrol"
+            };
 
-            // Act
-            var isValid = _service.VerificarContrasenia(string.Empty, hashEmpty);
+            _repoMock.Setup(r => r.GetUsuarioPorNombreAsync("sinrol"))
+                .ReturnsAsync(usuario);
 
-            // Assert
-            Assert.True(isValid);
-        }
+            _repoMock.Setup(r => r.VerificarContrasenaAsync(usuario, "pass123"))
+                .ReturnsAsync(true);
 
-        [Fact]
-        public void VerificarContrasenia_PasswordNoCoincide_ReturnsFalse()
-        {
-            // Arrange
-            var hash = BCrypt.Net.BCrypt.HashPassword("hola");
+            _repoMock.Setup(r => r.GetRolesAsync(usuario))
+                .ReturnsAsync(new List<string>()); // sin roles
 
-            // Act
-            var isValid = _service.VerificarContrasenia("adios", hash);
+            // Act & Assert
+            var ex = await Assert.ThrowsAsync<Exception>(
+                () => _service.Ejecutar("sinrol", "pass123"));
 
-            // Assert
-            Assert.False(isValid);
+            Assert.Equal("El usuario no tiene un rol asignado.", ex.Message);
         }
 
         [Fact]
         public async Task Ejecutar_ContraseniaNula_LanzaArgumentNullException()
         {
             // Arrange
-            var hash = BCrypt.Net.BCrypt.HashPassword("x");
-
-            var usuario = new Estudiante()
+            var usuario = new Estudiante
             {
-                NombreUsuario = new NombreUsuario("test"),
-                Contrasenia = new Contrasenia(hash)
+                Id = "4",
+                UserName = "test"
             };
 
-            _repoMock
-                .Setup(r => r.GetUsuarioPorNombreAsync("test"))
+            _repoMock.Setup(r => r.GetUsuarioPorNombreAsync("test"))
                 .ReturnsAsync(usuario);
+
+            // No hace falta configurar VerificarContrasenaAsync porque lanzará antes
 
             // Act & Assert
             await Assert.ThrowsAsync<ArgumentNullException>(
                 () => _service.Ejecutar("test", null!));
         }
-        */
     }
-
 }
