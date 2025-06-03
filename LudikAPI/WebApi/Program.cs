@@ -128,14 +128,39 @@ builder.Services.AddEndpointsApiExplorer();
 var ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WebApi.xml");
 builder.Services.AddSwaggerGen(opciones =>
 {
-	opciones.IncludeXmlComments(ruta);
-	opciones.SwaggerDoc("v1", new OpenApiInfo
-	{
-		Title = "API de Ludik",
-		Version = "v1",
-		Description = "Bitácora digital de logros de aprendizaje.",
-		Contact = new OpenApiContact { Email = "renatoriosx@gmail.com" }
-	});
+    opciones.IncludeXmlComments(ruta);
+    opciones.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "API de Ludik",
+        Version = "v1",
+        Description = "Bitácora digital de logros de aprendizaje.",
+        Contact = new OpenApiContact { Email = "renatoriosx@gmail.com" }
+    });
+
+    opciones.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Introduce el token JWT con el prefijo 'Bearer ', por ejemplo: Bearer eyJhbGciOiJIUzI1NiIs..."
+    });
+
+    opciones.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
 });
 
 builder.Services.AddCors(options =>

@@ -1,6 +1,7 @@
 ﻿using LogicaAplicacion.DTOs.UsuarioDTOs;
 using LogicaAplicacion.InterfacesCasosUsos.Estudiante;
 using LogicaNegocio.Excepciones;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -28,6 +29,7 @@ namespace WebApi.Controllers
         /// </returns>
 
         [HttpPost("alta")]
+        [Authorize(Roles = "Estudiante")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -57,6 +59,10 @@ namespace WebApi.Controllers
             }
         }
         [HttpGet("unirse-grupo", Name = "UnirseAGrupo")]
+        [Authorize(Roles = "Estudiante")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UnirseAGrupo([FromQuery] string codigo)
         {
             if (string.IsNullOrWhiteSpace(codigo))
