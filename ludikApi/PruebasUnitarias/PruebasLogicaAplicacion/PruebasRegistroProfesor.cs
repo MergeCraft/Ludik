@@ -125,6 +125,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             _userManagerMock.Verify(x => x.AddToRoleAsync(It.IsAny<Usuario>(), "Profesor"), Times.Once);
         }
     }
+    //faltan una pruebas mas que tiene que ver con el chequeo de cada campo
 
 
 }
