@@ -1,6 +1,5 @@
 ﻿using Dominio;
 using LogicaAplicacion.DTOs.UsuarioDTOs;
-using LogicaAplicacion.InterfacesCasosUsos.Usuario;
 using LogicaNegocio.Excepciones;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
