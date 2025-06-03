@@ -1,14 +1,16 @@
 // components/LoginForm.js
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { iniciarSesion } from "../auth.js";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useLogin } from "../hooks/useAuthMutation.js";
 import * as Toast from "../../../lib/toastify.js";
 import styles from "../AuthPage.module.css";
 
 const LoginForm = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { mutateAsync: login } = useLogin();
+  const message = location.state?.message;
+
   const [recordar, setRecordar] = useState(false);
   const [usuario, setUsuario] = useState("");
   const [contrasena, setContrasena] = useState("");
@@ -20,20 +22,20 @@ const LoginForm = () => {
     if (name === "recuerdame") setRecordar(checked);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await iniciarSesion({ usuario, contrasena }, dispatch);
-      setTimeout(() => {
-        navigate("/studentGroups");
-      }, 200);
-    } catch (error) {
-      Toast.notificarError(error.message);
-    }
+    login({ usuario, contrasena });
   };
+
+  useEffect(() => {
+    if (message) {
+      Toast.notificarError(message);
+    }
+  }, [message]);
 
   return (
     <form className={styles.formulario} onSubmit={handleSubmit}>
+      {/* campos de usuario y contraseña */}
       <div className={styles.campo}>
         <label htmlFor="usuario" className={styles.etiqueta}>
           Usuario
@@ -49,16 +51,16 @@ const LoginForm = () => {
       </div>
 
       <div className={styles.recordar}>
-        <label className={"switch"}>
+        <label className="switch">
           <input type="checkbox" id="recuerdame" name="recuerdame" checked={recordar} onChange={handleChange} />
-          <span className={"slider"}></span>
+          <span className="slider"></span>
         </label>
         <label htmlFor="recuerdame" className={`${styles.etiqueta} ${styles.recuerdame}`}>
           Recuérdame
         </label>
       </div>
 
-      <button type="submit" className={"button"}>
+      <button type="submit" className="button">
         Iniciar sesión
       </button>
 
@@ -70,7 +72,7 @@ const LoginForm = () => {
         <a
           onClick={(e) => {
             e.preventDefault();
-            setTimeout(() => navigate("/signup"), 200);
+            navigate("/signup");
           }}
           className={`button-secondary ${styles.nuevaCuenta}`}
           href="/signup"

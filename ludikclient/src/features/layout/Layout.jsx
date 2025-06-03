@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import styles from "./Layout.module.css";
-import FloatingButton from "./components/HeaderMenu";
+import HeaderMenu from "./components/HeaderMenu";
 
 function Layout() {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ function Layout() {
   if (userDataString) {
     try {
       const userData = JSON.parse(userDataString);
-      if (userData.token && userData.email) {
+      if (userData && typeof userData.token === "string" && userData.token.trim() !== "") {
         isLoggedIn = true;
       }
     } catch (error) {
@@ -27,16 +27,10 @@ function Layout() {
     <div className={styles.layoutContainer}>
       <header className={styles.header}>
         <div className={styles.logoArea}>
-          <img
-            src="./assets/logo.png"
-            alt="Ludik Logo"
-            className={styles.logoImage}
-            onClick={() => navigate("/")}
-            style={{ cursor: "pointer" }}
-          />
+          <img src="./assets/logo.png" alt="Ludik Logo" className={styles.logoImage} onClick={() => navigate("/")} style={{ cursor: "pointer" }} />
         </div>
 
-        {isLoggedIn && <FloatingButton />}
+        {isLoggedIn && <HeaderMenu />}
       </header>
 
       <Outlet />

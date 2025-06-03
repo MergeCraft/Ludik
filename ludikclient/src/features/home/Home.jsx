@@ -30,7 +30,7 @@ function Home() {
             <button
               className={classNames("button", styles.botonComienzo, styles.botonCuenta)}
               onClick={() => {
-                setTimeout(() => navigate("/Login"), 200);
+                setTimeout(() => navigate("/login"), 200);
               }}
             >
               Ya tengo una cuenta

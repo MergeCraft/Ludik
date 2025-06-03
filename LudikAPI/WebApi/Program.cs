@@ -32,28 +32,28 @@ builder.Services.AddDbContext<ContextoDb>(options => options.UseSqlServer(cadena
 builder.Services.AddAuthorization();
 
 
-builder.Services.AddIdentity<Usuario, IdentityRole> (opciones =>
+builder.Services.AddIdentity<Usuario, IdentityRole>(opciones =>
 {
-    // ===== Validaciones de Contraseña =====
-    opciones.Password.RequireDigit = true;                   // Al menos un dígito [0-9]
-    opciones.Password.RequireLowercase = true;               // Al menos una minúscula [a-z]
-    opciones.Password.RequireUppercase = true;               // Al menos una mayúscula [A-Z]
-    opciones.Password.RequireNonAlphanumeric = true;         // Al menos un carácter no alfanumérico (por ejemplo, !, @, #)
-    opciones.Password.RequiredLength = 8;                    // Longitud mínima de 8 caracteres
+	// ===== Validaciones de Contraseña =====
+	opciones.Password.RequireDigit = true;                   // Al menos un dígito [0-9]
+	opciones.Password.RequireLowercase = true;               // Al menos una minúscula [a-z]
+	opciones.Password.RequireUppercase = true;               // Al menos una mayúscula [A-Z]
+	opciones.Password.RequireNonAlphanumeric = true;         // Al menos un carácter no alfanumérico (por ejemplo, !, @, #)
+	opciones.Password.RequiredLength = 8;                    // Longitud mínima de 8 caracteres
 
-    // ===== Validaciones de Usuario =====
-    opciones.User.RequireUniqueEmail = false;                  // El email debe ser único
-    opciones.User.AllowedUserNameCharacters =
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+	// ===== Validaciones de Usuario =====
+	opciones.User.RequireUniqueEmail = false;                  // El email debe ser único
+	opciones.User.AllowedUserNameCharacters =
+		"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 
-    // ===== Bloqueo de usuario =====
-    opciones.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-    opciones.Lockout.MaxFailedAccessAttempts = 5;
-    opciones.Lockout.AllowedForNewUsers = true;
+	// ===== Bloqueo de usuario =====
+	opciones.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+	opciones.Lockout.MaxFailedAccessAttempts = 5;
+	opciones.Lockout.AllowedForNewUsers = true;
 
 })
-    .AddEntityFrameworkStores<ContextoDb>()
-    .AddDefaultTokenProviders();
+	.AddEntityFrameworkStores<ContextoDb>()
+	.AddDefaultTokenProviders();
 
 
 
@@ -70,24 +70,24 @@ var audience = jwtSettings.GetValue<string>("Audience");
 
 var claveDificilEncriptada = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(claveDificil));
 builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = issuer,
-            ValidAudience = audience,
-            IssuerSigningKey = claveDificilEncriptada,
-            ClockSkew = TimeSpan.Zero
-        };
-    });
+	{
+		options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+		options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+	})
+	.AddJwtBearer(options =>
+	{
+		options.TokenValidationParameters = new TokenValidationParameters
+		{
+			ValidateIssuer = true,
+			ValidateAudience = true,
+			ValidateLifetime = true,
+			ValidateIssuerSigningKey = true,
+			ValidIssuer = issuer,
+			ValidAudience = audience,
+			IssuerSigningKey = claveDificilEncriptada,
+			ClockSkew = TimeSpan.Zero
+		};
+	});
 
 // -------------------------------
 // Configura Authorization (políticas/roles)
@@ -95,9 +95,9 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("EsAdministrador", policy => policy.RequireRole("Administrador"));
-    options.AddPolicy("EsProfesor", policy => policy.RequireRole("Profesor"));
-    options.AddPolicy("EsEstudiante", policy => policy.RequireRole("Estudiante"));
+	options.AddPolicy("EsAdministrador", policy => policy.RequireRole("Administrador"));
+	options.AddPolicy("EsProfesor", policy => policy.RequireRole("Profesor"));
+	options.AddPolicy("EsEstudiante", policy => policy.RequireRole("Estudiante"));
 });
 
 
@@ -128,14 +128,14 @@ builder.Services.AddEndpointsApiExplorer();
 var ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WebApi.xml");
 builder.Services.AddSwaggerGen(opciones =>
 {
-    opciones.IncludeXmlComments(ruta);
-    opciones.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "API de Ludik",
-        Version = "v1",
-        Description = "Bitácora digital de logros de aprendizaje.",
-        Contact = new OpenApiContact { Email = "renatoriosx@gmail.com" }
-    });
+	opciones.IncludeXmlComments(ruta);
+	opciones.SwaggerDoc("v1", new OpenApiInfo
+	{
+		Title = "API de Ludik",
+		Version = "v1",
+		Description = "Bitácora digital de logros de aprendizaje.",
+		Contact = new OpenApiContact { Email = "renatoriosx@gmail.com" }
+	});
 });
 
 builder.Services.AddCors(options =>
@@ -143,7 +143,8 @@ builder.Services.AddCors(options =>
 	options.AddPolicy("AllowAll",
 		policy => policy.AllowAnyOrigin()
 						.AllowAnyHeader()
-						.AllowAnyMethod());
+						.AllowAnyMethod()
+						);
 });
 
 
@@ -155,17 +156,17 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    var roles = new[] { "Administrador", "Profesor", "Estudiante" };
+	var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+	var roles = new[] { "Administrador", "Profesor", "Estudiante" };
 
-    foreach (var rolNombre in roles)
-    {
-        var existe = await roleManager.RoleExistsAsync(rolNombre);
-        if (!existe)
-        {
-            await roleManager.CreateAsync(new IdentityRole(rolNombre));
-        }
-    }
+	foreach (var rolNombre in roles)
+	{
+		var existe = await roleManager.RoleExistsAsync(rolNombre);
+		if (!existe)
+		{
+			await roleManager.CreateAsync(new IdentityRole(rolNombre));
+		}
+	}
 }
 
 
