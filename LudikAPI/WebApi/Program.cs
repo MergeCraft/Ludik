@@ -118,6 +118,9 @@ builder.Services.AddScoped<IAltaGrupo, AltaGrupo>();
 builder.Services.AddScoped<IEditarGrupo, EditarGrupo>();
 builder.Services.AddScoped<IBajaGrupo, BajaGrupo>();
 builder.Services.AddScoped<IAltaMedalla, AltaMedalla>();
+builder.Services.AddScoped<IObtenerGruposDeEstudiante, ObtenerGruposDeEstudiante>();
+builder.Services.AddScoped<IObtenerGruposDeProfesor, ObtenerGruposDeProfesor>();
+
 
 // -------------------------------
 //      Swagger y CORS

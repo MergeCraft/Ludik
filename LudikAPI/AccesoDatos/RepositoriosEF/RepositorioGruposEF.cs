@@ -180,11 +180,36 @@ namespace AccesoDatos.RepositoriosEF
                     .FirstOrDefaultAsync(g => g.enlaceUnion.codigoBase == codigoBase);
         }
 
+        public async Task<List<Grupo>> ObtenerGruposPorEstudianteId(string idEstudiante)
+        {
 
+            if (string.IsNullOrWhiteSpace(idEstudiante))
+            {
+                // Devuelve una lista vacía si el ID es inválido para evitar errores en la consulta.
+                return new List<Grupo>();
+            }
 
-        //TODO: Métodos aún no implementados asincrónicamente (podemos discutir su diseño si querés)
+            List<Grupo> gruposDelEstudiante = await _db.Grupos
+                .Where(g => g.alumnos.Any(pe => pe.EstudianteId == idEstudiante))
+                .ToListAsync();
 
+            return gruposDelEstudiante;
+        }
 
+        public async Task<List<Grupo>> ObtenerGruposPorProfesorId(string idProfesor)
+        {
+            if (string.IsNullOrWhiteSpace(idProfesor))
+            {
+                // Devuelve una lista vacía si el ID es inválido para evitar errores en la consulta.
+                return new List<Grupo>();
+            }
+
+            List<Grupo> gruposDelProfesor = await _db.Grupos
+                .Where(g => g.ProfesorId == idProfesor)
+                .ToListAsync();
+
+            return gruposDelProfesor;
+        }
     }
     
 }

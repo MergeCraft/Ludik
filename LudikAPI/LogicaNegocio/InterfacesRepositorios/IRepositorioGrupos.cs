@@ -26,6 +26,8 @@ namespace InterfacesRepositorio
         Task<List<TablaClasificacion>> obtenerTablasDeClasificacionDeGrupoAsync(int idGrupo);
         Task<Grupo> ObtenerPorEnlaceAsync(string codigoBase);
 
+        Task<List<Grupo>> ObtenerGruposPorEstudianteId(string idEstudiante);
+        Task<List<Grupo>> ObtenerGruposPorProfesorId(string idProfesor);
     }
 
 }
