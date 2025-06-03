@@ -3,12 +3,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import styles from "../AuthPage.module.css";
-import { registrarse } from "../auth.js";
+import { useRegistro } from "../hooks/useAuthMutation.js";
 import * as Toast from "../../../lib/toastify.js";
 
 const SignupForm = () => {
   const navigate = useNavigate();
   const [isProfesor, setIsProfesor] = useState(true);
+  const { mutateAsync: registrar } = useRegistro();
 
   const [profesorData, setProfesorData] = useState({
     usuario: "",
@@ -50,22 +51,19 @@ const SignupForm = () => {
   };
 
   const handleSubmit = async () => {
-    try {
-      if (isProfesor) {
-        const { usuario, correo, nombre, apellido, contrasena, repetirContrasena } = profesorData;
-        if (contrasena !== repetirContrasena) return Toast.notificarError("Las contraseñas no coinciden.");
-        const data = { nombreUsuario: usuario, email: correo, nombre, apellido, contrasenia: contrasena };
-        await registrarse(data, "profesor");
-      } else {
-        const { usuario, nombre, apellido, contrasena, repetirContrasena } = alumnoData;
-        if (contrasena !== repetirContrasena) return Toast.notificarError("Las contraseñas no coinciden.");
-        const data = { nombreUsuario: usuario, nombre, apellido, contrasenia: contrasena };
-        await registrarse(data, "alumno");
-      }
-      Toast.notificarExito("Registro exitoso");
-      navigate("/login");
-    } catch (error) {
-      Toast.notificarError(error.message);
+    if (!isProfesor) {
+      const { usuario, correo, nombre, apellido, contrasena, repetirContrasena } = profesorData;
+      if (contrasena !== repetirContrasena) return Toast.notificarError("Las contraseñas no coinciden.");
+      const data = { nombreUsuario: usuario, correo: correo, nombre, apellido: apellido, contrasenia: contrasena };
+      console.log(data);
+      await registrar({ data, tipoUsuario: "profesor" });
+    } else {
+      const { usuario, nombre, apellido, contrasena, repetirContrasena } = alumnoData;
+      if (contrasena !== repetirContrasena) return Toast.notificarError("Las contraseñas no coinciden.");
+      const data = { nombreUsuario: usuario, nombre: nombre, apellido: apellido, contrasenia: contrasena };
+      console.log(data);
+
+      await registrar({ data, tipoUsuario: "alumno" });
     }
   };
 
@@ -86,11 +84,9 @@ const SignupForm = () => {
           className={styles.formInner}
           style={{
             transform: isProfesor ? "translateX(-50%)" : "translateX(0)",
-            height: isProfesor ? "425px" : "500px",
+            height: isProfesor ? "425px" : "515px",
           }}
         >
-          {" "}
-          {/* profesor form */}
           {/* Formulario Profesor */}
           <form className={classNames(styles.formulario, { [styles.oculto]: isProfesor })} onSubmit={(e) => e.preventDefault()}>
             <div className={styles.campo}>
@@ -183,7 +179,8 @@ const SignupForm = () => {
               />
             </div>
           </form>
-          {/* alumno form */}
+
+          {/* Formulario del Alumno */}
           <form className={classNames(styles.formulario, { [styles.oculto]: !isProfesor })} onSubmit={(e) => e.preventDefault()}>
             <div className={styles.campo}>
               <label htmlFor="usuario_alumno" className={styles.etiqueta}>
@@ -263,13 +260,7 @@ const SignupForm = () => {
         </div>
       </div>
 
-      <button
-        type="button"
-        onClick={() => {
-          setTimeout(() => handleSubmit, 200);
-        }}
-        className={classNames(styles.botonRegistro, "button")}
-      >
+      <button type="button" onClick={handleSubmit} className={classNames(styles.botonRegistro, "button")}>
         Registrarse
       </button>
 

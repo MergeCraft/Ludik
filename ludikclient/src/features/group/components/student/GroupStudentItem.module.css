@@ -1,9 +1,8 @@
 .groupItem {
-    width: 375px;
+    width: 100%;
     background-color: #23353c;
     border-radius: 15px;
     margin-bottom: 20px;
-    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -11,12 +10,14 @@
 }
 
 .card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px;
+  max-width: 100%; /* Permite que el contenido se encoja dentro del contenedor */
 }
+
 
 .icon {
     height: 90px;

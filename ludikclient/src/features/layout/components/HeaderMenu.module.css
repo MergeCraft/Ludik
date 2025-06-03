@@ -40,19 +40,23 @@
 .sidebarMenu {
   position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
+  /* CAMBIADO: antes estaba en right: 0 */
   height: 100vh;
   width: 250px;
   background-color: var(--principal);
-  box-shadow: -2px 0 6px rgba(0, 0, 0, 0.15);
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
+  /* CAMBIADO: sombra a la derecha */
   padding: 20px 15px;
-  transform: translateX(100%);
+  transform: translateX(-100%);
+  /* CAMBIADO: oculto a la izquierda */
   transition: transform 0.3s ease;
   z-index: 999;
 }
 
 .sidebarMenu.show {
   transform: translateX(0);
+  /* sin cambio: esto hace que aparezca */
 }
 
 .sidebarMenu ul {

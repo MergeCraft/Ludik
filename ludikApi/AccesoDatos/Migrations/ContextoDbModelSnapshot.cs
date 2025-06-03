@@ -404,8 +404,15 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
+
                     b.Property<string>("estudianteId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateOnly>("fecha")
+                        .HasColumnType("date");
 
                     b.Property<int>("grupoId")
                         .HasColumnType("int");
@@ -917,7 +924,9 @@ namespace AccesoDatos.Migrations
                 {
                     b.HasOne("Dominio.Estudiante", "estudiante")
                         .WithMany()
-                        .HasForeignKey("estudianteId");
+                        .HasForeignKey("estudianteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Dominio.Grupo", null)
                         .WithMany("solicitudes")
