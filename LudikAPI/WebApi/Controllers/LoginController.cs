@@ -1,7 +1,9 @@
-﻿using LogicaAplicacion.DTOs.UsuarioDTOs;
+﻿using Dominio;
+using LogicaAplicacion.DTOs.UsuarioDTOs;
 using LogicaAplicacion.InterfacesCasosUsos.Usuario;
 using LogicaNegocio.Excepciones;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Jwt;
 
@@ -11,75 +13,101 @@ namespace WebApi.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly ILogin _login;
         private readonly IManejadorJwt _manejadorJwt;
+        private readonly UserManager<Usuario> _userManager; 
+        private readonly SignInManager<Usuario> _signInManager;
 
-        public LoginController(ILogin login, IManejadorJwt manejadorJwt)
+        public LoginController(
+            IManejadorJwt manejadorJwt,
+            UserManager<Usuario> userManager,
+            SignInManager<Usuario> signInManager)
         {
-            _login = login;
             _manejadorJwt = manejadorJwt;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         /// <summary>
         /// Este endpoint permite que un usuario se autentifique en el sistema.
         /// </summary>
         /// <returns>
-        /// 200 Ok: Si el usuario fue logueado correctamente devuelve una token.
-        /// 400 Bad Request: Si los datos enviados son inválidos o faltan.
-        /// 401 Unauthorized: Si las credenciales son incorrectas.
+        /// 200 Ok: Si el usuario fue logueado correctamente devuelve un token y datos del usuario.
+        /// 400 Bad Request: Si los datos enviados son inválidos o faltan, o si la cuenta requiere acciones adicionales.
+        /// 401 Unauthorized: Si las credenciales son incorrectas o la cuenta está bloqueada.
         /// 500 Internal Server Error: Si ocurre un error inesperado durante el procesamiento.
         /// </returns>
         [AllowAnonymous]
         [HttpPost("login")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Login([FromBody] LoginSolicitudDto usr)
+        [ProducesResponseType(typeof(LoginRespuestaDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(object), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(object), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(object), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Login([FromBody] LoginSolicitudDto loginSolicitud)
         {
             if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
+            }
 
             try
             {
 
-                var usuarioDto = await _login.Ejecutar(usr.NombreUsuario, usr.Contrasenia);
+                var result = await _signInManager.PasswordSignInAsync(
+                    loginSolicitud.NombreUsuario,
+                    loginSolicitud.Contrasenia,
+                    isPersistent: false,
+                    lockoutOnFailure: true);
 
-                string token = _manejadorJwt.GenerarToken(
-                    usuarioDto.Id,
-                    usuarioDto.NombreUsuario,
-                    usuarioDto.Rol
-                );
-
-                var respuesta = new LoginRespuestaDto
+                if (result.Succeeded)
                 {
-                    Token = token,
-                    Rol = usuarioDto.Rol,
-                    NombreUsuario = usuarioDto.NombreUsuario,
-                    Id = usuarioDto.Id
-                };
+                    var usuario = await _userManager.FindByNameAsync(loginSolicitud.NombreUsuario);
+                    if (usuario == null)
+                    {
+                        // Esto no debería pasar si PasswordSignInAsync tuvo éxito, pero es una salvaguarda.
+                        return Unauthorized(new { Mensaje = "Error al obtener los detalles del usuario." });
+                    }
 
-                return Ok(respuesta);
-            }
-            catch (UsuarioNoValidoException ex)
-            {
-                return Unauthorized(new { Error = ex.Message });
-            }
-            catch (ContraseniaNoValidaException ex)
-            {
-                return Unauthorized(new { Error = ex.Message });
+                    var roles = await _userManager.GetRolesAsync(usuario);
+                    string rolUnico = roles.FirstOrDefault();
+
+                    string token = _manejadorJwt.GenerarToken(
+                        usuario.Id,
+                        usuario.UserName,
+                        rolUnico
+                    );
+
+                    var respuesta = new LoginRespuestaDto
+                    {
+                        Token = token,
+                        Rol = rolUnico, 
+                        NombreUsuario = usuario.UserName,
+                        Id = usuario.Id
+                    };
+
+                    return Ok(respuesta);
+                }
+
+                if (result.IsLockedOut)
+                    return Unauthorized(new { Mensaje = "Cuenta bloqueada. Intente más tarde." });
+                
+
+                // Si ninguna de las anteriores, es credenciales incorrectas.
+                return Unauthorized(new { Mensaje = "Nombre de usuario o contraseña incorrectos." });
+
             }
             catch (ArgumentNullException ex)
             {
-                return BadRequest(new { Error = ex.Message });
+                // Log ex
+                return BadRequest(new { Mensaje = "Los datos de la solicitud no pueden ser nulos.", Detalle = ex.Message });
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    new { Error = $"Ocurrió un error inesperado. {ex.Message}" });
+                    new { Mensaje = $"Ocurrió un error inesperado durante el inicio de sesión.", Detalle = ex.Message });
             }
         }
-
     }
 
 }
+
+

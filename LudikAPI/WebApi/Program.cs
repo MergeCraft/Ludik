@@ -111,7 +111,7 @@ builder.Services.AddScoped<IRepositorioTablasEquivalencia, RepositorioTablasEqui
 builder.Services.AddScoped<IRepositorioMedallas, RepositorioMedallasEF>();
 
 //Inyeccion de dependencias casos de uso
-builder.Services.AddScoped<ILogin, Login>();
+
 builder.Services.AddScoped<IAltaEstudiante, AltaEstudiante>();
 builder.Services.AddScoped<IAltaProfesor, AltaProfesor>();
 builder.Services.AddScoped<IAltaGrupo, AltaGrupo>();
