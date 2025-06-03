@@ -56,5 +56,13 @@ namespace WebApi.Controllers
                     new { Error = "Ocurrió un error inesperado. " + ex.Message });
             }
         }
+        [HttpGet("unirse-grupo", Name = "UnirseAGrupo")]
+        public async Task<IActionResult> UnirseAGrupo([FromQuery] string codigo)
+        {
+            if (string.IsNullOrWhiteSpace(codigo))
+                return BadRequest("El código del enlace es obligatorio.");
+
+            return Ok("Solicitud de unión generada correctamente.");
+        }
     }
 }

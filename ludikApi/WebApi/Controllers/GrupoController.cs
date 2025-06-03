@@ -17,6 +17,7 @@ namespace WebApi.Controllers
         private readonly IEditarGrupo _editarGrupo;
         private readonly IBajaGrupo _bajaGrupo;
         private readonly LinkGenerator _linkGenerator;
+
         public GrupoController(IAltaGrupo altaGrupo, IEditarGrupo editarGrupo, IBajaGrupo bajaGrupo, LinkGenerator linkGenerator)
         {
             _altaGrupo = altaGrupo;
@@ -37,12 +38,31 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> AltaGrupo([FromBody] GrupoAltaDto grupoDto)
+        public async Task<IActionResult> AltaGrupo([FromBody] GrupoAltaRequestDto grupoRequest)
         {
             try
             {
-                if (grupoDto == null)
+                if (grupoRequest == null)
                     return BadRequest("Debe enviar los datos del grupo.");
+
+                string codigo = Guid.NewGuid().ToString("N");
+                string url = _linkGenerator.GetUriByAction(
+                    HttpContext,
+                    action: "UnirseAGrupo",
+                    controller: "Estudiante",
+                    values: new { codigo });
+
+                // Convertir a GrupoAltaDto interno
+                var grupoDto = new GrupoAltaDto
+                {
+                    Nombre = grupoRequest.Nombre,
+                    TablaEquivalenciaId = grupoRequest.TablaEquivalenciaId,
+                    ProfesorId = grupoRequest.ProfesorId,
+                    Institucion = grupoRequest.Institucion,
+                    Materia = grupoRequest.Materia,
+                    CodigoEnlace = codigo,
+                    UrlCompleta = url
+                };
 
                 await _altaGrupo.EjecutarAsync(grupoDto);
 

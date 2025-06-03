@@ -16,6 +16,8 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
     {
         private readonly IRepositorioGrupos _repositorioGrupo;
         private readonly IRepositorioTablasEquivalencia _repoTablasEquivalencia;
+        
+
 
         public AltaGrupo(IRepositorioGrupos repo,IRepositorioTablasEquivalencia repoTablas)
         {
@@ -37,7 +39,6 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
 
             var grupo = GrupoAltaMapper.fromDto(grupoAltaDto, tabla);
 
-            grupo.enlaceUnion = EnlaceUnion.CrearNuevo();
             grupo.tienda = new Tienda();
 
             await _repositorioGrupo.AddAsync(grupo);
