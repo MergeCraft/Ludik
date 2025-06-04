@@ -1,39 +1,56 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import GroupStudentItem from "./components/student/GroupStudentItem.jsx";
 import styles from "./GroupPage.module.css";
 import genericGroupImage from "../../assets/genericGroupImage.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { BarLoader } from "react-spinners";
 import { selectUserRole } from "../auth/hooks/userSlice";
-import GroupCreateModal from "./components/teacher/GroupCreateModal.jsx";
+import { useGruposProfesor } from "./hooks/useGrupoMutation.js";
 
-const groupData = [
-  { name: "Liceo 13", grade: "2° C", students: 32, imgSrc: genericGroupImage },
-  { name: "Liceo 11", grade: "4° C", students: 30, imgSrc: genericGroupImage },
-  { name: "UTU 15", grade: "1° A", students: 23, imgSrc: genericGroupImage },
-  { name: "Liceo 1", grade: "4° A", students: 26, imgSrc: genericGroupImage },
-  { name: "Liceo 5", grade: "3° B", students: 28, imgSrc: genericGroupImage },
-  { name: "UTU 8", grade: "2° D", students: 19, imgSrc: genericGroupImage },
-  { name: "Liceo 9", grade: "1° C", students: 35, imgSrc: genericGroupImage },
-  { name: "Liceo 7", grade: "5° A", students: 27, imgSrc: genericGroupImage },
-  { name: "UTU 10", grade: "3° A", students: 22, imgSrc: genericGroupImage },
-  { name: "Liceo 12", grade: "6° B", students: 25, imgSrc: genericGroupImage },
-  { name: "Liceo 2", grade: "2° B", students: 31, imgSrc: genericGroupImage },
-  { name: "UTU 6", grade: "4° D", students: 24, imgSrc: genericGroupImage },
-];
+import GroupItem from "./components/GroupItem.jsx";
+import Modal from "../generics/Modal.jsx";
+import GroupCreateModal from "./components/teacher/GroupCreateForm.jsx";
+import GroupUnionLinkModal from "./components/student/GroupUnionLinkForm.jsx";
 
 export const GroupsPage = () => {
-  const role = useSelector(selectUserRole);
+  const role = useSelector(selectUserRole); // ✅ obtiene el rol desde Redux
   const isProfesor = role === "Profesor";
 
   const [showModal, setShowModal] = useState(false);
+  const [modalTipo, setModalTipo] = useState(null);
+
+  const { data: grupos, isLoading } = useGruposProfesor();
+
+  const gruposFormateados =
+    grupos?.map((g) => ({
+      name: g.nombre,
+      grade: g.materia,
+      students: "-", // si tu backend no envía cantidad
+      imgSrc: genericGroupImage,
+    })) || [];
 
   return (
     <div className={styles.studentGroups}>
       <div className={styles.acciones}>
-        {isProfesor && (
-          <button className={`${styles.crearGrupo} button-secondary`} onClick={() => setShowModal(true)}>
+        {isProfesor ? (
+          <button
+            className={`${styles.accionPrincipal} button-secondary`}
+            onClick={() => {
+              setModalTipo("crear");
+              setShowModal(true); // <- FALTA ESTA LÍNEA
+            }}
+          >
             Crear grupo
+          </button>
+        ) : (
+          <button
+            className={`${styles.accionPrincipal} button-secondary`}
+            onClick={() => {
+              setModalTipo("unir");
+              setShowModal(true); // <- FALTA ESTA LÍNEA
+            }}
+          >
+            Unirse a un grupo
           </button>
         )}
 
@@ -43,11 +60,21 @@ export const GroupsPage = () => {
         </div>
       </div>
 
-      {groupData.map((group, index) => (
-        <GroupStudentItem key={index} {...group} />
-      ))}
+      {isLoading ? (
+        <div className={styles.loaderContainer}>
+          <BarLoader color="var(--blanco-secundario)" size={10} />
+        </div>
+      ) : (
+        gruposFormateados.map((group, index) => <GroupItem key={index} {...group} />)
+      )}
 
-      {showModal && <GroupCreateModal onClose={() => setShowModal(false)} />}
+      {showModal && (
+        <Modal
+          onClose={() => setShowModal(false)}
+          modalTitle={modalTipo === "crear" ? "Crea un nuevo grupo" : "Unete a un grupo"}
+          content={modalTipo === "crear" ? <GroupCreateModal onClose={() => setShowModal(false)} /> : <GroupUnionLinkModal onClose={() => setShowModal(false)} />}
+        />
+      )}
     </div>
   );
 };

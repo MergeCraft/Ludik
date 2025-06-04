@@ -14,128 +14,127 @@ namespace PruebasUnitarias.PruebasLogicaNegocio
     using Dominio;
     using InterfacesRepositorio;
     using LogicaAplicacion.DTOs.UsuarioDTOs;
-    using LogicaAplicacion.ImplementacionCasosUsos.Usuarios;
     using Moq;
 
     namespace PruebasUnitarias.PruebasLogicaDominio
     {
         public class PruebasLogin
         {
-            private readonly Mock<IRepositorioUsuarios> _mockRepo;
-            private readonly Login _login;
+//            private readonly Mock<IRepositorioUsuarios> _mockRepo;
+//            private readonly Login _login;
 
-            public PruebasLogin()
-            {
-                _mockRepo = new Mock<IRepositorioUsuarios>();
-                _login = new Login(_mockRepo.Object);
-            }
+//            public PruebasLogin()
+//            {
+//                _mockRepo = new Mock<IRepositorioUsuarios>();
+//                _login = new Login(_mockRepo.Object);
+//            }
 
-            // --- VerificarContrasenia: casos éxito/error ---
+//            // --- VerificarContrasenia: casos éxito/error ---
 
-            [Fact]
-            public void VerificarContrasenia_ReturnsTrue_WhenPasswordMatchesHash()
-            {
-                // Arrange
-
-
-                // Act
+//            [Fact]
+//            public void VerificarContrasenia_ReturnsTrue_WhenPasswordMatchesHash()
+//            {
+//                // Arrange
 
 
-                // Assert
-
-            }
-
-            [Fact]
-            public void VerificarContrasenia_ReturnsFalse_WhenPasswordDoesNotMatchHash()
-            {
-                // Arrange
+//                // Act
 
 
-                // Act
+//                // Assert
+
+//            }
+
+//            [Fact]
+//            public void VerificarContrasenia_ReturnsFalse_WhenPasswordDoesNotMatchHash()
+//            {
+//                // Arrange
 
 
-                // Assert
-
-            }
-
-            // --- Ejecutar: caso de éxito ---
-
-            [Fact]
-            public void Ejecutar_ReturnsDto_WhenUserExistsAndPasswordCorrect()
-            {
-                // Arrange
+//                // Act
 
 
-                // Configuramos el ValueObject Contrasenia con el hash generado
+//                // Assert
+
+//            }
+
+//            // --- Ejecutar: caso de éxito ---
+
+//            [Fact]
+//            public void Ejecutar_ReturnsDto_WhenUserExistsAndPasswordCorrect()
+//            {
+//                // Arrange
 
 
-                // Nota: el mapper tomará cualquier propiedad (por ejemplo NombreUsuario, Rol, etc.)
-                // como valor por defecto (null o 0). Lo importante es que no arroje excepción.
-                // Si tu mapper lee otras propiedades, no olvides configurarlas aquí con Setup.
-                // Ejemplo:
-                // usuarioMock.Setup(u => u.Id).Returns(Guid.NewGuid());
-                // usuarioMock.Setup(u => u.NombreUsuario).Returns("usuario1");
-                // usuarioMock.Setup(u => u.Rol).Returns(Rol.Administrador);
+//                // Configuramos el ValueObject Contrasenia con el hash generado
+
+
+//                // Nota: el mapper tomará cualquier propiedad (por ejemplo NombreUsuario, Rol, etc.)
+//                // como valor por defecto (null o 0). Lo importante es que no arroje excepción.
+//                // Si tu mapper lee otras propiedades, no olvides configurarlas aquí con Setup.
+//                // Ejemplo:
+//                // usuarioMock.Setup(u => u.Id).Returns(Guid.NewGuid());
+//                // usuarioMock.Setup(u => u.NombreUsuario).Returns("usuario1");
+//                // usuarioMock.Setup(u => u.Rol).Returns(Rol.Administrador);
 
 
 
-                // Act
+//                // Act
 
-                // Assert
+//                // Assert
 
-                // Como no sabemos exactamente qué hace el mapper, al menos comprobamos que no sea null.
-            }
+//                // Como no sabemos exactamente qué hace el mapper, al menos comprobamos que no sea null.
+//            }
 
-            // --- Ejecutar: caso de error por usuario inexistente ---
+//            // --- Ejecutar: caso de error por usuario inexistente ---
 
-            [Fact]
-            public void Ejecutar_ReturnsNull_WhenUserNotFound()
-            {
-                // Arrange
-
-
-                // Act
-
-                // Assert
-
-            }
-
-            // --- Ejecutar: caso de error por contraseña incorrecta ---
-
-            [Fact]
-            public void Ejecutar_ReturnsNull_WhenPasswordIncorrect()
-            {
-                // Arrange
+//            [Fact]
+//            public void Ejecutar_ReturnsNull_WhenUserNotFound()
+//            {
+//                // Arrange
 
 
-                // Usamos una contraseña que no coincida con el hash
+//                // Act
+
+//                // Assert
+
+//            }
+
+//            // --- Ejecutar: caso de error por contraseña incorrecta ---
+
+//            [Fact]
+//            public void Ejecutar_ReturnsNull_WhenPasswordIncorrect()
+//            {
+//                // Arrange
 
 
-                // Act
+//                // Usamos una contraseña que no coincida con el hash
 
 
-                // Assert
+//                // Act
 
-            }
 
-            // --- Ejecutar: caso borde (strings vacíos) ---
+//                // Assert
 
-            [Fact]
-            public void Ejecutar_ReturnsNull_WhenEmptyUsernameAndPasswordProvided()
-            {
-                // Arrange
+//            }
+
+//            // --- Ejecutar: caso borde (strings vacíos) ---
+
+//            [Fact]
+//            public void Ejecutar_ReturnsNull_WhenEmptyUsernameAndPasswordProvided()
+//            {
+//                // Arrange
               
 
-                // Incluso si el repositorio devuelve un IRepositorioUsuarios, al pasar "" como password,
-                // VerificarContrasenia terminará en falso (no coincide con el hash generado).
+//                // Incluso si el repositorio devuelve un IRepositorioUsuarios, al pasar "" como password,
+//                // VerificarContrasenia terminará en falso (no coincide con el hash generado).
 
 
-                // Act
+//                // Act
 
 
-                // Assert
-;
-            }
+//                // Assert
+//;
+//            }
         }
     }
 }

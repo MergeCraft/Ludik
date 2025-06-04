@@ -46,22 +46,35 @@
     color: var(--terciario);
 }
 
-.crearGrupo {
+.accionPrincipal {
     position: fixed;
     bottom: 20px;
     width: 90%;
     max-width: 90%;
-    z-index: 1000;
+    z-index: 2;
     height: 45px;
 }
 
+.loaderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 80vh;
+    /* Alto de toda la pantalla */
+    width: 100%;
+    /* Ancho completo */
+    position: absolute;
+    /* o absolute si lo usás dentro de otro contenedor */
+    z-index: 1;
+}
 @media screen and (min-width: 992px) {
 
     .accionesBusqueda {
         width: 30%;
     }
 
-    .crearGrupo {
+    .accionPrincipal {
         position: static;
         width: 15%;
         max-width: none;

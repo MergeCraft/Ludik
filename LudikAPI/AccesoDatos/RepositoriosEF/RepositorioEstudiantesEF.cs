@@ -46,6 +46,10 @@ namespace AccesoDatos.RepositoriosEF
         {
             return await _db.Estudiantes.FindAsync(id);
         }
+        public async Task<Estudiante> GetByIdAsyncString(string id)
+        {
+            return await _db.Estudiantes.FirstOrDefaultAsync(e => e.Id == id);
+        }
 
         public Task<IEnumerable<Estudiante>> GetAllAsync()
         {

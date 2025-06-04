@@ -327,8 +327,10 @@ namespace AccesoDatos.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    estudianteId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    grupoId = table.Column<int>(type: "int", nullable: false)
+                    estudianteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Estado = table.Column<int>(type: "int", nullable: false),
+                    grupoId = table.Column<int>(type: "int", nullable: false),
+                    fecha = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -337,13 +339,14 @@ namespace AccesoDatos.Migrations
                         name: "FK_SolicitudesUnion_Estudiantes_estudianteId",
                         column: x => x.estudianteId,
                         principalTable: "Estudiantes",
-                        principalColumn: "UsuarioId");
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_SolicitudesUnion_Grupos_grupoId",
                         column: x => x.grupoId,
                         principalTable: "Grupos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

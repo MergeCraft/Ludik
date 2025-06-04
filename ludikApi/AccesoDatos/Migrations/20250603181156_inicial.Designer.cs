@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250530121335_inicial")]
+    [Migration("20250603181156_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -407,8 +407,15 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
+
                     b.Property<string>("estudianteId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateOnly>("fecha")
+                        .HasColumnType("date");
 
                     b.Property<int>("grupoId")
                         .HasColumnType("int");
@@ -920,12 +927,14 @@ namespace AccesoDatos.Migrations
                 {
                     b.HasOne("Dominio.Estudiante", "estudiante")
                         .WithMany()
-                        .HasForeignKey("estudianteId");
+                        .HasForeignKey("estudianteId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("Dominio.Grupo", null)
                         .WithMany("solicitudes")
                         .HasForeignKey("grupoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("estudiante");

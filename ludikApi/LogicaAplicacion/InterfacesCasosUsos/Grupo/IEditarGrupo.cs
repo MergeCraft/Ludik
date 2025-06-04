@@ -9,6 +9,6 @@ namespace LogicaAplicacion.InterfacesCasosUsos.Grupo
 {
     public interface IEditarGrupo
     {
-        Task EjecutarAsync(GrupoEditarDto grupoDto);
+        Task EjecutarAsync(GrupoEditarDto grupoDto, string profesorId);
     }
 }

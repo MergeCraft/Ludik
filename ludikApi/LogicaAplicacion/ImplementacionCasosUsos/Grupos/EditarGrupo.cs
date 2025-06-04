@@ -18,7 +18,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
         {
             _repositorioGrupo = repo;
         }
-        public async Task EjecutarAsync(GrupoEditarDto grupoDto)
+        public async Task EjecutarAsync(GrupoEditarDto grupoDto, string profesorId)
         {
             if (grupoDto == null)
                 throw new ArgumentNullException(nameof(grupoDto), "El DTO no puede ser nulo.");
@@ -26,6 +26,9 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
             var grupo = await _repositorioGrupo.GetByIdAsync(grupoDto.Id);
             if (grupo == null)
                 throw new Exception("No se encontró el grupo especificado.");
+
+            if (grupo.ProfesorId != profesorId)
+                throw new UnauthorizedAccessException("No tiene permiso para editar este grupo.");
 
             GrupoEditarDtoMapper.UpdateFromDto(grupoDto, grupo);
             await _repositorioGrupo.UpdateAsync(grupo);

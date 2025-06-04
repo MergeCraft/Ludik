@@ -925,13 +925,13 @@ namespace AccesoDatos.Migrations
                     b.HasOne("Dominio.Estudiante", "estudiante")
                         .WithMany()
                         .HasForeignKey("estudianteId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Dominio.Grupo", null)
                         .WithMany("solicitudes")
                         .HasForeignKey("grupoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("estudiante");

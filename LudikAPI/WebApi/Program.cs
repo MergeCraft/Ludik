@@ -6,10 +6,12 @@ using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;
 using LogicaAplicacion.ImplementacionCasosUsos.Grupos;
 using LogicaAplicacion.ImplementacionCasosUsos.Medallas;
 using LogicaAplicacion.ImplementacionCasosUsos.Profesores;
+using LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion;
 using LogicaAplicacion.InterfacesCasosUsos.Estudiante;
 using LogicaAplicacion.InterfacesCasosUsos.Grupo;
 using LogicaAplicacion.InterfacesCasosUsos.Medalla;
 using LogicaAplicacion.InterfacesCasosUsos.Profesor;
+using LogicaAplicacion.InterfacesCasosUsos.SolicitudUnion;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -107,6 +109,9 @@ builder.Services.AddScoped<IRepositorioProfesores, RepositorioProfesoresEF>();
 builder.Services.AddScoped<IRepositorioGrupos, RepositorioGruposEF>();
 builder.Services.AddScoped<IRepositorioTablasEquivalencia, RepositorioTablasEquivalenciaEF>();
 builder.Services.AddScoped<IRepositorioMedallas, RepositorioMedallasEF>();
+builder.Services.AddScoped<IRepositorioEnlacesUnionGrupo, RepositorioEnlacesUnionGrupoEF>();
+builder.Services.AddScoped<IRepositorioSolicitudesUnion, RepositorioSolocitudesUnionEF>();
+
 
 //Inyeccion de dependencias casos de uso
 
@@ -126,6 +131,7 @@ builder.Services.AddScoped<IObtenerTodasLasMedallas,ObtenerTodasLasMedallas>();
 
 
 
+builder.Services.AddScoped<ICrearSolicitudUnion, CrearSolicitudUnion>();
 // -------------------------------
 //      Swagger y CORS
 // -------------------------------
@@ -135,14 +141,39 @@ builder.Services.AddEndpointsApiExplorer();
 var ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WebApi.xml");
 builder.Services.AddSwaggerGen(opciones =>
 {
-	opciones.IncludeXmlComments(ruta);
-	opciones.SwaggerDoc("v1", new OpenApiInfo
-	{
-		Title = "API de Ludik",
-		Version = "v1",
-		Description = "Bitácora digital de logros de aprendizaje.",
-		Contact = new OpenApiContact { Email = "renatoriosx@gmail.com" }
-	});
+    opciones.IncludeXmlComments(ruta);
+    opciones.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "API de Ludik",
+        Version = "v1",
+        Description = "Bitácora digital de logros de aprendizaje.",
+        Contact = new OpenApiContact { Email = "renatoriosx@gmail.com" }
+    });
+
+    opciones.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Introduce el token JWT con el prefijo 'Bearer ', por ejemplo: Bearer eyJhbGciOiJIUzI1NiIs..."
+    });
+
+    opciones.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
 });
 
 builder.Services.AddCors(options =>

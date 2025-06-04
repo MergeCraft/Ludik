@@ -9,6 +9,6 @@ namespace LogicaAplicacion.InterfacesCasosUsos.Grupo
 {
     public interface IBajaGrupo
     {
-        Task EjecutarAsync(int grupoId);
+        Task EjecutarAsync(int grupoId, string profesorId);
     }
 }

@@ -9,4 +9,13 @@ const api = axios.create({
   },
 });
 
+api.interceptors.request.use((config) => {
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+  const token = userData?.token || userData?.Token;
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 export default api;

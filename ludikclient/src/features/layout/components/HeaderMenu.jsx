@@ -23,6 +23,10 @@ const HeaderMenu = () => {
     navigate("/login"); // Redirige al login
   };
 
+  const hangleViewGroups = () => {
+    navigate("/groups")
+  };
+
   return (
     <>
       <button className={styles.menuButton} onClick={toggleOptions}>
@@ -38,7 +42,7 @@ const HeaderMenu = () => {
             <li>
               <FontAwesomeIcon icon="fa-solid fa-user" /> Ver perfil
             </li>
-            <li>
+            <li onClick={hangleViewGroups}>
               <FontAwesomeIcon icon="fa-solid fa-users" /> Ver grupos
             </li>
             <li>
