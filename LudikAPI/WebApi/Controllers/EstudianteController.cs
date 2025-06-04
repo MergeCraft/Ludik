@@ -22,8 +22,7 @@ namespace WebApi.Controllers
         private readonly ICrearSolicitudUnion _crearSolicitudUnion;
         private readonly IObtenerGruposDeEstudiante _obtenerGruposPorEstudiante;
 
-        public EstudianteController(IAltaEstudiante altaEstudiante, IObtenerGruposDeEstudiante obtenerGruposPorEstudiante)
-        public EstudianteController(IAltaEstudiante altaEstudiante,ICrearSolicitudUnion crearSolicitudUnion)
+        public EstudianteController(IAltaEstudiante altaEstudiante,ICrearSolicitudUnion crearSolicitudUnion,IObtenerGruposDeEstudiante obtenerGruposPorEstudiante)
         {
             _altaEstudiante = altaEstudiante;
             _crearSolicitudUnion = crearSolicitudUnion;
