@@ -22,9 +22,13 @@ const LoginForm = () => {
     if (name === "recuerdame") setRecordar(checked);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login({ usuario, contrasena });
+    try {
+      await login({ usuario, contrasena });
+    } catch (error) {
+      console.warn("Error: ", error.message);
+    }
   };
 
   useEffect(() => {

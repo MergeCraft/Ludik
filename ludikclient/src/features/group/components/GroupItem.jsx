@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./GroupStudentItem.module.css";
+import styles from "./GroupItem.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const GroupStudentItem = ({ name, grade, students, imgSrc }) => {
+const GroupItem = ({ name, grade, students, imgSrc }) => {
   return (
     <div className={styles.groupItem}>
       <div className={styles.card}>
@@ -18,4 +18,4 @@ const GroupStudentItem = ({ name, grade, students, imgSrc }) => {
   );
 };
 
-export default GroupStudentItem;
+export default GroupItem;

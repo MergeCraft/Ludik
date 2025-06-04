@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { crearGrupo } from "../../../services/groups/groupService.js";
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
+import { crearGrupo, obtenerGruposProfesor } from "../../../services/groups/groupService.js";
 import * as Toast from "../../../lib/toastify";
 
 export const useCrearGrupo = (onSuccessCallback) => {
@@ -9,12 +9,24 @@ export const useCrearGrupo = (onSuccessCallback) => {
     mutationFn: crearGrupo,
     onSuccess: (data) => {
       Toast.notificarExito("Grupo creado exitosamente");
-      queryClient.invalidateQueries(["grupos"]); // si estás listando grupos
+      queryClient.invalidateQueries(["grupos"]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
     onError: (error) => {
-      const msg = error.response?.data?.message || "No se pudo crear el grupo";
+      // Manejo de errores centralizado
+      const raw = error?.response?.data;
+      const msg = raw?.mensaje || raw?.message || raw?.error || JSON.stringify(raw) || error.message || "No se pudo crear el grupo";
       Toast.notificarError(msg);
+    },
+  });
+};
+
+export const useGruposProfesor = () => {
+  return useQuery({
+    queryKey: ["grupos", "profesor"],
+    queryFn: obtenerGruposProfesor,
+    onError: (error) => {
+      Toast.notificarError(error.message || "Error al cargar grupos");
     },
   });
 };
