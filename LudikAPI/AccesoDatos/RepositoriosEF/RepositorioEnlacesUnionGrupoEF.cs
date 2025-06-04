@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
+using LogicaNegocio.Resultados;
 using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
@@ -16,7 +17,7 @@ namespace AccesoDatos.RepositoriosEF
         {
             _db = db;
         }
-        public Task AddAsync(EnlaceUnion unObjeto)
+        public Task<Resultado> AddAsync(EnlaceUnion unObjeto)
         {
             throw new NotImplementedException();
         }
@@ -26,12 +27,12 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<EnlaceUnion>> GetAllAsync()
+        public Task<Resultado<IEnumerable<EnlaceUnion>>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<EnlaceUnion> GetByIdAsync(int id)
+        public Task<Resultado<EnlaceUnion>> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -53,17 +54,17 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public Task RemoveAsync(int id)
+        public Task<Resultado> RemoveAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoveAsync(EnlaceUnion unObjeto)
+        public Task<Resultado> RemoveAsync(EnlaceUnion unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(EnlaceUnion unObjeto)
+        public Task<Resultado> UpdateAsync(EnlaceUnion unObjeto)
         {
             throw new NotImplementedException();
         }

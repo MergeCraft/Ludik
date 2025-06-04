@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
+using LogicaNegocio.Resultados;
 using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
@@ -17,33 +18,33 @@ namespace AccesoDatos.RepositoriosEF
             _db = db;
         }
 
-        public Task AddAsync(TablaEquivalencia unObjeto)
+        public Task<Resultado> AddAsync(TablaEquivalencia unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<TablaEquivalencia>> GetAllAsync()
+        public Task<Resultado<IEnumerable<TablaEquivalencia>>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
        
-        public async Task<TablaEquivalencia> GetByIdAsync(int id)
+        public async Task<Resultado<TablaEquivalencia>> GetByIdAsync(int id)
         {
             return await _db.TablasEquivalencia.FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public Task RemoveAsync(int id)
+        public Task<Resultado> RemoveAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoveAsync(TablaEquivalencia unObjeto)
+        public Task<Resultado> RemoveAsync(TablaEquivalencia unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(TablaEquivalencia unObjeto)
+        public Task<Resultado> UpdateAsync(TablaEquivalencia unObjeto)
         {
             throw new NotImplementedException();
         }

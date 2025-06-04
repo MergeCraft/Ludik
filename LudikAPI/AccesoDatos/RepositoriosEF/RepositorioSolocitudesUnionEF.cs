@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
+using LogicaNegocio.Resultados;
 using LogicaNegocio.ValueObject;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +19,7 @@ namespace AccesoDatos.RepositoriosEF
             _db = db;
         }
 
-        public async Task AddAsync(SolicitudUnion unObjeto)
+        public async Task<Resultado> AddAsync(SolicitudUnion unObjeto)
         {
             if (unObjeto == null)
                 throw new ArgumentNullException(nameof(unObjeto), "La solicitud de unión no puede ser nula.");
@@ -36,27 +37,27 @@ namespace AccesoDatos.RepositoriosEF
                             && s.Estado == EstadoSolicitud.Pendiente);
         }
 
-        public Task<IEnumerable<SolicitudUnion>> GetAllAsync()
+        public Task<Resultado<IEnumerable<SolicitudUnion>>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<SolicitudUnion> GetByIdAsync(int id)
+        public Task<Resultado<SolicitudUnion>> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoveAsync(int id)
+        public Task<Resultado> RemoveAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoveAsync(SolicitudUnion unObjeto)
+        public Task<Resultado> RemoveAsync(SolicitudUnion unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(SolicitudUnion unObjeto)
+        public Task<Resultado> UpdateAsync(SolicitudUnion unObjeto)
         {
             throw new NotImplementedException();
         }

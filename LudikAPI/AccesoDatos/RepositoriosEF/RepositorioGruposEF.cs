@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
 using LogicaNegocio.Excepciones;
+using LogicaNegocio.Resultados;
 using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
@@ -24,7 +25,7 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public async Task AddAsync(Grupo unGrupo)
+        public async Task<Resultado> AddAsync(Grupo unGrupo)
         {
             try
             {
@@ -60,17 +61,17 @@ namespace AccesoDatos.RepositoriosEF
             }
         }
 
-        public async Task<Grupo> GetByIdAsync(int id)
+        public async Task<Resultado<Grupo>> GetByIdAsync(int id)
         {
             return await _db.Grupos.FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public async Task<IEnumerable<Grupo>> GetAllAsync()
+        public async Task<Resultado<IEnumerable<Grupo>>> GetAllAsync()
         {
             return await _db.Grupos.ToListAsync();
         }
 
-        public async Task UpdateAsync(Grupo grupoNuevo)
+        public async Task<Resultado> UpdateAsync(Grupo grupoNuevo)
         {
             try
             {
@@ -94,7 +95,7 @@ namespace AccesoDatos.RepositoriosEF
             }
         }
 
-        public async Task RemoveAsync(int id)
+        public async Task<Resultado> RemoveAsync(int id)
         {
             var grupo = await _db.Grupos
                 .Include(g => g.alumnos)
@@ -168,7 +169,7 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public Task RemoveAsync(Grupo unObjeto)
+        public Task<Resultado> RemoveAsync(Grupo unObjeto)
         {
             throw new NotImplementedException();
         }

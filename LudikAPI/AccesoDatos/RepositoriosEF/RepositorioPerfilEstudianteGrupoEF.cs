@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
+using LogicaNegocio.Resultados;
 
 namespace AccesoDatos.RepositoriosEF
 {
@@ -16,32 +17,32 @@ namespace AccesoDatos.RepositoriosEF
             _db = db;
         }
 
-        public Task AddAsync(PerfilEstudiante unObjeto)
+        public Task<Resultado> AddAsync(PerfilEstudiante unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<PerfilEstudiante>> GetAllAsync()
+        public Task<Resultado<IEnumerable<PerfilEstudiante>>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<PerfilEstudiante> GetByIdAsync(int id)
+        public Task<Resultado<PerfilEstudiante>> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoveAsync(int id)
+        public Task<Resultado> RemoveAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoveAsync(PerfilEstudiante unObjeto)
+        public Task<Resultado> RemoveAsync(PerfilEstudiante unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(PerfilEstudiante unObjeto)
+        public Task<Resultado> UpdateAsync(PerfilEstudiante unObjeto)
         {
             throw new NotImplementedException();
         }

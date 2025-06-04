@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
 using LogicaNegocio.Excepciones;
+using LogicaNegocio.Resultados;
 using LogicaNegocio.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,48 +19,42 @@ namespace AccesoDatos.RepositoriosEF
         {
             _db = db;
         }
-        public async Task AddAsync(Profesor profesorNuevo)
+        public async Task<Resultado> AddAsync(Profesor profesorNuevo)
         {
-            //Todo: eliminar metodo si se comprueba que no se usa este codigo
-            /*
-            if (profesorNuevo == null)
-                throw new UsuarioNoValidoException();
-            
-            await _db.Profesores.AddAsync(profesorNuevo);
             try
             {
-                await _db.SaveChangesAsync();
+                // Placeholder
+                await Task.CompletedTask;
+                return Resultado.Falla(new Error("Repositorio.Estudiante.NoImplementado", "Sin implementar"));
             }
-            catch (DbUpdateException ex)
+            catch (Exception e)
             {
-                var sqlMsg = ex.InnerException?.Message ?? ex.Message;
-                throw new UsuarioNoValidoException("Error al intentar guardar los datos en la base de datos. " + sqlMsg);
+                return Resultado.Falla(Error.Unexpected);
             }
-            */
         }
 
 
-        public async Task<IEnumerable<Profesor>> GetAllAsync()
+        public async Task<Resultado<IEnumerable<Profesor>>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Profesor> GetByIdAsync(int id)
+        public async Task<Resultado<Profesor>> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task RemoveAsync(int id)
+        public async Task<Resultado> RemoveAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task RemoveAsync(Profesor unObjeto)
+        public async Task<Resultado> RemoveAsync(Profesor unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public async Task UpdateAsync(Profesor unObjeto)
+        public async Task<Resultado> UpdateAsync(Profesor unObjeto)
         {
             throw new NotImplementedException();
         }

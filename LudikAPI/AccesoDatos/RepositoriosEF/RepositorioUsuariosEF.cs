@@ -7,6 +7,7 @@ using Dominio;
 
 using InterfacesRepositorio;
 using LogicaNegocio.Excepciones;
+using LogicaNegocio.Resultados;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,12 +23,12 @@ namespace AccesoDatos.RepositoriosEF
             _userManager = userManager;
         }
 
-        public Task<Usuario> GetByIdAsync(int id)
+        public Task<Resultado<Usuario>> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Usuario>> GetAllAsync()
+        public Task<Resultado<IEnumerable<Usuario>>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
@@ -47,12 +48,6 @@ namespace AccesoDatos.RepositoriosEF
             throw new UsuarioNoValidoException($"Usuario con '{nombreUsuario}' no encontrado.");
         }
 
-        public async Task<bool> VerificarContrasenaAsync(Usuario usuario, string clave)
-        {
-            if (usuario == null) 
-                throw new ArgumentNullException(nameof(usuario));
-            return await _userManager.CheckPasswordAsync(usuario, clave);
-        }
 
         public async Task<IList<string>> GetRolesAsync(Usuario usuario)
         {
@@ -61,26 +56,35 @@ namespace AccesoDatos.RepositoriosEF
             return await _userManager.GetRolesAsync(usuario);
         }
 
-        public async Task AddAsync(Usuario usuarioNuevo)
+        public async Task<Resultado> AddAsync(Usuario usuarioNuevo)
         {
             if(usuarioNuevo == null)
-                throw new UsuarioNoValidoException("El usuario proporcionado no es válido.");
+                return Resultado.Falla(new Error("Validation", "El usuario proporcionado no es válido."));
+            try
+            {
+                await _db.Users.AddAsync(usuarioNuevo);
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (Exception e)
+            {
+                return Resultado.Falla(new Error ("Unexpected", "Surgio un error al guardar el usuario"));
+            }
 
-            await _db.Users.AddAsync(usuarioNuevo);
-            await _db.SaveChangesAsync();
+            
         }
 
-        public Task RemoveAsync(int id)
+        public Task<Resultado> RemoveAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoveAsync(Usuario unObjeto)
+        public Task<Resultado> RemoveAsync(Usuario unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(Usuario unObjeto)
+        public Task<Resultado> UpdateAsync(Usuario unObjeto)
         {
             throw new NotImplementedException();
         }
