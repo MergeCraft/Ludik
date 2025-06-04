@@ -33,12 +33,12 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
         {
             if (dto == null)
                 throw new ArgumentNullException(nameof(dto));
-            /*
+
             var enlace = await _repoEnlaces.ObtenerPorCodigoAsync(dto.CodigoEnlace);
             if (enlace == null || enlace.expiracion < DateTime.UtcNow)
                 throw new KeyNotFoundException("El enlace es inválido o ha expirado.");
             //TODO: refactorizar para buscar estudiante por id del tipo string
-            var estudiante = await _repoEstudiantes.GetByIdAsync(dto.IdEstudiante);
+            var estudiante = await _repoEstudiantes.GetByIdAsyncString(dto.IdEstudiante);
             if (estudiante == null)
                 throw new KeyNotFoundException("El estudiante no existe.");
 
@@ -59,10 +59,8 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
                 Estado = EstadoSolicitud.Pendiente
             };
 
-            solicitud.EsValido(); // Validación de dominio
-
             await _repoSolicitudes.AddAsync(solicitud);
-            */
+
         }
     }
 }

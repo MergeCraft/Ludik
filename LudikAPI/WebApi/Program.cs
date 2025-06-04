@@ -6,11 +6,13 @@ using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;
 using LogicaAplicacion.ImplementacionCasosUsos.Grupos;
 using LogicaAplicacion.ImplementacionCasosUsos.Medallas;
 using LogicaAplicacion.ImplementacionCasosUsos.Profesores;
+using LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion;
 using LogicaAplicacion.ImplementacionCasosUsos.Usuarios;
 using LogicaAplicacion.InterfacesCasosUsos.Estudiante;
 using LogicaAplicacion.InterfacesCasosUsos.Grupo;
 using LogicaAplicacion.InterfacesCasosUsos.Medalla;
 using LogicaAplicacion.InterfacesCasosUsos.Profesor;
+using LogicaAplicacion.InterfacesCasosUsos.SolicitudUnion;
 using LogicaAplicacion.InterfacesCasosUsos.Usuario;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -109,6 +111,9 @@ builder.Services.AddScoped<IRepositorioProfesores, RepositorioProfesoresEF>();
 builder.Services.AddScoped<IRepositorioGrupos, RepositorioGruposEF>();
 builder.Services.AddScoped<IRepositorioTablasEquivalencia, RepositorioTablasEquivalenciaEF>();
 builder.Services.AddScoped<IRepositorioMedallas, RepositorioMedallasEF>();
+builder.Services.AddScoped<IRepositorioEnlacesUnionGrupo, RepositorioEnlacesUnionGrupoEF>();
+builder.Services.AddScoped<IRepositorioSolicitudesUnion, RepositorioSolocitudesUnionEF>();
+
 
 //Inyeccion de dependencias casos de uso
 builder.Services.AddScoped<ILogin, Login>();
@@ -118,7 +123,7 @@ builder.Services.AddScoped<IAltaGrupo, AltaGrupo>();
 builder.Services.AddScoped<IEditarGrupo, EditarGrupo>();
 builder.Services.AddScoped<IBajaGrupo, BajaGrupo>();
 builder.Services.AddScoped<IAltaMedalla, AltaMedalla>();
-
+builder.Services.AddScoped<ICrearSolicitudUnion, CrearSolicitudUnion>();
 // -------------------------------
 //      Swagger y CORS
 // -------------------------------
