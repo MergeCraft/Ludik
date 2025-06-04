@@ -27,99 +27,165 @@ namespace AccesoDatos.RepositoriosEF
 
         public async Task<Resultado> AddAsync(Grupo unGrupo)
         {
+            if (unGrupo == null)
+                return Resultado.Falla(new Error("Grupo.Add.Validacion", "El Grupo no puede ser nulo."));
+
             try
             {
-                if (unGrupo == null)
-                {
-                    throw new GrupoNoValidoExeption();
-                }
-
                 if (unGrupo.tablaEquivalencia != null)
-                {
                     _db.Entry(unGrupo.tablaEquivalencia).State = EntityState.Unchanged;
-                }
+
                 if (unGrupo.enlaceUnion != null)
-                {
-                    _db.Entry(unGrupo.enlaceUnion).State = EntityState.Added;
-                }
+                    _db.Entry(unGrupo.enlaceUnion).State = EntityState.Added; 
+                
                 if (unGrupo.tienda != null)
-                {
-                    _db.Entry(unGrupo.tienda).State = EntityState.Added;
-                }
+                    _db.Entry(unGrupo.tienda).State = EntityState.Added; 
+                
 
                 await _db.Grupos.AddAsync(unGrupo);
                 await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
             }
             catch (DbUpdateException dbEx)
             {
                 var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
-                throw new GrupoNoValidoExeption($"Error al guardar en la BD: {detalle}");
+                return Resultado.Falla(new Error("Grupo.Add.DbError", $"Error al guardar el grupo en la BD: {detalle}")); 
             }
-            catch (GrupoNoValidoExeption)
+
+            catch (GrupoNoValidoExeption valEx) 
             {
-                throw new GrupoNoValidoExeption("El Grupo no es válido.");
+                return Resultado.Falla(new Error("Grupo.Add.Validacion", valEx.Message)); 
+            }
+            catch (Exception e)
+            {
+                return Resultado.Falla(Error.Unexpected); // [cite: 14, 47]
             }
         }
 
         public async Task<Resultado<Grupo>> GetByIdAsync(int id)
         {
-            return await _db.Grupos.FirstOrDefaultAsync(t => t.Id == id);
+            try
+            {
+                var grupo = await _db.Grupos
+                    .Include(g => g.tablaEquivalencia)
+                    .Include(g => g.enlaceUnion)
+                    .Include(g => g.tienda)
+                    .FirstOrDefaultAsync(t => t.Id == id);
+
+                if (grupo == null)
+                {
+                    return Resultado<Grupo>.Falla(Error.NotFound);
+                }
+
+                return Resultado<Grupo>.Exitoso(grupo);
+            }
+            catch (Exception e)
+            {
+                return Resultado<Grupo>.Falla(Error.Unexpected);
+            }
         }
 
         public async Task<Resultado<IEnumerable<Grupo>>> GetAllAsync()
         {
-            return await _db.Grupos.ToListAsync();
+            try
+            {
+                var grupos = await _db.Grupos.ToListAsync();
+                return Resultado<IEnumerable<Grupo>>.Exitoso(grupos); 
+            }
+            catch (Exception e)
+            {
+                return Resultado<IEnumerable<Grupo>>.Falla(Error.Unexpected);
+            }
         }
 
         public async Task<Resultado> UpdateAsync(Grupo grupoNuevo)
         {
+            if (grupoNuevo == null)
+                return Resultado.Falla(new Error("Grupo.Update.Validacion", "El grupo para actualizar no puede ser null.")); // [cite: 14]
+            
+
             try
             {
-                if (grupoNuevo == null)
-                {
-                    throw new GrupoNoValidoExeption("El grupo no puede ser null.");
-                }
-
                 var grupoExistente = await _db.Grupos.FindAsync(grupoNuevo.Id);
                 if (grupoExistente == null)
-                {
-                    throw new Exception("Grupo no encontrado.");
-                }
+                    return Resultado.Falla(Error.NotFound);
+                
 
                 _db.Entry(grupoExistente).CurrentValues.SetValues(grupoNuevo);
+
                 await _db.SaveChangesAsync();
+                return Resultado.Exitoso(); 
             }
-            catch (GrupoNoValidoExeption ex)
+            catch (DbUpdateConcurrencyException dbEx)
             {
-                throw ex;
+
+                return Resultado.Falla(new Error(Error.Conflict.Codigo, $"Error de concurrencia al actualizar el grupo: {dbEx.Message}"));
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
+
+                return Resultado.Falla(new Error("Grupo.Update.DbError", $"Error al actualizar el grupo en la BD: {detalle}")); 
+            }
+            catch (GrupoNoValidoExeption valEx) 
+            {
+                return Resultado.Falla(new Error("Grupo.Update.Validacion", valEx.Message));
+            }
+            catch (Exception e)
+            {
+                return Resultado.Falla(Error.Unexpected);
             }
         }
 
         public async Task<Resultado> RemoveAsync(int id)
         {
-            var grupo = await _db.Grupos
-                .Include(g => g.alumnos)
-                .Include(g => g.solicitudes)
-                .Include(g => g.tablasClasificacion)
-                .Include(g => g.enlaceUnion)
-                .Include(g => g.tienda)
-                .FirstOrDefaultAsync(g => g.Id == id);
+            try
+            {
+                var grupo = await _db.Grupos
+                    .Include(g => g.alumnos) 
+                    .Include(g => g.solicitudes)
+                    .Include(g => g.tablasClasificacion)
+                    .Include(g => g.enlaceUnion)
+                    .Include(g => g.tienda)
+                    .FirstOrDefaultAsync(g => g.Id == id);
 
-            if (grupo == null)
-                throw new GrupoNoValidoExeption("El grupo no existe.");
+                if (grupo == null)
+                {
+                    return Resultado.Falla(Error.NotFound); // [cite: 14, 39]
+                }
 
-            _db.PerfilesEstudiantes.RemoveRange(grupo.alumnos);
-            _db.SolicitudesUnion.RemoveRange(grupo.solicitudes);
-            _db.TablasClasificacion.RemoveRange(grupo.tablasClasificacion);
+                //TODO: Revisaar con Mnauel, ya que:
+                // La eliminación explícita de entidades relacionadas es necesaria si
+                // no tienes configurada la eliminación en cascada en la base de datos o en el modelo EF Core,
+                // o si necesitas lógica adicional antes de eliminar.
+                // Si la cascada está bien configurada, EF Core podría manejar esto al eliminar 'grupo'.
 
-            if (grupo.enlaceUnion != null)
-                _db.EnlacesUnion.Remove(grupo.enlaceUnion);
+                if (grupo.alumnos != null && grupo.alumnos.Any())
+                    _db.PerfilesEstudiantes.RemoveRange(grupo.alumnos);
+                if (grupo.solicitudes != null && grupo.solicitudes.Any())
+                    _db.SolicitudesUnion.RemoveRange(grupo.solicitudes);
+                if (grupo.tablasClasificacion != null && grupo.tablasClasificacion.Any())
+                    _db.TablasClasificacion.RemoveRange(grupo.tablasClasificacion);
 
-            if (grupo.tienda != null)
-                _db.Tiendas.Remove(grupo.tienda);
+                if (grupo.enlaceUnion != null)
+                    _db.EnlacesUnion.Remove(grupo.enlaceUnion);
+                if (grupo.tienda != null)
+                    _db.Tiendas.Remove(grupo.tienda);
 
-            _db.Grupos.Remove(grupo);
-            await _db.SaveChangesAsync();
+                _db.Grupos.Remove(grupo);
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso(); // [cite: 12]
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
+
+                return Resultado.Falla(new Error("Grupo.Remove.DbError", $"Error al eliminar el grupo: {detalle}")); 
+            }
+            catch (Exception e)
+            {
+                return Resultado.Falla(Error.Unexpected); 
+            }
         }
 
 

@@ -7,6 +7,7 @@ using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.GrupoDTOs;
 using LogicaAplicacion.DTOsMappers.GrupoMappers;
 using LogicaAplicacion.InterfacesCasosUsos.Grupo;
+using LogicaNegocio.Resultados;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
 {
@@ -18,20 +19,21 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
         {
             _repositorioGrupo = repo;
         }
-        public async Task EjecutarAsync(GrupoEditarDto grupoDto, string profesorId)
+        public async Task<Resultado> EjecutarAsync(GrupoEditarDto grupoDto, string profesorId)
         {
             if (grupoDto == null)
-                throw new ArgumentNullException(nameof(grupoDto), "El DTO no puede ser nulo.");
+                return Resultado.Falla(new Error("Validation", "No hay informacion sobre el grupo."));
 
-            var grupo = await _repositorioGrupo.GetByIdAsync(grupoDto.Id);
-            if (grupo == null)
-                throw new Exception("No se encontró el grupo especificado.");
+            var resultado = await _repositorioGrupo.GetByIdAsync(grupoDto.Id);
+            if (resultado.Valor == null)
+               return Resultado.Falla(new Error( "NotFound","No se encontró el grupo especificado."));
 
-            if (grupo.ProfesorId != profesorId)
+            if (resultado.Valor.ProfesorId != profesorId)
                 throw new UnauthorizedAccessException("No tiene permiso para editar este grupo.");
 
-            GrupoEditarDtoMapper.UpdateFromDto(grupoDto, grupo);
-            await _repositorioGrupo.UpdateAsync(grupo);
+            GrupoEditarDtoMapper.UpdateFromDto(grupoDto, resultado.Valor);
+            await _repositorioGrupo.UpdateAsync(resultado.Valor);
+            return Resultado.Exitoso();
         }
     }
 }

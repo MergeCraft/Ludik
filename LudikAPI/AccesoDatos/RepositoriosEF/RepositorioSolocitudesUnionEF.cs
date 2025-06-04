@@ -22,10 +22,11 @@ namespace AccesoDatos.RepositoriosEF
         public async Task<Resultado> AddAsync(SolicitudUnion unObjeto)
         {
             if (unObjeto == null)
-                throw new ArgumentNullException(nameof(unObjeto), "La solicitud de unión no puede ser nula.");
+                return Resultado.Falla( new Error("Validation", "La solicitud de unión no puede ser nula."));
 
             await _db.SolicitudesUnion.AddAsync(unObjeto);
             await _db.SaveChangesAsync();
+            return Resultado.Exitoso();
         }
 
         //TODO: evaluar hacer metodo que compare si dos strings son iguales

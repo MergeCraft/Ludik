@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using InterfacesRepositorio;
 using LogicaAplicacion.InterfacesCasosUsos.Grupo;
 using LogicaNegocio.Excepciones;
+using LogicaNegocio.Resultados;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
 {
@@ -17,16 +18,17 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
             _repositorioGrupo = repo;
         }
 
-        public async Task EjecutarAsync(int grupoId, string profesorId)
+        public async Task<Resultado> EjecutarAsync(int grupoId, string profesorId)
         {
-            var grupo = await _repositorioGrupo.GetByIdAsync(grupoId);
-            if (grupo == null)
-                throw new GrupoNoValidoExeption("El grupo no existe.");
+            var resultado = await _repositorioGrupo.GetByIdAsync(grupoId);
+            if (resultado.EsFallo)
+               return Resultado.Falla(new Error( "NotFound","El grupo no existe."));
 
-            if (grupo.ProfesorId != profesorId)
-                throw new UnauthorizedAccessException("No tiene permiso para eliminar este grupo.");
+            if (resultado.Valor.ProfesorId != profesorId)
+                return Resultado.Falla(new Error("Unauthorized","No tiene permiso para eliminar este grupo."));
 
             await _repositorioGrupo.RemoveAsync(grupoId);
+            return Resultado.Exitoso();
         }
     }
 }

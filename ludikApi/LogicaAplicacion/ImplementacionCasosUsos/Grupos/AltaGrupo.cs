@@ -3,6 +3,7 @@ using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.GrupoDTOs;
 using LogicaAplicacion.DTOsMappers.GrupoMappers;
 using LogicaAplicacion.InterfacesCasosUsos.Grupo;
+using LogicaNegocio.Resultados;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
 {
@@ -22,21 +23,22 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
 		//TODO:refactirizar cuando se haga el requerimiento funcional de tienda y enlaces de union 
 
 
-		public async Task EjecutarAsync(GrupoAltaDto grupoAltaDto)
+		public async Task<Resultado> EjecutarAsync(GrupoAltaDto grupoAltaDto)
 		{
 			if (grupoAltaDto == null)
-				throw new ArgumentNullException(nameof(grupoAltaDto), "El DTO no puede ser nulo.");
+				return Resultado.Falla(new Error("Validation", "No hay informacion para poder dar de alta el grupo."));
 
-			var tabla = await _repoTablasEquivalencia.GetByIdAsync(grupoAltaDto.TablaEquivalenciaId);
-			if (tabla == null)
-				throw new Exception("No se encontró la tabla de equivalencia especificada.");
+			var resultado = await _repoTablasEquivalencia.GetByIdAsync(grupoAltaDto.TablaEquivalenciaId);
+			if (resultado.Valor == null)
+				return Resultado.Falla(new Error("NotFound","No se encontró la tabla de equivalencia especificada."));
 
-			var grupo = GrupoAltaMapper.fromDto(grupoAltaDto, tabla);
+			var grupo = GrupoAltaMapper.fromDto(grupoAltaDto, resultado.Valor);
 
             grupo.tienda = new Tienda();
 
 			await _repositorioGrupo.AddAsync(grupo);
-		}
+			return Resultado.Exitoso();
+        }
 
 
 	}

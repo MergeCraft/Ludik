@@ -31,7 +31,19 @@ namespace AccesoDatos.RepositoriosEF
        
         public async Task<Resultado<TablaEquivalencia>> GetByIdAsync(int id)
         {
-            return await _db.TablasEquivalencia.FirstOrDefaultAsync(t => t.Id == id);
+            try
+            {
+                var tablaEquivalencia = await _db.TablasEquivalencia.FirstOrDefaultAsync(t => t.Id == id);
+
+                if (tablaEquivalencia == null)
+                    return Resultado<TablaEquivalencia>.Falla(Error.NotFound); 
+                
+                return Resultado<TablaEquivalencia>.Exitoso(tablaEquivalencia); 
+            }
+            catch (Exception e)
+            {
+                return Resultado<TablaEquivalencia>.Falla(new Error ("Unexpected", e.Message));
+            }
         }
 
         public Task<Resultado> RemoveAsync(int id)

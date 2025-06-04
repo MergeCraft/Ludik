@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using LogicaAplicacion.DTOs.GrupoDTOs;
 using LogicaAplicacion.DTOs.ProfesorDTOs;
+using LogicaNegocio.Resultados;
 
 namespace LogicaAplicacion.InterfacesCasosUsos.Grupo
 {
     public interface IAltaGrupo
     {
-        Task EjecutarAsync(GrupoAltaDto grupoAltaDto);
+        Task<Resultado> EjecutarAsync(GrupoAltaDto grupoAltaDto);
 
     }
 }
