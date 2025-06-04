@@ -41,8 +41,25 @@ namespace LogicaNegocio.Resultados
         public static readonly Error Validation = new("Error.Validation", "Una o más validaciones fallaron.");
 
         /// <summary>
+        /// Representa un error donde el usuario está autenticado pero no tiene
+        /// los permisos necesarios para realizar una acción específica sobre un recurso.
+        /// </summary>
+        public static readonly Error Forbidden = new("Error.Forbidden", "No tiene los permisos necesarios para realizar esta acción específica.");
+
+        /// <summary>
+        /// Representa un error por no estar autorizado.
+        /// </summary>
+        public static readonly Error Unauthorized = new("Error.Unauthorized", "No esta autorizado para realizar esta operación.");
+
+        /// <summary>
         /// Representa un error genérico o inesperado.
         /// </summary>
         public static readonly Error Unexpected = new("Error.Unexpected", "Ocurrió un error inesperado.");
+
+        /// <summary>
+        /// Representa un error debido a un conflicto con el estado actual del recurso.
+        /// Ejemplo: intentar crear un recurso que ya existe.
+        /// </summary>
+        public static readonly Error Conflict = new("Error.Conflict", "La operación entra en conflicto con el estado actual del recurso o el recurso ya existe.");
     }
 }

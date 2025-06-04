@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LogicaAplicacion.DTOs.MedallaDTOs;
+using LogicaNegocio.Resultados;
 
 namespace LogicaAplicacion.InterfacesCasosUsos.Medalla
 {
     public interface IAltaMedalla
     {
-        Task EjecutarAsync(MedallaAltaDto medallaAltaDto);
+        Task<Resultado> EjecutarAsync(MedallaAltaDto medallaAltaDto);
+
 
     }
 }

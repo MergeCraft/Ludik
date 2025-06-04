@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
 using LogicaNegocio.Excepciones;
+using LogicaNegocio.Resultados;
 using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
@@ -47,6 +48,7 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException("Este método aún no está implementado en el repositorio de Medallas.");
 
         }
+
 
         public async Task RemoveAsync(int id)
         {
