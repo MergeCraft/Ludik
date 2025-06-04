@@ -28,10 +28,11 @@ namespace WebApi.Jwt
 
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, usuarioId),          // Subject: ID de usuario
-                new Claim(ClaimTypes.Name, nombreUsuario),                             // Nombre de usuario
-                new Claim(ClaimTypes.Role, rol),                                        // Rol
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())      // Token ID único
+                new Claim(JwtRegisteredClaimNames.Sub, usuarioId),
+                new Claim(ClaimTypes.Name, nombreUsuario),
+                new Claim(ClaimTypes.Role, rol),
+                new Claim("id", usuarioId), 
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
             var tokenDescriptor = new JwtSecurityToken(

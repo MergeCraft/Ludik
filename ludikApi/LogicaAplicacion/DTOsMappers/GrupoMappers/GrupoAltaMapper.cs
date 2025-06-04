@@ -18,17 +18,31 @@ namespace LogicaAplicacion.DTOsMappers.GrupoMappers
                 Materia = materia
             };
         }
-        public static Grupo fromDto(GrupoAltaDto dto,TablaEquivalencia tabla)
+        public static Grupo fromDto(GrupoAltaDto dto, TablaEquivalencia tabla)
         {
-            return new Grupo
+            var grupo = new Grupo
             {
                 nombre = dto.Nombre,
                 tablaEquivalencia = tabla,
                 ProfesorId = dto.ProfesorId,
                 institucion = dto.Institucion ?? "",
                 materia = dto.Materia ?? "",
-                fCreacion = DateTime.Now 
+                fCreacion = DateTime.Now,
+                tienda = new Tienda()
             };
+
+            // Si los datos del enlace están disponibles, creamos el EnlaceUnion
+            if (!string.IsNullOrEmpty(dto.CodigoEnlace) && !string.IsNullOrEmpty(dto.UrlCompleta))
+            {
+                grupo.enlaceUnion = new EnlaceUnion
+                {
+                    codigoBase = dto.CodigoEnlace,
+                    urlCompleta = dto.UrlCompleta,
+                    expiracion = DateTime.UtcNow.AddDays(7)
+                };
+            }
+
+            return grupo;
         }
     }
 }

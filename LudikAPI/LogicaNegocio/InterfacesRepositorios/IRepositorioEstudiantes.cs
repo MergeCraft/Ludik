@@ -14,6 +14,8 @@ namespace InterfacesRepositorio
 		void quitarMedalla(int idAlumno, int idMedalla);
 
 		List<Medalla> getMedallasAlumno(int idAlumno, int idGrupo);
+		Task<Estudiante> GetByIdAsyncString(string id);
+
 
     }
 

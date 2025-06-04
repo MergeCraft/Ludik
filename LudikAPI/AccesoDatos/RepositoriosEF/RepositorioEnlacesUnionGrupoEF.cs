@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
 {
@@ -40,10 +41,12 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public Task<EnlaceUnion> ObtenerPorCodigoAsync(string codigo)
+        public async Task<EnlaceUnion> ObtenerPorCodigoAsync(string codigo)
         {
-            throw new NotImplementedException();
-        }
+            return await _db.EnlacesUnion
+                     .FirstOrDefaultAsync(e => e.codigoBase == codigo);
+
+        }   
 
         public Task<Grupo> ObtenerPorEnlaceAsync(string codigoBase)
         {

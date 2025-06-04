@@ -6,15 +6,17 @@ using LogicaAplicacion.InterfacesCasosUsos.Grupo;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
 {
-	public class AltaGrupo : IAltaGrupo
-	{
-		private readonly IRepositorioGrupos _repositorioGrupo;
-		private readonly IRepositorioTablasEquivalencia _repoTablasEquivalencia;
+    public class AltaGrupo: IAltaGrupo
+    {
+        private readonly IRepositorioGrupos _repositorioGrupo;
+        private readonly IRepositorioTablasEquivalencia _repoTablasEquivalencia;
+        
 
-		public AltaGrupo(IRepositorioGrupos repo, IRepositorioTablasEquivalencia repoTablas)
-		{
-			_repositorioGrupo = repo;
-			_repoTablasEquivalencia = repoTablas;
+
+        public AltaGrupo(IRepositorioGrupos repo,IRepositorioTablasEquivalencia repoTablas)
+        {
+            _repositorioGrupo = repo;
+            _repoTablasEquivalencia = repoTablas;
 
 		}
 		//TODO:refactirizar cuando se haga el requerimiento funcional de tienda y enlaces de union 
@@ -31,8 +33,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
 
 			var grupo = GrupoAltaMapper.fromDto(grupoAltaDto, tabla);
 
-			grupo.enlaceUnion = EnlaceUnion.CrearNuevo();
-			grupo.tienda = new Tienda();
+            grupo.tienda = new Tienda();
 
 			await _repositorioGrupo.AddAsync(grupo);
 		}
