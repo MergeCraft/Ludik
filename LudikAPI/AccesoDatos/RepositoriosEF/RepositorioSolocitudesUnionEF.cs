@@ -34,7 +34,7 @@ namespace AccesoDatos.RepositoriosEF
         {
             return await _db.SolicitudesUnion
                 .AnyAsync(s => s.estudianteId == idEstudiante
-                            && s.grupoId == idGrupo
+                            && s.Grupo.Id == idGrupo
                             && s.Estado == EstadoSolicitud.Pendiente);
         }
 
@@ -48,6 +48,13 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
+        public async Task<List<SolicitudUnion>> ObtenerSolicitudesPendientesPorGrupoAsync(int grupoId)
+        {
+            return await _db.SolicitudesUnion
+                .Where(s => s.Grupo.Id == grupoId && s.Estado == EstadoSolicitud.Pendiente)
+                .ToListAsync();
+        }
+
         public Task<Resultado> RemoveAsync(int id)
         {
             throw new NotImplementedException();
@@ -58,9 +65,29 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public Task<Resultado> UpdateAsync(SolicitudUnion unObjeto)
+        public async Task<Resultado> UpdateAsync(SolicitudUnion unObjeto)
         {
-            throw new NotImplementedException();
+            if (unObjeto == null)
+                return Resultado.Falla(new Error("Validation", "El objeto no puede ser nulo."));
+
+            try
+            {
+                _db.SolicitudesUnion.Update(unObjeto);
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (Exception ex)
+            {
+                return Resultado.Falla(new Error("Database", "Error al actualizar la solicitud: " + ex.Message));
+            }
+        }
+        public async Task<SolicitudUnion> GetSolicitudConEstudianteYGrupoPorIdAsync(int id)
+        {
+            return await _db.SolicitudesUnion
+                .Include(s => s.estudiante)
+                .Include(s => s.Grupo)
+                    .ThenInclude(g => g.alumnos)
+                .FirstOrDefaultAsync(s => s.Id == id);
         }
     }
 }

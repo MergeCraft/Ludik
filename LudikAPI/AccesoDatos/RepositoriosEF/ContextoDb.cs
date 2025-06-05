@@ -137,7 +137,7 @@ namespace AccesoDatos.RepositoriosEF
             modelBuilder.Entity<SolicitudUnion>()
                 .HasOne<Grupo>()  // SolicitudUnion tiene un Grupo
                 .WithMany(g => g.solicitudes) // Grupo tiene muchas solicitudes
-                .HasForeignKey(s => s.grupoId)
+                .HasForeignKey(s => s.Grupo)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<SolicitudUnion>()
                 .HasOne(s => s.estudiante)

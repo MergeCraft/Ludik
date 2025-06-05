@@ -123,6 +123,8 @@ builder.Services.AddScoped<IBajaGrupo, BajaGrupo>();
 builder.Services.AddScoped<IAltaMedalla, AltaMedalla>();
 builder.Services.AddScoped<IObtenerGruposDeEstudiante, ObtenerGruposDeEstudiante>();
 builder.Services.AddScoped<IObtenerGruposDeProfesor, ObtenerGruposDeProfesor>();
+builder.Services.AddScoped<IObtenerSolicitudesUnionDelGrupo, ObtenerSolicitudesUnionDelGrupo>();
+builder.Services.AddScoped<IAceptarSolicitudUnion, AceptarSolicitudUnion>();
 builder.Services.AddScoped<IBajaMedalla,BajaMedalla>();
 builder.Services.AddScoped<IModificarMedalla,ModificarMedalla>();
 builder.Services.AddScoped<IObtenerMedallaPorId,ObtenerMedallaPorId>();

@@ -54,7 +54,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
             var solicitud = new Dominio.SolicitudUnion
             {
                 estudiante = estudiante,
-                grupoId = grupo.Id,
+                Grupo = grupo,
                 fecha = DateOnly.FromDateTime(DateTime.UtcNow),
                 Estado = EstadoSolicitud.Pendiente
             };
