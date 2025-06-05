@@ -12,6 +12,7 @@ using LogicaAplicacion.DTOsMappers.ProfesorMappers;
 using LogicaAplicacion.InterfacesCasosUsos.Profesor;
 using LogicaNegocio.Excepciones;
 using LogicaNegocio.InterfacesEntidades;
+using LogicaNegocio.Resultados;
 using Microsoft.AspNetCore.Identity;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
@@ -21,74 +22,66 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
         private readonly UserManager<Usuario> _userManager;
 
 
-        public AltaProfesor(
-            UserManager<Usuario> userManager
-
-        )
+        public AltaProfesor(UserManager<Usuario> userManager)
         {
             _userManager = userManager;
-
         }
 
         // Pre: el DTO no puede ser nulo.
         // Pos: crea un nuevo usuario-Profesor en Identity y persiste sus datos extra en la tabla Profesores.
-        public async Task<IdentityResult> EjecutarAsync(ProfesorAltaDto profesorAltaDto)
+        public async Task<Resultado> EjecutarAsync(ProfesorAltaDto profesorAltaDto)
         {
             if (profesorAltaDto == null)
             {
-                return IdentityResult.Failed(
-                    new IdentityError
-                    {
-                        Code = "ArgNull",
-                        Description = "Se deben de brindar los datos para poder registrarse."
-                    }
-                );
+                return Resultado.Falla(new Error(
+                    "Error.Validation",
+                    "Los datos para el alta del profesor no pueden ser nulos."));
             }
 
-            var profesorNuevo = ProfesorAltaMapper.fromDto(profesorAltaDto);
-
-            var erroresValidacion = new List<IdentityError>();
+            var erroresValidacion = new List<Error>();
             var existeNombre = await _userManager.FindByNameAsync(profesorAltaDto.NombreUsuario);
             if (existeNombre != null)
             {
-                erroresValidacion.Add(new IdentityError
-                {
-                    Code = "DuplicateUserName",
-                    Description = "El nombre de usuario ya está en uso."
-                });
+                erroresValidacion.Add(new Error(
+                    Error.Conflict.Codigo,
+                    "El nombre de usuario ya está en uso."));
             }
 
             var existeEmail = await _userManager.FindByEmailAsync(profesorAltaDto.Correo);
             if (existeEmail != null)
             {
-                erroresValidacion.Add(new IdentityError
-                {
-                    Code = "DuplicateEmail",
-                    Description = "El correo electrónico ya está en uso."
-                });
+                erroresValidacion.Add(new Error(
+                    Error.Conflict.Codigo,
+                    "El correo electrónico ya está en uso."));
             }
 
-            if (erroresValidacion.Count > 0)
-            {
-                return IdentityResult.Failed(erroresValidacion.ToArray());
-            }
+            if (erroresValidacion.Any())
+                return Resultado.Falla(erroresValidacion);
+            
+
+            var profesorNuevo = ProfesorAltaMapper.fromDto(profesorAltaDto);
 
             var resultadoCreacion = await _userManager.CreateAsync(profesorNuevo, profesorAltaDto.Contrasenia);
             if (!resultadoCreacion.Succeeded)
-                return resultadoCreacion;
+            {
+                var erroresIdentity = resultadoCreacion.Errors
+                    .Select(e => new Error("Error.Validation", e.Description));
+                return Resultado.Falla(erroresIdentity);
+            }
+
 
             var rolAsignado = await _userManager.AddToRoleAsync(profesorNuevo, "Profesor");
             if (!rolAsignado.Succeeded)
             {
-                // Si falla la asignación de rol,  eliminar el usuario para no dejar datos huérfanos
                 await _userManager.DeleteAsync(profesorNuevo);
-                return IdentityResult.Failed(rolAsignado.Errors.ToArray());
+
+                var erroresRol = rolAsignado.Errors
+                    .Select(e => new Error("Error.Unexpected", $"Error de configuración al asignar rol: {e.Description}"));
+                return Resultado.Falla(erroresRol);
             }
-            
 
 
-            return IdentityResult.Success;
-            
+            return Resultado.Exitoso();
         }
     }
 }

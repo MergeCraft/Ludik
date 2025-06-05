@@ -8,6 +8,7 @@ namespace LogicaAplicacion.DTOs.MedallaDTOs
 {
     public class MedallaAltaDto
     {
+
         public string UrlImagen { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }

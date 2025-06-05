@@ -34,8 +34,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             var resultado = await service.EjecutarAsync(dto);
 
             // Assert
-            Assert.False(resultado.Succeeded);
-            Assert.Contains(resultado.Errors, e => e.Code == "ArgNull");
+            Assert.False(resultado.EsExitoso);
+            Assert.Contains(resultado.Errores, e => e.Codigo == "ArgNull");
         }
 
         [Fact]
@@ -60,8 +60,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             var resultado = await service.EjecutarAsync(dto);
 
             // Assert
-            Assert.False(resultado.Succeeded);
-            Assert.Contains(resultado.Errors, e => e.Code == "DuplicateUserName");
+            Assert.False(resultado.EsExitoso);
+            Assert.Contains(resultado.Errores, e => e.Codigo == "DuplicateUserName");
         }
 
         [Fact]
@@ -88,8 +88,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             var resultado = await service.EjecutarAsync(dto);
 
             // Assert
-            Assert.False(resultado.Succeeded);
-            Assert.Contains(resultado.Errors, e => e.Code == "DuplicateEmail");
+            Assert.False(resultado.EsExitoso);
+            Assert.Contains(resultado.Errores, e => e.Codigo == "DuplicateEmail");
         }
 
         [Fact]
@@ -120,7 +120,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             var resultado = await service.EjecutarAsync(dto);
 
             // Assert
-            Assert.True(resultado.Succeeded);
+            Assert.True(resultado.EsExitoso);
             _userManagerMock.Verify(x => x.CreateAsync(It.IsAny<Usuario>(), "Secret#123"), Times.Once);
             _userManagerMock.Verify(x => x.AddToRoleAsync(It.IsAny<Usuario>(), "Profesor"), Times.Once);
         }

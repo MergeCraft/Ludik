@@ -4,6 +4,7 @@ using LogicaNegocio.Excepciones;
 using LogicaNegocio.Resultados;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Helpers;
 
 namespace WebApi.Controllers
 {
@@ -46,20 +47,11 @@ namespace WebApi.Controllers
         {
             Resultado<IEnumerable<MedallaDto>> resultado = await _obtenerTodasLasMedallas.EjecutarAsync();
 
-            if (resultado.EsExitoso)
-            {
-                return Ok(resultado.Valor);
-            }
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
+            
 
-            // Si EsFallo, asumimos que es un error inesperado del servicio, ya que un GET de todos
-            // no suele tener errores de "negocio" más allá de fallos del sistema.
-            var problemDetails = new ProblemDetails
-            {
-                Status = StatusCodes.Status500InternalServerError,
-                Title = "Error al obtener las medallas.",
-                Detail = string.Join(", ", resultado.Errores.Select(e => e.Mensaje))
-            };
-            return StatusCode(StatusCodes.Status500InternalServerError, problemDetails);
+            return Ok(resultado.Valor);
         }
 
         /// <summary>
@@ -79,26 +71,13 @@ namespace WebApi.Controllers
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Get(int id)
         {
-            if (id <= 0)
-            {
-                return BadRequest(new ProblemDetails { Title = "ID de medalla inválido.", Status = StatusCodes.Status400BadRequest });
-            }
+            var resultado = await _obtenerMedallaPorId.EjecutarAsync(id);
 
-            Resultado<MedallaDto> resultado = await _obtenerMedallaPorId.EjecutarAsync(id);
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
+            
 
-            if (resultado.EsExitoso)
-            {
-                return Ok(resultado.Valor);
-            }
-
-
-            if (resultado.EsFallo) // Asumimos que si falla aquí es porque no se encontró o hubo otro error.
-            {
-                return NotFound(new ProblemDetails { Title = "Medalla no encontrada o error al obtenerla.", Status = StatusCodes.Status404NotFound, Detail = string.Join(", ", resultado.Errores.Select(e => e.Mensaje)) });
-            }
-
-            // Fallback para otros errores no manejados explícitamente.
-            return StatusCode(StatusCodes.Status500InternalServerError, new ProblemDetails { Title = "Error interno del servidor.", Status = StatusCodes.Status500InternalServerError });
+            return Ok(resultado.Valor);
         }
 
         /// <summary>
@@ -117,20 +96,11 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Post([FromBody] MedallaAltaDto medallaDto)
         {
-            try
-            {
-                await _altaMedalla.EjecutarAsync(medallaDto);
+                Resultado resultado = await _altaMedalla.EjecutarAsync(medallaDto);
+                if (resultado.EsFallo)
+                    return this.ManejarFallo(resultado);
+
                 return StatusCode(StatusCodes.Status201Created, "Medalla creada correctamente.");
-            }
-            catch (MedallaNoValidaException mException)
-            {
-                return BadRequest(new { Error = mException.Message });
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    new { Error = "Ocurrió un error. " + e.Message });
-            }
         }
 
         /// <summary>
@@ -154,18 +124,11 @@ namespace WebApi.Controllers
 
             Resultado resultado = await _modificarMedalla.EjecutarAsync(medallaDto);
 
-            if (resultado.EsExitoso)
-            {
-                return NoContent();
-            }
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
+            
 
-            var primerError = resultado.Errores.FirstOrDefault();
-            if (primerError != null && primerError.Codigo.Contains("NoEncontrada")) // Ejemplo de convención
-            {
-                return NotFound(new ProblemDetails { Title = "Medalla no encontrada para modificar.", Status = StatusCodes.Status404NotFound, Detail = string.Join(", ", resultado.Errores.Select(e => e.Mensaje)) });
-            }
-
-            return BadRequest(new ProblemDetails { Title = "Error al modificar la medalla.", Status = StatusCodes.Status400BadRequest, Detail = string.Join(", ", resultado.Errores.Select(e => e.Mensaje)) });
+            return NoContent();
         }
 
 
@@ -186,25 +149,13 @@ namespace WebApi.Controllers
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Delete(int id)
         {
-            if (id <= 0)
-            {
-                return BadRequest(new ProblemDetails { Title = "ID de medalla inválido.", Status = StatusCodes.Status400BadRequest });
-            }
-
             Resultado resultado = await _bajaMedalla.EjecutarAsync(id);
 
-            if (resultado.EsExitoso)
-            {
-                return NoContent();
-            }
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
+            
 
-            var primerError = resultado.Errores.FirstOrDefault();
-            if (primerError != null && primerError.Codigo.Contains("NoEncontrada")) // Ejemplo de convención
-            {
-                return NotFound(new ProblemDetails { Title = "Medalla no encontrada para eliminar.", Status = StatusCodes.Status404NotFound, Detail = string.Join(", ", resultado.Errores.Select(e => e.Mensaje)) });
-            }
-
-            return StatusCode(StatusCodes.Status500InternalServerError, new ProblemDetails { Title = "Error al eliminar la medalla.", Status = StatusCodes.Status500InternalServerError, Detail = string.Join(", ", resultado.Errores.Select(e => e.Mensaje)) });
+            return NoContent();
         }
     }
 }

@@ -128,7 +128,7 @@ namespace WebApi.Controllers
                 if (string.IsNullOrWhiteSpace(codigo))
                     return BadRequest("El código del enlace es obligatorio.");
 
-                string estudianteId = User.FindFirst("id")?.Value;
+                string estudianteId = User.FindFirst("id")?.Value; 
 
                 if (string.IsNullOrEmpty(estudianteId))
                     return Unauthorized("No se pudo obtener el ID del estudiante desde el token.");

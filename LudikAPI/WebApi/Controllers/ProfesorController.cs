@@ -8,6 +8,7 @@ using LogicaAplicacion.DTOs.GrupoDTOs;
 using LogicaNegocio.Resultados;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using WebApi.Helpers;
 
 namespace WebApi.Controllers
 {
@@ -37,32 +38,13 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> AltaProfesor([FromBody] ProfesorAltaDto profesorDto)
         {
+            Resultado resultado = await _altaProfesor.EjecutarAsync(profesorDto);
+
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
             
-            if (profesorDto == null)
-                return BadRequest("Debe enviar los datos del profesor.");
 
-            // Verificar las DataAnnotations en el DTO
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            try
-            {
-                var resultado = await _altaProfesor.EjecutarAsync(profesorDto);
-                if (!resultado.Succeeded)
-                {
-                    // Agregar cada error de IdentityResult a ModelState y retornar BadRequest
-                    foreach (var error in resultado.Errors)
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    
-                    return BadRequest(ModelState);
-                }
-
-                return StatusCode(StatusCodes.Status201Created, "Profesor registrado correctamente.");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = "Ocurrió un error inesperado. " + ex.Message });
-            }
+            return Created();
         }
         /// <summary>
         /// Obtiene todos los grupos que un profesor posee.
@@ -83,34 +65,20 @@ namespace WebApi.Controllers
         [ProducesResponseType(typeof(object), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ObtenerGruposProfesor()
         {
-            try
-            {
-                var idProfesorAutenticado = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-                if (string.IsNullOrEmpty(idProfesorAutenticado))
-                    return Unauthorized(new { Mensaje = "No se pudo identificar al usuario autenticado." });
+            var idProfesorAutenticado = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
 
-                Resultado<List<GrupoDto>> resultado = await _obtenerGruposDeProfesor.EjecutarAsync(idProfesorAutenticado);
+            if (string.IsNullOrEmpty(idProfesorAutenticado))
+                return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
+            
 
-                if (resultado.EsFallo)
-                {
-                    if (resultado.Errores.Any(e => e.Codigo == Error.NotFound.Codigo))
-                    {
-                        return NotFound(resultado.Errores.ToList());
-                    }
-                    return BadRequest(resultado.Errores.ToList());
-                }
+            Resultado<List<GrupoDto>> resultado = await _obtenerGruposDeProfesor.EjecutarAsync(idProfesorAutenticado);
 
-                return Ok(resultado.Valor);
-            }
-            catch (Exception ex)
-            {
-                // IMPORTANTE: En producción, no exponer ex.Message directamente.
-                // Loguear ex.ToString() para tener todos los detalles internamente.
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    new { Mensaje = "Ocurrió un error inesperado al obtener los grupos del estudiante. " + ex.Message });
-            }
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
+            
+
+            return Ok(resultado.Valor);
         }
     }
 }

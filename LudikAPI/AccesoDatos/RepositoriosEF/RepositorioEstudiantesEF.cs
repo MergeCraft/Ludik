@@ -37,7 +37,7 @@ namespace AccesoDatos.RepositoriosEF
             }
             catch (Exception e)
             {
-                return Resultado.Falla(Error.Unexpected); 
+                return Resultado.Falla(new Error("Unexpected", e.Message)); 
             }
         }
 
@@ -124,7 +124,7 @@ namespace AccesoDatos.RepositoriosEF
             }
             catch (Exception e)
             {
-                return Resultado<Estudiante>.Falla(Error.Unexpected);
+                return Resultado<Estudiante>.Falla(new Error("Unexpected",e.Message));
             }
         }
         public async Task<Estudiante> GetByIdAsyncString(string id)

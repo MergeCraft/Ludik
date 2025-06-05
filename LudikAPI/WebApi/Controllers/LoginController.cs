@@ -61,10 +61,8 @@ namespace WebApi.Controllers
                 {
                     var usuario = await _userManager.FindByNameAsync(loginSolicitud.NombreUsuario);
                     if (usuario == null)
-                    {
-                        // Esto no debería pasar si PasswordSignInAsync tuvo éxito, pero es una salvaguarda.
                         return Unauthorized(new { Mensaje = "Error al obtener los detalles del usuario." });
-                    }
+                    
 
                     var roles = await _userManager.GetRolesAsync(usuario);
                     string rolUnico = roles.FirstOrDefault();
@@ -96,7 +94,6 @@ namespace WebApi.Controllers
             }
             catch (ArgumentNullException ex)
             {
-                // Log ex
                 return BadRequest(new { Mensaje = "Los datos de la solicitud no pueden ser nulos.", Detalle = ex.Message });
             }
             catch (Exception ex)
