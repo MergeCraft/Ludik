@@ -9,15 +9,13 @@ namespace Dominio
     {
         public int Id { get; set; }
 
-        [ForeignKey(nameof(estudiante))]
         public string estudianteId { get; set; }
         public Estudiante estudiante { get; set; }
 
         public EstadoSolicitud Estado { get; set; } = EstadoSolicitud.Pendiente;
 
-        [ForeignKey(nameof(grupoId))]
-        public int grupoId { get; set; }
-        public Grupo Grupo { get; set; } 
+        public int GrupoId { get; set; }
+        public Grupo Grupo { get; set; }
         public DateOnly fecha { get; set; } = DateOnly.FromDateTime(DateTime.UtcNow);
 
         public SolicitudUnion()

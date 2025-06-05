@@ -134,11 +134,7 @@ namespace AccesoDatos.RepositoriosEF
                 .HasIndex(pe => new { pe.GrupoId, pe.EstudianteId })
                 .IsUnique()
                 .HasDatabaseName("UX_PerfilEstudiante_GrupoId_EstudianteId");
-            modelBuilder.Entity<SolicitudUnion>()
-                .HasOne<Grupo>()  // SolicitudUnion tiene un Grupo
-                .WithMany(g => g.solicitudes) // Grupo tiene muchas solicitudes
-                .HasForeignKey(s => s.Grupo)
-                .OnDelete(DeleteBehavior.Restrict);
+            
             modelBuilder.Entity<SolicitudUnion>()
                 .HasOne(s => s.estudiante)
                 .WithMany() // o con la colección en Estudiante si la tienes
