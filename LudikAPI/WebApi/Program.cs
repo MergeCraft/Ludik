@@ -19,6 +19,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using WebApi.Helpers;
 using WebApi.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -127,6 +128,7 @@ builder.Services.AddScoped<IBajaMedalla,BajaMedalla>();
 builder.Services.AddScoped<IModificarMedalla,ModificarMedalla>();
 builder.Services.AddScoped<IObtenerMedallaPorId,ObtenerMedallaPorId>();
 builder.Services.AddScoped<IObtenerTodasLasMedallas,ObtenerTodasLasMedallas>();
+builder.Services.AddScoped<IGeneradorEnlaceGrupo, GeneradorEnlaceGrupo>();
 
 
 

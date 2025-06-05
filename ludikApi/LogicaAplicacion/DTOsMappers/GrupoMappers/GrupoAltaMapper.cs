@@ -7,15 +7,15 @@ namespace LogicaAplicacion.DTOsMappers.GrupoMappers
 {
     public class GrupoAltaMapper
     {
-        public static GrupoAltaDto toDto(string nombre, int tablaEquivalenciaId, string profesorId, string? institucion = null, string? materia = null)
+        public static GrupoAltaDto toDto(Grupo grupo)
         {
             return new GrupoAltaDto
             {
-                Nombre = nombre,
-                TablaEquivalenciaId = tablaEquivalenciaId,
-                ProfesorId = profesorId,
-                Institucion = institucion,
-                Materia = materia
+                Nombre = grupo.nombre,
+                TablaEquivalenciaId = grupo.tablaEquivalencia.Id,
+                ProfesorId =grupo.ProfesorId,
+                Institucion = grupo.institucion,
+                Materia = grupo.materia
             };
         }
         public static Grupo fromDto(GrupoAltaDto dto, TablaEquivalencia tabla)
@@ -38,7 +38,7 @@ namespace LogicaAplicacion.DTOsMappers.GrupoMappers
                 {
                     codigoBase = dto.CodigoEnlace,
                     urlCompleta = dto.UrlCompleta,
-                    expiracion = DateTime.UtcNow.AddDays(7)
+                    expiracion = DateTime.UtcNow.AddDays(300)
                 };
             }
 

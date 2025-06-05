@@ -7,24 +7,27 @@ using LogicaAplicacion.DTOs.GrupoDTOs;
 using LogicaNegocio.Excepciones;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Authorization;
+using LogicaNegocio.Resultados;
+using System.Security.Claims;
+using WebApi.Helpers;
 
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "EsProfesor")]
     public class GrupoController : ControllerBase
     {
         private readonly IAltaGrupo _altaGrupo;
         private readonly IEditarGrupo _editarGrupo;
         private readonly IBajaGrupo _bajaGrupo;
-        private readonly LinkGenerator _linkGenerator;
 
-        public GrupoController(IAltaGrupo altaGrupo, IEditarGrupo editarGrupo, IBajaGrupo bajaGrupo, LinkGenerator linkGenerator)
+        public GrupoController(IAltaGrupo altaGrupo, IEditarGrupo editarGrupo, IBajaGrupo bajaGrupo)
         {
             _altaGrupo = altaGrupo;
             _editarGrupo = editarGrupo;
             _bajaGrupo = bajaGrupo;
-            _linkGenerator = linkGenerator;
+
         }
         /// <summary>
         /// Este endpoint permite registrar un nuevo grupo en el sistema.
@@ -36,12 +39,23 @@ namespace WebApi.Controllers
         /// </returns>
 
         [HttpPost("alta")]
-        [Authorize(Roles = "Profesor")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> AltaGrupo([FromBody] GrupoAltaRequestDto grupoRequest)
         {
+
+            var profesorId = User.FindFirstValue("id");
+            if (string.IsNullOrEmpty(profesorId))
+                return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
+            
+            var resultado = await _altaGrupo.EjecutarAsync(grupoRequest, profesorId);
+
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
+
+            return Created();
+            /*
             try
             {
                 if (grupoRequest == null)
@@ -82,6 +96,7 @@ namespace WebApi.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Error = "Ocurrió un error inesperado. " + ex.Message });
             }
+            */
         }
         /// <summary>
         /// Este endpoint permite editar los datos de un grupo existente.
@@ -92,14 +107,24 @@ namespace WebApi.Controllers
         /// 404 Not Found: Si el grupo no existe.
         /// 500 Internal Server Error: Si ocurre un error inesperado durante el procesamiento.
         /// </returns>
-        [HttpPut("editar")]
-        [Authorize(Roles = "Profesor")]
+        [HttpPut("editar/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> EditarGrupo([FromBody] GrupoEditarDto grupoDto)
         {
+            var profesorId = User.FindFirstValue("id");
+            if (string.IsNullOrEmpty(profesorId))
+                return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
+            
+            var resultado = await _editarGrupo.EjecutarAsync(grupoDto, profesorId);
+
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
+            
+            return NoContent();
+            /*
             try
             {
                 if (grupoDto == null)
@@ -126,6 +151,7 @@ namespace WebApi.Controllers
             {
                 return StatusCode(500, new { Error = "Ocurrió un error inesperado. " + ex.Message });
             }
+            */
         }
         /// <summary>
         /// Este endpoint permite eliminar un grupo existente.
@@ -135,36 +161,24 @@ namespace WebApi.Controllers
         /// 404 Not Found: Si el grupo no existe.
         /// 500 Internal Server Error: Si ocurre un error inesperado durante el procesamiento.
         /// </returns>
-        [HttpDelete("eliminar/{id}")]
-        [Authorize(Roles = "Profesor")]
+        [HttpDelete("eliminar/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> EliminarGrupo(int id)
         {
-            try
-            {
-                string profesorId = User.FindFirst("id")?.Value;
+            var profesorId = User.FindFirstValue("id");
 
-                if (string.IsNullOrEmpty(profesorId))
-                    return Unauthorized("No se pudo determinar el ID del profesor desde el token.");
+            if (string.IsNullOrEmpty(profesorId))
+                return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
 
-                await _bajaGrupo.EjecutarAsync(id, profesorId);
+            var resultado = await _bajaGrupo.EjecutarAsync(id, profesorId);
 
-                return Ok("Grupo eliminado correctamente.");
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                return Forbid(ex.Message);
-            }
-            catch (GrupoNoValidoExeption ex)
-            {
-                return NotFound(new { Error = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Error = "Error inesperado: " + ex.Message });
-            }
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
+            
+            //DELETE exitoso siempre debe devolver 204 NoContent
+            return NoContent();
         }
     }
 }
