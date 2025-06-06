@@ -1,0 +1,75 @@
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: #131f24;
+  border-radius: 15px;
+  padding: 24px;
+  width: 70%;
+  max-width: 400px;
+  color: var(--blanco-principal);
+  font-family: sans-serif;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.modalHeader h2 {
+  margin: 0;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: #d9d9d9;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+input,
+select {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--blanco-secundario);
+  color: #75757A;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.selectWrapper {
+  position: relative;
+}
+
+.selectWrapper select {
+  width: 100%;
+  padding-right: 30px;
+}
+
+.btnSubmit {
+  height: 40px;
+}

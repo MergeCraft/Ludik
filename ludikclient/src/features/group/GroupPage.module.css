@@ -1,0 +1,86 @@
+.studentGroups {
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin-bottom: 60px;
+}
+
+.acciones {
+    margin: 20px 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.accionesBusqueda {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.buscador {
+    background-color: var(--secundario);
+    border: none;
+    border-radius: 10px;
+    padding: 0.8rem;
+    font-size: 1rem;
+    box-sizing: border-box;
+    flex-grow: 1;
+    color: var(--blanco-secundario);
+}
+
+.buscador::placeholder {
+    color: var(--blanco-secundario);
+}
+
+.filtroTexto:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--boton-principal);
+}
+
+.filtros {
+    color: var(--terciario);
+}
+
+.accionPrincipal {
+    position: fixed;
+    bottom: 20px;
+    width: 90%;
+    max-width: 90%;
+    z-index: 2;
+    height: 45px;
+}
+
+.loaderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 80vh;
+    /* Alto de toda la pantalla */
+    width: 100%;
+    /* Ancho completo */
+    position: absolute;
+    /* o absolute si lo usás dentro de otro contenedor */
+    z-index: 1;
+}
+@media screen and (min-width: 992px) {
+
+    .accionesBusqueda {
+        width: 30%;
+    }
+
+    .accionPrincipal {
+        position: static;
+        width: 15%;
+        max-width: none;
+        z-index: auto;
+        transform: none;
+        margin-right: auto;
+        padding: 0.8rem;
+    }
+}

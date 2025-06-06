@@ -1,0 +1,229 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  /* Cambia a columna para apilar verticalmente */
+  align-items: center;
+  /* Centra horizontalmente */
+  background-color: var(--principal);
+  min-height: 100vh;
+  /* Ocupa toda la altura de la ventana */
+  padding: 2rem 2rem 4rem 2rem;
+  /* Ajuste de padding, si querés */
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
+
+.cerrarIcono {
+  position: absolute;
+  /* ya no es fijo */
+  top: 1rem;
+  left: 1rem;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.formBox {
+  background-color: var(--secundario);
+  border-radius: 15px;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.logoArea {
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  width: 100%;
+  /* Opcional: para que el área del logo ocupe todo el ancho disponible */
+}
+
+.logoArea img {
+  height: 100%;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.formulario.oculto {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(.5);
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.etiqueta {
+  color: var(--blanco-secundario);
+  margin-bottom: 0.5rem;
+}
+
+.recuerdame{
+  margin: 0;
+}
+
+.input {
+  background-color: var(--blanco-principal);
+  border: none;
+  border-radius: 10px;
+  padding: 0.8rem;
+  font-size: 1rem;
+  color: var(--terciario);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--boton-principal);
+}
+
+.recordar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: white;
+  margin: 0.5rem 0;
+}
+
+.acciones {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.accionesLogin {
+  height: 90px;
+}
+
+.acciones hr {
+  width: 100%;
+  border: none;
+  border-top: 2px solid var(--terciario);
+}
+
+.enlace {
+  color: var(--boton-principal);
+  font-size: 0.95rem;
+  font-family: "Actor", sans-serif;
+  text-decoration: none;
+  text-shadow: 0px 4px 4px #00000040;
+  white-space: nowrap;
+}
+
+.nuevaCuenta {
+  text-decoration: none;
+}
+
+.botonRegistro {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+/* SWITCH de selección profesor/alumno */
+
+.switchContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+  height: 44px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--principal);
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 36px;
+  width: 90px;
+  border-radius: 35px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--secundario);
+  transition: 0.4s;
+}
+
+input:checked+.slider:before {
+  transform: translateX(103px);
+}
+
+.switchLabel {
+  position: absolute;
+  top: 46%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  transition: 0.4s;
+}
+
+.switchLabel.profesor {
+  left: 17px;
+  color: var(--blanco-secundario);
+}
+
+.switchLabel.alumno {
+  right: 17px;
+  color: var(--terciario);
+}
+
+input:checked+.slider .switchLabel.profesor {
+  color: var(--terciario);
+}
+
+input:checked+.slider .switchLabel.alumno {
+  color: var(--blanco-secundario);
+}
+
+/* Transición de formularios */
+.formSlider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.formInner {
+  display: flex;
+  width: 200%;
+  transition: 0.5s ease-in-out;
+}

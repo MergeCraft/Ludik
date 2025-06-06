@@ -1,0 +1,54 @@
+.groupItem {
+    width: 100%;
+    background-color: #23353c;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #d9d9d9;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px;
+  max-width: 100%; /* Permite que el contenido se encoja dentro del contenedor */
+}
+
+
+.icon {
+    height: 90px;
+    width: 90px;
+    margin-right: 15px;
+    border-radius: 50%;
+    /* Espacio entre la imagen y el texto */
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    /* Permite que el bloque de información ocupe el espacio restante */
+}
+
+.name,
+.grade,
+.studentCount {
+    font-family: "ADLaM Display-Regular", Helvetica;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 3px 0;
+    /* Espaciado entre las líneas de texto */
+}
+
+.enterIcon {
+    height: 34px;
+    width: 34px;
+    color: var(--principal);
+    cursor: pointer;
+    /* Indicamos que es un ícono clickeable */
+}
