@@ -15,19 +15,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: List repo files for debugging
+        run: ls -R LudikAPI
+
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "8.x"
 
       - name: Restore dependencies
-        run: dotnet restore Ludik/LudikAPI/WebApi/WebApi.csproj
+        run: dotnet restore LudikAPI/WebApi/WebApi.csproj
 
       - name: Build with dotnet
-        run: dotnet build Ludik/LudikAPI/WebApi/WebApi.csproj --configuration Release --no-restore
+        run: dotnet build LudikAPI/WebApi/WebApi.csproj --configuration Release --no-restore
 
       - name: dotnet publish
-        run: dotnet publish Ludik/LudikAPI/WebApi/WebApi.csproj --configuration Release --output ./publish --no-build
+        run: dotnet publish LudikAPI/WebApi/WebApi.csproj --configuration Release --output ./publish --no-build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
