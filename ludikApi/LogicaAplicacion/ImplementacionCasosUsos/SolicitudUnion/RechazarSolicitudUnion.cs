@@ -1,24 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Dominio;
 using InterfacesRepositorio;
-using LogicaAplicacion.DTOs.SolocitudUnionDTOs;
 using LogicaAplicacion.InterfacesCasosUsos.SolicitudUnion;
+using LogicaNegocio.Resultados;
+using LogicaNegocio.ValueObject;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
 {
     public class RechazarSolicitudUnion : IRechazarSolicitudUnion
     {
         private readonly IRepositorioSolicitudesUnion _repoSolicitudes;
+
         public RechazarSolicitudUnion(IRepositorioSolicitudesUnion repoSolicitudes)
         {
             _repoSolicitudes = repoSolicitudes;
         }
-        public Task EjecutarAsync(SolicitudUnionDto dto)
+
+        public async Task<Resultado> EjecutarAsync(int idSolicitud)
         {
-            throw new NotImplementedException();
+            var solicitud = await _repoSolicitudes.GetSolicitudConEstudianteYGrupoPorIdAsync(idSolicitud);
+            if (solicitud == null)
+                return Resultado.Falla(new Error("Solicitud", "La solicitud no existe."));
+
+            if (solicitud.Estado != EstadoSolicitud.Pendiente)
+                return Resultado.Falla(new Error("Solicitud", "La solicitud ya fue procesada."));
+
+            solicitud.Estado = EstadoSolicitud.Rechazada;
+
+            var resultado = await _repoSolicitudes.UpdateAsync(solicitud);
+            if (resultado.EsFallo) return resultado;
+
+            return Resultado.Exitoso();
         }
     }
 }

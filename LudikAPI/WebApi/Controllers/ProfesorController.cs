@@ -11,6 +11,7 @@ using System.Security.Claims;
 using LogicaAplicacion.DTOs.SolocitudUnionDTOs;
 using LogicaAplicacion.InterfacesCasosUsos.SolicitudUnion;
 using WebApi.Helpers;
+using LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion;
 
 namespace WebApi.Controllers
 {
@@ -22,12 +23,14 @@ namespace WebApi.Controllers
         private readonly IObtenerGruposDeProfesor _obtenerGruposDeProfesor;
         private readonly IObtenerSolicitudesUnionDelGrupo _obtenerSolicitudesUnionDelGrupo;
         private readonly IAceptarSolicitudUnion _aceptarSolicitudUnion;
-        public ProfesorController(IAltaProfesor altaProfesor, IObtenerGruposDeProfesor obtenerGruposDeProfesor, IObtenerSolicitudesUnionDelGrupo obtenerSolicitudesUnionDelGrupo,IAceptarSolicitudUnion aceptarSolicitudUnion)
+        private readonly IRechazarSolicitudUnion _rechazarSolicitudUnion;
+        public ProfesorController(IAltaProfesor altaProfesor, IObtenerGruposDeProfesor obtenerGruposDeProfesor, IObtenerSolicitudesUnionDelGrupo obtenerSolicitudesUnionDelGrupo,IAceptarSolicitudUnion aceptarSolicitudUnion, IRechazarSolicitudUnion rechazarSolicitudUnion)
         {
             _altaProfesor = altaProfesor;
             _obtenerGruposDeProfesor = obtenerGruposDeProfesor;
             _obtenerSolicitudesUnionDelGrupo = obtenerSolicitudesUnionDelGrupo;
             _aceptarSolicitudUnion = aceptarSolicitudUnion;
+            _rechazarSolicitudUnion = rechazarSolicitudUnion;
         }
         /// <summary>
         /// Este endpoint permite registrar un nuevo Profesor en el sistema.
@@ -174,6 +177,52 @@ namespace WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new
                 {
                     Mensaje = "Ocurrió un error inesperado al aceptar la solicitud. " + ex.Message
+                });
+            }
+        }
+        /// <summary>
+        /// Rechaza una solicitud de unión de un estudiante a un grupo del profesor.
+        /// </summary>
+        /// <param name="solicitudId">ID de la solicitud de unión</param>
+        /// <returns>
+        /// 200 OK: Solicitud rechazada correctamente.
+        /// 400 Bad Request: Datos inválidos o solicitud ya procesada.
+        /// 404 Not Found: La solicitud no existe.
+        /// 401 Unauthorized: Usuario no autenticado.
+        /// 500 Internal Server Error: Error inesperado.
+        /// </returns>
+        [HttpPost("rechazar-solicitud")]
+        [Authorize(Roles = "Profesor")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> RechazarSolicitud([FromQuery][Required] int solicitudId)
+        {
+            try
+            {
+                var idProfesor = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(idProfesor))
+                    return Unauthorized(new { Mensaje = "No se pudo identificar al usuario autenticado." });
+
+                var resultado = await _rechazarSolicitudUnion.EjecutarAsync(solicitudId);
+
+                if (resultado.EsFallo)
+                {
+                    if (resultado.Errores.Any(e => e.Codigo == "NotFound" || e.Mensaje.Contains("no existe")))
+                        return NotFound(resultado.Errores.ToList());
+
+                    return BadRequest(resultado.Errores.ToList());
+                }
+
+                return Ok(new { Mensaje = "La solicitud fue rechazada correctamente." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    Mensaje = "Ocurrió un error inesperado al rechazar la solicitud. " + ex.Message
                 });
             }
         }
