@@ -63,7 +63,7 @@ namespace WebApi.Controllers
         /// <response code="401">No autorizado.</response>
         /// <response code="404">Medalla no encontrada.</response>
         /// <response code="500">Error interno del servidor.</response>
-        [HttpGet("{id:int}")] // Restricción de tipo para el ID
+        [HttpGet("{id:int}")]
         [ProducesResponseType(typeof(MedallaDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
