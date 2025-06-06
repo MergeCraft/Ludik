@@ -1,7 +1,7 @@
 // src/pages/Home.js
 import React from "react";
 import classNames from "classnames";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./Home.module.css";
 
 function Home() {
@@ -12,9 +12,7 @@ function Home() {
         <div>
           <div className={classNames("fade-up")}>
             <h1 className={styles.heroTitle}>Gamifica el aprendizaje</h1>
-            <p className={styles.heroSubtitle}>
-              Una bitácora educativa diseñada para motivar, recompensar y facilitar el seguimiento de los estudiantes.
-            </p>
+            <p className={styles.heroSubtitle}>Una bitácora educativa diseñada para motivar, recompensar y facilitar el seguimiento de los estudiantes.</p>
           </div>
 
           <div className={classNames(styles.menuComenzar, "fade-in", "delay-2")}>

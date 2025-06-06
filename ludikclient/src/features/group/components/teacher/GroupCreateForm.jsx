@@ -1,6 +1,5 @@
 // GroupCreateModal.jsx
 import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./GroupCreateForm.module.css";
 import * as Toast from "../../../../lib/toastify.js";
 import { useCrearGrupo } from "../../hooks/useGrupoMutation.js";

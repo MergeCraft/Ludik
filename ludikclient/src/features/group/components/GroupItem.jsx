@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styles from "./GroupItem.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -16,6 +17,13 @@ const GroupItem = ({ name, grade, students, imgSrc }) => {
       </div>
     </div>
   );
+};
+
+GroupItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  grade: PropTypes.string.isRequired,
+  students: PropTypes.number.isRequired,
+  imgSrc: PropTypes.string.isRequired,
 };
 
 export default GroupItem;

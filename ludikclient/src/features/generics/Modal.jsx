@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./Modal.module.css";
 
@@ -17,6 +18,12 @@ export const Modal = ({ onClose, modalTitle, content }) => {
       </section>
     </div>
   );
+};
+
+Modal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  modalTitle: PropTypes.string.isRequired,
+  content: PropTypes.node.isRequired,
 };
 
 export default Modal;

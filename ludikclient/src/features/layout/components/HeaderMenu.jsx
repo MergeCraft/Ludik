@@ -16,9 +16,7 @@ const HeaderMenu = () => {
     setShowOptions(!showOptions);
   };
 
-  const closeMenu = () => {
-    setShowOptions(false);
-  };
+
 
   const handleLogout = () => {
     cerrarSesion(dispatch);

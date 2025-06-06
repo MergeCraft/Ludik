@@ -1,13 +1,11 @@
 import React from "react";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import styles from "./Layout.module.css";
 import HeaderMenu from "./components/HeaderMenu";
 
 function Layout() {
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const isLoginPage = location.pathname === "/login";
 
   // Detectar si hay usuario logueado con sessionStorage y userData
   const userDataString = sessionStorage.getItem("userData");

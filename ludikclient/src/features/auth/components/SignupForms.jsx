@@ -1,13 +1,11 @@
 // components/SignupForm.js
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import styles from "../AuthPage.module.css";
 import { useRegistro } from "../hooks/useAuthMutation.js";
 import * as Toast from "../../../lib/toastify.js";
 
 const SignupForm = () => {
-  const navigate = useNavigate();
   const [isProfesor, setIsProfesor] = useState(true);
   const { mutateAsync: registrar } = useRegistro();
 
