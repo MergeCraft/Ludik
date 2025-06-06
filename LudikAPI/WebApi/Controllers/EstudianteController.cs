@@ -151,6 +151,7 @@ namespace WebApi.Controllers
                 CodigoEnlace = codigo
             };
 
+
             var resultado = Resultado.Falla(new Error("SinImplementar", "Falta implementar este metodo"));
             return this.ManejarFallo(resultado);
             /*

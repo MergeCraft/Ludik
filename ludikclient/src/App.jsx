@@ -13,6 +13,8 @@ import Layout from "./features/layout/Layout";
 import Home from "./features/home/Home.jsx";
 import AuthPage from "./features/auth/AuthPage";
 import GroupsPage from "./features/group/GroupsPage.jsx";
+import ProfilePage from "./features/profile/ProfilePage.jsx";
+
 import PrivateRoute from "./features/routing/PrivateRoute";
 
 // Crear cliente de React Query
@@ -33,11 +35,10 @@ function App() {
               <Route index element={<Home />} />
 
               {/* Rutas protegidas */}
-              <Route element={<PrivateRoute allowedRoles={["Profesor"]} />}>
-                
-              </Route>
+              <Route element={<PrivateRoute allowedRoles={["Profesor"]} />}></Route>
 
               <Route path="groups" element={<GroupsPage />} />
+              <Route path="profile" element={<ProfilePage />} />
 
               {/* Puedes agregar más rutas protegidas aquí */}
             </Route>

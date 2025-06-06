@@ -42,6 +42,7 @@ namespace WebApi.Controllers
         /// </returns>
 
         [HttpPost("alta")]
+        [Authorize(Policy = "EsProfesor")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -66,7 +67,7 @@ namespace WebApi.Controllers
         /// </returns>
 
         [HttpGet("mis-grupos")]
-        [Authorize(Roles = "Profesor")]
+        [Authorize(Policy = "EsProfesor")]
         [ProducesResponseType(typeof(List<GrupoDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -87,7 +88,7 @@ namespace WebApi.Controllers
                 return this.ManejarFallo(resultado);
             
 
-                return Ok(resultado.Valor);
+            return Ok(resultado.Valor);
         }
         /// <summary>
         /// Obtiene las solicitudes pendientes de unión a un grupo del profesor autenticado.
@@ -101,7 +102,7 @@ namespace WebApi.Controllers
         /// 500 Internal Server Error: Error inesperado.
         /// </returns>
         [HttpGet("solicitudes-union")]
-        [Authorize(Roles = "Profesor")]
+        [Authorize(Policy = "EsProfesor")]
         [ProducesResponseType(typeof(List<SolicitudUnionListadoDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -146,7 +147,7 @@ namespace WebApi.Controllers
         /// 500 Internal Server Error: Error inesperado.
         /// </returns>
         [HttpPost("aceptar-solicitud")]
-        [Authorize(Roles = "Profesor")]
+        [Authorize(Policy = "EsProfesor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
