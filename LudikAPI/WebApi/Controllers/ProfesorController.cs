@@ -85,14 +85,6 @@ namespace WebApi.Controllers
             
 
                 return Ok(resultado.Valor);
-            }
-            catch (Exception ex)
-            {
-                // IMPORTANTE: En producción, no exponer ex.Message directamente.
-                // Loguear ex.ToString() para tener todos los detalles internamente.
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    new { Mensaje = "Ocurrió un error inesperado al obtener los grupos del estudiante. " + ex.Message });
-            }
         }
         /// <summary>
         /// Obtiene las solicitudes pendientes de unión a un grupo del profesor autenticado.
