@@ -10,6 +10,7 @@ using LogicaAplicacion.DTOsMappers.EstudianteMappers;
 using LogicaAplicacion.InterfacesCasosUsos.Estudiante;
 using LogicaNegocio.Excepciones;
 using LogicaNegocio.InterfacesEntidades;
+using LogicaNegocio.Resultados;
 using Microsoft.AspNetCore.Identity;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
@@ -23,38 +24,46 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
             _userManager = userManager;
         }
 
-        // Pre:  el DTO no puede ser nulo.
-        // Pos:  crea un nuevo usuario-Estudiante en Identity y persiste sus datos extra en la tabla Estudiantes.
-        public async Task EjecutarAsync(EstudianteAltaDto estudianteAltaDto)
+        /// <summary>
+        /// Crea un nuevo usuario de tipo Estudiante. No lanza excepciones por fallos de validación o negocio,
+        /// en su lugar, retorna un objeto Resultado que encapsula el éxito o el fallo de la operación.
+        /// </summary>
+        /// <param name="estudianteAltaDto">DTO con los datos para el alta.</param>
+        /// <returns>Un objeto Resultado que indica el éxito o contiene los errores de la operación.</returns>
+        public async Task<Resultado> EjecutarAsync(EstudianteAltaDto estudianteAltaDto)
         {
+
             if (estudianteAltaDto == null)
-                throw new ArgumentNullException(nameof(estudianteAltaDto),
-                    "No se puede dar de alta un estudiante si no se tienen los datos necesarios.");
+                return Resultado.Falla(new Error("Validation", "Los datos del estudiante no pueden ser nulos."));
+            
 
             var estudianteNuevo = EstudianteAltaMapper.fromDto(estudianteAltaDto);
 
             var existeNombre = await _userManager.FindByNameAsync(estudianteAltaDto.NombreUsuario);
             if (existeNombre != null)
-                throw new InvalidOperationException("El nombre de usuario ya está en uso.");
+                return Resultado.Falla(new Error("Conflict", "El nombre de usuario ya está en uso."));
+            
 
             var resultadoCreacion = await _userManager.CreateAsync(estudianteNuevo, estudianteAltaDto.Contrasenia);
             if (!resultadoCreacion.Succeeded)
             {
-                var errores = string.Join("; ", resultadoCreacion.Errors);
-                throw new InvalidOperationException($"No se pudo crear el usuario: {errores}");
+                var errores = resultadoCreacion.Errors
+                    .Select(e => new Error("Error.Validation", e.Description));
+                return Resultado.Falla(errores);
             }
 
             var rolAsignado = await _userManager.AddToRoleAsync(estudianteNuevo, "Estudiante");
             if (!rolAsignado.Succeeded)
             {
-                // Si falla la asignación de rol, eliminamos el usuario para no dejar datos huérfanos
+
                 await _userManager.DeleteAsync(estudianteNuevo);
-                var erroresRol = string.Join("; ", rolAsignado.Errors);
-                throw new InvalidOperationException($"No se pudo asignar el rol: {erroresRol}");
+
+                return Resultado.Falla(new Error("Internal","Ocurrió un error crítico al procesar el registro. No se pudo asignar el rol."));
             }
 
+            return Resultado.Exitoso();
         }
-    
+
 
     }
 }

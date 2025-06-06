@@ -31,7 +31,6 @@ namespace WebApi.Jwt
                 new Claim(JwtRegisteredClaimNames.Sub, usuarioId),
                 new Claim(ClaimTypes.Name, nombreUsuario),
                 new Claim(ClaimTypes.Role, rol),
-                new Claim("id", usuarioId), 
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

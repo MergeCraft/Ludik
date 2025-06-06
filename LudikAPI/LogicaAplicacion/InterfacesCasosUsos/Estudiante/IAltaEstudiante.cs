@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LogicaAplicacion.DTOs.UsuarioDTOs;
+using LogicaNegocio.Resultados;
 
 namespace LogicaAplicacion.InterfacesCasosUsos.Estudiante
 {
     public interface IAltaEstudiante
     {
-        Task EjecutarAsync(EstudianteAltaDto estudianteAltaDto);
+        Task<Resultado> EjecutarAsync(EstudianteAltaDto estudianteAltaDto);
     }
 }

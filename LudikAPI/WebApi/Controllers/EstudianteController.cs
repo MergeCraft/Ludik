@@ -11,6 +11,7 @@ using LogicaNegocio.Resultados;
 using LogicaAplicacion.DTOs.GrupoDTOs;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using WebApi.Helpers;
 
 namespace WebApi.Controllers
 {
@@ -44,6 +45,12 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> AltaEstudiante([FromBody] EstudianteAltaDto estudianteDto)
         {
+            Resultado resultado = await _altaEstudiante.EjecutarAsync(estudianteDto);
+
+            return resultado.EsExitoso
+                ? StatusCode(StatusCodes.Status201Created)
+                : this.ManejarFallo(resultado);
+            /*
             try
             {
                 if (estudianteDto == null)
@@ -66,6 +73,7 @@ namespace WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     new { Error = "Ocurrió un error inesperado. " + ex.Message });
             }
+            */
         }
 
         /// <summary>
@@ -79,7 +87,7 @@ namespace WebApi.Controllers
         /// 500 Internal Server Error: Si ocurre un error inesperado.
         /// </returns>
         [HttpGet("mis-grupos")]
-        [Authorize(Roles = "Estudiante")]
+        [Authorize(Policy = "EsEstudiante")]
         [ProducesResponseType(typeof(List<GrupoDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -87,6 +95,14 @@ namespace WebApi.Controllers
         [ProducesResponseType(typeof(object), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ObtenerGruposDeEstudiante()
         {
+            var idEstudianteAutenticado = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            Resultado<List<GrupoDto>> resultado = await _obtenerGruposPorEstudiante.EjecutarAsync(idEstudianteAutenticado);
+
+            return resultado.EsExitoso
+                ? Ok(resultado.Valor)
+                : this.ManejarFallo(resultado);
+            /*
             try
             {
                 var idEstudianteAutenticado = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -115,20 +131,42 @@ namespace WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     new { Mensaje = "Ocurrió un error inesperado al obtener los grupos del estudiante. " + ex.Message });
             }
+            */
         }
-        [HttpGet("unirse-grupo", Name = "UnirseAGrupo")]
-        [Authorize(Roles = "Estudiante")]
+        [HttpPost("unirse-grupo")]
+        [Authorize(Policy = "EsEstudiante")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(object), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(object), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(object), StatusCodes.Status404NotFound)] // si el código no existe
+        [ProducesResponseType(typeof(object), StatusCodes.Status409Conflict)] // si el estudiante ya es miembro
+        [ProducesResponseType(typeof(object), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UnirseAGrupo([FromQuery] string codigo)
         {
+            var estudianteId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
+
+            var solicitudDto = new SolicitudUnionDto
+            {
+                IdEstudiante = estudianteId,
+                CodigoEnlace = codigo
+            };
+
+            var resultado = Resultado.Falla(new Error("SinImplementar", "Falta implementar este metodo"));
+            return this.ManejarFallo(resultado);
+            /*
+            Resultado resultado = await _crearSolicitudUnion.EjecutarAsync(solicitudDto);
+
+            return resultado.EsExitoso
+                ? StatusCode(StatusCodes.Status201Created)
+                : this.ManejarFallo(resultado);
+            */
+            /*
             try
             {
                 if (string.IsNullOrWhiteSpace(codigo))
                     return BadRequest("El código del enlace es obligatorio.");
 
-                string estudianteId = User.FindFirst("id")?.Value; 
+                string estudianteId = User.FindFirst("id")?.Value;
 
                 if (string.IsNullOrEmpty(estudianteId))
                     return Unauthorized("No se pudo obtener el ID del estudiante desde el token.");
@@ -156,6 +194,7 @@ namespace WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     new { Error = "Ocurrió un error inesperado. " + ex.Message });
             }
+            */
         }
     }
 }
