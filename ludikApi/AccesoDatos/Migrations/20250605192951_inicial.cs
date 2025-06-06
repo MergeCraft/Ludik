@@ -329,7 +329,7 @@ namespace AccesoDatos.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     estudianteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Estado = table.Column<int>(type: "int", nullable: false),
-                    grupoId = table.Column<int>(type: "int", nullable: false),
+                    GrupoId = table.Column<int>(type: "int", nullable: false),
                     fecha = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
@@ -342,11 +342,11 @@ namespace AccesoDatos.Migrations
                         principalColumn: "UsuarioId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_SolicitudesUnion_Grupos_grupoId",
-                        column: x => x.grupoId,
+                        name: "FK_SolicitudesUnion_Grupos_GrupoId",
+                        column: x => x.GrupoId,
                         principalTable: "Grupos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -449,14 +449,14 @@ namespace AccesoDatos.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     medallaAsociadaId = table.Column<int>(type: "int", nullable: false),
-                    grupoId = table.Column<int>(type: "int", nullable: false)
+                    GrupoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TablasClasificacion", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TablasClasificacion_Grupos_grupoId",
-                        column: x => x.grupoId,
+                        name: "FK_TablasClasificacion_Grupos_GrupoId",
+                        column: x => x.GrupoId,
                         principalTable: "Grupos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -696,14 +696,14 @@ namespace AccesoDatos.Migrations
                 column: "estudianteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SolicitudesUnion_grupoId",
+                name: "IX_SolicitudesUnion_GrupoId",
                 table: "SolicitudesUnion",
-                column: "grupoId");
+                column: "GrupoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TablasClasificacion_grupoId",
+                name: "IX_TablasClasificacion_GrupoId",
                 table: "TablasClasificacion",
-                column: "grupoId");
+                column: "GrupoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TablasClasificacion_medallaAsociadaId",

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250603181156_inicial")]
-    partial class inicial
+    [Migration("20250606124901_PermitirNullEnlaceAvatar")]
+    partial class PermitirNullEnlaceAvatar
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -251,7 +251,6 @@ namespace AccesoDatos.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("enlaceAvatar")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("metaCalificacion")
@@ -410,6 +409,9 @@ namespace AccesoDatos.Migrations
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
+                    b.Property<int>("GrupoId")
+                        .HasColumnType("int");
+
                     b.Property<string>("estudianteId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -417,14 +419,11 @@ namespace AccesoDatos.Migrations
                     b.Property<DateOnly>("fecha")
                         .HasColumnType("date");
 
-                    b.Property<int>("grupoId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("estudianteId");
+                    b.HasIndex("GrupoId");
 
-                    b.HasIndex("grupoId");
+                    b.HasIndex("estudianteId");
 
                     b.ToTable("SolicitudesUnion");
                 });
@@ -437,22 +436,22 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("GrupoId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("grupoId")
-                        .HasColumnType("int");
 
                     b.Property<int>("medallaAsociadaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Nombre");
+                    b.HasIndex("GrupoId");
 
-                    b.HasIndex("grupoId");
+                    b.HasIndex("Nombre");
 
                     b.HasIndex("medallaAsociadaId");
 
@@ -925,17 +924,19 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("Dominio.SolicitudUnion", b =>
                 {
+                    b.HasOne("Dominio.Grupo", "Grupo")
+                        .WithMany("solicitudes")
+                        .HasForeignKey("GrupoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Dominio.Estudiante", "estudiante")
                         .WithMany()
                         .HasForeignKey("estudianteId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Dominio.Grupo", null)
-                        .WithMany("solicitudes")
-                        .HasForeignKey("grupoId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                    b.Navigation("Grupo");
 
                     b.Navigation("estudiante");
                 });
@@ -944,7 +945,7 @@ namespace AccesoDatos.Migrations
                 {
                     b.HasOne("Dominio.Grupo", null)
                         .WithMany("tablasClasificacion")
-                        .HasForeignKey("grupoId")
+                        .HasForeignKey("GrupoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

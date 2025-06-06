@@ -20,7 +20,7 @@ namespace Dominio
         public List<PerfilEstudiante> participantes { get; set; }
 
         [ForeignKey(nameof(Grupo))]
-        public int grupoId { get; set; } 
+        public int GrupoId { get; set; } 
 
         public void actualizar()
 		{

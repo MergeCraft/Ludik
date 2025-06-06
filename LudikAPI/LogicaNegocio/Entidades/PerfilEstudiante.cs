@@ -12,7 +12,7 @@ namespace Dominio
 
         public int avatarGrupoId { get; set; }
 
-        public String enlaceAvatar { get; set; }
+        public String? enlaceAvatar { get; set; }
 
         public int metaCalificacion { get; set; }
 
