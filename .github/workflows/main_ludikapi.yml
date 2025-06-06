@@ -35,7 +35,7 @@ jobs:
           name: dotnet-app
           path: ./publish
 
-  deploy:
+    deploy:
     runs-on: windows-latest
     needs: build
     environment:
@@ -56,4 +56,3 @@ jobs:
           slot-name: "Production"
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0CB718D089D04D9F96D04CFB92D23316 }}
-s
