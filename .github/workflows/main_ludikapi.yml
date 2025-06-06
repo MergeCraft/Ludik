@@ -21,13 +21,13 @@ jobs:
           dotnet-version: "8.x"
 
       - name: Restore dependencies
-        run: dotnet restore **/*.csproj
+        run: dotnet restore Ludik/LudikAPI/WebApi/WebApi.csproj
 
       - name: Build with dotnet
-        run: dotnet build **/*.csproj --configuration Release --no-restore
+        run: dotnet build Ludik/LudikAPI/WebApi/WebApi.csproj --configuration Release --no-restore
 
       - name: dotnet publish
-        run: dotnet publish **/*.csproj --configuration Release --output ./publish --no-build
+        run: dotnet publish Ludik/LudikAPI/WebApi/WebApi.csproj --configuration Release --output ./publish --no-build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -35,7 +35,7 @@ jobs:
           name: dotnet-app
           path: ./publish
 
-    deploy:
+  deploy:
     runs-on: windows-latest
     needs: build
     environment:
