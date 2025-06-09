@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using Dominio;
 using LogicaNegocio.InterfacesEntidades;
+using LogicaNegocio.Resultados;
 
 namespace Dominio
 {
@@ -15,7 +16,7 @@ namespace Dominio
         public String imagen { get; set; }
 
         public int precio { get; set; }
-        public void EsValido()
+        public Resultado esValido()
         {
             throw new NotImplementedException();
         }

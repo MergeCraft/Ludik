@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using Dominio;
 using LogicaNegocio.InterfacesEntidades;
+using LogicaNegocio.Resultados;
 using LogicaNegocio.ValueObject;
 
 namespace Dominio
@@ -21,7 +22,7 @@ namespace Dominio
         public int perfilEstudianteId { get; set; } // Clave for�nea
 
 
-        public void EsValido()
+        public Resultado esValido()
         {
             throw new NotImplementedException();
         }

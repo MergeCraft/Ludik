@@ -66,6 +66,10 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
                 tienda = new Tienda()
             };
 
+            var resultadoValidacion = grupo.esValido();
+            if (resultadoValidacion.EsFallo)
+                return resultadoValidacion;
+
             await _repositorioGrupos.AddAsync(grupo);
 
             return Resultado.Exitoso();

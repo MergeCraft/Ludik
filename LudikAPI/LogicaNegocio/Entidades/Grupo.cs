@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using LogicaNegocio.InterfacesEntidades;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using LogicaNegocio.Resultados;
 
 namespace Dominio
 {
@@ -60,9 +61,23 @@ namespace Dominio
 			return true;
 		}
 
-        public void EsValido()
+        public Resultado esValido()
         {
-            throw new NotImplementedException();
+            var errores = new List<Error>();
+
+            if (string.IsNullOrWhiteSpace(nombre) || nombre.Length < 3 || nombre.Length > 30)
+                errores.Add(new Error("Grupo.Nombre", "El nombre del grupo debe tener entre 3 y 30 caracteres."));
+
+            if (tablaEquivalencia == null)
+                errores.Add(new Error("Grupo.TablaEquivalencia", "La tabla de equivalencia es obligatoria."));
+
+            if (string.IsNullOrWhiteSpace(ProfesorId))
+                errores.Add(new Error("Grupo.ProfesorId", "El identificador del profesor es obligatorio."));
+
+            if (errores.Any())
+                return Resultado.Falla(errores);
+
+            return Resultado.Exitoso();
         }
     }
 

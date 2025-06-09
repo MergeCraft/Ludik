@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using LogicaNegocio.InterfacesEntidades;
+using LogicaNegocio.Resultados;
 using LogicaNegocio.ValueObjects;
 using Microsoft.AspNetCore.Identity;
 
@@ -13,13 +14,11 @@ namespace Dominio
 
         [Required]
         public NombreCompleto NombreCompleto { get; set; }
-       
-        public void EsValido()
+
+        public Resultado esValido()
         {
-
-
+            throw new NotImplementedException();
         }
-
     }
 
 }

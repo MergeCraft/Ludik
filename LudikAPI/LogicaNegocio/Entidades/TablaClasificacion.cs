@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using LogicaNegocio.InterfacesEntidades;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using LogicaNegocio.Resultados;
 
 namespace Dominio
 {
@@ -27,7 +28,7 @@ namespace Dominio
 
 		}
 
-        public void EsValido()
+        public Resultado esValido()
         {
             throw new NotImplementedException();
         }
