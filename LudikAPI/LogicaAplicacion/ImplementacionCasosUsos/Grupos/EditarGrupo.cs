@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dominio;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.GrupoDTOs;
 using LogicaAplicacion.DTOsMappers.GrupoMappers;
@@ -32,6 +33,9 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
                 throw new UnauthorizedAccessException("No tiene permiso para editar este grupo.");
 
             GrupoEditarDtoMapper.UpdateFromDto(grupoDto, resultado.Valor);
+            var resultadoValidacion = resultado.Valor.esValido();
+            if (resultadoValidacion.EsFallo)
+                return resultadoValidacion;
             await _repositorioGrupo.UpdateAsync(resultado.Valor);
             return Resultado.Exitoso();
         }
