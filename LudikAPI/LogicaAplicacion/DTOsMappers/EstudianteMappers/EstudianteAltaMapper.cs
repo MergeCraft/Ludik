@@ -11,14 +11,14 @@ namespace LogicaAplicacion.DTOsMappers.EstudianteMappers
 {
     public class EstudianteAltaMapper
     {
-        public static EstudianteAltaDto toDto(string nombreUsuario, string nombre, string apellido, string contrasenia)
+        public static EstudianteAltaDto toDto(Estudiante estudiante)
         {
             return new EstudianteAltaDto
             {
-                NombreUsuario = nombreUsuario,
-                Nombre = nombre,
-                Apellido = apellido,
-                Contrasenia = contrasenia
+                NombreUsuario = estudiante.UserName,
+                Nombre = estudiante.NombreCompleto.Nombre,
+                Apellido = estudiante.NombreCompleto.Apellido,
+                Contrasenia = estudiante.PasswordHash
             };
         }
         public static Estudiante fromDto(EstudianteAltaDto dto)
@@ -26,7 +26,7 @@ namespace LogicaAplicacion.DTOsMappers.EstudianteMappers
             return new Estudiante
             {
                 UserName = dto.NombreUsuario,
-                NombreCompleto = new NombreCompleto(dto.Nombre, dto.Apellido)
+                NombreCompleto = NombreCompleto.Crear(dto.Nombre, dto.Apellido).Valor
 
             };
         }

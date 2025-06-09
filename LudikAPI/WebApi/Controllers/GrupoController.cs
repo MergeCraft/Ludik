@@ -45,7 +45,7 @@ namespace WebApi.Controllers
         public async Task<IActionResult> AltaGrupo([FromBody] GrupoAltaRequestDto grupoRequest)
         {
 
-            var profesorId = User.FindFirstValue("id");
+            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(profesorId))
                 return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
             
@@ -55,48 +55,7 @@ namespace WebApi.Controllers
                 return this.ManejarFallo(resultado);
 
             return Created();
-            /*
-            try
-            {
-                if (grupoRequest == null)
-                    return BadRequest("Debe enviar los datos del grupo.");
-                
-                string profesorId = User.FindFirst("id")?.Value;
-
-                if (string.IsNullOrEmpty(profesorId))
-                    return Unauthorized("No se pudo determinar el ID del profesor desde el token.");
-
-                string codigo = Guid.NewGuid().ToString("N");
-                string url = _linkGenerator.GetUriByAction(
-                    HttpContext,
-                    action: "UnirseAGrupo",
-                    controller: "Estudiante",
-                    values: new { codigo });
-
-                var grupoDto = new GrupoAltaDto
-                {
-                    Nombre = grupoRequest.Nombre,
-                    TablaEquivalenciaId = grupoRequest.TablaEquivalenciaId,
-                    ProfesorId = profesorId,
-                    Institucion = grupoRequest.Institucion,
-                    Materia = grupoRequest.Materia,
-                    CodigoEnlace = codigo,
-                    UrlCompleta = url
-                };
-
-                await _altaGrupo.EjecutarAsync(grupoDto);
-
-                return StatusCode(StatusCodes.Status201Created, "Grupo registrado correctamente.");
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(new { Error = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = "Ocurrió un error inesperado. " + ex.Message });
-            }
-            */
+           
         }
         /// <summary>
         /// Este endpoint permite editar los datos de un grupo existente.
@@ -114,7 +73,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> EditarGrupo([FromBody] GrupoEditarDto grupoDto)
         {
-            var profesorId = User.FindFirstValue("id");
+            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(profesorId))
                 return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
             
@@ -124,34 +83,7 @@ namespace WebApi.Controllers
                 return this.ManejarFallo(resultado);
             
             return NoContent();
-            /*
-            try
-            {
-                if (grupoDto == null)
-                    return BadRequest("Debe enviar los datos del grupo a editar.");
-
-                string profesorId = User.FindFirst("id")?.Value;
-
-                if (string.IsNullOrEmpty(profesorId))
-                    return Unauthorized("No se pudo determinar el ID del profesor desde el token.");
-
-                await _editarGrupo.EjecutarAsync(grupoDto, profesorId);
-
-                return Ok("Grupo actualizado correctamente.");
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                return Forbid(ex.Message);
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(new { Error = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Error = "Ocurrió un error inesperado. " + ex.Message });
-            }
-            */
+            
         }
         /// <summary>
         /// Este endpoint permite eliminar un grupo existente.
@@ -167,7 +99,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> EliminarGrupo(int id)
         {
-            var profesorId = User.FindFirstValue("id");
+            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (string.IsNullOrEmpty(profesorId))
                 return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));

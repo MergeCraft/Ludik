@@ -27,7 +27,7 @@ namespace PruebasUnitarias.PruebasLogicaNegocio
             [Fact]
             public void NombreCompleto_InvalidCharacters_ProducesError()
             {
-                var nombre = new NombreCompleto("J0sé!", "Pérez");
+                var nombre = NombreCompleto.Crear("J0sé!", "Pérez").Valor;
                 var errors = Validate(nombre);
 
                 Assert.Contains(errors, e => e.ErrorMessage.Contains("solo puede contener letras"));
@@ -44,7 +44,7 @@ namespace PruebasUnitarias.PruebasLogicaNegocio
             [Fact]
             public void NombreCompleto_ValidValues_NoErrors()
             {
-                var nombre = new NombreCompleto("José", "Pérez");
+                var nombre =  NombreCompleto.Crear("José", "Pérez").Valor;
                 var errors = Validate(nombre);
 
                 Assert.Empty(errors);

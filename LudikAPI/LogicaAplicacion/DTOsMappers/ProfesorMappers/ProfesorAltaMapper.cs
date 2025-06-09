@@ -28,7 +28,7 @@ namespace LogicaAplicacion.DTOsMappers.ProfesorMappers
             return new Profesor
             {
                 UserName = dto.NombreUsuario,
-                NombreCompleto = new NombreCompleto(dto.Nombre, dto.Apellido),
+                NombreCompleto =  NombreCompleto.Crear(dto.Nombre, dto.Apellido).Valor,
                 Email = dto.Correo,
 
             };
