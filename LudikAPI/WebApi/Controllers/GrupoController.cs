@@ -54,7 +54,7 @@ namespace WebApi.Controllers
             if (resultado.EsFallo)
                 return this.ManejarFallo(resultado);
 
-            return Created();
+            return StatusCode(StatusCodes.Status201Created, "El grupo ha sido creado correctamente.");
            
         }
         /// <summary>
@@ -81,9 +81,9 @@ namespace WebApi.Controllers
 
             if (resultado.EsFallo)
                 return this.ManejarFallo(resultado);
-            
-            return NoContent();
-            
+
+            return StatusCode(StatusCodes.Status200OK, "El grupo fue editado con exito.");
+
         }
         /// <summary>
         /// Este endpoint permite eliminar un grupo existente.
@@ -110,7 +110,8 @@ namespace WebApi.Controllers
                 return this.ManejarFallo(resultado);
             
             //DELETE exitoso siempre debe devolver 204 NoContent
-            return NoContent();
+            return StatusCode(StatusCodes.Status204NoContent, "El grupo se ha eliminado de forma exitosa.");
+
         }
     }
 }
