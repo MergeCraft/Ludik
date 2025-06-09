@@ -11,6 +11,7 @@ using LogicaAplicacion.InterfacesCasosUsos.Estudiante;
 using LogicaNegocio.Excepciones;
 using LogicaNegocio.InterfacesEntidades;
 using LogicaNegocio.Resultados;
+using LogicaNegocio.ValueObjects;
 using Microsoft.AspNetCore.Identity;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
@@ -36,8 +37,11 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
             if (estudianteAltaDto == null)
                 return Resultado.Falla(new Error("Validation", "Los datos del estudiante no pueden ser nulos."));
             
-
-            var estudianteNuevo = EstudianteAltaMapper.fromDto(estudianteAltaDto);
+            var resultadoNombre = NombreCompleto.Crear(estudianteAltaDto.Nombre, estudianteAltaDto.Apellido);
+            if (resultadoNombre.EsFallo)
+                return Resultado.Falla(resultadoNombre.Errores);
+            
+            var estudianteNuevo = EstudianteAltaMapper.fromDto(estudianteAltaDto, resultadoNombre.Valor);
 
             var existeNombre = await _userManager.FindByNameAsync(estudianteAltaDto.NombreUsuario);
             if (existeNombre != null)
