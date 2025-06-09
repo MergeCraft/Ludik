@@ -1,5 +1,6 @@
 using System;
 using LogicaNegocio.InterfacesEntidades;
+using LogicaNegocio.Resultados;
 
 namespace Dominio
 {
@@ -24,15 +25,22 @@ namespace Dominio
 
 
 
-        public void EsValido()
+        public Resultado esValido()
         {
+            var errores = new List<Error>();
+
             if (string.IsNullOrWhiteSpace(codigoBase))
-                throw new Exception("El c�digo del enlace no puede ser vac�o.");
+                errores.Add(new Error("EnlaceUnion.CodigoBase", "El código del enlace no puede ser vacío."));
+
             if (expiracion < DateTime.UtcNow)
-                throw new Exception("El enlace est� expirado.");
+                errores.Add(new Error("EnlaceUnion.Expiracion", "El enlace está expirado."));
+
+            if (errores.Any())
+                return Resultado.Falla(errores);
+
+            return Resultado.Exitoso();
         }
 
-        
 
     }
 

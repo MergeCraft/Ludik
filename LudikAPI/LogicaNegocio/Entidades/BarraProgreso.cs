@@ -1,5 +1,6 @@
 using Dominio;
 using LogicaNegocio.InterfacesEntidades;
+using LogicaNegocio.Resultados;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,7 +19,7 @@ namespace Dominio
         [ForeignKey(nameof(PerfilEstudiante))]
         public int perfilEstudianteId { get; set; }
 
-        public void EsValido()
+        public Resultado esValido()
         {
             throw new NotImplementedException();
         }

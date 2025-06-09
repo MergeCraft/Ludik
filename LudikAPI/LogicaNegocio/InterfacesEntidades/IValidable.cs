@@ -1,8 +1,10 @@
+using LogicaNegocio.Resultados;
+
 namespace LogicaNegocio.InterfacesEntidades
 {
     public interface IValidable
     {
-        void EsValido();
+        Resultado esValido();
 
     }
 

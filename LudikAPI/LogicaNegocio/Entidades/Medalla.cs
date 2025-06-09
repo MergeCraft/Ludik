@@ -20,16 +20,6 @@ namespace Dominio
 
         public Boolean tieneAsignacionMutua { get; set; }
 
-        public void EsValido()
-        {
-            if (string.IsNullOrWhiteSpace(Nombre) || Nombre.Length < 5 || Nombre.Length > 30)
-                throw new MedallaNoValidaException("El nombre de la medalla no cumple las restricciones.");
-            if (descripcion.Length > 50)
-                throw new MedallaNoValidaException("La descripcion de la medalla no puede superar los 50 caracteres.");
-            if(monedasOtorgadas < 0)
-                throw new MedallaNoValidaException("La cantidad de monedas otorgadas no puede ser menor a 0.");
-
-        }
         public Resultado esValido()
         {
             if (string.IsNullOrWhiteSpace(Nombre))
@@ -46,6 +36,8 @@ namespace Dominio
             return Resultado.Exitoso();
 
         }
+
+       
     }
 
 }
