@@ -43,18 +43,6 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
             if (string.IsNullOrEmpty(resultadoUrlInvitacion.Valor))
                 return Resultado<GrupoDto>.Falla(new Error("Error.Unexpected", "No se pudo generar la URL de invitación para el grupo."));
 
-            /*
-            var codigoInvitacion = Guid.NewGuid().ToString("N");
-            var urlInvitacion = _linkGenerator.GetUriByAction(
-                httpContext,
-                action: "UnirseAGrupo",  
-                controller: "Estudiante",  
-                values: new { codigo = codigoInvitacion });
-
-            if (string.IsNullOrEmpty(urlInvitacion))
-                return Resultado.Falla(new Error("Error.Unexpected", "No se pudo generar la URL de invitación para el grupo."));
-            */
-
             var grupo =new Grupo
             {
                 Nombre = grupoRequestDto.Nombre,
