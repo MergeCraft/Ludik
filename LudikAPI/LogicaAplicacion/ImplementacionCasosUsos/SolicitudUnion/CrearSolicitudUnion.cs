@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.SolocitudUnionDTOs;
 using LogicaAplicacion.InterfacesCasosUsos.SolicitudUnion;
+using LogicaNegocio.Resultados;
 using LogicaNegocio.ValueObject;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
@@ -28,39 +29,44 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
             _repoGrupos = repoGrupos;
             _repoSolicitudes = repoSolicitudes;
         }
-        
-        public async Task EjecutarAsync(SolicitudUnionDto dto)
+
+        public async Task<Resultado> EjecutarAsync(SolicitudUnionDto dto)
         {
             if (dto == null)
-                throw new ArgumentNullException(nameof(dto));
+                return Resultado.Falla(new Error("SolicitudUnion.Crear.Validacion", "Los datos de la solicitud no pueden ser nulos."));
 
             var enlace = await _repoEnlaces.ObtenerPorCodigoAsync(dto.CodigoEnlace);
             if (enlace == null || enlace.expiracion < DateTime.UtcNow)
-                throw new KeyNotFoundException("El enlace es inválido o ha expirado.");
-            //TODO: refactorizar para buscar estudiante por id del tipo string
+                return Resultado.Falla(new Error("SolicitudUnion.Crear.EnlaceInvalido", "El enlace es inválido o ha expirado."));
+
             var estudiante = await _repoEstudiantes.GetByIdAsyncString(dto.IdEstudiante);
             if (estudiante == null)
-                throw new KeyNotFoundException("El estudiante no existe.");
+                return Resultado.Falla(new Error("SolicitudUnion.Crear.EstudianteNoExiste", "El estudiante no existe."));
 
             var grupo = await _repoGrupos.ObtenerPorEnlaceAsync(enlace.codigoBase);
             if (grupo == null)
-                throw new KeyNotFoundException("No se encontró el grupo asociado al enlace.");
+                return Resultado.Falla(new Error("SolicitudUnion.Crear.GrupoNoEncontrado", "No se encontró el grupo asociado al enlace."));
 
-            // Validación: ya tiene solicitud pendiente
             bool yaExiste = await _repoSolicitudes.ExisteSolicitudPendiente(dto.IdEstudiante, grupo.Id);
             if (yaExiste)
-                throw new InvalidOperationException("Ya existe una solicitud pendiente para este estudiante y grupo.");
+                return Resultado.Falla(new Error("SolicitudUnion.Crear.SolicitudDuplicada",
+                    "Ya existe una solicitud pendiente para este estudiante y grupo."));
 
-            var solicitud = new Dominio.SolicitudUnion
+            var nuevaSolicitud = new Dominio.SolicitudUnion
             {
+                estudianteId = dto.IdEstudiante,
                 estudiante = estudiante,
+                GrupoId = grupo.Id,
                 Grupo = grupo,
                 fecha = DateOnly.FromDateTime(DateTime.UtcNow),
                 Estado = EstadoSolicitud.Pendiente
             };
 
-            await _repoSolicitudes.AddAsync(solicitud);
+            var resultadoAdd = await _repoSolicitudes.AddAsync(nuevaSolicitud);
+            if (resultadoAdd.EsFallo)
+                return resultadoAdd;
 
+            return Resultado.Exitoso();
         }
     }
 }

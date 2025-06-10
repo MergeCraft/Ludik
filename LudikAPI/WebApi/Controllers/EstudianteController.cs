@@ -99,17 +99,12 @@ namespace WebApi.Controllers
                 CodigoEnlace = codigo
             };
 
-
-            var resultado = Resultado.Falla(new Error("SinImplementar", "Falta implementar este metodo"));
-            return this.ManejarFallo(resultado);
-            /*
             Resultado resultado = await _crearSolicitudUnion.EjecutarAsync(solicitudDto);
 
             return resultado.EsExitoso
                 ? StatusCode(StatusCodes.Status201Created)
                 : this.ManejarFallo(resultado);
-            */
-           
+            
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dominio;
 using InterfacesRepositorio;
 using LogicaNegocio.Resultados;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
 {
@@ -15,6 +16,37 @@ namespace AccesoDatos.RepositoriosEF
         public RepositorioPerfilEstudianteGrupoEF(ContextoDb db)
         {
             _db = db;
+        }
+        public async Task<Resultado<List<PerfilEstudiante>>> ObtenerPorGrupoIdAsync(int grupoId)
+        {
+            try
+            {
+                var perfiles = await _db.PerfilesEstudiantes
+                                       .Include(p => p.barraProgreso)
+                                       .Where(p => p.GrupoId == grupoId)
+                                       .ToListAsync();
+
+                if (perfiles == null || !perfiles.Any())
+                    return Resultado<List<PerfilEstudiante>>.Falla(
+                        new Error("PerfilEstudiante.ObtenerPorGrupoId.SinResultados",
+                                  $"No se encontraron perfiles para el grupo con Id {grupoId}."));
+
+                return Resultado<List<PerfilEstudiante>>.Exitoso(perfiles);
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
+                return Resultado<List<PerfilEstudiante>>.Falla(
+                    new Error("PerfilEstudiante.ObtenerPorGrupoId.DbError",
+                              $"Error al consultar la BD: {detalle}"));
+            }
+            catch (Exception ex)
+            {
+                // Puedes agregar logging aquí si lo deseas
+                return Resultado<List<PerfilEstudiante>>.Falla(
+                    new Error("PerfilEstudiante.ObtenerPorGrupoId.ErrorInesperado",
+                              $"Error inesperado: {ex.Message}"));
+            }
         }
 
         public Task<Resultado> AddAsync(PerfilEstudiante unObjeto)

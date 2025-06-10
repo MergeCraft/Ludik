@@ -5,11 +5,13 @@ using InterfacesRepositorio;
 using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;
 using LogicaAplicacion.ImplementacionCasosUsos.Grupos;
 using LogicaAplicacion.ImplementacionCasosUsos.Medallas;
+using LogicaAplicacion.ImplementacionCasosUsos.PerfilEstudiante;
 using LogicaAplicacion.ImplementacionCasosUsos.Profesores;
 using LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion;
 using LogicaAplicacion.InterfacesCasosUsos.Estudiante;
 using LogicaAplicacion.InterfacesCasosUsos.Grupo;
 using LogicaAplicacion.InterfacesCasosUsos.Medalla;
+using LogicaAplicacion.InterfacesCasosUsos.PerfilEstudiante;
 using LogicaAplicacion.InterfacesCasosUsos.Profesor;
 using LogicaAplicacion.InterfacesCasosUsos.SolicitudUnion;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -112,6 +114,7 @@ builder.Services.AddScoped<IRepositorioTablasEquivalencia, RepositorioTablasEqui
 builder.Services.AddScoped<IRepositorioMedallas, RepositorioMedallasEF>();
 builder.Services.AddScoped<IRepositorioEnlacesUnionGrupo, RepositorioEnlacesUnionGrupoEF>();
 builder.Services.AddScoped<IRepositorioSolicitudesUnion, RepositorioSolocitudesUnionEF>();
+builder.Services.AddScoped<IRepositorioPerfilEstudianteGrupo, RepositorioPerfilEstudianteGrupoEF>();
 
 
 //Inyeccion de dependencias casos de uso
@@ -124,6 +127,8 @@ builder.Services.AddScoped<IBajaGrupo, BajaGrupo>();
 builder.Services.AddScoped<IAltaMedalla, AltaMedalla>();
 builder.Services.AddScoped<IObtenerGruposDeEstudiante, ObtenerGruposDeEstudiante>();
 builder.Services.AddScoped<IObtenerGruposDeProfesor, ObtenerGruposDeProfesor>();
+builder.Services.AddScoped<IObtenerInformacionGrupo, ObtenerInformacionGrupo>();
+builder.Services.AddScoped<IObtenerPerfilesPorGrupo, ObtenerPerfilesPorGrupo>();
 builder.Services.AddScoped<IObtenerSolicitudesUnionDelGrupo, ObtenerSolicitudesUnionDelGrupo>();
 builder.Services.AddScoped<IAceptarSolicitudUnion, AceptarSolicitudUnion>();
 builder.Services.AddScoped<IRechazarSolicitudUnion, RechazarSolicitudUnion>();

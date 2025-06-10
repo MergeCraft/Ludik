@@ -22,13 +22,13 @@ namespace Dominio
         public DateTime fCreacion { get; set; }
         [Required]
         public TablaEquivalencia tablaEquivalencia { get; set; }
-
+        //no
         public Tienda tienda { get; set; }
-
+        //no
         public List<TablaClasificacion> tablasClasificacion { get; set; }
-
+        //no
         public List<PerfilEstudiante> alumnos { get; set; }
-
+        //no
         public List<SolicitudUnion> solicitudes { get; set; }
 
         public EnlaceUnion enlaceUnion { get; set; }

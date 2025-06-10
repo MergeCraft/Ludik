@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Authorization;
 using LogicaNegocio.Resultados;
 using System.Security.Claims;
 using WebApi.Helpers;
+using LogicaAplicacion.ImplementacionCasosUsos.Grupos;
+using LogicaAplicacion.InterfacesCasosUsos.PerfilEstudiante;
+using LogicaAplicacion.DTOs.PerfilEstudianteDTO;
 
 namespace WebApi.Controllers
 {
@@ -21,13 +24,16 @@ namespace WebApi.Controllers
         private readonly IAltaGrupo _altaGrupo;
         private readonly IEditarGrupo _editarGrupo;
         private readonly IBajaGrupo _bajaGrupo;
+        private readonly IObtenerInformacionGrupo _obtenerInformacionGrupo;
+        private readonly IObtenerPerfilesPorGrupo _obtenerPerfilesPorGrupo;
 
-        public GrupoController(IAltaGrupo altaGrupo, IEditarGrupo editarGrupo, IBajaGrupo bajaGrupo)
+        public GrupoController(IAltaGrupo altaGrupo, IEditarGrupo editarGrupo, IBajaGrupo bajaGrupo, IObtenerInformacionGrupo obtenerInformacionGrupo, IObtenerPerfilesPorGrupo obtenerPerfilesPorGrupo)
         {
             _altaGrupo = altaGrupo;
             _editarGrupo = editarGrupo;
             _bajaGrupo = bajaGrupo;
-
+            _obtenerInformacionGrupo = obtenerInformacionGrupo;
+            _obtenerPerfilesPorGrupo = obtenerPerfilesPorGrupo;
         }
         /// <summary>
         /// Este endpoint permite registrar un nuevo grupo en el sistema.
@@ -112,6 +118,67 @@ namespace WebApi.Controllers
             //DELETE exitoso siempre debe devolver 204 NoContent
             return StatusCode(StatusCodes.Status204NoContent, "El grupo se ha eliminado de forma exitosa.");
 
+        }
+        /// <summary>
+        /// Devuelve la información básica de un grupo (sin tienda, alumnos, solicitudes, tablas de clasificación).
+        /// </summary>
+        /// <param name="grupoId">ID del grupo</param>
+        /// <returns>
+        /// 200 OK: Información parcial del grupo.
+        /// 404 Not Found: Grupo no encontrado.
+        /// 500 Internal Server Error: Error inesperado.
+        /// </returns>
+        [HttpGet("info/{grupoId:int}")]
+        [ProducesResponseType(typeof(GrupoInformacionDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ObtenerInformacionGrupo(int grupoId)
+        {
+            try
+            {
+                var resultado = await _obtenerInformacionGrupo.EjecutarAsync(grupoId);
+
+                if (resultado.EsFallo)
+                    return this.ManejarFallo(resultado);
+
+                return Ok(resultado.Valor);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    Mensaje = "Ocurrió un error inesperado al obtener la información del grupo. " + ex.Message
+                });
+            }
+        }
+        /// <summary>
+        /// Devuelve la lista de perfiles de estudiantes de un grupo.
+        /// </summary>
+        /// <param name="grupoId">Id del grupo</param>
+        /// <returns>Lista de perfiles de estudiantes</returns>
+        [HttpGet("{grupoId:int}/perfiles")]
+        [ProducesResponseType(typeof(List<PerfilEstudianteInformacionDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ObtenerPerfilesPorGrupo(int grupoId)
+        {
+            try
+            {
+                // Aquí asumo que el método del caso de uso devuelve Resultado<List<PerfilEstudianteInformacionDto>>
+                var resultado = await _obtenerPerfilesPorGrupo.EjecutarAsync(grupoId);
+
+                if (resultado.EsFallo)
+                    return this.ManejarFallo(resultado);
+
+                return Ok(resultado.Valor);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    Mensaje = "Ocurrió un error inesperado al obtener los perfiles del grupo. " + ex.Message
+                });
+            }
         }
     }
 }

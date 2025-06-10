@@ -34,14 +34,14 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
 
             var grupo = solicitud.Grupo; 
             
-            var perfil = new PerfilEstudiante
+            var perfil = new Dominio.PerfilEstudiante
             {
                 EstudianteId = solicitud.estudianteId,
                 
             };
 
         
-            grupo.alumnos ??= new List<PerfilEstudiante>();
+            grupo.alumnos ??= new List<Dominio.PerfilEstudiante>();
             grupo.alumnos.Add(perfil);
 
             var resultadoSolicitud = await _repoSolicitudes.UpdateAsync(solicitud);
