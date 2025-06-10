@@ -9,6 +9,7 @@ namespace InterfacesRepositorio
 	public interface IRepositorioMedallas : IRepositorio<Medalla>
 	{
         Task<List<Medalla>> ObtenerMedallasAsignablesMutuamenteAsync(int idGrupo);
+        Task<Resultado<IEnumerable<Medalla>>> FindByIdsAsync(List<int> ids);
     }
 
 }

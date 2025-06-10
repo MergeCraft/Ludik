@@ -18,9 +18,19 @@ namespace AccesoDatos.RepositoriosEF
             _db = db;
         }
 
-        public Task<Resultado> AddAsync(TablaEquivalencia unObjeto)
+        public async Task<Resultado> AddAsync(TablaEquivalencia tabla)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _db.TablasEquivalencia.AddAsync(tabla);
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
+                return Resultado.Falla(new Error("Repositorio.Tabla.Add.DbError", $"Error al guardar la tabla: {detalle}"));
+            }
         }
 
         public Task<Resultado<IEnumerable<TablaEquivalencia>>> GetAllAsync()

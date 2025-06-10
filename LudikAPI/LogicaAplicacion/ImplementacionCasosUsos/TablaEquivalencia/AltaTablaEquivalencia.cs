@@ -39,14 +39,14 @@ public class AltaTablaEquivalencia: IAltaTablaEquivalencia
                 .ToList();
 
             // Buscar todas las medallas necesarias en la base de datos.
-            var medallasEntidades = await _repositorioMedallas.FindByIdsAsync(idsMedallasDto);
+            var resultadoMedallasEntidades = await _repositorioMedallas.FindByIdsAsync(idsMedallasDto);
 
             // Validar que todas las medallas solicitadas existan.
-            if (medallasEntidades.Count() != idsMedallasDto.Count)
+            if (resultadoMedallasEntidades.EsFallo || resultadoMedallasEntidades.Valor.Count() != idsMedallasDto.Count)
                 return Resultado.Falla(new Error("Validation.Medalla.NotFound", "Una o más medallas especificadas no existen."));
             
 
-            var medallasMap = medallasEntidades.ToDictionary(m => m.Id);
+            var medallasMap = resultadoMedallasEntidades.Valor.ToDictionary(m => m.Id);
 
             // Construir las entidades Equivalencia y agregarlas a la tabla.
             foreach (var equivalenciaDto in tablaDto.Equivalencias)

@@ -16,6 +16,10 @@ namespace Dominio
 
         public List<Equivalencia> Equivalencias { get; set; }
 
+        public TablaEquivalencia()
+        {
+        }
+
         public TablaEquivalencia(string nombre)
         {
             Nombre = nombre;
@@ -100,6 +104,11 @@ namespace Dominio
             
 
             return Resultado.Exitoso();
+        }
+
+        public void AgregarEquivalencia(Equivalencia nuevaEquivalencia)
+        {
+            Equivalencias.Add(nuevaEquivalencia);
         }
     }
 

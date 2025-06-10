@@ -5,7 +5,6 @@ namespace WebApi.Helpers
 {
     public static class ExtensionesControlador
     {
-        // Este es el método de extensión
         public static IActionResult ManejarFallo(this ControllerBase controller, Resultado resultado)
         {
             if (resultado.EsExitoso)

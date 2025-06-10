@@ -173,5 +173,22 @@ namespace AccesoDatos.RepositoriosEF
         {
             throw new NotImplementedException("Este método aún no está implementado en el repositorio de Medallas.");
         }
+
+        public async Task<Resultado<IEnumerable<Medalla>>> FindByIdsAsync(List<int> ids)
+        {
+            try
+            {
+                var resultado = await _db.Medallas
+                    .Where(m => ids.Contains(m.Id))
+                    .ToListAsync();
+                return Resultado<IEnumerable<Medalla>>.Exitoso(resultado);
+            }
+            catch (Exception e)
+            {
+                return Resultado<IEnumerable<Medalla>>.Falla(new Error("Error.Uknown", e.Message));
+            }
+            
+            
+        }
     }
 }
