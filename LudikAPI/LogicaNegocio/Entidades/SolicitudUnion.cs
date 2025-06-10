@@ -10,14 +10,14 @@ namespace Dominio
     {
         public int Id { get; set; }
 
-        public string estudianteId { get; set; }
-        public Estudiante estudiante { get; set; }
+        public string EstudianteId { get; set; }
+        public Estudiante Estudiante { get; set; }
 
         public EstadoSolicitud Estado { get; set; } = EstadoSolicitud.Pendiente;
 
         public int GrupoId { get; set; }
         public Grupo Grupo { get; set; }
-        public DateOnly fecha { get; set; } = DateOnly.FromDateTime(DateTime.UtcNow);
+        public DateOnly Fecha { get; set; } = DateOnly.FromDateTime(DateTime.UtcNow);
 
         public SolicitudUnion()
         {

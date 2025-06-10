@@ -8,18 +8,18 @@ namespace Dominio
     {
         public int Id { get; set; }
 
-        public String codigoBase { get; set; }
+        public String CodigoUnico { get; set; }
 
-        public DateTime expiracion { get; set; }
-        public string urlCompleta { get; set; } // Este ser� el enlace listo para usar
+        public DateTime Expiracion { get; set; }
+        public string UrlCompleta { get; set; } // Este ser� el enlace listo para usar
 
         public EnlaceUnion() { }
 
         public EnlaceUnion(string urlCompleta, string codigoUnico)
         {
-            this.urlCompleta = urlCompleta;
-            this.codigoBase = codigoUnico;
-            this.expiracion = DateTime.UtcNow.AddDays(300); 
+            this.UrlCompleta = urlCompleta;
+            this.CodigoUnico = codigoUnico;
+            this.Expiracion = DateTime.UtcNow.AddDays(300); 
         }
 
 
@@ -29,10 +29,10 @@ namespace Dominio
         {
             var errores = new List<Error>();
 
-            if (string.IsNullOrWhiteSpace(codigoBase))
+            if (string.IsNullOrWhiteSpace(CodigoUnico))
                 errores.Add(new Error("EnlaceUnion.CodigoBase", "El código del enlace no puede ser vacío."));
 
-            if (expiracion < DateTime.UtcNow)
+            if (Expiracion < DateTime.UtcNow)
                 errores.Add(new Error("EnlaceUnion.Expiracion", "El enlace está expirado."));
 
             if (errores.Any())

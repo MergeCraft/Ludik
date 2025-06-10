@@ -32,14 +32,14 @@ namespace AccesoDatos.RepositoriosEF
 
             try
             {
-                if (unGrupo.tablaEquivalencia != null)
-                    _db.Entry(unGrupo.tablaEquivalencia).State = EntityState.Unchanged;
+                if (unGrupo.TablaEquivalencia != null)
+                    _db.Entry(unGrupo.TablaEquivalencia).State = EntityState.Unchanged;
 
-                if (unGrupo.enlaceUnion != null)
-                    _db.Entry(unGrupo.enlaceUnion).State = EntityState.Added; 
+                if (unGrupo.EnlaceUnion != null)
+                    _db.Entry(unGrupo.EnlaceUnion).State = EntityState.Added; 
                 
-                if (unGrupo.tienda != null)
-                    _db.Entry(unGrupo.tienda).State = EntityState.Added; 
+                if (unGrupo.Tienda != null)
+                    _db.Entry(unGrupo.Tienda).State = EntityState.Added; 
                 
 
                 await _db.Grupos.AddAsync(unGrupo);
@@ -67,9 +67,9 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var grupo = await _db.Grupos
-                    .Include(g => g.tablaEquivalencia)
-                    .Include(g => g.enlaceUnion)
-                    .Include(g => g.tienda)
+                    .Include(g => g.TablaEquivalencia)
+                    .Include(g => g.EnlaceUnion)
+                    .Include(g => g.Tienda)
                     .FirstOrDefaultAsync(t => t.Id == id);
 
                 if (grupo == null)
@@ -142,11 +142,11 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var grupo = await _db.Grupos
-                    .Include(g => g.alumnos) 
-                    .Include(g => g.solicitudes)
-                    .Include(g => g.tablasClasificacion)
-                    .Include(g => g.enlaceUnion)
-                    .Include(g => g.tienda)
+                    .Include(g => g.Alumnos) 
+                    .Include(g => g.Solicitudes)
+                    .Include(g => g.TablasClasificacion)
+                    .Include(g => g.EnlaceUnion)
+                    .Include(g => g.Tienda)
                     .FirstOrDefaultAsync(g => g.Id == id);
 
                 if (grupo == null)
@@ -160,17 +160,17 @@ namespace AccesoDatos.RepositoriosEF
                 // o si necesitas lógica adicional antes de eliminar.
                 // Si la cascada está bien configurada, EF Core podría manejar esto al eliminar 'grupo'.
 
-                if (grupo.alumnos != null && grupo.alumnos.Any())
-                    _db.PerfilesEstudiantes.RemoveRange(grupo.alumnos);
-                if (grupo.solicitudes != null && grupo.solicitudes.Any())
-                    _db.SolicitudesUnion.RemoveRange(grupo.solicitudes);
-                if (grupo.tablasClasificacion != null && grupo.tablasClasificacion.Any())
-                    _db.TablasClasificacion.RemoveRange(grupo.tablasClasificacion);
+                if (grupo.Alumnos != null && grupo.Alumnos.Any())
+                    _db.PerfilesEstudiantes.RemoveRange(grupo.Alumnos);
+                if (grupo.Solicitudes != null && grupo.Solicitudes.Any())
+                    _db.SolicitudesUnion.RemoveRange(grupo.Solicitudes);
+                if (grupo.TablasClasificacion != null && grupo.TablasClasificacion.Any())
+                    _db.TablasClasificacion.RemoveRange(grupo.TablasClasificacion);
 
-                if (grupo.enlaceUnion != null)
-                    _db.EnlacesUnion.Remove(grupo.enlaceUnion);
-                if (grupo.tienda != null)
-                    _db.Tiendas.Remove(grupo.tienda);
+                if (grupo.EnlaceUnion != null)
+                    _db.EnlacesUnion.Remove(grupo.EnlaceUnion);
+                if (grupo.Tienda != null)
+                    _db.Tiendas.Remove(grupo.Tienda);
 
                 _db.Grupos.Remove(grupo);
                 await _db.SaveChangesAsync();
@@ -243,8 +243,8 @@ namespace AccesoDatos.RepositoriosEF
         public async Task<Grupo> ObtenerPorEnlaceAsync(string codigoBase)
         {
             return await _db.Grupos
-                    .Include(g => g.enlaceUnion) 
-                    .FirstOrDefaultAsync(g => g.enlaceUnion.codigoBase == codigoBase);
+                    .Include(g => g.EnlaceUnion) 
+                    .FirstOrDefaultAsync(g => g.EnlaceUnion.CodigoUnico == codigoBase);
         }
 
         public async Task<List<Grupo>> ObtenerGruposPorEstudianteId(string idEstudiante)
@@ -257,7 +257,7 @@ namespace AccesoDatos.RepositoriosEF
             }
 
             List<Grupo> gruposDelEstudiante = await _db.Grupos
-                .Where(g => g.alumnos.Any(pe => pe.EstudianteId == idEstudiante))
+                .Where(g => g.Alumnos.Any(pe => pe.EstudianteId == idEstudiante))
                 .ToListAsync();
 
             return gruposDelEstudiante;

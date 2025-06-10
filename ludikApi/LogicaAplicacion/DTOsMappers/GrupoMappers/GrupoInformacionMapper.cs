@@ -14,13 +14,13 @@ namespace LogicaAplicacion.DTOsMappers.GrupoMappers
         {
             return new GrupoInformacionDto
             {
-                Nombre = grupo.nombre,
-                TablaEquivalenciaId = grupo.tablaEquivalencia.Id,
+                Nombre = grupo.Nombre,
+                TablaEquivalenciaId = grupo.TablaEquivalencia.Id,
                 ProfesorId = grupo.ProfesorId,
-                Institucion = grupo.institucion,
-                Materia = grupo.materia,
-                fCreacion = grupo.fCreacion,
-                UrlCompleta = grupo.enlaceUnion?.urlCompleta
+                Institucion = grupo.Institucion,
+                Materia = grupo.Materia,
+                fCreacion = grupo.FCreacion,
+                UrlCompleta = grupo.EnlaceUnion?.UrlCompleta
             };
         }
     }

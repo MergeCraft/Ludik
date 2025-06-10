@@ -11,34 +11,34 @@ namespace LogicaAplicacion.DTOsMappers.GrupoMappers
         {
             return new GrupoAltaDto
             {
-                Nombre = grupo.nombre,
-                TablaEquivalenciaId = grupo.tablaEquivalencia.Id,
+                Nombre = grupo.Nombre,
+                TablaEquivalenciaId = grupo.TablaEquivalencia.Id,
                 ProfesorId =grupo.ProfesorId,
-                Institucion = grupo.institucion,
-                Materia = grupo.materia
+                Institucion = grupo.Institucion,
+                Materia = grupo.Materia
             };
         }
         public static Grupo fromDto(GrupoAltaDto dto, TablaEquivalencia tabla)
         {
             var grupo = new Grupo
             {
-                nombre = dto.Nombre,
-                tablaEquivalencia = tabla,
+                Nombre = dto.Nombre,
+                TablaEquivalencia = tabla,
                 ProfesorId = dto.ProfesorId,
-                institucion = dto.Institucion ?? "",
-                materia = dto.Materia ?? "",
-                fCreacion = DateTime.Now,
-                tienda = new Tienda()
+                Institucion = dto.Institucion ?? "",
+                Materia = dto.Materia ?? "",
+                FCreacion = DateTime.Now,
+                Tienda = new Tienda()
             };
 
             // Si los datos del enlace están disponibles, creamos el EnlaceUnion
             if (!string.IsNullOrEmpty(dto.CodigoEnlace) && !string.IsNullOrEmpty(dto.UrlCompleta))
             {
-                grupo.enlaceUnion = new EnlaceUnion
+                grupo.EnlaceUnion = new EnlaceUnion
                 {
-                    codigoBase = dto.CodigoEnlace,
-                    urlCompleta = dto.UrlCompleta,
-                    expiracion = DateTime.UtcNow.AddDays(300)
+                    CodigoUnico = dto.CodigoEnlace,
+                    UrlCompleta = dto.UrlCompleta,
+                    Expiracion = DateTime.UtcNow.AddDays(300)
                 };
             }
 

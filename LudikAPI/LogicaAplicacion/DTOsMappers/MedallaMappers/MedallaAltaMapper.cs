@@ -28,11 +28,11 @@ namespace LogicaAplicacion.DTOsMappers.MedallaMappers
         {
 
             return new Medalla{
-                icono = dto.UrlImagen,
+                Icono = dto.UrlImagen,
                 Nombre = dto.Nombre,
-                descripcion = dto.Descripcion,
-                monedasOtorgadas = dto.CantidadMonedasBrinda,
-                tieneAsignacionMutua = dto.EsAsignacionMutua
+                Descripcion = dto.Descripcion,
+                MonedasOtorgadas = dto.CantidadMonedasBrinda,
+                TieneAsignacionMutua = dto.EsAsignacionMutua
             };
 
         }

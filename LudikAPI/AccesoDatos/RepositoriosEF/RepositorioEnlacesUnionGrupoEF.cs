@@ -45,7 +45,7 @@ namespace AccesoDatos.RepositoriosEF
         public async Task<EnlaceUnion> ObtenerPorCodigoAsync(string codigo)
         {
             return await _db.EnlacesUnion
-                     .FirstOrDefaultAsync(e => e.codigoBase == codigo);
+                     .FirstOrDefaultAsync(e => e.CodigoUnico == codigo);
 
         }   
 

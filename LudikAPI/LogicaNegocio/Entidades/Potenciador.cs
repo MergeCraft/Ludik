@@ -5,9 +5,9 @@ namespace Dominio
 {
 	public class Potenciador : Recompensa
 	{
-        public DateTime periodo { get; set; }
+        public DateTime Periodo { get; set; }
 
-        public double multiplicador { get; set; }
+        public double Multiplicador { get; set; }
 
     }
 

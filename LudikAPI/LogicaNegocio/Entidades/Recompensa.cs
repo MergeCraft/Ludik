@@ -13,9 +13,9 @@ namespace Dominio
         [StringLength(50, MinimumLength = 3, ErrorMessage = "El nombre Recompensa  debe tener entre 3 y 50 caracteres.")]
         public String Nombre { get; set; }
 
-        public String imagen { get; set; }
+        public String Imagen { get; set; }
 
-        public int precio { get; set; }
+        public int Precio { get; set; }
         public Resultado esValido()
         {
             throw new NotImplementedException();

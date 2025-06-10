@@ -9,17 +9,17 @@ namespace Dominio
     {
         public int Id { get; set; }
 
-        public int idUsuario { get; set; }
+        public int IdUsuario { get; set; }
 
-        public String pin { get; set; }
+        public String Codigo { get; set; }
 
-        public DateTime fCreacion { get; set; }
+        public DateTime FCreacion { get; set; }
 
-        public DateTime fExpiracion { get; set; }
+        public DateTime FExpiracion { get; set; }
 
-        public int tiempoDeVida { get; set; }
+        public int TiempoDeVida { get; set; }
 
-        public Boolean fueUtilizado { get; set; }
+        public Boolean FueUtilizado { get; set; }
         public String generarPin()
 		{
 			return null;

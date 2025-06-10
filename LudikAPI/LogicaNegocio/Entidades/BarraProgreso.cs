@@ -10,14 +10,14 @@ namespace Dominio
     {
         public int Id { get; set; }
 
-        public int valorMin { get; set; }
+        public int ValorMin { get; set; }
 
-        public int valorMax { get; set; }
+        public int ValorMax { get; set; }
 
-        public TablaEquivalencia tablaEquivalencia { get; set; }
+        public TablaEquivalencia TablaEquivalencia { get; set; }
 
         [ForeignKey(nameof(PerfilEstudiante))]
-        public int perfilEstudianteId { get; set; }
+        public int PerfilEstudianteId { get; set; }
 
         public Resultado esValido()
         {

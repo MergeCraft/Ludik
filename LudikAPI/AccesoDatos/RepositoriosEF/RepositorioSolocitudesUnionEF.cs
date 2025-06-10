@@ -33,7 +33,7 @@ namespace AccesoDatos.RepositoriosEF
         public async Task<bool> ExisteSolicitudPendiente(string idEstudiante, int idGrupo)
         {
             return await _db.SolicitudesUnion
-                .AnyAsync(s => s.estudianteId == idEstudiante
+                .AnyAsync(s => s.EstudianteId == idEstudiante
                             && s.Grupo.Id == idGrupo
                             && s.Estado == EstadoSolicitud.Pendiente);
         }
@@ -84,9 +84,9 @@ namespace AccesoDatos.RepositoriosEF
         public async Task<SolicitudUnion> GetSolicitudConEstudianteYGrupoPorIdAsync(int id)
         {
             return await _db.SolicitudesUnion
-                .Include(s => s.estudiante)
+                .Include(s => s.Estudiante)
                 .Include(s => s.Grupo)
-                    .ThenInclude(g => g.alumnos)
+                    .ThenInclude(g => g.Alumnos)
                 .FirstOrDefaultAsync(s => s.Id == id);
         }
     }

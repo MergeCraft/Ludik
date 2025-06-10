@@ -8,9 +8,9 @@ namespace Dominio
     {
         public int Id { get; set; }
 
-        public int cantMedallasRequeridas { get; set; }
+        public int CantMedallasRequeridas { get; set; }
 
-        public Recompensa recompensa { get; set; }
+        public Recompensa Recompensa { get; set; }
 
         public bool cumple(int cantMedallasPerfiles)
 		{

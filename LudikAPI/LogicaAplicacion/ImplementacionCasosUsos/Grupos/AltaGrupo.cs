@@ -57,13 +57,13 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
 
             var grupo =new Grupo
             {
-                nombre = grupoRequestDto.Nombre,
-                tablaEquivalencia = resultadoTabla.Valor,
+                Nombre = grupoRequestDto.Nombre,
+                TablaEquivalencia = resultadoTabla.Valor,
                 ProfesorId = profesorId,
-                institucion = grupoRequestDto.Institucion,
-                materia = grupoRequestDto.Materia,
-                enlaceUnion = new EnlaceUnion(resultadoUrlInvitacion.Valor, codigoUnicoInvitacion),
-                tienda = new Tienda()
+                Institucion = grupoRequestDto.Institucion,
+                Materia = grupoRequestDto.Materia,
+                EnlaceUnion = new EnlaceUnion(resultadoUrlInvitacion.Valor, codigoUnicoInvitacion),
+                Tienda = new Tienda()
             };
 
             var resultadoValidacion = grupo.esValido();

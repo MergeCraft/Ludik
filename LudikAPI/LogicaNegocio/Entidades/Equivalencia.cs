@@ -9,9 +9,9 @@ namespace Dominio
     {
         public int Id { get; set; }
 
-        public int nota { get; set; }
+        public int Nota { get; set; }
 
-        public List<Medalla> medallasNecesarias { get; set; }
+        public List<Medalla> MedallasNecesarias { get; set; }
 
         public Resultado esValido()
         {

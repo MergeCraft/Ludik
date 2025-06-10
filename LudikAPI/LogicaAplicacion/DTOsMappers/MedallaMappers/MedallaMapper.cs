@@ -9,11 +9,11 @@ public class MedallaMapper
     {
         return new MedallaDto
         {
-            UrlImagen = medalla.icono,
+            UrlImagen = medalla.Icono,
             Nombre = medalla.Nombre,
-            Descripcion = medalla.descripcion,
-            CantidadMedallasBrinda = medalla.monedasOtorgadas,
-            EsAsignacionMutua = medalla.tieneAsignacionMutua
+            Descripcion = medalla.Descripcion,
+            CantidadMedallasBrinda = medalla.MonedasOtorgadas,
+            EsAsignacionMutua = medalla.TieneAsignacionMutua
         };
     }
 
@@ -23,11 +23,11 @@ public class MedallaMapper
         return new Medalla
         {
             Id = dto.Id,
-            icono = dto.UrlImagen,
+            Icono = dto.UrlImagen,
             Nombre = dto.Nombre,
-            descripcion = dto.Descripcion,
-            monedasOtorgadas = dto.CantidadMedallasBrinda,
-            tieneAsignacionMutua = dto.EsAsignacionMutua
+            Descripcion = dto.Descripcion,
+            MonedasOtorgadas = dto.CantidadMedallasBrinda,
+            TieneAsignacionMutua = dto.EsAsignacionMutua
         };
 
     }

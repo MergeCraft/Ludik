@@ -36,14 +36,14 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
                 return Resultado.Falla(new Error("SolicitudUnion.Crear.Validacion", "Los datos de la solicitud no pueden ser nulos."));
 
             var enlace = await _repoEnlaces.ObtenerPorCodigoAsync(dto.CodigoEnlace);
-            if (enlace == null || enlace.expiracion < DateTime.UtcNow)
+            if (enlace == null || enlace.Expiracion < DateTime.UtcNow)
                 return Resultado.Falla(new Error("SolicitudUnion.Crear.EnlaceInvalido", "El enlace es inválido o ha expirado."));
 
             var estudiante = await _repoEstudiantes.GetByIdAsyncString(dto.IdEstudiante);
             if (estudiante == null)
                 return Resultado.Falla(new Error("SolicitudUnion.Crear.EstudianteNoExiste", "El estudiante no existe."));
 
-            var grupo = await _repoGrupos.ObtenerPorEnlaceAsync(enlace.codigoBase);
+            var grupo = await _repoGrupos.ObtenerPorEnlaceAsync(enlace.CodigoUnico);
             if (grupo == null)
                 return Resultado.Falla(new Error("SolicitudUnion.Crear.GrupoNoEncontrado", "No se encontró el grupo asociado al enlace."));
 
@@ -54,11 +54,11 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
 
             var nuevaSolicitud = new Dominio.SolicitudUnion
             {
-                estudianteId = dto.IdEstudiante,
-                estudiante = estudiante,
+                EstudianteId = dto.IdEstudiante,
+                Estudiante = estudiante,
                 GrupoId = grupo.Id,
                 Grupo = grupo,
-                fecha = DateOnly.FromDateTime(DateTime.UtcNow),
+                Fecha = DateOnly.FromDateTime(DateTime.UtcNow),
                 Estado = EstadoSolicitud.Pendiente
             };
 

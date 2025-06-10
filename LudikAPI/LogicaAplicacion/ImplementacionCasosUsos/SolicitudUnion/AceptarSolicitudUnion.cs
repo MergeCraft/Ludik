@@ -36,13 +36,13 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
             
             var perfil = new Dominio.PerfilEstudiante
             {
-                EstudianteId = solicitud.estudianteId,
+                EstudianteId = solicitud.EstudianteId,
                 
             };
 
         
-            grupo.alumnos ??= new List<Dominio.PerfilEstudiante>();
-            grupo.alumnos.Add(perfil);
+            grupo.Alumnos ??= new List<Dominio.PerfilEstudiante>();
+            grupo.Alumnos.Add(perfil);
 
             var resultadoSolicitud = await _repoSolicitudes.UpdateAsync(solicitud);
             if (resultadoSolicitud.EsFallo) return resultadoSolicitud;

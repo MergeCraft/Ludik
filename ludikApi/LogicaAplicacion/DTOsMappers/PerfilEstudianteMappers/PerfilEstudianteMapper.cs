@@ -15,11 +15,11 @@ public static class PerfilEstudianteMapper
         return new PerfilEstudianteInformacionDto
         {
             Id = perfil.Id,
-            AvatarGrupoId = perfil.avatarGrupoId,
-            EnlaceAvatar = perfil.enlaceAvatar,
-            MetaCalificacion = perfil.metaCalificacion,
+            AvatarGrupoId = perfil.AvatarGrupoId,
+            EnlaceAvatar = perfil.EnlaceAvatar,
+            MetaCalificacion = perfil.MetaCalificacion,
             EstudianteId = perfil.EstudianteId,
-            Monedas = perfil.monedas,
+            Monedas = perfil.Monedas,
             GrupoId = perfil.GrupoId,
         };
     }

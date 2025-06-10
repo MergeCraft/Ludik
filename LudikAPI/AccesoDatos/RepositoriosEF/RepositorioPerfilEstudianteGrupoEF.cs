@@ -22,7 +22,7 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var perfiles = await _db.PerfilesEstudiantes
-                                       .Include(p => p.barraProgreso)
+                                       .Include(p => p.BarraProgreso)
                                        .Where(p => p.GrupoId == grupoId)
                                        .ToListAsync();
 

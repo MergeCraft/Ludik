@@ -12,14 +12,14 @@ namespace Dominio
     {
         public int Id { get; set; }
 
-        public RangoFechas rangofecha { get; set; }
+        public RangoFechas Rangofecha { get; set; }
 
-        public String notaObtenida { get; set; }
+        public String NotaObtenida { get; set; }
 
-        public List<Medalla> medallasObtuvoEstudiante { get; set; }
+        public List<Medalla> MedallasObtuvoEstudiante { get; set; }
 
         [ForeignKey(nameof(PerfilEstudiante))]
-        public int perfilEstudianteId { get; set; } // Clave for�nea
+        public int PerfilEstudianteId { get; set; } // Clave for�nea
 
 
         public Resultado esValido()

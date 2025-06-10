@@ -13,28 +13,28 @@ namespace Dominio
         public int Id { get; set; }
         [Required]
         [StringLength(30, MinimumLength = 3, ErrorMessage = "El nombre del grupo debe tener entre 3 y 30 caracteres.")]
-        public String nombre { get; set; }
+        public String Nombre { get; set; }
 
-        public String institucion { get; set; }
+        public String Institucion { get; set; }
 
-        public String materia { get; set; }
+        public String Materia { get; set; }
 
-        public DateTime fCreacion { get; set; }
+        public DateTime FCreacion { get; set; }
         [Required]
-        public TablaEquivalencia tablaEquivalencia { get; set; }
-        //no
-        public Tienda tienda { get; set; }
-        //no
-        public List<TablaClasificacion> tablasClasificacion { get; set; }
-        //no
-        public List<PerfilEstudiante> alumnos { get; set; }
-        //no
-        public List<SolicitudUnion> solicitudes { get; set; }
+        public TablaEquivalencia TablaEquivalencia { get; set; }
 
-        public EnlaceUnion enlaceUnion { get; set; }
+        public Tienda Tienda { get; set; }
+
+        public List<TablaClasificacion> TablasClasificacion { get; set; }
+
+        public List<PerfilEstudiante> Alumnos { get; set; }
+
+        public List<SolicitudUnion> Solicitudes { get; set; }
+
+        public EnlaceUnion EnlaceUnion { get; set; }
 
         [ForeignKey(nameof(Profesor))]
-        public string ProfesorId { get; set; } // Clave for�nea
+        public string ProfesorId { get; set; } 
 
         public void asignarMedalla(PerfilEstudiante pEstudiante, Medalla m)
 		{
@@ -65,10 +65,10 @@ namespace Dominio
         {
             var errores = new List<Error>();
 
-            if (string.IsNullOrWhiteSpace(nombre) || nombre.Length < 3 || nombre.Length > 30)
+            if (string.IsNullOrWhiteSpace(Nombre) || Nombre.Length < 3 || Nombre.Length > 30)
                 errores.Add(new Error("Grupo.Nombre", "El nombre del grupo debe tener entre 3 y 30 caracteres."));
 
-            if (tablaEquivalencia == null)
+            if (TablaEquivalencia == null)
                 errores.Add(new Error("Grupo.TablaEquivalencia", "La tabla de equivalencia es obligatoria."));
 
             if (string.IsNullOrWhiteSpace(ProfesorId))

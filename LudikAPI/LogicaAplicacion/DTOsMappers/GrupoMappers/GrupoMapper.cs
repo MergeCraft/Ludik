@@ -16,10 +16,10 @@ namespace LogicaAplicacion.DTOsMappers.GrupoMappers
             return new GrupoDto
             {
                 Id = grupo.Id,
-                Nombre = grupo.nombre,
+                Nombre = grupo.Nombre,
                 ProfesorId = grupo.ProfesorId,
-                Institucion = grupo.institucion,
-                Materia = grupo.materia
+                Institucion = grupo.Institucion,
+                Materia = grupo.Materia
             };
 
         }

@@ -9,11 +9,11 @@ namespace Dominio
 	public class Profesor: Usuario
 	{
 
-        public List<Medalla> medallas { get; set; }
+        public List<Medalla> Medallas { get; set; }
 
-        public List<TablaEquivalencia> tablasEquivalencia { get; set; }
+        public List<TablaEquivalencia> TablasEquivalencia { get; set; }
 
-        public List<Grupo> grupos { get; set; }
+        public List<Grupo> Grupos { get; set; }
 
         public void asignarMedalla(Medalla medalla, Grupo grupo, PerfilEstudiante pEstudiante)
 		{

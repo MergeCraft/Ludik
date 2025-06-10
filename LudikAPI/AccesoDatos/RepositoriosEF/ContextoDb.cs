@@ -74,7 +74,7 @@ namespace AccesoDatos.RepositoriosEF
             modelBuilder.Entity<RendimientoPeriodo>(rp =>
             {
                 // Le indicamos a EF que RangoFechas es un "owned type" de RendimientoPeriodo
-                rp.OwnsOne(r => r.rangofecha, rf =>
+                rp.OwnsOne(r => r.Rangofecha, rf =>
                 {
                     // Estas dos propiedades se incluirán como columnas en la tabla RendimientosPeriodos
                     rf.Property(x => x.fechaInicio)
@@ -93,22 +93,22 @@ namespace AccesoDatos.RepositoriosEF
                 // 1) Relación PerfilEstudiante → Estudiante (Uno a Muchos): 
                 //    cuando se borre Estudiante, se eliminan sus perfiles.
                 pe.HasOne<Estudiante>()
-                  .WithMany(e => e.perfiles)
+                  .WithMany(e => e.Perfiles)
                   .HasForeignKey(p => p.EstudianteId)
                   .OnDelete(DeleteBehavior.Cascade);
 
                 // 2) Relación 1:1 PerfilEstudiante → BarraProgreso: 
                 //    La FK está en BarrasProgreso (perfilEstudianteId). 
                 //    Usamos OnDelete(Cascade) aquí, para que al borrar el perfil también borre la barra.
-                pe.HasOne(p => p.barraProgreso)
+                pe.HasOne(p => p.BarraProgreso)
                     .WithOne()
-                    .HasForeignKey<BarraProgreso>(b => b.perfilEstudianteId)
+                    .HasForeignKey<BarraProgreso>(b => b.PerfilEstudianteId)
                     .OnDelete(DeleteBehavior.Cascade);
 
                 // 3) Relación PerfilEstudiante → Grupo (Muchos a Uno):
                 //    NO queremos cascada aquí (evita ciclos de múltiple cascada).
                 pe.HasOne<Grupo>()
-                  .WithMany(g => g.alumnos)
+                  .WithMany(g => g.Alumnos)
                   .HasForeignKey(p => p.GrupoId)
                   .OnDelete(DeleteBehavior.Restrict);             // SIN BORRADO EN CASCADA
 
@@ -124,7 +124,7 @@ namespace AccesoDatos.RepositoriosEF
 
             // Grupo - Índices
             modelBuilder.Entity<Grupo>()
-                .HasIndex(g => g.nombre);
+                .HasIndex(g => g.Nombre);
             modelBuilder.Entity<Grupo>()
                 .HasIndex(g => g.ProfesorId)
                 .HasDatabaseName("IX_Grupo_ProfesorId");
@@ -136,9 +136,9 @@ namespace AccesoDatos.RepositoriosEF
                 .HasDatabaseName("UX_PerfilEstudiante_GrupoId_EstudianteId");
             
             modelBuilder.Entity<SolicitudUnion>()
-                .HasOne(s => s.estudiante)
+                .HasOne(s => s.Estudiante)
                 .WithMany() // o con la colección en Estudiante si la tienes
-                .HasForeignKey(s => s.estudianteId)
+                .HasForeignKey(s => s.EstudianteId)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<TablaEquivalencia>(te =>
             {

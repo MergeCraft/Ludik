@@ -11,27 +11,27 @@ namespace Dominio
     {
         public int Id { get; set; }
 
-        public int avatarGrupoId { get; set; }
+        public int AvatarGrupoId { get; set; }
 
-        public String? enlaceAvatar { get; set; }
+        public String? EnlaceAvatar { get; set; }
 
-        public int metaCalificacion { get; set; }
+        public int MetaCalificacion { get; set; }
 
         [ForeignKey(nameof(Estudiante))]
         public String EstudianteId { get; set; }
 
-        public int monedas { get; set; }
+        public int Monedas { get; set; }
 
-        public List<Medalla> medallasObtenidas { get; set; }
+        public List<Medalla> MedallasObtenidas { get; set; }
 
-        public List<RendimientoPeriodo> historialRendimientoPeriodos { get; set; }
+        public List<RendimientoPeriodo> HistorialRendimientoPeriodos { get; set; }
 
         [ForeignKey(nameof(Grupo))]
         public int GrupoId { get; set; }
 
-        public List<Recompensa> inventario { get; set; }
+        public List<Recompensa> Inventario { get; set; }
 
-        public BarraProgreso barraProgreso { get; set; }
+        public BarraProgreso BarraProgreso { get; set; }
 
 
         public void asignarMedalla(Medalla m) { }

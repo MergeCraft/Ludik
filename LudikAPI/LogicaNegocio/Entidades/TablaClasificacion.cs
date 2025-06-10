@@ -16,9 +16,9 @@ namespace Dominio
         [StringLength(50, MinimumLength = 3, ErrorMessage = "El nombre de la TablaClasificacion  debe tener entre 3 y 50 caracteres.")]
         public String Nombre { get; set; }
 
-        public Medalla medallaAsociada { get; set; }
+        public Medalla MedallaAsociada { get; set; }
 
-        public List<PerfilEstudiante> participantes { get; set; }
+        public List<PerfilEstudiante> Participantes { get; set; }
 
         [ForeignKey(nameof(Grupo))]
         public int GrupoId { get; set; } 

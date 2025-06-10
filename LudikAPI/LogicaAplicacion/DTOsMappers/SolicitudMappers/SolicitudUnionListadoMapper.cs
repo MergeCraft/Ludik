@@ -14,8 +14,8 @@ namespace LogicaAplicacion.DTOsMappers.SolicitudMappers
         {
             return new SolicitudUnionListadoDto
             {
-                IdEstudiante = solicitud.estudianteId,
-                fecha = solicitud.fecha
+                IdEstudiante = solicitud.EstudianteId,
+                fecha = solicitud.Fecha
             };
         }
 

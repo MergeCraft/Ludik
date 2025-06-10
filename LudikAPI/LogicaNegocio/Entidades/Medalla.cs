@@ -12,13 +12,13 @@ namespace Dominio
         [StringLength(30, MinimumLength = 3, ErrorMessage = "El nombre de la medalla debe tener entre 3 y 50 caracteres.")]
         public String Nombre { get; set; }
         [StringLength(50, MinimumLength = 0, ErrorMessage = "la descripcion de la medalla debe tener entre 3 y 50 caracteres.")]
-        public String descripcion { get; set; }
+        public String Descripcion { get; set; }
         [Required]
-        public String icono { get; set; }
+        public String Icono { get; set; }
 
-        public int monedasOtorgadas { get; set; }
+        public int MonedasOtorgadas { get; set; }
 
-        public Boolean tieneAsignacionMutua { get; set; }
+        public Boolean TieneAsignacionMutua { get; set; }
 
         public Resultado esValido()
         {
@@ -28,9 +28,9 @@ namespace Dominio
                 return Resultado.Falla(new Error("Validation", "El nombre de la medalla debe de tener al menos 5 caracteres."));
             if (Nombre.Length>30)
                 return Resultado.Falla(new Error("Validation", "El nombre de la medalla debe de tener menos de 30 caracteres."));
-            if (descripcion.Length > 50)
+            if (Descripcion.Length > 50)
                 return Resultado.Falla(new Error("Validation", "La descripción de la medalla no puede superar los 50 caracteres."));
-            if (monedasOtorgadas < 0)
+            if (MonedasOtorgadas < 0)
                 return Resultado.Falla(new Error("Validation", "La cantidad de monedas otorgadas no puede ser menor a 0."));
             
             return Resultado.Exitoso();
