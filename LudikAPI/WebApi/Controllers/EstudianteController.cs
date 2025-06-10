@@ -151,51 +151,12 @@ namespace WebApi.Controllers
                 CodigoEnlace = codigo
             };
 
-
-            var resultado = Resultado.Falla(new Error("SinImplementar", "Falta implementar este metodo"));
-            return this.ManejarFallo(resultado);
-            /*
             Resultado resultado = await _crearSolicitudUnion.EjecutarAsync(solicitudDto);
 
             return resultado.EsExitoso
                 ? StatusCode(StatusCodes.Status201Created)
                 : this.ManejarFallo(resultado);
-            */
-            /*
-            try
-            {
-                if (string.IsNullOrWhiteSpace(codigo))
-                    return BadRequest("El código del enlace es obligatorio.");
-
-                string estudianteId = User.FindFirst("id")?.Value;
-
-                if (string.IsNullOrEmpty(estudianteId))
-                    return Unauthorized("No se pudo obtener el ID del estudiante desde el token.");
-
-                var solicitudDto = new SolicitudUnionDto
-                {
-                    IdEstudiante = estudianteId,
-                    CodigoEnlace = codigo
-                };
-
-                await _crearSolicitudUnion.EjecutarAsync(solicitudDto);
-
-                return StatusCode(StatusCodes.Status201Created, "Solicitud de unión generada correctamente.");
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return BadRequest(new { Error = ex.Message });
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(new { Error = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    new { Error = "Ocurrió un error inesperado. " + ex.Message });
-            }
-            */
+            
         }
     }
 }
