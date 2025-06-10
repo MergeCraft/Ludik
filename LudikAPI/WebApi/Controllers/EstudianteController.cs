@@ -50,30 +50,7 @@ namespace WebApi.Controllers
             return resultado.EsExitoso
                 ? StatusCode(StatusCodes.Status201Created)
                 : this.ManejarFallo(resultado);
-            /*
-            try
-            {
-                if (estudianteDto == null)
-                    return BadRequest("Debe enviar los datos del estudiante.");
-
-                await _altaEstudiante.EjecutarAsync(estudianteDto);
-
-                return StatusCode(StatusCodes.Status201Created, "Estudiante registrado correctamente.");
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(new { Error = ex.Message });
-            }
-            catch (UsuarioNoValidoException ex)
-            {
-                return BadRequest(new { Error = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    new { Error = "Ocurrió un error inesperado. " + ex.Message });
-            }
-            */
+            // StatusCode(StatusCodes.Status201Created, "Estudiante registrado correctamente.")
         }
 
         /// <summary>
@@ -102,36 +79,7 @@ namespace WebApi.Controllers
             return resultado.EsExitoso
                 ? Ok(resultado.Valor)
                 : this.ManejarFallo(resultado);
-            /*
-            try
-            {
-                var idEstudianteAutenticado = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                
-                if (string.IsNullOrEmpty(idEstudianteAutenticado))
-                    return Unauthorized(new { Mensaje = "No se pudo identificar al usuario autenticado." });
-                
 
-                Resultado<List<GrupoDto>> resultado = await _obtenerGruposPorEstudiante.EjecutarAsync(idEstudianteAutenticado);
-
-                if (resultado.EsFallo)
-                {
-                    if (resultado.Errores.Any(e => e.Codigo == Error.NotFound.Codigo))
-                    {
-                        return NotFound(resultado.Errores.ToList());
-                    }
-                    return BadRequest(resultado.Errores.ToList());
-                }
-
-                return Ok(resultado.Valor);
-            }
-            catch (Exception ex)
-            {
-                // IMPORTANTE: En producción, no exponer ex.Message directamente.
-                // Loguear ex.ToString() para tener todos los detalles internamente.
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    new { Mensaje = "Ocurrió un error inesperado al obtener los grupos del estudiante. " + ex.Message });
-            }
-            */
         }
         [HttpPost("unirse-grupo")]
         [Authorize(Policy = "EsEstudiante")]

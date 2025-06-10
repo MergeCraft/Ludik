@@ -19,7 +19,7 @@ namespace LogicaAplicacion.DTOsMappers.MedallaMappers
                 UrlImagen = urlImagen,
                 Nombre = nombre,
                 Descripcion = descripcion,
-                CantidadMedallasBrinda = cantidadMedallasBrinda,
+                CantidadMonedasBrinda = cantidadMedallasBrinda,
                 EsAsignacionMutua = esAsignacionMutua
             };
         }
@@ -31,7 +31,7 @@ namespace LogicaAplicacion.DTOsMappers.MedallaMappers
                 icono = dto.UrlImagen,
                 Nombre = dto.Nombre,
                 descripcion = dto.Descripcion,
-                monedasOtorgadas = dto.CantidadMedallasBrinda,
+                monedasOtorgadas = dto.CantidadMonedasBrinda,
                 tieneAsignacionMutua = dto.EsAsignacionMutua
             };
 

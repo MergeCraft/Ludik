@@ -21,12 +21,13 @@ namespace LogicaAplicacion.DTOsMappers.EstudianteMappers
                 Contrasenia = estudiante.PasswordHash
             };
         }
-        public static Estudiante fromDto(EstudianteAltaDto dto)
+        public static Estudiante fromDto(EstudianteAltaDto dto, NombreCompleto nombreCompleto)
         {
             return new Estudiante
             {
                 UserName = dto.NombreUsuario,
-                NombreCompleto = NombreCompleto.Crear(dto.Nombre, dto.Apellido).Valor
+                NombreCompleto = nombreCompleto,
+                
 
             };
         }
