@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250605143024_primeraMigracion")]
-    partial class primeraMigracion
+    [Migration("20250611174721_configuracionTablaEstudianteHitos")]
+    partial class configuracionTablaEstudianteHitos
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,24 +33,24 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("perfilEstudianteId")
+                    b.Property<int>("PerfilEstudianteId")
                         .HasColumnType("int");
 
-                    b.Property<int>("tablaEquivalenciaId")
+                    b.Property<int>("TablaEquivalenciaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("valorMax")
+                    b.Property<int>("ValorMax")
                         .HasColumnType("int");
 
-                    b.Property<int>("valorMin")
+                    b.Property<int>("ValorMin")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("perfilEstudianteId")
+                    b.HasIndex("PerfilEstudianteId")
                         .IsUnique();
 
-                    b.HasIndex("tablaEquivalenciaId");
+                    b.HasIndex("TablaEquivalenciaId");
 
                     b.ToTable("BarrasProgreso");
                 });
@@ -63,14 +63,14 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("codigoBase")
+                    b.Property<string>("CodigoUnico")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("expiracion")
+                    b.Property<DateTime>("Expiracion")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("urlCompleta")
+                    b.Property<string>("UrlCompleta")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -87,10 +87,10 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("TablaEquivalenciaId")
+                    b.Property<int>("Nota")
                         .HasColumnType("int");
 
-                    b.Property<int>("nota")
+                    b.Property<int?>("TablaEquivalenciaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -108,42 +108,42 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ProfesorId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("enlaceUnionId")
+                    b.Property<int>("EnlaceUnionId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("fCreacion")
+                    b.Property<DateTime>("FCreacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("institucion")
+                    b.Property<string>("Institucion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("materia")
+                    b.Property<string>("Materia")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("nombre")
+                    b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int>("tablaEquivalenciaId")
+                    b.Property<string>("ProfesorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("TablaEquivalenciaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EnlaceUnionId");
+
+                    b.HasIndex("Nombre");
+
                     b.HasIndex("ProfesorId")
                         .HasDatabaseName("IX_Grupo_ProfesorId");
 
-                    b.HasIndex("enlaceUnionId");
-
-                    b.HasIndex("nombre");
-
-                    b.HasIndex("tablaEquivalenciaId");
+                    b.HasIndex("TablaEquivalenciaId");
 
                     b.ToTable("Grupos");
                 });
@@ -156,20 +156,15 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("EstudianteId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("cantMedallasRequeridas")
+                    b.Property<int>("CantMedallasRequeridas")
                         .HasColumnType("int");
 
-                    b.Property<int>("recompensaId")
+                    b.Property<int>("RecompensaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EstudianteId");
-
-                    b.HasIndex("recompensaId");
+                    b.HasIndex("RecompensaId");
 
                     b.ToTable("Hitos");
                 });
@@ -182,7 +177,16 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("EquivalenciaId")
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Icono")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MonedasOtorgadas")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
@@ -190,37 +194,18 @@ namespace AccesoDatos.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int?>("PerfilEstudianteId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ProfesorId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("RendimientoPeriodoId")
                         .HasColumnType("int");
 
-                    b.Property<string>("descripcion")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("icono")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("monedasOtorgadas")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("tieneAsignacionMutua")
+                    b.Property<bool>("TieneAsignacionMutua")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EquivalenciaId");
-
                     b.HasIndex("Nombre");
-
-                    b.HasIndex("PerfilEstudianteId");
 
                     b.HasIndex("ProfesorId");
 
@@ -237,6 +222,12 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AvatarGrupoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EnlaceAvatar")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("EstudianteId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -244,27 +235,15 @@ namespace AccesoDatos.Migrations
                     b.Property<int>("GrupoId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TablaClasificacionId")
+                    b.Property<int>("MetaCalificacion")
                         .HasColumnType("int");
 
-                    b.Property<int>("avatarGrupoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("enlaceAvatar")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("metaCalificacion")
-                        .HasColumnType("int");
-
-                    b.Property<int>("monedas")
+                    b.Property<int>("Monedas")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EstudianteId");
-
-                    b.HasIndex("TablaClasificacionId");
 
                     b.HasIndex("GrupoId", "EstudianteId")
                         .IsUnique()
@@ -281,23 +260,23 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("fCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("fExpiracion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("fueUtilizado")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("idUsuario")
-                        .HasColumnType("int");
-
-                    b.Property<string>("pin")
+                    b.Property<string>("Codigo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("tiempoDeVida")
+                    b.Property<DateTime>("FCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FExpiracion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("FueUtilizado")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("IdUsuario")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TiempoDeVida")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -316,11 +295,11 @@ namespace AccesoDatos.Migrations
                     b.Property<string>("EstudianteId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("pregunta")
+                    b.Property<string>("Pregunta")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("respuesta")
+                    b.Property<string>("Respuesta")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -344,29 +323,24 @@ namespace AccesoDatos.Migrations
                         .HasMaxLength(13)
                         .HasColumnType("nvarchar(13)");
 
+                    b.Property<string>("Imagen")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("PerfilEstudianteId")
+                    b.Property<int>("Precio")
                         .HasColumnType("int");
 
                     b.Property<int?>("TiendaId")
                         .HasColumnType("int");
 
-                    b.Property<string>("imagen")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("precio")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Nombre");
-
-                    b.HasIndex("PerfilEstudianteId");
 
                     b.HasIndex("TiendaId");
 
@@ -385,16 +359,16 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("notaObtenida")
+                    b.Property<string>("NotaObtenida")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("perfilEstudianteId")
+                    b.Property<int>("PerfilEstudianteId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("perfilEstudianteId");
+                    b.HasIndex("PerfilEstudianteId");
 
                     b.ToTable("RendimientosPeriodos");
                 });
@@ -410,21 +384,21 @@ namespace AccesoDatos.Migrations
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
-                    b.Property<string>("estudianteId")
+                    b.Property<string>("EstudianteId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateOnly>("fecha")
+                    b.Property<DateOnly>("Fecha")
                         .HasColumnType("date");
 
-                    b.Property<int>("grupoId")
+                    b.Property<int>("GrupoId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("estudianteId");
+                    b.HasIndex("EstudianteId");
 
-                    b.HasIndex("grupoId");
+                    b.HasIndex("GrupoId");
 
                     b.ToTable("SolicitudesUnion");
                 });
@@ -437,24 +411,24 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("GrupoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MedallaAsociadaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("grupoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("medallaAsociadaId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
+                    b.HasIndex("GrupoId");
+
+                    b.HasIndex("MedallaAsociadaId");
+
                     b.HasIndex("Nombre");
-
-                    b.HasIndex("grupoId");
-
-                    b.HasIndex("medallaAsociadaId");
 
                     b.ToTable("TablasClasificacion");
                 });
@@ -586,6 +560,36 @@ namespace AccesoDatos.Migrations
                     b.ToTable("Usuarios", (string)null);
 
                     b.UseTptMappingStrategy();
+                });
+
+            modelBuilder.Entity("EquivalenciaMedallas", b =>
+                {
+                    b.Property<int>("EquivalenciaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MedallaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EquivalenciaId", "MedallaId");
+
+                    b.HasIndex("MedallaId");
+
+                    b.ToTable("EquivalenciaMedallas");
+                });
+
+            modelBuilder.Entity("EstudianteHitos", b =>
+                {
+                    b.Property<string>("EstudianteId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("HitoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EstudianteId", "HitoId");
+
+                    b.HasIndex("HitoId");
+
+                    b.ToTable("EstudianteHitos");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -743,14 +747,59 @@ namespace AccesoDatos.Migrations
                     b.ToTable("TokensUsuario", (string)null);
                 });
 
+            modelBuilder.Entity("PerfilEstudianteMedallas", b =>
+                {
+                    b.Property<int>("MedallaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PerfilEstudianteId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MedallaId", "PerfilEstudianteId");
+
+                    b.HasIndex("PerfilEstudianteId");
+
+                    b.ToTable("PerfilEstudianteMedallas");
+                });
+
+            modelBuilder.Entity("PerfilEstudianteRecompensas", b =>
+                {
+                    b.Property<int>("PerfilEstudianteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RecompensaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PerfilEstudianteId", "RecompensaId");
+
+                    b.HasIndex("RecompensaId");
+
+                    b.ToTable("PerfilEstudianteRecompensas");
+                });
+
+            modelBuilder.Entity("TablaClasificacionParticipantes", b =>
+                {
+                    b.Property<int>("PerfilEstudianteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TablaClasificacionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PerfilEstudianteId", "TablaClasificacionId");
+
+                    b.HasIndex("TablaClasificacionId");
+
+                    b.ToTable("TablaClasificacionParticipantes");
+                });
+
             modelBuilder.Entity("Dominio.Potenciador", b =>
                 {
                     b.HasBaseType("Dominio.Recompensa");
 
-                    b.Property<double>("multiplicador")
+                    b.Property<double>("Multiplicador")
                         .HasColumnType("float");
 
-                    b.Property<DateTime>("periodo")
+                    b.Property<DateTime>("Periodo")
                         .HasColumnType("datetime2");
 
                     b.HasDiscriminator().HasValue("Potenciador");
@@ -773,118 +822,98 @@ namespace AccesoDatos.Migrations
             modelBuilder.Entity("Dominio.BarraProgreso", b =>
                 {
                     b.HasOne("Dominio.PerfilEstudiante", null)
-                        .WithOne("barraProgreso")
-                        .HasForeignKey("Dominio.BarraProgreso", "perfilEstudianteId")
+                        .WithOne("BarraProgreso")
+                        .HasForeignKey("Dominio.BarraProgreso", "PerfilEstudianteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dominio.TablaEquivalencia", "tablaEquivalencia")
+                    b.HasOne("Dominio.TablaEquivalencia", "TablaEquivalencia")
                         .WithMany()
-                        .HasForeignKey("tablaEquivalenciaId")
+                        .HasForeignKey("TablaEquivalenciaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("tablaEquivalencia");
+                    b.Navigation("TablaEquivalencia");
                 });
 
             modelBuilder.Entity("Dominio.Equivalencia", b =>
                 {
                     b.HasOne("Dominio.TablaEquivalencia", null)
-                        .WithMany("equivalencias")
+                        .WithMany("Equivalencias")
                         .HasForeignKey("TablaEquivalenciaId");
                 });
 
             modelBuilder.Entity("Dominio.Grupo", b =>
                 {
+                    b.HasOne("Dominio.EnlaceUnion", "EnlaceUnion")
+                        .WithMany()
+                        .HasForeignKey("EnlaceUnionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Dominio.Profesor", null)
-                        .WithMany("grupos")
+                        .WithMany("Grupos")
                         .HasForeignKey("ProfesorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dominio.EnlaceUnion", "enlaceUnion")
+                    b.HasOne("Dominio.TablaEquivalencia", "TablaEquivalencia")
                         .WithMany()
-                        .HasForeignKey("enlaceUnionId")
+                        .HasForeignKey("TablaEquivalenciaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dominio.TablaEquivalencia", "tablaEquivalencia")
-                        .WithMany()
-                        .HasForeignKey("tablaEquivalenciaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("EnlaceUnion");
 
-                    b.Navigation("enlaceUnion");
-
-                    b.Navigation("tablaEquivalencia");
+                    b.Navigation("TablaEquivalencia");
                 });
 
             modelBuilder.Entity("Dominio.Hito", b =>
                 {
-                    b.HasOne("Dominio.Estudiante", null)
-                        .WithMany("hitos")
-                        .HasForeignKey("EstudianteId");
-
-                    b.HasOne("Dominio.Recompensa", "recompensa")
+                    b.HasOne("Dominio.Recompensa", "Recompensa")
                         .WithMany()
-                        .HasForeignKey("recompensaId")
+                        .HasForeignKey("RecompensaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("recompensa");
+                    b.Navigation("Recompensa");
                 });
 
             modelBuilder.Entity("Dominio.Medalla", b =>
                 {
-                    b.HasOne("Dominio.Equivalencia", null)
-                        .WithMany("medallasNecesarias")
-                        .HasForeignKey("EquivalenciaId");
-
-                    b.HasOne("Dominio.PerfilEstudiante", null)
-                        .WithMany("medallasObtenidas")
-                        .HasForeignKey("PerfilEstudianteId");
-
                     b.HasOne("Dominio.Profesor", null)
-                        .WithMany("medallas")
+                        .WithMany("Medallas")
                         .HasForeignKey("ProfesorId");
 
                     b.HasOne("Dominio.RendimientoPeriodo", null)
-                        .WithMany("medallasObtuvoEstudiante")
+                        .WithMany("MedallasObtuvoEstudiante")
                         .HasForeignKey("RendimientoPeriodoId");
                 });
 
             modelBuilder.Entity("Dominio.PerfilEstudiante", b =>
                 {
                     b.HasOne("Dominio.Estudiante", null)
-                        .WithMany("perfiles")
+                        .WithMany("Perfiles")
                         .HasForeignKey("EstudianteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Dominio.Grupo", null)
-                        .WithMany("alumnos")
+                        .WithMany("Alumnos")
                         .HasForeignKey("GrupoId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("Dominio.TablaClasificacion", null)
-                        .WithMany("participantes")
-                        .HasForeignKey("TablaClasificacionId");
                 });
 
             modelBuilder.Entity("Dominio.PreguntaRespuestaSeguridad", b =>
                 {
                     b.HasOne("Dominio.Estudiante", null)
-                        .WithMany("preguntasSeguridad")
+                        .WithMany("PreguntasSeguridad")
                         .HasForeignKey("EstudianteId");
                 });
 
             modelBuilder.Entity("Dominio.Recompensa", b =>
                 {
-                    b.HasOne("Dominio.PerfilEstudiante", null)
-                        .WithMany("inventario")
-                        .HasForeignKey("PerfilEstudianteId");
-
                     b.HasOne("Dominio.Tienda", null)
                         .WithMany("Recompesas")
                         .HasForeignKey("TiendaId");
@@ -893,12 +922,12 @@ namespace AccesoDatos.Migrations
             modelBuilder.Entity("Dominio.RendimientoPeriodo", b =>
                 {
                     b.HasOne("Dominio.PerfilEstudiante", null)
-                        .WithMany("historialRendimientoPeriodos")
-                        .HasForeignKey("perfilEstudianteId")
+                        .WithMany("HistorialRendimientoPeriodos")
+                        .HasForeignKey("PerfilEstudianteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("LogicaNegocio.ValueObject.RangoFechas", "rangofecha", b1 =>
+                    b.OwnsOne("LogicaNegocio.ValueObject.RangoFechas", "Rangofecha", b1 =>
                         {
                             b1.Property<int>("RendimientoPeriodoId")
                                 .HasColumnType("int");
@@ -919,55 +948,57 @@ namespace AccesoDatos.Migrations
                                 .HasForeignKey("RendimientoPeriodoId");
                         });
 
-                    b.Navigation("rangofecha")
+                    b.Navigation("Rangofecha")
                         .IsRequired();
                 });
 
             modelBuilder.Entity("Dominio.SolicitudUnion", b =>
                 {
-                    b.HasOne("Dominio.Estudiante", "estudiante")
+                    b.HasOne("Dominio.Estudiante", "Estudiante")
                         .WithMany()
-                        .HasForeignKey("estudianteId")
+                        .HasForeignKey("EstudianteId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Dominio.Grupo", null)
-                        .WithMany("solicitudes")
-                        .HasForeignKey("grupoId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("Dominio.Grupo", "Grupo")
+                        .WithMany("Solicitudes")
+                        .HasForeignKey("GrupoId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("estudiante");
+                    b.Navigation("Estudiante");
+
+                    b.Navigation("Grupo");
                 });
 
             modelBuilder.Entity("Dominio.TablaClasificacion", b =>
                 {
                     b.HasOne("Dominio.Grupo", null)
-                        .WithMany("tablasClasificacion")
-                        .HasForeignKey("grupoId")
+                        .WithMany("TablasClasificacion")
+                        .HasForeignKey("GrupoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dominio.Medalla", "medallaAsociada")
+                    b.HasOne("Dominio.Medalla", "MedallaAsociada")
                         .WithMany()
-                        .HasForeignKey("medallaAsociadaId")
+                        .HasForeignKey("MedallaAsociadaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("medallaAsociada");
+                    b.Navigation("MedallaAsociada");
                 });
 
             modelBuilder.Entity("Dominio.TablaEquivalencia", b =>
                 {
                     b.HasOne("Dominio.Profesor", null)
-                        .WithMany("tablasEquivalencia")
+                        .WithMany("TablasEquivalencia")
                         .HasForeignKey("ProfesorId");
                 });
 
             modelBuilder.Entity("Dominio.Tienda", b =>
                 {
                     b.HasOne("Dominio.Grupo", null)
-                        .WithOne("tienda")
+                        .WithOne("Tienda")
                         .HasForeignKey("Dominio.Tienda", "GrupoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1001,6 +1032,36 @@ namespace AccesoDatos.Migrations
                         });
 
                     b.Navigation("NombreCompleto")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EquivalenciaMedallas", b =>
+                {
+                    b.HasOne("Dominio.Equivalencia", null)
+                        .WithMany()
+                        .HasForeignKey("EquivalenciaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dominio.Medalla", null)
+                        .WithMany()
+                        .HasForeignKey("MedallaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EstudianteHitos", b =>
+                {
+                    b.HasOne("Dominio.Estudiante", null)
+                        .WithMany()
+                        .HasForeignKey("EstudianteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dominio.Hito", null)
+                        .WithMany()
+                        .HasForeignKey("HitoId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -1055,6 +1116,51 @@ namespace AccesoDatos.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PerfilEstudianteMedallas", b =>
+                {
+                    b.HasOne("Dominio.Medalla", null)
+                        .WithMany()
+                        .HasForeignKey("MedallaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dominio.PerfilEstudiante", null)
+                        .WithMany()
+                        .HasForeignKey("PerfilEstudianteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PerfilEstudianteRecompensas", b =>
+                {
+                    b.HasOne("Dominio.PerfilEstudiante", null)
+                        .WithMany()
+                        .HasForeignKey("PerfilEstudianteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dominio.Recompensa", null)
+                        .WithMany()
+                        .HasForeignKey("RecompensaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TablaClasificacionParticipantes", b =>
+                {
+                    b.HasOne("Dominio.PerfilEstudiante", null)
+                        .WithMany()
+                        .HasForeignKey("PerfilEstudianteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dominio.TablaClasificacion", null)
+                        .WithMany()
+                        .HasForeignKey("TablaClasificacionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Dominio.Estudiante", b =>
                 {
                     b.HasOne("Dominio.Usuario", null)
@@ -1073,48 +1179,34 @@ namespace AccesoDatos.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Dominio.Equivalencia", b =>
-                {
-                    b.Navigation("medallasNecesarias");
-                });
-
             modelBuilder.Entity("Dominio.Grupo", b =>
                 {
-                    b.Navigation("alumnos");
+                    b.Navigation("Alumnos");
 
-                    b.Navigation("solicitudes");
+                    b.Navigation("Solicitudes");
 
-                    b.Navigation("tablasClasificacion");
+                    b.Navigation("TablasClasificacion");
 
-                    b.Navigation("tienda")
+                    b.Navigation("Tienda")
                         .IsRequired();
                 });
 
             modelBuilder.Entity("Dominio.PerfilEstudiante", b =>
                 {
-                    b.Navigation("barraProgreso")
+                    b.Navigation("BarraProgreso")
                         .IsRequired();
 
-                    b.Navigation("historialRendimientoPeriodos");
-
-                    b.Navigation("inventario");
-
-                    b.Navigation("medallasObtenidas");
+                    b.Navigation("HistorialRendimientoPeriodos");
                 });
 
             modelBuilder.Entity("Dominio.RendimientoPeriodo", b =>
                 {
-                    b.Navigation("medallasObtuvoEstudiante");
-                });
-
-            modelBuilder.Entity("Dominio.TablaClasificacion", b =>
-                {
-                    b.Navigation("participantes");
+                    b.Navigation("MedallasObtuvoEstudiante");
                 });
 
             modelBuilder.Entity("Dominio.TablaEquivalencia", b =>
                 {
-                    b.Navigation("equivalencias");
+                    b.Navigation("Equivalencias");
                 });
 
             modelBuilder.Entity("Dominio.Tienda", b =>
@@ -1124,20 +1216,18 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("Dominio.Estudiante", b =>
                 {
-                    b.Navigation("hitos");
+                    b.Navigation("Perfiles");
 
-                    b.Navigation("perfiles");
-
-                    b.Navigation("preguntasSeguridad");
+                    b.Navigation("PreguntasSeguridad");
                 });
 
             modelBuilder.Entity("Dominio.Profesor", b =>
                 {
-                    b.Navigation("grupos");
+                    b.Navigation("Grupos");
 
-                    b.Navigation("medallas");
+                    b.Navigation("Medallas");
 
-                    b.Navigation("tablasEquivalencia");
+                    b.Navigation("TablasEquivalencia");
                 });
 #pragma warning restore 612, 618
         }

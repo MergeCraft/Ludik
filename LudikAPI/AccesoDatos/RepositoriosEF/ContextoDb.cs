@@ -70,6 +70,85 @@ namespace AccesoDatos.RepositoriosEF
                 .HasForeignKey<Profesor>(p => p.Id)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            // Relación M:N entre PerfilEstudiante y Medalla (MedallasObtenidas)
+            modelBuilder.Entity<PerfilEstudiante>()
+                .HasMany(pe => pe.MedallasObtenidas)
+                .WithMany() // No hay navegación de vuelta en Medalla
+                .UsingEntity<Dictionary<string, object>>(
+                    "PerfilEstudianteMedallas", // Nombre de la tabla de unión
+                    j => j
+                        .HasOne<Medalla>()
+                        .WithMany()
+                        .HasForeignKey("MedallaId"),
+                    j => j
+                        .HasOne<PerfilEstudiante>()
+                        .WithMany()
+                        .HasForeignKey("PerfilEstudianteId"));
+
+            //Relación M:N entre PerfilEstudiante y Recompensa (Inventario)
+            modelBuilder.Entity<PerfilEstudiante>()
+                .HasMany(pe => pe.Inventario)
+                .WithMany() // No hay navegación de vuelta en Recompensa
+                .UsingEntity<Dictionary<string, object>>(
+                    "PerfilEstudianteRecompensas", // Nombre de la tabla de unión
+                    j => j
+                        .HasOne<Recompensa>()
+                        .WithMany()
+                        .HasForeignKey("RecompensaId"),
+                    j => j
+                        .HasOne<PerfilEstudiante>()
+                        .WithMany()
+                        .HasForeignKey("PerfilEstudianteId"));
+
+            modelBuilder.Entity<TablaClasificacion>()
+                .HasMany(tc => tc.Participantes)
+                .WithMany() // No hay navegación de vuelta en PerfilEstudiante para esta relación
+                .UsingEntity<Dictionary<string, object>>(
+                    "TablaClasificacionParticipantes", // Nombre de la tabla de unión
+                    // Configuración para la FK a PerfilEstudiante
+                    j => j
+                        .HasOne<PerfilEstudiante>()
+                        .WithMany()
+                        .HasForeignKey("PerfilEstudianteId")
+                        .OnDelete(DeleteBehavior.Cascade), // Si se borra un Perfil, que se elimine su participación.
+
+                    // Configuración para la FK a TablaClasificacion
+                    j => j
+                        .HasOne<TablaClasificacion>()
+                        .WithMany()
+                        .HasForeignKey("TablaClasificacionId")
+                        .OnDelete(DeleteBehavior.Restrict) 
+                );
+
+            // Relación M:N entre Equivalencia y Medalla (MedallasNecesarias)
+            modelBuilder.Entity<Equivalencia>()
+                .HasMany(e => e.MedallasNecesarias)
+                .WithMany() // No hay navegación de vuelta en Medalla
+                .UsingEntity<Dictionary<string, object>>(
+                    "EquivalenciaMedallas", // Nombre de la tabla de unión
+                    j => j
+                        .HasOne<Medalla>()
+                        .WithMany()
+                        .HasForeignKey("MedallaId"),
+                    j => j
+                        .HasOne<Equivalencia>()
+                        .WithMany()
+                        .HasForeignKey("EquivalenciaId"));
+
+            // Relación M:N entre Estudiante y Hito
+            modelBuilder.Entity<Estudiante>()
+                .HasMany(e => e.Hitos)
+                .WithMany() // No hay propiedad de navegación de vuelta en la clase Hito
+                .UsingEntity<Dictionary<string, object>>(
+                    "EstudianteHitos", // Nombre de la nueva tabla de unión
+                    j => j
+                        .HasOne<Hito>()
+                        .WithMany()
+                        .HasForeignKey("HitoId"),
+                    j => j
+                        .HasOne<Estudiante>()
+                        .WithMany()
+                        .HasForeignKey("EstudianteId"));
 
             modelBuilder.Entity<RendimientoPeriodo>(rp =>
             {
@@ -137,7 +216,7 @@ namespace AccesoDatos.RepositoriosEF
             
             modelBuilder.Entity<SolicitudUnion>()
                 .HasOne(s => s.Estudiante)
-                .WithMany() // o con la colección en Estudiante si la tienes
+                .WithMany()
                 .HasForeignKey(s => s.EstudianteId)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<TablaEquivalencia>(te =>

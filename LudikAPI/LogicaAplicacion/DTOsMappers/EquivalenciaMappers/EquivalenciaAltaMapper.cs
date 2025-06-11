@@ -16,7 +16,7 @@ namespace LogicaAplicacion.DTOsMappers.EquivalenciaMappers
             return new EquivalenciaAltaDto
             {
                 Nota = equivalencia.Nota,
-                MedallasNecesarias = equivalencia.MedallasNecesarias.Select(medalla => MedallaMapper.toDto(medalla))
+                MedallasNecesarias = equivalencia.MedallasNecesarias.Select(medalla => MedallaBasicaMapper.toDto(medalla))
                     .ToList()
             };
         }
@@ -26,7 +26,7 @@ namespace LogicaAplicacion.DTOsMappers.EquivalenciaMappers
             return new Equivalencia
             {
                 Nota = dto.Nota,
-                MedallasNecesarias = dto.MedallasNecesarias.Select(medallaDto => MedallaMapper.fromDto(medallaDto))
+                MedallasNecesarias = dto.MedallasNecesarias.Select(medallaDto => MedallaBasicaMapper.fromDto(medallaDto))
                     .ToList()
             };
         }

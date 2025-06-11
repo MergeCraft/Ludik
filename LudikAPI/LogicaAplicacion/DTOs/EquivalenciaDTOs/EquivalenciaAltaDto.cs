@@ -10,6 +10,6 @@ namespace LogicaAplicacion.DTOs.EquivalenciaDTOs
     public class EquivalenciaAltaDto
     {
         public int Nota { get; set; }
-        public List<MedallaDto> MedallasNecesarias { get; set; }
+        public List<MedallaBasicaDto> MedallasNecesarias { get; set; }
     }
 }

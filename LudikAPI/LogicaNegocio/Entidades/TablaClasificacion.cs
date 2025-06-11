@@ -13,14 +13,13 @@ namespace Dominio
     {
         public int Id { get; set; }
         [Required]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "El nombre de la TablaClasificacion  debe tener entre 3 y 50 caracteres.")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "El nombre de la Tabla Clasificacion  debe tener entre 3 y 50 caracteres.")]
         public String Nombre { get; set; }
 
         public Medalla MedallaAsociada { get; set; }
 
         public List<PerfilEstudiante> Participantes { get; set; }
 
-        [ForeignKey(nameof(Grupo))]
         public int GrupoId { get; set; } 
 
         public void actualizar()

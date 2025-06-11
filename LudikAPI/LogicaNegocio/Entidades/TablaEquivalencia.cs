@@ -23,6 +23,7 @@ namespace Dominio
         public TablaEquivalencia(string nombre)
         {
             Nombre = nombre;
+            Equivalencias = new List<Equivalencia>();
         }
 
         public int maxCalificacionSegun(List<Medalla> medallas)

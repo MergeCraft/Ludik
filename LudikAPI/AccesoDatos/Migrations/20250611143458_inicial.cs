@@ -17,9 +17,9 @@ namespace AccesoDatos.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    codigoBase = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    expiracion = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    urlCompleta = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CodigoUnico = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Expiracion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UrlCompleta = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,12 +32,12 @@ namespace AccesoDatos.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    idUsuario = table.Column<int>(type: "int", nullable: false),
-                    pin = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    fCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    fExpiracion = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    tiempoDeVida = table.Column<int>(type: "int", nullable: false),
-                    fueUtilizado = table.Column<bool>(type: "bit", nullable: false)
+                    IdUsuario = table.Column<int>(type: "int", nullable: false),
+                    Codigo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FExpiracion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TiempoDeVida = table.Column<int>(type: "int", nullable: false),
+                    FueUtilizado = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -232,8 +232,8 @@ namespace AccesoDatos.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    pregunta = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    respuesta = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Pregunta = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Respuesta = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EstudianteId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -271,7 +271,7 @@ namespace AccesoDatos.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    nota = table.Column<int>(type: "int", nullable: false),
+                    Nota = table.Column<int>(type: "int", nullable: false),
                     TablaEquivalenciaId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -290,20 +290,20 @@ namespace AccesoDatos.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    nombre = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    institucion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    materia = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    fCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    tablaEquivalenciaId = table.Column<int>(type: "int", nullable: false),
-                    enlaceUnionId = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Institucion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Materia = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TablaEquivalenciaId = table.Column<int>(type: "int", nullable: false),
+                    EnlaceUnionId = table.Column<int>(type: "int", nullable: false),
                     ProfesorId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Grupos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Grupos_EnlacesUnion_enlaceUnionId",
-                        column: x => x.enlaceUnionId,
+                        name: "FK_Grupos_EnlacesUnion_EnlaceUnionId",
+                        column: x => x.EnlaceUnionId,
                         principalTable: "EnlacesUnion",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -314,11 +314,41 @@ namespace AccesoDatos.Migrations
                         principalColumn: "UsuarioId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Grupos_TablasEquivalencia_tablaEquivalenciaId",
-                        column: x => x.tablaEquivalenciaId,
+                        name: "FK_Grupos_TablasEquivalencia_TablaEquivalenciaId",
+                        column: x => x.TablaEquivalenciaId,
                         principalTable: "TablasEquivalencia",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PerfilesEstudiantes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AvatarGrupoId = table.Column<int>(type: "int", nullable: false),
+                    EnlaceAvatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MetaCalificacion = table.Column<int>(type: "int", nullable: false),
+                    EstudianteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Monedas = table.Column<int>(type: "int", nullable: false),
+                    GrupoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PerfilesEstudiantes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PerfilesEstudiantes_Estudiantes_EstudianteId",
+                        column: x => x.EstudianteId,
+                        principalTable: "Estudiantes",
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PerfilesEstudiantes_Grupos_GrupoId",
+                        column: x => x.GrupoId,
+                        principalTable: "Grupos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -327,17 +357,17 @@ namespace AccesoDatos.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    estudianteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EstudianteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Estado = table.Column<int>(type: "int", nullable: false),
                     GrupoId = table.Column<int>(type: "int", nullable: false),
-                    fecha = table.Column<DateOnly>(type: "date", nullable: false)
+                    Fecha = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SolicitudesUnion", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SolicitudesUnion_Estudiantes_estudianteId",
-                        column: x => x.estudianteId,
+                        name: "FK_SolicitudesUnion_Estudiantes_EstudianteId",
+                        column: x => x.EstudianteId,
                         principalTable: "Estudiantes",
                         principalColumn: "UsuarioId",
                         onDelete: ReferentialAction.Restrict);
@@ -374,20 +404,101 @@ namespace AccesoDatos.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    valorMin = table.Column<int>(type: "int", nullable: false),
-                    valorMax = table.Column<int>(type: "int", nullable: false),
-                    tablaEquivalenciaId = table.Column<int>(type: "int", nullable: false),
-                    perfilEstudianteId = table.Column<int>(type: "int", nullable: false)
+                    ValorMin = table.Column<int>(type: "int", nullable: false),
+                    ValorMax = table.Column<int>(type: "int", nullable: false),
+                    TablaEquivalenciaId = table.Column<int>(type: "int", nullable: false),
+                    PerfilEstudianteId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BarrasProgreso", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BarrasProgreso_TablasEquivalencia_tablaEquivalenciaId",
-                        column: x => x.tablaEquivalenciaId,
+                        name: "FK_BarrasProgreso_PerfilesEstudiantes_PerfilEstudianteId",
+                        column: x => x.PerfilEstudianteId,
+                        principalTable: "PerfilesEstudiantes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BarrasProgreso_TablasEquivalencia_TablaEquivalenciaId",
+                        column: x => x.TablaEquivalenciaId,
                         principalTable: "TablasEquivalencia",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RendimientosPeriodos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FechaInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaFin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    NotaObtenida = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PerfilEstudianteId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RendimientosPeriodos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RendimientosPeriodos_PerfilesEstudiantes_PerfilEstudianteId",
+                        column: x => x.PerfilEstudianteId,
+                        principalTable: "PerfilesEstudiantes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Recompensas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Imagen = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Precio = table.Column<int>(type: "int", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
+                    TiendaId = table.Column<int>(type: "int", nullable: true),
+                    Periodo = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Multiplicador = table.Column<double>(type: "float", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Recompensas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Recompensas_Tiendas_TiendaId",
+                        column: x => x.TiendaId,
+                        principalTable: "Tiendas",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Medallas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Icono = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MonedasOtorgadas = table.Column<int>(type: "int", nullable: false),
+                    TieneAsignacionMutua = table.Column<bool>(type: "bit", nullable: false),
+                    ProfesorId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    RendimientoPeriodoId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Medallas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Medallas_Profesores_ProfesorId",
+                        column: x => x.ProfesorId,
+                        principalTable: "Profesores",
+                        principalColumn: "UsuarioId");
+                    table.ForeignKey(
+                        name: "FK_Medallas_RendimientosPeriodos_RendimientoPeriodoId",
+                        column: x => x.RendimientoPeriodoId,
+                        principalTable: "RendimientosPeriodos",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -396,8 +507,8 @@ namespace AccesoDatos.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    cantMedallasRequeridas = table.Column<int>(type: "int", nullable: false),
-                    recompensaId = table.Column<int>(type: "int", nullable: false),
+                    CantMedallasRequeridas = table.Column<int>(type: "int", nullable: false),
+                    RecompensaId = table.Column<int>(type: "int", nullable: false),
                     EstudianteId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -408,37 +519,84 @@ namespace AccesoDatos.Migrations
                         column: x => x.EstudianteId,
                         principalTable: "Estudiantes",
                         principalColumn: "UsuarioId");
+                    table.ForeignKey(
+                        name: "FK_Hitos_Recompensas_RecompensaId",
+                        column: x => x.RecompensaId,
+                        principalTable: "Recompensas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Medallas",
+                name: "PerfilEstudianteRecompensas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    descripcion = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    icono = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    monedasOtorgadas = table.Column<int>(type: "int", nullable: false),
-                    tieneAsignacionMutua = table.Column<bool>(type: "bit", nullable: false),
-                    EquivalenciaId = table.Column<int>(type: "int", nullable: true),
-                    PerfilEstudianteId = table.Column<int>(type: "int", nullable: true),
-                    ProfesorId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    RendimientoPeriodoId = table.Column<int>(type: "int", nullable: true)
+                    PerfilEstudianteId = table.Column<int>(type: "int", nullable: false),
+                    RecompensaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Medallas", x => x.Id);
+                    table.PrimaryKey("PK_PerfilEstudianteRecompensas", x => new { x.PerfilEstudianteId, x.RecompensaId });
                     table.ForeignKey(
-                        name: "FK_Medallas_Equivalencias_EquivalenciaId",
+                        name: "FK_PerfilEstudianteRecompensas_PerfilesEstudiantes_PerfilEstudianteId",
+                        column: x => x.PerfilEstudianteId,
+                        principalTable: "PerfilesEstudiantes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PerfilEstudianteRecompensas_Recompensas_RecompensaId",
+                        column: x => x.RecompensaId,
+                        principalTable: "Recompensas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EquivalenciaMedallas",
+                columns: table => new
+                {
+                    EquivalenciaId = table.Column<int>(type: "int", nullable: false),
+                    MedallaId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EquivalenciaMedallas", x => new { x.EquivalenciaId, x.MedallaId });
+                    table.ForeignKey(
+                        name: "FK_EquivalenciaMedallas_Equivalencias_EquivalenciaId",
                         column: x => x.EquivalenciaId,
                         principalTable: "Equivalencias",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Medallas_Profesores_ProfesorId",
-                        column: x => x.ProfesorId,
-                        principalTable: "Profesores",
-                        principalColumn: "UsuarioId");
+                        name: "FK_EquivalenciaMedallas_Medallas_MedallaId",
+                        column: x => x.MedallaId,
+                        principalTable: "Medallas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PerfilEstudianteMedallas",
+                columns: table => new
+                {
+                    MedallaId = table.Column<int>(type: "int", nullable: false),
+                    PerfilEstudianteId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PerfilEstudianteMedallas", x => new { x.MedallaId, x.PerfilEstudianteId });
+                    table.ForeignKey(
+                        name: "FK_PerfilEstudianteMedallas_Medallas_MedallaId",
+                        column: x => x.MedallaId,
+                        principalTable: "Medallas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PerfilEstudianteMedallas_PerfilesEstudiantes_PerfilEstudianteId",
+                        column: x => x.PerfilEstudianteId,
+                        principalTable: "PerfilesEstudiantes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -448,7 +606,7 @@ namespace AccesoDatos.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    medallaAsociadaId = table.Column<int>(type: "int", nullable: false),
+                    MedallaAsociadaId = table.Column<int>(type: "int", nullable: false),
                     GrupoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -461,111 +619,52 @@ namespace AccesoDatos.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TablasClasificacion_Medallas_medallaAsociadaId",
-                        column: x => x.medallaAsociadaId,
+                        name: "FK_TablasClasificacion_Medallas_MedallaAsociadaId",
+                        column: x => x.MedallaAsociadaId,
                         principalTable: "Medallas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PerfilesEstudiantes",
+                name: "TablaClasificacionParticipantes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    avatarGrupoId = table.Column<int>(type: "int", nullable: false),
-                    enlaceAvatar = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    metaCalificacion = table.Column<int>(type: "int", nullable: false),
-                    EstudianteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    monedas = table.Column<int>(type: "int", nullable: false),
-                    GrupoId = table.Column<int>(type: "int", nullable: false),
-                    TablaClasificacionId = table.Column<int>(type: "int", nullable: true)
+                    PerfilEstudianteId = table.Column<int>(type: "int", nullable: false),
+                    TablaClasificacionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PerfilesEstudiantes", x => x.Id);
+                    table.PrimaryKey("PK_TablaClasificacionParticipantes", x => new { x.PerfilEstudianteId, x.TablaClasificacionId });
                     table.ForeignKey(
-                        name: "FK_PerfilesEstudiantes_Estudiantes_EstudianteId",
-                        column: x => x.EstudianteId,
-                        principalTable: "Estudiantes",
-                        principalColumn: "UsuarioId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PerfilesEstudiantes_Grupos_GrupoId",
-                        column: x => x.GrupoId,
-                        principalTable: "Grupos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PerfilesEstudiantes_TablasClasificacion_TablaClasificacionId",
-                        column: x => x.TablaClasificacionId,
-                        principalTable: "TablasClasificacion",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Recompensas",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    imagen = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    precio = table.Column<int>(type: "int", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
-                    PerfilEstudianteId = table.Column<int>(type: "int", nullable: true),
-                    TiendaId = table.Column<int>(type: "int", nullable: true),
-                    periodo = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    multiplicador = table.Column<double>(type: "float", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Recompensas", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Recompensas_PerfilesEstudiantes_PerfilEstudianteId",
+                        name: "FK_TablaClasificacionParticipantes_PerfilesEstudiantes_PerfilEstudianteId",
                         column: x => x.PerfilEstudianteId,
                         principalTable: "PerfilesEstudiantes",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Recompensas_Tiendas_TiendaId",
-                        column: x => x.TiendaId,
-                        principalTable: "Tiendas",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RendimientosPeriodos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FechaInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaFin = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    notaObtenida = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    perfilEstudianteId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RendimientosPeriodos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RendimientosPeriodos_PerfilesEstudiantes_perfilEstudianteId",
-                        column: x => x.perfilEstudianteId,
-                        principalTable: "PerfilesEstudiantes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TablaClasificacionParticipantes_TablasClasificacion_TablaClasificacionId",
+                        column: x => x.TablaClasificacionId,
+                        principalTable: "TablasClasificacion",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BarrasProgreso_perfilEstudianteId",
+                name: "IX_BarrasProgreso_PerfilEstudianteId",
                 table: "BarrasProgreso",
-                column: "perfilEstudianteId",
+                column: "PerfilEstudianteId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_BarrasProgreso_tablaEquivalenciaId",
+                name: "IX_BarrasProgreso_TablaEquivalenciaId",
                 table: "BarrasProgreso",
-                column: "tablaEquivalenciaId");
+                column: "TablaEquivalenciaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EquivalenciaMedallas_MedallaId",
+                table: "EquivalenciaMedallas",
+                column: "MedallaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Equivalencias_TablaEquivalenciaId",
@@ -578,19 +677,19 @@ namespace AccesoDatos.Migrations
                 column: "ProfesorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Grupos_enlaceUnionId",
+                name: "IX_Grupos_EnlaceUnionId",
                 table: "Grupos",
-                column: "enlaceUnionId");
+                column: "EnlaceUnionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Grupos_nombre",
+                name: "IX_Grupos_Nombre",
                 table: "Grupos",
-                column: "nombre");
+                column: "Nombre");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Grupos_tablaEquivalenciaId",
+                name: "IX_Grupos_TablaEquivalenciaId",
                 table: "Grupos",
-                column: "tablaEquivalenciaId");
+                column: "TablaEquivalenciaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Hitos_EstudianteId",
@@ -598,9 +697,9 @@ namespace AccesoDatos.Migrations
                 column: "EstudianteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Hitos_recompensaId",
+                name: "IX_Hitos_RecompensaId",
                 table: "Hitos",
-                column: "recompensaId");
+                column: "RecompensaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IniciosSesionUsuario_UsuarioId",
@@ -608,19 +707,9 @@ namespace AccesoDatos.Migrations
                 column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Medallas_EquivalenciaId",
-                table: "Medallas",
-                column: "EquivalenciaId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Medallas_Nombre",
                 table: "Medallas",
                 column: "Nombre");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Medallas_PerfilEstudianteId",
-                table: "Medallas",
-                column: "PerfilEstudianteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Medallas_ProfesorId",
@@ -638,15 +727,20 @@ namespace AccesoDatos.Migrations
                 column: "EstudianteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PerfilesEstudiantes_TablaClasificacionId",
-                table: "PerfilesEstudiantes",
-                column: "TablaClasificacionId");
-
-            migrationBuilder.CreateIndex(
                 name: "UX_PerfilEstudiante_GrupoId_EstudianteId",
                 table: "PerfilesEstudiantes",
                 columns: new[] { "GrupoId", "EstudianteId" },
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PerfilEstudianteMedallas_PerfilEstudianteId",
+                table: "PerfilEstudianteMedallas",
+                column: "PerfilEstudianteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PerfilEstudianteRecompensas_RecompensaId",
+                table: "PerfilEstudianteRecompensas",
+                column: "RecompensaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PreguntasRespuestasSeguridad_EstudianteId",
@@ -669,19 +763,14 @@ namespace AccesoDatos.Migrations
                 column: "Nombre");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Recompensas_PerfilEstudianteId",
-                table: "Recompensas",
-                column: "PerfilEstudianteId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Recompensas_TiendaId",
                 table: "Recompensas",
                 column: "TiendaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RendimientosPeriodos_perfilEstudianteId",
+                name: "IX_RendimientosPeriodos_PerfilEstudianteId",
                 table: "RendimientosPeriodos",
-                column: "perfilEstudianteId");
+                column: "PerfilEstudianteId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -691,9 +780,9 @@ namespace AccesoDatos.Migrations
                 filter: "[NombreRolNormalizado] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SolicitudesUnion_estudianteId",
+                name: "IX_SolicitudesUnion_EstudianteId",
                 table: "SolicitudesUnion",
-                column: "estudianteId");
+                column: "EstudianteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SolicitudesUnion_GrupoId",
@@ -701,14 +790,19 @@ namespace AccesoDatos.Migrations
                 column: "GrupoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TablaClasificacionParticipantes_TablaClasificacionId",
+                table: "TablaClasificacionParticipantes",
+                column: "TablaClasificacionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TablasClasificacion_GrupoId",
                 table: "TablasClasificacion",
                 column: "GrupoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TablasClasificacion_medallaAsociadaId",
+                name: "IX_TablasClasificacion_MedallaAsociadaId",
                 table: "TablasClasificacion",
-                column: "medallaAsociadaId");
+                column: "MedallaAsociadaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TablasClasificacion_Nombre",
@@ -747,57 +841,28 @@ namespace AccesoDatos.Migrations
                 name: "IX_UsuariosRoles_RolId",
                 table: "UsuariosRoles",
                 column: "RolId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_BarrasProgreso_PerfilesEstudiantes_perfilEstudianteId",
-                table: "BarrasProgreso",
-                column: "perfilEstudianteId",
-                principalTable: "PerfilesEstudiantes",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Hitos_Recompensas_recompensaId",
-                table: "Hitos",
-                column: "recompensaId",
-                principalTable: "Recompensas",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Medallas_PerfilesEstudiantes_PerfilEstudianteId",
-                table: "Medallas",
-                column: "PerfilEstudianteId",
-                principalTable: "PerfilesEstudiantes",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Medallas_RendimientosPeriodos_RendimientoPeriodoId",
-                table: "Medallas",
-                column: "RendimientoPeriodoId",
-                principalTable: "RendimientosPeriodos",
-                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Medallas_PerfilesEstudiantes_PerfilEstudianteId",
-                table: "Medallas");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_RendimientosPeriodos_PerfilesEstudiantes_perfilEstudianteId",
-                table: "RendimientosPeriodos");
-
             migrationBuilder.DropTable(
                 name: "BarrasProgreso");
+
+            migrationBuilder.DropTable(
+                name: "EquivalenciaMedallas");
 
             migrationBuilder.DropTable(
                 name: "Hitos");
 
             migrationBuilder.DropTable(
                 name: "IniciosSesionUsuario");
+
+            migrationBuilder.DropTable(
+                name: "PerfilEstudianteMedallas");
+
+            migrationBuilder.DropTable(
+                name: "PerfilEstudianteRecompensas");
 
             migrationBuilder.DropTable(
                 name: "Pines");
@@ -815,13 +880,22 @@ namespace AccesoDatos.Migrations
                 name: "SolicitudesUnion");
 
             migrationBuilder.DropTable(
+                name: "TablaClasificacionParticipantes");
+
+            migrationBuilder.DropTable(
                 name: "TokensUsuario");
 
             migrationBuilder.DropTable(
                 name: "UsuariosRoles");
 
             migrationBuilder.DropTable(
+                name: "Equivalencias");
+
+            migrationBuilder.DropTable(
                 name: "Recompensas");
+
+            migrationBuilder.DropTable(
+                name: "TablasClasificacion");
 
             migrationBuilder.DropTable(
                 name: "Roles");
@@ -830,28 +904,22 @@ namespace AccesoDatos.Migrations
                 name: "Tiendas");
 
             migrationBuilder.DropTable(
+                name: "Medallas");
+
+            migrationBuilder.DropTable(
+                name: "RendimientosPeriodos");
+
+            migrationBuilder.DropTable(
                 name: "PerfilesEstudiantes");
 
             migrationBuilder.DropTable(
                 name: "Estudiantes");
 
             migrationBuilder.DropTable(
-                name: "TablasClasificacion");
-
-            migrationBuilder.DropTable(
                 name: "Grupos");
 
             migrationBuilder.DropTable(
-                name: "Medallas");
-
-            migrationBuilder.DropTable(
                 name: "EnlacesUnion");
-
-            migrationBuilder.DropTable(
-                name: "Equivalencias");
-
-            migrationBuilder.DropTable(
-                name: "RendimientosPeriodos");
 
             migrationBuilder.DropTable(
                 name: "TablasEquivalencia");
