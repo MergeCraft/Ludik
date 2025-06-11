@@ -28,7 +28,7 @@ namespace AccesoDatos.RepositoriosEF
 
                 if (perfiles == null || !perfiles.Any())
                     return Resultado<List<PerfilEstudiante>>.Falla(
-                        new Error("PerfilEstudiante.ObtenerPorGrupoId.SinResultados",
+                        new Error("Error.Validation",
                                   $"No se encontraron perfiles para el grupo con Id {grupoId}."));
 
                 return Resultado<List<PerfilEstudiante>>.Exitoso(perfiles);
