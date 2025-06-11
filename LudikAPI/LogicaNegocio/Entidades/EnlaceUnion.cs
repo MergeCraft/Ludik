@@ -30,10 +30,10 @@ namespace Dominio
             var errores = new List<Error>();
 
             if (string.IsNullOrWhiteSpace(CodigoUnico))
-                errores.Add(new Error("EnlaceUnion.CodigoBase", "El código del enlace no puede ser vacío."));
+                errores.Add(new Error("Error.Validation", "El código del enlace no puede ser vacío."));
 
             if (Expiracion < DateTime.UtcNow)
-                errores.Add(new Error("EnlaceUnion.Expiracion", "El enlace está expirado."));
+                errores.Add(new Error("Error.Validation", "El enlace está expirado."));
 
             if (errores.Any())
                 return Resultado.Falla(errores);

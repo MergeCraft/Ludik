@@ -28,7 +28,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
             {
                 // Retorna un resultado de error si el ID es inválido.
                 return Resultado<List<GrupoDto>>.Falla(
-                    new Error("Profesor.IdInvalido", "El ID del profesor no puede ser nulo o vacío.")
+                    new Error("Error.Validation", "El ID del profesor no puede ser nulo o vacío.")
                 );
             }
 

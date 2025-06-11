@@ -34,14 +34,14 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
 
             var resultadoTabla = await _repoTablasEquivalencia.GetByIdAsync(grupoRequestDto.TablaEquivalenciaId);
             if (resultadoTabla == null)
-                return Resultado.Falla(new Error("Error.NotFound", "No se encontró la tabla de equivalencia especificada."));
+                return Resultado.Falla(new Error("Error.Validation", "No se encontró la tabla de equivalencia especificada."));
 
             var codigoUnicoInvitacion = Guid.NewGuid().ToString("N");
 
             var resultadoUrlInvitacion = _generadorEnlace.GenerarEnlace(codigoUnicoInvitacion);
 
             if (string.IsNullOrEmpty(resultadoUrlInvitacion.Valor))
-                return Resultado<GrupoDto>.Falla(new Error("Error.Unexpected", "No se pudo generar la URL de invitación para el grupo."));
+                return Resultado<GrupoDto>.Falla(new Error("Error.Validation", "No se pudo generar la URL de invitación para el grupo."));
 
             /*
             var codigoInvitacion = Guid.NewGuid().ToString("N");

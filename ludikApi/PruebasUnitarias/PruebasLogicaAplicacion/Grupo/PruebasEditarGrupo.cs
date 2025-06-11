@@ -8,7 +8,7 @@ using LogicaAplicacion.DTOs.GrupoDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Grupos;
 using LogicaNegocio.Resultados;
 
-namespace PruebasUnitarias.PruebasLogicaAplicacion
+namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
 {
     public class PruebasEditarGrupo
     {
@@ -44,7 +44,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             };
 
             _repoGruposMock.Setup(r => r.GetByIdAsync(1))
-                .ReturnsAsync(Resultado<Grupo>.Exitoso(null!));
+                .ReturnsAsync(Resultado<Dominio.Grupo>.Exitoso(null!));
 
             var servicio = new EditarGrupo(_repoGruposMock.Object);
 
@@ -66,14 +66,14 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
                 Nombre = "Nuevo nombre"
             };
 
-            var grupo = new Grupo
+            var grupo = new Dominio.Grupo
             {
                 Id = 1,
                 ProfesorId = "otroProfesor"
             };
 
             _repoGruposMock.Setup(r => r.GetByIdAsync(1))
-                .ReturnsAsync(Resultado<Grupo>.Exitoso(grupo));
+                .ReturnsAsync(Resultado<Dominio.Grupo>.Exitoso(grupo));
 
             var servicio = new EditarGrupo(_repoGruposMock.Object);
 

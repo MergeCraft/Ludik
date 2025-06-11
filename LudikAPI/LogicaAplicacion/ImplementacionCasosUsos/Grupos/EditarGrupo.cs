@@ -23,11 +23,11 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
         public async Task<Resultado> EjecutarAsync(GrupoEditarDto grupoDto, string profesorId)
         {
             if (grupoDto == null)
-                return Resultado.Falla(new Error("Validation", "No hay informacion sobre el grupo."));
+                return Resultado.Falla(new Error("Error.Validation", "No hay informacion sobre el grupo."));
 
             var resultado = await _repositorioGrupo.GetByIdAsync(grupoDto.Id);
             if (resultado.Valor == null)
-               return Resultado.Falla(new Error( "NotFound","No se encontró el grupo especificado."));
+               return Resultado.Falla(new Error("Error.Validation", "No se encontró el grupo especificado."));
 
             if (resultado.Valor.ProfesorId != profesorId)
                 throw new UnauthorizedAccessException("No tiene permiso para editar este grupo.");

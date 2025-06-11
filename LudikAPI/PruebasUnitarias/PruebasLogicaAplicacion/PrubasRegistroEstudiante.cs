@@ -24,19 +24,24 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
         }
 
         [Fact]
-        public async Task Ejecutar_DtoNulo_LanzaArgumentNullException()
+        public async Task Ejecutar_DtoNulo_RetornaFalloConErrorEsperado()
         {
             // Arrange
             var service = new AltaEstudiante(_userManagerMock.Object);
             EstudianteAltaDto dto = null!;
 
-            // Act & Assert
-            var ex = await Assert.ThrowsAsync<ArgumentNullException>(() => service.EjecutarAsync(dto));
-            Assert.Contains("estudianteAltaDto", ex.ParamName);
+            // Act
+            var resultado = await service.EjecutarAsync(dto);
+
+            // Assert
+            Assert.True(resultado.EsFallo);
+            var error = resultado.Errores.First();
+            Assert.Equal("Validation", error.Codigo);
+            Assert.Equal("Los datos del estudiante no pueden ser nulos.", error.Mensaje);
         }
 
         [Fact]
-        public async Task Ejecutar_NombreUsuarioExiste_LanzaInvalidOperationException()
+        public async Task Ejecutar_NombreUsuarioExiste_RetornaFalloConErrorDeConflicto()
         {
             // Arrange
             var dto = new EstudianteAltaDto
@@ -52,9 +57,14 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
 
             var service = new AltaEstudiante(_userManagerMock.Object);
 
-            // Act & Assert
-            var ex = await Assert.ThrowsAsync<InvalidOperationException>(() => service.EjecutarAsync(dto));
-            Assert.Equal("El nombre de usuario ya está en uso.", ex.Message);
+            // Act
+            var resultado = await service.EjecutarAsync(dto);
+
+            // Assert
+            Assert.True(resultado.EsFallo);
+            var error = resultado.Errores.First();
+            Assert.Equal("Conflict", error.Codigo);
+            Assert.Equal("El nombre de usuario ya está en uso.", error.Mensaje);
         }
 
         [Fact]

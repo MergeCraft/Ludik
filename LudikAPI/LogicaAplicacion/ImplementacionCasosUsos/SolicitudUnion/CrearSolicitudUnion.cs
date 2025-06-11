@@ -37,19 +37,19 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
 
             var enlace = await _repoEnlaces.ObtenerPorCodigoAsync(dto.CodigoEnlace);
             if (enlace == null || enlace.Expiracion < DateTime.UtcNow)
-                return Resultado.Falla(new Error("SolicitudUnion.Crear.EnlaceInvalido", "El enlace es inválido o ha expirado."));
+                return Resultado.Falla(new Error("Error.Validation", "El enlace es inválido o ha expirado."));
 
             var estudiante = await _repoEstudiantes.GetByIdAsyncString(dto.IdEstudiante);
             if (estudiante == null)
-                return Resultado.Falla(new Error("SolicitudUnion.Crear.EstudianteNoExiste", "El estudiante no existe."));
+                return Resultado.Falla(new Error("Error.Validation", "El estudiante no existe."));
 
             var grupo = await _repoGrupos.ObtenerPorEnlaceAsync(enlace.CodigoUnico);
             if (grupo == null)
-                return Resultado.Falla(new Error("SolicitudUnion.Crear.GrupoNoEncontrado", "No se encontró el grupo asociado al enlace."));
+                return Resultado.Falla(new Error("Error.Validation", "No se encontró el grupo asociado al enlace."));
 
             bool yaExiste = await _repoSolicitudes.ExisteSolicitudPendiente(dto.IdEstudiante, grupo.Id);
             if (yaExiste)
-                return Resultado.Falla(new Error("SolicitudUnion.Crear.SolicitudDuplicada",
+                return Resultado.Falla(new Error("Error.Validation",
                     "Ya existe una solicitud pendiente para este estudiante y grupo."));
 
             var nuevaSolicitud = new Dominio.SolicitudUnion
