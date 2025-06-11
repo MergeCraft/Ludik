@@ -10,6 +10,6 @@ namespace LogicaAplicacion.InterfacesCasosUsos.TablaEquivalencia
 {
     public interface IAltaTablaEquivalencia
     {
-        public Task<Resultado> EjecutarAsync(TablaEquivalenciaAltaDto tablaEquivalencia);
+        public Task<Resultado> EjecutarAsync(TablaEquivalenciaAltaDto tablaEquivalencia, string profesorId);
     }
 }

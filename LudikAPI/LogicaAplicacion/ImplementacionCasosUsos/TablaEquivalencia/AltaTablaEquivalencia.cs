@@ -24,10 +24,10 @@ public class AltaTablaEquivalencia: IAltaTablaEquivalencia
         _repositorioMedallas = repositorioMedallas;
     }
 
-    public async Task<Resultado> EjecutarAsync(TablaEquivalenciaAltaDto tablaDto)
+    public async Task<Resultado> EjecutarAsync(TablaEquivalenciaAltaDto tablaDto, string profesorId)
     {
 
-        var tablaEquivalencia = new Dominio.TablaEquivalencia(tablaDto.Nombre);
+        var tablaEquivalencia = new Dominio.TablaEquivalencia(tablaDto.Nombre, profesorId);
 
         // Procesar las equivalencias del DTO
         if (tablaDto.Equivalencias != null && tablaDto.Equivalencias.Any())

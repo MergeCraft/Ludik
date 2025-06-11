@@ -11,18 +11,20 @@ namespace Dominio
     {
         public int Id { get; set; }
         [Required]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "El nombre de la Tabla debe tener entre 3 y 50 caracteres.")]
-        public String Nombre { get; set; }
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "El nombre de la tabla debe tener entre 3 y 50 caracteres.")]
+        public string Nombre { get; set; }
 
+        public string ProfesorId { get; set; }
         public List<Equivalencia> Equivalencias { get; set; }
 
         public TablaEquivalencia()
         {
         }
 
-        public TablaEquivalencia(string nombre)
+        public TablaEquivalencia(string nombre, string profesorId)
         {
             Nombre = nombre;
+            ProfesorId = profesorId;
             Equivalencias = new List<Equivalencia>();
         }
 
@@ -48,7 +50,7 @@ namespace Dominio
 
 
             if (string.IsNullOrWhiteSpace(Nombre) || Nombre.Length < 3 || Nombre.Length > 50)
-                errores.Add(new Error("Tabla.Nombre.Invalido", "El nombre de la Tabla debe tener entre 3 y 50 caracteres."));
+                errores.Add(new Error("Error.Validation", "El nombre de la Tabla debe tener entre 3 y 50 caracteres."));
             
 
             // Si no hay equivalencias, la tabla está "vacía" pero es válida en ese estado.
@@ -60,7 +62,7 @@ namespace Dominio
             // Validar que no haya notas repetidas
             var notasSet = new HashSet<int>();
             if (Equivalencias.Any(e => !notasSet.Add(e.Nota)))
-                errores.Add(new Error("Tabla.Notas.Repetidas", "No pueden existir valores de nota repetidos en la tabla."));
+                errores.Add(new Error("Error.Validation", "No pueden existir valores de nota repetidos en la tabla."));
             
 
             var equivalenciasOrdenadas = Equivalencias.OrderBy(e => e.Nota).ToList();
@@ -70,13 +72,13 @@ namespace Dominio
             {
                 if (equivalenciasOrdenadas[i].Nota != i + 1)
                 {
-                    errores.Add(new Error("Tabla.Notas.NoSecuenciales", "Las notas deben ser una secuencia progresiva iniciando en 1 (1, 2, 3...)."));
+                    errores.Add(new Error("Error.Validation", "Las notas deben ser una secuencia progresiva iniciando en 1 (1, 2, 3...)."));
                     break;
                 }
             }
 
             // Validar que las medallas son acumulativas
-            if (!errores.Any(e => e.Codigo == "Tabla.Notas.NoSecuenciales"))
+            if (!errores.Any(e => e.Codigo == "Error.Validation"))
             {
                 for (int i = 1; i < equivalenciasOrdenadas.Count; i++)
                 {
@@ -85,7 +87,7 @@ namespace Dominio
 
                     // La lista de medallas actual debe contener todas las medallas de la nota anterior.
                     if (!medallasAnteriores.IsSubsetOf(medallasActuales))
-                        errores.Add(new Error("Tabla.Medallas.NoAcumulativas", $"La nota {equivalenciasOrdenadas[i].Nota} debe incluir todas las medallas de la nota {equivalenciasOrdenadas[i - 1].Nota}."));
+                        errores.Add(new Error("Error.Validation", $"La nota {equivalenciasOrdenadas[i].Nota} debe incluir todas las medallas de la nota {equivalenciasOrdenadas[i - 1].Nota}."));
                     
                 }
             }

@@ -29,7 +29,6 @@ namespace WebApi.Controllers
         /// La tabla asocia notas numéricas (1, 2, 3...) con un conjunto de medallas requeridas.
         /// 
         /// **Reglas de negocio aplicadas:**
-        /// - El nombre de la tabla debe ser único.
         /// - Las notas deben ser una secuencia consecutiva desde 1.
         /// - Las medallas para una nota superior deben incluir todas las medallas de la nota inmediatamente anterior.
         /// </remarks>
@@ -45,11 +44,17 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> CrearTablaEquivalencia([FromBody] TablaEquivalenciaAltaDto tablaDto)
         {
+            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var resultado = await _altaTablaEquivalencia.EjecutarAsync(tablaDto);
+
+            if (string.IsNullOrEmpty(profesorId))
+                return Unauthorized(new Error("Error.Unauthorized", "No se pudo identificar al profesor a partir del token."));
+
+
+            var resultado = await _altaTablaEquivalencia.EjecutarAsync(tablaDto, profesorId);
 
             if (resultado.EsFallo)
-                this.ManejarFallo(resultado);
+                return this.ManejarFallo(resultado);
 
             return StatusCode(StatusCodes.Status201Created, "La tabla de equivalencia fue creada con exito.");
         }

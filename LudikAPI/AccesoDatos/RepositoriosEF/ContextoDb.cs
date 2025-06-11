@@ -150,6 +150,21 @@ namespace AccesoDatos.RepositoriosEF
                         .WithMany()
                         .HasForeignKey("EstudianteId"));
 
+            // Relación M:N entre RendimientoPeriodo y Medalla
+            modelBuilder.Entity<RendimientoPeriodo>()
+                .HasMany(rp => rp.MedallasObtuvoEstudiante)
+                .WithMany() // No hay navegación de vuelta en Medalla.
+                .UsingEntity<Dictionary<string, object>>(
+                    "RendimientoPeriodoMedallas", // Nombre para la nueva tabla de unión.
+                    j => j
+                        .HasOne<Medalla>()
+                        .WithMany()
+                        .HasForeignKey("MedallaId"),
+                    j => j
+                        .HasOne<RendimientoPeriodo>()
+                        .WithMany()
+                        .HasForeignKey("RendimientoPeriodoId"));
+
             modelBuilder.Entity<RendimientoPeriodo>(rp =>
             {
                 // Le indicamos a EF que RangoFechas es un "owned type" de RendimientoPeriodo
