@@ -119,19 +119,13 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Put([FromBody] MedallaAltaDto medallaDto)
+        public async Task<IActionResult> Put(int id, [FromBody] MedallaEditarDto medallaDto)
         {
-
-            Resultado resultado = await _modificarMedalla.EjecutarAsync(medallaDto);
-
+            Resultado resultado = await _modificarMedalla.EjecutarAsync(id, medallaDto);
             if (resultado.EsFallo)
                 return this.ManejarFallo(resultado);
-            
-
             return NoContent();
         }
-
-
         /// <summary>
         /// Elimina una medalla por su ID.
         /// </summary>
@@ -153,7 +147,6 @@ namespace WebApi.Controllers
 
             if (resultado.EsFallo)
                 return this.ManejarFallo(resultado);
-            
 
             return NoContent();
         }

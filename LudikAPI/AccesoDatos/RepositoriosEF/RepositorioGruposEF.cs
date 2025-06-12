@@ -154,12 +154,6 @@ namespace AccesoDatos.RepositoriosEF
                     return Resultado.Falla(Error.NotFound); // [cite: 14, 39]
                 }
 
-                //TODO: Revisaar con Mnauel, ya que:
-                // La eliminación explícita de entidades relacionadas es necesaria si
-                // no tienes configurada la eliminación en cascada en la base de datos o en el modelo EF Core,
-                // o si necesitas lógica adicional antes de eliminar.
-                // Si la cascada está bien configurada, EF Core podría manejar esto al eliminar 'grupo'.
-
                 if (grupo.Alumnos != null && grupo.Alumnos.Any())
                     _db.PerfilesEstudiantes.RemoveRange(grupo.Alumnos);
                 if (grupo.Solicitudes != null && grupo.Solicitudes.Any())
