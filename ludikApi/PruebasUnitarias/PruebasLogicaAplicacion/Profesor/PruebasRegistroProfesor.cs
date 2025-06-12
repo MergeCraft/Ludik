@@ -9,7 +9,7 @@ using LogicaNegocio.ValueObjects;
 using LogicaNegocio.Excepciones;
 using Microsoft.AspNetCore.Identity;
 
-namespace PruebasUnitarias.PruebasLogicaAplicacion
+namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
 {
     public class PruebasAltaProfesor
     {
