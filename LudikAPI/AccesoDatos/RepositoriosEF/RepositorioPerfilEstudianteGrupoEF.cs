@@ -37,14 +37,14 @@ namespace AccesoDatos.RepositoriosEF
             {
                 var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
                 return Resultado<List<PerfilEstudiante>>.Falla(
-                    new Error("PerfilEstudiante.ObtenerPorGrupoId.DbError",
+                    new Error("Error.Unexpected",
                               $"Error al consultar la BD: {detalle}"));
             }
             catch (Exception ex)
             {
-                // Puedes agregar logging aquí si lo deseas
+
                 return Resultado<List<PerfilEstudiante>>.Falla(
-                    new Error("PerfilEstudiante.ObtenerPorGrupoId.ErrorInesperado",
+                    new Error("Error.Unexpected",
                               $"Error inesperado: {ex.Message}"));
             }
         }
@@ -59,9 +59,24 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public Task<Resultado<PerfilEstudiante>> GetByIdAsync(int id)
+        public async Task<Resultado<PerfilEstudiante>> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var perfil = await _db.PerfilesEstudiantes
+                    .Include(p => p.MedallasObtenidas)
+                    .FirstOrDefaultAsync(p => p.Id == id);
+
+                if (perfil == null)
+                    return Resultado<PerfilEstudiante>.Falla(new Error("Error.NotFound", $"No se encontró el perfil de estudiante con Id: {id}."));
+                
+
+                return Resultado<PerfilEstudiante>.Exitoso(perfil);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<PerfilEstudiante>.Falla(new Error("Error.Unexpected", ex.Message));
+            }
         }
 
         public Task<Resultado> RemoveAsync(int id)
@@ -74,9 +89,31 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public Task<Resultado> UpdateAsync(PerfilEstudiante unObjeto)
+        public async Task<Resultado> UpdateAsync(PerfilEstudiante unObjeto)
         {
-            throw new NotImplementedException();
+            if (unObjeto == null)
+                return Resultado.Falla(new Error("Error.Validation", "El objeto a actualizar no puede ser nulo."));
+            
+
+            try
+            {
+                _db.PerfilesEstudiantes.Update(unObjeto);
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return Resultado.Falla(Error.Conflict);
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
+                return Resultado.Falla(new Error("Error.Unexpected", $"Error al actualizar en la BD: {detalle}"));
+            }
+            catch (Exception ex)
+            {
+                return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
+            }
         }
 
         public List<Medalla> verMedallasAlumno(int idAlumno, int idGrupo)
