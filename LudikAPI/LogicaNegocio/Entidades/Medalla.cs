@@ -23,15 +23,15 @@ namespace Dominio
         public Resultado esValido()
         {
             if (string.IsNullOrWhiteSpace(Nombre))
-                return Resultado.Falla(new Error("Validation", "La medalla debe de tener un nombre."));
+                return Resultado.Falla(new Error("Error.Validation", "La medalla debe de tener un nombre."));
             if (Nombre.Length < 5)
-                return Resultado.Falla(new Error("Validation", "El nombre de la medalla debe de tener al menos 5 caracteres."));
+                return Resultado.Falla(new Error("Error.Validation", "El nombre de la medalla debe de tener al menos 5 caracteres."));
             if (Nombre.Length>30)
-                return Resultado.Falla(new Error("Validation", "El nombre de la medalla debe de tener menos de 30 caracteres."));
+                return Resultado.Falla(new Error("Error.Validation", "El nombre de la medalla debe de tener menos de 30 caracteres."));
             if (Descripcion.Length > 50)
-                return Resultado.Falla(new Error("Validation", "La descripción de la medalla no puede superar los 50 caracteres."));
+                return Resultado.Falla(new Error("Error.Validation", "La descripción de la medalla no puede superar los 50 caracteres."));
             if (MonedasOtorgadas < 0)
-                return Resultado.Falla(new Error("Validation", "La cantidad de monedas otorgadas no puede ser menor a 0."));
+                return Resultado.Falla(new Error("Error.Validation", "La cantidad de monedas otorgadas no puede ser menor a 0."));
             
             return Resultado.Exitoso();
 

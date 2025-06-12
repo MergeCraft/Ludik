@@ -35,7 +35,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
             var grupo = grupoResultado.Valor;
 
             if (grupo.ProfesorId != profesorId)
-                return Resultado<List<SolicitudUnionListadoDto>>.Falla(new Error("Grupo.Profesor.NoCoincide", "El grupo no pertenece al profesor."));
+                return Resultado<List<SolicitudUnionListadoDto>>.Falla(new Error("Error.Validation", "El grupo no pertenece al profesor."));
 
             var solicitudes = await _repositorioSolicitudesUnion.ObtenerSolicitudesPendientesPorGrupoAsync(grupoId);
 

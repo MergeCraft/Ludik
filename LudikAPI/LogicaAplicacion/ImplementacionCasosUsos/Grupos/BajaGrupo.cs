@@ -22,10 +22,10 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
         {
             var resultado = await _repositorioGrupo.GetByIdAsync(grupoId);
             if (resultado.EsFallo)
-               return Resultado.Falla(new Error( "NotFound","El grupo no existe."));
+               return Resultado.Falla(new Error("Error.Validation", "El grupo no existe."));
 
             if (resultado.Valor.ProfesorId != profesorId)
-                return Resultado.Falla(new Error("Unauthorized","No tiene permiso para eliminar este grupo."));
+                return Resultado.Falla(new Error("Error.Validation", "No tiene permiso para eliminar este grupo."));
 
             await _repositorioGrupo.RemoveAsync(grupoId);
             return Resultado.Exitoso();

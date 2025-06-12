@@ -66,13 +66,13 @@ namespace Dominio
             var errores = new List<Error>();
 
             if (string.IsNullOrWhiteSpace(Nombre) || Nombre.Length < 3 || Nombre.Length > 30)
-                errores.Add(new Error("Grupo.Nombre", "El nombre del grupo debe tener entre 3 y 30 caracteres."));
+                errores.Add(new Error("Error.Validation", "El nombre del grupo debe tener entre 3 y 30 caracteres."));
 
             if (TablaEquivalencia == null)
-                errores.Add(new Error("Grupo.TablaEquivalencia", "La tabla de equivalencia es obligatoria."));
+                errores.Add(new Error("Error.Validation", "La tabla de equivalencia es obligatoria."));
 
             if (string.IsNullOrWhiteSpace(ProfesorId))
-                errores.Add(new Error("Grupo.ProfesorId", "El identificador del profesor es obligatorio."));
+                errores.Add(new Error("Error.Validation", "El identificador del profesor es obligatorio."));
 
             if (errores.Any())
                 return Resultado.Falla(errores);

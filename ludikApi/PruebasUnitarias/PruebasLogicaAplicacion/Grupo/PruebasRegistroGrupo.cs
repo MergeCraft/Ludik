@@ -9,7 +9,7 @@ using LogicaAplicacion.ImplementacionCasosUsos.Grupos;
 using LogicaNegocio.Resultados;
 using LogicaAplicacion.InterfacesCasosUsos.Grupo;
 
-namespace PruebasUnitarias.PruebasLogicaAplicacion
+namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
 {
     public class PruebasAltaGrupo
     {
@@ -112,8 +112,12 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
 
             // Assert
             Assert.True(resultado.EsFallo);
-            Assert.Contains(resultado.Errores, e => e.Codigo.Contains("Nombre"));
-            Assert.Contains(resultado.Errores, e => e.Codigo.Contains("ProfesorId"));
+            // Verificamos el mensaje de validación de nombre
+            Assert.Contains(resultado.Errores, e =>
+                e.Mensaje.Contains("El nombre del grupo debe tener entre 3 y 30 caracteres."));
+            // Verificamos el mensaje de validación de profesorId
+            Assert.Contains(resultado.Errores, e =>
+                e.Mensaje.Contains("El identificador del profesor es obligatorio."));
         }
 
         [Fact]
@@ -142,7 +146,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
 
             // Assert
             Assert.True(resultado.EsExitoso);
-            _repoGruposMock.Verify(r => r.AddAsync(It.IsAny<Grupo>()), Times.Once);
+            _repoGruposMock.Verify(r => r.AddAsync(It.IsAny<Dominio.Grupo>()), Times.Once);
         }
     }
 }

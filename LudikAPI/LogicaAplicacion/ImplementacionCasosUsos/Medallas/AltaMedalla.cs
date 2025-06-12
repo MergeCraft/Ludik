@@ -23,7 +23,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Medallas
         public async Task<Resultado> EjecutarAsync(MedallaAltaDto medallaAltaDto)
         {
             if (medallaAltaDto == null)
-                return Resultado.Falla(new Error("Validacion.DtoNulo", "Los datos para crear la medalla no pueden ser nulos."));
+                return Resultado.Falla(new Error("Error.Validation", "Los datos para crear la medalla no pueden ser nulos."));
             
             Medalla medallaNueva = MedallaAltaMapper.fromDto(medallaAltaDto);
 

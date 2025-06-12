@@ -21,10 +21,10 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
         {
             var solicitud = await _repoSolicitudes.GetSolicitudConEstudianteYGrupoPorIdAsync(idSolicitud);
             if (solicitud == null)
-                return Resultado.Falla(new Error("Solicitud", "La solicitud no existe."));
+                return Resultado.Falla(new Error("Error.Validation", "La solicitud no existe."));
 
             if (solicitud.Estado != EstadoSolicitud.Pendiente)
-                return Resultado.Falla(new Error("Solicitud", "La solicitud ya fue procesada."));
+                return Resultado.Falla(new Error("Error.Validation", "La solicitud ya fue procesada."));
 
             solicitud.Estado = EstadoSolicitud.Rechazada;
 
