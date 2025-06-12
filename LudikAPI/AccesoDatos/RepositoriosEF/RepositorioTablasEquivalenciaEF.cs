@@ -29,7 +29,7 @@ namespace AccesoDatos.RepositoriosEF
             catch (DbUpdateException dbEx)
             {
                 var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
-                return Resultado.Falla(new Error("Repositorio.Tabla.Add.DbError", $"Error al guardar la tabla: {detalle}"));
+                return Resultado.Falla(new Error("Error.Unexpected", $"Error al guardar la tabla: {detalle}"));
             }
         }
 
@@ -41,18 +41,22 @@ namespace AccesoDatos.RepositoriosEF
        
         public async Task<Resultado<TablaEquivalencia>> GetByIdAsync(int id)
         {
+            
             try
             {
-                var tablaEquivalencia = await _db.TablasEquivalencia.FirstOrDefaultAsync(t => t.Id == id);
+                var tablaEquivalencia = await _db.TablasEquivalencia
+                    .Include(t => t.Equivalencias)
+                    .ThenInclude(e => e.MedallasNecesarias)
+                    .FirstOrDefaultAsync(t => t.Id == id);
 
                 if (tablaEquivalencia == null)
-                    return Resultado<TablaEquivalencia>.Falla(Error.NotFound); 
-                
-                return Resultado<TablaEquivalencia>.Exitoso(tablaEquivalencia); 
+                    return Resultado<TablaEquivalencia>.Falla(Error.NotFound);
+
+                return Resultado<TablaEquivalencia>.Exitoso(tablaEquivalencia);
             }
             catch (Exception e)
             {
-                return Resultado<TablaEquivalencia>.Falla(new Error ("Unexpected", e.Message));
+                return Resultado<TablaEquivalencia>.Falla(new Error("Erro.Unexpected", e.Message));
             }
         }
 
@@ -66,9 +70,20 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public Task<Resultado> UpdateAsync(TablaEquivalencia unObjeto)
+        public async Task<Resultado> UpdateAsync(TablaEquivalencia unObjeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // EF Core rastreará automáticamente los cambios en la entidad "tabla equivalencia"
+                // y su colección de "Equivalencias" porque la obtuvimos del mismo DbContext.
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
+                return Resultado.Falla(new Error("Error.Unexpected", $"Error al actualizar la tabla: {detalle}"));
+            }
         }
     }
 }

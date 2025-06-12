@@ -113,6 +113,24 @@ namespace Dominio
         {
             Equivalencias.Add(nuevaEquivalencia);
         }
+
+        public void Actualizar(string nuevoNombre, List<Equivalencia> nuevasEquivalencias)
+        {
+            this.Nombre = nuevoNombre;
+
+            // La forma más robusta de manejar actualizaciones de colecciones con EF Core
+            // es limpiar la colección existente y agregar los nuevos elementos.
+            // EF Core detectará los cambios (eliminados y agregados) al guardar.
+            this.Equivalencias.Clear();
+
+            if (nuevasEquivalencias != null)
+            {
+                foreach (var eq in nuevasEquivalencias)
+                {
+                    this.Equivalencias.Add(eq);
+                }
+            }
+        }
     }
 
 }

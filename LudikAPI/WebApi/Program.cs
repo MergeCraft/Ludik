@@ -140,6 +140,7 @@ builder.Services.AddScoped<IObtenerMedallaPorId,ObtenerMedallaPorId>();
 builder.Services.AddScoped<IObtenerTodasLasMedallas,ObtenerTodasLasMedallas>();
 builder.Services.AddScoped<IGeneradorEnlaceGrupo, GeneradorEnlaceGrupo>();
 builder.Services.AddScoped<IAltaTablaEquivalencia, AltaTablaEquivalencia>();
+builder.Services.AddScoped<IEditarTablaEquivalencia, EditarTablaEquivalencia>();
 builder.Services.AddScoped<ICrearSolicitudUnion, CrearSolicitudUnion>();
 
 // -------------------------------

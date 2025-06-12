@@ -1,4 +1,5 @@
 ﻿using LogicaAplicacion.DTOs.TablaEquivalenciaDTOs;
+using LogicaAplicacion.ImplementacionCasosUsos.TablaEquivalencia;
 using LogicaAplicacion.InterfacesCasosUsos.TablaEquivalencia;
 using LogicaNegocio.Resultados;
 using Microsoft.AspNetCore.Authorization;
@@ -14,10 +15,13 @@ namespace WebApi.Controllers
     public class TablaEquivalenciaController : Controller
     {
         private readonly IAltaTablaEquivalencia _altaTablaEquivalencia;
+        private readonly IEditarTablaEquivalencia _editarTablaEquivalencia;
 
-        public TablaEquivalenciaController(IAltaTablaEquivalencia altaTablaEquivalencia)
+        public TablaEquivalenciaController(IAltaTablaEquivalencia altaTablaEquivalencia, 
+            IEditarTablaEquivalencia editarTablaEquivalencia)
         {
             _altaTablaEquivalencia = altaTablaEquivalencia;
+            _editarTablaEquivalencia = editarTablaEquivalencia;
         }
 
 
@@ -59,6 +63,39 @@ namespace WebApi.Controllers
             return StatusCode(StatusCodes.Status201Created, "La tabla de equivalencia fue creada con exito.");
         }
 
+        /// <summary>
+        /// Edita una tabla de equivalencia existente.
+        /// </summary>
+        /// <param name="id">El ID de la tabla de equivalencia a modificar.</param>
+        /// <param name="tablaDto">Objeto con los nuevos datos para la tabla.</param>
+        /// <response code="200">**OK.** La tabla se actualizó exitosamente.</response>
+        /// <response code="400">**Solicitud Incorrecta.** Los datos proporcionados son inválidos o el ID de la ruta no coincide con el del cuerpo.</response>
+        /// <response code="403">**Prohibido.** El usuario no es el propietario de la tabla.</response>
+        /// <response code="404">**No Encontrado.** No se encontró una tabla con el ID especificado.</response>
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<Error>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Error), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(Error), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> EditarTablaEquivalencia([FromRoute] int id, [FromBody] TablaEquivalenciaDto tablaDto)
+        {
+            if (id != tablaDto.Id)
+                return BadRequest(new Error("Error.Validation", "El ID en la ruta no coincide con el ID en el cuerpo de la solicitud."));
+            
+            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            if (string.IsNullOrEmpty(profesorId))
+                return Unauthorized(new Error("Error.Unauthorized", "No se pudo identificar al profesor a partir del token."));
+            
+
+            var resultado = await _editarTablaEquivalencia.EjecutarAsync(tablaDto, profesorId);
+
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
+            
+
+            return StatusCode(StatusCodes.Status200OK, "La tabla de equivalencia fue editada correctamente.");
+
+        }
     }
 }
