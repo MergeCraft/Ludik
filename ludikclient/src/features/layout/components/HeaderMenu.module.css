@@ -69,8 +69,9 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  border-radius: 8px;
+  border-radius: 10px;
   margin-bottom: 5px;
+  transition: .5s;
 }
 
 .sidebarMenu li:hover {

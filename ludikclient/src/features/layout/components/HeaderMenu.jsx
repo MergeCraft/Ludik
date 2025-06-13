@@ -16,19 +16,14 @@ const HeaderMenu = () => {
     setShowOptions(!showOptions);
   };
 
-
-
   const handleLogout = () => {
     cerrarSesion(dispatch);
-    navigate("/login");
+    goTo("/login");
   };
 
-  const handleViewGroups = () => {
-    navigate("/groups");
-  };
-
-  const handleViewProfile = () => {
-    navigate("/profile");
+  const goTo = (path) => {
+    navigate(path);
+    setShowOptions(false);
   };
 
   // Helper para marcar el ítem activo
@@ -45,27 +40,27 @@ const HeaderMenu = () => {
       <div className={`${styles.sidebarMenu} ${showOptions ? styles.show : ""}`}>
         <ul className="sidebarOptions">
           <div>
-            <li onClick={handleViewProfile} className={isActive("/profile") ? styles.activeProfile : ""}>
+            <li onClick={() => goTo("/profile")} className={isActive("/profile") ? styles.activeProfile : ""}>
               <FontAwesomeIcon icon="fa-solid fa-user" size="lg" /> Perfil
             </li>
 
-            <li onClick={handleViewGroups} className={isActive("/groups") ? styles.activeGroups : ""}>
+            <li onClick={() => goTo("/groups")} className={isActive("/groups") ? styles.activeGroups : ""}>
               <FontAwesomeIcon icon="fa-solid fa-users" size="lg" /> Grupos
             </li>
 
-            <li onClick={() => navigate("/medallas")} className={isActive("/medallas") ? styles.activeMedallas : ""}>
+            <li onClick={() => goTo("/medals")} className={isActive("/medals") ? styles.activeMedallas : ""}>
               <FontAwesomeIcon icon="fa-solid fa-award" size="lg" /> Medallas
             </li>
 
-            <li onClick={() => navigate("/rubricas")} className={isActive("/rubricas") ? styles.activeRubricas : ""}>
+            <li onClick={() => goTo("/rubricas")} className={isActive("/rubricas") ? styles.activeRubricas : ""}>
               <FontAwesomeIcon icon="fa-solid fa-clipboard-list" size="lg" /> Rubricas
             </li>
 
-            <li onClick={() => navigate("/rankings")} className={isActive("/rankings") ? styles.activeRankings : ""}>
+            <li onClick={() => goTo("/rankings")} className={isActive("/rankings") ? styles.activeRankings : ""}>
               <FontAwesomeIcon icon="fa-solid fa-ranking-star" size="lg" /> Rankings
             </li>
 
-            <li onClick={() => navigate("/configuraciones")} className={isActive("/configuraciones") ? styles.activeConfiguraciones : ""}>
+            <li onClick={() => goTo("/configuraciones")} className={isActive("/configuraciones") ? styles.activeConfiguraciones : ""}>
               <FontAwesomeIcon icon="fa-solid fa-cogs" size="lg" /> Configuraciones
             </li>
           </div>

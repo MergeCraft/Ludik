@@ -1,21 +1,23 @@
 .groupItem {
     width: 100%;
-    background-color: #23353c;
+    background-color: var(--secundario);
     border-radius: 15px;
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: #d9d9d9;
+    color: var(--blanco-principal);
+    width: 100%;
 }
 
 .card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 20px;
-  max-width: 100%; /* Permite que el contenido se encoja dentro del contenedor */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px;
+    max-width: 100%;
+    /* Permite que el contenido se encoja dentro del contenedor */
 }
 
 
@@ -38,7 +40,6 @@
 .name,
 .grade,
 .studentCount {
-    font-family: "ADLaM Display-Regular", Helvetica;
     font-size: 20px;
     font-weight: 400;
     margin: 3px 0;

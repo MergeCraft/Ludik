@@ -19,11 +19,13 @@ import {
   faAward,
   faRankingStar,
   faClipboardList,
-
-
+  faStar,
+  faTrophy,
+  faCoins,
+  faArrowRightArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
-// Si usás marcas:
-// import { faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
+
+import { faUser as farUser } from "@fortawesome/free-regular-svg-icons";
 
 library.add(
   faQrcode,
@@ -34,6 +36,7 @@ library.add(
   faMagnifyingGlassArrowRight,
   faBars,
   faUser,
+  farUser,
   faUsers,
   faCogs,
   faFilter,
@@ -44,6 +47,8 @@ library.add(
   faAward,
   faRankingStar,
   faClipboardList,
-
-
+  faStar,
+  faTrophy,
+  faCoins,
+  faArrowRightArrowLeft
 ); // Agrega a la librería

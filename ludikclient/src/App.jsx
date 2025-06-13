@@ -14,6 +14,7 @@ import Home from "./features/home/Home.jsx";
 import AuthPage from "./features/auth/AuthPage";
 import GroupsPage from "./features/group/GroupsPage.jsx";
 import ProfilePage from "./features/profile/ProfilePage.jsx";
+import MedalManagerPage from "./features/medals/MedalManagerPage.jsx";
 
 import PrivateRoute from "./features/routing/PrivateRoute";
 
@@ -38,6 +39,7 @@ function App() {
               <Route element={<PrivateRoute allowedRoles={["Profesor"]} />}></Route>
 
               <Route path="groups" element={<GroupsPage />} />
+              <Route path="medals" element={<MedalManagerPage />} />
               <Route path="profile" element={<ProfilePage />} />
 
               {/* Puedes agregar más rutas protegidas aquí */}

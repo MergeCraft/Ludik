@@ -1,4 +1,4 @@
-.studentGroups {
+.userItems {
     display: flex;
     margin: 0 auto;
     flex-direction: column;
@@ -20,6 +20,10 @@
     justify-content: space-between;
     align-items: center;
     gap: 10px;
+}
+
+.accionesBusqueda input {
+    text-align: center;
 }
 
 .buscador {
@@ -46,13 +50,18 @@
     color: var(--terciario);
 }
 
-.accionPrincipal {
+.accionesPrincipales {
     position: fixed;
     bottom: 20px;
     width: 90%;
     max-width: 90%;
     z-index: 2;
     height: 45px;
+}
+
+.accionesPrincipales button {
+    width: 100%;
+    min-width: 250px;
 }
 
 .loaderContainer {
@@ -68,13 +77,26 @@
     /* o absolute si lo usás dentro de otro contenedor */
     z-index: 1;
 }
+
+.itemsContainer {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.barLoaderContainer {
+    display: flex;
+    height: 35vh;
+    align-items: end;
+    justify-content: center;
+}
+
 @media screen and (min-width: 992px) {
 
     .accionesBusqueda {
         width: 30%;
     }
 
-    .accionPrincipal {
+    .accionesPrincipales {
         position: static;
         width: 15%;
         max-width: none;
@@ -82,5 +104,9 @@
         transform: none;
         margin-right: auto;
         padding: 0.8rem;
+    }
+
+    .itemsContainer {
+        margin-bottom: 0;
     }
 }

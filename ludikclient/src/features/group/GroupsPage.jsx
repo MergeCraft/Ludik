@@ -1,23 +1,24 @@
 import React, { useState } from "react";
+import styles from "../generics/BaseManagerPage.module.css";
 import { useSelector } from "react-redux";
-import styles from "./GroupPage.module.css";
-import genericGroupImage from "../../assets/genericGroupImage.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { BarLoader } from "react-spinners";
 import { selectUserRole } from "../auth/hooks/userSlice";
-import { useGruposProfesor } from "./hooks/useGrupoMutation.js";
+import { useGruposProfesor } from "./hooks/useGrupoMutation";
+import { BarLoader } from "react-spinners";
 
-import GroupItem from "./components/GroupItem.jsx";
-import Modal from "../generics/Modal.jsx";
-import GroupCreateModal from "./components/teacher/GroupCreateForm.jsx";
-import GroupUnionLinkModal from "./components/student/GroupUnionLinkForm.jsx";
+import GroupItem from "./components/GroupItem";
+import GroupCreateModal from "./components/teacher/GroupCreateForm";
+import GroupUnionLinkModal from "./components/student/GroupUnionLinkForm";
 
-export const GroupsPage = () => {
-  const role = useSelector(selectUserRole); // ✅ obtiene el rol desde Redux
+import genericGroupImage from "../../assets/genericGroupImage.png";
+import BaseManagerPage from "../generics/BaseManagerPage";
+
+const GroupsPage = () => {
+  const role = useSelector(selectUserRole);
   const isProfesor = role === "Profesor";
 
   const [showModal, setShowModal] = useState(false);
   const [modalTipo, setModalTipo] = useState(null);
+  const [search, setSearch] = useState(""); // 🔍 estado de búsqueda
 
   const { data: grupos, isLoading } = useGruposProfesor();
 
@@ -29,53 +30,42 @@ export const GroupsPage = () => {
       imgSrc: genericGroupImage,
     })) || [];
 
-  return (
-    <div className={styles.studentGroups}>
-      <div className={styles.acciones}>
-        {isProfesor ? (
-          <button
-            className={`${styles.accionPrincipal} button-secondary`}
-            onClick={() => {
-              setModalTipo("crear");
-              setShowModal(true); // <- FALTA ESTA LÍNEA
-            }}
-          >
-            Crear grupo
-          </button>
-        ) : (
-          <button
-            className={`${styles.accionPrincipal} button-secondary`}
-            onClick={() => {
-              setModalTipo("unir");
-              setShowModal(true); // <- FALTA ESTA LÍNEA
-            }}
-          >
-            Unirse a un grupo
-          </button>
-        )}
+  // 🧠 Filtrado por nombre o materia
+  const gruposFiltrados = gruposFormateados.filter((grupo) => grupo.name.toLowerCase().includes(search.toLowerCase()) || grupo.grade.toLowerCase().includes(search.toLowerCase()));
 
-        <div className={styles.accionesBusqueda}>
-          <input type="text" placeholder="Buscar grupo" className={styles.buscador} />
-          <FontAwesomeIcon className={styles.filtros} icon="fa-solid fa-filter" size="2xl" />
-        </div>
-      </div>
+  const handleOpenModal = (tipo) => {
+    setModalTipo(tipo);
+    setShowModal(true);
+  };
 
-      {isLoading ? (
-        <div className={styles.loaderContainer}>
-          <BarLoader color="var(--blanco-secundario)" size={10} />
-        </div>
-      ) : (
-        gruposFormateados.map((group, index) => <GroupItem key={index} {...group} />)
-      )}
+  const modalContent = modalTipo === "crear" ? <GroupCreateModal onClose={() => setShowModal(false)} /> : <GroupUnionLinkModal onClose={() => setShowModal(false)} />;
 
-      {showModal && (
-        <Modal
-          onClose={() => setShowModal(false)}
-          modalTitle={modalTipo === "crear" ? "Crea un nuevo grupo" : "Unete a un grupo"}
-          content={modalTipo === "crear" ? <GroupCreateModal onClose={() => setShowModal(false)} /> : <GroupUnionLinkModal onClose={() => setShowModal(false)} />}
-        />
-      )}
+  const actions = (
+    <button className="button-secondary" onClick={() => handleOpenModal(isProfesor ? "crear" : "unir")}>
+      {isProfesor ? "Crear grupo" : "Unirse a un grupo"}
+    </button>
+  );
+
+  const items = isLoading ? (
+    <div className={styles.barLoaderContainer}>
+      <BarLoader color="var(--blanco-secundario)" size={10} />
     </div>
+  ) : (
+    gruposFiltrados.map((group, index) => <GroupItem key={index} {...group} />)
+  );
+
+  return (
+    <BaseManagerPage
+      actions={actions}
+      modalTitle={modalTipo === "crear" ? "Crea un nuevo grupo" : "Únete a un grupo"}
+      modalContent={modalContent}
+      items={items}
+      searchPlaceholder="grupo"
+      showModal={showModal}
+      setShowModal={setShowModal}
+      searchValue={search}
+      onSearchChange={setSearch}
+    />
   );
 };
 
