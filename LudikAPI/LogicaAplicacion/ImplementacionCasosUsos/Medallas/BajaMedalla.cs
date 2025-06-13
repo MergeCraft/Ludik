@@ -33,7 +33,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Medallas
                 return Resultado.Falla(new Error("Error.NotFound", $"No se encontró ninguna medalla con ID {idMedalla}."));
             }
             
-            var profesor = await _repoProfesores.GetByStringId(profesorId);
+            var profesor = await _repoProfesores.GetByStringIdAsync(profesorId);
             if (!profesor.Valor.Medallas.Contains(existente))
             {
                 return Resultado.Falla(new Error("Error.Validation", $"Esa Medalla No se encuentra dentro de la lista de medallas {idMedalla}."));

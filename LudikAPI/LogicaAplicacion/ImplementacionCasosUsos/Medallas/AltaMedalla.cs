@@ -32,7 +32,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Medallas
             var resultado = medallaNueva.esValido();
             if (resultado.EsFallo)
                 return resultado;
-            var profesor = await _repositorioProfesores.GetByStringId(profesorId);
+            var profesor = await _repositorioProfesores.GetByStringIdAsync(profesorId);
             profesor.Valor.Medallas.Add(medallaNueva);
 
             //var resultadoProfesor = await _repositorioProfesores.UpdateAsync(profesor);

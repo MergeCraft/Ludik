@@ -7,7 +7,7 @@ namespace InterfacesRepositorio
 {
 	public interface IRepositorioProfesores : IRepositorio<Profesor>
 	{
-        Task<Resultado<Profesor>> GetByStringId(string id);
+        Task<Resultado<Profesor>> GetByStringIdAsync(string id);
 
     }
 
