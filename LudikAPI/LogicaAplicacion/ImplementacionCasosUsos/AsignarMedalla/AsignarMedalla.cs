@@ -22,11 +22,11 @@ public class AsignarMedalla: IAsignarMedalla
     }
 
 
-    public async Task<Resultado> EjecutarAsync(string profesorId, int idPerfilEstudiante, MedallaDto medallaDto)
+    public async Task<Resultado> EjecutarAsync(string profesorId, int idPerfilEstudiante, int idMedalla)
     {
         var profesorResultado = await _repositorioProfesores.GetByStringIdAsync(profesorId);
         var perfilResultado = await _repositorioPerfilEstudiantes.GetByIdAsync(idPerfilEstudiante);
-        var medallaResultado = await _repositorioMedallas.GetByIdAsync(medallaDto.Id);
+        var medallaResultado = await _repositorioMedallas.GetByIdAsync(idMedalla);
 
         if (profesorResultado.EsFallo) return Resultado.Falla(Error.NotFound);
         if (perfilResultado.EsFallo) return Resultado.Falla(Error.NotFound);

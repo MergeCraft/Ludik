@@ -15,10 +15,12 @@ namespace WebApi.Controllers
     public class AsignacionMedallasController : ControllerBase
     {
         private readonly IAsignarMedalla _asignarMedalla;
+        private readonly IQuitarMedalla _quitarMedalla;
 
-        public AsignacionMedallasController(IAsignarMedalla asignarMedalla)
+        public AsignacionMedallasController(IAsignarMedalla asignarMedalla, IQuitarMedalla quitarMedalla)
         {
             _asignarMedalla = asignarMedalla;
+            _quitarMedalla = quitarMedalla;
         }
 
         /// <summary>
@@ -33,14 +35,14 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> AsignarMedalla([FromRoute] int idPerfilEstudiante, [FromBody] MedallaDto medallaDto)
+        public async Task<IActionResult> AsignarMedalla([FromRoute] int idPerfilEstudiante, [FromRoute]  int idMedalla)
         {
 
             var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(profesorId))
                 return Unauthorized();
             
-            var resultado = await _asignarMedalla.EjecutarAsync(profesorId, idPerfilEstudiante, medallaDto);
+            var resultado = await _asignarMedalla.EjecutarAsync(profesorId, idPerfilEstudiante, idMedalla);
 
             if (resultado.EsFallo)
                 return this.ManejarFallo(resultado);
@@ -48,10 +50,29 @@ namespace WebApi.Controllers
 
             return Ok(new { Mensaje = "Medalla asignada exitosamente." });
         }
-
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        /// <summary>
+        /// Quita una medalla a un perfil de estudiante.
+        /// </summary>
+        /// <param name="idPerfilEstudiante">El ID del perfil del estudiante al cual se le quitara la medalla.</param>
+        /// <param name="medallaDto">DTO que contiene el ID de la medalla a quitar.</param>
+        /// <returns>Un resultado de la operación.</returns>
+        [HttpDelete("perfil-estudiante/{idPerfilEstudiante}/medalla/{idMedalla}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> QuitarMedalla([FromRoute] int idPerfilEstudiante, [FromRoute] int idMedalla)
         {
+            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(profesorId))
+                return Unauthorized();
+
+            var resultado = await _quitarMedalla.EjecutarAsync(profesorId, idPerfilEstudiante, idMedalla);
+
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
+
+            return NoContent();
         }
     }
 }

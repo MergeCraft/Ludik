@@ -145,6 +145,7 @@ builder.Services.AddScoped<IAltaTablaEquivalencia, AltaTablaEquivalencia>();
 builder.Services.AddScoped<IEditarTablaEquivalencia, EditarTablaEquivalencia>();
 builder.Services.AddScoped<ICrearSolicitudUnion, CrearSolicitudUnion>();
 builder.Services.AddScoped<IAsignarMedalla, AsignarMedalla>();
+builder.Services.AddScoped<IQuitarMedalla, QuitarMedalla>();
 
 
 // -------------------------------
