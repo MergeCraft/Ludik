@@ -15,6 +15,7 @@ import AuthPage from "./features/auth/AuthPage";
 import GroupsPage from "./features/group/GroupsPage.jsx";
 import ProfilePage from "./features/profile/ProfilePage.jsx";
 import MedalManagerPage from "./features/medals/MedalManagerPage.jsx";
+import EquivalenceTablePage from "./features/equivalence-table/EquivalenceTablePage.jsx";
 
 import PrivateRoute from "./features/routing/PrivateRoute";
 
@@ -41,6 +42,7 @@ function App() {
               <Route path="groups" element={<GroupsPage />} />
               <Route path="medals" element={<MedalManagerPage />} />
               <Route path="profile" element={<ProfilePage />} />
+              <Route path="equivalenceTable" element={<EquivalenceTablePage />} />
 
               {/* Puedes agregar más rutas protegidas aquí */}
             </Route>

@@ -1,3 +1,4 @@
+// MedalManagerPage.jsx
 import React, { useState } from "react";
 import styles from "./MedalManagerPage.module.css";
 import genericStyles from "../generics/BaseManagerPage.module.css";
@@ -8,26 +9,34 @@ import BaseManagerPage from "../generics/BaseManagerPage";
 import PropTypes from "prop-types";
 import { useMedallasProfesor } from "./hooks/useMedalMutation.js";
 
-const MedalCreateModal = ({ onClose }) => <MedalCreateForm onClose={onClose} />;
+const MedalCreateModal = ({ onClose, medalId }) => <MedalCreateForm onClose={onClose} medalId={medalId} />;
 
 MedalCreateModal.propTypes = {
   onClose: PropTypes.func.isRequired,
+  medalId: PropTypes.number, // puede ser undefined para crear
 };
 
 const MedalManagerPage = () => {
   const [showModal, setShowModal] = useState(false);
+  const [medalToEditId, setMedalToEditId] = useState(null); // ID de medalla a editar
   const [search, setSearch] = useState("");
 
   const { data: medallas, isLoading } = useMedallasProfesor();
 
-  const handleOpenModal = () => {
+  const handleOpenCreate = () => {
+    setMedalToEditId(null);
     setShowModal(true);
   };
 
-  const modalContent = <MedalCreateModal onClose={() => setShowModal(false)} />;
+  const handleOpenEdit = (id) => {
+    setMedalToEditId(id);
+    setShowModal(true);
+  };
+
+  const modalContent = <MedalCreateModal onClose={() => setShowModal(false)} medalId={medalToEditId} />;
 
   const actions = (
-    <button className="button-secondary" onClick={handleOpenModal}>
+    <button className="button-secondary" onClick={handleOpenCreate}>
       Crear medalla
     </button>
   );
@@ -41,14 +50,7 @@ const MedalManagerPage = () => {
   ) : (
     <div className={styles.medalsContainer}>
       {filteredMedallas.map((medalla) => (
-        <MedalCard
-          key={medalla.id}
-          nombre={medalla.nombre}
-          descripcion={medalla.descripcion}
-          urlImagen={medalla.urlImagen}
-          cantidadMedallasBrinda={medalla.cantidadMedallasBrinda}
-          esAsignacionMutua={medalla.esAsignacionMutua}
-        />
+        <MedalCard key={medalla.id} {...medalla} onEdit={() => handleOpenEdit(medalla.id)} />
       ))}
     </div>
   );
@@ -56,7 +58,7 @@ const MedalManagerPage = () => {
   return (
     <BaseManagerPage
       actions={actions}
-      modalTitle="Crear nueva medalla"
+      modalTitle={medalToEditId ? "Editar medalla" : "Crear nueva medalla"}
       modalContent={modalContent}
       items={items}
       searchPlaceholder="medalla"

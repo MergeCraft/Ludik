@@ -1,0 +1,15 @@
+.itemCard {
+  padding: 15px;
+  background: var(--secundario);
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+
+.itemTitle {
+  color: var(--blanco-principal);
+  margin-bottom: 10px;
+}
+
+.itemDescription {
+  color: var(--blanco-secundario);
+}

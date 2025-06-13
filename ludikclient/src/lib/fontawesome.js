@@ -23,6 +23,7 @@ import {
   faTrophy,
   faCoins,
   faArrowRightArrowLeft,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { faUser as farUser } from "@fortawesome/free-regular-svg-icons";
@@ -50,5 +51,6 @@ library.add(
   faStar,
   faTrophy,
   faCoins,
-  faArrowRightArrowLeft
+  faArrowRightArrowLeft,
+  faTrash
 ); // Agrega a la librería

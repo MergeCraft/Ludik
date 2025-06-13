@@ -1,0 +1,93 @@
+.modalForm {
+    color: var(--blanco-principal);
+    width: 100%;
+}
+
+.modalForm label {
+    margin-bottom: 10px;
+}
+
+.modalForm input {
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.modalForm h4,
+.modalForm h5 {
+    margin-bottom: 10px;
+}
+
+.equivalencia {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    background: var(--fondo);
+    border-radius: 15px;
+    margin-bottom: 15px;
+    border: 1px solid var(--secundario);
+    box-sizing: border-box;
+}
+
+.nota {
+    flex-grow: 1;
+    max-width: 100px;
+    /* opcional, si deseas que no se vuelva muy grande */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.nota label {
+    margin-bottom: 5px;
+    color: var(--blanco-principal);
+    font-size: 0.9rem;
+}
+
+.nota input {
+    width: 100%;
+    padding: 10px 5px 10px 26px;
+    border-radius: 10px;
+    border: none;
+    box-sizing: border-box;
+}
+
+.medallasNecesarias {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.medallasNecesarias h5 {
+    margin: 0;
+    margin-bottom: 10px;
+
+}
+
+.medalla {
+    background: var(--secundario);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.medalla label {
+    color: var(--blanco-principal);
+    font-size: 0.9rem;
+}
+
+.medalla input {
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    background: var(--fondo);
+    color: var(--blanco-principal);
+}
+
+.acciones {
+    display: flex;
+    gap: 15px
+}

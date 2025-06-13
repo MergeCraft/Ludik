@@ -18,11 +18,23 @@
 
 }
 
-.medallaTitle {
-    color: var(--blanco-principal);
-    font-size: 1rem;
-    margin: 0;
+.tituloWrapper {
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+}
 
+.medallaTitle {
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    /* máximo 1 línea */
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+    color: var(--blanco-principal);
 }
 
 .descripcionWrapper {
@@ -34,6 +46,7 @@
     margin: 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -56,8 +69,18 @@
     z-index: 10;
     width: 180px;
     max-width: 200px;
-    text-align: left;
+    text-align: center;
     white-space: normal;
+    margin-bottom: 5px;
+}
+
+.popoverTitulo {
+    top: -35px;
+}
+
+.popoverDescripcion {
+    top: -50px;
+    /* Más alto para que no se superponga con el título */
 }
 
 
@@ -99,10 +122,16 @@
     bottom: -5px;
     width: 100%;
     border-radius: 0 0 15px 15px;
-    border: 1px solid var(--secundario);
+    border: 2px solid var(--secundario);
     padding: 10px;
     color: var(--blanco-principal);
     cursor: pointer;
+    transition: .5s;
+}
+
+.editBtn:hover {
+    background: var(--secundario);
+    border-top: 2px solid var(--principal);
 }
 
 @media screen and (max-width: 480px) {

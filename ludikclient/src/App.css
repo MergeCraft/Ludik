@@ -65,6 +65,27 @@ body {
   outline: none;
 }
 
+.button-tertiary {
+  background-color: var(--boton-terciario);
+  border: none;
+  box-shadow: 0 3px 0 3px var(--secundario-boton-terciario);
+  border-radius: 10px;
+  color: var(--blanco-principal);
+  font-size: 16px;
+  padding: 10px 26px;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  transition: transform 0.2s, box-shadow 0.2s ease;
+}
+
+.button-tertiary:active {
+  box-shadow: 0 0 0 2px var(--secundario-boton-secundario);
+  transform: translateY(3px);
+  /* Simula la presión */
+  outline: none;
+}
+
 .fade-in {
   animation: fadeIn 0.8s ease forwards;
 }

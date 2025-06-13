@@ -20,3 +20,33 @@ export const obtenerMedallasProfesor = async () => {
     throw new Error(mensaje);
   }
 };
+
+export const obtenerMedallaPorId = async (id) => {
+  try {
+    const response = await api.get(`/api/Medalla/${id}`);
+    return response.data;
+  } catch (error) {
+    const mensaje = error.response?.data?.mensaje || "No se pudo obtener la medalla.";
+    throw new Error(mensaje);
+  }
+};
+
+export const editarMedalla = async ({ id, ...data }) => {
+  try {
+    const response = await api.put(`/api/medalla/${id}`, data);
+    return response.data;
+  } catch (error) {
+    const mensaje = error.response?.data?.mensaje || "Error al editar la medalla.";
+    throw new Error(mensaje);
+  }
+};
+
+export const eliminarMedalla = async (id) => {
+  try {
+    const response = await api.delete(`/api/Medalla/${id}`);
+    return response.data;
+  } catch (error) {
+    const mensaje = error.response?.data?.mensaje || "Error al eliminar la medalla.";
+    throw new Error(mensaje);
+  }
+};

@@ -56,7 +56,7 @@ select {
     border-radius: 8px;
     border: none;
     background-color: var(--blanco-secundario);
-    color: #75757A;
+    color: black;
     font-size: 14px;
     margin-top: 5px;
 }
@@ -72,6 +72,13 @@ select {
 
 .btnSubmit {
     height: 40px;
+    flex-grow: 1;
+}
+
+.botones {
+    width: 100%;
+    display: flex;
+    gap: 10px
 }
 
 .asignacionMutua {

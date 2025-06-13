@@ -52,7 +52,7 @@ const HeaderMenu = () => {
               <FontAwesomeIcon icon="fa-solid fa-award" size="lg" /> Medallas
             </li>
 
-            <li onClick={() => goTo("/rubricas")} className={isActive("/rubricas") ? styles.activeRubricas : ""}>
+            <li onClick={() => goTo("/equivalenceTable")} className={isActive("/equivalenceTable") ? styles.activeRubricas : ""}>
               <FontAwesomeIcon icon="fa-solid fa-clipboard-list" size="lg" /> Rubricas
             </li>
 

@@ -4,21 +4,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import styles from "./MedalCard.module.css";
 
-const MedalCard = ({ nombre, descripcion, urlImagen, cantidadMedallasBrinda, esAsignacionMutua }) => {
-  const [showPopover, setShowPopover] = useState(false);
-  const popoverRef = useRef(null);
+const MedalCard = ({ nombre, descripcion, urlImagen, cantidadMedallasBrinda, esAsignacionMutua, onEdit }) => {
+  const [showPopoverTitulo, setShowPopoverTitulo] = useState(false);
+  const [showPopoverDesc, setShowPopoverDesc] = useState(false);
+  const popoverTituloRef = useRef(null);
+  const popoverDescRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (popoverRef.current && !popoverRef.current.contains(e.target)) {
-        setShowPopover(false);
+      if (popoverTituloRef.current && !popoverTituloRef.current.contains(e.target)) {
+        setShowPopoverTitulo(false);
+      }
+      if (popoverDescRef.current && !popoverDescRef.current.contains(e.target)) {
+        setShowPopoverDesc(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  const handleEdit = () => {};
 
   return (
     <div className={styles.medallaCard}>
@@ -34,14 +37,23 @@ const MedalCard = ({ nombre, descripcion, urlImagen, cantidadMedallasBrinda, esA
           )}
         </div>
 
-        <p className={styles.medallaTitle}>{nombre}</p>
+        <div className={styles.tituloWrapper}>
+          <p className={styles.medallaTitle} onClick={() => setShowPopoverTitulo((prev) => !prev)}>
+            {nombre}
+          </p>
+          {showPopoverTitulo && (
+            <div ref={popoverTituloRef} className={`${styles.popover} ${styles.popoverTitulo}`}>
+              {nombre}
+            </div>
+          )}
+        </div>
 
         <div className={styles.descripcionWrapper}>
-          <p className={styles.medallaDescripcion} onClick={() => setShowPopover((prev) => !prev)}>
+          <p className={styles.medallaDescripcion} onClick={() => setShowPopoverDesc((prev) => !prev)}>
             {descripcion}
           </p>
-          {showPopover && (
-            <div ref={popoverRef} className={styles.popover}>
+          {showPopoverDesc && (
+            <div ref={popoverDescRef} className={`${styles.popover} ${styles.popoverDescripcion}`}>
               {descripcion}
             </div>
           )}
@@ -52,8 +64,8 @@ const MedalCard = ({ nombre, descripcion, urlImagen, cantidadMedallasBrinda, esA
         </p>
       </div>
 
-      <button className={styles.editBtn}>
-        <FontAwesomeIcon icon="fa-solid fa-pen-to-square" size="lg" onClick={handleEdit} />
+      <button className={styles.editBtn} onClick={onEdit}>
+        <FontAwesomeIcon icon="fa-solid fa-pen-to-square" size="lg" />
       </button>
     </div>
   );
@@ -65,6 +77,7 @@ MedalCard.propTypes = {
   urlImagen: PropTypes.string.isRequired,
   cantidadMedallasBrinda: PropTypes.number.isRequired,
   esAsignacionMutua: PropTypes.bool.isRequired,
+  onEdit: PropTypes.func.isRequired,
 };
 
 export default MedalCard;

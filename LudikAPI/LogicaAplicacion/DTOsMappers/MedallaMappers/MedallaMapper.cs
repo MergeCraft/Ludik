@@ -9,6 +9,7 @@ public class MedallaMapper
     {
         return new MedallaDto
         {
+            Id = medalla.Id,
             UrlImagen = medalla.Icono,
             Nombre = medalla.Nombre,
             Descripcion = medalla.Descripcion,
