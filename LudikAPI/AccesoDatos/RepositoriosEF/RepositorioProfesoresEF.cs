@@ -39,6 +39,25 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
+        public async Task<Resultado<Profesor>> GetByStringIdAsync(string id)
+        {
+            try
+            {
+                var profesor = await _db.Profesores
+                    .Include(p => p.Grupos)
+                    .FirstOrDefaultAsync(p => p.Id == id);
+
+                if (profesor == null)
+                    return Resultado<Profesor>.Falla(new Error("Error.NotFound", $"No se encontró el profesor con Id {id}."));
+                
+                return Resultado<Profesor>.Exitoso(profesor);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<Profesor>.Falla(new Error("Error.Unexpected", ex.Message));
+            }
+        }
+
         public async Task<Resultado<Profesor>> GetByIdAsync(int id)
         {
             try

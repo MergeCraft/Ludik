@@ -2,6 +2,7 @@ using System.Text;
 using AccesoDatos.RepositoriosEF;
 using Dominio;
 using InterfacesRepositorio;
+using LogicaAplicacion.ImplementacionCasosUsos.AsignarMedalla;
 using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;
 using LogicaAplicacion.ImplementacionCasosUsos.Grupos;
 using LogicaAplicacion.ImplementacionCasosUsos.Medallas;
@@ -9,6 +10,7 @@ using LogicaAplicacion.ImplementacionCasosUsos.PerfilEstudiante;
 using LogicaAplicacion.ImplementacionCasosUsos.Profesores;
 using LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion;
 using LogicaAplicacion.ImplementacionCasosUsos.TablaEquivalencia;
+using LogicaAplicacion.InterfacesCasosUsos.AsignacionMedalla;
 using LogicaAplicacion.InterfacesCasosUsos.Estudiante;
 using LogicaAplicacion.InterfacesCasosUsos.Grupo;
 using LogicaAplicacion.InterfacesCasosUsos.Medalla;
@@ -142,6 +144,9 @@ builder.Services.AddScoped<IGeneradorEnlaceGrupo, GeneradorEnlaceGrupo>();
 builder.Services.AddScoped<IAltaTablaEquivalencia, AltaTablaEquivalencia>();
 builder.Services.AddScoped<IEditarTablaEquivalencia, EditarTablaEquivalencia>();
 builder.Services.AddScoped<ICrearSolicitudUnion, CrearSolicitudUnion>();
+builder.Services.AddScoped<IAsignarMedalla, AsignarMedalla>();
+builder.Services.AddScoped<IQuitarMedalla, QuitarMedalla>();
+
 
 // -------------------------------
 //      Swagger y CORS

@@ -216,12 +216,28 @@ namespace AccesoDatos.RepositoriosEF
             });
 
 
-            // Grupo - Índices
-            modelBuilder.Entity<Grupo>()
-                .HasIndex(g => g.Nombre);
-            modelBuilder.Entity<Grupo>()
-                .HasIndex(g => g.ProfesorId)
-                .HasDatabaseName("IX_Grupo_ProfesorId");
+            modelBuilder.Entity<Grupo>(g =>
+            {
+                g.HasIndex(x => x.Nombre);
+                g.HasIndex(x => x.ProfesorId).HasDatabaseName("IX_Grupo_ProfesorId");
+
+                // Se define explícitamente la relación con TablaEquivalencia
+                // y se cambia el comportamiento de borrado en cascada.
+                g.HasOne(grupo => grupo.TablaEquivalencia)
+                    .WithMany()
+                    .HasForeignKey("TablaEquivalenciaId")
+                    .OnDelete(DeleteBehavior.Restrict); 
+            });
+
+            modelBuilder.Entity<BarraProgreso>(bp =>
+            {
+                // Definimos que la relación con TablaEquivalencia NO debe ser en cascada.
+                // Impedirá que se borre una TablaEquivalencia si una BarraProgreso la usa.
+                bp.HasOne(b => b.TablaEquivalencia)
+                    .WithMany()
+                    .HasForeignKey("TablaEquivalenciaId")
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
 
             // Índice único compuesto para evitar que un mismo estudiante se una dos veces
             modelBuilder.Entity<PerfilEstudiante>()
