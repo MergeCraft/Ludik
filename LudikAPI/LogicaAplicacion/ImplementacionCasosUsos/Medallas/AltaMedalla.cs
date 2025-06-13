@@ -13,32 +13,29 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Medallas
     public class AltaMedalla: IAltaMedalla
     {
         private readonly IRepositorioMedallas _repositorioMedallas;
-        private readonly IRepositorioProfesores _repositorioProfesores;
 
-        public AltaMedalla(IRepositorioMedallas repositorioMedallas, IRepositorioProfesores repositorioProfesores)
+        public AltaMedalla(IRepositorioMedallas repositorioMedallas)
         {
             _repositorioMedallas = repositorioMedallas;
-            _repositorioProfesores = repositorioProfesores;
         }
         //Pre: Recibe un DTO con los datos de la medalla a crear
         //Pos: Se crea una medalla en la base de datos
         public async Task<Resultado> EjecutarAsync(MedallaAltaDto medallaAltaDto, string profesorId)
         {
+
             if (medallaAltaDto == null)
                 return Resultado.Falla(new Error("Error.Validation", "Los datos para crear la medalla no pueden ser nulos."));
-            
+
             Medalla medallaNueva = MedallaAltaMapper.fromDto(medallaAltaDto);
 
-            var resultado = medallaNueva.esValido();
-            if (resultado.EsFallo)
-                return resultado;
-            var profesor = await _repositorioProfesores.GetByStringIdAsync(profesorId);
-            profesor.Valor.Medallas.Add(medallaNueva);
+            medallaNueva.ProfesorId = profesorId;
 
-            //var resultadoProfesor = await _repositorioProfesores.UpdateAsync(profesor);
-            //if (resultadoProfesor.EsFallo) return resultadoProfesor;
+            var resultadoValidacion = medallaNueva.esValido();
+            if (resultadoValidacion.EsFallo)
+                return resultadoValidacion;
 
             Resultado resultadoCreacion = await _repositorioMedallas.AddAsync(medallaNueva);
+
             return resultadoCreacion;
         }
     }

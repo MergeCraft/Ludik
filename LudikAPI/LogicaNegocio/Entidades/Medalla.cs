@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using LogicaNegocio.Excepciones;
 using LogicaNegocio.InterfacesEntidades;
 using LogicaNegocio.Resultados;
@@ -19,6 +20,10 @@ namespace Dominio
         public int MonedasOtorgadas { get; set; }
 
         public Boolean TieneAsignacionMutua { get; set; }
+
+        public string ProfesorId { get; set; }
+        [ForeignKey("ProfesorId")]
+        public virtual Profesor Creador { get; set; }
 
         public Resultado esValido()
         {

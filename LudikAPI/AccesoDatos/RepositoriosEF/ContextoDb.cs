@@ -69,6 +69,63 @@ namespace AccesoDatos.RepositoriosEF
                 .WithOne()
                 .HasForeignKey<Profesor>(p => p.Id)
                 .OnDelete(DeleteBehavior.Cascade);
+           
+            // --- REGLAS DE BORRADO EN CASCADA DESDE GRUPO ---
+            // Un Profesor es dueño de sus Medallas, Grupos y Tablas de Equivalencia.
+            // Si el Profesor se elimina, todo esto se debe eliminar también.
+            modelBuilder.Entity<Profesor>(p =>
+            {
+                // Profesor -> Medalla (Uno a Muchos, Cascada)
+                p.HasMany(prof => prof.Medallas)
+                 .WithOne(m => m.Creador)
+                 .HasForeignKey(m => m.ProfesorId)
+                 .OnDelete(DeleteBehavior.Cascade);
+
+                // Profesor -> TablaEquivalencia (Uno a Muchos, Cascada)
+                p.HasMany(prof => prof.TablasEquivalencia)
+                 .WithOne() // Asumimos que TablaEquivalencia no necesita navegar de vuelta
+                 .HasForeignKey(te => te.ProfesorId)
+                 .OnDelete(DeleteBehavior.Cascade);
+
+                // Profesor -> Grupo (Uno a Muchos, Cascada)
+                p.HasMany(prof => prof.Grupos)
+                 .WithOne() // Asumimos que Grupo no necesita navegar de vuelta
+                 .HasForeignKey(g => g.ProfesorId)
+                 .OnDelete(DeleteBehavior.Cascade);
+            });
+
+
+            // --- REGLAS DE BORRADO EN CASCADA DESDE GRUPO ---
+
+            // Un Grupo es dueño de sus Alumnos, Solicitudes y Tablas de Clasificación.
+            // Si el Grupo se elimina (porque su Profesor fue eliminado), todo esto se debe eliminar también.
+            modelBuilder.Entity<Grupo>(g =>
+            {
+                // Grupo -> PerfilEstudiante (Uno a Muchos, Cascada)
+                g.HasMany(gr => gr.Alumnos)
+                 .WithOne() // PerfilEstudiante no navega de vuelta a Grupo
+                 .HasForeignKey(pe => pe.GrupoId)
+                 .OnDelete(DeleteBehavior.Cascade);
+
+                // Grupo -> SolicitudUnion (Uno a Muchos, Cascada)
+                g.HasMany(gr => gr.Solicitudes)
+                 .WithOne(su => su.Grupo)
+                 .HasForeignKey(su => su.GrupoId)
+                 .OnDelete(DeleteBehavior.Cascade);
+
+                // Grupo -> TablaClasificacion (Uno a Muchos, Cascada)
+                g.HasMany(gr => gr.TablasClasificacion)
+                 .WithOne() // Asumimos que no hay navegación de vuelta
+                 .HasForeignKey("GrupoId") // FK por convención
+                 .OnDelete(DeleteBehavior.Cascade);
+
+                // La relación entre Grupo y TablaEquivalencia NO debe ser en cascada.
+                // La eliminación de TablaEquivalencia ya está gestionada por la relación directa con Profesor.
+                g.HasOne(gr => gr.TablaEquivalencia)
+                 .WithMany()
+                 .HasForeignKey("TablaEquivalenciaId") // FK por convención
+                 .OnDelete(DeleteBehavior.Restrict); // Usamos Restrict para prevenir la ruta múltiple.
+            });
 
             // Relación M:N entre PerfilEstudiante y Medalla (MedallasObtenidas)
             modelBuilder.Entity<PerfilEstudiante>()
