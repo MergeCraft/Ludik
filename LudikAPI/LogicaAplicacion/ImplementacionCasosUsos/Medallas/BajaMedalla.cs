@@ -9,13 +9,14 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Medallas
     public class BajaMedalla : IBajaMedalla
     {
         private readonly IRepositorioMedallas _repoMedallas;
-
-        public BajaMedalla(IRepositorioMedallas repoMedallas)
+        private readonly IRepositorioProfesores _repoProfesores;
+        public BajaMedalla(IRepositorioMedallas repoMedallas, IRepositorioProfesores repoProfesores)
         {
             _repoMedallas = repoMedallas;
+            _repoProfesores = repoProfesores;
         }
 
-        public async Task<Resultado> EjecutarAsync(int idMedalla)
+        public async Task<Resultado> EjecutarAsync(int idMedalla, string profesorId)
         {
             if (idMedalla <= 0)
                 return Resultado.Falla(new Error("Error.Validation", "El ID de la medalla debe ser un entero positivo."));
@@ -31,7 +32,12 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Medallas
             {
                 return Resultado.Falla(new Error("Error.NotFound", $"No se encontró ninguna medalla con ID {idMedalla}."));
             }
-
+            
+            var profesor = await _repoProfesores.GetByStringId(profesorId);
+            if (!profesor.Valor.Medallas.Contains(existente))
+            {
+                return Resultado.Falla(new Error("Error.Validation", $"Esa Medalla No se encuentra dentro de la lista de medallas {idMedalla}."));
+            }
             Resultado resultadoRemove = await _repoMedallas.RemoveAsync(existente);
             return resultadoRemove;
         }

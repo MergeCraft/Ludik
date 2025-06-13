@@ -1,4 +1,5 @@
-﻿using LogicaAplicacion.DTOs.MedallaDTOs;
+﻿using System.Security.Claims;
+using LogicaAplicacion.DTOs.MedallaDTOs;
 using LogicaAplicacion.InterfacesCasosUsos.Medalla;
 using LogicaNegocio.Excepciones;
 using LogicaNegocio.Resultados;
@@ -96,7 +97,10 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Post([FromBody] MedallaAltaDto medallaDto)
         {
-                Resultado resultado = await _altaMedalla.EjecutarAsync(medallaDto);
+            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(profesorId))
+                return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
+            Resultado resultado = await _altaMedalla.EjecutarAsync(medallaDto,profesorId);
                 if (resultado.EsFallo)
                     return this.ManejarFallo(resultado);
 
@@ -143,7 +147,11 @@ namespace WebApi.Controllers
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Delete(int id)
         {
-            Resultado resultado = await _bajaMedalla.EjecutarAsync(id);
+            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(profesorId))
+                return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
+
+            Resultado resultado = await _bajaMedalla.EjecutarAsync(id,profesorId);
 
             if (resultado.EsFallo)
                 return this.ManejarFallo(resultado);

@@ -5,5 +5,5 @@ namespace LogicaAplicacion.InterfacesCasosUsos.Medalla;
 
 public interface IBajaMedalla
 {
-    Task<Resultado> EjecutarAsync(int idMedalla);
+    Task<Resultado> EjecutarAsync(int idMedalla, string profesorId);
 }

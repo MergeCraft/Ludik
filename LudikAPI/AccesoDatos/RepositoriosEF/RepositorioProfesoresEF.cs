@@ -41,7 +41,47 @@ namespace AccesoDatos.RepositoriosEF
 
         public async Task<Resultado<Profesor>> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Profesor profesor = await _db.Profesores
+                    .Include(p => p.Medallas)
+                    .Include(p => p.TablasEquivalencia)
+                    .Include(p => p.Grupos)
+                    .FirstOrDefaultAsync(p => p.Id == id.ToString());
+
+                if (profesor == null)
+                {
+                    return Resultado<Profesor>.Falla(new Error("Repositorio.Profesor.NoEncontrado", $"No se encontró un profesor con ID {id}."));
+                }
+
+                return Resultado<Profesor>.Exitoso(profesor);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<Profesor>.Falla(new Error("Repositorio.Profesor.Inesperado", $"Error inesperado al obtener el profesor: {ex.Message}"));
+            }
+        }
+        public async Task<Resultado<Profesor>> GetByStringId(string id)
+        {
+            try
+            {
+                Profesor profesor = await _db.Profesores
+                    .Include(p => p.Medallas)
+                    .Include(p => p.TablasEquivalencia)
+                    .Include(p => p.Grupos)
+                    .FirstOrDefaultAsync(p => p.Id == id);
+
+                if (profesor == null)
+                {
+                    return Resultado<Profesor>.Falla(new Error("Repositorio.Profesor.NoEncontrado", $"No se encontró un profesor con ID {id}."));
+                }
+
+                return Resultado<Profesor>.Exitoso(profesor);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<Profesor>.Falla(new Error("Repositorio.Profesor.Inesperado", $"Error inesperado al obtener el profesor: {ex.Message}"));
+            }
         }
 
         public async Task<Resultado> RemoveAsync(int id)
