@@ -115,28 +115,32 @@ namespace AccesoDatos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("materia")
+                    b.Property<string>("Materia")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("nombre")
+                    b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int>("tablaEquivalenciaId")
+                    b.Property<string>("ProfesorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("TablaEquivalenciaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EnlaceUnionId");
+
+                    b.HasIndex("Nombre");
+
                     b.HasIndex("ProfesorId")
                         .HasDatabaseName("IX_Grupo_ProfesorId");
 
-                    b.HasIndex("enlaceUnionId");
-
-                    b.HasIndex("nombre");
-
-                    b.HasIndex("tablaEquivalenciaId");
+                    b.HasIndex("TablaEquivalenciaId");
 
                     b.ToTable("Grupos");
                 });
@@ -323,7 +327,7 @@ namespace AccesoDatos.Migrations
                     b.Property<int>("Precio")
                         .HasColumnType("int");
 
-                    b.Property<int>("Precio")
+                    b.Property<int?>("TiendaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -435,6 +439,7 @@ namespace AccesoDatos.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ProfesorId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -833,7 +838,7 @@ namespace AccesoDatos.Migrations
                     b.HasOne("Dominio.TablaEquivalencia", "TablaEquivalencia")
                         .WithMany()
                         .HasForeignKey("TablaEquivalenciaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("TablaEquivalencia");
@@ -863,7 +868,7 @@ namespace AccesoDatos.Migrations
                     b.HasOne("Dominio.TablaEquivalencia", "TablaEquivalencia")
                         .WithMany()
                         .HasForeignKey("TablaEquivalenciaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("EnlaceUnion");
@@ -991,7 +996,9 @@ namespace AccesoDatos.Migrations
                 {
                     b.HasOne("Dominio.Profesor", null)
                         .WithMany("TablasEquivalencia")
-                        .HasForeignKey("ProfesorId");
+                        .HasForeignKey("ProfesorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Dominio.Tienda", b =>

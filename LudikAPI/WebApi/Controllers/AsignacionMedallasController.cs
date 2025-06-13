@@ -33,14 +33,14 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> AsignarMedalla([FromRoute] int idPerfilEstudiante, [FromBody] MedallaDto request)
+        public async Task<IActionResult> AsignarMedalla([FromRoute] int idPerfilEstudiante, [FromBody] MedallaDto medallaDto)
         {
 
             var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(profesorId))
                 return Unauthorized();
             
-            var resultado = await _asignarMedalla.EjecutarAsync(profesorId, idPerfilEstudiante, request);
+            var resultado = await _asignarMedalla.EjecutarAsync(profesorId, idPerfilEstudiante, medallaDto);
 
             if (resultado.EsFallo)
                 return this.ManejarFallo(resultado);

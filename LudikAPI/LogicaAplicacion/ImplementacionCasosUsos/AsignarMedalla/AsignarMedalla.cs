@@ -33,17 +33,17 @@ public class AsignarMedalla: IAsignarMedalla
         if (medallaResultado.EsFallo) return Resultado.Falla(Error.NotFound);
 
         var profesor = profesorResultado.Valor;
-        var perfil = perfilResultado.Valor;
+        var perfilEstudiate = perfilResultado.Valor;
         var medalla = medallaResultado.Valor;
 
 
-        if (!profesor.Grupos.Any(g => g.Id == perfil.GrupoId))
+        if (!profesor.Grupos.Any(g => g.Id == perfilEstudiate.GrupoId))
             return Resultado.Falla(Error.Forbidden);
         
 
-        perfil.MedallasObtenidas.Add(medalla);
+        perfilEstudiate.MedallasObtenidas.Add(medalla);
 
-        var updateResultado = await _repositorioPerfilEstudiantes.UpdateAsync(perfil);
+        var updateResultado = await _repositorioPerfilEstudiantes.UpdateAsync(perfilEstudiate);
 
         return updateResultado;
     }

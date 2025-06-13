@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250611175908_configuracionTablaRendimientoPeriodoMedallas")]
-    partial class configuracionTablaRendimientoPeriodoMedallas
+    [Migration("20250613123912_inicial13062025")]
+    partial class inicial13062025
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -442,6 +442,7 @@ namespace AccesoDatos.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ProfesorId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -840,7 +841,7 @@ namespace AccesoDatos.Migrations
                     b.HasOne("Dominio.TablaEquivalencia", "TablaEquivalencia")
                         .WithMany()
                         .HasForeignKey("TablaEquivalenciaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("TablaEquivalencia");
@@ -870,7 +871,7 @@ namespace AccesoDatos.Migrations
                     b.HasOne("Dominio.TablaEquivalencia", "TablaEquivalencia")
                         .WithMany()
                         .HasForeignKey("TablaEquivalenciaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("EnlaceUnion");
@@ -998,7 +999,9 @@ namespace AccesoDatos.Migrations
                 {
                     b.HasOne("Dominio.Profesor", null)
                         .WithMany("TablasEquivalencia")
-                        .HasForeignKey("ProfesorId");
+                        .HasForeignKey("ProfesorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Dominio.Tienda", b =>
