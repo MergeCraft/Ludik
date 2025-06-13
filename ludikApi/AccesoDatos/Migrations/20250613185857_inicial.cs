@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
-    public partial class inicial13062025 : Migration
+    public partial class inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -257,7 +257,7 @@ namespace AccesoDatos.Migrations
                     Icono = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MonedasOtorgadas = table.Column<int>(type: "int", nullable: false),
                     TieneAsignacionMutua = table.Column<bool>(type: "bit", nullable: false),
-                    ProfesorId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ProfesorId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -266,7 +266,8 @@ namespace AccesoDatos.Migrations
                         name: "FK_Medallas_Profesores_ProfesorId",
                         column: x => x.ProfesorId,
                         principalTable: "Profesores",
-                        principalColumn: "UsuarioId");
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -451,7 +452,7 @@ namespace AccesoDatos.Migrations
                         column: x => x.MedallaAsociadaId,
                         principalTable: "Medallas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -516,7 +517,7 @@ namespace AccesoDatos.Migrations
                         column: x => x.MedallaId,
                         principalTable: "Medallas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_PerfilEstudianteMedallas_PerfilesEstudiantes_PerfilEstudianteId",
                         column: x => x.PerfilEstudianteId,
@@ -610,7 +611,7 @@ namespace AccesoDatos.Migrations
                         column: x => x.MedallaId,
                         principalTable: "Medallas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_RendimientoPeriodoMedallas_RendimientosPeriodos_RendimientoPeriodoId",
                         column: x => x.RendimientoPeriodoId,

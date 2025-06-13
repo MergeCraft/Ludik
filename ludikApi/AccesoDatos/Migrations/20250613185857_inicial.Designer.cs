@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250613123912_inicial13062025")]
-    partial class inicial13062025
+    [Migration("20250613185857_inicial")]
+    partial class inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -195,6 +195,7 @@ namespace AccesoDatos.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("ProfesorId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("TieneAsignacionMutua")
@@ -892,9 +893,13 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("Dominio.Medalla", b =>
                 {
-                    b.HasOne("Dominio.Profesor", null)
+                    b.HasOne("Dominio.Profesor", "Creador")
                         .WithMany("Medallas")
-                        .HasForeignKey("ProfesorId");
+                        .HasForeignKey("ProfesorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creador");
                 });
 
             modelBuilder.Entity("Dominio.PerfilEstudiante", b =>
@@ -989,7 +994,7 @@ namespace AccesoDatos.Migrations
                     b.HasOne("Dominio.Medalla", "MedallaAsociada")
                         .WithMany()
                         .HasForeignKey("MedallaAsociadaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("MedallaAsociada");
@@ -1130,7 +1135,7 @@ namespace AccesoDatos.Migrations
                     b.HasOne("Dominio.Medalla", null)
                         .WithMany()
                         .HasForeignKey("MedallaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Dominio.PerfilEstudiante", null)
@@ -1160,7 +1165,7 @@ namespace AccesoDatos.Migrations
                     b.HasOne("Dominio.Medalla", null)
                         .WithMany()
                         .HasForeignKey("MedallaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Dominio.RendimientoPeriodo", null)

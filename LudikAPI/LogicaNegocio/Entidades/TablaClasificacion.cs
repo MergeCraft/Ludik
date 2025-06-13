@@ -15,7 +15,7 @@ namespace Dominio
         [Required]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "El nombre de la Tabla Clasificacion  debe tener entre 3 y 50 caracteres.")]
         public String Nombre { get; set; }
-
+        public int MedallaAsociadaId { get; set; }
         public Medalla MedallaAsociada { get; set; }
 
         public List<PerfilEstudiante> Participantes { get; set; }

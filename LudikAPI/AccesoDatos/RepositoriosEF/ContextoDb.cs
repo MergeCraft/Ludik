@@ -136,7 +136,8 @@ namespace AccesoDatos.RepositoriosEF
                     j => j
                         .HasOne<Medalla>()
                         .WithMany()
-                        .HasForeignKey("MedallaId"),
+                        .HasForeignKey("MedallaId")
+                        .OnDelete(DeleteBehavior.Restrict),
                     j => j
                         .HasOne<PerfilEstudiante>()
                         .WithMany()
@@ -176,6 +177,13 @@ namespace AccesoDatos.RepositoriosEF
                         .HasForeignKey("TablaClasificacionId")
                         .OnDelete(DeleteBehavior.Restrict) 
                 );
+            modelBuilder.Entity<TablaClasificacion>(tc =>
+            {
+                tc.HasOne(t => t.MedallaAsociada)
+                  .WithMany() // o .WithMany(m => m.TablasClasificacion) si tuvieras navegación inversa en Medalla
+                  .HasForeignKey("MedallaAsociadaId") // asegúrate de que coincide con el nombre de la columna FK
+                  .OnDelete(DeleteBehavior.Restrict);
+            });
 
             // Relación M:N entre Equivalencia y Medalla (MedallasNecesarias)
             modelBuilder.Entity<Equivalencia>()
@@ -216,7 +224,8 @@ namespace AccesoDatos.RepositoriosEF
                     j => j
                         .HasOne<Medalla>()
                         .WithMany()
-                        .HasForeignKey("MedallaId"),
+                        .HasForeignKey("MedallaId")
+                        .OnDelete(DeleteBehavior.Restrict),
                     j => j
                         .HasOne<RendimientoPeriodo>()
                         .WithMany()

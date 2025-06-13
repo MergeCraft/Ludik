@@ -991,7 +991,7 @@ namespace AccesoDatos.Migrations
                     b.HasOne("Dominio.Medalla", "MedallaAsociada")
                         .WithMany()
                         .HasForeignKey("MedallaAsociadaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("MedallaAsociada");
@@ -1132,7 +1132,7 @@ namespace AccesoDatos.Migrations
                     b.HasOne("Dominio.Medalla", null)
                         .WithMany()
                         .HasForeignKey("MedallaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Dominio.PerfilEstudiante", null)
@@ -1162,7 +1162,7 @@ namespace AccesoDatos.Migrations
                     b.HasOne("Dominio.Medalla", null)
                         .WithMany()
                         .HasForeignKey("MedallaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Dominio.RendimientoPeriodo", null)
