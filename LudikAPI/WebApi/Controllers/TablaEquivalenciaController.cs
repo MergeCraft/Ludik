@@ -16,12 +16,15 @@ namespace WebApi.Controllers
     {
         private readonly IAltaTablaEquivalencia _altaTablaEquivalencia;
         private readonly IEditarTablaEquivalencia _editarTablaEquivalencia;
+        private readonly IObtenerTablasEquivalenciaDelProfesor _obtenerTablasEquivalenciaDelProfesor;
 
         public TablaEquivalenciaController(IAltaTablaEquivalencia altaTablaEquivalencia, 
-            IEditarTablaEquivalencia editarTablaEquivalencia)
+            IEditarTablaEquivalencia editarTablaEquivalencia,
+            IObtenerTablasEquivalenciaDelProfesor obtenerTablasEquivalenciaDelProfesor)
         {
             _altaTablaEquivalencia = altaTablaEquivalencia;
             _editarTablaEquivalencia = editarTablaEquivalencia;
+            _obtenerTablasEquivalenciaDelProfesor = obtenerTablasEquivalenciaDelProfesor;
         }
 
 
@@ -95,6 +98,35 @@ namespace WebApi.Controllers
             
 
             return StatusCode(StatusCodes.Status200OK, "La tabla de equivalencia fue editada correctamente.");
+
+        }
+
+        /// <summary>
+        /// Obtiene todas las tablas de equivalencia de un profesor.
+        /// </summary>
+        /// <response code="200">**OK.** Operacion exitosa, retorna las lista de tablas del profesor.</response>
+        /// <response code="400">**Solicitud Incorrecta.** El id proporcionado no pertenece a ningún profesor.</response>
+        /// <response code="403">**Prohibido.** El usuario no tiene el rol para acceder a este recurso.</response>
+        /// <response code="404">**No Encontrado.** No se encontró ninguna tabla con el ID especificado.</response>
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<Error>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Error), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(Error), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetTablasEquivalenciaDelProfesor()
+        {
+
+            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(profesorId))
+                return Unauthorized(new Error("Error.Unauthorized", "No se pudo identificar al profesor a partir del token."));
+
+            var resultado = await _obtenerTablasEquivalenciaDelProfesor.EjecutarAsync(profesorId);
+
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
+
+            return Ok(resultado.Valor);
 
         }
     }

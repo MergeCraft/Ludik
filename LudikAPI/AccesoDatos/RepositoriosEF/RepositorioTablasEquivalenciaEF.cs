@@ -38,7 +38,28 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-       
+        public async Task<Resultado<IEnumerable<TablaEquivalencia>>> GetByProfesorIdAsync(string profesorId)
+        {
+            try
+            {
+                var tablas = await _db.TablasEquivalencia
+                    .Where(t => t.ProfesorId == profesorId)
+                    .Include(t => t.Equivalencias)
+                    .ThenInclude(e => e.MedallasNecesarias)
+                    .AsNoTracking()
+                    .ToListAsync();
+
+                return Resultado<IEnumerable<TablaEquivalencia>>.Exitoso(tablas);
+            }
+            catch (Exception e)
+            {
+                return Resultado<IEnumerable<TablaEquivalencia>>.Falla(
+                    new Error("Error.Unexpected", $"Ocurrió un error al consultar las tablas de equivalencia: {e.Message}")
+                );
+            }
+        }
+
+
         public async Task<Resultado<TablaEquivalencia>> GetByIdAsync(int id)
         {
             

@@ -11,6 +11,6 @@ namespace LogicaAplicacion.DTOs.TablaEquivalenciaDTOs
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public List<EquivalenciaAltaDto> Equivalencias { get; set; }
+        public List<EquivalenciaDto> Equivalencias { get; set; }
     }
 }
