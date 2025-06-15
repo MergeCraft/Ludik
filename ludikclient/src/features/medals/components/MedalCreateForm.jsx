@@ -20,12 +20,10 @@ const MedalCreateForm = ({ onClose, medalId }) => {
 
   // Mutaciones
   const crear = useCrearMedalla(() => {
-    Toast.notificarExito("Medalla creada con éxito.");
     onClose?.();
   });
 
   const editar = useEditarMedalla(() => {
-    Toast.notificarExito("Medalla actualizada con éxito.");
     onClose?.();
   });
 
@@ -33,9 +31,6 @@ const MedalCreateForm = ({ onClose, medalId }) => {
   const eliminar = useEliminarMedalla({
     onSuccess: () => {
       onClose?.();
-    },
-    onError: (error) => {
-      Toast.notificarError(error?.message ?? "Error al eliminar.");
     },
   });
 

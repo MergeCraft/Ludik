@@ -5,30 +5,21 @@ import { BarLoader } from "react-spinners";
 
 import BaseManagerPage from "../generics/BaseManagerPage";
 
-// (Puedes crear un nuevo Item si así lo deseas)
 import EquivalenceTableItem from "./components/EquivalenceTableItem";
 
-// Mock de prueba — luego se va a sustituir por el fetch de la API
-const mockEquivalences = [
-  { id: 1, nombre: "Equivalencia 1", descripcion: "descripcion 1" },
-  { id: 2, nombre: "Equivalencia 2", descripcion: "descripcion 2" },
-  { id: 3, nombre: "Equivalencia 3", descripcion: "descripcion 3" },
-  // Agregar más si deseas...
-];
-
-// (Puedes crear nuevos modales según tus necesidades)
 import EquivalenceTableCreateModal from "./components/EquivalenceTableCreateModal";
+
+import { useTablasEquivalencia } from "./hooks/useEquivalenceTableMutation";
 
 const EquivalenceTablePage = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalTipo, setModalTipo] = useState(null);
   const [search, setSearch] = useState(""); // 🔍 estado de búsqueda
 
-  // Loading simulado
-  const isLoading = false;
-
+  // Carga de las tablas de equivalencia
+  const { data: equivalences, isLoading } = useTablasEquivalencia();
   // Filtra según el nombre o la descripción
-  const equivalencesFiltradas = mockEquivalences.filter((item) => item.nombre.toLowerCase().includes(search.toLowerCase()) || item.descripcion.toLowerCase().includes(search.toLowerCase()));
+  const equivalencesFiltradas = (equivalences ?? []).filter((item) => (item.nombre ?? "").toLowerCase().includes(search.toLowerCase()));
 
   const handleOpenModal = (tipo) => {
     setModalTipo(tipo);
@@ -48,7 +39,11 @@ const EquivalenceTablePage = () => {
       <BarLoader color="var(--blanco-secundario)" size={10} />
     </div>
   ) : (
-    equivalencesFiltradas.map((item) => <EquivalenceTableItem key={item.id} item={item} />)
+    <div className={styles.tablesContainer}>
+      {equivalencesFiltradas.map((item) => (
+        <EquivalenceTableItem key={item.id} item={item} />
+      ))}
+    </div>
   );
 
   return (

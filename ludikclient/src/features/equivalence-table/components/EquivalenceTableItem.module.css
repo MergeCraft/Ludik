@@ -1,15 +1,47 @@
 .itemCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 15px;
   background: var(--secundario);
   border-radius: 15px;
-  margin-bottom: 10px;
 }
 
 .itemTitle {
-  color: var(--blanco-principal);
+  margin: 0;
   margin-bottom: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.itemDescription {
-  color: var(--blanco-secundario);
+.itemInfo {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.itemInfo p {
+  margin: 10px 0;
+}
+
+.itemInfo p svg {
+  margin-right: 10px;
+}
+
+.itemInfo p:nth-last-of-type(2) svg {
+  color: green;
+}
+
+.itemInfo p:last-of-type svg {
+  color: red;
+}
+
+@media (max-width: 480px) {
+  .itemTitle {
+    font-size: 0.9rem;
+  }
 }

@@ -12,7 +12,6 @@ export const useLogin = () => {
     mutationFn: (credenciales) => iniciarSesion(credenciales, dispatch),
     onSuccess: (user) => {
       navigate("/groups");
-      console.log(user);
       Toast.notificarExito(`Bienvenido ${user.nombreUsuario}`);
     },
     onError: (error) => {

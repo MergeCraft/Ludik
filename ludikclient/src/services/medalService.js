@@ -1,5 +1,5 @@
 // services/medals/medalService.js
-import api from "../../lib/axios";
+import api from "../lib/axios";
 
 export const crearMedalla = async (medalla) => {
   try {

@@ -136,6 +136,11 @@
 
 @media screen and (max-width: 480px) {
     .medallaCard {
-        width: 100px;
+        width: 115px;
+    }
+
+    .medallaImagenWrapper {
+        width: 95px;
+        height: 95px;
     }
 }

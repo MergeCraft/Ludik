@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
-import { crearGrupo, obtenerGruposProfesor } from "../../../services/groups/groupService.js";
+import { crearGrupo, obtenerGruposProfesor } from "../../../services/groupService.js";
 import * as Toast from "../../../lib/toastify";
 
 export const useCrearGrupo = (onSuccessCallback) => {

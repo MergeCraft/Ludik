@@ -1,14 +1,35 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styles from "./EquivalenceTableItem.module.css";
 
 const EquivalenceTableItem = ({ item }) => {
+  // Calculamos cuántas equivalencias tiene esta tabla
+  const cantidad = item.equivalencias.length;
+
+  // Buscamos la nota más baja y más alta
+  const notas = item.equivalencias.map((eq) => eq.nota);
+  const notaMasBaja = Math.min(...notas);
+  const notaMasAlta = Math.max(...notas);
+
   return (
     <div className={styles.itemCard}>
       <h4 className={styles.itemTitle}>{item.nombre}</h4>
-      <p className={styles.itemDescription}>{item.descripcion}</p>
-      {/* Aquí podrían ir otras opciones o un botón de edición*/}
+
+      <div className={styles.itemInfo}>
+        <p>
+          <FontAwesomeIcon icon="fa-solid fa-list-ol" /> {cantidad}
+        </p>
+        <p>
+          <FontAwesomeIcon icon="fa-solid fa-arrow-up" />
+          {notaMasAlta}
+        </p>
+        <p>
+          <FontAwesomeIcon icon="fa-solid fa-arrow-down" />
+          {notaMasBaja}
+        </p>
+      </div>
     </div>
   );
 };

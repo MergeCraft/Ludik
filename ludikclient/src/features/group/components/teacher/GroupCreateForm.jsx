@@ -2,21 +2,25 @@
 import React, { useState } from "react";
 import styles from "./GroupCreateForm.module.css";
 import * as Toast from "../../../../lib/toastify.js";
+import PropTypes from "prop-types";
+
 import { useCrearGrupo } from "../../hooks/useGrupoMutation.js";
+import { useTablasEquivalencia } from "../../../equivalence-table/hooks/useEquivalenceTableMutation";
 
-export const GroupCreateModal = () => {
-  const [grupo, setGrupo] = useState({
-    nombre: "",
-    institucion: "",
-    materia: "",
-    tablaEquivalenciaId: "",
-  });
+export const GroupCreateModal = ({ onClose }) => {
+  const [grupo, setGrupo] = useState({ nombre: "", institucion: "", materia: "", tablaEquivalenciaId: "" });
 
-  const { mutateAsync: crear } = useCrearGrupo(); // centraliza éxito/error
+  const { mutateAsync: crear } = useCrearGrupo();
+
+  // Hook para obtener las tablas de equivalencia
+  const { data: tablasEquivalencia, isLoading } = useTablasEquivalencia();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setGrupo((prev) => ({ ...prev, [name]: value }));
+    setGrupo((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const validar = () => {
@@ -25,6 +29,7 @@ export const GroupCreateModal = () => {
       ["Institución", grupo.institucion],
       ["Materia", grupo.materia],
     ];
+
     for (const [campo, valor] of campos) {
       if (valor.trim().length <= 3) {
         Toast.notificarWarning(`El ${campo} debe tener más de 3 caracteres.`);
@@ -52,8 +57,10 @@ export const GroupCreateModal = () => {
     };
 
     await crear(grupoFinal);
+ 
+    // Cerrar el modal
+    onClose();
   };
-
   return (
     <form className={styles.modalForm} onSubmit={handleSubmit}>
       <label>
@@ -76,8 +83,16 @@ export const GroupCreateModal = () => {
         <div className={styles.selectWrapper}>
           <select name="tablaEquivalenciaId" value={grupo.tablaEquivalenciaId} onChange={handleChange}>
             <option value="">Seleccionar</option>
-            <option value="1">Rúbrica 1</option>
-            <option value="2">Rúbrica 2</option>
+            {isLoading ? (
+              <option disabled>Cargando...</option>
+            ) : (
+              tablasEquivalencia &&
+              tablasEquivalencia.map((tabla) => (
+                <option key={tabla.id} value={tabla.id}>
+                  {`${tabla.nombre} - ${tabla.equivalencias.length} ${tabla.equivalencias.length > 1 ? "notas" : "nota"}`}
+                </option>
+              ))
+            )}
           </select>
         </div>
       </label>
@@ -87,6 +102,10 @@ export const GroupCreateModal = () => {
       </button>
     </form>
   );
+};
+
+GroupCreateModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
 };
 
 export default GroupCreateModal;

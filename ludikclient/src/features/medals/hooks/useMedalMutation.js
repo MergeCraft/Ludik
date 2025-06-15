@@ -2,7 +2,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 import * as Toast from "../../../lib/toastify.js";
-import { crearMedalla, obtenerMedallasProfesor, obtenerMedallaPorId, editarMedalla, eliminarMedalla } from "../../../services/medals/medalService.js";
+import { crearMedalla, obtenerMedallasProfesor, obtenerMedallaPorId, editarMedalla, eliminarMedalla } from "../../../services/medalService.js";
 
 export const useCrearMedalla = (onSuccessCallback) => {
   const queryClient = useQueryClient();

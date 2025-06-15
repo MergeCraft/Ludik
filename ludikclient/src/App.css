@@ -12,6 +12,11 @@
   --principal: #131f24;
   --secundario: #23353c;
   --terciario: #375662;
+
+  /* Variables para tamaños de pantalla */
+  --screen-mobile-max: 480px;
+  --screen-tablet-max: 768px;
+  --screen-desktop-max: 1024px;
 }
 
 body {

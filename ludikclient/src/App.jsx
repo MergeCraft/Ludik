@@ -49,7 +49,7 @@ function App() {
           </Routes>
         </Router>
 
-        <ToastContainer hideProgressBar={true} />
+        <ToastContainer hideProgressBar={true} autoClose={1500} closeOnClick pauseOnHover />
       </QueryClientProvider>
     </Provider>
   );
