@@ -35,7 +35,7 @@ const EquivalenceTablePage = () => {
   );
 
   const items = isLoading ? (
-    <div className={styles.loaderContainer}>
+    <div className={styles.barLoaderContainer}>
       <BarLoader color="var(--blanco-secundario)" size={10} />
     </div>
   ) : (

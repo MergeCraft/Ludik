@@ -27,6 +27,13 @@ import {
   faListOl,
   faArrowUp,
   faArrowDown,
+  faGear,
+  faEye,
+  faBookBookmark,
+  faSchool,
+  faCopy,
+  faUserXmark,
+  faUserCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { faUser as farUser } from "@fortawesome/free-regular-svg-icons";
@@ -58,5 +65,12 @@ library.add(
   faTrash,
   faListOl,
   faArrowUp,
-  faArrowDown
+  faArrowDown,
+  faGear,
+  faEye,
+  faBookBookmark,
+  faSchool,
+  faCopy,
+  faUserXmark,
+  faUserCheck
 ); // Agrega a la librería

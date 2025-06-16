@@ -53,13 +53,11 @@ const SignupForm = () => {
       const { usuario, correo, nombre, apellido, contrasena, repetirContrasena } = profesorData;
       if (contrasena !== repetirContrasena) return Toast.notificarError("Las contraseñas no coinciden.");
       const data = { nombreUsuario: usuario, correo: correo, nombre, apellido: apellido, contrasenia: contrasena };
-      console.log(data);
       await registrar({ data, tipoUsuario: "profesor" });
     } else {
       const { usuario, nombre, apellido, contrasena, repetirContrasena } = alumnoData;
       if (contrasena !== repetirContrasena) return Toast.notificarError("Las contraseñas no coinciden.");
       const data = { nombreUsuario: usuario, nombre: nombre, apellido: apellido, contrasenia: contrasena };
-      console.log(data);
 
       await registrar({ data, tipoUsuario: "alumno" });
     }

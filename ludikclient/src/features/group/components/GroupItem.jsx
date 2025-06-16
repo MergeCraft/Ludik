@@ -1,11 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import styles from "./GroupItem.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const GroupItem = ({ name, grade, students, imgSrc }) => {
+import { useNavigate } from "react-router-dom";
+
+const GroupItem = ({ id, name, grade, students, imgSrc }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/grupo/${id}`);
+  };
+
   return (
-    <div className={styles.groupItem}>
+    <div className={styles.groupItem} onClick={handleClick}>
       <div className={styles.card}>
         <img className={styles.icon} alt="Group Icon" src={imgSrc} />
         <div className={styles.info}>
@@ -20,6 +29,7 @@ const GroupItem = ({ name, grade, students, imgSrc }) => {
 };
 
 GroupItem.propTypes = {
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   grade: PropTypes.string.isRequired,
   students: PropTypes.number.isRequired,

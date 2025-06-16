@@ -30,6 +30,10 @@ const EquivalenceTableItem = ({ item }) => {
           {notaMasBaja}
         </p>
       </div>
+
+      <button className={styles.editBtn}>
+        <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
+      </button>
     </div>
   );
 };

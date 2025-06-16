@@ -1,62 +1,48 @@
 import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PropTypes from "prop-types";
+
 import styles from "./GroupUnionLinkForm.module.css";
 
-export const GroupUnionLinkModal = () => {
-  const [grupo, setGrupo] = useState({
-    nombre: "",
-    institucion: "",
-    materia: "",
-    tablaEquivalenciaId: "",
-  });
+import { useSolicitarUnirseGrupo } from "../../hooks/useGrupoMutation";
 
-  const [showQrOptions, setShowQrOptions] = useState(false);
+const GroupUnionLinkModal = ({ onClose }) => {
+  const [codigo, setCodigo] = useState("");
 
-  const handleChange = (e) => {
-    setGrupo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const { mutate: unirse, isLoading } = useSolicitarUnirseGrupo(onClose);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // tu lógica aquí
-  };
 
-  const toggleQrOptions = (e) => {
-    e.preventDefault();
-    setShowQrOptions((prev) => !prev);
+    if (codigo.trim().length < 5) {
+      alert("Ingrese un código válido.");
+      return;
+    }
+
+    unirse(codigo.trim()); // Envía el CODIGO
   };
 
   return (
     <form className={styles.modalForm} onSubmit={handleSubmit}>
       <label>
-        Enlace de unión
-        <input type="text" name="nombre" placeholder="https://ejemplo.com/grupo/codigo" value={grupo.nombre} onChange={handleChange} />
+        Código del Grupo
+        <input type="text" name="codigo" value={codigo} onChange={(e) => setCodigo(e.target.value)} disabled={isLoading} placeholder="Ingrese el código del grupo" />
       </label>
 
-      <div className={styles.acciones} style={{ position: "relative" }}>
-        <button type="submit" className={`${styles.btnSubmit} button-secondary`}>
-          Solicitar unión
+      <div className={styles.acciones}>
+        <button type="submit" disabled={isLoading || codigo.trim().length < 5} className="button-secondary">
+          Unirme al Grupo
         </button>
 
-        <div className={styles.qrWrapper}>
-          <button className={`button-secondary`} onClick={toggleQrOptions} aria-label="Opciones QR">
-            <FontAwesomeIcon icon="fa-solid fa-qrcode" size="lg" />
-          </button>
-
-          {/* Botones flotantes */}
-          <div className={`${styles.qrOptions} ${showQrOptions ? styles.show : ""}`} aria-hidden={!showQrOptions}>
-            <button type="button" className={`${styles.qrOptionBtn} button-secondary`} title="Escanear con cámara" onClick={() => alert("Aquí lanzarás el escáner de cámara")}>
-              <FontAwesomeIcon icon="fa-solid fa-camera" size="lg" />
-            </button>
-
-            <button type="button" className={`${styles.qrOptionBtn} button-secondary`} title="Subir imagen" onClick={() => alert("Aquí lanzarás selector de archivo")}>
-              <FontAwesomeIcon icon="fa-solid fa-file-upload" size="lg" />
-            </button>
-          </div>
-        </div>
+        <button type="button" disabled={isLoading} onClick={onClose} className="button-secondary">
+          Cancelar
+        </button>
       </div>
     </form>
   );
+};
+
+GroupUnionLinkModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
 };
 
 export default GroupUnionLinkModal;

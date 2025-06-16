@@ -1,0 +1,54 @@
+.groupContainer {}
+
+.studentsContainer {
+    border-radius: 15px;
+    background-color: var(--secundario);
+}
+
+.infoGrupo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.infoGrupo h2 {
+    margin: 0;
+}
+
+.infoGrupo h2 svg {
+    margin-right: 15px;
+}
+
+.acciones {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: var(--secundario);
+    color: white;
+    border-radius: 15px;
+    height: 40px;
+    padding: 5px;
+    min-width: 190px;
+    width: 100%;
+}
+
+.acciones button {
+    min-width: 40px;
+    font-size: 100%;
+    background-color: transparent;
+    border: none;
+    color: var(--terciario);
+    padding: 0;
+    border-radius: 15px;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.acciones button:hover {
+    background-color: var(--principal);
+
+}
+
+.acciones button svg {
+    padding: 0;
+}
+
+@media screen and (max-width: 767px) {}

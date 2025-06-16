@@ -24,6 +24,7 @@ const GroupsPage = () => {
 
   const gruposFormateados =
     grupos?.map((g) => ({
+      id: g.id,
       name: g.nombre,
       grade: g.materia,
       students: "-", // si tu backend no envía cantidad

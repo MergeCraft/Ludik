@@ -13,6 +13,7 @@ import Layout from "./features/layout/Layout";
 import Home from "./features/home/Home.jsx";
 import AuthPage from "./features/auth/AuthPage";
 import GroupsPage from "./features/group/GroupsPage.jsx";
+import GroupPage from "./features/group/GroupPage.jsx";
 import ProfilePage from "./features/profile/ProfilePage.jsx";
 import MedalManagerPage from "./features/medals/MedalManagerPage.jsx";
 import EquivalenceTablePage from "./features/equivalence-table/EquivalenceTablePage.jsx";
@@ -43,6 +44,8 @@ function App() {
               <Route path="medals" element={<MedalManagerPage />} />
               <Route path="profile" element={<ProfilePage />} />
               <Route path="equivalenceTable" element={<EquivalenceTablePage />} />
+              <Route path="/grupo/:id" element={<GroupPage />} />
+
 
               {/* Puedes agregar más rutas protegidas aquí */}
             </Route>
