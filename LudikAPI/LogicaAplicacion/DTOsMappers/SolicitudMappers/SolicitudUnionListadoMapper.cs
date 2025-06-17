@@ -14,7 +14,11 @@ namespace LogicaAplicacion.DTOsMappers.SolicitudMappers
         {
             return new SolicitudUnionListadoDto
             {
+                IdSolicitud = solicitud.Id,
                 IdEstudiante = solicitud.EstudianteId,
+                NombreEstudiante = solicitud.Estudiante?.NombreCompleto != null
+                    ? $"{solicitud.Estudiante.NombreCompleto.Nombre} {solicitud.Estudiante.NombreCompleto.Apellido}"
+                    : "Desconocido",
                 fecha = solicitud.Fecha
             };
         }

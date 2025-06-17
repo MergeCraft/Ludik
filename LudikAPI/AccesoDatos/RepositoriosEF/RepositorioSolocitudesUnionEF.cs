@@ -51,7 +51,8 @@ namespace AccesoDatos.RepositoriosEF
         public async Task<List<SolicitudUnion>> ObtenerSolicitudesPendientesPorGrupoAsync(int grupoId)
         {
             return await _db.SolicitudesUnion
-                .Where(s => s.Grupo.Id == grupoId && s.Estado == EstadoSolicitud.Pendiente)
+                .Include(s => s.Estudiante) 
+                .Where(s => s.GrupoId == grupoId && s.Estado == EstadoSolicitud.Pendiente)
                 .ToListAsync();
         }
 
