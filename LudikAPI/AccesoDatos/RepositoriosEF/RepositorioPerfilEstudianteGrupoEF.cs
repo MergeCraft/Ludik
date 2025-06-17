@@ -8,6 +8,7 @@ using InterfacesRepositorio;
 using LogicaNegocio.Resultados;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioPerfilEstudianteGrupoEF : IRepositorioPerfilEstudianteGrupo
@@ -119,6 +120,29 @@ namespace AccesoDatos.RepositoriosEF
         public List<Medalla> verMedallasAlumno(int idAlumno, int idGrupo)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Resultado<PerfilEstudiante>> GetByEstudianteYGrupoConMedallasAsync(string estudianteId, int grupoId)
+        {
+            try
+            {
+                var perfil = await _db.PerfilesEstudiantes
+                    .Include(p => p.MedallasObtenidas)
+                    // si necesitas barra de progreso u otras propiedades:
+                    .Include(p => p.BarraProgreso)
+                    .FirstOrDefaultAsync(p => p.EstudianteId == estudianteId && p.GrupoId == grupoId);
+
+                if (perfil == null)
+                    return Resultado<PerfilEstudiante>.Falla(
+                        new Error("Perfil.NotFound",
+                                  $"No se encontró el perfil del estudiante '{estudianteId}' en el grupo {grupoId}."));
+
+                return Resultado<PerfilEstudiante>.Exitoso(perfil);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<PerfilEstudiante>.Falla(new Error("Error.Unexpected", ex.Message));
+            }
         }
     }
 }

@@ -11,6 +11,10 @@ namespace InterfacesRepositorio
         public List<Medalla> verMedallasAlumno(int idAlumno, int idGrupo);
         public Task<Resultado<List<PerfilEstudiante>>> ObtenerPorGrupoIdAsync(int grupoId);
 
+        Task<Resultado<PerfilEstudiante>> GetByEstudianteYGrupoConMedallasAsync(string estudianteId, int grupoId);
+
+
+
 
     }
 

@@ -147,6 +147,7 @@ builder.Services.AddScoped<ICrearSolicitudUnion, CrearSolicitudUnion>();
 builder.Services.AddScoped<IAsignarMedalla, AsignarMedalla>();
 builder.Services.AddScoped<IQuitarMedalla, QuitarMedalla>();
 builder.Services.AddScoped<IObtenerTablasEquivalenciaDelProfesor,ObtenerTablasEquivalenciaDelProfesor>();
+builder.Services.AddScoped<IObtenerPerfilConMedallas, ObtenerPerfilConMedallas>();
 
 
 // -------------------------------
