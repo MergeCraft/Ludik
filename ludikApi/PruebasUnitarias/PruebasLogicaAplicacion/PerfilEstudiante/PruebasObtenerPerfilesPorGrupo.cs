@@ -29,8 +29,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
                 new Dominio.PerfilEstudiante
                 {
                     Id = 1,
-                    AvatarGrupoId = 10,
-                    EnlaceAvatar = "http://avatar1",
                     MetaCalificacion = 5,
                     EstudianteId = "e1",
                     Monedas = 100,
@@ -39,8 +37,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
                 new Dominio.PerfilEstudiante
                 {
                     Id = 2,
-                    AvatarGrupoId = 20,
-                    EnlaceAvatar = "http://avatar2",
                     MetaCalificacion = 8,
                     EstudianteId = "e2",
                     Monedas = 200,
@@ -67,7 +63,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
             var dto1 = resultado.Valor[0];
             Assert.Equal(1, dto1.Id);
             Assert.Equal(10, dto1.AvatarGrupoId);
-            Assert.Equal("http://avatar1", dto1.EnlaceAvatar);
+            Assert.Equal("http://avatar1", dto1.EnlaceAvatarCompleto);
             Assert.Equal(5, dto1.MetaCalificacion);
             Assert.Equal("e1", dto1.EstudianteId);
             Assert.Equal(100, dto1.Monedas);
@@ -76,7 +72,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
             var dto2 = resultado.Valor[1];
             Assert.Equal(2, dto2.Id);
             Assert.Equal(20, dto2.AvatarGrupoId);
-            Assert.Equal("http://avatar2", dto2.EnlaceAvatar);
+            Assert.Equal("http://avatar2", dto2.EnlaceAvatarCompleto);
             Assert.Equal(8, dto2.MetaCalificacion);
             Assert.Equal("e2", dto2.EstudianteId);
             Assert.Equal(200, dto2.Monedas);

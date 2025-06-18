@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dominio;
+using LogicaNegocio.Entidades;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -45,6 +46,7 @@ namespace AccesoDatos.RepositoriosEF
         public DbSet<Equivalencia> Equivalencias { get; set; }
         public DbSet<EnlaceUnion> EnlacesUnion { get; set; }
         public DbSet<BarraProgreso> BarrasProgreso { get; set; }
+        public DbSet<Avatar> Avatares { get; set; }
 
 
 
@@ -69,7 +71,8 @@ namespace AccesoDatos.RepositoriosEF
                 .WithOne()
                 .HasForeignKey<Profesor>(p => p.Id)
                 .OnDelete(DeleteBehavior.Cascade);
-           
+
+
             // --- REGLAS DE BORRADO EN CASCADA DESDE GRUPO ---
             // Un Profesor es dueño de sus Medallas, Grupos y Tablas de Equivalencia.
             // Si el Profesor se elimina, todo esto se debe eliminar también.
@@ -277,7 +280,11 @@ namespace AccesoDatos.RepositoriosEF
                     .IsUnique()
                     .HasDatabaseName("UX_PerfilEstudiante_GrupoId_EstudianteId");
 
-
+                // 5) Relación 1:1 PerfilEstudiante → Avatar (Composición)
+                pe.HasOne(p => p.Avatar)
+                    .WithOne()
+                    .HasForeignKey<Avatar>() 
+                    .OnDelete(DeleteBehavior.Cascade);
 
             });
 

@@ -9,19 +9,21 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ImagenController : ControllerBase
+    public class PerfilImagenController : ControllerBase
     {
         private readonly IServicioGestionImagenPerfil _servicioGestionImagen;
 
-        public ImagenController(IServicioGestionImagenPerfil servicioGestionImagen)
+        public PerfilImagenController(IServicioGestionImagenPerfil servicioGestionImagen)
         {
             _servicioGestionImagen = servicioGestionImagen;
         }
 
-        [HttpPost]
+        [HttpPost("{idPerfilEstudiante}/imagen")]
         [ProducesResponseType(StatusCodes.Status200OK)] // Devolver las nuevas URLs es más útil que NoContent.
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> SubirImagen([FromRoute] int idPerfilEstudiante, IFormFile imagen)
         {
             if (imagen == null || imagen.Length == 0)
@@ -43,9 +45,11 @@ namespace WebApi.Controllers
                 : this.ManejarFallo(resultado);
         }
 
-        [HttpGet]
+        [HttpGet("{idPerfilEstudiante}/imagen")]
         [ProducesResponseType(typeof(ImagenPerfilDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ObtenerUrlImagen([FromRoute] int idPerfilEstudiante)
         {
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);

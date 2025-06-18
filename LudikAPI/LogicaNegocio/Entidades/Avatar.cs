@@ -8,6 +8,8 @@ namespace LogicaNegocio.Entidades
 {
     public class Avatar
     {
+        public int Id { get; set; }
+
         // Atributos Generales
         public string Nombre { get; set; }
         public string ColorFondo { get; set; }

@@ -12,7 +12,8 @@ namespace LogicaAplicacion.DTOs.PerfilEstudianteDTO
 
         public int AvatarGrupoId { get; set; }
 
-        public string? EnlaceAvatar { get; set; }
+        public string? EnlaceAvatarCompleto { get; set; }
+        public string? EnlaceAvatarMiniatura { get; set; }
 
         public int MetaCalificacion { get; set; }
 

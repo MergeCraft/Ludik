@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using LogicaNegocio.InterfacesEntidades;
 using System.ComponentModel.DataAnnotations.Schema;
 using LogicaNegocio.Resultados;
+using LogicaNegocio.Entidades;
 
 namespace Dominio
 {
@@ -11,9 +12,7 @@ namespace Dominio
     {
         public int Id { get; set; }
 
-        public int AvatarGrupoId { get; set; }
-
-        public String? EnlaceAvatar { get; set; }
+        public Avatar Avatar { get; private set; }
 
         public int MetaCalificacion { get; set; }
 
@@ -35,9 +34,6 @@ namespace Dominio
         public BarraProgreso BarraProgreso { get; set; }
 
 
-        public void asignarMedalla(Medalla m) { }
-
-        public void quitarMedalla(Medalla m) { }
 
         public Resultado esValido()
         {

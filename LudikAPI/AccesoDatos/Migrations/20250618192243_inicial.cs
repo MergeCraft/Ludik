@@ -376,11 +376,11 @@ namespace AccesoDatos.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AvatarGrupoId = table.Column<int>(type: "int", nullable: false),
-                    EnlaceAvatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MetaCalificacion = table.Column<int>(type: "int", nullable: false),
                     EstudianteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Monedas = table.Column<int>(type: "int", nullable: false),
+                    RutaImagenCompleta = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RutaImagenMiniatura = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     GrupoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -470,6 +470,45 @@ namespace AccesoDatos.Migrations
                         name: "FK_Tiendas_Grupos_GrupoId",
                         column: x => x.GrupoId,
                         principalTable: "Grupos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Avatares",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ColorFondo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Voltear = table.Column<bool>(type: "bit", nullable: false),
+                    Rotacion = table.Column<int>(type: "int", nullable: false),
+                    Zoom = table.Column<int>(type: "int", nullable: false),
+                    ColorPiel = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Cejas = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Ojos = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Boca = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Barba = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ColorBarba = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProbabilidadBarba = table.Column<int>(type: "int", nullable: false),
+                    Gorro = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ColorSombrero = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Pelo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ColorPelo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Gafas = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ColorGafas = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProbabilidadGafas = table.Column<int>(type: "int", nullable: false),
+                    Ropa = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ColorRopa = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LogoRopa = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Avatares", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Avatares_PerfilesEstudiantes_Id",
+                        column: x => x.Id,
+                        principalTable: "PerfilesEstudiantes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -884,6 +923,9 @@ namespace AccesoDatos.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Avatares");
+
             migrationBuilder.DropTable(
                 name: "BarrasProgreso");
 

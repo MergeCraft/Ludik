@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250613185857_inicial")]
+    [Migration("20250618192243_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -218,12 +218,6 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AvatarGrupoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EnlaceAvatar")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("EstudianteId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -236,6 +230,14 @@ namespace AccesoDatos.Migrations
 
                     b.Property<int>("Monedas")
                         .HasColumnType("int");
+
+                    b.Property<string>("RutaImagenCompleta")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RutaImagenMiniatura")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -587,6 +589,99 @@ namespace AccesoDatos.Migrations
                     b.HasIndex("HitoId");
 
                     b.ToTable("EstudianteHitos");
+                });
+
+            modelBuilder.Entity("LogicaNegocio.Entidades.Avatar", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Barba")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Boca")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cejas")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorBarba")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorFondo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorGafas")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorPelo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorPiel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorRopa")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorSombrero")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gafas")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gorro")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LogoRopa")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ojos")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Pelo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProbabilidadBarba")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProbabilidadGafas")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Ropa")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Rotacion")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Voltear")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Zoom")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Avatares");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -1079,6 +1174,15 @@ namespace AccesoDatos.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("LogicaNegocio.Entidades.Avatar", b =>
+                {
+                    b.HasOne("Dominio.PerfilEstudiante", null)
+                        .WithOne("Avatar")
+                        .HasForeignKey("LogicaNegocio.Entidades.Avatar", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -1222,6 +1326,9 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("Dominio.PerfilEstudiante", b =>
                 {
+                    b.Navigation("Avatar")
+                        .IsRequired();
+
                     b.Navigation("BarraProgreso")
                         .IsRequired();
 
