@@ -65,13 +65,15 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var perfil = await _db.PerfilesEstudiantes
-                    .Include(p => p.MedallasObtenidas)
+                    .Include(p => p.PerfilMedallas)
+                        .ThenInclude(pm => pm.Medalla)
+                    .Include(p => p.BarraProgreso)
+                    // otras includes si las necesitas
                     .FirstOrDefaultAsync(p => p.Id == id);
 
                 if (perfil == null)
-                    return Resultado<PerfilEstudiante>.Falla(new Error("Error.NotFound", $"No se encontró el perfil de estudiante con Id: {id}."));
-                
-
+                    return Resultado<PerfilEstudiante>.Falla(
+                        new Error("Error.NotFound", $"No se encontró el perfil de estudiante con Id: {id}."));
                 return Resultado<PerfilEstudiante>.Exitoso(perfil);
             }
             catch (Exception ex)
@@ -127,8 +129,8 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var perfil = await _db.PerfilesEstudiantes
-                    .Include(p => p.MedallasObtenidas)
-                    // si necesitas barra de progreso u otras propiedades:
+                    .Include(p => p.PerfilMedallas)
+                        .ThenInclude(pm => pm.Medalla)
                     .Include(p => p.BarraProgreso)
                     .FirstOrDefaultAsync(p => p.EstudianteId == estudianteId && p.GrupoId == grupoId);
 
@@ -136,7 +138,6 @@ namespace AccesoDatos.RepositoriosEF
                     return Resultado<PerfilEstudiante>.Falla(
                         new Error("Perfil.NotFound",
                                   $"No se encontró el perfil del estudiante '{estudianteId}' en el grupo {grupoId}."));
-
                 return Resultado<PerfilEstudiante>.Exitoso(perfil);
             }
             catch (Exception ex)
