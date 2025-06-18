@@ -63,10 +63,22 @@
 }
 
 .request span {
+    margin-left: 10px;
+    font-size: larger;
     width: 50%;
     /* el width que deseas */
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     display: inline-block;
+}
+
+.request div {
+    display: flex;
+    gap: 15px
+}
+
+.request button {
+    padding: 10px 15px;
+    transform: translateY(-2px);
 }

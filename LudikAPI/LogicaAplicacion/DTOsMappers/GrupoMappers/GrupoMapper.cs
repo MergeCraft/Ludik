@@ -19,7 +19,8 @@ namespace LogicaAplicacion.DTOsMappers.GrupoMappers
                 Nombre = grupo.Nombre,
                 ProfesorId = grupo.ProfesorId,
                 Institucion = grupo.Institucion,
-                Materia = grupo.Materia
+                Materia = grupo.Materia,
+				CantAlumnos = grupo.Alumnos.Count()
             };
 
         }

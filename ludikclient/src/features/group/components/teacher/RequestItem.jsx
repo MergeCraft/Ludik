@@ -12,21 +12,24 @@ const RequestItem = ({ solicitud }) => {
 
   return (
     <div className={styles.request}>
-      <span title={solicitud.idEstudiante}>{solicitud.idEstudiante}</span>
-      <button disabled={isAccepting} aria-label="Aceptar solicitud" className="button-secondary" onClick={() => aceptar(solicitud.id)}>
-        <FontAwesomeIcon icon="fa-solid fa-user-check" size="xl" />
-      </button>
-      <button disabled={isRejecting} aria-label="Rechazar solicitud" className="button-tertiary" onClick={() => rechazar(solicitud.id)}>
-        <FontAwesomeIcon icon="fa-solid fa-user-xmark" size="xl" />
-      </button>
+      <span title={solicitud.nombreEstudiante}>{solicitud.nombreEstudiante}</span>
+      <div>
+        <button disabled={isAccepting} aria-label="Aceptar solicitud" className="button-secondary" onClick={() => aceptar(solicitud.idSolicitud)}>
+          <FontAwesomeIcon icon="fa-solid fa-user-check" size="xl" />
+        </button>
+        <button disabled={isRejecting} aria-label="Rechazar solicitud" className="button-tertiary" onClick={() => rechazar(solicitud.idSolicitud)}>
+          <FontAwesomeIcon icon="fa-solid fa-user-xmark" size="xl" />
+        </button>
+      </div>
     </div>
   );
 };
 
 RequestItem.propTypes = {
   solicitud: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    idSolicitud: PropTypes.number.isRequired,
     idEstudiante: PropTypes.string.isRequired,
+    nombreEstudiante: PropTypes.string.isRequired,
     nombre: PropTypes.string.isRequired,
     fecha: PropTypes.shape({
       year: PropTypes.number.isRequired,

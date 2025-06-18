@@ -18,16 +18,18 @@ const GroupsPage = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [modalTipo, setModalTipo] = useState(null);
-  const [search, setSearch] = useState(""); // 🔍 estado de búsqueda
+  const [search, setSearch] = useState("");
 
   const { data: grupos, isLoading } = useGruposProfesor();
+
+  console.log(grupos);
 
   const gruposFormateados =
     grupos?.map((g) => ({
       id: g.id,
       name: g.nombre,
       grade: g.materia,
-      students: "-", // si tu backend no envía cantidad
+      students: g.cantAlumnos == 0 ? "-" : g.cantAlumnos,
       imgSrc: genericGroupImage,
     })) || [];
 

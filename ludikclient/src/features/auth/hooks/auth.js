@@ -30,8 +30,10 @@ export const registrarse = async (data, tipoUsuario) => {
     const response = await api.post(endpoint, data);
     return response.data;
   } catch (error) {
-    const mensaje = error.response?.data?.message || error.response?.data?.error || "Error al registrar";
-    throw new Error(mensaje); // ✅ Esto permite que onError funcione
+    const raw = error?.response?.data;
+    const mensaje = raw?.mensaje || raw?.message || raw?.error || (typeof raw === "string" ? raw : "") || error.message || "Error desconocido al registrar.";
+
+    throw new Error(mensaje);
   }
 };
 

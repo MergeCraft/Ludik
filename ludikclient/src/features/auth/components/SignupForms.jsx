@@ -49,17 +49,27 @@ const SignupForm = () => {
   };
 
   const handleSubmit = async () => {
-    if (!isProfesor) {
-      const { usuario, correo, nombre, apellido, contrasena, repetirContrasena } = profesorData;
-      if (contrasena !== repetirContrasena) return Toast.notificarError("Las contraseñas no coinciden.");
-      const data = { nombreUsuario: usuario, correo: correo, nombre, apellido: apellido, contrasenia: contrasena };
-      await registrar({ data, tipoUsuario: "profesor" });
-    } else {
-      const { usuario, nombre, apellido, contrasena, repetirContrasena } = alumnoData;
-      if (contrasena !== repetirContrasena) return Toast.notificarError("Las contraseñas no coinciden.");
-      const data = { nombreUsuario: usuario, nombre: nombre, apellido: apellido, contrasenia: contrasena };
-
-      await registrar({ data, tipoUsuario: "alumno" });
+    try {
+      if (!isProfesor) {
+        const { usuario, correo, nombre, apellido, contrasena, repetirContrasena } = profesorData;
+        if (contrasena !== repetirContrasena) {
+          Toast.notificarError("Las contraseñas no coinciden.");
+          return;
+        }
+        const data = { nombreUsuario: usuario, correo, nombre, apellido, contrasenia: contrasena };
+        await registrar({ data, tipoUsuario: "profesor" });
+      } else {
+        const { usuario, nombre, apellido, contrasena, repetirContrasena } = alumnoData;
+        if (contrasena !== repetirContrasena) {
+          Toast.notificarError("Las contraseñas no coinciden.");
+          return;
+        }
+        const data = { nombreUsuario: usuario, nombre, apellido, contrasenia: contrasena };
+        await registrar({ data, tipoUsuario: "alumno" });
+      }
+    } catch (error) {
+      // Este catch previene errores no atrapados
+      console.error("Error inesperado en el registro:", error);
     }
   };
 

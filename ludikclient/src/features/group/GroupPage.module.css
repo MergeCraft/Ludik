@@ -1,8 +1,13 @@
-.groupContainer {}
-
 .studentsContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 columnas por defecto */
+    gap: 20px;
+    /* Espacio entre elementos (opcional) */
+    padding: 10px;
     border-radius: 15px;
     background-color: var(--secundario);
+    margin-top: 20px;
 }
 
 .infoGrupo {
@@ -51,4 +56,13 @@
     padding: 0;
 }
 
-@media screen and (max-width: 767px) {}
+@media screen and (max-width: 767px) {
+    .studentsContainer {
+        grid-template-columns: 1fr;
+    }
+
+    .infoGrupo {
+        font-size: small;
+    }
+
+}

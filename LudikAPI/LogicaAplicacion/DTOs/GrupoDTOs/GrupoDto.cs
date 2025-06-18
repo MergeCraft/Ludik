@@ -13,6 +13,6 @@ namespace LogicaAplicacion.DTOs.GrupoDTOs
         public string ProfesorId { get; set; }
         public string Institucion { get; set; }
         public string Materia { get; set; }
-
+        public int CantAlumnos { get; set; }
     }
 }

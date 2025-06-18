@@ -80,7 +80,6 @@
 
 .itemsContainer {
     width: 100%;
-    margin-bottom: 15px;
 }
 
 .barLoaderContainer {
@@ -104,9 +103,5 @@
         transform: none;
         margin-right: auto;
         padding: 0.8rem;
-    }
-
-    .itemsContainer {
-        margin-bottom: 0;
     }
 }

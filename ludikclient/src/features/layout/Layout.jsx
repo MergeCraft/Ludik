@@ -2,10 +2,10 @@ import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import styles from "./Layout.module.css";
 import HeaderMenu from "./components/HeaderMenu";
+import logo from "../../assets/logo.png";
 
 function Layout() {
   const navigate = useNavigate();
-
 
   // Detectar si hay usuario logueado con sessionStorage y userData
   const userDataString = sessionStorage.getItem("userData");
@@ -25,7 +25,7 @@ function Layout() {
     <div className={styles.layoutContainer}>
       <header className={styles.header}>
         <div className={styles.logoArea}>
-          <img src="./assets/logo.png" alt="Ludik Logo" className={styles.logoImage} onClick={() => navigate("/")} style={{ cursor: "pointer" }} />
+          <img src={logo} alt="Ludik Logo" className={styles.logoImage} onClick={() => navigate("/")} style={{ cursor: "pointer" }} />
         </div>
 
         {isLoggedIn && <HeaderMenu />}
