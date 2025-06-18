@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LogicaAplicacion.DTOs.ProcesamientoRecord;
 using LogicaAplicacion.InterfacesCasosUsos.Imagenes;
 using LogicaNegocio.Resultados;
 using SixLabors.ImageSharp;
@@ -13,23 +14,54 @@ namespace AccesoDatos.Servicios
 {
     public class ServicioImageSharp: IServicioProcesamientoImagenes
     {
-        public async Task<Resultado<Stream>> ProcesarImagenPerfilAsync(Stream streamOriginal)
-        {
-            var outputStream = new MemoryStream();
-            using (var image = await Image.LoadAsync(streamOriginal))
-            {
-                // Redimensionar para un tamaño máximo de 500x500 px, manteniendo la relación de aspecto.
-                image.Mutate(x => x.Resize(new ResizeOptions
-                {
-                    Size = new Size(500, 500),
-                    Mode = ResizeMode.Max
-                }));
+        private const int SizeCompleta = 1024;
+        private const int SizeMiniatura = 200;
+        private const int CalidadJpeg = 85;
 
-                // Guardar la imagen comprimida como JPEG con calidad 80.
-                await image.SaveAsJpegAsync(outputStream, new JpegEncoder { Quality = 80 });
+        public async Task<Resultado<IEnumerable<StreamProcesado>>> ProcesarImagenPerfilAsync(Stream streamOriginal)
+        {
+            try
+            {
+                // stream que permita seek para leerlo múltiples veces sin problema
+                var sourceStream = new MemoryStream();
+                await streamOriginal.CopyToAsync(sourceStream);
+                sourceStream.Position = 0;
+
+                using var image = await Image.LoadAsync(sourceStream);
+
+                // Generar imagen completa
+                var fullStream = await ProcesarVersionAsync(image, SizeCompleta);
+
+                // Generar miniatura
+                var thumbStream = await ProcesarVersionAsync(image, SizeMiniatura);
+
+                var resultados = new List<StreamProcesado>
+                {
+                    new("completa", fullStream),
+                    new("mini", thumbStream)
+                };
+
+                return Resultado<IEnumerable<StreamProcesado>>.Exitoso(resultados);
             }
-            outputStream.Position = 0; // Rebobinar el stream para que pueda ser leído desde el principio.
-            return Resultado<Stream>.Exitoso(outputStream);
+            catch (Exception ex)
+            {
+                return Resultado<IEnumerable<StreamProcesado>>.Falla(new Error("Error.Unexpected", "No se pudo procesar la imagen. Error: "+ex.Message));
+            }
+        }
+
+        private async Task<Stream> ProcesarVersionAsync(Image originalImage, int size)
+        {
+            // Clonamos la imagen para no afectar el original al procesar múltiples versiones
+            using var clone = originalImage.Clone(ctx => ctx.Resize(new ResizeOptions
+            {
+                Size = new Size(size, size),
+                Mode = ResizeMode.Max // Mantiene la relación de aspecto
+            }));
+
+            var outputStream = new MemoryStream();
+            await clone.SaveAsJpegAsync(outputStream, new JpegEncoder { Quality = CalidadJpeg });
+            outputStream.Position = 0; // Rebobinar para lectura
+            return outputStream;
         }
     }
 }

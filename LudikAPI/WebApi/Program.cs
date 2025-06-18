@@ -1,10 +1,14 @@
 using System.Text;
 using AccesoDatos.RepositoriosEF;
+using AccesoDatos.Servicios;
+using Azure.Identity;
+using Azure.Storage.Blobs;
 using Dominio;
 using InterfacesRepositorio;
 using LogicaAplicacion.ImplementacionCasosUsos.AsignarMedalla;
 using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;
 using LogicaAplicacion.ImplementacionCasosUsos.Grupos;
+using LogicaAplicacion.ImplementacionCasosUsos.Imagenes;
 using LogicaAplicacion.ImplementacionCasosUsos.Medallas;
 using LogicaAplicacion.ImplementacionCasosUsos.PerfilEstudiante;
 using LogicaAplicacion.ImplementacionCasosUsos.Profesores;
@@ -13,11 +17,13 @@ using LogicaAplicacion.ImplementacionCasosUsos.TablaEquivalencia;
 using LogicaAplicacion.InterfacesCasosUsos.AsignacionMedalla;
 using LogicaAplicacion.InterfacesCasosUsos.Estudiante;
 using LogicaAplicacion.InterfacesCasosUsos.Grupo;
+using LogicaAplicacion.InterfacesCasosUsos.Imagenes;
 using LogicaAplicacion.InterfacesCasosUsos.Medalla;
 using LogicaAplicacion.InterfacesCasosUsos.PerfilEstudiante;
 using LogicaAplicacion.InterfacesCasosUsos.Profesor;
 using LogicaAplicacion.InterfacesCasosUsos.SolicitudUnion;
 using LogicaAplicacion.InterfacesCasosUsos.TablaEquivalencia;
+using LogicaNegocio.InterfacesRepositorios;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -119,6 +125,7 @@ builder.Services.AddScoped<IRepositorioMedallas, RepositorioMedallasEF>();
 builder.Services.AddScoped<IRepositorioEnlacesUnionGrupo, RepositorioEnlacesUnionGrupoEF>();
 builder.Services.AddScoped<IRepositorioSolicitudesUnion, RepositorioSolocitudesUnionEF>();
 builder.Services.AddScoped<IRepositorioPerfilEstudianteGrupo, RepositorioPerfilEstudianteGrupoEF>();
+builder.Services.AddScoped<IRepositorioAlmacenamientoArchivos, RepositorioAzureBlobsStorage>();
 
 
 //Inyeccion de dependencias casos de uso
@@ -147,6 +154,8 @@ builder.Services.AddScoped<ICrearSolicitudUnion, CrearSolicitudUnion>();
 builder.Services.AddScoped<IAsignarMedalla, AsignarMedalla>();
 builder.Services.AddScoped<IQuitarMedalla, QuitarMedalla>();
 builder.Services.AddScoped<IObtenerTablasEquivalenciaDelProfesor,ObtenerTablasEquivalenciaDelProfesor>();
+builder.Services.AddScoped<IServicioGestionImagenPerfil, ServicioGestionImagenPerfil>();
+builder.Services.AddScoped<IServicioProcesamientoImagenes, ServicioImageSharp>();
 
 
 // -------------------------------
@@ -201,6 +210,20 @@ builder.Services.AddCors(options =>
 						.AllowAnyMethod()
 						);
 });
+
+// Configurar el cliente de Azure Blob Storage de forma condicional
+if (builder.Environment.IsDevelopment())
+{
+    // Usar Azurite en desarrollo
+    builder.Services.AddSingleton(x => new BlobServiceClient(builder.Configuration.GetValue<string>("StorageConnection")));
+}
+else
+{
+    // Usar la cuenta de Azure real en producción con Managed Identity
+    builder.Services.AddSingleton(x => new BlobServiceClient(
+        new Uri(builder.Configuration.GetValue<string>("StorageUri")),
+        new DefaultAzureCredential()));
+}
 
 
 var app = builder.Build();

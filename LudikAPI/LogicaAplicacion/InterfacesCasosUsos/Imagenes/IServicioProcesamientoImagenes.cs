@@ -1,4 +1,5 @@
-﻿using LogicaNegocio.Resultados;
+﻿using LogicaAplicacion.DTOs.ProcesamientoRecord;
+using LogicaNegocio.Resultados;
 
 namespace LogicaAplicacion.InterfacesCasosUsos.Imagenes;
 
@@ -9,5 +10,5 @@ public interface IServicioProcesamientoImagenes
     /// </summary>
     /// <param name="streamOriginal">El stream de la imagen original.</param>
     /// <returns>Un stream con la imagen procesada y optimizada.</returns>
-    Task<Resultado<Stream>> ProcesarImagenPerfilAsync(Stream streamOriginal);
+    Task<Resultado<IEnumerable<StreamProcesado>>> ProcesarImagenPerfilAsync(Stream streamOriginal);
 }

@@ -20,6 +20,8 @@ namespace Dominio
         public String EstudianteId { get; set; }
 
         public int Monedas { get; set; }
+        public string RutaImagenCompleta { get; set; }
+        public string RutaImagenMiniatura { get; set; }
 
         public List<Medalla> MedallasObtenidas { get; set; }
 

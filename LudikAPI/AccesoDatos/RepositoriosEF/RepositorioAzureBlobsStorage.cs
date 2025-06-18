@@ -15,27 +15,33 @@ namespace AccesoDatos.RepositoriosEF
     public class RepositorioAzureBlobsStorage: IRepositorioAlmacenamientoArchivos
     {
         private readonly BlobServiceClient _blobServiceClient;
-        private readonly string _containerName;
+        private readonly string _nombreContenedor;
 
-        public RepositorioAzureBlobsStorage(BlobServiceClient blobServiceClient, IConfiguration configuration)
+        public RepositorioAzureBlobsStorage(BlobServiceClient blobServiceClient, IConfiguration configuracion)
         {
             _blobServiceClient = blobServiceClient;
-            _containerName = configuration.GetValue<string>("StorageContainerName");
+            _nombreContenedor = configuracion["imagenesPerfiles"];
+        }
+        private async Task<BlobContainerClient> ObtenerClienteContenedor ()
+        {
+            var containerClient = _blobServiceClient.GetBlobContainerClient(_nombreContenedor);
+            await containerClient.CreateIfNotExistsAsync(PublicAccessType.None);
+            return containerClient;
         }
 
         public async Task<Resultado<string>> SubirArchivoAsync(Stream streamArchivo, string nombreArchivo, string tipoContenido)
         {
-            var containerClient = await GetContainerClient();
+            var containerClient = await ObtenerClienteContenedor();
             var blobClient = containerClient.GetBlobClient(nombreArchivo);
 
             await blobClient.UploadAsync(streamArchivo, new BlobHttpHeaders { ContentType = tipoContenido });
 
-            return blobClient.Uri.ToString();
+            return Resultado<string>.Exitoso(blobClient.Uri.ToString());
         }
 
         public async Task<Resultado<string>> ObtenerArchivoSasUrlAsync(string nombreArchivo)
         {
-            var containerClient = await GetContainerClient();
+            var containerClient = await ObtenerClienteContenedor();
             var blobClient = containerClient.GetBlobClient(nombreArchivo);
 
             if (!await blobClient.ExistsAsync())
@@ -45,12 +51,12 @@ namespace AccesoDatos.RepositoriosEF
 
             if (!blobClient.CanGenerateSasUri)
             {
-                throw new InvalidOperationException("La configuración del cliente de almacenamiento no permite generar SAS tokens.");
+                return Resultado<string>.Falla(new Error ("Error.Unexpected","La configuración del cliente de almacenamiento no permite generar SAS tokens."));
             }
 
             var sasBuilder = new BlobSasBuilder()
             {
-                BlobContainerName = _containerName,
+                BlobContainerName = _nombreContenedor,
                 BlobName = nombreArchivo,
                 Resource = "b", // "b" para blob
                 StartsOn = DateTimeOffset.UtcNow.AddMinutes(-5), // Margen de 5 mins por si hay desfase de reloj
@@ -59,7 +65,7 @@ namespace AccesoDatos.RepositoriosEF
 
             sasBuilder.SetPermissions(BlobSasPermissions.Read); // Permiso de solo lectura
 
-            return blobClient.GenerateSasUri(sasBuilder).ToString();
+            return Resultado<string>.Exitoso(blobClient.GenerateSasUri(sasBuilder).ToString());
         }
     }
 }

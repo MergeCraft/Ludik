@@ -8,6 +8,7 @@ namespace LogicaAplicacion.DTOs.ImagenPerfilDtos
 {
     public class ImagenPerfilDto
     {
-        public string Url { get; set; }
+        public string UrlCompleta { get; set; }
+        public string UrlMiniatura { get; set; }
     }
 }
