@@ -23,9 +23,11 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var perfiles = await _db.PerfilesEstudiantes
-                                       .Include(p => p.BarraProgreso)
-                                       .Where(p => p.GrupoId == grupoId)
-                                       .ToListAsync();
+                    .Include(p => p.BarraProgreso)
+                    .Include(p => p.Estudiante)    
+                    .Include(p => p.Grupo)         
+                    .Where(p => p.GrupoId == grupoId)
+                    .ToListAsync();
 
                 if (perfiles == null || !perfiles.Any())
                     return Resultado<List<PerfilEstudiante>>.Falla(
@@ -43,7 +45,6 @@ namespace AccesoDatos.RepositoriosEF
             }
             catch (Exception ex)
             {
-
                 return Resultado<List<PerfilEstudiante>>.Falla(
                     new Error("Error.Unexpected",
                               $"Error inesperado: {ex.Message}"));
@@ -68,7 +69,8 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(p => p.PerfilMedallas)
                         .ThenInclude(pm => pm.Medalla)
                     .Include(p => p.BarraProgreso)
-                    // otras includes si las necesitas
+                    .Include(p => p.Estudiante)   
+                    .Include(p => p.Grupo)        
                     .FirstOrDefaultAsync(p => p.Id == id);
 
                 if (perfil == null)
@@ -132,6 +134,8 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(p => p.PerfilMedallas)
                         .ThenInclude(pm => pm.Medalla)
                     .Include(p => p.BarraProgreso)
+                    .Include(p => p.Estudiante)   
+                    .Include(p => p.Grupo)        
                     .FirstOrDefaultAsync(p => p.EstudianteId == estudianteId && p.GrupoId == grupoId);
 
                 if (perfil == null)

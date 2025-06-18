@@ -191,9 +191,6 @@ namespace AccesoDatos.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int?>("PerfilEstudianteId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ProfesorId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -204,8 +201,6 @@ namespace AccesoDatos.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Nombre");
-
-                    b.HasIndex("PerfilEstudianteId");
 
                     b.HasIndex("ProfesorId");
 
@@ -903,10 +898,6 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("Dominio.Medalla", b =>
                 {
-                    b.HasOne("Dominio.PerfilEstudiante", null)
-                        .WithMany("MedallasObtenidas")
-                        .HasForeignKey("PerfilEstudianteId");
-
                     b.HasOne("Dominio.Profesor", "Creador")
                         .WithMany("Medallas")
                         .HasForeignKey("ProfesorId")
@@ -918,17 +909,21 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("Dominio.PerfilEstudiante", b =>
                 {
-                    b.HasOne("Dominio.Estudiante", null)
+                    b.HasOne("Dominio.Estudiante", "Estudiante")
                         .WithMany("Perfiles")
                         .HasForeignKey("EstudianteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dominio.Grupo", null)
+                    b.HasOne("Dominio.Grupo", "Grupo")
                         .WithMany("Alumnos")
                         .HasForeignKey("GrupoId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Estudiante");
+
+                    b.Navigation("Grupo");
                 });
 
             modelBuilder.Entity("Dominio.PerfilEstudianteMedalla", b =>
@@ -1244,8 +1239,6 @@ namespace AccesoDatos.Migrations
                         .IsRequired();
 
                     b.Navigation("HistorialRendimientoPeriodos");
-
-                    b.Navigation("MedallasObtenidas");
 
                     b.Navigation("PerfilMedallas");
                 });

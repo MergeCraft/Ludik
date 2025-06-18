@@ -18,9 +18,13 @@ namespace LogicaAplicacion.DTOs.PerfilEstudianteDTO
 
         public string EstudianteId { get; set; }
 
+        public string NombreEstudiante { get; set; }
+
         public int Monedas { get; set; }
 
         public int GrupoId { get; set; }
+
+        public string NombreGrupo { get; set; }
 
     }
 }

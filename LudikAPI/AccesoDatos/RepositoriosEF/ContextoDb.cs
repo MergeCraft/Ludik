@@ -257,10 +257,10 @@ namespace AccesoDatos.RepositoriosEF
             {
                 // 1) Relación PerfilEstudiante → Estudiante (Uno a Muchos): 
                 //    cuando se borre Estudiante, se eliminan sus perfiles.
-                pe.HasOne<Estudiante>()
-                  .WithMany(e => e.Perfiles)
-                  .HasForeignKey(p => p.EstudianteId)
-                  .OnDelete(DeleteBehavior.Cascade);
+                pe.HasOne(p => p.Estudiante)
+                    .WithMany(e => e.Perfiles)
+                    .HasForeignKey(p => p.EstudianteId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 // 2) Relación 1:1 PerfilEstudiante → BarraProgreso: 
                 //    La FK está en BarrasProgreso (perfilEstudianteId). 
@@ -272,10 +272,10 @@ namespace AccesoDatos.RepositoriosEF
 
                 // 3) Relación PerfilEstudiante → Grupo (Muchos a Uno):
                 //    NO queremos cascada aquí (evita ciclos de múltiple cascada).
-                pe.HasOne<Grupo>()
-                  .WithMany(g => g.Alumnos)
-                  .HasForeignKey(p => p.GrupoId)
-                  .OnDelete(DeleteBehavior.Restrict);             // SIN BORRADO EN CASCADA
+                pe.HasOne(p => p.Grupo)
+                    .WithMany(g => g.Alumnos)
+                    .HasForeignKey(p => p.GrupoId)
+                    .OnDelete(DeleteBehavior.Restrict);             // SIN BORRADO EN CASCADA
 
                 // 4)índice compuesto para evitar duplicados de GrupoId+EstudianteId
                 pe.HasIndex(pe2 => new { pe2.GrupoId, pe2.EstudianteId })

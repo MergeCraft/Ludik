@@ -7,17 +7,21 @@ public static class PerfilMapper
     public static PerfilConMedallasDto ToDtoConMedallas(PerfilEstudiante perfil)
     {
         if (perfil == null) return null;
-        var dto = new PerfilConMedallasDto
+
+        return new PerfilConMedallasDto
         {
             Id = perfil.Id,
             AvatarGrupoId = perfil.AvatarGrupoId,
             EnlaceAvatar = perfil.EnlaceAvatar,
             MetaCalificacion = perfil.MetaCalificacion,
             EstudianteId = perfil.EstudianteId,
+            NombreEstudiante = perfil.Estudiante.NombreCompleto.Nombre,
             Monedas = perfil.Monedas,
             GrupoId = perfil.GrupoId,
-            Medallas = MedallaCantidadMapper.AgruparMedallas(perfil.MedallasObtenidas)
+            NombreGrupo = perfil.Grupo.Nombre,
+            Medallas = MedallaCantidadMapper.AgruparMedallas(
+                perfil.PerfilMedallas.Select(pm => pm.Medalla).ToList()
+            )
         };
-        return dto;
     }
 }

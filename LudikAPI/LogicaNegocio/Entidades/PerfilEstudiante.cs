@@ -19,6 +19,9 @@ namespace Dominio
 
         public String EstudianteId { get; set; }
 
+        [ForeignKey(nameof(EstudianteId))]
+        public Estudiante Estudiante { get; set; }
+
         public int Monedas { get; set; }
         public List<PerfilEstudianteMedalla> PerfilMedallas { get; set; } = new();
         // (Opcional) Para acceso directo a Medalla:
@@ -27,8 +30,9 @@ namespace Dominio
 
         public List<RendimientoPeriodo> HistorialRendimientoPeriodos { get; set; }
 
-        [ForeignKey(nameof(Grupo))]
         public int GrupoId { get; set; }
+        [ForeignKey(nameof(GrupoId))]
+        public Grupo Grupo { get; set; }
 
         public List<Recompensa> Inventario { get; set; }
 

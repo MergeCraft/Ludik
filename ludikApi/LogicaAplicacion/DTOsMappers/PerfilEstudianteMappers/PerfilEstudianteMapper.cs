@@ -12,6 +12,9 @@ public static class PerfilEstudianteMapper
     {
         if (perfil == null) return null;
 
+        // Construir nombre completo si NombreCompleto existe en Estudiante
+       
+
         return new PerfilEstudianteInformacionDto
         {
             Id = perfil.Id,
@@ -19,8 +22,10 @@ public static class PerfilEstudianteMapper
             EnlaceAvatar = perfil.EnlaceAvatar,
             MetaCalificacion = perfil.MetaCalificacion,
             EstudianteId = perfil.EstudianteId,
+            NombreEstudiante = perfil.Estudiante.NombreCompleto.Nombre,
             Monedas = perfil.Monedas,
             GrupoId = perfil.GrupoId,
+            NombreGrupo = perfil.Grupo.Nombre
         };
     }
 }
