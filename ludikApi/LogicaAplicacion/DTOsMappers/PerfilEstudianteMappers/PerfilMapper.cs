@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dominio;
+﻿using Dominio;
 using LogicaAplicacion.DTOs.PerfilEstudianteDTO;
+using LogicaAplicacion.DTOsMappers.MedallaMappers;
 
-public static class PerfilEstudianteMapper
+public static class PerfilMapper
 {
-    public static PerfilEstudianteInformacionDto ToDto(PerfilEstudiante perfil)
+    public static PerfilConMedallasDto ToDtoConMedallas(PerfilEstudiante perfil)
     {
         if (perfil == null) return null;
 
-        // Construir nombre completo si NombreCompleto existe en Estudiante
-       
-
-        return new PerfilEstudianteInformacionDto
+        return new PerfilConMedallasDto
         {
             Id = perfil.Id,
             AvatarGrupoId = perfil.AvatarGrupoId,
@@ -25,7 +18,10 @@ public static class PerfilEstudianteMapper
             NombreEstudiante = perfil.Estudiante.NombreCompleto.Nombre,
             Monedas = perfil.Monedas,
             GrupoId = perfil.GrupoId,
-            NombreGrupo = perfil.Grupo.Nombre
+            NombreGrupo = perfil.Grupo.Nombre,
+            Medallas = MedallaCantidadMapper.AgruparMedallas(
+                perfil.PerfilMedallas.Select(pm => pm.Medalla).ToList()
+            )
         };
     }
 }

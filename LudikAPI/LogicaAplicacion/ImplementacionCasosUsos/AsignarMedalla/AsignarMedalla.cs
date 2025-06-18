@@ -1,6 +1,8 @@
-﻿using InterfacesRepositorio;
+﻿using Dominio;
+using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.MedallaDTOs;
 using LogicaAplicacion.InterfacesCasosUsos.AsignacionMedalla;
+using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.AsignarMedalla;
@@ -10,15 +12,17 @@ public class AsignarMedalla: IAsignarMedalla
     private readonly IRepositorioPerfilEstudianteGrupo _repositorioPerfilEstudiantes;
     private readonly IRepositorioMedallas _repositorioMedallas;
     private readonly IRepositorioProfesores _repositorioProfesores;
-
+    private readonly IRepositorioPerfilEstudianteMedalla _repositorioPerfilEstudianteMedalla;
     public AsignarMedalla(
         IRepositorioPerfilEstudianteGrupo repositorioPerfilEstudiante,
         IRepositorioMedallas repositorioMedalla,
-        IRepositorioProfesores repositorioProfesor)
+        IRepositorioProfesores repositorioProfesor,
+        IRepositorioPerfilEstudianteMedalla repositorioPerfilEstudianteMedalla)
     {
         _repositorioPerfilEstudiantes = repositorioPerfilEstudiante;
         _repositorioMedallas = repositorioMedalla;
         _repositorioProfesores = repositorioProfesor;
+        _repositorioPerfilEstudianteMedalla = repositorioPerfilEstudianteMedalla;
     }
 
 
@@ -33,18 +37,20 @@ public class AsignarMedalla: IAsignarMedalla
         if (medallaResultado.EsFallo) return Resultado.Falla(Error.NotFound);
 
         var profesor = profesorResultado.Valor;
-        var perfilEstudiate = perfilResultado.Valor;
+        var perfilEstudiante = perfilResultado.Valor;
         var medalla = medallaResultado.Valor;
 
 
-        if (!profesor.Grupos.Any(g => g.Id == perfilEstudiate.GrupoId))
+        if (!profesor.Grupos.Any(g => g.Id == perfilEstudiante.GrupoId))
             return Resultado.Falla(Error.Forbidden);
-        
 
-        perfilEstudiate.MedallasObtenidas.Add(medalla);
-
-        var updateResultado = await _repositorioPerfilEstudiantes.UpdateAsync(perfilEstudiate);
-
-        return updateResultado;
+        // Crear nueva asignación:
+        var nuevaAsignacion = new PerfilEstudianteMedalla
+        {
+            PerfilEstudianteId = perfilEstudiante.Id,
+            MedallaId = medalla.Id,
+        };
+        var addResultado = await _repositorioPerfilEstudianteMedalla.AddAsync(nuevaAsignacion);
+        return addResultado;
     }
 }

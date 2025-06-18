@@ -506,12 +506,14 @@ namespace AccesoDatos.Migrations
                 name: "PerfilEstudianteMedallas",
                 columns: table => new
                 {
-                    MedallaId = table.Column<int>(type: "int", nullable: false),
-                    PerfilEstudianteId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PerfilEstudianteId = table.Column<int>(type: "int", nullable: false),
+                    MedallaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PerfilEstudianteMedallas", x => new { x.MedallaId, x.PerfilEstudianteId });
+                    table.PrimaryKey("PK_PerfilEstudianteMedallas", x => x.Id);
                     table.ForeignKey(
                         name: "FK_PerfilEstudianteMedallas_Medallas_MedallaId",
                         column: x => x.MedallaId,
@@ -764,6 +766,11 @@ namespace AccesoDatos.Migrations
                 table: "PerfilesEstudiantes",
                 columns: new[] { "GrupoId", "EstudianteId" },
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PerfilEstudianteMedallas_MedallaId",
+                table: "PerfilEstudianteMedallas",
+                column: "MedallaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PerfilEstudianteMedallas_PerfilEstudianteId",

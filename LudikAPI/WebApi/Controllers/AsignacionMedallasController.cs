@@ -29,7 +29,7 @@ namespace WebApi.Controllers
         /// <param name="idPerfilEstudiante">El ID del perfil del estudiante que recibirá la medalla.</param>
         /// <param name="request">DTO que contiene el ID de la medalla a asignar.</param>
         /// <returns>Un resultado de la operación.</returns>
-        [HttpPost("perfil-estudiante/{idPerfilEstudiante}")]
+        [HttpPost("perfil-estudiante/{idPerfilEstudiante}/medalla/{idMedalla}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

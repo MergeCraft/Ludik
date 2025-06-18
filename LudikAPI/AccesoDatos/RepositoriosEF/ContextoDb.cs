@@ -34,6 +34,7 @@ namespace AccesoDatos.RepositoriosEF
         public DbSet<Tienda> Tiendas { get; set; }
         public DbSet<Medalla> Medallas { get; set; }
         public DbSet<PerfilEstudiante> PerfilesEstudiantes { get; set; }
+        public DbSet<PerfilEstudianteMedalla> PerfilEstudianteMedallas { get; set; }
         public DbSet<TablaClasificacion> TablasClasificacion { get; set; }
         public DbSet<TablaEquivalencia> TablasEquivalencia { get; set; }
         public DbSet<SolicitudUnion> SolicitudesUnion { get; set; }
@@ -127,21 +128,25 @@ namespace AccesoDatos.RepositoriosEF
                  .OnDelete(DeleteBehavior.Restrict); // Usamos Restrict para prevenir la ruta múltiple.
             });
 
-            // Relación M:N entre PerfilEstudiante y Medalla (MedallasObtenidas)
-            modelBuilder.Entity<PerfilEstudiante>()
-                .HasMany(pe => pe.MedallasObtenidas)
-                .WithMany() // No hay navegación de vuelta en Medalla
-                .UsingEntity<Dictionary<string, object>>(
-                    "PerfilEstudianteMedallas", // Nombre de la tabla de unión
-                    j => j
-                        .HasOne<Medalla>()
-                        .WithMany()
-                        .HasForeignKey("MedallaId")
-                        .OnDelete(DeleteBehavior.Restrict),
-                    j => j
-                        .HasOne<PerfilEstudiante>()
-                        .WithMany()
-                        .HasForeignKey("PerfilEstudianteId"));
+            modelBuilder.Entity<PerfilEstudianteMedalla>(entity =>
+            {
+                entity.HasKey(pm => pm.Id);
+                entity.Property(pm => pm.Id).ValueGeneratedOnAdd();
+
+                entity.HasOne(pm => pm.PerfilEstudiante)
+                      .WithMany(pe => pe.PerfilMedallas)   // asume que PerfilEstudiante tiene List<PerfilEstudianteMedalla> PerfilMedallas
+                      .HasForeignKey(pm => pm.PerfilEstudianteId)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(pm => pm.Medalla)
+                      .WithMany()     // o .WithMany() si no definiste colección inversa en Medalla
+                      .HasForeignKey(pm => pm.MedallaId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                // Si quieres llevar contador en lugar de múltiples filas, define aquí índice único:
+                // entity.HasIndex(pm => new { pm.PerfilEstudianteId, pm.MedallaId }).IsUnique();
+                // Si prefieres permitir filas repetidas, no pongas ese índice.
+            });
 
             //Relación M:N entre PerfilEstudiante y Recompensa (Inventario)
             modelBuilder.Entity<PerfilEstudiante>()
@@ -252,10 +257,10 @@ namespace AccesoDatos.RepositoriosEF
             {
                 // 1) Relación PerfilEstudiante → Estudiante (Uno a Muchos): 
                 //    cuando se borre Estudiante, se eliminan sus perfiles.
-                pe.HasOne<Estudiante>()
-                  .WithMany(e => e.Perfiles)
-                  .HasForeignKey(p => p.EstudianteId)
-                  .OnDelete(DeleteBehavior.Cascade);
+                pe.HasOne(p => p.Estudiante)
+                    .WithMany(e => e.Perfiles)
+                    .HasForeignKey(p => p.EstudianteId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 // 2) Relación 1:1 PerfilEstudiante → BarraProgreso: 
                 //    La FK está en BarrasProgreso (perfilEstudianteId). 
@@ -267,10 +272,10 @@ namespace AccesoDatos.RepositoriosEF
 
                 // 3) Relación PerfilEstudiante → Grupo (Muchos a Uno):
                 //    NO queremos cascada aquí (evita ciclos de múltiple cascada).
-                pe.HasOne<Grupo>()
-                  .WithMany(g => g.Alumnos)
-                  .HasForeignKey(p => p.GrupoId)
-                  .OnDelete(DeleteBehavior.Restrict);             // SIN BORRADO EN CASCADA
+                pe.HasOne(p => p.Grupo)
+                    .WithMany(g => g.Alumnos)
+                    .HasForeignKey(p => p.GrupoId)
+                    .OnDelete(DeleteBehavior.Restrict);             // SIN BORRADO EN CASCADA
 
                 // 4)índice compuesto para evitar duplicados de GrupoId+EstudianteId
                 pe.HasIndex(pe2 => new { pe2.GrupoId, pe2.EstudianteId })

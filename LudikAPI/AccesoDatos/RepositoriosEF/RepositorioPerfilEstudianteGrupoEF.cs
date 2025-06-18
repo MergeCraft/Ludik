@@ -8,6 +8,7 @@ using InterfacesRepositorio;
 using LogicaNegocio.Resultados;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioPerfilEstudianteGrupoEF : IRepositorioPerfilEstudianteGrupo
@@ -22,9 +23,11 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var perfiles = await _db.PerfilesEstudiantes
-                                       .Include(p => p.BarraProgreso)
-                                       .Where(p => p.GrupoId == grupoId)
-                                       .ToListAsync();
+                    .Include(p => p.BarraProgreso)
+                    .Include(p => p.Estudiante)    
+                    .Include(p => p.Grupo)         
+                    .Where(p => p.GrupoId == grupoId)
+                    .ToListAsync();
 
                 if (perfiles == null || !perfiles.Any())
                     return Resultado<List<PerfilEstudiante>>.Falla(
@@ -42,7 +45,6 @@ namespace AccesoDatos.RepositoriosEF
             }
             catch (Exception ex)
             {
-
                 return Resultado<List<PerfilEstudiante>>.Falla(
                     new Error("Error.Unexpected",
                               $"Error inesperado: {ex.Message}"));
@@ -64,13 +66,16 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var perfil = await _db.PerfilesEstudiantes
-                    .Include(p => p.MedallasObtenidas)
+                    .Include(p => p.PerfilMedallas)
+                        .ThenInclude(pm => pm.Medalla)
+                    .Include(p => p.BarraProgreso)
+                    .Include(p => p.Estudiante)   
+                    .Include(p => p.Grupo)        
                     .FirstOrDefaultAsync(p => p.Id == id);
 
                 if (perfil == null)
-                    return Resultado<PerfilEstudiante>.Falla(new Error("Error.NotFound", $"No se encontró el perfil de estudiante con Id: {id}."));
-                
-
+                    return Resultado<PerfilEstudiante>.Falla(
+                        new Error("Error.NotFound", $"No se encontró el perfil de estudiante con Id: {id}."));
                 return Resultado<PerfilEstudiante>.Exitoso(perfil);
             }
             catch (Exception ex)
@@ -119,6 +124,30 @@ namespace AccesoDatos.RepositoriosEF
         public List<Medalla> verMedallasAlumno(int idAlumno, int idGrupo)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Resultado<PerfilEstudiante>> GetByEstudianteYGrupoConMedallasAsync(string estudianteId, int grupoId)
+        {
+            try
+            {
+                var perfil = await _db.PerfilesEstudiantes
+                    .Include(p => p.PerfilMedallas)
+                        .ThenInclude(pm => pm.Medalla)
+                    .Include(p => p.BarraProgreso)
+                    .Include(p => p.Estudiante)   
+                    .Include(p => p.Grupo)        
+                    .FirstOrDefaultAsync(p => p.EstudianteId == estudianteId && p.GrupoId == grupoId);
+
+                if (perfil == null)
+                    return Resultado<PerfilEstudiante>.Falla(
+                        new Error("Perfil.NotFound",
+                                  $"No se encontró el perfil del estudiante '{estudianteId}' en el grupo {grupoId}."));
+                return Resultado<PerfilEstudiante>.Exitoso(perfil);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<PerfilEstudiante>.Falla(new Error("Error.Unexpected", ex.Message));
+            }
         }
     }
 }
