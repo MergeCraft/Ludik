@@ -91,10 +91,10 @@ namespace AccesoDatos.RepositoriosEF
                  .OnDelete(DeleteBehavior.Cascade);
 
                 // Profesor -> Grupo (Uno a Muchos, Cascada)
-                p.HasMany(prof => prof.Grupos)
-                 .WithOne() // Asumimos que Grupo no necesita navegar de vuelta
-                 .HasForeignKey(g => g.ProfesorId)
-                 .OnDelete(DeleteBehavior.Cascade);
+                p.HasMany(prof => prof.Grupos)       // Un Profesor tiene muchos Grupos
+                    .WithOne(g => g.Profesor)           
+                    .HasForeignKey(g => g.ProfesorId)   
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
 
@@ -197,7 +197,8 @@ namespace AccesoDatos.RepositoriosEF
                     j => j
                         .HasOne<Medalla>()
                         .WithMany()
-                        .HasForeignKey("MedallaId"),
+                        .HasForeignKey("MedallaId")
+                        .OnDelete(DeleteBehavior.Restrict),
                     j => j
                         .HasOne<Equivalencia>()
                         .WithMany()
@@ -310,6 +311,17 @@ namespace AccesoDatos.RepositoriosEF
                     .WithMany()
                     .HasForeignKey("TablaEquivalenciaId")
                     .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<TablaEquivalencia>(te =>
+            {
+                // Una TablaEquivalencia tiene muchas Equivalencias.
+                te.HasMany(t => t.Equivalencias)
+                    // Cada Equivalencia tiene UNA TablaEquivalencia.
+                    .WithOne(e => e.TablaEquivalencia)
+                    .HasForeignKey(e => e.TablaEquivalenciaId)
+                    // Si se borra una TablaEquivalencia, también se deben borrar todas sus Equivalencias asociadas.
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             // Índice único compuesto para evitar que un mismo estudiante se una dos veces
@@ -432,6 +444,11 @@ namespace AccesoDatos.RepositoriosEF
                 b.Property(t => t.Value).HasColumnName("ValorToken");
             });
 
+            //-------------------------------
+            //----  PLANTAR DATOS
+            //-------------------------------
+
+            modelBuilder.Semilla();
         }
     }
 }

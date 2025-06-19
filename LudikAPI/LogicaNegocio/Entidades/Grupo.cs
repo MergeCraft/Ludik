@@ -20,6 +20,8 @@ namespace Dominio
         public String Materia { get; set; }
 
         public DateTime FCreacion { get; set; }
+        [ForeignKey(nameof(TablaEquivalencia))]
+        public int TablaEquivalenciaId { get; set; }
         [Required]
         public TablaEquivalencia TablaEquivalencia { get; set; }
 
@@ -30,11 +32,14 @@ namespace Dominio
         public List<PerfilEstudiante> Alumnos { get; set; }
 
         public List<SolicitudUnion> Solicitudes { get; set; }
+        [ForeignKey(nameof(EnlaceUnion))]
+        public int EnlaceUnionId { get; set; }
 
         public EnlaceUnion EnlaceUnion { get; set; }
 
         [ForeignKey(nameof(Profesor))]
-        public string ProfesorId { get; set; } 
+        public string ProfesorId { get; set; }
+        public Profesor Profesor { get; set; }
 
         public void asignarMedalla(PerfilEstudiante pEstudiante, Medalla m)
 		{

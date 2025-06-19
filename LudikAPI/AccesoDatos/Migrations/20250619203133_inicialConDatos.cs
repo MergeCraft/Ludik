@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
-    public partial class inicial : Migration
+    public partial class inicialConDatos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -253,7 +255,7 @@ namespace AccesoDatos.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Icono = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MonedasOtorgadas = table.Column<int>(type: "int", nullable: false),
                     TieneAsignacionMutua = table.Column<bool>(type: "bit", nullable: false),
@@ -297,7 +299,7 @@ namespace AccesoDatos.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nota = table.Column<int>(type: "int", nullable: false),
-                    TablaEquivalenciaId = table.Column<int>(type: "int", nullable: true)
+                    TablaEquivalenciaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -306,7 +308,8 @@ namespace AccesoDatos.Migrations
                         name: "FK_Equivalencias_TablasEquivalencia_TablaEquivalenciaId",
                         column: x => x.TablaEquivalenciaId,
                         principalTable: "TablasEquivalencia",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -367,7 +370,7 @@ namespace AccesoDatos.Migrations
                         column: x => x.MedallaId,
                         principalTable: "Medallas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -725,6 +728,134 @@ namespace AccesoDatos.Migrations
                         principalTable: "Hitos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "EnlacesUnion",
+                columns: new[] { "Id", "CodigoUnico", "Expiracion", "UrlCompleta" },
+                values: new object[,]
+                {
+                    { 1, "MAT1A25", new DateTime(2026, 4, 15, 10, 30, 0, 0, DateTimeKind.Utc), "https://www.ludik.app/unirse/MAT1A25" },
+                    { 2, "HISTU25", new DateTime(2026, 4, 15, 10, 30, 0, 0, DateTimeKind.Utc), "https://www.ludik.app/unirse/HISTU25" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "RolId", "EstampaConcurrencia", "NombreRol", "NombreRolNormalizado" },
+                values: new object[,]
+                {
+                    { "2c5e174e-3b0e-446f-86af-483d56fd7210", null, "Profesor", "PROFESOR" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", null, "Estudiante", "ESTUDIANTE" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Usuarios",
+                columns: new[] { "UsuarioId", "IntentosFallidos", "EstampaConcurrencia", "Correo", "CorreoConfirmado", "ImagenPerfil", "BloqueoHabilitado", "FinBloqueo", "CorreoNormalizado", "NombreUsuarioNormalizado", "ContraseniaHash", "Telefono", "TelefonoConfirmado", "EstampaSeguridad", "AutenticacionDosFactores", "NombreUsuario", "Apellido", "Nombre" },
+                values: new object[,]
+                {
+                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, "b0c8b6a8-8e6b-4e6a-9e1e-2e0b166a9c76", "cecilia@gmail.com", true, null, false, null, "CECILIA@GMAIL.COM", "CECILIA", "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==", null, false, "STATIC_SECURITY_STAMP_1", false, "cecilia", "Rodríguez", "Carlos" },
+                    { "9e445865-a24d-4543-a6c6-9443d048cdb0", 0, "a1d3b5e7-9f2d-4b8c-8a1e-3f0e2d5b4a6b", "laura.fernandez@ludik.edu.uy", true, null, false, null, "LAURA.FERNANDEZ@LUDIK.EDU.UY", "LAURA.FERNANDEZ", "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==", null, false, "STATIC_SECURITY_STAMP_2", false, "laura", "Fernández", "Laura" },
+                    { "a1445865-a24d-4543-a6c6-9443d048cdb1", 0, "c4b6e8a0-1d3f-4e9a-9c8e-5d2a4f6b8c0d", null, false, null, false, null, null, "SANTIAGO", "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==", null, false, "STATIC_SECURITY_STAMP_3", false, "santiago", "Pérez", "Santiago" },
+                    { "b2445865-a24d-4543-a6c6-9443d048cdb2", 0, "d5c7f9b1-2e4g-5f0b-a0d9-6e3b5g7c9d1e", null, false, null, false, null, null, "VALENTINA", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_4", false, "valentina", "Gómez", "Valentina" },
+                    { "c3445865-a24d-4543-a6c6-9443d048cdb3", 0, "e6d80ac2-3f5h-6g1c-b1e0-7f4c6h8d0e2f", null, false, null, false, null, null, "MATIAS", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_5", false, "matias", "González", "Matías" },
+                    { "d4445865-a24d-4543-a6c6-9443d048cdb4", 0, "f7e91bd3-4g6i-7h2d-c2f1-8g5d7i9e1f3g", null, false, null, false, null, null, "CAMILA", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_6", false, "camila", "Martínez", "Camila" },
+                    { "e5445865-a24d-4543-a6c6-9443d048cdb5", 0, "g8f02ce4-5h7j-8i3e-d3g2-9h6e8j0f2g4h", null, false, null, false, null, null, "LUCAS", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_7", false, "lucas", "Silva", "Lucas" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Estudiantes",
+                column: "UsuarioId",
+                values: new object[]
+                {
+                    "a1445865-a24d-4543-a6c6-9443d048cdb1",
+                    "b2445865-a24d-4543-a6c6-9443d048cdb2",
+                    "c3445865-a24d-4543-a6c6-9443d048cdb3",
+                    "d4445865-a24d-4543-a6c6-9443d048cdb4",
+                    "e5445865-a24d-4543-a6c6-9443d048cdb5"
+                });
+
+            migrationBuilder.InsertData(
+                table: "Profesores",
+                column: "UsuarioId",
+                values: new object[]
+                {
+                    "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                    "9e445865-a24d-4543-a6c6-9443d048cdb0"
+                });
+
+            migrationBuilder.InsertData(
+                table: "UsuariosRoles",
+                columns: new[] { "RolId", "UsuarioId" },
+                values: new object[,]
+                {
+                    { "2c5e174e-3b0e-446f-86af-483d56fd7210", "8e445865-a24d-4543-a6c6-9443d048cdb9" },
+                    { "2c5e174e-3b0e-446f-86af-483d56fd7210", "9e445865-a24d-4543-a6c6-9443d048cdb0" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "a1445865-a24d-4543-a6c6-9443d048cdb1" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "b2445865-a24d-4543-a6c6-9443d048cdb2" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "c3445865-a24d-4543-a6c6-9443d048cdb3" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "d4445865-a24d-4543-a6c6-9443d048cdb4" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "e5445865-a24d-4543-a6c6-9443d048cdb5" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Medallas",
+                columns: new[] { "Id", "Descripcion", "Icono", "MonedasOtorgadas", "Nombre", "ProfesorId", "TieneAsignacionMutua" },
+                values: new object[,]
+                {
+                    { 1, "Asistencia y participación en todas las clases del mes.", "icono_asistencia.png", 30, "Participación Perfecta", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
+                    { 2, "Ayuda destacada a compañeros en proyectos grupales.", "icono_colaboracion.png", 25, "Maestro de la Colaboración", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
+                    { 3, "Realización de preguntas perspicaces que enriquecen la clase.", "icono_pregunta.png", 15, "Mente Curiosa", "9e445865-a24d-4543-a6c6-9443d048cdb0", false }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TablasEquivalencia",
+                columns: new[] { "Id", "Nombre", "ProfesorId" },
+                values: new object[,]
+                {
+                    { 1, "Calificaciones Estándar (C. Rodríguez)", "8e445865-a24d-4543-a6c6-9443d048cdb9" },
+                    { 2, "Evaluación Continua (L. Fernández)", "9e445865-a24d-4543-a6c6-9443d048cdb0" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Equivalencias",
+                columns: new[] { "Id", "Nota", "TablaEquivalenciaId" },
+                values: new object[,]
+                {
+                    { 1, 1, 1 },
+                    { 2, 2, 1 },
+                    { 3, 1, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Grupos",
+                columns: new[] { "Id", "EnlaceUnionId", "FCreacion", "Institucion", "Materia", "Nombre", "ProfesorId", "TablaEquivalenciaId" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2025, 6, 19, 10, 30, 0, 0, DateTimeKind.Utc), "Liceo N°5", "Matemática", "Matemática 1A - 2025", "8e445865-a24d-4543-a6c6-9443d048cdb9", 1 },
+                    { 2, 2, new DateTime(2025, 6, 19, 10, 30, 0, 0, DateTimeKind.Utc), "Liceo N°5", "Historia", "Historia Universal - 2025", "9e445865-a24d-4543-a6c6-9443d048cdb0", 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "EquivalenciaMedallas",
+                columns: new[] { "EquivalenciaId", "MedallaId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 1 },
+                    { 2, 2 },
+                    { 3, 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PerfilesEstudiantes",
+                columns: new[] { "Id", "EstudianteId", "GrupoId", "MetaCalificacion", "Monedas", "RutaImagenCompleta", "RutaImagenMiniatura" },
+                values: new object[,]
+                {
+                    { 1, "a1445865-a24d-4543-a6c6-9443d048cdb1", 1, 8, 120, "default/avatar_full.jpg", "default/avatar_thumb.jpg" },
+                    { 2, "b2445865-a24d-4543-a6c6-9443d048cdb2", 1, 9, 150, "default/avatar_full.jpg", "default/avatar_thumb.jpg" },
+                    { 3, "c3445865-a24d-4543-a6c6-9443d048cdb3", 1, 7, 95, "default/avatar_full.jpg", "default/avatar_thumb.jpg" },
+                    { 4, "d4445865-a24d-4543-a6c6-9443d048cdb4", 2, 10, 200, "default/avatar_full.jpg", "default/avatar_thumb.jpg" },
+                    { 5, "e5445865-a24d-4543-a6c6-9443d048cdb5", 2, 8, 180, "default/avatar_full.jpg", "default/avatar_thumb.jpg" }
                 });
 
             migrationBuilder.CreateIndex(
