@@ -1,10 +1,14 @@
 using System.Text;
 using AccesoDatos.RepositoriosEF;
+using AccesoDatos.Servicios;
+using Azure.Identity;
+using Azure.Storage.Blobs;
 using Dominio;
 using InterfacesRepositorio;
 using LogicaAplicacion.ImplementacionCasosUsos.AsignarMedalla;
 using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;
 using LogicaAplicacion.ImplementacionCasosUsos.Grupos;
+using LogicaAplicacion.ImplementacionCasosUsos.Imagenes;
 using LogicaAplicacion.ImplementacionCasosUsos.Medallas;
 using LogicaAplicacion.ImplementacionCasosUsos.PerfilEstudiante;
 using LogicaAplicacion.ImplementacionCasosUsos.Profesores;
@@ -13,6 +17,7 @@ using LogicaAplicacion.ImplementacionCasosUsos.TablaEquivalencia;
 using LogicaAplicacion.InterfacesCasosUsos.AsignacionMedalla;
 using LogicaAplicacion.InterfacesCasosUsos.Estudiante;
 using LogicaAplicacion.InterfacesCasosUsos.Grupo;
+using LogicaAplicacion.InterfacesCasosUsos.Imagenes;
 using LogicaAplicacion.InterfacesCasosUsos.Medalla;
 using LogicaAplicacion.InterfacesCasosUsos.PerfilEstudiante;
 using LogicaAplicacion.InterfacesCasosUsos.Profesor;
@@ -22,6 +27,7 @@ using LogicaNegocio.InterfacesRepositorios;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -50,7 +56,7 @@ builder.Services.AddIdentity<Usuario, IdentityRole>(opciones =>
 	opciones.Password.RequiredLength = 8;                    // Longitud mínima de 8 caracteres
 
 	// ===== Validaciones de Usuario =====
-	opciones.User.RequireUniqueEmail = false;                  // El email debe ser único
+	opciones.User.RequireUniqueEmail = false;                  // SI el email debe ser único
 	opciones.User.AllowedUserNameCharacters =
 		"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 
@@ -121,6 +127,26 @@ builder.Services.AddScoped<IRepositorioEnlacesUnionGrupo, RepositorioEnlacesUnio
 builder.Services.AddScoped<IRepositorioSolicitudesUnion, RepositorioSolocitudesUnionEF>();
 builder.Services.AddScoped<IRepositorioPerfilEstudianteGrupo, RepositorioPerfilEstudianteGrupoEF>();
 builder.Services.AddScoped<IRepositorioPerfilEstudianteMedalla, RepositorioPerfilEstudianteMedallaEF>();
+builder.Services.AddScoped<IRepositorioAvatares, RepositorioAvatares>();
+
+builder.Services.AddAzureClients(clientBuilder =>
+{
+    // Usa esta línea si NO estás en el entorno de desarrollo.
+    // Configura la conexión al servicio de Azure Blob Storage real.
+    // La cadena de conexión debe estar en tus secretos de usuario o Azure Key Vault en producción.
+    if (!builder.Environment.IsDevelopment())
+    {
+        var connectionString = builder.Configuration.GetConnectionString("AzureStorage");
+        clientBuilder.AddBlobServiceClient(connectionString);
+    }
+    else
+    {
+        // Si ESTÁS en desarrollo, usa la cadena de conexión de Azurite.
+        var connectionString = builder.Configuration.GetConnectionString("StorageConnection");
+        clientBuilder.AddBlobServiceClient(connectionString);
+    }
+});
+builder.Services.AddScoped<IRepositorioAlmacenamientoArchivos, RepositorioAzureBlobsStorage>(); 
 
 
 //Inyeccion de dependencias casos de uso
@@ -150,6 +176,8 @@ builder.Services.AddScoped<IAsignarMedalla, AsignarMedalla>();
 builder.Services.AddScoped<IQuitarMedalla, QuitarMedalla>();
 builder.Services.AddScoped<IObtenerTablasEquivalenciaDelProfesor,ObtenerTablasEquivalenciaDelProfesor>();
 builder.Services.AddScoped<IObtenerPerfilConMedallas, ObtenerPerfilConMedallas>();
+builder.Services.AddScoped<IServicioGestionImagenPerfil, ServicioGestionImagenPerfil>();
+builder.Services.AddScoped<IServicioProcesamientoImagenes, ServicioImageSharp>();
 
 
 // -------------------------------

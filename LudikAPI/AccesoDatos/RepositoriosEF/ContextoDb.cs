@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dominio;
+using LogicaNegocio.Entidades;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -46,6 +47,7 @@ namespace AccesoDatos.RepositoriosEF
         public DbSet<Equivalencia> Equivalencias { get; set; }
         public DbSet<EnlaceUnion> EnlacesUnion { get; set; }
         public DbSet<BarraProgreso> BarrasProgreso { get; set; }
+        public DbSet<Avatar> Avatares { get; set; }
 
 
 
@@ -70,7 +72,8 @@ namespace AccesoDatos.RepositoriosEF
                 .WithOne()
                 .HasForeignKey<Profesor>(p => p.Id)
                 .OnDelete(DeleteBehavior.Cascade);
-           
+
+
             // --- REGLAS DE BORRADO EN CASCADA DESDE GRUPO ---
             // Un Profesor es dueño de sus Medallas, Grupos y Tablas de Equivalencia.
             // Si el Profesor se elimina, todo esto se debe eliminar también.
@@ -89,10 +92,10 @@ namespace AccesoDatos.RepositoriosEF
                  .OnDelete(DeleteBehavior.Cascade);
 
                 // Profesor -> Grupo (Uno a Muchos, Cascada)
-                p.HasMany(prof => prof.Grupos)
-                 .WithOne() // Asumimos que Grupo no necesita navegar de vuelta
-                 .HasForeignKey(g => g.ProfesorId)
-                 .OnDelete(DeleteBehavior.Cascade);
+                p.HasMany(prof => prof.Grupos)       // Un Profesor tiene muchos Grupos
+                    .WithOne(g => g.Profesor)           
+                    .HasForeignKey(g => g.ProfesorId)   
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
 
@@ -199,7 +202,8 @@ namespace AccesoDatos.RepositoriosEF
                     j => j
                         .HasOne<Medalla>()
                         .WithMany()
-                        .HasForeignKey("MedallaId"),
+                        .HasForeignKey("MedallaId")
+                        .OnDelete(DeleteBehavior.Restrict),
                     j => j
                         .HasOne<Equivalencia>()
                         .WithMany()
@@ -282,7 +286,11 @@ namespace AccesoDatos.RepositoriosEF
                     .IsUnique()
                     .HasDatabaseName("UX_PerfilEstudiante_GrupoId_EstudianteId");
 
-
+                // 5) Relación 1:1 PerfilEstudiante → Avatar (Composición)
+                pe.HasOne(p => p.Avatar)
+                    .WithOne()
+                    .HasForeignKey<Avatar>() 
+                    .OnDelete(DeleteBehavior.Cascade);
 
             });
 
@@ -308,6 +316,17 @@ namespace AccesoDatos.RepositoriosEF
                     .WithMany()
                     .HasForeignKey("TablaEquivalenciaId")
                     .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<TablaEquivalencia>(te =>
+            {
+                // Una TablaEquivalencia tiene muchas Equivalencias.
+                te.HasMany(t => t.Equivalencias)
+                    // Cada Equivalencia tiene UNA TablaEquivalencia.
+                    .WithOne(e => e.TablaEquivalencia)
+                    .HasForeignKey(e => e.TablaEquivalenciaId)
+                    // Si se borra una TablaEquivalencia, también se deben borrar todas sus Equivalencias asociadas.
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             // Índice único compuesto para evitar que un mismo estudiante se una dos veces
@@ -430,6 +449,11 @@ namespace AccesoDatos.RepositoriosEF
                 b.Property(t => t.Value).HasColumnName("ValorToken");
             });
 
+            //-------------------------------
+            //----  PLANTAR DATOS
+            //-------------------------------
+
+            modelBuilder.Semilla();
         }
     }
 }

@@ -19,10 +19,6 @@ namespace Dominio
 		}
 
 
-		public void actualizar()
-		{
-
-		}
 
 
     }

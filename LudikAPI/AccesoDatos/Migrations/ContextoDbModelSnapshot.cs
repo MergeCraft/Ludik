@@ -74,6 +74,22 @@ namespace AccesoDatos.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EnlacesUnion");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CodigoUnico = "MAT1A25",
+                            Expiracion = new DateTime(2026, 4, 15, 10, 30, 0, 0, DateTimeKind.Utc),
+                            UrlCompleta = "https://www.ludik.app/unirse/MAT1A25"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CodigoUnico = "HISTU25",
+                            Expiracion = new DateTime(2026, 4, 15, 10, 30, 0, 0, DateTimeKind.Utc),
+                            UrlCompleta = "https://www.ludik.app/unirse/HISTU25"
+                        });
                 });
 
             modelBuilder.Entity("Dominio.Equivalencia", b =>
@@ -87,7 +103,7 @@ namespace AccesoDatos.Migrations
                     b.Property<int>("Nota")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TablaEquivalenciaId")
+                    b.Property<int>("TablaEquivalenciaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -95,6 +111,26 @@ namespace AccesoDatos.Migrations
                     b.HasIndex("TablaEquivalenciaId");
 
                     b.ToTable("Equivalencias");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nota = 1,
+                            TablaEquivalenciaId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Nota = 2,
+                            TablaEquivalenciaId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Nota = 1,
+                            TablaEquivalenciaId = 2
+                        });
                 });
 
             modelBuilder.Entity("Dominio.Grupo", b =>
@@ -143,6 +179,30 @@ namespace AccesoDatos.Migrations
                     b.HasIndex("TablaEquivalenciaId");
 
                     b.ToTable("Grupos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            EnlaceUnionId = 1,
+                            FCreacion = new DateTime(2025, 6, 19, 10, 30, 0, 0, DateTimeKind.Utc),
+                            Institucion = "Liceo N°5",
+                            Materia = "Matemática",
+                            Nombre = "Matemática 1A - 2025",
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            TablaEquivalenciaId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            EnlaceUnionId = 2,
+                            FCreacion = new DateTime(2025, 6, 19, 10, 30, 0, 0, DateTimeKind.Utc),
+                            Institucion = "Liceo N°5",
+                            Materia = "Historia",
+                            Nombre = "Historia Universal - 2025",
+                            ProfesorId = "9e445865-a24d-4543-a6c6-9443d048cdb0",
+                            TablaEquivalenciaId = 2
+                        });
                 });
 
             modelBuilder.Entity("Dominio.Hito", b =>
@@ -176,8 +236,8 @@ namespace AccesoDatos.Migrations
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Icono")
                         .IsRequired()
@@ -205,6 +265,38 @@ namespace AccesoDatos.Migrations
                     b.HasIndex("ProfesorId");
 
                     b.ToTable("Medallas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Descripcion = "Asistencia y participación en todas las clases del mes.",
+                            Icono = "icono_asistencia.png",
+                            MonedasOtorgadas = 30,
+                            Nombre = "Participación Perfecta",
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            TieneAsignacionMutua = false
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Descripcion = "Ayuda destacada a compañeros en proyectos grupales.",
+                            Icono = "icono_colaboracion.png",
+                            MonedasOtorgadas = 25,
+                            Nombre = "Maestro de la Colaboración",
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            TieneAsignacionMutua = false
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Descripcion = "Realización de preguntas perspicaces que enriquecen la clase.",
+                            Icono = "icono_pregunta.png",
+                            MonedasOtorgadas = 15,
+                            Nombre = "Mente Curiosa",
+                            ProfesorId = "9e445865-a24d-4543-a6c6-9443d048cdb0",
+                            TieneAsignacionMutua = false
+                        });
                 });
 
             modelBuilder.Entity("Dominio.PerfilEstudiante", b =>
@@ -214,12 +306,6 @@ namespace AccesoDatos.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AvatarGrupoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EnlaceAvatar")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EstudianteId")
                         .IsRequired()
@@ -234,6 +320,14 @@ namespace AccesoDatos.Migrations
                     b.Property<int>("Monedas")
                         .HasColumnType("int");
 
+                    b.Property<string>("RutaImagenCompleta")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RutaImagenMiniatura")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EstudianteId");
@@ -243,6 +337,58 @@ namespace AccesoDatos.Migrations
                         .HasDatabaseName("UX_PerfilEstudiante_GrupoId_EstudianteId");
 
                     b.ToTable("PerfilesEstudiantes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            EstudianteId = "a1445865-a24d-4543-a6c6-9443d048cdb1",
+                            GrupoId = 1,
+                            MetaCalificacion = 8,
+                            Monedas = 120,
+                            RutaImagenCompleta = "default/avatar_full.jpg",
+                            RutaImagenMiniatura = "default/avatar_thumb.jpg"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            EstudianteId = "b2445865-a24d-4543-a6c6-9443d048cdb2",
+                            GrupoId = 1,
+                            MetaCalificacion = 9,
+                            Monedas = 150,
+                            RutaImagenCompleta = "default/avatar_full.jpg",
+                            RutaImagenMiniatura = "default/avatar_thumb.jpg"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            EstudianteId = "c3445865-a24d-4543-a6c6-9443d048cdb3",
+                            GrupoId = 1,
+                            MetaCalificacion = 7,
+                            Monedas = 95,
+                            RutaImagenCompleta = "default/avatar_full.jpg",
+                            RutaImagenMiniatura = "default/avatar_thumb.jpg"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            EstudianteId = "d4445865-a24d-4543-a6c6-9443d048cdb4",
+                            GrupoId = 2,
+                            MetaCalificacion = 10,
+                            Monedas = 200,
+                            RutaImagenCompleta = "default/avatar_full.jpg",
+                            RutaImagenMiniatura = "default/avatar_thumb.jpg"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            EstudianteId = "e5445865-a24d-4543-a6c6-9443d048cdb5",
+                            GrupoId = 2,
+                            MetaCalificacion = 8,
+                            Monedas = 180,
+                            RutaImagenCompleta = "default/avatar_full.jpg",
+                            RutaImagenMiniatura = "default/avatar_thumb.jpg"
+                        });
                 });
 
             modelBuilder.Entity("Dominio.PerfilEstudianteMedalla", b =>
@@ -473,6 +619,20 @@ namespace AccesoDatos.Migrations
                     b.HasIndex("ProfesorId");
 
                     b.ToTable("TablasEquivalencia");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nombre = "Calificaciones Estándar (C. Rodríguez)",
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Nombre = "Evaluación Continua (L. Fernández)",
+                            ProfesorId = "9e445865-a24d-4543-a6c6-9443d048cdb0"
+                        });
                 });
 
             modelBuilder.Entity("Dominio.Tienda", b =>
@@ -592,6 +752,28 @@ namespace AccesoDatos.Migrations
                     b.HasIndex("MedallaId");
 
                     b.ToTable("EquivalenciaMedallas");
+
+                    b.HasData(
+                        new
+                        {
+                            EquivalenciaId = 1,
+                            MedallaId = 1
+                        },
+                        new
+                        {
+                            EquivalenciaId = 2,
+                            MedallaId = 1
+                        },
+                        new
+                        {
+                            EquivalenciaId = 2,
+                            MedallaId = 2
+                        },
+                        new
+                        {
+                            EquivalenciaId = 3,
+                            MedallaId = 3
+                        });
                 });
 
             modelBuilder.Entity("EstudianteHitos", b =>
@@ -607,6 +789,99 @@ namespace AccesoDatos.Migrations
                     b.HasIndex("HitoId");
 
                     b.ToTable("EstudianteHitos");
+                });
+
+            modelBuilder.Entity("LogicaNegocio.Entidades.Avatar", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Barba")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Boca")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cejas")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorBarba")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorFondo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorGafas")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorPelo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorPiel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorRopa")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorSombrero")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gafas")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gorro")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LogoRopa")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ojos")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Pelo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProbabilidadBarba")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProbabilidadGafas")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Ropa")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Rotacion")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Voltear")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Zoom")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Avatares");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -638,6 +913,20 @@ namespace AccesoDatos.Migrations
                         .HasFilter("[NombreRolNormalizado] IS NOT NULL");
 
                     b.ToTable("Roles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "2c5e174e-3b0e-446f-86af-483d56fd7210",
+                            Name = "Profesor",
+                            NormalizedName = "PROFESOR"
+                        },
+                        new
+                        {
+                            Id = "3d5e174e-3b0e-446f-86af-483d56fd7211",
+                            Name = "Estudiante",
+                            NormalizedName = "ESTUDIANTE"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -739,6 +1028,43 @@ namespace AccesoDatos.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UsuariosRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            RoleId = "2c5e174e-3b0e-446f-86af-483d56fd7210"
+                        },
+                        new
+                        {
+                            UserId = "9e445865-a24d-4543-a6c6-9443d048cdb0",
+                            RoleId = "2c5e174e-3b0e-446f-86af-483d56fd7210"
+                        },
+                        new
+                        {
+                            UserId = "a1445865-a24d-4543-a6c6-9443d048cdb1",
+                            RoleId = "3d5e174e-3b0e-446f-86af-483d56fd7211"
+                        },
+                        new
+                        {
+                            UserId = "b2445865-a24d-4543-a6c6-9443d048cdb2",
+                            RoleId = "3d5e174e-3b0e-446f-86af-483d56fd7211"
+                        },
+                        new
+                        {
+                            UserId = "c3445865-a24d-4543-a6c6-9443d048cdb3",
+                            RoleId = "3d5e174e-3b0e-446f-86af-483d56fd7211"
+                        },
+                        new
+                        {
+                            UserId = "d4445865-a24d-4543-a6c6-9443d048cdb4",
+                            RoleId = "3d5e174e-3b0e-446f-86af-483d56fd7211"
+                        },
+                        new
+                        {
+                            UserId = "e5445865-a24d-4543-a6c6-9443d048cdb5",
+                            RoleId = "3d5e174e-3b0e-446f-86af-483d56fd7211"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -827,6 +1153,78 @@ namespace AccesoDatos.Migrations
                     b.HasBaseType("Dominio.Usuario");
 
                     b.ToTable("Estudiantes", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "a1445865-a24d-4543-a6c6-9443d048cdb1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "c4b6e8a0-1d3f-4e9a-9c8e-5d2a4f6b8c0d",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "SANTIAGO",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "STATIC_SECURITY_STAMP_3",
+                            TwoFactorEnabled = false,
+                            UserName = "santiago"
+                        },
+                        new
+                        {
+                            Id = "b2445865-a24d-4543-a6c6-9443d048cdb2",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "d5c7f9b1-2e4g-5f0b-a0d9-6e3b5g7c9d1e",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "VALENTINA",
+                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "STATIC_SECURITY_STAMP_4",
+                            TwoFactorEnabled = false,
+                            UserName = "valentina"
+                        },
+                        new
+                        {
+                            Id = "c3445865-a24d-4543-a6c6-9443d048cdb3",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e6d80ac2-3f5h-6g1c-b1e0-7f4c6h8d0e2f",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "MATIAS",
+                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "STATIC_SECURITY_STAMP_5",
+                            TwoFactorEnabled = false,
+                            UserName = "matias"
+                        },
+                        new
+                        {
+                            Id = "d4445865-a24d-4543-a6c6-9443d048cdb4",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "f7e91bd3-4g6i-7h2d-c2f1-8g5d7i9e1f3g",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "CAMILA",
+                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "STATIC_SECURITY_STAMP_6",
+                            TwoFactorEnabled = false,
+                            UserName = "camila"
+                        },
+                        new
+                        {
+                            Id = "e5445865-a24d-4543-a6c6-9443d048cdb5",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "g8f02ce4-5h7j-8i3e-d3g2-9h6e8j0f2g4h",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "LUCAS",
+                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "STATIC_SECURITY_STAMP_7",
+                            TwoFactorEnabled = false,
+                            UserName = "lucas"
+                        });
                 });
 
             modelBuilder.Entity("Dominio.Profesor", b =>
@@ -834,6 +1232,40 @@ namespace AccesoDatos.Migrations
                     b.HasBaseType("Dominio.Usuario");
 
                     b.ToTable("Profesores", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "b0c8b6a8-8e6b-4e6a-9e1e-2e0b166a9c76",
+                            Email = "cecilia@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "CECILIA@GMAIL.COM",
+                            NormalizedUserName = "CECILIA",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "STATIC_SECURITY_STAMP_1",
+                            TwoFactorEnabled = false,
+                            UserName = "cecilia"
+                        },
+                        new
+                        {
+                            Id = "9e445865-a24d-4543-a6c6-9443d048cdb0",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a1d3b5e7-9f2d-4b8c-8a1e-3f0e2d5b4a6b",
+                            Email = "laura.fernandez@ludik.edu.uy",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "LAURA.FERNANDEZ@LUDIK.EDU.UY",
+                            NormalizedUserName = "LAURA.FERNANDEZ",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "STATIC_SECURITY_STAMP_2",
+                            TwoFactorEnabled = false,
+                            UserName = "laura"
+                        });
                 });
 
             modelBuilder.Entity("Dominio.BarraProgreso", b =>
@@ -855,9 +1287,13 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("Dominio.Equivalencia", b =>
                 {
-                    b.HasOne("Dominio.TablaEquivalencia", null)
+                    b.HasOne("Dominio.TablaEquivalencia", "TablaEquivalencia")
                         .WithMany("Equivalencias")
-                        .HasForeignKey("TablaEquivalenciaId");
+                        .HasForeignKey("TablaEquivalenciaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TablaEquivalencia");
                 });
 
             modelBuilder.Entity("Dominio.Grupo", b =>
@@ -868,7 +1304,7 @@ namespace AccesoDatos.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dominio.Profesor", null)
+                    b.HasOne("Dominio.Profesor", "Profesor")
                         .WithMany("Grupos")
                         .HasForeignKey("ProfesorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -881,6 +1317,8 @@ namespace AccesoDatos.Migrations
                         .IsRequired();
 
                     b.Navigation("EnlaceUnion");
+
+                    b.Navigation("Profesor");
 
                     b.Navigation("TablaEquivalencia");
                 });
@@ -1071,6 +1509,50 @@ namespace AccesoDatos.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("UsuarioId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    UsuarioId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                                    Apellido = "Rodríguez",
+                                    Nombre = "Carlos"
+                                },
+                                new
+                                {
+                                    UsuarioId = "9e445865-a24d-4543-a6c6-9443d048cdb0",
+                                    Apellido = "Fernández",
+                                    Nombre = "Laura"
+                                },
+                                new
+                                {
+                                    UsuarioId = "a1445865-a24d-4543-a6c6-9443d048cdb1",
+                                    Apellido = "Pérez",
+                                    Nombre = "Santiago"
+                                },
+                                new
+                                {
+                                    UsuarioId = "b2445865-a24d-4543-a6c6-9443d048cdb2",
+                                    Apellido = "Gómez",
+                                    Nombre = "Valentina"
+                                },
+                                new
+                                {
+                                    UsuarioId = "c3445865-a24d-4543-a6c6-9443d048cdb3",
+                                    Apellido = "González",
+                                    Nombre = "Matías"
+                                },
+                                new
+                                {
+                                    UsuarioId = "d4445865-a24d-4543-a6c6-9443d048cdb4",
+                                    Apellido = "Martínez",
+                                    Nombre = "Camila"
+                                },
+                                new
+                                {
+                                    UsuarioId = "e5445865-a24d-4543-a6c6-9443d048cdb5",
+                                    Apellido = "Silva",
+                                    Nombre = "Lucas"
+                                });
                         });
 
                     b.Navigation("NombreCompleto")
@@ -1088,7 +1570,7 @@ namespace AccesoDatos.Migrations
                     b.HasOne("Dominio.Medalla", null)
                         .WithMany()
                         .HasForeignKey("MedallaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -1103,6 +1585,15 @@ namespace AccesoDatos.Migrations
                     b.HasOne("Dominio.Hito", null)
                         .WithMany()
                         .HasForeignKey("HitoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LogicaNegocio.Entidades.Avatar", b =>
+                {
+                    b.HasOne("Dominio.PerfilEstudiante", null)
+                        .WithOne("Avatar")
+                        .HasForeignKey("LogicaNegocio.Entidades.Avatar", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1235,6 +1726,9 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("Dominio.PerfilEstudiante", b =>
                 {
+                    b.Navigation("Avatar")
+                        .IsRequired();
+
                     b.Navigation("BarraProgreso")
                         .IsRequired();
 

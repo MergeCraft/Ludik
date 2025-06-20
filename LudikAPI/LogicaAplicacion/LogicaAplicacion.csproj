@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Folder Include="ImplementacionCasosUsos\Usuarios\" />
+    <Folder Include="InterfacesCasosUsos\Imagenes\" />
     <Folder Include="InterfacesCasosUsos\Usuario\" />
   </ItemGroup>
 

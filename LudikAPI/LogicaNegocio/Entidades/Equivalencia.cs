@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using Dominio;
 using LogicaNegocio.InterfacesEntidades;
@@ -11,6 +12,10 @@ namespace Dominio
         public int Id { get; set; }
 
         public int Nota { get; set; }
+
+        [ForeignKey(nameof(TablaEquivalencia))]
+        public int TablaEquivalenciaId { get; set; }
+        public TablaEquivalencia TablaEquivalencia { get; set; }
 
         public List<Medalla> MedallasNecesarias { get; set; }
 
@@ -29,11 +34,14 @@ namespace Dominio
             var errores = new List<Error>();
 
             if (Nota <= 0)
-                errores.Add(new Error("Equivalencia.Nota.Invalida", "La nota debe ser un número positivo."));
+                errores.Add(new Error("Error.Validation", "La nota debe ser un número positivo."));
             
             if (MedallasNecesarias == null || MedallasNecesarias.Count == 0)
-                errores.Add(new Error("Equivalencia.Medallas.Vacias", "La equivalencia debe tener asociada al menos una medalla."));
-            
+                errores.Add(new Error("Error.Validation", "La equivalencia debe tener asociada al menos una medalla."));
+
+            if (TablaEquivalenciaId <= 0)
+                errores.Add(new Error("Error.Validation", "La equivalencia debe estar asociada a una tabla de equivalencia válida."));
+           
             if (errores.Count > 0)
                 return Resultado.Falla(errores);
             
