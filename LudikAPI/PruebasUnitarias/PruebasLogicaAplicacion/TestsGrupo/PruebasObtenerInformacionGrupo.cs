@@ -2,11 +2,13 @@
 using System.Threading.Tasks;
 using Moq;
 using Xunit;
-using Dominio;
+using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.GrupoDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Grupos;
 using LogicaNegocio.Resultados;
+using Entidad = LogicaNegocio.Entidades;
+
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
 {
@@ -27,7 +29,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             var errores = new[] { new Error("Error.NotFound", "No existe el grupo.") };
             _repoGruposMock
                 .Setup(r => r.GetByIdAsync(grupoId))
-                .ReturnsAsync(Resultado<Dominio.Grupo>.Falla(errores));
+                .ReturnsAsync(Resultado<Entidad.Grupo>.Falla(errores));
 
             var casoUso = new ObtenerInformacionGrupo(_repoGruposMock.Object);
 
@@ -48,7 +50,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             var fechaCreacion = new DateTime(2025, 1, 15, 10, 30, 0);
             var tablaEq = new TablaEquivalencia { Id = 5 };
             var enlace = new EnlaceUnion("http://url.com/inv", "codigo123") { UrlCompleta = "http://url.com/inv" };
-            var grupo = new Dominio.Grupo
+            var grupo = new Entidad.Grupo
             {
                 Id = grupoId,
                 Nombre = "Grupo Test",
@@ -61,7 +63,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             };
             _repoGruposMock
                 .Setup(r => r.GetByIdAsync(grupoId))
-                .ReturnsAsync(Resultado<Dominio.Grupo>.Exitoso(grupo));
+                .ReturnsAsync(Resultado<Entidad.Grupo>.Exitoso(grupo));
 
             var casoUso = new ObtenerInformacionGrupo(_repoGruposMock.Object);
 
@@ -87,7 +89,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             int grupoId = 3;
             var fechaCreacion = DateTime.UtcNow;
             var tablaEq = new TablaEquivalencia { Id = 7 };
-            var grupo = new Dominio.Grupo
+            var grupo = new Entidad.Grupo
             {
                 Id = grupoId,
                 Nombre = "Otro Grupo",
@@ -100,7 +102,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             };
             _repoGruposMock
                 .Setup(r => r.GetByIdAsync(grupoId))
-                .ReturnsAsync(Resultado<Dominio.Grupo>.Exitoso(grupo));
+                .ReturnsAsync(Resultado<Entidad.Grupo>.Exitoso(grupo));
 
             var casoUso = new ObtenerInformacionGrupo(_repoGruposMock.Object);
 

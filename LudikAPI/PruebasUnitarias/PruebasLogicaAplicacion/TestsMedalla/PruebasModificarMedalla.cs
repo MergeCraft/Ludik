@@ -2,11 +2,13 @@
 using System.Threading.Tasks;
 using Moq;
 using Xunit;
-using Dominio;
+using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.MedallaDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Medallas;
 using LogicaNegocio.Resultados;
+using Entidad = LogicaNegocio.Entidades;
+
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
 {
@@ -68,7 +70,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             // Simular que GetByIdAsync devuelve Falla por no encontrado
             _repoMedallasMock
                 .Setup(r => r.GetByIdAsync(id))
-                .ReturnsAsync(Resultado<Dominio.Medalla>.Falla(Error.NotFound));
+                .ReturnsAsync(Resultado<Entidad.Medalla>.Falla(Error.NotFound));
 
             var dto = new MedallaEditarDto
             {
@@ -87,7 +89,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             // Verificamos mensaje de not found con ID
             Assert.True(resultado.Errores.Any(e => e.Mensaje.Contains($"No se encontró ninguna medalla con ID {id}")));
             _repoMedallasMock.Verify(r => r.GetByIdAsync(id), Times.Once);
-            _repoMedallasMock.Verify(r => r.UpdateAsync(It.IsAny<Dominio.Medalla>()), Times.Never);
+            _repoMedallasMock.Verify(r => r.UpdateAsync(It.IsAny<Entidad.Medalla>()), Times.Never);
         }
 
         [Fact]
@@ -96,7 +98,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             // Arrange
             int id = 20;
             // Entidad existente válida inicialmente
-            var entidad = new Dominio.Medalla
+            var entidad = new Entidad.Medalla
             {
                 Id = id,
                 Icono = "vieja",
@@ -107,7 +109,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             };
             _repoMedallasMock
                 .Setup(r => r.GetByIdAsync(id))
-                .ReturnsAsync(Resultado<Dominio.Medalla>.Exitoso(entidad));
+                .ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(entidad));
 
             // DTO con nombre muy corto para provocar fallo en esValido()
             var dto = new MedallaEditarDto
@@ -126,7 +128,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             Assert.True(resultado.EsFallo);
             // Verificamos mensaje de validación de longitud de nombre
             Assert.True(resultado.Errores.Any(e => e.Mensaje.Contains("al menos 5 caracteres")));
-            _repoMedallasMock.Verify(r => r.UpdateAsync(It.IsAny<Dominio.Medalla>()), Times.Never);
+            _repoMedallasMock.Verify(r => r.UpdateAsync(It.IsAny<Entidad.Medalla>()), Times.Never);
         }
 
         [Fact]
@@ -134,7 +136,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         {
             // Arrange
             int id = 30;
-            var entidadOriginal = new Dominio.Medalla
+            var entidadOriginal = new Entidad.Medalla
             {
                 Id = id,
                 Icono = "viejaIcono",
@@ -145,10 +147,10 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             };
             _repoMedallasMock
                 .Setup(r => r.GetByIdAsync(id))
-                .ReturnsAsync(Resultado<Dominio.Medalla>.Exitoso(entidadOriginal));
+                .ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(entidadOriginal));
 
             _repoMedallasMock
-                .Setup(r => r.UpdateAsync(It.IsAny<Dominio.Medalla>()))
+                .Setup(r => r.UpdateAsync(It.IsAny<Entidad.Medalla>()))
                 .ReturnsAsync(Resultado.Exitoso());
 
             var dto = new MedallaEditarDto
@@ -166,7 +168,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             // Assert
             Assert.False(resultado.EsFallo);
             _repoMedallasMock.Verify(r => r.GetByIdAsync(id), Times.Once);
-            _repoMedallasMock.Verify(r => r.UpdateAsync(It.Is<Dominio.Medalla>(m =>
+            _repoMedallasMock.Verify(r => r.UpdateAsync(It.Is<Entidad.Medalla>(m =>
                 m.Id == id &&
                 m.Nombre == "NombreNuevo" &&
                 m.Descripcion == "DescNueva" &&
@@ -181,7 +183,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         {
             // Arrange
             int id = 40;
-            var entidad = new Dominio.Medalla
+            var entidad = new Entidad.Medalla
             {
                 Id = id,
                 Icono = "viejaIcono",
@@ -192,12 +194,12 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             };
             _repoMedallasMock
                 .Setup(r => r.GetByIdAsync(id))
-                .ReturnsAsync(Resultado<Dominio.Medalla>.Exitoso(entidad));
+                .ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(entidad));
 
             var mensajeErrorRepo = "Fallo en actualización BD";
             var errorRepo = new Error("Repositorio.Medalla.Update.DbError", mensajeErrorRepo);
             _repoMedallasMock
-                .Setup(r => r.UpdateAsync(It.IsAny<Dominio.Medalla>()))
+                .Setup(r => r.UpdateAsync(It.IsAny<Entidad.Medalla>()))
                 .ReturnsAsync(Resultado.Falla(errorRepo));
 
             var dto = new MedallaEditarDto
@@ -216,7 +218,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             Assert.True(resultado.EsFallo);
             // Verificamos que el mensaje del error de repositorio se propaga en resultado.Errores
             Assert.True(resultado.Errores.Any(e => e.Mensaje.Contains(mensajeErrorRepo)));
-            _repoMedallasMock.Verify(r => r.UpdateAsync(It.Is<Dominio.Medalla>(m =>
+            _repoMedallasMock.Verify(r => r.UpdateAsync(It.Is<Entidad.Medalla>(m =>
                 m.Id == id &&
                 m.Nombre == "NombreNuevo"
             )), Times.Once);

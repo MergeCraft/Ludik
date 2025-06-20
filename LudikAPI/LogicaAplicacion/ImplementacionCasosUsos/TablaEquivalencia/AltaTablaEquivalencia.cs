@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dominio;
+using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.TablaEquivalenciaDTOs;
 using LogicaAplicacion.InterfacesCasosUsos.TablaEquivalencia;
 using LogicaNegocio.Resultados;
+using Entidad = LogicaNegocio.Entidades;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.TablaEquivalencia;
 
@@ -27,7 +28,7 @@ public class AltaTablaEquivalencia: IAltaTablaEquivalencia
     public async Task<Resultado> EjecutarAsync(TablaEquivalenciaAltaDto tablaDto, string profesorId)
     {
 
-        var tablaEquivalencia = new Dominio.TablaEquivalencia(tablaDto.Nombre, profesorId);
+        var tablaEquivalencia = new Entidad.TablaEquivalencia(tablaDto.Nombre, profesorId);
 
         // Procesar las equivalencias del DTO
         if (tablaDto.Equivalencias != null && tablaDto.Equivalencias.Any())

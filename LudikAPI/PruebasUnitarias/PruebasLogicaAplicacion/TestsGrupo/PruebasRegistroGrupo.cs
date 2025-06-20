@@ -2,12 +2,14 @@
 using System.Threading.Tasks;
 using Moq;
 using Xunit;
-using Dominio;
+using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.GrupoDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Grupos;
 using LogicaNegocio.Resultados;
 using LogicaAplicacion.InterfacesCasosUsos.Grupo;
+using Entidad = LogicaNegocio.Entidades;
+
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
 {
@@ -146,7 +148,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
 
             // Assert
             Assert.True(resultado.EsExitoso);
-            _repoGruposMock.Verify(r => r.AddAsync(It.IsAny<Dominio.Grupo>()), Times.Once);
+            _repoGruposMock.Verify(r => r.AddAsync(It.IsAny<Entidad.Grupo>()), Times.Once);
         }
     }
 }

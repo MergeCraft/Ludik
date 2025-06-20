@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dominio;
 using InterfacesRepositorio;
+using LogicaNegocio.Entidades;
+using Entidad = LogicaNegocio.Entidades;
 using LogicaAplicacion.DTOs.SolocitudUnionDTOs;
 using LogicaAplicacion.InterfacesCasosUsos.SolicitudUnion;
 using LogicaNegocio.Resultados;
@@ -34,14 +35,14 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
 
             var grupo = solicitud.Grupo; 
             
-            var perfil = new Dominio.PerfilEstudiante
+            var perfil = new Entidad.PerfilEstudiante
             {
                 EstudianteId = solicitud.EstudianteId,
                 
             };
 
         
-            grupo.Alumnos ??= new List<Dominio.PerfilEstudiante>();
+            grupo.Alumnos ??= new List<Entidad.PerfilEstudiante>();
             grupo.Alumnos.Add(perfil);
 
             var resultadoSolicitud = await _repoSolicitudes.UpdateAsync(solicitud);

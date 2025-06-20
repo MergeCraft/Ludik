@@ -1,4 +1,4 @@
-﻿using Dominio;
+﻿using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.GrupoDTOs;
 using LogicaAplicacion.DTOsMappers.GrupoMappers;

@@ -1,4 +1,4 @@
-﻿using Dominio;
+﻿using LogicaNegocio.Entidades;
 using LogicaAplicacion.DTOs.TablaEquivalenciaDTOs;
 using LogicaAplicacion.DTOsMappers.EquivalenciaMappers;
 

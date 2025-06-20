@@ -1,4 +1,4 @@
-﻿using Dominio;
+﻿using LogicaNegocio.Entidades;
 using LogicaAplicacion.DTOs.UsuarioDTOs;
 using System;
 using System.Collections.Generic;

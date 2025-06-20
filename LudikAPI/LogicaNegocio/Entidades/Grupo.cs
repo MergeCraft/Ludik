@@ -1,12 +1,11 @@
 using System;
-using Dominio;
 using System.Collections.Generic;
 using LogicaNegocio.InterfacesEntidades;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using LogicaNegocio.Resultados;
 
-namespace Dominio
+namespace LogicaNegocio.Entidades
 {
 	public class Grupo : IEntity, IValidable
     {

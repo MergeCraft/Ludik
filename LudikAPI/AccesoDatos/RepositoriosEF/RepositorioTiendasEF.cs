@@ -9,30 +9,25 @@ using LogicaNegocio.Resultados;
 
 namespace AccesoDatos.RepositoriosEF
 {
-    public class RepositorioRendimientoPeriodosEF : IRepositorioRendimientoPeriodos
+    public class RepositorioTiendasEF : IRepositorioTiendas
     {
         private readonly ContextoDb _db;
-        public RepositorioRendimientoPeriodosEF(ContextoDb db)
+        public RepositorioTiendasEF(ContextoDb db)
         {
             _db = db;
         }
 
-        public Task<Resultado> AddAsync(RendimientoPeriodo unObjeto)
+        public Task<Resultado> AddAsync(Tienda unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public void almacenarLogrosPrevios(int idGrupo)
+        public Task<Resultado<IEnumerable<Tienda>>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<Resultado<IEnumerable<RendimientoPeriodo>>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Resultado<RendimientoPeriodo>> GetByIdAsync(int id)
+        public Task<Resultado<Tienda>> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -42,12 +37,12 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public Task<Resultado> RemoveAsync(RendimientoPeriodo unObjeto)
+        public Task<Resultado> RemoveAsync(Tienda unObjeto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Resultado> UpdateAsync(RendimientoPeriodo unObjeto)
+        public Task<Resultado> UpdateAsync(Tienda unObjeto)
         {
             throw new NotImplementedException();
         }

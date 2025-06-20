@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Dominio;
+using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.GrupoDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;
+using Entidad = LogicaNegocio.Entidades;
 using LogicaNegocio.Resultados;
 using Moq;
 using Xunit;
@@ -48,7 +49,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Estudiantes
             string idEstudiante = "est123";
             _repoGruposMock
                 .Setup(r => r.ObtenerGruposPorEstudianteId(idEstudiante))
-                .ReturnsAsync(new List<Dominio.Grupo>()); // ningún grupo
+                .ReturnsAsync(new List<Entidad.Grupo>()); // ningún grupo
 
             var casoUso = new ObtenerGruposDeEstudiante(_repoGruposMock.Object);
 
@@ -67,9 +68,9 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Estudiantes
         {
             // Arrange
             string idEstudiante = "est456";
-            var gruposEntidad = new List<Dominio.Grupo>
+            var gruposEntidad = new List<Entidad.Grupo>
             {
-                new Dominio.Grupo
+                new Entidad.Grupo
                 {
                     Id = 1,
                     Nombre = "Grupo A",
@@ -77,7 +78,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Estudiantes
                     Institucion = "Inst1",
                     Materia = "Mat1"
                 },
-                new Dominio.Grupo
+                new Entidad.Grupo
                 {
                     Id = 2,
                     Nombre = "Grupo B",

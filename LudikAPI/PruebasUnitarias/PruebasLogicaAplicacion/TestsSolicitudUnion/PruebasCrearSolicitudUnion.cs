@@ -2,11 +2,13 @@
 using System.Threading.Tasks;
 using Moq;
 using Xunit;
-using Dominio;
+using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.SolocitudUnionDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion;
 using LogicaNegocio.Resultados;
+using Entidad = LogicaNegocio.Entidades;
+
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion
 {
@@ -88,7 +90,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
                 .ReturnsAsync(enlace);
 
             _repoEstudiantesMock.Setup(r => r.GetByIdAsyncString("estu123"))
-                .ReturnsAsync((Dominio.Estudiante)null!);
+                .ReturnsAsync((Entidad.Estudiante)null!);
 
             var servicio = new CrearSolicitudUnion(
                 _repoEnlacesMock.Object,
@@ -110,7 +112,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
         {
             // Arrange
             var enlace = new EnlaceUnion("http://fakeurl", "codigo123") { Expiracion = DateTime.UtcNow.AddMinutes(10) };
-            var estudiante = new Dominio.Estudiante { Id = "estu123" };
+            var estudiante = new Entidad.Estudiante { Id = "estu123" };
 
             var dto = new SolicitudUnionDto
             {
@@ -125,7 +127,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
                 .ReturnsAsync(estudiante);
 
             _repoGruposMock.Setup(r => r.ObtenerPorEnlaceAsync("codigo123"))
-                .ReturnsAsync((Dominio.Grupo)null!);
+                .ReturnsAsync((Entidad.Grupo)null!);
 
             var servicio = new CrearSolicitudUnion(
                 _repoEnlacesMock.Object,
@@ -147,8 +149,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
         {
             // Arrange
             var enlace = new EnlaceUnion("http://fakeurl", "codigo123") { Expiracion = DateTime.UtcNow.AddMinutes(10) };
-            var estudiante = new Dominio.Estudiante { Id = "estu123" };
-            var grupo = new Dominio.Grupo { Id = 5 };
+            var estudiante = new Entidad.Estudiante { Id = "estu123" };
+            var grupo = new Entidad.Grupo { Id = 5 };
 
             var dto = new SolicitudUnionDto
             {
@@ -181,8 +183,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
         {
             // Arrange
             var enlace = new EnlaceUnion("http://fakeurl", "codigo123") { Expiracion = DateTime.UtcNow.AddMinutes(10) };
-            var estudiante = new Dominio.Estudiante { Id = "estu123" };
-            var grupo = new Dominio.Grupo { Id = 5 };
+            var estudiante = new Entidad.Estudiante { Id = "estu123" };
+            var grupo = new Entidad.Grupo { Id = 5 };
 
             var dto = new SolicitudUnionDto
             {
@@ -217,8 +219,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
         {
             // Arrange
             var enlace = new EnlaceUnion("http://fakeurl", "codigo123") { Expiracion = DateTime.UtcNow.AddMinutes(10) };
-            var estudiante = new Dominio.Estudiante { Id = "estu123" };
-            var grupo = new Dominio.Grupo { Id = 5 };
+            var estudiante = new Entidad.Estudiante { Id = "estu123" };
+            var grupo = new Entidad.Grupo { Id = 5 };
 
             var dto = new SolicitudUnionDto
             {

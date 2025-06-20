@@ -22,7 +22,7 @@ namespace AccesoDatos.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Dominio.BarraProgreso", b =>
+            modelBuilder.Entity("Entidad.BarraProgreso", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -52,7 +52,7 @@ namespace AccesoDatos.Migrations
                     b.ToTable("BarrasProgreso");
                 });
 
-            modelBuilder.Entity("Dominio.EnlaceUnion", b =>
+            modelBuilder.Entity("Entidad.EnlaceUnion", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -92,7 +92,7 @@ namespace AccesoDatos.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Dominio.Equivalencia", b =>
+            modelBuilder.Entity("Entidad.Equivalencia", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -133,7 +133,7 @@ namespace AccesoDatos.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Dominio.Grupo", b =>
+            modelBuilder.Entity("Entidad.Grupo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -205,7 +205,7 @@ namespace AccesoDatos.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Dominio.Hito", b =>
+            modelBuilder.Entity("Entidad.Hito", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -226,7 +226,7 @@ namespace AccesoDatos.Migrations
                     b.ToTable("Hitos");
                 });
 
-            modelBuilder.Entity("Dominio.Medalla", b =>
+            modelBuilder.Entity("Entidad.Medalla", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -299,7 +299,7 @@ namespace AccesoDatos.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Dominio.PerfilEstudiante", b =>
+            modelBuilder.Entity("Entidad.PerfilEstudiante", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -391,7 +391,7 @@ namespace AccesoDatos.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Dominio.PerfilEstudianteMedalla", b =>
+            modelBuilder.Entity("Entidad.PerfilEstudianteMedalla", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -414,7 +414,7 @@ namespace AccesoDatos.Migrations
                     b.ToTable("PerfilEstudianteMedallas");
                 });
 
-            modelBuilder.Entity("Dominio.Pin", b =>
+            modelBuilder.Entity("Entidad.Pin", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -446,7 +446,7 @@ namespace AccesoDatos.Migrations
                     b.ToTable("Pines");
                 });
 
-            modelBuilder.Entity("Dominio.PreguntaRespuestaSeguridad", b =>
+            modelBuilder.Entity("Entidad.PreguntaRespuestaSeguridad", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -472,7 +472,7 @@ namespace AccesoDatos.Migrations
                     b.ToTable("PreguntasRespuestasSeguridad");
                 });
 
-            modelBuilder.Entity("Dominio.Recompensa", b =>
+            modelBuilder.Entity("Entidad.Recompensa", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -517,7 +517,7 @@ namespace AccesoDatos.Migrations
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("Dominio.RendimientoPeriodo", b =>
+            modelBuilder.Entity("Entidad.RendimientoPeriodo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -539,7 +539,7 @@ namespace AccesoDatos.Migrations
                     b.ToTable("RendimientosPeriodos");
                 });
 
-            modelBuilder.Entity("Dominio.SolicitudUnion", b =>
+            modelBuilder.Entity("Entidad.SolicitudUnion", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -569,7 +569,7 @@ namespace AccesoDatos.Migrations
                     b.ToTable("SolicitudesUnion");
                 });
 
-            modelBuilder.Entity("Dominio.TablaClasificacion", b =>
+            modelBuilder.Entity("Entidad.TablaClasificacion", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -599,7 +599,7 @@ namespace AccesoDatos.Migrations
                     b.ToTable("TablasClasificacion");
                 });
 
-            modelBuilder.Entity("Dominio.TablaEquivalencia", b =>
+            modelBuilder.Entity("Entidad.TablaEquivalencia", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -639,7 +639,7 @@ namespace AccesoDatos.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Dominio.Tienda", b =>
+            modelBuilder.Entity("Entidad.Tienda", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -658,7 +658,7 @@ namespace AccesoDatos.Migrations
                     b.ToTable("Tiendas");
                 });
 
-            modelBuilder.Entity("Dominio.Usuario", b =>
+            modelBuilder.Entity("Entidad.Usuario", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -1139,9 +1139,9 @@ namespace AccesoDatos.Migrations
                     b.ToTable("TablaClasificacionParticipantes");
                 });
 
-            modelBuilder.Entity("Dominio.Potenciador", b =>
+            modelBuilder.Entity("Entidad.Potenciador", b =>
                 {
-                    b.HasBaseType("Dominio.Recompensa");
+                    b.HasBaseType("Entidad.Recompensa");
 
                     b.Property<double>("Multiplicador")
                         .HasColumnType("float");
@@ -1152,6 +1152,7 @@ namespace AccesoDatos.Migrations
                     b.HasDiscriminator().HasValue("Potenciador");
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("LogicaNegocio.Entidades.RecompensaSimple", b =>
                 {
                     b.HasBaseType("Dominio.Recompensa");
@@ -1160,8 +1161,11 @@ namespace AccesoDatos.Migrations
                 });
 
             modelBuilder.Entity("Dominio.Estudiante", b =>
+=======
+            modelBuilder.Entity("Entidad.Estudiante", b =>
+>>>>>>> 4ed5f424e091ff622ed433d6a07c96e4647bbc96
                 {
-                    b.HasBaseType("Dominio.Usuario");
+                    b.HasBaseType("Entidad.Usuario");
 
                     b.ToTable("Estudiantes", (string)null);
 
@@ -1238,9 +1242,9 @@ namespace AccesoDatos.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Dominio.Profesor", b =>
+            modelBuilder.Entity("Entidad.Profesor", b =>
                 {
-                    b.HasBaseType("Dominio.Usuario");
+                    b.HasBaseType("Entidad.Usuario");
 
                     b.ToTable("Profesores", (string)null);
 
@@ -1279,15 +1283,15 @@ namespace AccesoDatos.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Dominio.BarraProgreso", b =>
+            modelBuilder.Entity("Entidad.BarraProgreso", b =>
                 {
-                    b.HasOne("Dominio.PerfilEstudiante", null)
+                    b.HasOne("Entidad.PerfilEstudiante", null)
                         .WithOne("BarraProgreso")
-                        .HasForeignKey("Dominio.BarraProgreso", "PerfilEstudianteId")
+                        .HasForeignKey("Entidad.BarraProgreso", "PerfilEstudianteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dominio.TablaEquivalencia", "TablaEquivalencia")
+                    b.HasOne("Entidad.TablaEquivalencia", "TablaEquivalencia")
                         .WithMany()
                         .HasForeignKey("TablaEquivalenciaId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1296,9 +1300,9 @@ namespace AccesoDatos.Migrations
                     b.Navigation("TablaEquivalencia");
                 });
 
-            modelBuilder.Entity("Dominio.Equivalencia", b =>
+            modelBuilder.Entity("Entidad.Equivalencia", b =>
                 {
-                    b.HasOne("Dominio.TablaEquivalencia", "TablaEquivalencia")
+                    b.HasOne("Entidad.TablaEquivalencia", "TablaEquivalencia")
                         .WithMany("Equivalencias")
                         .HasForeignKey("TablaEquivalenciaId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1307,21 +1311,21 @@ namespace AccesoDatos.Migrations
                     b.Navigation("TablaEquivalencia");
                 });
 
-            modelBuilder.Entity("Dominio.Grupo", b =>
+            modelBuilder.Entity("Entidad.Grupo", b =>
                 {
-                    b.HasOne("Dominio.EnlaceUnion", "EnlaceUnion")
+                    b.HasOne("Entidad.EnlaceUnion", "EnlaceUnion")
                         .WithMany()
                         .HasForeignKey("EnlaceUnionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dominio.Profesor", "Profesor")
+                    b.HasOne("Entidad.Profesor", "Profesor")
                         .WithMany("Grupos")
                         .HasForeignKey("ProfesorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dominio.TablaEquivalencia", "TablaEquivalencia")
+                    b.HasOne("Entidad.TablaEquivalencia", "TablaEquivalencia")
                         .WithMany()
                         .HasForeignKey("TablaEquivalenciaId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1334,9 +1338,9 @@ namespace AccesoDatos.Migrations
                     b.Navigation("TablaEquivalencia");
                 });
 
-            modelBuilder.Entity("Dominio.Hito", b =>
+            modelBuilder.Entity("Entidad.Hito", b =>
                 {
-                    b.HasOne("Dominio.Recompensa", "Recompensa")
+                    b.HasOne("Entidad.Recompensa", "Recompensa")
                         .WithMany()
                         .HasForeignKey("RecompensaId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1345,9 +1349,9 @@ namespace AccesoDatos.Migrations
                     b.Navigation("Recompensa");
                 });
 
-            modelBuilder.Entity("Dominio.Medalla", b =>
+            modelBuilder.Entity("Entidad.Medalla", b =>
                 {
-                    b.HasOne("Dominio.Profesor", "Creador")
+                    b.HasOne("Entidad.Profesor", "Creador")
                         .WithMany("Medallas")
                         .HasForeignKey("ProfesorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1356,15 +1360,15 @@ namespace AccesoDatos.Migrations
                     b.Navigation("Creador");
                 });
 
-            modelBuilder.Entity("Dominio.PerfilEstudiante", b =>
+            modelBuilder.Entity("Entidad.PerfilEstudiante", b =>
                 {
-                    b.HasOne("Dominio.Estudiante", "Estudiante")
+                    b.HasOne("Entidad.Estudiante", "Estudiante")
                         .WithMany("Perfiles")
                         .HasForeignKey("EstudianteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dominio.Grupo", "Grupo")
+                    b.HasOne("Entidad.Grupo", "Grupo")
                         .WithMany("Alumnos")
                         .HasForeignKey("GrupoId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1375,15 +1379,15 @@ namespace AccesoDatos.Migrations
                     b.Navigation("Grupo");
                 });
 
-            modelBuilder.Entity("Dominio.PerfilEstudianteMedalla", b =>
+            modelBuilder.Entity("Entidad.PerfilEstudianteMedalla", b =>
                 {
-                    b.HasOne("Dominio.Medalla", "Medalla")
+                    b.HasOne("Entidad.Medalla", "Medalla")
                         .WithMany()
                         .HasForeignKey("MedallaId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Dominio.PerfilEstudiante", "PerfilEstudiante")
+                    b.HasOne("Entidad.PerfilEstudiante", "PerfilEstudiante")
                         .WithMany("PerfilMedallas")
                         .HasForeignKey("PerfilEstudianteId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1394,16 +1398,20 @@ namespace AccesoDatos.Migrations
                     b.Navigation("PerfilEstudiante");
                 });
 
-            modelBuilder.Entity("Dominio.PreguntaRespuestaSeguridad", b =>
+            modelBuilder.Entity("Entidad.PreguntaRespuestaSeguridad", b =>
                 {
-                    b.HasOne("Dominio.Estudiante", null)
+                    b.HasOne("Entidad.Estudiante", null)
                         .WithMany("PreguntasSeguridad")
                         .HasForeignKey("EstudianteId");
                 });
 
-            modelBuilder.Entity("Dominio.Recompensa", b =>
+            modelBuilder.Entity("Entidad.Recompensa", b =>
                 {
+<<<<<<< HEAD
                     b.HasOne("Dominio.Tienda", "Tienda")
+=======
+                    b.HasOne("Entidad.Tienda", null)
+>>>>>>> 4ed5f424e091ff622ed433d6a07c96e4647bbc96
                         .WithMany("Recompesas")
                         .HasForeignKey("TiendaId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1412,9 +1420,9 @@ namespace AccesoDatos.Migrations
                     b.Navigation("Tienda");
                 });
 
-            modelBuilder.Entity("Dominio.RendimientoPeriodo", b =>
+            modelBuilder.Entity("Entidad.RendimientoPeriodo", b =>
                 {
-                    b.HasOne("Dominio.PerfilEstudiante", null)
+                    b.HasOne("Entidad.PerfilEstudiante", null)
                         .WithMany("HistorialRendimientoPeriodos")
                         .HasForeignKey("PerfilEstudianteId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1445,15 +1453,15 @@ namespace AccesoDatos.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Dominio.SolicitudUnion", b =>
+            modelBuilder.Entity("Entidad.SolicitudUnion", b =>
                 {
-                    b.HasOne("Dominio.Estudiante", "Estudiante")
+                    b.HasOne("Entidad.Estudiante", "Estudiante")
                         .WithMany()
                         .HasForeignKey("EstudianteId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Dominio.Grupo", "Grupo")
+                    b.HasOne("Entidad.Grupo", "Grupo")
                         .WithMany("Solicitudes")
                         .HasForeignKey("GrupoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1464,15 +1472,15 @@ namespace AccesoDatos.Migrations
                     b.Navigation("Grupo");
                 });
 
-            modelBuilder.Entity("Dominio.TablaClasificacion", b =>
+            modelBuilder.Entity("Entidad.TablaClasificacion", b =>
                 {
-                    b.HasOne("Dominio.Grupo", null)
+                    b.HasOne("Entidad.Grupo", null)
                         .WithMany("TablasClasificacion")
                         .HasForeignKey("GrupoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dominio.Medalla", "MedallaAsociada")
+                    b.HasOne("Entidad.Medalla", "MedallaAsociada")
                         .WithMany()
                         .HasForeignKey("MedallaAsociadaId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1481,27 +1489,31 @@ namespace AccesoDatos.Migrations
                     b.Navigation("MedallaAsociada");
                 });
 
-            modelBuilder.Entity("Dominio.TablaEquivalencia", b =>
+            modelBuilder.Entity("Entidad.TablaEquivalencia", b =>
                 {
-                    b.HasOne("Dominio.Profesor", null)
+                    b.HasOne("Entidad.Profesor", null)
                         .WithMany("TablasEquivalencia")
                         .HasForeignKey("ProfesorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Dominio.Tienda", b =>
+            modelBuilder.Entity("Entidad.Tienda", b =>
                 {
+<<<<<<< HEAD
                     b.HasOne("Dominio.Grupo", "Grupo")
+=======
+                    b.HasOne("Entidad.Grupo", null)
+>>>>>>> 4ed5f424e091ff622ed433d6a07c96e4647bbc96
                         .WithOne("Tienda")
-                        .HasForeignKey("Dominio.Tienda", "GrupoId")
+                        .HasForeignKey("Entidad.Tienda", "GrupoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Grupo");
                 });
 
-            modelBuilder.Entity("Dominio.Usuario", b =>
+            modelBuilder.Entity("Entidad.Usuario", b =>
                 {
                     b.OwnsOne("LogicaNegocio.ValueObjects.NombreCompleto", "NombreCompleto", b1 =>
                         {
@@ -1578,13 +1590,13 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("EquivalenciaMedallas", b =>
                 {
-                    b.HasOne("Dominio.Equivalencia", null)
+                    b.HasOne("Entidad.Equivalencia", null)
                         .WithMany()
                         .HasForeignKey("EquivalenciaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dominio.Medalla", null)
+                    b.HasOne("Entidad.Medalla", null)
                         .WithMany()
                         .HasForeignKey("MedallaId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1593,13 +1605,13 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("EstudianteHitos", b =>
                 {
-                    b.HasOne("Dominio.Estudiante", null)
+                    b.HasOne("Entidad.Estudiante", null)
                         .WithMany()
                         .HasForeignKey("EstudianteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dominio.Hito", null)
+                    b.HasOne("Entidad.Hito", null)
                         .WithMany()
                         .HasForeignKey("HitoId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1608,7 +1620,7 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Avatar", b =>
                 {
-                    b.HasOne("Dominio.PerfilEstudiante", null)
+                    b.HasOne("Entidad.PerfilEstudiante", null)
                         .WithOne("Avatar")
                         .HasForeignKey("LogicaNegocio.Entidades.Avatar", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1626,7 +1638,7 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Dominio.Usuario", null)
+                    b.HasOne("Entidad.Usuario", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1635,7 +1647,7 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Dominio.Usuario", null)
+                    b.HasOne("Entidad.Usuario", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1650,7 +1662,7 @@ namespace AccesoDatos.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dominio.Usuario", null)
+                    b.HasOne("Entidad.Usuario", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1659,7 +1671,7 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Dominio.Usuario", null)
+                    b.HasOne("Entidad.Usuario", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1668,13 +1680,13 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("PerfilEstudianteRecompensas", b =>
                 {
-                    b.HasOne("Dominio.PerfilEstudiante", null)
+                    b.HasOne("Entidad.PerfilEstudiante", null)
                         .WithMany()
                         .HasForeignKey("PerfilEstudianteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dominio.Recompensa", null)
+                    b.HasOne("Entidad.Recompensa", null)
                         .WithMany()
                         .HasForeignKey("RecompensaId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1683,13 +1695,13 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("RendimientoPeriodoMedallas", b =>
                 {
-                    b.HasOne("Dominio.Medalla", null)
+                    b.HasOne("Entidad.Medalla", null)
                         .WithMany()
                         .HasForeignKey("MedallaId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Dominio.RendimientoPeriodo", null)
+                    b.HasOne("Entidad.RendimientoPeriodo", null)
                         .WithMany()
                         .HasForeignKey("RendimientoPeriodoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1698,38 +1710,38 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("TablaClasificacionParticipantes", b =>
                 {
-                    b.HasOne("Dominio.PerfilEstudiante", null)
+                    b.HasOne("Entidad.PerfilEstudiante", null)
                         .WithMany()
                         .HasForeignKey("PerfilEstudianteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dominio.TablaClasificacion", null)
+                    b.HasOne("Entidad.TablaClasificacion", null)
                         .WithMany()
                         .HasForeignKey("TablaClasificacionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Dominio.Estudiante", b =>
+            modelBuilder.Entity("Entidad.Estudiante", b =>
                 {
-                    b.HasOne("Dominio.Usuario", null)
+                    b.HasOne("Entidad.Usuario", null)
                         .WithOne()
-                        .HasForeignKey("Dominio.Estudiante", "Id")
+                        .HasForeignKey("Entidad.Estudiante", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Dominio.Profesor", b =>
+            modelBuilder.Entity("Entidad.Profesor", b =>
                 {
-                    b.HasOne("Dominio.Usuario", null)
+                    b.HasOne("Entidad.Usuario", null)
                         .WithOne()
-                        .HasForeignKey("Dominio.Profesor", "Id")
+                        .HasForeignKey("Entidad.Profesor", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Dominio.Grupo", b =>
+            modelBuilder.Entity("Entidad.Grupo", b =>
                 {
                     b.Navigation("Alumnos");
 
@@ -1741,7 +1753,7 @@ namespace AccesoDatos.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Dominio.PerfilEstudiante", b =>
+            modelBuilder.Entity("Entidad.PerfilEstudiante", b =>
                 {
                     b.Navigation("Avatar")
                         .IsRequired();
@@ -1754,24 +1766,24 @@ namespace AccesoDatos.Migrations
                     b.Navigation("PerfilMedallas");
                 });
 
-            modelBuilder.Entity("Dominio.TablaEquivalencia", b =>
+            modelBuilder.Entity("Entidad.TablaEquivalencia", b =>
                 {
                     b.Navigation("Equivalencias");
                 });
 
-            modelBuilder.Entity("Dominio.Tienda", b =>
+            modelBuilder.Entity("Entidad.Tienda", b =>
                 {
                     b.Navigation("Recompesas");
                 });
 
-            modelBuilder.Entity("Dominio.Estudiante", b =>
+            modelBuilder.Entity("Entidad.Estudiante", b =>
                 {
                     b.Navigation("Perfiles");
 
                     b.Navigation("PreguntasSeguridad");
                 });
 
-            modelBuilder.Entity("Dominio.Profesor", b =>
+            modelBuilder.Entity("Entidad.Profesor", b =>
                 {
                     b.Navigation("Grupos");
 

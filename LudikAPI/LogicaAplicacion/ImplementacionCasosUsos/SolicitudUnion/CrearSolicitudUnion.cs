@@ -8,6 +8,7 @@ using LogicaAplicacion.DTOs.SolocitudUnionDTOs;
 using LogicaAplicacion.InterfacesCasosUsos.SolicitudUnion;
 using LogicaNegocio.Resultados;
 using LogicaNegocio.ValueObject;
+using Entidad = LogicaNegocio.Entidades;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
 {
@@ -52,7 +53,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
                 return Resultado.Falla(new Error("Error.Validation",
                     "Ya existe una solicitud pendiente para este estudiante y grupo."));
 
-            var nuevaSolicitud = new Dominio.SolicitudUnion
+            var nuevaSolicitud = new Entidad.SolicitudUnion
             {
                 EstudianteId = dto.IdEstudiante,
                 Estudiante = estudiante,

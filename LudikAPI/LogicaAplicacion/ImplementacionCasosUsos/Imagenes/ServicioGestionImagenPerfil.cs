@@ -1,9 +1,10 @@
-﻿using Dominio;
+﻿using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.ImagenPerfilDtos;
 using LogicaAplicacion.InterfacesCasosUsos.Imagenes;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
+using Entidad = LogicaNegocio.Entidades;
 using Microsoft.AspNetCore.Http;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Imagenes;
@@ -30,7 +31,7 @@ public class ServicioGestionImagenPerfil: IServicioGestionImagenPerfil
         if (resultadoPerfilEstudiante.EsFallo)
             return Resultado<ImagenPerfilDto>.Falla(Error.NotFound);
 
-        Dominio.PerfilEstudiante perfil = resultadoPerfilEstudiante.Valor;
+        Entidad.PerfilEstudiante perfil = resultadoPerfilEstudiante.Valor;
         if (perfil.EstudianteId != idUsuarioAutenticado)
         {
             // El usuario está autenticado, pero intenta modificar un recurso que no le pertenece.
@@ -88,7 +89,7 @@ public class ServicioGestionImagenPerfil: IServicioGestionImagenPerfil
         if (resultadoPerfil.EsFallo)
             return Resultado<ImagenPerfilDto>.Falla(Error.NotFound);
 
-        Dominio.PerfilEstudiante perfil = resultadoPerfil.Valor;
+        Entidad.PerfilEstudiante perfil = resultadoPerfil.Valor;
         if (perfil.EstudianteId != idUsuarioAutenticado)
         {
             // El usuario está autenticado, pero intenta modificar un recurso que no le pertenece.

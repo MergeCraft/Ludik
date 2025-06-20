@@ -1,7 +1,6 @@
-using Dominio;
 using System;
 
-namespace Dominio
+namespace LogicaNegocio.Entidades
 {
 	public class Tema : Recompensa
 	{

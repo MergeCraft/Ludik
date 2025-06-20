@@ -1,10 +1,9 @@
-using Dominio;
 using LogicaNegocio.InterfacesEntidades;
 using LogicaNegocio.Resultados;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Dominio
+namespace LogicaNegocio.Entidades
 {
 	public class BarraProgreso : IEntity, IValidable
     {

@@ -11,12 +11,12 @@ namespace PruebasUnitarias.PruebasLogicaNegocio
     using System.ComponentModel.DataAnnotations;
     using Xunit;
     using LogicaNegocio.ValueObjects;
-    using Dominio;
+    using LogicaNegocio.Entidades;
     using InterfacesRepositorio;
     using LogicaAplicacion.DTOs.UsuarioDTOs;
     using Moq;
 
-    namespace PruebasUnitarias.PruebasLogicaDominio
+    namespace PruebasUnitarias.PruebasLogicaEntidad
     {
         public class PruebasLogin
         {

@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Dominio;
 using LogicaNegocio.InterfacesEntidades;
 using LogicaNegocio.Resultados;
 
-namespace Dominio
+namespace LogicaNegocio.Entidades
 {
 	public class TablaEquivalencia : IEntity, IValidable
     {

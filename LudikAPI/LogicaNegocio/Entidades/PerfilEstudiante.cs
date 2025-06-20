@@ -1,12 +1,11 @@
 using System;
-using Dominio;
 using System.Collections.Generic;
 using LogicaNegocio.InterfacesEntidades;
 using System.ComponentModel.DataAnnotations.Schema;
 using LogicaNegocio.Resultados;
 using LogicaNegocio.Entidades;
 
-namespace Dominio
+namespace LogicaNegocio.Entidades
 {
 	public class PerfilEstudiante : IEntity, IValidable
     {

@@ -1,6 +1,6 @@
 using InterfacesRepositorio;
 using System.Collections.Generic;
-using Dominio;
+using LogicaNegocio.Entidades;
 using LogicaNegocio.InterfacesRepositorio;
 using LogicaNegocio.Resultados;
 

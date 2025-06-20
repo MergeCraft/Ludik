@@ -1,4 +1,4 @@
-﻿using Dominio;
+﻿using LogicaNegocio.Entidades;
 using LogicaAplicacion.DTOs.MedallaDTOs;
 
 namespace LogicaAplicacion.DTOsMappers.MedallaMappers

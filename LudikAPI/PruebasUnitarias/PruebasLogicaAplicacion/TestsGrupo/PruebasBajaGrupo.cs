@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
 using Moq;
 using Xunit;
-using Dominio;
+using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.ImplementacionCasosUsos.Grupos;
 using LogicaAplicacion.DTOs.GrupoDTOs;
 using LogicaNegocio.Resultados;
+using Entidad = LogicaNegocio.Entidades;
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
 {
@@ -28,7 +29,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             // Simular que GetByIdAsync falla (grupo no existe)
             _repoGruposMock
                 .Setup(r => r.GetByIdAsync(grupoId))
-                .ReturnsAsync(Resultado<Dominio.Grupo>.Falla(new Error("Error.Validation", "El grupo no existe.")));
+                .ReturnsAsync(Resultado<Entidad.Grupo>.Falla(new Error("Error.Validation", "El grupo no existe.")));
 
             var casoUso = new BajaGrupo(_repoGruposMock.Object);
 
@@ -49,7 +50,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             int grupoId = 20;
             string profesorId = "prof123";
             // Grupo existe pero con otro ProfesorId
-            var grupo = new Dominio.Grupo
+            var grupo = new Entidad.Grupo
             {
                 Id = grupoId,
                 ProfesorId = "otroProf"
@@ -58,7 +59,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
 
             _repoGruposMock
                 .Setup(r => r.GetByIdAsync(grupoId))
-                .ReturnsAsync(Resultado<Dominio.Grupo>.Exitoso(grupo));
+                .ReturnsAsync(Resultado<Entidad.Grupo>.Exitoso(grupo));
 
             var casoUso = new BajaGrupo(_repoGruposMock.Object);
 
@@ -77,7 +78,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             // Arrange
             int grupoId = 30;
             string profesorId = "prof123";
-            var grupo = new Dominio.Grupo
+            var grupo = new Entidad.Grupo
             {
                 Id = grupoId,
                 ProfesorId = profesorId
@@ -85,7 +86,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
 
             _repoGruposMock
                 .Setup(r => r.GetByIdAsync(grupoId))
-                .ReturnsAsync(Resultado<Dominio.Grupo>.Exitoso(grupo));
+                .ReturnsAsync(Resultado<Entidad.Grupo>.Exitoso(grupo));
 
             // Simular RemoveAsync retorna exitoso
             _repoGruposMock
@@ -108,7 +109,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             // Arrange
             int grupoId = 40;
             string profesorId = "prof123";
-            var grupo = new Dominio.Grupo
+            var grupo = new Entidad.Grupo
             {
                 Id = grupoId,
                 ProfesorId = profesorId
@@ -116,7 +117,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
 
             _repoGruposMock
                 .Setup(r => r.GetByIdAsync(grupoId))
-                .ReturnsAsync(Resultado<Dominio.Grupo>.Exitoso(grupo));
+                .ReturnsAsync(Resultado<Entidad.Grupo>.Exitoso(grupo));
 
             // Simular RemoveAsync falla
             _repoGruposMock

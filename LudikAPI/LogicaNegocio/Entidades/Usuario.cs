@@ -5,7 +5,7 @@ using LogicaNegocio.Resultados;
 using LogicaNegocio.ValueObjects;
 using Microsoft.AspNetCore.Identity;
 
-namespace Dominio
+namespace LogicaNegocio.Entidades
 {
     public  class Usuario : IdentityUser, IValidable
 	{

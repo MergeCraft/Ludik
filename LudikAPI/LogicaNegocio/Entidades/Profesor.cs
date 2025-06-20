@@ -1,10 +1,9 @@
-using Dominio;
 using LogicaNegocio.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Dominio
+namespace LogicaNegocio.Entidades
 {
 	public class Profesor: Usuario
 	{

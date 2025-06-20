@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Dominio;
+using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.PerfilEstudianteDTO;
 using LogicaAplicacion.ImplementacionCasosUsos.PerfilEstudiante;
 using LogicaNegocio.Resultados;
 using Moq;
 using Xunit;
+using Entidad = LogicaNegocio.Entidades;
+
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
 {
@@ -24,9 +26,9 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
         {
             // Arrange
             int grupoId = 42;
-            var perfiles = new List<Dominio.PerfilEstudiante>
+            var perfiles = new List<Entidad.PerfilEstudiante>
             {
-                new Dominio.PerfilEstudiante
+                new Entidad.PerfilEstudiante
                 {
                     Id = 1,
                     MetaCalificacion = 5,
@@ -34,7 +36,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
                     Monedas = 100,
                     GrupoId = grupoId
                 },
-                new Dominio.PerfilEstudiante
+                new Entidad.PerfilEstudiante
                 {
                     Id = 2,
                     MetaCalificacion = 8,
@@ -47,7 +49,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
             // Aquí: asegurarnos de usar PerfilEstudiante y Resultado<List<PerfilEstudiante>>
             _repoPerfilMock
                 .Setup(r => r.ObtenerPorGrupoIdAsync(grupoId))
-                .ReturnsAsync(Resultado<List<Dominio.PerfilEstudiante>>.Exitoso(perfiles));
+                .ReturnsAsync(Resultado<List<Entidad.PerfilEstudiante>>.Exitoso(perfiles));
 
             var casoUso = new ObtenerPerfilesPorGrupo(_repoPerfilMock.Object);
 
@@ -84,11 +86,11 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
         {
             // Arrange
             int grupoId = 100;
-            var perfilesVacios = new List<Dominio.PerfilEstudiante>();
+            var perfilesVacios = new List<Entidad.PerfilEstudiante>();
 
             _repoPerfilMock
                 .Setup(r => r.ObtenerPorGrupoIdAsync(grupoId))
-                .ReturnsAsync(Resultado<List<Dominio.PerfilEstudiante>>.Exitoso(perfilesVacios));
+                .ReturnsAsync(Resultado<List<Entidad.PerfilEstudiante>>.Exitoso(perfilesVacios));
 
             var casoUso = new ObtenerPerfilesPorGrupo(_repoPerfilMock.Object);
 
@@ -113,7 +115,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
 
             _repoPerfilMock
                 .Setup(r => r.ObtenerPorGrupoIdAsync(grupoId))
-                .ReturnsAsync(Resultado<List<Dominio.PerfilEstudiante>>.Falla(erroresRepo));
+                .ReturnsAsync(Resultado<List<Entidad.PerfilEstudiante>>.Falla(erroresRepo));
 
             var casoUso = new ObtenerPerfilesPorGrupo(_repoPerfilMock.Object);
 
