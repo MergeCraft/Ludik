@@ -105,11 +105,6 @@ namespace AccesoDatos.RepositoriosEF
             // Si el Grupo se elimina (porque su Profesor fue eliminado), todo esto se debe eliminar también.
             modelBuilder.Entity<Grupo>(g =>
             {
-                // Grupo -> PerfilEstudiante (Uno a Muchos, Cascada)
-                g.HasMany(gr => gr.Alumnos)
-                 .WithOne() // PerfilEstudiante no navega de vuelta a Grupo
-                 .HasForeignKey(pe => pe.GrupoId)
-                 .OnDelete(DeleteBehavior.Cascade);
 
                 // Grupo -> SolicitudUnion (Uno a Muchos, Cascada)
                 g.HasMany(gr => gr.Solicitudes)

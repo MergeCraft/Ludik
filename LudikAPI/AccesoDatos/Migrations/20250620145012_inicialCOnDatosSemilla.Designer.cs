@@ -12,20 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-<<<<<<<< HEAD:LudikAPI/AccesoDatos/Migrations/20250618180307_inicial.Designer.cs
-    [Migration("20250618180307_inicial")]
-    partial class inicial
-========
-    [Migration("20250619203133_inicialConDatos")]
-    partial class inicialConDatos
->>>>>>>> gestionarImagenes:LudikAPI/AccesoDatos/Migrations/20250619203133_inicialConDatos.Designer.cs
+    [Migration("20250620145012_inicialCOnDatosSemilla")]
+    partial class inicialCOnDatosSemilla
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.4")
+                .HasAnnotation("ProductVersion", "8.0.17")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
