@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaNegocio.Resultados;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
 {
@@ -27,9 +28,21 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public Task<Resultado<Tienda>> GetByIdAsync(int id)
+        public async Task<Resultado<Tienda>> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var tienda = await _db.Tiendas
+                    .Include(t => t.Grupo)            // para verificar ProfesorId
+                    .FirstOrDefaultAsync(t => t.Id == id);
+                if (tienda == null)
+                    return Resultado<Tienda>.Falla(new Error("Error.NotFound", $"No se encontró la tienda con Id {id}."));
+                return Resultado<Tienda>.Exitoso(tienda);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<Tienda>.Falla(new Error("Error.Unexpected", ex.Message));
+            }
         }
 
         public Task<Resultado> RemoveAsync(int id)
@@ -42,9 +55,18 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public Task<Resultado> UpdateAsync(Tienda unObjeto)
+        public async Task<Resultado> UpdateAsync(Tienda tienda)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Tiendas.Update(tienda);
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (Exception ex)
+            {
+                return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
+            }
         }
     }
 }
