@@ -45,9 +45,42 @@ namespace Dominio
         {
             throw new NotImplementedException();
         }
-       
+        public int CalcularNotaActual()
+        {
+            if (Grupo?.TablaEquivalencia?.Equivalencias == null)
+                return 0;
+            var medallasAlumno = this.MedallasObtenidas.ToList();
+            // Agrupar para contar repeticiones si fuese necesario:
+            var conteoAlumno = medallasAlumno
+                .GroupBy(m => m.Id)
+                .ToDictionary(g => g.Key, g => g.Count());
 
-	}
+            var equivalencias = Grupo.TablaEquivalencia.Equivalencias
+                                 .OrderByDescending(e => e.Nota)
+                                 .ToList();
+            foreach (var eq in equivalencias)
+            {
+                // Agrupar medallas necesarias por Id:
+                var conteoNecesario = eq.MedallasNecesarias
+                                       .GroupBy(m => m.Id)
+                                       .ToDictionary(g => g.Key, g => g.Count());
+                bool cumple = true;
+                foreach (var kv in conteoNecesario)
+                {
+                    if (!conteoAlumno.TryGetValue(kv.Key, out int cant) || cant < kv.Value)
+                    {
+                        cumple = false;
+                        break;
+                    }
+                }
+                if (cumple)
+                    return eq.Nota;
+            }
+            return 0;
+        }
+
+
+    }
 
 }
 

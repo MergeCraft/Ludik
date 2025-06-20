@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
-    public partial class inicialCOnDatosSemilla : Migration
+    public partial class inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -623,10 +623,11 @@ namespace AccesoDatos.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Imagen = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RutaImagenCompleta = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RutaImagenMiniatura = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Precio = table.Column<int>(type: "int", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
-                    TiendaId = table.Column<int>(type: "int", nullable: true),
+                    TiendaId = table.Column<int>(type: "int", nullable: false),
+                    RecompensaTipo = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
                     Periodo = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Multiplicador = table.Column<double>(type: "float", nullable: true)
                 },
@@ -637,7 +638,8 @@ namespace AccesoDatos.Migrations
                         name: "FK_Recompensas_Tiendas_TiendaId",
                         column: x => x.TiendaId,
                         principalTable: "Tiendas",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -705,7 +707,7 @@ namespace AccesoDatos.Migrations
                         column: x => x.RecompensaId,
                         principalTable: "Recompensas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -729,7 +731,7 @@ namespace AccesoDatos.Migrations
                         column: x => x.HitoId,
                         principalTable: "Hitos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(

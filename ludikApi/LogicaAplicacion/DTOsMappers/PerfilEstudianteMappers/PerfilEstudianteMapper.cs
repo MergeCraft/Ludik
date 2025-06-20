@@ -8,13 +8,9 @@ using LogicaAplicacion.DTOs.PerfilEstudianteDTO;
 
 public static class PerfilEstudianteMapper
 {
-    public static PerfilEstudianteInformacionDto ToDto(PerfilEstudiante perfil)
+    public static PerfilEstudianteInformacionDto ToDto(PerfilEstudiante perfil, int calificacionActual)
     {
         if (perfil == null) return null;
-
-        // Construir nombre completo si NombreCompleto existe en Estudiante
-       
-
         return new PerfilEstudianteInformacionDto
         {
             Id = perfil.Id,
@@ -25,7 +21,8 @@ public static class PerfilEstudianteMapper
             NombreEstudiante = perfil.Estudiante.NombreCompleto.Nombre,
             Monedas = perfil.Monedas,
             GrupoId = perfil.GrupoId,
-            NombreGrupo = perfil.Grupo.Nombre
+            NombreGrupo = perfil.Grupo.Nombre,
+            CalificacionActual = calificacionActual
         };
     }
 }

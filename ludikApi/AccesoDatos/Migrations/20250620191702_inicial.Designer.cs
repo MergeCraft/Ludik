@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250620145012_inicialCOnDatosSemilla")]
-    partial class inicialCOnDatosSemilla
+    [Migration("20250620191702_inicial")]
+    partial class inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -483,15 +483,6 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
-
-                    b.Property<string>("Imagen")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -500,7 +491,20 @@ namespace AccesoDatos.Migrations
                     b.Property<int>("Precio")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TiendaId")
+                    b.Property<string>("RecompensaTipo")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<string>("RutaImagenCompleta")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RutaImagenMiniatura")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TiendaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -511,7 +515,7 @@ namespace AccesoDatos.Migrations
 
                     b.ToTable("Recompensas");
 
-                    b.HasDiscriminator().HasValue("Recompensa");
+                    b.HasDiscriminator<string>("RecompensaTipo").HasValue("Recompensa");
 
                     b.UseTphMappingStrategy();
                 });
@@ -1151,6 +1155,13 @@ namespace AccesoDatos.Migrations
                     b.HasDiscriminator().HasValue("Potenciador");
                 });
 
+            modelBuilder.Entity("LogicaNegocio.Entidades.RecompensaSimple", b =>
+                {
+                    b.HasBaseType("Dominio.Recompensa");
+
+                    b.HasDiscriminator().HasValue("Simple");
+                });
+
             modelBuilder.Entity("Dominio.Estudiante", b =>
                 {
                     b.HasBaseType("Dominio.Usuario");
@@ -1395,9 +1406,13 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("Dominio.Recompensa", b =>
                 {
-                    b.HasOne("Dominio.Tienda", null)
+                    b.HasOne("Dominio.Tienda", "Tienda")
                         .WithMany("Recompesas")
-                        .HasForeignKey("TiendaId");
+                        .HasForeignKey("TiendaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tienda");
                 });
 
             modelBuilder.Entity("Dominio.RendimientoPeriodo", b =>
@@ -1480,11 +1495,13 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("Dominio.Tienda", b =>
                 {
-                    b.HasOne("Dominio.Grupo", null)
+                    b.HasOne("Dominio.Grupo", "Grupo")
                         .WithOne("Tienda")
                         .HasForeignKey("Dominio.Tienda", "GrupoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Grupo");
                 });
 
             modelBuilder.Entity("Dominio.Usuario", b =>
@@ -1588,7 +1605,7 @@ namespace AccesoDatos.Migrations
                     b.HasOne("Dominio.Hito", null)
                         .WithMany()
                         .HasForeignKey("HitoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -1663,7 +1680,7 @@ namespace AccesoDatos.Migrations
                     b.HasOne("Dominio.Recompensa", null)
                         .WithMany()
                         .HasForeignKey("RecompensaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

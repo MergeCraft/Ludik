@@ -27,5 +27,6 @@ namespace LogicaAplicacion.DTOs.PerfilEstudianteDTO
 
         public string NombreGrupo { get; set; }
 
+        public int CalificacionActual { get; set; }
     }
 }

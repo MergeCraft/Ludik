@@ -124,6 +124,11 @@ namespace AccesoDatos.RepositoriosEF
                  .WithMany()
                  .HasForeignKey("TablaEquivalenciaId") // FK por convención
                  .OnDelete(DeleteBehavior.Restrict); // Usamos Restrict para prevenir la ruta múltiple.
+
+                g.HasOne(gr => gr.Tienda)
+                 .WithOne(t => t.Grupo)
+                 .HasForeignKey<Tienda>(t => t.GrupoId)
+                 .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<PerfilEstudianteMedalla>(entity =>
@@ -148,18 +153,21 @@ namespace AccesoDatos.RepositoriosEF
 
             //Relación M:N entre PerfilEstudiante y Recompensa (Inventario)
             modelBuilder.Entity<PerfilEstudiante>()
-                .HasMany(pe => pe.Inventario)
-                .WithMany() // No hay navegación de vuelta en Recompensa
-                .UsingEntity<Dictionary<string, object>>(
-                    "PerfilEstudianteRecompensas", // Nombre de la tabla de unión
-                    j => j
-                        .HasOne<Recompensa>()
-                        .WithMany()
-                        .HasForeignKey("RecompensaId"),
-                    j => j
+                    .HasMany(pe => pe.Inventario)
+                    .WithMany() // si no hay navegación inversa en Recompensa
+                    .UsingEntity<Dictionary<string, object>>(
+                      "PerfilEstudianteRecompensas",
+                      j => j
+                     .HasOne<Recompensa>()
+                     .WithMany()
+                     .HasForeignKey("RecompensaId")
+                     .OnDelete(DeleteBehavior.Restrict), // <- evitar Cascade aquí
+                        j => j
                         .HasOne<PerfilEstudiante>()
                         .WithMany()
-                        .HasForeignKey("PerfilEstudianteId"));
+                        .HasForeignKey("PerfilEstudianteId")
+                        .OnDelete(DeleteBehavior.Cascade)   // puedes mantener Cascade aquí si quieres que al borrar perfil se limpie relación
+                    );
 
             modelBuilder.Entity<TablaClasificacion>()
                 .HasMany(tc => tc.Participantes)
@@ -213,7 +221,8 @@ namespace AccesoDatos.RepositoriosEF
                     j => j
                         .HasOne<Hito>()
                         .WithMany()
-                        .HasForeignKey("HitoId"),
+                        .HasForeignKey("HitoId")
+                        .OnDelete(DeleteBehavior.Restrict),
                     j => j
                         .HasOne<Estudiante>()
                         .WithMany()
@@ -302,6 +311,19 @@ namespace AccesoDatos.RepositoriosEF
                     .HasForeignKey("TablaEquivalenciaId")
                     .OnDelete(DeleteBehavior.Restrict); 
             });
+
+            modelBuilder.Entity<Tienda>(t =>
+            {
+                t.HasKey(ti => ti.Id);
+                t.HasMany(ti => ti.Recompesas)
+                 .WithOne(r => r.Tienda)
+                 .HasForeignKey(r => r.TiendaId)
+                 .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<Recompensa>()
+                .HasDiscriminator<string>("RecompensaTipo")
+                .HasValue<RecompensaSimple>("Simple");
 
             modelBuilder.Entity<BarraProgreso>(bp =>
             {

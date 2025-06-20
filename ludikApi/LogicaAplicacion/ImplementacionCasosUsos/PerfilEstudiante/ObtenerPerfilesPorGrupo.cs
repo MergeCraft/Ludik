@@ -22,13 +22,17 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.PerfilEstudiante
         public async Task<Resultado<List<PerfilEstudianteInformacionDto>>> EjecutarAsync(int grupoId)
         {
             var resultadoPerfiles = await _repositorioPerfil.ObtenerPorGrupoIdAsync(grupoId);
-
             if (resultadoPerfiles.EsFallo)
                 return Resultado<List<PerfilEstudianteInformacionDto>>.Falla(resultadoPerfiles.Errores);
 
             var perfiles = resultadoPerfiles.Valor!;
-            var dtos = perfiles.Select(PerfilEstudianteMapper.ToDto).ToList();
-
+            var dtos = new List<PerfilEstudianteInformacionDto>();
+            foreach (var perfil in perfiles)
+            {
+                int nota = perfil.CalcularNotaActual();
+                var dto = PerfilEstudianteMapper.ToDto(perfil, nota);
+                dtos.Add(dto);
+            }
             return Resultado<List<PerfilEstudianteInformacionDto>>.Exitoso(dtos);
         }
     }

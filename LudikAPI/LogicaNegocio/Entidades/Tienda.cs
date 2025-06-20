@@ -10,10 +10,12 @@ namespace Dominio
     {
         public int Id { get; set; }
 
-        public List<Recompensa> Recompesas { get; set; }
+        public List<Recompensa> Recompesas { get; set; } = new();
 
         [ForeignKey(nameof(Grupo))]
         public int GrupoId { get; set; }
+        public Grupo Grupo { get; set; }
+
 
         public Resultado esValido()
         {

@@ -24,8 +24,13 @@ namespace AccesoDatos.RepositoriosEF
             {
                 var perfiles = await _db.PerfilesEstudiantes
                     .Include(p => p.BarraProgreso)
-                    .Include(p => p.Estudiante)    
-                    .Include(p => p.Grupo)         
+                    .Include(p => p.Estudiante)
+                    .Include(p => p.PerfilMedallas)                       
+                        .ThenInclude(pm => pm.Medalla)
+                    .Include(p => p.Grupo)
+                        .ThenInclude(g => g.TablaEquivalencia)           
+                            .ThenInclude(te => te.Equivalencias)
+                                .ThenInclude(eq => eq.MedallasNecesarias) 
                     .Where(p => p.GrupoId == grupoId)
                     .ToListAsync();
 
