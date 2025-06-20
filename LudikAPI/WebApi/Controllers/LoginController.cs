@@ -1,4 +1,4 @@
-﻿using Dominio;
+﻿using LogicaNegocio.Entidades;
 using LogicaAplicacion.DTOs.UsuarioDTOs;
 using LogicaNegocio.Excepciones;
 using Microsoft.AspNetCore.Authorization;

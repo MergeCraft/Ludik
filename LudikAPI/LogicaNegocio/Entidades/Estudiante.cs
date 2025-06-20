@@ -1,8 +1,7 @@
-using Dominio;
 using System.Collections.Generic;
 using System;
 
-namespace Dominio
+namespace LogicaNegocio.Entidades
 {
 	public class Estudiante: Usuario
 	{

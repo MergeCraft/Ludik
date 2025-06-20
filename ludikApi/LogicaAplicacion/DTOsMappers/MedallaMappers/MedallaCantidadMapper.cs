@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Dominio;
+using LogicaNegocio.Entidades;
 using LogicaAplicacion.DTOs.PerfilEstudianteDTO;
 
 namespace LogicaAplicacion.DTOsMappers.MedallaMappers

@@ -1,9 +1,8 @@
 using System;
-using Dominio;
 using LogicaNegocio.InterfacesEntidades;
 using LogicaNegocio.Resultados;
 
-namespace Dominio
+namespace LogicaNegocio.Entidades
 {
 	public class Pin : IEntity, IValidable
     {

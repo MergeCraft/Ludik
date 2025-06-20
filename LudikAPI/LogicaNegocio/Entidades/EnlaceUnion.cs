@@ -2,9 +2,9 @@ using System;
 using LogicaNegocio.InterfacesEntidades;
 using LogicaNegocio.Resultados;
 
-namespace Dominio
-{
-	public class EnlaceUnion : IEntity, IValidable
+namespace LogicaNegocio.Entidades{
+
+    public class EnlaceUnion : IEntity, IValidable
     {
         public int Id { get; set; }
 

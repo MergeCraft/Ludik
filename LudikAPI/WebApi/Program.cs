@@ -3,7 +3,7 @@ using AccesoDatos.RepositoriosEF;
 using AccesoDatos.Servicios;
 using Azure.Identity;
 using Azure.Storage.Blobs;
-using Dominio;
+using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.ImplementacionCasosUsos.AsignarMedalla;
 using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;

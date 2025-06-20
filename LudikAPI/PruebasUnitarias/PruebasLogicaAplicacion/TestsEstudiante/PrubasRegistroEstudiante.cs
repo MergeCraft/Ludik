@@ -1,7 +1,7 @@
 ﻿using System;
 using Moq;
 using Xunit;
-using Dominio;
+using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.UsuarioDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;

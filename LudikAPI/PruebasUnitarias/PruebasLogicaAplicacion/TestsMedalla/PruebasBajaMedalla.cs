@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Moq;
 using Xunit;
-using Dominio;
+using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.ImplementacionCasosUsos.Medallas;
 using LogicaNegocio.Resultados;
@@ -33,7 +33,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         //    Assert.True(resultado.EsFallo);
         //    Assert.True(resultado.Errores.Any(e => e.Mensaje.Contains("ID de la medalla debe ser un entero positivo")));
         //    _repoMedallasMock.Verify(r => r.GetByIdAsync(It.IsAny<int>()), Times.Never);
-        //    _repoMedallasMock.Verify(r => r.RemoveAsync(It.IsAny<Dominio.Medalla>()), Times.Never);
+        //    _repoMedallasMock.Verify(r => r.RemoveAsync(It.IsAny<Entidad.Medalla>()), Times.Never);
         //}
 
         //[Fact]
@@ -44,7 +44,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         //    // Simular que GetByIdAsync devuelve Falla (NotFound)
         //    _repoMedallasMock
         //        .Setup(r => r.GetByIdAsync(id))
-        //        .ReturnsAsync(Resultado<Dominio.Medalla>.Falla(Error.NotFound));
+        //        .ReturnsAsync(Resultado<Entidad.Medalla>.Falla(Error.NotFound));
 
         //    // Act
         //    var resultado = await _servicio.EjecutarAsync(id);
@@ -53,7 +53,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         //    Assert.True(resultado.EsFallo);
         //    Assert.True(resultado.Errores.Any(e => e.Mensaje.Contains($"No se encontró ninguna medalla con ID {id}")));
         //    _repoMedallasMock.Verify(r => r.GetByIdAsync(id), Times.Once);
-        //    _repoMedallasMock.Verify(r => r.RemoveAsync(It.IsAny<Dominio.Medalla>()), Times.Never);
+        //    _repoMedallasMock.Verify(r => r.RemoveAsync(It.IsAny<Entidad.Medalla>()), Times.Never);
         //}
 
         //[Fact]
@@ -64,7 +64,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         //    // Simular que GetByIdAsync devuelve Exitoso con Valor null
         //    _repoMedallasMock
         //        .Setup(r => r.GetByIdAsync(id))
-        //        .ReturnsAsync(Resultado<Dominio.Medalla>.Exitoso((Dominio.Medalla)null!));
+        //        .ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso((Entidad.Medalla)null!));
 
         //    // Act
         //    var resultado = await _servicio.EjecutarAsync(id);
@@ -73,7 +73,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         //    Assert.True(resultado.EsFallo);
         //    Assert.True(resultado.Errores.Any(e => e.Mensaje.Contains($"No se encontró ninguna medalla con ID {id}")));
         //    _repoMedallasMock.Verify(r => r.GetByIdAsync(id), Times.Once);
-        //    _repoMedallasMock.Verify(r => r.RemoveAsync(It.IsAny<Dominio.Medalla>()), Times.Never);
+        //    _repoMedallasMock.Verify(r => r.RemoveAsync(It.IsAny<Entidad.Medalla>()), Times.Never);
         //}
 
         //[Fact]
@@ -81,7 +81,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         //{
         //    // Arrange
         //    int id = 7;
-        //    var entidad = new Dominio.Medalla
+        //    var entidad = new Entidad.Medalla
         //    {
         //        Id = id,
         //        Nombre = "NombreValido",
@@ -93,7 +93,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         //    // Simular GetByIdAsync Exitoso con entidad
         //    _repoMedallasMock
         //        .Setup(r => r.GetByIdAsync(id))
-        //        .ReturnsAsync(Resultado<Dominio.Medalla>.Exitoso(entidad));
+        //        .ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(entidad));
         //    // Simular RemoveAsync Exitoso
         //    _repoMedallasMock
         //        .Setup(r => r.RemoveAsync(entidad))
@@ -114,7 +114,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         //{
         //    // Arrange
         //    int id = 8;
-        //    var entidad = new Dominio.Medalla
+        //    var entidad = new Entidad.Medalla
         //    {
         //        Id = id,
         //        Nombre = "NombreValido",
@@ -125,7 +125,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         //    };
         //    _repoMedallasMock
         //        .Setup(r => r.GetByIdAsync(id))
-        //        .ReturnsAsync(Resultado<Dominio.Medalla>.Exitoso(entidad));
+        //        .ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(entidad));
 
         //    var mensajeErrorRepo = "Error al eliminar la medalla: restricción";
         //    var errorRepo = new Error("Repositorio.Medalla.Remove.DbError", mensajeErrorRepo);

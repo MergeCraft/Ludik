@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Dominio;
+using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaNegocio.Excepciones;
 using LogicaNegocio.Resultados;

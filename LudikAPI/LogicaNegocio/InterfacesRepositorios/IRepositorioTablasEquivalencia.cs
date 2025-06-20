@@ -1,4 +1,4 @@
-using Dominio;
+using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaNegocio.InterfacesRepositorio;
 using LogicaNegocio.Resultados;

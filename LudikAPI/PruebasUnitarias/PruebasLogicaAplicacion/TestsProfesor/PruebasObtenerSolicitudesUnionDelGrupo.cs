@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Dominio;
+using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.SolocitudUnionDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Profesores;
 using LogicaNegocio.Resultados;
 using LogicaNegocio.ValueObject;
+using Entidad = LogicaNegocio.Entidades;
+
 using Moq;
 using Xunit;
 
@@ -34,7 +36,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
             // Simular GetByIdAsync falla
             _repoGruposMock
                 .Setup(r => r.GetByIdAsync(grupoId))
-                .ReturnsAsync(Resultado<Dominio.Grupo>.Falla(Error.NotFound));
+                .ReturnsAsync(Resultado<Entidad.Grupo>.Falla(Error.NotFound));
 
             var casoUso = new ObtenerSolicitudesUnionDelGrupo(
                 _repoGruposMock.Object,
@@ -57,7 +59,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
             // Arrange
             int grupoId = 20;
             string profesorId = "profA";
-            var grupo = new Dominio.Grupo
+            var grupo = new Entidad.Grupo
             {
                 Id = grupoId,
                 ProfesorId = "otroProfesor",
@@ -70,7 +72,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
             };
             _repoGruposMock
                 .Setup(r => r.GetByIdAsync(grupoId))
-                .ReturnsAsync(Resultado<Dominio.Grupo>.Exitoso(grupo));
+                .ReturnsAsync(Resultado<Entidad.Grupo>.Exitoso(grupo));
 
             var casoUso = new ObtenerSolicitudesUnionDelGrupo(
                 _repoGruposMock.Object,
@@ -94,7 +96,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
             // Arrange
             int grupoId = 30;
             string profesorId = "profX";
-            var grupo = new Dominio.Grupo
+            var grupo = new Entidad.Grupo
             {
                 Id = grupoId,
                 ProfesorId = profesorId,
@@ -107,7 +109,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
             };
             _repoGruposMock
                 .Setup(r => r.GetByIdAsync(grupoId))
-                .ReturnsAsync(Resultado<Dominio.Grupo>.Exitoso(grupo));
+                .ReturnsAsync(Resultado<Entidad.Grupo>.Exitoso(grupo));
 
             _repoSolicitudesMock
                 .Setup(r => r.ObtenerSolicitudesPendientesPorGrupoAsync(grupoId))
@@ -150,7 +152,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
                 Estado = EstadoSolicitud.Pendiente,
                 GrupoId = grupoId
             };
-            var grupo = new Dominio.Grupo
+            var grupo = new Entidad.Grupo
             {
                 Id = grupoId,
                 ProfesorId = profesorId,
@@ -163,7 +165,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
             };
             _repoGruposMock
                 .Setup(r => r.GetByIdAsync(grupoId))
-                .ReturnsAsync(Resultado<Dominio.Grupo>.Exitoso(grupo));
+                .ReturnsAsync(Resultado<Entidad.Grupo>.Exitoso(grupo));
 
             _repoSolicitudesMock
                 .Setup(r => r.ObtenerSolicitudesPendientesPorGrupoAsync(grupoId))

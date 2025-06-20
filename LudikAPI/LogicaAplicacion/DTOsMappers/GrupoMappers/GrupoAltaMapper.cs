@@ -1,6 +1,6 @@
 ﻿using System;
 using System;
-using Dominio;
+using LogicaNegocio.Entidades;
 using LogicaAplicacion.DTOs.GrupoDTOs;
 
 namespace LogicaAplicacion.DTOsMappers.GrupoMappers

@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Dominio;
+using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.InterfacesCasosUsos.Medalla;
 using LogicaNegocio.Resultados;

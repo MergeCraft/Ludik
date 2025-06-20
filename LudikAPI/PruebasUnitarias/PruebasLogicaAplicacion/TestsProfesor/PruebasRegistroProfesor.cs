@@ -1,7 +1,7 @@
 ﻿using System;
 using Moq;
 using Xunit;
-using Dominio;
+using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.ProfesorDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Profesores;
@@ -45,7 +45,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
         //    // Arrange
         //    var dto = new ProfesorAltaDto
         //    {
-        //        Correo = "pepito@dominio.com",
+        //        Correo = "pepito@Entidad.com",
         //        NombreUsuario = "pepito123",
         //        Nombre = "Pepito",
         //        Apellido = "González",
@@ -72,7 +72,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
         //    // Arrange
         //    var dto = new ProfesorAltaDto
         //    {
-        //        Correo = "pepito@dominio.com",
+        //        Correo = "pepito@Entidad.com",
         //        NombreUsuario = "pepito123",
         //        Nombre = "Pepito",
         //        Apellido = "González",
@@ -81,7 +81,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
 
         //    _userManagerMock.Setup(x => x.FindByNameAsync("pepito123"))
         //        .ReturnsAsync((Usuario)null!);
-        //    _userManagerMock.Setup(x => x.FindByEmailAsync("pepito@dominio.com"))
+        //    _userManagerMock.Setup(x => x.FindByEmailAsync("pepito@Entidad.com"))
         //        .ReturnsAsync(new Usuario()); // Email ya registrado
 
         //    var service = new AltaProfesor(_userManagerMock.Object);

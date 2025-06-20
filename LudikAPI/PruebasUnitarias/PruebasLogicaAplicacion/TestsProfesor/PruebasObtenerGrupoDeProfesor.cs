@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Dominio;
+using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.GrupoDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Profesores;
 using LogicaNegocio.Resultados;
 using Moq;
+using Entidad = LogicaNegocio.Entidades;
+
 using Xunit;
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
@@ -48,7 +50,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
             string idProfesor = "prof123";
             _repoGruposMock
                 .Setup(r => r.ObtenerGruposPorProfesorId(idProfesor))
-                .ReturnsAsync(new List<Dominio.Grupo>()); // ningún grupo
+                .ReturnsAsync(new List<Entidad.Grupo>()); // ningún grupo
 
             var casoUso = new ObtenerGruposDeProfesor(_repoGruposMock.Object);
 
@@ -67,9 +69,9 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
         {
             // Arrange
             string idProfesor = "profABC";
-            var gruposEntidad = new List<Dominio.Grupo>
+            var gruposEntidad = new List<Entidad.Grupo>
             {
-                new Dominio.Grupo
+                new Entidad.Grupo
                 {
                     Id = 1,
                     Nombre = "Grupo Uno",
@@ -77,7 +79,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
                     Institucion = "InstA",
                     Materia = "MatA"
                 },
-                new Dominio.Grupo
+                new Entidad.Grupo
                 {
                     Id = 2,
                     Nombre = "Grupo Dos",

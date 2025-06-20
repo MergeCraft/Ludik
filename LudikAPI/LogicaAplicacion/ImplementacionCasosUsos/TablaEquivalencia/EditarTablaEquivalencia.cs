@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dominio;
+using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.TablaEquivalenciaDTOs;
 using LogicaAplicacion.InterfacesCasosUsos.TablaEquivalencia;
@@ -55,7 +55,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.TablaEquivalencia
                     dto.MedallasNecesarias.Select(mDto => medallasMap[mDto.Id]).ToList()
                 )).ToList();
 
-            //Actualizar la entidad de dominio con los nuevos datos
+            //Actualizar la entidad de Entidad con los nuevos datos
             tablaExistente.Actualizar(tablaDto.Nombre, nuevasEquivalencias);
 
             var resultadoValidacion = tablaExistente.esValido();

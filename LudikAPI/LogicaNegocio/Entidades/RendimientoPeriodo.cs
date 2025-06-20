@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using Dominio;
 using LogicaNegocio.InterfacesEntidades;
 using LogicaNegocio.Resultados;
 using LogicaNegocio.ValueObject;
 
-namespace Dominio
+namespace LogicaNegocio.Entidades
 {
 	public class RendimientoPeriodo : IEntity, IValidable
     {

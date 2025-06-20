@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
-using Dominio;
 using LogicaNegocio.InterfacesEntidades;
 using LogicaNegocio.Resultados;
 
-namespace Dominio
+namespace LogicaNegocio.Entidades
 {
 	public class Equivalencia : IEntity, IValidable
     {

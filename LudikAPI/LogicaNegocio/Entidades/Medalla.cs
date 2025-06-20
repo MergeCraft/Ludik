@@ -5,7 +5,7 @@ using LogicaNegocio.Excepciones;
 using LogicaNegocio.InterfacesEntidades;
 using LogicaNegocio.Resultados;
 
-namespace Dominio
+namespace LogicaNegocio.Entidades
 {
 	public class Medalla : IEntity, IValidable
     {

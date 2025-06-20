@@ -1,6 +1,6 @@
 using InterfacesRepositorio;
 using System;
-using Dominio;
+using LogicaNegocio.Entidades;
 using LogicaNegocio.InterfacesRepositorio;
 
 namespace InterfacesRepositorio

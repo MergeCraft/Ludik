@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Moq;
 using Xunit;
-using Dominio;
+using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.MedallaDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Medallas;
@@ -30,7 +30,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         //    // Assert
         //    Assert.True(resultado.EsFallo);
         //    Assert.True(resultado.Errores.Any(e => e.Mensaje.Contains("datos para crear la medalla no pueden ser nulos")));
-        //    _repoMedallasMock.Verify(r => r.AddAsync(It.IsAny<Dominio.Medalla>()), Times.Never);
+        //    _repoMedallasMock.Verify(r => r.AddAsync(It.IsAny<Entidad.Medalla>()), Times.Never);
         //}
 
         
@@ -61,7 +61,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         //         e.Mensaje.Contains("al menos 5 caracteres") ||
         //         e.Mensaje.Contains("menos de 30 caracteres"))
         //    ));
-        //    _repoMedallasMock.Verify(r => r.AddAsync(It.IsAny<Dominio.Medalla>()), Times.Never);
+        //    _repoMedallasMock.Verify(r => r.AddAsync(It.IsAny<Entidad.Medalla>()), Times.Never);
         //}
 
         //[Fact]
@@ -84,7 +84,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         //    // Assert
         //    Assert.True(resultado.EsFallo);
         //    Assert.True(resultado.Errores.Any(e => e.Mensaje.Contains("descripción de la medalla") && e.Mensaje.Contains("no puede superar los 50 caracteres")));
-        //    _repoMedallasMock.Verify(r => r.AddAsync(It.IsAny<Dominio.Medalla>()), Times.Never);
+        //    _repoMedallasMock.Verify(r => r.AddAsync(It.IsAny<Entidad.Medalla>()), Times.Never);
         //}
 
         //[Fact]
@@ -106,7 +106,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         //    // Assert
         //    Assert.True(resultado.EsFallo);
         //    Assert.True(resultado.Errores.Any(e => e.Mensaje.Contains("cantidad de monedas otorgadas") && e.Mensaje.Contains("no puede ser menor a 0")));
-        //    _repoMedallasMock.Verify(r => r.AddAsync(It.IsAny<Dominio.Medalla>()), Times.Never);
+        //    _repoMedallasMock.Verify(r => r.AddAsync(It.IsAny<Entidad.Medalla>()), Times.Never);
         //}
 
         //[Fact]
@@ -122,10 +122,10 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         //        EsAsignacionMutua = false
         //    };
 
-        //    Dominio.Medalla medallaEsperada = null;
+        //    Entidad.Medalla medallaEsperada = null;
         //    _repoMedallasMock
-        //        .Setup(r => r.AddAsync(It.IsAny<Dominio.Medalla>()))
-        //        .Callback<Dominio.Medalla>(m => medallaEsperada = m)
+        //        .Setup(r => r.AddAsync(It.IsAny<Entidad.Medalla>()))
+        //        .Callback<Entidad.Medalla>(m => medallaEsperada = m)
         //        .ReturnsAsync(Resultado.Exitoso());
 
         //    // Act
@@ -134,7 +134,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         //    // Assert
         //    Assert.False(resultado.EsFallo);
         //    // Verificar que AddAsync fue llamado con una entidad que refleja el DTO
-        //    _repoMedallasMock.Verify(r => r.AddAsync(It.IsAny<Dominio.Medalla>()), Times.Once);
+        //    _repoMedallasMock.Verify(r => r.AddAsync(It.IsAny<Entidad.Medalla>()), Times.Once);
         //    Assert.NotNull(medallaEsperada);
         //    Assert.Equal(dto.Nombre, medallaEsperada.Nombre);
         //    Assert.Equal(dto.Descripcion, medallaEsperada.Descripcion);
@@ -159,7 +159,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         //    var mensajeErrorRepo = "Error al guardar en BD";
         //    var errorRepo = new Error("Repositorio.Medalla.Add.DbError", mensajeErrorRepo);
         //    _repoMedallasMock
-        //        .Setup(r => r.AddAsync(It.IsAny<Dominio.Medalla>()))
+        //        .Setup(r => r.AddAsync(It.IsAny<Entidad.Medalla>()))
         //        .ReturnsAsync(Resultado.Falla(errorRepo));
 
         //    // Act
@@ -168,7 +168,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         //    // Assert
         //    Assert.True(resultado.EsFallo);
         //    Assert.True(resultado.Errores.Any(e => e.Mensaje.Contains(mensajeErrorRepo)));
-        //    _repoMedallasMock.Verify(r => r.AddAsync(It.IsAny<Dominio.Medalla>()), Times.Once);
+        //    _repoMedallasMock.Verify(r => r.AddAsync(It.IsAny<Entidad.Medalla>()), Times.Once);
         //}
     }
 }
