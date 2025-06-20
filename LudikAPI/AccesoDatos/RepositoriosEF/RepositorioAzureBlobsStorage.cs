@@ -20,7 +20,11 @@ namespace AccesoDatos.RepositoriosEF
         public RepositorioAzureBlobsStorage(BlobServiceClient blobServiceClient, IConfiguration configuracion)
         {
             _blobServiceClient = blobServiceClient;
-            _nombreContenedor = configuracion["imagenesPerfiles"];
+            _nombreContenedor = configuracion["StorageContainerName"];
+            if (string.IsNullOrEmpty(_nombreContenedor))
+            {
+                throw new ArgumentNullException(nameof(_nombreContenedor), "La clave 'StorageContainerName' no puede ser nula y debe estar en la configuración.");
+            }
         }
         private async Task<BlobContainerClient> ObtenerClienteContenedor ()
         {

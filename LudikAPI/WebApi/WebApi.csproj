@@ -5,16 +5,23 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <UserSecretsId>6a8498c0-74e9-4539-abb5-7fc7fa78368d</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.4.0" />
+    <PackageReference Include="Azure.Extensions.AspNetCore.DataProtection.Blobs" Version="1.5.0" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.24.1" />
+    <PackageReference Include="Azure.Storage.Files.Shares" Version="12.1.0" />
+    <PackageReference Include="Azure.Storage.Queues" Version="12.22.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.15" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Routing.Abstractions" Version="2.3.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.17">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Azure" Version="1.12.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 

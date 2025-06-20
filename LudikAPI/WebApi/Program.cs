@@ -27,6 +27,7 @@ using LogicaNegocio.InterfacesRepositorios;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -55,7 +56,7 @@ builder.Services.AddIdentity<Usuario, IdentityRole>(opciones =>
 	opciones.Password.RequiredLength = 8;                    // Longitud mínima de 8 caracteres
 
 	// ===== Validaciones de Usuario =====
-	opciones.User.RequireUniqueEmail = false;                  // El email debe ser único
+	opciones.User.RequireUniqueEmail = false;                  // SI el email debe ser único
 	opciones.User.AllowedUserNameCharacters =
 		"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 
@@ -125,9 +126,26 @@ builder.Services.AddScoped<IRepositorioMedallas, RepositorioMedallasEF>();
 builder.Services.AddScoped<IRepositorioEnlacesUnionGrupo, RepositorioEnlacesUnionGrupoEF>();
 builder.Services.AddScoped<IRepositorioSolicitudesUnion, RepositorioSolocitudesUnionEF>();
 builder.Services.AddScoped<IRepositorioPerfilEstudianteGrupo, RepositorioPerfilEstudianteGrupoEF>();
-builder.Services.AddScoped<IRepositorioAlmacenamientoArchivos, RepositorioAzureBlobsStorage>(); 
 builder.Services.AddScoped<IRepositorioAvatares, RepositorioAvatares>();
 
+builder.Services.AddAzureClients(clientBuilder =>
+{
+    // Usa esta línea si NO estás en el entorno de desarrollo.
+    // Configura la conexión al servicio de Azure Blob Storage real.
+    // La cadena de conexión debe estar en tus secretos de usuario o Azure Key Vault en producción.
+    if (!builder.Environment.IsDevelopment())
+    {
+        var connectionString = builder.Configuration.GetConnectionString("AzureStorage");
+        clientBuilder.AddBlobServiceClient(connectionString);
+    }
+    else
+    {
+        // Si ESTÁS en desarrollo, usa la cadena de conexión de Azurite.
+        var connectionString = builder.Configuration.GetConnectionString("StorageConnection");
+        clientBuilder.AddBlobServiceClient(connectionString);
+    }
+});
+builder.Services.AddScoped<IRepositorioAlmacenamientoArchivos, RepositorioAzureBlobsStorage>(); 
 
 
 //Inyeccion de dependencias casos de uso
@@ -212,20 +230,6 @@ builder.Services.AddCors(options =>
 						.AllowAnyMethod()
 						);
 });
-
-// Configurar el cliente de Azure Blob Storage de forma condicional
-if (builder.Environment.IsDevelopment())
-{
-    // Usar Azurite en desarrollo
-    builder.Services.AddSingleton(x => new BlobServiceClient(builder.Configuration.GetValue<string>("StorageConnection")));
-}
-else
-{
-    // Usar la cuenta de Azure real en producción con Managed Identity
-    builder.Services.AddSingleton(x => new BlobServiceClient(
-        new Uri(builder.Configuration.GetValue<string>("StorageUri")),
-        new DefaultAzureCredential()));
-}
 
 
 var app = builder.Build();

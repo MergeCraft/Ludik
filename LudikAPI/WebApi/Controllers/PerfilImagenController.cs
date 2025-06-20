@@ -31,7 +31,6 @@ namespace WebApi.Controllers
                 return BadRequest(new { Codigo = "Error.Validation", Mensaje = "No se ha proporcionado una imagen válida." });
             }
 
-            // Extraer el ID del usuario desde los claims del token JWT.
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userIdString))
             {
