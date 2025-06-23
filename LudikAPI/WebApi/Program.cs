@@ -36,6 +36,8 @@ using WebApi.Helpers;
 using WebApi.Jwt;
 using LogicaAplicacion.InterfacesCasosUsos.Recompensa;
 using LogicaAplicacion.ImplementacionCasosUsos.Recompensa;
+using LogicaAplicacion.InterfacesCasosUsos.Tienda;
+using LogicaAplicacion.ImplementacionCasosUsos.Tienda;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -134,6 +136,7 @@ builder.Services.AddScoped<IRepositorioTiendas, RepositorioTiendasEF>();
 builder.Services.AddScoped<IRepositorioRecompensas, RepositorioRecompensasEF>();
 
 
+
 builder.Services.AddAzureClients(clientBuilder =>
 {
     // Usa esta línea si NO estás en el entorno de desarrollo.
@@ -184,6 +187,9 @@ builder.Services.AddScoped<IObtenerPerfilConMedallas, ObtenerPerfilConMedallas>(
 builder.Services.AddScoped<IServicioGestionImagenPerfil, ServicioGestionImagenPerfil>();
 builder.Services.AddScoped<IServicioProcesamientoImagenes, ServicioImageSharp>();
 builder.Services.AddScoped<IAltaRecompensa, AltaRecompensa>();
+builder.Services.AddScoped<IEditarRecompensa, EditarRecompensa>();
+builder.Services.AddScoped<IBajaRecompensa, BajaRecompensa>();
+builder.Services.AddScoped<IObtenerListadoRecompensa, ObtenerListadoRecompensa>();
 
 
 // -------------------------------

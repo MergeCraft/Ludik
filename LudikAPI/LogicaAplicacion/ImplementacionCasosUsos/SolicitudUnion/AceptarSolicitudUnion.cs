@@ -38,6 +38,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
             var perfil = new Entidad.PerfilEstudiante
             {
                 EstudianteId = solicitud.EstudianteId,
+
                 
             };
 
