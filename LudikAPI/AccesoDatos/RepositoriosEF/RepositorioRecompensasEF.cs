@@ -17,9 +17,19 @@ namespace AccesoDatos.RepositoriosEF
             _db = db;
         }
 
-        public Task<Resultado> AddAsync(Recompensa unObjeto)
+        public async Task<Resultado> AddAsync(Recompensa unObjeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Si la entidad Recompensa tiene navegación a Tienda ya asignada, simplemente:
+                await _db.Recompensas.AddAsync(unObjeto);
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (Exception ex)
+            {
+                return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
+            }
         }
 
         public Task<Resultado<IEnumerable<Recompensa>>> GetAllAsync()

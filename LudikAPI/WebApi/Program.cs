@@ -34,6 +34,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using WebApi.Helpers;
 using WebApi.Jwt;
+using LogicaAplicacion.InterfacesCasosUsos.Recompensa;
+using LogicaAplicacion.ImplementacionCasosUsos.Recompensa;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -128,6 +130,9 @@ builder.Services.AddScoped<IRepositorioSolicitudesUnion, RepositorioSolocitudesU
 builder.Services.AddScoped<IRepositorioPerfilEstudianteGrupo, RepositorioPerfilEstudianteGrupoEF>();
 builder.Services.AddScoped<IRepositorioPerfilEstudianteMedalla, RepositorioPerfilEstudianteMedallaEF>();
 builder.Services.AddScoped<IRepositorioAvatares, RepositorioAvatares>();
+builder.Services.AddScoped<IRepositorioTiendas, RepositorioTiendasEF>();
+builder.Services.AddScoped<IRepositorioRecompensas, RepositorioRecompensasEF>();
+
 
 builder.Services.AddAzureClients(clientBuilder =>
 {
@@ -178,6 +183,7 @@ builder.Services.AddScoped<IObtenerTablasEquivalenciaDelProfesor,ObtenerTablasEq
 builder.Services.AddScoped<IObtenerPerfilConMedallas, ObtenerPerfilConMedallas>();
 builder.Services.AddScoped<IServicioGestionImagenPerfil, ServicioGestionImagenPerfil>();
 builder.Services.AddScoped<IServicioProcesamientoImagenes, ServicioImageSharp>();
+builder.Services.AddScoped<IAltaRecompensa, AltaRecompensa>();
 
 
 // -------------------------------

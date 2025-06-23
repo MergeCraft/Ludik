@@ -33,11 +33,28 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var tienda = await _db.Tiendas
-                    .Include(t => t.Grupo)            // para verificar ProfesorId
+                    .Include(t => t.Grupo)            
                     .FirstOrDefaultAsync(t => t.Id == id);
                 if (tienda == null)
                     return Resultado<Tienda>.Falla(new Error("Error.NotFound", $"No se encontró la tienda con Id {id}."));
                 return Resultado<Tienda>.Exitoso(tienda);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<Tienda>.Falla(new Error("Error.Unexpected", ex.Message));
+            }
+        }
+        public async Task<Resultado<Tienda>> GetByStringIdAsync(string idString)
+        {
+            try
+            {
+                if (!int.TryParse(idString, out int id))
+                {
+                    return Resultado<Tienda>.Falla(new Error("Error.InvalidId", $"El ID proporcionado '{idString}' no es válido."));
+                }
+
+                // Reutilizamos el método ya existente
+                return await GetByIdAsync(id);
             }
             catch (Exception ex)
             {
