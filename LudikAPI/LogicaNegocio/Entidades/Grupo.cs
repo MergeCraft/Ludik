@@ -83,6 +83,14 @@ namespace LogicaNegocio.Entidades
 
             return Resultado.Exitoso();
         }
+
+        public int CalcularNotaDeEstudiante(IEnumerable<Medalla> medallasObtenidas)
+        {
+            if (TablaEquivalencia == null)
+                return 0;
+
+            return TablaEquivalencia.MaximaCalificacionSegun(medallasObtenidas);
+        }
     }
 
 }

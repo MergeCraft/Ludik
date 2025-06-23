@@ -27,11 +27,6 @@ namespace LogicaNegocio.Entidades
             Equivalencias = new List<Equivalencia>();
         }
 
-        public int maxCalificacionSegun(List<Medalla> medallas)
-		{
-			return 0;
-		}
-
 		public Equivalencia siguienteEquivalencia(List<Medalla> medallas)
 		{
 			return null;
@@ -129,6 +124,20 @@ namespace LogicaNegocio.Entidades
                     this.Equivalencias.Add(eq);
                 }
             }
+        }
+
+        public int MaximaCalificacionSegun(IEnumerable<Medalla> medallasObtenidas)
+        {
+            Equivalencias.Sort((a, b) => b.Nota.CompareTo(a.Nota)); // Ordenar de mayor a menor
+            foreach (var eq in Equivalencias)
+            {
+                if (eq.CumpleMedallasNecesarias(medallasObtenidas))
+                    return eq.Nota;
+            }
+
+            // Si no se cumple ninguna equivalencia, retornar 0
+            return 0;
+
         }
     }
 

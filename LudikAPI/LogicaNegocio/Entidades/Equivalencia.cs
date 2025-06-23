@@ -46,6 +46,35 @@ namespace LogicaNegocio.Entidades
             
             return Resultado.Exitoso();
         }
+
+        public bool CumpleMedallasNecesarias(IEnumerable<Medalla> medallasObtenidas)
+        {
+            
+            if (medallasObtenidas == null || MedallasNecesarias.Count() > medallasObtenidas.Count())
+                return false;
+
+            var conteoNecesario = MedallasNecesarias
+                .GroupBy(m => m.Id)
+                .ToDictionary(g => g.Key, g => g.Count());
+
+            var conteoObtenido = medallasObtenidas
+                .GroupBy(m => m.Id)
+                .ToDictionary(g => g.Key, g => g.Count());
+
+            foreach (var requisito in conteoNecesario)
+            {
+                var idMedallaRequerida = requisito.Key;
+                var cantidadRequerida = requisito.Value;
+
+                if (!conteoObtenido.TryGetValue(idMedallaRequerida, out int cantidadObtenida) || cantidadObtenida < cantidadRequerida)
+                    return false;
+                
+            }
+
+            return true;
+
+
+        }
     }
 
 }

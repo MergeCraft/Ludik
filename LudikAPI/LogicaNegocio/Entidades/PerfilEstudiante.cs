@@ -46,6 +46,10 @@ namespace LogicaNegocio.Entidades
         }
         public int CalcularNotaActual()
         {
+            if (Grupo == null)
+                return 0;
+            return Grupo.CalcularNotaDeEstudiante(MedallasObtenidas);
+            /*
             if (Grupo?.TablaEquivalencia?.Equivalencias == null)
                 return 0;
             var medallasAlumno = this.MedallasObtenidas.ToList();
@@ -55,14 +59,14 @@ namespace LogicaNegocio.Entidades
                 .ToDictionary(g => g.Key, g => g.Count());
 
             var equivalencias = Grupo.TablaEquivalencia.Equivalencias
-                                 .OrderByDescending(e => e.Nota)
-                                 .ToList();
+                .OrderByDescending(e => e.Nota)
+                .ToList();
             foreach (var eq in equivalencias)
             {
                 // Agrupar medallas necesarias por Id:
                 var conteoNecesario = eq.MedallasNecesarias
-                                       .GroupBy(m => m.Id)
-                                       .ToDictionary(g => g.Key, g => g.Count());
+                    .GroupBy(m => m.Id)
+                    .ToDictionary(g => g.Key, g => g.Count());
                 bool cumple = true;
                 foreach (var kv in conteoNecesario)
                 {
@@ -76,6 +80,9 @@ namespace LogicaNegocio.Entidades
                     return eq.Nota;
             }
             return 0;
+
+
+            */
         }
 
 
