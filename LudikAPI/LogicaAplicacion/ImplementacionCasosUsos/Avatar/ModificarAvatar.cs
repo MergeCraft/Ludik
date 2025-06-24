@@ -56,7 +56,7 @@ public class ModificarAvatar: IModificarAvatar
             return resultadoActualizarAvatar;
 
 
-        Resultado resultadoSubirImagen = await _servicioGestionImagenPerfil.SubirImagenDePerfilAsync(idPerfilEstudiante, idUsuarioAutenticado, streamImagen);
+        Resultado resultadoSubirImagen = await _servicioGestionImagenPerfil.SubirImagenPerfilAsync(idPerfilEstudiante, idUsuarioAutenticado, streamImagen);
         if (resultadoSubirImagen.EsFallo)
             return resultadoSubirImagen;
         

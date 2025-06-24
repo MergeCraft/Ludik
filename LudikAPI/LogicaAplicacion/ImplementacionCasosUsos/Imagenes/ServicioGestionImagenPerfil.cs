@@ -24,7 +24,7 @@ public class ServicioGestionImagenPerfil: IServicioGestionImagenPerfil
         _repositorioPerfilesEstudiantes = repositorioPerfilesEstudiantes;
     }
 
-    public async Task<Resultado> SubirImagenDePerfilAsync(int idPerfilEstudiante, string idUsuarioAutenticado,
+    public async Task<Resultado> SubirImagenPerfilAsync(int idPerfilEstudiante, string idUsuarioAutenticado,
         Stream streamImagen)
     {
         var resultadoPerfilEstudiante = await _repositorioPerfilesEstudiantes.GetByIdAsync(idPerfilEstudiante);

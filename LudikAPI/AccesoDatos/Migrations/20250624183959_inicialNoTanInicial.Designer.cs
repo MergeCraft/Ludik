@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250623122042_inicial")]
-    partial class inicial
+    [Migration("20250624183959_inicialNoTanInicial")]
+    partial class inicialNoTanInicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -387,10 +387,6 @@ namespace AccesoDatos.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Icono")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("MonedasOtorgadas")
                         .HasColumnType("int");
 
@@ -406,6 +402,10 @@ namespace AccesoDatos.Migrations
                     b.Property<bool>("TieneAsignacionMutua")
                         .HasColumnType("bit");
 
+                    b.Property<string>("UrlImagenMiniatura")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Nombre");
@@ -419,31 +419,31 @@ namespace AccesoDatos.Migrations
                         {
                             Id = 1,
                             Descripcion = "Asistencia y participación en todas las clases del mes.",
-                            Icono = "icono_asistencia.png",
                             MonedasOtorgadas = 30,
                             Nombre = "Participación Perfecta",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                            TieneAsignacionMutua = false
+                            TieneAsignacionMutua = false,
+                            UrlImagenMiniatura = "icono_asistencia.png"
                         },
                         new
                         {
                             Id = 2,
                             Descripcion = "Ayuda destacada a compañeros en proyectos grupales.",
-                            Icono = "icono_colaboracion.png",
                             MonedasOtorgadas = 25,
                             Nombre = "Maestro de la Colaboración",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                            TieneAsignacionMutua = false
+                            TieneAsignacionMutua = false,
+                            UrlImagenMiniatura = "icono_colaboracion.png"
                         },
                         new
                         {
                             Id = 3,
                             Descripcion = "Realización de preguntas perspicaces que enriquecen la clase.",
-                            Icono = "icono_pregunta.png",
                             MonedasOtorgadas = 15,
                             Nombre = "Mente Curiosa",
                             ProfesorId = "9e445865-a24d-4543-a6c6-9443d048cdb0",
-                            TieneAsignacionMutua = false
+                            TieneAsignacionMutua = false,
+                            UrlImagenMiniatura = "icono_pregunta.png"
                         });
                 });
 

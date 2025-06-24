@@ -44,7 +44,7 @@ public class AltaTablaEquivalencia: IAltaTablaEquivalencia
 
             // Validar que todas las medallas solicitadas existan.
             if (resultadoMedallasEntidades.EsFallo || resultadoMedallasEntidades.Valor.Count() != idsMedallasDto.Count)
-                return Resultado.Falla(new Error("Validation.Medalla.NotFound", "Una o más medallas especificadas no existen."));
+                return Resultado.Falla(new Error("Validation.NotFound", "Una o más medallas especificadas no existen."));
             
 
             var medallasMap = resultadoMedallasEntidades.Valor.ToDictionary(m => m.Id);

@@ -9,11 +9,11 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PerfilImagenController : ControllerBase
+    public class ImagenController : ControllerBase
     {
         private readonly IServicioGestionImagenPerfil _servicioGestionImagen;
 
-        public PerfilImagenController(IServicioGestionImagenPerfil servicioGestionImagen)
+        public ImagenController(IServicioGestionImagenPerfil servicioGestionImagen)
         {
             _servicioGestionImagen = servicioGestionImagen;
         }
@@ -40,7 +40,7 @@ namespace WebApi.Controllers
             }
             await using var streamImagen = imagen.OpenReadStream();
 
-            var resultado = await _servicioGestionImagen.SubirImagenDePerfilAsync(idPerfilEstudiante, userIdString, streamImagen);
+            var resultado = await _servicioGestionImagen.SubirImagenPerfilAsync(idPerfilEstudiante, userIdString, streamImagen);
 
             return resultado.EsExitoso
                 ? Ok()

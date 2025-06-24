@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
-    public partial class inicial : Migration
+    public partial class inicialNoTanInicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -256,7 +256,7 @@ namespace AccesoDatos.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Icono = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UrlImagenMiniatura = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MonedasOtorgadas = table.Column<int>(type: "int", nullable: false),
                     TieneAsignacionMutua = table.Column<bool>(type: "bit", nullable: false),
                     ProfesorId = table.Column<string>(type: "nvarchar(450)", nullable: false)
@@ -803,12 +803,12 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.InsertData(
                 table: "Medallas",
-                columns: new[] { "Id", "Descripcion", "Icono", "MonedasOtorgadas", "Nombre", "ProfesorId", "TieneAsignacionMutua" },
+                columns: new[] { "Id", "Descripcion", "MonedasOtorgadas", "Nombre", "ProfesorId", "TieneAsignacionMutua", "UrlImagenMiniatura" },
                 values: new object[,]
                 {
-                    { 1, "Asistencia y participación en todas las clases del mes.", "icono_asistencia.png", 30, "Participación Perfecta", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
-                    { 2, "Ayuda destacada a compañeros en proyectos grupales.", "icono_colaboracion.png", 25, "Maestro de la Colaboración", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
-                    { 3, "Realización de preguntas perspicaces que enriquecen la clase.", "icono_pregunta.png", 15, "Mente Curiosa", "9e445865-a24d-4543-a6c6-9443d048cdb0", false }
+                    { 1, "Asistencia y participación en todas las clases del mes.", 30, "Participación Perfecta", "8e445865-a24d-4543-a6c6-9443d048cdb9", false, "icono_asistencia.png" },
+                    { 2, "Ayuda destacada a compañeros en proyectos grupales.", 25, "Maestro de la Colaboración", "8e445865-a24d-4543-a6c6-9443d048cdb9", false, "icono_colaboracion.png" },
+                    { 3, "Realización de preguntas perspicaces que enriquecen la clase.", 15, "Mente Curiosa", "9e445865-a24d-4543-a6c6-9443d048cdb0", false, "icono_pregunta.png" }
                 });
 
             migrationBuilder.InsertData(

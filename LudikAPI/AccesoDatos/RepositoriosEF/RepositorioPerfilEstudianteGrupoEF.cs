@@ -154,5 +154,10 @@ namespace AccesoDatos.RepositoriosEF
                 return Resultado<PerfilEstudiante>.Falla(new Error("Error.Unexpected", ex.Message));
             }
         }
+
+        public Task<Resultado<IEnumerable<Recompensa>>> ObtenerItemsAvatarAdquiridosAsync(int idPerfilEstudiante)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

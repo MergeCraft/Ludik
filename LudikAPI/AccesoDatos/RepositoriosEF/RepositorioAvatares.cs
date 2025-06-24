@@ -35,4 +35,9 @@ public class RepositorioAvatares: IRepositorioAvatares
     {
         throw new NotImplementedException();
     }
+
+    public Task<Resultado<Avatar>> GetByPerfilIdAsync(int idPerfilEstudiante)
+    {
+        throw new NotImplementedException();
+    }
 }

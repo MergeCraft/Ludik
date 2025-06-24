@@ -38,8 +38,6 @@ namespace LogicaNegocio.Entidades
             if (MedallasNecesarias == null || MedallasNecesarias.Count == 0)
                 errores.Add(new Error("Error.Validation", "La equivalencia debe tener asociada al menos una medalla."));
 
-            if (TablaEquivalenciaId <= 0)
-                errores.Add(new Error("Error.Validation", "La equivalencia debe estar asociada a una tabla de equivalencia válida."));
            
             if (errores.Count > 0)
                 return Resultado.Falla(errores);
