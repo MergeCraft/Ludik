@@ -15,6 +15,7 @@ using LogicaAplicacion.ImplementacionCasosUsos.Profesores;
 using LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion;
 using LogicaAplicacion.ImplementacionCasosUsos.TablaEquivalencia;
 using LogicaAplicacion.InterfacesCasosUsos.AsignacionMedalla;
+using LogicaAplicacion.InterfacesCasosUsos.Avatar;
 using LogicaAplicacion.InterfacesCasosUsos.Estudiante;
 using LogicaAplicacion.InterfacesCasosUsos.Grupo;
 using LogicaAplicacion.InterfacesCasosUsos.Imagenes;
@@ -34,6 +35,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using WebApi.Helpers;
 using WebApi.Jwt;
+using LogicaAplicacion.ImplementacionCasosUsos.Avatar;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -178,6 +180,10 @@ builder.Services.AddScoped<IObtenerTablasEquivalenciaDelProfesor,ObtenerTablasEq
 builder.Services.AddScoped<IObtenerPerfilConMedallas, ObtenerPerfilConMedallas>();
 builder.Services.AddScoped<IServicioGestionImagenPerfil, ServicioGestionImagenPerfil>();
 builder.Services.AddScoped<IServicioProcesamientoImagenes, ServicioImageSharp>();
+builder.Services.AddScoped<IModificarAvatar, ModificarAvatar>();
+builder.Services.AddScoped<IObtenerAtributosAvatarDisponiblesParaPerfil, ObtenerAtributosAvatarDisponiblesParaPerfil>();
+
+
 
 
 // -------------------------------

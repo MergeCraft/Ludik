@@ -101,7 +101,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             var entidad = new Entidad.Medalla
             {
                 Id = id,
-                Icono = "vieja",
+                UrlImagenMiniatura = "vieja",
                 Nombre = "NombreValido",
                 Descripcion = "Desc",
                 MonedasOtorgadas = 5,
@@ -139,7 +139,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             var entidadOriginal = new Entidad.Medalla
             {
                 Id = id,
-                Icono = "viejaIcono",
+                UrlImagenMiniatura = "viejaIcono",
                 Nombre = "NombreValido",
                 Descripcion = "DescOriginal",
                 MonedasOtorgadas = 5,
@@ -172,7 +172,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 m.Id == id &&
                 m.Nombre == "NombreNuevo" &&
                 m.Descripcion == "DescNueva" &&
-                m.Icono == "urlNueva" &&
+                m.UrlImagenMiniatura == "urlNueva" &&
                 m.MonedasOtorgadas == 10 &&
                 m.TieneAsignacionMutua == true
             )), Times.Once);
@@ -186,7 +186,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             var entidad = new Entidad.Medalla
             {
                 Id = id,
-                Icono = "viejaIcono",
+                UrlImagenMiniatura = "viejaIcono",
                 Nombre = "NombreValido",
                 Descripcion = "DescOriginal",
                 MonedasOtorgadas = 5,

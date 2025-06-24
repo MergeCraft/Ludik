@@ -15,7 +15,7 @@ namespace AccesoDatos.Servicios
     public class ServicioImageSharp: IServicioProcesamientoImagenes
     {
         private const int SizeCompleta = 1024;
-        private const int SizeMiniatura = 200;
+        private const int SizeMiniatura = 100;
         private const int CalidadJpeg = 85;
 
         public async Task<Resultado<IEnumerable<StreamProcesado>>> ProcesarImagenPerfilAsync(Stream streamOriginal)

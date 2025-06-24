@@ -7,7 +7,7 @@ namespace LogicaAplicacion.DTOsMappers.MedallaMappers
     {
         public static void actualizarMedalla(Medalla entidad, MedallaEditarDto dto)
         {
-            entidad.Icono = dto.UrlImagen;
+            entidad.UrlImagenMiniatura = dto.UrlImagen;
             entidad.Nombre = dto.Nombre;
             entidad.Descripcion = dto.Descripcion;
             entidad.MonedasOtorgadas = dto.CantidadMonedasBrinda;

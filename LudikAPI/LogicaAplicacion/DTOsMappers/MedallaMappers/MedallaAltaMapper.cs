@@ -28,7 +28,7 @@ namespace LogicaAplicacion.DTOsMappers.MedallaMappers
         {
 
             return new Medalla{
-                Icono = dto.UrlImagen,
+                UrlImagenMiniatura = dto.UrlImagen,
                 Nombre = dto.Nombre,
                 Descripcion = dto.Descripcion,
                 MonedasOtorgadas = dto.CantidadMonedasBrinda,

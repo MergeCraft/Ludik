@@ -11,6 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="DTOs\AvatarDTOs\" />
+    <Folder Include="ImplementacionCasosUsos\Avatar\" />
     <Folder Include="ImplementacionCasosUsos\Usuarios\" />
     <Folder Include="InterfacesCasosUsos\Imagenes\" />
     <Folder Include="InterfacesCasosUsos\Usuario\" />

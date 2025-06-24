@@ -5,7 +5,6 @@ using LogicaAplicacion.InterfacesCasosUsos.Imagenes;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
 using Entidad = LogicaNegocio.Entidades;
-using Microsoft.AspNetCore.Http;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Imagenes;
 
@@ -25,7 +24,8 @@ public class ServicioGestionImagenPerfil: IServicioGestionImagenPerfil
         _repositorioPerfilesEstudiantes = repositorioPerfilesEstudiantes;
     }
 
-    public async Task<Resultado> SubirImagenDePerfilAsync(int idPerfilEstudiante, string idUsuarioAutenticado, IFormFile imagen)
+    public async Task<Resultado> SubirImagenDePerfilAsync(int idPerfilEstudiante, string idUsuarioAutenticado,
+        Stream streamImagen)
     {
         var resultadoPerfilEstudiante = await _repositorioPerfilesEstudiantes.GetByIdAsync(idPerfilEstudiante);
         if (resultadoPerfilEstudiante.EsFallo)
@@ -38,8 +38,7 @@ public class ServicioGestionImagenPerfil: IServicioGestionImagenPerfil
             return Resultado<ImagenPerfilDto>.Falla(Error.Forbidden);
         }
 
-        using var originalStream = imagen.OpenReadStream();
-        var resultadoProcesamiento = await _procesadorImagenes.ProcesarImagenPerfilAsync(originalStream);
+        var resultadoProcesamiento = await _procesadorImagenes.ProcesarImagenPerfilAsync(streamImagen);
 
         if (resultadoProcesamiento.EsFallo)
             return Resultado<ImagenPerfilDto>.Falla(resultadoProcesamiento.Errores);

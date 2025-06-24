@@ -36,8 +36,9 @@ namespace WebApi.Controllers
             {
                 return Unauthorized();
             }
+            await using var streamImagen = imagen.OpenReadStream();
 
-            var resultado = await _servicioGestionImagen.SubirImagenDePerfilAsync(idPerfilEstudiante, userIdString, imagen);
+            var resultado = await _servicioGestionImagen.SubirImagenDePerfilAsync(idPerfilEstudiante, userIdString, streamImagen);
 
             return resultado.EsExitoso
                 ? Ok()

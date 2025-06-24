@@ -104,9 +104,9 @@ namespace AccesoDatos.RepositoriosEF
             var medalla2Id = 2;
             var medalla3Id = 3;
             modelBuilder.Entity<Medalla>().HasData(
-                new Medalla { Id = medalla1Id, Nombre = "Participación Perfecta", Descripcion = "Asistencia y participación en todas las clases del mes.", Icono = "icono_asistencia.png", MonedasOtorgadas = 30, ProfesorId = profesor1Id },
-                new Medalla { Id = medalla2Id, Nombre = "Maestro de la Colaboración", Descripcion = "Ayuda destacada a compañeros en proyectos grupales.", Icono = "icono_colaboracion.png", MonedasOtorgadas = 25, ProfesorId = profesor1Id },
-                new Medalla { Id = medalla3Id, Nombre = "Mente Curiosa", Descripcion = "Realización de preguntas perspicaces que enriquecen la clase.", Icono = "icono_pregunta.png", MonedasOtorgadas = 15, ProfesorId = profesor2Id }
+                new Medalla { Id = medalla1Id, Nombre = "Participación Perfecta", Descripcion = "Asistencia y participación en todas las clases del mes.", UrlImagenMiniatura = "icono_asistencia.png", MonedasOtorgadas = 30, ProfesorId = profesor1Id },
+                new Medalla { Id = medalla2Id, Nombre = "Maestro de la Colaboración", Descripcion = "Ayuda destacada a compañeros en proyectos grupales.", UrlImagenMiniatura = "icono_colaboracion.png", MonedasOtorgadas = 25, ProfesorId = profesor1Id },
+                new Medalla { Id = medalla3Id, Nombre = "Mente Curiosa", Descripcion = "Realización de preguntas perspicaces que enriquecen la clase.", UrlImagenMiniatura = "icono_pregunta.png", MonedasOtorgadas = 15, ProfesorId = profesor2Id }
             );
 
             // 5. CREACIÓN DE TABLAS DE EQUIVALENCIA (sin las equivalencias dentro aún)
