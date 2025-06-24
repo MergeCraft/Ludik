@@ -29,13 +29,11 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Tienda
                 return Resultado<IEnumerable<RecompensaListadoDto>>.Falla(
                     new Error("Error.InvalidId", $"ID de tienda inválido: '{tiendaIdString}'"));
 
-            // Opcional: validar que la tienda exista
             var resultadoTienda = await _repositorioTiendas.GetByIdAsync(tiendaId);
             if (resultadoTienda.EsFallo)
                 return Resultado<IEnumerable<RecompensaListadoDto>>.Falla(
                     new Error("Error.NotFound", "No se encontró la tienda especificada."));
 
-            // Obtener recompensas
             var resultadoLista = await _repositorioRecompensas.GetByTiendaIdAsync(tiendaId);
             if (resultadoLista.EsFallo)
                 return Resultado<IEnumerable<RecompensaListadoDto>>.Falla(
@@ -43,7 +41,6 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Tienda
 
             var entidades = resultadoLista.Valor!;
 
-            // Mapear a DTOs
             var dtos = entidades
                 .Select(r => RecompensaListadoMapper.ToDto(r))
                 .ToList();

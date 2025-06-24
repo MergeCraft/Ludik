@@ -25,13 +25,10 @@ namespace LogicaNegocio.Entidades
                 errores.Add(new Error("Error.Validation", "El nombre de la recompensa debe tener entre 3 y 50 caracteres."));
             if (Precio < 0)
                 errores.Add(new Error("Error.Validation", "El precio de la recompensa debe ser >= 0."));
-            // Opcional: validar que rutas no sean nulas o que tengan formato de URL:
             if (string.IsNullOrWhiteSpace(RutaImagenCompleta))
                 errores.Add(new Error("Error.Validation", "Debe especificar la ruta de la imagen completa."));
             if (string.IsNullOrWhiteSpace(RutaImagenMiniatura))
                 errores.Add(new Error("Error.Validation", "Debe especificar la ruta de la miniatura."));
-            // Podrías validar formato de URL con Uri.IsWellFormedUriString, si requiere:
-            // if (!Uri.IsWellFormedUriString(RutaImagenCompleta, UriKind.Absolute)) ...
             if (errores.Any())
                 return Resultado.Falla(errores);
             return Resultado.Exitoso();
