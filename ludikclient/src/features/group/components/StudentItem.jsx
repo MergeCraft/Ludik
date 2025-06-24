@@ -1,22 +1,73 @@
-// components/StudentCard.jsx
-import React from "react";
+// components/StudentItem.jsx
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import genericProfileImage from "../../../assets/genericStudentAvatar.png";
 import styles from "./StudentItem.module.css";
 
-const StudentItem = ({ student }) => {
+import { useAsignarMedalla } from "../hooks/useGrupoMutation";
+
+const StudentItem = ({ student, medals }) => {
+  const [selectedMedal, setSelectedMedal] = useState(""); // <- estado para controlar el valor del select
+  const { mutate } = useAsignarMedalla();
+
+  const handleMedalChange = (e) => {
+    const medallaId = Number(e.target.value);
+    if (!medallaId) return;
+
+    mutate(
+      { perfilId: student.id, medallaId },
+      {
+        onSuccess: () => setSelectedMedal(""), // <- resetea el select al éxito
+      }
+    );
+  };
+
   return (
     <div className={styles.card}>
-      <img src={student.enlaceAvatar ? student.enlaceAvatar : genericProfileImage} alt="avatar" className={styles.avatar} />
-      <p>{student.estudianteId}</p>
+      <img src={student.enlaceAvatar || genericProfileImage} alt="avatar" className={styles.avatar} />
+      <div className={styles.centrales}>
+        <p>{student.nombreEstudiante}</p>
+        <div className={styles.asignarMedalla}>
+          <p>Asignación de medallas</p>
+          <select
+            className={`button ${styles.medallas}`}
+            name="medallas"
+            value={selectedMedal}
+            onChange={(e) => {
+              setSelectedMedal(e.target.value); // actualizar UI
+              handleMedalChange(e); // ejecutar mutación
+            }}
+          >
+            <option value="">Selecciona una medalla</option>
+            {Array.isArray(medals) &&
+              medals.map((medalla) => (
+                <option key={medalla.id} value={medalla.id}>
+                  {medalla.nombre}
+                </option>
+              ))}
+          </select>
+        </div>
+      </div>
+
       <FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" size="lg" />
     </div>
   );
 };
 
 StudentItem.propTypes = {
-  student: PropTypes.object.isRequired,
+  student: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    grupoId: PropTypes.number,
+    enlaceAvatar: PropTypes.string,
+    nombreEstudiante: PropTypes.string.isRequired,
+  }).isRequired,
+  medals: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      nombre: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default StudentItem;

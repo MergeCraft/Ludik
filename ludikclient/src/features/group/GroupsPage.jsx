@@ -22,8 +22,6 @@ const GroupsPage = () => {
 
   const { data: grupos, isLoading } = useGruposProfesor();
 
-  console.log(grupos);
-
   const gruposFormateados =
     grupos?.map((g) => ({
       id: g.id,
@@ -33,7 +31,6 @@ const GroupsPage = () => {
       imgSrc: genericGroupImage,
     })) || [];
 
-  // 🧠 Filtrado por nombre o materia
   const gruposFiltrados = gruposFormateados.filter((grupo) => grupo.name.toLowerCase().includes(search.toLowerCase()) || grupo.grade.toLowerCase().includes(search.toLowerCase()));
 
   const handleOpenModal = (tipo) => {

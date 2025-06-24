@@ -1,13 +1,22 @@
-// services/medals/medalService.js
 import api from "../lib/axios";
+
+const parseError = (error, defaultMsg) => {
+  const data = error?.response?.data;
+
+  if (Array.isArray(data)) {
+    return data.map((e) => e.mensaje || e.message || e.error).filter(Boolean);
+  }
+
+  const mensaje = data?.mensaje || data?.message || data?.error;
+  return [mensaje || defaultMsg];
+};
 
 export const crearMedalla = async (medalla) => {
   try {
     const response = await api.post("/api/medalla/alta", medalla);
     return response.data;
   } catch (error) {
-    const mensaje = error.response?.data?.message || error.response?.data?.error || "Error al crear la medalla.";
-    throw new Error(mensaje);
+    throw parseError(error, "Error al crear la medalla.");
   }
 };
 
@@ -16,8 +25,7 @@ export const obtenerMedallasProfesor = async () => {
     const response = await api.get("/api/Medalla");
     return response.data;
   } catch (error) {
-    const mensaje = error.response?.data?.mensaje || "No se pudieron obtener las medallas del profesor.";
-    throw new Error(mensaje);
+    throw parseError(error, "No se pudieron obtener las medallas del profesor.");
   }
 };
 
@@ -26,8 +34,7 @@ export const obtenerMedallaPorId = async (id) => {
     const response = await api.get(`/api/Medalla/${id}`);
     return response.data;
   } catch (error) {
-    const mensaje = error.response?.data?.mensaje || "No se pudo obtener la medalla.";
-    throw new Error(mensaje);
+    throw parseError(error, "No se pudo obtener la medalla.");
   }
 };
 
@@ -36,8 +43,7 @@ export const editarMedalla = async ({ id, ...data }) => {
     const response = await api.put(`/api/medalla/${id}`, data);
     return response.data;
   } catch (error) {
-    const mensaje = error.response?.data?.mensaje || "Error al editar la medalla.";
-    throw new Error(mensaje);
+    throw parseError(error, "Error al editar la medalla.");
   }
 };
 
@@ -46,7 +52,6 @@ export const eliminarMedalla = async (id) => {
     const response = await api.delete(`/api/Medalla/${id}`);
     return response.data;
   } catch (error) {
-    const mensaje = error.response?.data?.mensaje || "Error al eliminar la medalla.";
-    throw new Error(mensaje);
+    throw parseError(error, "Error al eliminar la medalla.");
   }
 };

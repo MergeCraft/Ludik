@@ -3,9 +3,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
     background: var(--principal);
     border-radius: 15px;
-    padding: 15px;
+    padding: 5px 15px;
     color: var(--blanco-principal);
     text-align: center;
 }
@@ -29,4 +30,49 @@ p {
 
 .card svg {
     cursor: pointer;
+}
+
+.centrales {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.asignarMedalla {
+    border-radius: 15px;
+    border: 1px solid var(--secundario);
+    padding: 10px;
+    width: 40%;
+}
+
+.asignarMedalla p {
+    font-size: x-small;
+    margin-bottom: 5px;
+}
+
+.medallas {
+    margin: 0;
+    width: 100%;
+    padding: 0px 5px;
+    text-align: center;
+}
+
+.medallas option {
+    background-color: var(--secundario);
+}
+
+@media screen and (max-width: 720px) {
+    .asignarMedalla {
+        width: 50%;
+    }
+
+    .medallas {
+        font-size: small;
+    }
+
+    .asignarMedalla p {
+        font-size: xx-small;
+    }
+
 }

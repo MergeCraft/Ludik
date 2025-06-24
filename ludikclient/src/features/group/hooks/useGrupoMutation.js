@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
+import * as Toast from "../../../lib/toastify";
 import {
   crearGrupo,
   obtenerGruposProfesor,
@@ -8,8 +9,13 @@ import {
   solicitarUnirseGrupo,
   aceptarSolicitud,
   rechazarSolicitud,
-} from "../../../services/groupService.js";
-import * as Toast from "../../../lib/toastify";
+  asignarMedalla,
+} from "../../../services/groupService";
+
+const manejarErrores = (error) => {
+  const errores = Array.isArray(error) ? error : [error.message];
+  errores.forEach((msg) => Toast.notificarError(msg));
+};
 
 export const useCrearGrupo = (onSuccessCallback) => {
   const queryClient = useQueryClient();
@@ -21,12 +27,7 @@ export const useCrearGrupo = (onSuccessCallback) => {
       queryClient.invalidateQueries(["grupos"]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
-    onError: (error) => {
-      // Manejo de errores centralizado
-      const raw = error?.response?.data;
-      const msg = raw?.mensaje || raw?.message || raw?.error || JSON.stringify(raw) || error.message || "No se pudo crear el grupo.";
-      Toast.notificarError(msg);
-    },
+    onError: manejarErrores,
   });
 };
 
@@ -34,9 +35,7 @@ export const useGruposProfesor = () => {
   return useQuery({
     queryKey: ["grupos", "profesor"],
     queryFn: obtenerGruposProfesor,
-    onError: (error) => {
-      Toast.notificarError(error.message || "Error al cargar grupos.");
-    },
+    onError: manejarErrores,
   });
 };
 
@@ -44,10 +43,8 @@ export const useGrupo = (id) => {
   return useQuery({
     queryKey: ["grupo", id],
     queryFn: () => obtenerGrupo(id),
-    onError: (error) => {
-      Toast.notificarError(error.message);
-    },
     enabled: !!id,
+    onError: manejarErrores,
   });
 };
 
@@ -55,10 +52,8 @@ export const useAlumnosGrupo = (id) => {
   return useQuery({
     queryKey: ["alumnos", id],
     queryFn: () => obtenerAlumnosGrupo(id),
-    onError: (error) => {
-      Toast.notificarError(error.message);
-    },
     enabled: !!id,
+    onError: manejarErrores,
   });
 };
 
@@ -66,10 +61,8 @@ export const useSolicitudesUnion = (id) => {
   return useQuery({
     queryKey: ["solicitudesUnion", id],
     queryFn: () => obtenerSolicitudesUnion(id),
-    onError: (error) => {
-      Toast.notificarError(error.message);
-    },
     enabled: !!id,
+    onError: manejarErrores,
   });
 };
 
@@ -79,13 +72,8 @@ export const useSolicitarUnirseGrupo = (onSuccessCallback) => {
     onSuccess: (data) => {
       Toast.notificarExito("Solicitud de unión creada.");
       if (onSuccessCallback) onSuccessCallback(data);
-      // opcional: invalidar grupos
-      // queryClient.invalidateQueries(["grupos"]);
     },
-    onError: (error) => {
-      const msg = error?.message || "Error al solicitar unirte al grupo.";
-      Toast.notificarError(msg);
-    },
+    onError: manejarErrores,
   });
 };
 
@@ -96,12 +84,10 @@ export const useAceptarSolicitud = (onSuccessCallback) => {
     mutationFn: aceptarSolicitud,
     onSuccess: (data) => {
       Toast.notificarExito("Solicitud aceptada.");
-      queryClient.invalidateQueries(["solicitudesUnion"]); // o según el groupId si lo deseas
+      queryClient.invalidateQueries(["solicitudesUnion"]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
-    onError: (error) => {
-      Toast.notificarError(error.message);
-    },
+    onError: manejarErrores,
   });
 };
 
@@ -112,11 +98,24 @@ export const useRechazarSolicitud = (onSuccessCallback) => {
     mutationFn: rechazarSolicitud,
     onSuccess: (data) => {
       Toast.notificarExito("Solicitud rechazada.");
-      queryClient.invalidateQueries(["solicitudesUnion"]); // o según el groupId si lo deseas
+      queryClient.invalidateQueries(["solicitudesUnion"]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
-    onError: (error) => {
-      Toast.notificarError(error.message);
+    onError: manejarErrores,
+  });
+};
+
+//Asignacion de medallas
+export const useAsignarMedalla = (onSuccessCallback) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: asignarMedalla,
+    onSuccess: (data) => {
+      Toast.notificarExito("Medalla asignada exitosamente.");
+      queryClient.invalidateQueries(["alumnos"]); // podrías parametrizar por grupo si lo deseas
+      if (onSuccessCallback) onSuccessCallback(data);
     },
+    onError: manejarErrores,
   });
 };

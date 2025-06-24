@@ -8,14 +8,13 @@
 }
 
 .acciones {
-    margin: 20px 0;
+    margin: 10px 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
 .accionesBusqueda {
-    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -35,6 +34,7 @@
     box-sizing: border-box;
     flex-grow: 1;
     color: var(--blanco-secundario);
+    margin: 0;
 }
 
 .buscador::placeholder {
@@ -51,12 +51,11 @@
 }
 
 .accionesPrincipales {
-    position: fixed;
-    bottom: 20px;
-    width: 90%;
-    max-width: 90%;
-    z-index: 2;
-    height: 45px;
+    box-sizing: border-box;
+    position: static;
+    max-width: none;
+    z-index: auto;
+    transform: none;
 }
 
 .accionesPrincipales button {
@@ -89,19 +88,18 @@
     justify-content: center;
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (max-width: 720px) {
 
     .accionesBusqueda {
-        width: 30%;
+        width: 100%;
     }
 
     .accionesPrincipales {
-        position: static;
-        width: 15%;
-        max-width: none;
-        z-index: auto;
-        transform: none;
-        margin-right: auto;
-        padding: 0.8rem;
+        position: fixed;
+        bottom: 20px;
+        width: 90%;
+        max-width: 90%;
+        z-index: 2;
+        height: 45px;
     }
 }
