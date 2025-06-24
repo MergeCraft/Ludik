@@ -35,8 +35,17 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Recompensa
                 return Resultado.Falla(new Error("Error.Validation", "La tienda no pertenece a un grupo del profesor autenticado"));
             }
 
-            var recompensa = RecompensaAltaMapper.fromDto(recompensaDto, tienda);
+            var recompensasEnTienda = await _repositorioRecompensas.GetByTiendaIdAsync(tienda.Id);
+            if (recompensasEnTienda.EsFallo)
+                return Resultado.Falla(new Error("Error.Unexpected", "No se pudo verificar la unicidad del nombre de recompensa."));
 
+            bool nombreYaExiste = recompensasEnTienda.Valor!
+                .Any(r => r.Nombre.Trim().ToLower() == recompensaDto.Nombre.Trim().ToLower());
+
+            if (nombreYaExiste)
+                return Resultado.Falla(new Error("Error.Validation", "El nombre de recompensa ya está en uso en esta tienda."));
+
+            var recompensa = RecompensaAltaMapper.fromDto(recompensaDto, tienda);
             var resultadoValidacion = recompensa.esValido();
             if (resultadoValidacion.EsFallo)
                 return resultadoValidacion;
