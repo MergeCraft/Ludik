@@ -62,6 +62,7 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> ObtenerAtributosAvatarQuePoseePerfilEstudiante()
         {
+            return BadRequest("Sin implementar");
         }
 
     }
