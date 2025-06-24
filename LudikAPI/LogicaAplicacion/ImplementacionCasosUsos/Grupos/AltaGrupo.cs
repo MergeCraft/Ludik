@@ -1,4 +1,4 @@
-﻿using LogicaNegocio.Entidades;
+﻿using Entidades=LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.GrupoDTOs;
 using LogicaAplicacion.DTOsMappers.GrupoMappers;
@@ -43,15 +43,15 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
             if (string.IsNullOrEmpty(resultadoUrlInvitacion.Valor))
                 return Resultado<GrupoDto>.Falla(new Error("Error.Validation", "No se pudo generar la URL de invitación para el grupo."));
 
-            var grupo =new Grupo
+            var grupo =new Entidades.Grupo
             {
                 Nombre = grupoRequestDto.Nombre,
                 TablaEquivalencia = resultadoTabla.Valor,
                 ProfesorId = profesorId,
                 Institucion = grupoRequestDto.Institucion,
                 Materia = grupoRequestDto.Materia,
-                EnlaceUnion = new EnlaceUnion(resultadoUrlInvitacion.Valor, codigoUnicoInvitacion),
-                Tienda = new Tienda()
+                EnlaceUnion = new Entidades.EnlaceUnion(resultadoUrlInvitacion.Valor, codigoUnicoInvitacion),
+                Tienda = new Entidades.Tienda()
             };
 
             var resultadoValidacion = grupo.esValido();

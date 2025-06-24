@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import styles from "./EquivalenceTablePage.module.css";
+
+import styles from "../generics/BaseManagerPage.module.css";
+
+import selfStyles from "./EquivalenceTablePage.module.css";
 
 import { BarLoader } from "react-spinners";
 
@@ -39,7 +42,7 @@ const EquivalenceTablePage = () => {
       <BarLoader color="var(--blanco-secundario)" size={10} />
     </div>
   ) : (
-    <div className={styles.tablesContainer}>
+    <div className={selfStyles.tablesContainer}>
       {equivalencesFiltradas.map((item) => (
         <EquivalenceTableItem key={item.id} item={item} />
       ))}

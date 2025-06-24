@@ -14,6 +14,8 @@ import StudentItem from "./components/StudentItem";
 
 import { useGrupo, useAlumnosGrupo } from "./hooks/useGrupoMutation";
 
+import { useMedallasProfesor } from "../medals/hooks/useMedalMutation";
+
 import { useParams } from "react-router-dom";
 
 import ApplicationRequests from "./components/teacher/ApplicationRequests";
@@ -34,9 +36,11 @@ const GroupPage = () => {
   // Carga de estudiantes del grupo
   const { data: students, isLoading: isLoadingStudents } = useAlumnosGrupo(groupId);
 
+  const { data: medals, isLoading: isLoadingMedals } = useMedallasProfesor();
+
   // Filtra según nombre o cualquier otro campo
   const studentsFiltrados = students?.filter(
-    (item) => item.estudianteId.toLowerCase().includes(search.toLowerCase()) // o el nombre si estuviese incluido
+    (item) => item.nombreEstudiante.toLowerCase().includes(search.toLowerCase()) // o el nombre si estuviese incluido
   );
 
   const handleOpenApplicationRequests = () => {
@@ -66,22 +70,22 @@ const GroupPage = () => {
   ) : (
     <div className={selfStyle.groupContainer}>
       <div className={selfStyle.infoGrupo}>
-        <h2>
+        <h3>
           <FontAwesomeIcon icon="fa-solid fa-book-bookmark" />
           {group.materia.toUpperCase()}
-        </h2>
-        <h2>
+        </h3>
+        <h3>
           <FontAwesomeIcon icon="fa-solid fa-school" />
           {group.institucion.toUpperCase()} - {group.nombre.toUpperCase()}
-        </h2>
+        </h3>
       </div>
 
-      {isLoadingStudents ? (
+      {isLoadingStudents || isLoadingMedals ? (
         <div className={styles.barLoaderContainer}>
           <BarLoader color="var(--blanco-secundario)" size={10} />
         </div>
       ) : (
-        <div className={selfStyle.studentsContainer}>{studentsFiltrados && studentsFiltrados.map((item) => <StudentItem key={item.id} student={item} />)}</div>
+        <div className={selfStyle.studentsContainer}>{studentsFiltrados && studentsFiltrados.map((item) => <StudentItem key={item.id} student={item} medals={medals} />)}</div>
       )}
     </div>
   );

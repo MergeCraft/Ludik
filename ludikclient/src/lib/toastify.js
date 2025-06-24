@@ -18,6 +18,7 @@ export const notificarExito = (msg) =>
 export const notificarError = (msg) =>
   toast.error(msg, {
     position: "top-right",
+    autoClose: 2500,
     style: {
       boxShadow: "0 3px 0 3px var(--blanco-secundario)",
       borderRadius: "10px",

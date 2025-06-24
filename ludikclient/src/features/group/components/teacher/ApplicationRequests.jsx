@@ -19,10 +19,6 @@ const ApplicationRequests = ({ groupId, link }) => {
   // Carga de las solicitudes de unión
   const { data: solicitudes, isLoading } = useSolicitudesUnion(groupId);
 
-  const code = new URL(link).searchParams.get("codigo");
-
-  console.log(solicitudes);
-
   const handleCopy = () => {
     navigator.clipboard.writeText(link);
     Toast.notificarExito("Enlace copiado!");
@@ -39,7 +35,7 @@ const ApplicationRequests = ({ groupId, link }) => {
   return (
     <div className={selfStyles.applicationRequests}>
       <div className={selfStyles.linkContainer}>
-        <p className={selfStyles.link}>{code}</p>
+        <p className={selfStyles.link}>{link}</p>
         <button aria-label="Copiar link" onClick={handleCopy} className={selfStyles.copyBtn}>
           <FontAwesomeIcon icon="fa-solid fa-copy" />
         </button>

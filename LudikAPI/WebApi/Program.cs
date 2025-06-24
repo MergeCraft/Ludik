@@ -36,6 +36,10 @@ using Microsoft.OpenApi.Models;
 using WebApi.Helpers;
 using WebApi.Jwt;
 using LogicaAplicacion.ImplementacionCasosUsos.Avatar;
+using LogicaAplicacion.InterfacesCasosUsos.Recompensa;
+using LogicaAplicacion.ImplementacionCasosUsos.Recompensa;
+using LogicaAplicacion.InterfacesCasosUsos.Tienda;
+using LogicaAplicacion.ImplementacionCasosUsos.Tienda;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -130,6 +134,10 @@ builder.Services.AddScoped<IRepositorioSolicitudesUnion, RepositorioSolocitudesU
 builder.Services.AddScoped<IRepositorioPerfilEstudianteGrupo, RepositorioPerfilEstudianteGrupoEF>();
 builder.Services.AddScoped<IRepositorioPerfilEstudianteMedalla, RepositorioPerfilEstudianteMedallaEF>();
 builder.Services.AddScoped<IRepositorioAvatares, RepositorioAvatares>();
+builder.Services.AddScoped<IRepositorioTiendas, RepositorioTiendasEF>();
+builder.Services.AddScoped<IRepositorioRecompensas, RepositorioRecompensasEF>();
+
+
 
 builder.Services.AddAzureClients(clientBuilder =>
 {
@@ -184,6 +192,10 @@ builder.Services.AddScoped<IModificarAvatar, ModificarAvatar>();
 builder.Services.AddScoped<IObtenerAtributosAvatarDisponiblesParaPerfil, ObtenerAtributosAvatarDisponiblesParaPerfil>();
 
 
+builder.Services.AddScoped<IAltaRecompensa, AltaRecompensa>();
+builder.Services.AddScoped<IEditarRecompensa, EditarRecompensa>();
+builder.Services.AddScoped<IBajaRecompensa, BajaRecompensa>();
+builder.Services.AddScoped<IObtenerListadoRecompensa, ObtenerListadoRecompensa>();
 
 
 // -------------------------------

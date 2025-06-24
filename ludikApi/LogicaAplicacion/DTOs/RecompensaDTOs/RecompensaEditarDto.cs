@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.DTOs.RecompensaDTOs
 {
-    public class RecompensaAltaDto
+    public class RecompensaEditarDto
     {
         public string Nombre { get; set; }
         public string RutaImagenCompleta { get; set; }

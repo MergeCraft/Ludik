@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaNegocio.Resultados;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
 {
@@ -17,9 +18,19 @@ namespace AccesoDatos.RepositoriosEF
             _db = db;
         }
 
-        public Task<Resultado> AddAsync(Recompensa unObjeto)
+        public async Task<Resultado> AddAsync(Recompensa unObjeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Si la entidad Recompensa tiene navegación a Tienda ya asignada, simplemente:
+                await _db.Recompensas.AddAsync(unObjeto);
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (Exception ex)
+            {
+                return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
+            }
         }
 
         public Task<Resultado<IEnumerable<Recompensa>>> GetAllAsync()
@@ -27,24 +38,100 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public Task<Resultado<Recompensa>> GetByIdAsync(int id)
+        public async Task<Resultado<Recompensa>> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var recompensa = await _db.Recompensas
+                    .Include(r => r.Tienda)
+                    .FirstOrDefaultAsync(r => r.Id == id);
+
+                if (recompensa == null)
+                    return Resultado<Recompensa>.Falla(
+                        new Error("Error.NotFound", $"No se encontró la recompensa con Id {id}."));
+
+                return Resultado<Recompensa>.Exitoso(recompensa);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<Recompensa>.Falla(
+                    new Error("Error.Unexpected", ex.Message));
+            }
         }
 
-        public Task<Resultado> RemoveAsync(int id)
+        public async Task<Resultado<IEnumerable<Recompensa>>> GetByTiendaIdAsync(int tiendaId)
         {
-            throw new NotImplementedException();
+            try
+            {
+               
+                var lista = await _db.Recompensas
+                    .Where(r => r.TiendaId == tiendaId)
+                    .ToListAsync();
+                return Resultado<IEnumerable<Recompensa>>.Exitoso(lista);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<IEnumerable<Recompensa>>.Falla(
+                    new Error("Error.Unexpected", ex.Message));
+            }
         }
 
-        public Task<Resultado> RemoveAsync(Recompensa unObjeto)
+        public async Task<Resultado> RemoveAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var entidad = await _db.Recompensas
+                    .Include(r => r.Tienda) // incluir si luego usas navegación
+                    .FirstOrDefaultAsync(r => r.Id == id);
+
+                if (entidad == null)
+                    return Resultado.Falla(new Error("Error.NotFound", $"No se encontró la recompensa con Id {id}."));
+
+                _db.Recompensas.Remove(entidad);
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (Exception ex)
+            {
+                return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
+            }
         }
 
-        public Task<Resultado> UpdateAsync(Recompensa unObjeto)
+        public async Task<Resultado> RemoveAsync(Recompensa unObjeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Opcional: verificar que existe
+                var existe = await _db.Recompensas.AnyAsync(r => r.Id == unObjeto.Id);
+                if (!existe)
+                    return Resultado.Falla(new Error("Error.NotFound", $"No se encontró la recompensa con Id {unObjeto.Id}."));
+
+                _db.Recompensas.Remove(unObjeto);
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (Exception ex)
+            {
+                return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
+            }
+        }
+
+        public async Task<Resultado> UpdateAsync(Recompensa unObjeto)
+        {
+            try
+            {
+                var existe = await _db.Recompensas.AnyAsync(r => r.Id == unObjeto.Id);
+                if (!existe)
+                    return Resultado.Falla(new Error("Error.NotFound", $"No se encontró la recompensa con Id {unObjeto.Id}."));
+
+                _db.Recompensas.Update(unObjeto);
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (Exception ex)
+            {
+                return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
+            }
         }
     }
 }
