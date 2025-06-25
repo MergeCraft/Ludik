@@ -12,6 +12,8 @@ import {
   asignarMedalla,
 } from "../../../services/groupService";
 
+import { obtenerRecompensasTienda } from "../../../services/storeService";
+
 const manejarErrores = (error) => {
   const errores = Array.isArray(error) ? error : [error.message];
   errores.forEach((msg) => Toast.notificarError(msg));
@@ -116,6 +118,17 @@ export const useAsignarMedalla = (onSuccessCallback) => {
       queryClient.invalidateQueries(["alumnos"]); // podrías parametrizar por grupo si lo deseas
       if (onSuccessCallback) onSuccessCallback(data);
     },
+    onError: manejarErrores,
+  });
+};
+
+//Tienda
+
+export const useRecompensasTienda = (tiendaId) => {
+  return useQuery({
+    queryKey: ["recompensas", tiendaId],
+    queryFn: () => obtenerRecompensasTienda(tiendaId),
+    enabled: !!tiendaId,
     onError: manejarErrores,
   });
 };

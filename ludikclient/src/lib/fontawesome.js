@@ -34,6 +34,8 @@ import {
   faCopy,
   faUserXmark,
   faUserCheck,
+  faStore,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { faUser as farUser } from "@fortawesome/free-regular-svg-icons";
@@ -72,5 +74,7 @@ library.add(
   faSchool,
   faCopy,
   faUserXmark,
-  faUserCheck
+  faUserCheck,
+  faStore,
+  faPlus
 ); // Agrega a la librería

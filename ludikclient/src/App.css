@@ -119,6 +119,11 @@ body {
   animation-delay: 1s;
 }
 
+input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;

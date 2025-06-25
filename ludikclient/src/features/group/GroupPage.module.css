@@ -31,7 +31,7 @@
     border-radius: 15px;
     height: 100%;
     padding: 5px;
-    min-width: 190px;
+    min-width: 200px;
     width: 100%;
     box-sizing: border-box;
 }
@@ -55,6 +55,22 @@
 
 .acciones button svg {
     padding: 0;
+}
+
+.storeContent {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+
+}
+
+.addRewardButton {
+    background-color: var(--secundario);
+    border: 2px solid var(--principal);
+    border-radius: 15px;
+    width: 130px;
+    color: var(--principal);
+    cursor: pointer;
 }
 
 @media screen and (max-width: 992px) {

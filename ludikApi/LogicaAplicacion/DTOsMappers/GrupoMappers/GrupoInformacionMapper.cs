@@ -20,7 +20,8 @@ namespace LogicaAplicacion.DTOsMappers.GrupoMappers
                 Institucion = grupo.Institucion,
                 Materia = grupo.Materia,
                 fCreacion = grupo.FCreacion,
-                UrlCompleta = grupo.EnlaceUnion?.UrlCompleta
+                UrlCompleta = grupo.EnlaceUnion?.UrlCompleta,
+                IdTienda = grupo.Tienda.Id
             };
         }
     }

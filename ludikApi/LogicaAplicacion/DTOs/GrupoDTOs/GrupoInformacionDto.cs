@@ -15,5 +15,6 @@ namespace LogicaAplicacion.DTOs.GrupoDTOs
         public string? Materia { get; set; }
         public DateTime fCreacion { get; set; }
         public string? UrlCompleta { get; set; }
-    }
+        public int IdTienda { get; set; }
+	}
 }
