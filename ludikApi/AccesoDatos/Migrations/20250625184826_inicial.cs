@@ -690,12 +690,14 @@ namespace AccesoDatos.Migrations
                 name: "PerfilEstudianteRecompensas",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PerfilEstudianteId = table.Column<int>(type: "int", nullable: false),
                     RecompensaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PerfilEstudianteRecompensas", x => new { x.PerfilEstudianteId, x.RecompensaId });
+                    table.PrimaryKey("PK_PerfilEstudianteRecompensas", x => x.Id);
                     table.ForeignKey(
                         name: "FK_PerfilEstudianteRecompensas_PerfilesEstudiantes_PerfilEstudianteId",
                         column: x => x.PerfilEstudianteId,
@@ -948,6 +950,12 @@ namespace AccesoDatos.Migrations
                 name: "IX_PerfilEstudianteMedallas_PerfilEstudianteId",
                 table: "PerfilEstudianteMedallas",
                 column: "PerfilEstudianteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PerfilEstudianteRecompensas_PerfilEstudianteId_RecompensaId",
+                table: "PerfilEstudianteRecompensas",
+                columns: new[] { "PerfilEstudianteId", "RecompensaId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PerfilEstudianteRecompensas_RecompensaId",

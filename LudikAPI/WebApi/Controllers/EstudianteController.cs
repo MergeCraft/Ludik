@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using WebApi.Helpers;
 using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;
+using LogicaAplicacion.DTOs.RecompensaDTOs;
 
 namespace WebApi.Controllers
 {
@@ -24,13 +25,15 @@ namespace WebApi.Controllers
         private readonly ICrearSolicitudUnion _crearSolicitudUnion;
         private readonly IObtenerGruposDeEstudiante _obtenerGruposPorEstudiante;
         private readonly ICanjearRecompensa _canjearRecompensa;
+        private readonly IObtenerRecompensasInventarioPerfil _obtenerRecompensasInventarioPerfil;
 
-        public EstudianteController(IAltaEstudiante altaEstudiante,ICrearSolicitudUnion crearSolicitudUnion,IObtenerGruposDeEstudiante obtenerGruposPorEstudiante,ICanjearRecompensa canjearRecompensa)
+        public EstudianteController(IAltaEstudiante altaEstudiante,ICrearSolicitudUnion crearSolicitudUnion,IObtenerGruposDeEstudiante obtenerGruposPorEstudiante,ICanjearRecompensa canjearRecompensa,IObtenerRecompensasInventarioPerfil obtenerRecompensasInventarioPerfil)
         {
             _altaEstudiante = altaEstudiante;
             _crearSolicitudUnion = crearSolicitudUnion;
             _obtenerGruposPorEstudiante = obtenerGruposPorEstudiante;
             _canjearRecompensa = canjearRecompensa;
+            _obtenerRecompensasInventarioPerfil = obtenerRecompensasInventarioPerfil;
         }
 
         /// <summary>
@@ -143,6 +146,29 @@ namespace WebApi.Controllers
             var resultado = await _canjearRecompensa.EjecutarAsync(recompensaId, perfilId);
             if (resultado.EsExitoso)
                 return Ok(new { message = "Recompensa canjeada correctamente." });
+            return this.ManejarFallo(resultado);
+        }
+        /// <summary>
+        /// Un estudiante autenticado obtiene las recompensas en su inventario para un perfil dado.
+        /// </summary>
+        /// <param name="perfilId">Identificador del perfil del estudiante.</param>
+        /// <returns>
+        /// 200 OK: Devuelve la lista de recompensas adquiridas.
+        /// 401 Unauthorized: Si el usuario no está autenticado o no es Estudiante.
+        /// 404 Not Found: Si no existe el perfil.
+        /// 500 Internal Server Error: Si ocurre un error inesperado.
+        /// </returns>
+        [HttpGet("perfiles/{perfilId}/recompensas")]
+        [Authorize(Policy = "EsEstudiante")]
+        [ProducesResponseType(typeof(List<RecompensaListadoDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ObtenerRecompensasInventario(int perfilId)
+        {
+            var resultado = await _obtenerRecompensasInventarioPerfil.EjecutarAsync(perfilId);
+            if (resultado.EsExitoso)
+                return Ok(resultado.Valor);
             return this.ManejarFallo(resultado);
         }
     }

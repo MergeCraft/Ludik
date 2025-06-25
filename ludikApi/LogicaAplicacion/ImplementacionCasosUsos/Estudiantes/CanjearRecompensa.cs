@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using InterfacesRepositorio;
 using LogicaAplicacion.InterfacesCasosUsos.Estudiante;
+using LogicaNegocio.Entidades;
 using LogicaNegocio.Resultados;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
@@ -24,32 +25,34 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
 
         public async Task<Resultado> EjecutarAsync(int recompensaId, int perfilEstudianteID)
         {
+            var resultadoRecuperarRecompensa = await _repositorioRecompensas.GetByIdAsync(recompensaId);
+            if (resultadoRecuperarRecompensa.EsFallo)
+                return Resultado.Falla(new Error("Error.NotFound", "No se encontró la recompensa especificada."));
+            var recompensa = resultadoRecuperarRecompensa.Valor!;
 
-            var resultadoRecuperarRecompensa = _repositorioRecompensas.GetByIdAsync(recompensaId);
-            if (resultadoRecuperarRecompensa.Result.EsFallo)
-                return Resultado.Falla((new Error("Error.NotFound", "No se encontró la recompensa especificada.")));
-            var recompensa = resultadoRecuperarRecompensa.Result.Valor!;
-            
-           var resultadoRecuperarPerfilEstudiante = _repositorioPerfilEstudianteGrupo.GetByIdAsync(perfilEstudianteID);
-            if (resultadoRecuperarPerfilEstudiante.Result.EsFallo)
-                return Resultado.Falla((new Error("Error.NotFound", "No se encontró el perfil del estudiante especificado.")));
-            var perfilEstudiante = resultadoRecuperarPerfilEstudiante.Result.Valor!;
+            var resultadoRecuperarPerfil = await _repositorioPerfilEstudianteGrupo.GetByIdAsync(perfilEstudianteID);
+            if (resultadoRecuperarPerfil.EsFallo)
+                return Resultado.Falla(new Error("Error.NotFound", "No se encontró el perfil del estudiante especificado."));
+            var perfil = resultadoRecuperarPerfil.Valor!;
 
-            if (perfilEstudiante.Monedas < recompensa.Precio)
-                return Resultado.Falla((new Error("Error.Validation", "El estudiante no tiene suficientes puntos para canjear esta recompensa.")));
-            // esto es opcional podria servir para los hitos ya que se adquieren una sola ves (habria que preguntar por el type si es hito)
-            if (perfilEstudiante.Inventario != null && perfilEstudiante.Inventario.Any(r => r.Id == recompensa.Id))
-                return Resultado.Falla(new Error("Error.Validation", "El estudiante ya posee esta recompensa."));
+            if (perfil.Monedas < recompensa.Precio)
+                return Resultado.Falla(new Error("Error.Validation", "El estudiante no tiene suficientes puntos."));
 
-            perfilEstudiante.Monedas -= recompensa.Precio;
+            //bool yaPosee = perfil.InventarioRecompensas
+            //    .Any(ir => ir.RecompensaId == recompensaId);
+            //if (yaPosee)
+            //    return Resultado.Falla(new Error("Error.Validation", "El estudiante ya posee esta recompensa."));
 
-            if (perfilEstudiante.Inventario == null)
-                perfilEstudiante.Inventario = new List<LogicaNegocio.Entidades.Recompensa>();
-            perfilEstudiante.Inventario.Add(recompensa);
+            perfil.Monedas -= recompensa.Precio;
+            perfil.InventarioRecompensas.Add(new PerfilEstudianteRecompensa
+            {
+                PerfilEstudianteId = perfil.Id,
+                RecompensaId = recompensa.Id
+            });
 
-            var resultadoUpdate = await _repositorioPerfilEstudianteGrupo.UpdateAsync(perfilEstudiante);
+            var resultadoUpdate = await _repositorioPerfilEstudianteGrupo.UpdateAsync(perfil);
             if (resultadoUpdate.EsFallo)
-                return resultadoUpdate; 
+                return resultadoUpdate;
 
             return Resultado.Exitoso();
         }

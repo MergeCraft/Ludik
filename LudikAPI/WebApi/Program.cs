@@ -198,6 +198,8 @@ builder.Services.AddScoped<IEditarRecompensa, EditarRecompensa>();
 builder.Services.AddScoped<IBajaRecompensa, BajaRecompensa>();
 builder.Services.AddScoped<ICanjearRecompensa, CanjearRecompensa>();
 builder.Services.AddScoped<IObtenerListadoRecompensa, ObtenerListadoRecompensa>();
+builder.Services.AddScoped<IObtenerRecompensasInventarioPerfil, ObtenerRecompensasInventarioPerfil>();
+
 
 
 // -------------------------------

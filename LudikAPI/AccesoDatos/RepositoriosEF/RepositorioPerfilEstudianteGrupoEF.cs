@@ -71,16 +71,19 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var perfil = await _db.PerfilesEstudiantes
+                    .Include(p => p.InventarioRecompensas)
+                        .ThenInclude(ir => ir.Recompensa)
                     .Include(p => p.PerfilMedallas)
                         .ThenInclude(pm => pm.Medalla)
                     .Include(p => p.BarraProgreso)
-                    .Include(p => p.Estudiante)   
-                    .Include(p => p.Grupo)        
+                    .Include(p => p.Estudiante)
+                    .Include(p => p.Grupo)
                     .FirstOrDefaultAsync(p => p.Id == id);
 
                 if (perfil == null)
                     return Resultado<PerfilEstudiante>.Falla(
                         new Error("Error.NotFound", $"No se encontró el perfil de estudiante con Id: {id}."));
+
                 return Resultado<PerfilEstudiante>.Exitoso(perfil);
             }
             catch (Exception ex)

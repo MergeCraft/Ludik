@@ -34,7 +34,11 @@ namespace LogicaNegocio.Entidades
         [ForeignKey(nameof(GrupoId))]
         public Grupo Grupo { get; set; }
 
-        public List<Recompensa> Inventario { get; set; }
+        public List<PerfilEstudianteRecompensa> InventarioRecompensas { get; set; } = new();
+
+        [NotMapped]
+        public IEnumerable<Recompensa> Inventario =>
+            InventarioRecompensas.Select(x => x.Recompensa);
 
         public BarraProgreso BarraProgreso { get; set; }
 

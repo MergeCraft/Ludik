@@ -12,7 +12,7 @@ namespace LogicaAplicacion.DTOsMappers.RecompensaMappers
     {
         public static RecompensaListadoDto ToDto(Recompensa entidad)
         {
-            if (entidad == null) return null!; // o lanzar excepción según convención
+            if (entidad == null) return null!; 
             return new RecompensaListadoDto
             {
                 

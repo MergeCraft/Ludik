@@ -11,7 +11,9 @@ namespace LogicaAplicacion.InterfacesCasosUsos.Estudiante
 {
     public interface IObtenerRecompensasInventarioPerfil
     {
-        Task<Resultado<List<RecompensaAltaDto>>> EjecutarAsync(string idPerfil);
+        Task<Resultado<List<RecompensaListadoDto>>> EjecutarAsync(int idPerfil);
+
+
 
     }
 }

@@ -151,23 +151,8 @@ namespace AccesoDatos.RepositoriosEF
                 // Si prefieres permitir filas repetidas, no pongas ese índice.
             });
 
-            //Relación M:N entre PerfilEstudiante y Recompensa (Inventario)
-            modelBuilder.Entity<PerfilEstudiante>()
-                    .HasMany(pe => pe.Inventario)
-                    .WithMany() // si no hay navegación inversa en Recompensa
-                    .UsingEntity<Dictionary<string, object>>(
-                      "PerfilEstudianteRecompensas",
-                      j => j
-                     .HasOne<Recompensa>()
-                     .WithMany()
-                     .HasForeignKey("RecompensaId")
-                     .OnDelete(DeleteBehavior.Restrict), // <- evitar Cascade aquí
-                        j => j
-                        .HasOne<PerfilEstudiante>()
-                        .WithMany()
-                        .HasForeignKey("PerfilEstudianteId")
-                        .OnDelete(DeleteBehavior.Cascade)   // puedes mantener Cascade aquí si quieres que al borrar perfil se limpie relación
-                    );
+           
+           
 
             modelBuilder.Entity<TablaClasificacion>()
                 .HasMany(tc => tc.Participantes)
@@ -351,7 +336,27 @@ namespace AccesoDatos.RepositoriosEF
                 .HasIndex(pe => new { pe.GrupoId, pe.EstudianteId })
                 .IsUnique()
                 .HasDatabaseName("UX_PerfilEstudiante_GrupoId_EstudianteId");
-            
+
+            modelBuilder.Entity<PerfilEstudianteRecompensa>(pr =>
+            {
+                pr.ToTable("PerfilEstudianteRecompensas");
+                pr.HasKey(x => x.Id);
+                pr.Property(x => x.Id).ValueGeneratedOnAdd();
+
+                pr.HasOne(x => x.PerfilEstudiante)
+                  .WithMany(pe => pe.InventarioRecompensas)
+                  .HasForeignKey(x => x.PerfilEstudianteId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+                pr.HasOne(x => x.Recompensa)
+                  .WithMany()                             // <-- sin navegación inversa
+                  .HasForeignKey(x => x.RecompensaId)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+                pr.HasIndex(x => new { x.PerfilEstudianteId, x.RecompensaId })
+                  .IsUnique();                            // impide duplicados
+            });
+
             modelBuilder.Entity<SolicitudUnion>()
                 .HasOne(s => s.Estudiante)
                 .WithMany()
