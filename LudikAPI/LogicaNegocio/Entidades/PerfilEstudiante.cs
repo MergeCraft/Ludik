@@ -52,7 +52,22 @@ namespace LogicaNegocio.Entidades
             
         }
 
+        public List<PersonalizacionAvatar> ObtenerItemsAvatarDisponibles()
+        {
+            //TODO: REFACTORIZAR PARA QUE SEA UNA SOLUCION POLIMORFICA
+            if (Inventario == null || Inventario.Count == 0)
+                return new List<PersonalizacionAvatar>();
 
+            List<PersonalizacionAvatar> itemsAvatarDisponibles = new List<PersonalizacionAvatar>();
+            foreach (var item in Inventario)
+            {
+                if (item is PersonalizacionAvatar personalizacion)
+                {
+                    itemsAvatarDisponibles.Add(personalizacion);
+                }
+            }
+            return itemsAvatarDisponibles;
+        }
     }
 
 }

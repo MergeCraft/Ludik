@@ -13,69 +13,97 @@ public class ModificarAvatar: IModificarAvatar
 {
     private readonly IRepositorioPerfilEstudianteGrupo _repositorioPerfilesEstudiantes;
     private readonly IRepositorioAvatares _repositorioAvatares;
+    private readonly IRepositorioAtributosAvatar _repositorioAtributosAvatar; // ¡NUEVA DEPENDENCIA!
     private readonly IServicioGestionImagenPerfil _servicioGestionImagenPerfil;
 
     public ModificarAvatar(
         IRepositorioPerfilEstudianteGrupo repositorioPerfilesEstudiantes,
         IRepositorioAvatares repositorioAvatares,
+        IRepositorioAtributosAvatar repositorioAtributosAvatar, // ¡NUEVA DEPENDENCIA!
         IServicioGestionImagenPerfil servicioGestionImagenPerfil)
     {
         _repositorioPerfilesEstudiantes = repositorioPerfilesEstudiantes;
         _repositorioAvatares = repositorioAvatares;
+        _repositorioAtributosAvatar = repositorioAtributosAvatar; // ¡NUEVA DEPENDENCIA!
         _servicioGestionImagenPerfil = servicioGestionImagenPerfil;
     }
 
-    public async Task<Resultado> EjecutarAsync(int idPerfilEstudiante, string idUsuarioAutenticado, AvatarDto avatarDto,
-        Stream streamImagen)
+    public async Task<Resultado> EjecutarAsync(int idPerfilEstudiante, string idUsuarioAutenticado, ActualizarAvatarDto avatarDto, Stream streamImagen)
     {
-        var resultadaoPerfil = await _repositorioPerfilesEstudiantes.GetByIdAsync(idPerfilEstudiante);
-        if (resultadaoPerfil == null || resultadaoPerfil.EsFallo)
+        var resultadoPerfil = await _repositorioPerfilesEstudiantes.GetByIdAsync(idPerfilEstudiante);
+        if (resultadoPerfil == null || resultadoPerfil.EsFallo)
             return Resultado.Falla(Error.NotFound);
 
-        Entidades.PerfilEstudiante perfilEstudiante = resultadaoPerfil.Valor;
+        Entidades.PerfilEstudiante perfilEstudiante = resultadoPerfil.Valor;
 
         if (perfilEstudiante.EstudianteId != idUsuarioAutenticado)
             return Resultado.Falla(Error.Forbidden);
-        
-        // Justificación: Cumple con la regla de que solo se pueden usar items comprados.
-        var resultadoItemsAdquiridos = await _repositorioPerfilesEstudiantes.ObtenerItemsAvatarAdquiridosAsync(idPerfilEstudiante);
-        if (resultadoItemsAdquiridos.EsFallo)
-            return resultadoItemsAdquiridos;
 
-        var erroresValidacion = ValidarItemsAvatar(avatarDto, resultadoItemsAdquiridos.Valor);
-        if (erroresValidacion.Any())
-            return Resultado.Falla(erroresValidacion);
+        Resultado resultadoValidacionItems = ValidarItemsAvatar(perfilEstudiante, avatarDto);
+        if (resultadoValidacionItems.EsFallo)
+            return resultadoValidacionItems;
+
+
+        var atributosAAsignar = await _repositorioAtributosAvatar.GetByIdsAsync(avatarDto.AtributosIds);
+        if (atributosAAsignar.Count() != avatarDto.AtributosIds.Count)
+            return Resultado.Falla(new Error("Error.NotFound", "Uno o más atributos seleccionados no fueron encontrados."));
         
+
         var resultadoAvatar = await _repositorioAvatares.GetByPerfilIdAsync(idPerfilEstudiante);
         if (resultadoAvatar.EsFallo)
             return Resultado.Falla(Error.NotFound);
-        
-        Entidades.Avatar avatarActualizado = AvatarMappers.fromDto(avatarDto);
-        Resultado resultadoActualizarAvatar= await _repositorioAvatares.UpdateAsync(avatarActualizado);
+
+        Entidades.Avatar avatarAActualizar = resultadoAvatar.Valor;
+
+        ActualizarAtributos(avatarAActualizar,avatarDto, atributosAAsignar);
+      
+
+        Resultado resultadoActualizarAvatar = await _repositorioAvatares.UpdateAsync(avatarAActualizar);
         if (resultadoActualizarAvatar.EsFallo)
             return resultadoActualizarAvatar;
 
-
         Resultado resultadoSubirImagen = await _servicioGestionImagenPerfil.SubirImagenPerfilAsync(idPerfilEstudiante, idUsuarioAutenticado, streamImagen);
         if (resultadoSubirImagen.EsFallo)
+        {
+            //TODO: Considerar una estrategia de compensación aquí si la actualización del avatar fue exitosa pero la subida de imagen falló.
             return resultadoSubirImagen;
-        
+        }
 
         return Resultado.Exitoso();
 
     }
 
-    private List<Error> ValidarItemsAvatar(AvatarDto dto, IEnumerable<Entidades.Recompensa> itemsAdquiridos)
+    private void ActualizarAtributos(Entidades.Avatar avatarAActualizar, ActualizarAvatarDto avatarDto, IEnumerable<Entidades.AtributoAvatar> atributosAAsignar)
     {
-        var errores = new List<Error>();
-        var itemsAValidar = new List<string> { dto.Pelo, dto.Ojos, dto.Boca, dto.Ropa, dto.Gorro, dto.Gafas };
+        // Actualizar propiedades generales
+        avatarAActualizar.ColorFondo = avatarDto.ColorFondo;
+        avatarAActualizar.Voltear = avatarDto.Voltear;
+        avatarAActualizar.Rotacion = avatarDto.Rotacion;
+        avatarAActualizar.Zoom = avatarDto.Zoom;
 
-        foreach (var item in itemsAValidar)
+        avatarAActualizar.AtributosSeleccionados.Clear();
+        foreach (var atributo in atributosAAsignar)
         {
-
+            avatarAActualizar.AtributosSeleccionados.Add(atributo);
         }
+    }
 
-        return errores;
+    private Resultado ValidarItemsAvatar(Entidades.PerfilEstudiante perfilEstudiante, ActualizarAvatarDto avatarDto)
+    {
+      
+        var itemsDesbloqueadosIds = perfilEstudiante.Inventario
+            .OfType<Entidades.PersonalizacionAvatar>()
+            .Select(pa => pa.AtributoAvatarId)
+            .ToHashSet(); // Usar HashSet para búsquedas O(1)
+
+        foreach (var idAtributoSeleccionado in avatarDto.AtributosIds)
+        {
+            if (!itemsDesbloqueadosIds.Contains(idAtributoSeleccionado))
+                return Resultado.Falla(new Error("Error.Forbidden", $"No posee el atributo con ID {idAtributoSeleccionado}."));
+            
+        }
+        return Resultado.Exitoso();
+
     }
 
 }

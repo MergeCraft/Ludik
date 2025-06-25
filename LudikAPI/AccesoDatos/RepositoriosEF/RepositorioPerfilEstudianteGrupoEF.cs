@@ -75,7 +75,8 @@ namespace AccesoDatos.RepositoriosEF
                         .ThenInclude(pm => pm.Medalla)
                     .Include(p => p.BarraProgreso)
                     .Include(p => p.Estudiante)   
-                    .Include(p => p.Grupo)        
+                    .Include(p => p.Grupo)     
+                    .Include(p => p.Inventario)
                     .FirstOrDefaultAsync(p => p.Id == id);
 
                 if (perfil == null)

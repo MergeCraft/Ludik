@@ -35,7 +35,10 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> ActualizarAvatarDePerfil(int idPerfilEstudiante, [FromForm] AvatarDto avatarDto, IFormFile imagen)
+        public async Task<IActionResult> ActualizarAvatarDePerfil(
+            int idPerfilEstudiante,
+            [FromForm] ActualizarAvatarDto avatarDto,
+            IFormFile imagen)
         {
             if (imagen == null || imagen.Length == 0)
             {
@@ -46,7 +49,7 @@ namespace WebApi.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId))
                 return Unauthorized();
-            
+
             await using var streamImagen = imagen.OpenReadStream();
 
             var resultado = await _modificarAvatar.EjecutarAsync(idPerfilEstudiante, userId, avatarDto, streamImagen);
