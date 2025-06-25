@@ -118,6 +118,7 @@ builder.Services.AddAuthorization(options =>
 	options.AddPolicy("EsAdministrador", policy => policy.RequireRole("Administrador"));
 	options.AddPolicy("EsProfesor", policy => policy.RequireRole("Profesor"));
 	options.AddPolicy("EsEstudiante", policy => policy.RequireRole("Estudiante"));
+    options.AddPolicy("EsProfesorOEstudiante", policy => policy.RequireRole("Profesor", "Estudiante"));
 });
 
 
@@ -195,6 +196,7 @@ builder.Services.AddScoped<IObtenerAtributosAvatarDisponiblesParaPerfil, Obtener
 builder.Services.AddScoped<IAltaRecompensa, AltaRecompensa>();
 builder.Services.AddScoped<IEditarRecompensa, EditarRecompensa>();
 builder.Services.AddScoped<IBajaRecompensa, BajaRecompensa>();
+builder.Services.AddScoped<ICanjearRecompensa, CanjearRecompensa>();
 builder.Services.AddScoped<IObtenerListadoRecompensa, ObtenerListadoRecompensa>();
 
 

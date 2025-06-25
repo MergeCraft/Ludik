@@ -33,13 +33,13 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
 
             solicitud.Estado = EstadoSolicitud.Aceptada;
 
-            var grupo = solicitud.Grupo; 
-            
+            var grupo = solicitud.Grupo;
+
             var perfil = new Entidad.PerfilEstudiante
             {
                 EstudianteId = solicitud.EstudianteId,
-
-                
+                RutaImagenCompleta = "nomejodasporahora",
+                RutaImagenMiniatura="tampocomejodasporahora"
             };
 
         

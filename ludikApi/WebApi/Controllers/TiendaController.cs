@@ -8,7 +8,7 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Policy = "EsProfesor")]
+    [Authorize(Policy = "EsProfesorOEstudiante")]
     public class TiendaController : ControllerBase
     {
         private readonly IObtenerListadoRecompensa _obtenerListadoRecompensa;

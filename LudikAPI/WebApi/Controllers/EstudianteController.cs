@@ -12,6 +12,7 @@ using LogicaAplicacion.DTOs.GrupoDTOs;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using WebApi.Helpers;
+using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;
 
 namespace WebApi.Controllers
 {
@@ -22,12 +23,14 @@ namespace WebApi.Controllers
         private readonly IAltaEstudiante _altaEstudiante;
         private readonly ICrearSolicitudUnion _crearSolicitudUnion;
         private readonly IObtenerGruposDeEstudiante _obtenerGruposPorEstudiante;
+        private readonly ICanjearRecompensa _canjearRecompensa;
 
-        public EstudianteController(IAltaEstudiante altaEstudiante,ICrearSolicitudUnion crearSolicitudUnion,IObtenerGruposDeEstudiante obtenerGruposPorEstudiante)
+        public EstudianteController(IAltaEstudiante altaEstudiante,ICrearSolicitudUnion crearSolicitudUnion,IObtenerGruposDeEstudiante obtenerGruposPorEstudiante,ICanjearRecompensa canjearRecompensa)
         {
             _altaEstudiante = altaEstudiante;
             _crearSolicitudUnion = crearSolicitudUnion;
             _obtenerGruposPorEstudiante = obtenerGruposPorEstudiante;
+            _canjearRecompensa = canjearRecompensa;
         }
 
         /// <summary>
@@ -81,6 +84,16 @@ namespace WebApi.Controllers
                 : this.ManejarFallo(resultado);
 
         }
+        /// <summary>
+        /// Un estudiante autenticado genera una solicitud de union para grupos .
+        /// </summary>
+        /// <returns>
+        /// 200 OK: Solicitud creada correctamente.
+        /// 401 Unauthorized: Si el usuario no está autenticado.
+        /// 403 Forbidden: Si el usuario autenticado no tiene el rol "Estudiante".
+        /// 404 Not Found: Si el estudiante (obtenido de los claims) no existe.
+        /// 500 Internal Server Error: Si ocurre un error inesperado.
+        /// </returns>
         [HttpPost("unirse-grupo")]
         [Authorize(Policy = "EsEstudiante")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -105,6 +118,32 @@ namespace WebApi.Controllers
                 ? StatusCode(StatusCodes.Status201Created)
                 : this.ManejarFallo(resultado);
             
+        }
+        /// <summary>
+        /// Un estudiante autenticado canjea una recompensa .
+        /// </summary>
+        /// <returns>
+        /// 200 OK: recompensa canjeada correctamente.
+        /// 401 Unauthorized: Si el usuario no está autenticado.
+        /// 403 Forbidden: Si el usuario autenticado no tiene el rol "Estudiante".
+        /// 404 Not Found: Si el estudiante (obtenido de los claims) no existe.
+        /// 500 Internal Server Error: Si ocurre un error inesperado.
+        /// </returns>
+        [HttpPost("perfiles/{perfilId}/recompensas/{recompensaId}/canjear")]
+        [Authorize(Policy = "EsEstudiante")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> CanjearRecompensa(int perfilId, int recompensaId)
+        {
+            // Sin validaciones extra: se llama directamente al caso de uso
+            var resultado = await _canjearRecompensa.EjecutarAsync(recompensaId, perfilId);
+            if (resultado.EsExitoso)
+                return Ok(new { message = "Recompensa canjeada correctamente." });
+            return this.ManejarFallo(resultado);
         }
     }
 }
