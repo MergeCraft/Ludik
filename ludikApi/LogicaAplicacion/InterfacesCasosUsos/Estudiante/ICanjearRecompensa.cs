@@ -10,6 +10,6 @@ namespace LogicaAplicacion.InterfacesCasosUsos.Estudiante
 {
     public interface ICanjearRecompensa
     {
-        Task<Resultado> EjecutarAsync(int recompensaId,int estudianteId);
+        Task<Resultado> EjecutarAsync(int recompensaId,int perfilEstudianteId,string estudianteId);
     }
 }

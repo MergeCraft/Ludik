@@ -20,7 +20,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
         {
             _repositorioPerfilEstudiante = repositorioPerfilEstudiante;
         }
-        public async Task<Resultado<List<RecompensaListadoDto>>> EjecutarAsync(int idPerfil)
+        public async Task<Resultado<List<RecompensaListadoDto>>> EjecutarAsync(int idPerfil,string idEstudiante)
         {
             // 1. Recuperar el perfil (con InventarioRecompensas ya incluido)
             var resultadoPerfil = await _repositorioPerfilEstudiante.GetByIdAsync(idPerfil);
@@ -29,6 +29,10 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
                     new Error("Error.NotFound", "No se encontró el perfil del estudiante especificado."));
 
             var perfil = resultadoPerfil.Valor!;
+
+            if(perfil.EstudianteId != idEstudiante)
+                return Resultado<List<RecompensaListadoDto>>.Falla(
+                    new Error("Error.Forbidden", "No tienes permiso para acceder a este perfil."));
 
             // 2. Mapear cada entidad de unión a su Recompensa correspondiente
             var dtos = perfil.InventarioRecompensas

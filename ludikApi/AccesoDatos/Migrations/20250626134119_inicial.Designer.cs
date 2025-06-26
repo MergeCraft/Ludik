@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250625184826_inicial")]
+    [Migration("20250626134119_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -578,10 +578,9 @@ namespace AccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RecompensaId");
+                    b.HasIndex("PerfilEstudianteId");
 
-                    b.HasIndex("PerfilEstudianteId", "RecompensaId")
-                        .IsUnique();
+                    b.HasIndex("RecompensaId");
 
                     b.ToTable("PerfilEstudianteRecompensas", (string)null);
                 });
@@ -687,6 +686,108 @@ namespace AccesoDatos.Migrations
                     b.HasDiscriminator<string>("RecompensaTipo").HasValue("Recompensa");
 
                     b.UseTphMappingStrategy();
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nombre = "Estrella Mágica",
+                            Precio = 50,
+                            RecompensaTipo = "Simple",
+                            RutaImagenCompleta = "star",
+                            RutaImagenMiniatura = "star",
+                            TiendaId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Nombre = "Regalo Sorpresa",
+                            Precio = 30,
+                            RecompensaTipo = "Simple",
+                            RutaImagenCompleta = "gift",
+                            RutaImagenMiniatura = "gift",
+                            TiendaId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Nombre = "Corazón Brillante",
+                            Precio = 20,
+                            RecompensaTipo = "Simple",
+                            RutaImagenCompleta = "heart",
+                            RutaImagenMiniatura = "heart",
+                            TiendaId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Nombre = "Medalla de Oro",
+                            Precio = 80,
+                            RecompensaTipo = "Simple",
+                            RutaImagenCompleta = "medal",
+                            RutaImagenMiniatura = "medal",
+                            TiendaId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Nombre = "Montón de Monedas",
+                            Precio = 100,
+                            RecompensaTipo = "Simple",
+                            RutaImagenCompleta = "coins",
+                            RutaImagenMiniatura = "coins",
+                            TiendaId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Nombre = "Trofeo Brillante",
+                            Precio = 70,
+                            RecompensaTipo = "Simple",
+                            RutaImagenCompleta = "trophy",
+                            RutaImagenMiniatura = "trophy",
+                            TiendaId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Nombre = "Llama de Fuego",
+                            Precio = 40,
+                            RecompensaTipo = "Simple",
+                            RutaImagenCompleta = "fire",
+                            RutaImagenMiniatura = "fire",
+                            TiendaId = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Nombre = "Corona Real",
+                            Precio = 90,
+                            RecompensaTipo = "Simple",
+                            RutaImagenCompleta = "crown",
+                            RutaImagenMiniatura = "crown",
+                            TiendaId = 2
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Nombre = "Cohete Espacial",
+                            Precio = 60,
+                            RecompensaTipo = "Simple",
+                            RutaImagenCompleta = "rocket",
+                            RutaImagenMiniatura = "rocket",
+                            TiendaId = 2
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Nombre = "Robot Amistoso",
+                            Precio = 55,
+                            RecompensaTipo = "Simple",
+                            RutaImagenCompleta = "robot",
+                            RutaImagenMiniatura = "robot",
+                            TiendaId = 2
+                        });
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.RendimientoPeriodo", b =>
@@ -828,6 +929,18 @@ namespace AccesoDatos.Migrations
                         .IsUnique();
 
                     b.ToTable("Tiendas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            GrupoId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            GrupoId = 2
+                        });
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Usuario", b =>

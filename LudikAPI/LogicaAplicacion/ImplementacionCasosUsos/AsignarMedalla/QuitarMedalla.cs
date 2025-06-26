@@ -36,15 +36,15 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.AsignarMedalla
             if (!profesor.Grupos.Any(g => g.Id == perfil.GrupoId))
                 return Resultado.Falla(Error.Forbidden);
 
-            // Buscar una asignación existente (la más reciente, por ejemplo)
             var existenteResultado = await _repositorioPerfilEstudianteMedalla
                 .GetByPerfilYMedallaAsync(perfil.Id, idMedalla);
+
+
             if (existenteResultado.EsFallo)
             {
                 return Resultado.Falla(new Error("Error.Validation", "El estudiante no posee la medalla que se intenta quitar."));
             }
             var entidadAsignacion = existenteResultado.Valor;
-            // Eliminar solo esa fila:
             var removeResultado = await _repositorioPerfilEstudianteMedalla.RemoveAsync(entidadAsignacion);
             return removeResultado;
         }

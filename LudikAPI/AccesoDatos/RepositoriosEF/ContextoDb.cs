@@ -352,9 +352,6 @@ namespace AccesoDatos.RepositoriosEF
                   .WithMany()                             // <-- sin navegación inversa
                   .HasForeignKey(x => x.RecompensaId)
                   .OnDelete(DeleteBehavior.Restrict);
-
-                pr.HasIndex(x => new { x.PerfilEstudianteId, x.RecompensaId })
-                  .IsUnique();                            // impide duplicados
             });
 
             modelBuilder.Entity<SolicitudUnion>()

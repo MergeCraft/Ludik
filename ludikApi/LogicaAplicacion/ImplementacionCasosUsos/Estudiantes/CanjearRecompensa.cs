@@ -23,7 +23,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
             _repositorioPerfilEstudianteGrupo = repositorioPerfilEstudianteGrupo;
         }
 
-        public async Task<Resultado> EjecutarAsync(int recompensaId, int perfilEstudianteID)
+        public async Task<Resultado> EjecutarAsync(int recompensaId, int perfilEstudianteID,string estudianteId)
         {
             var resultadoRecuperarRecompensa = await _repositorioRecompensas.GetByIdAsync(recompensaId);
             if (resultadoRecuperarRecompensa.EsFallo)
@@ -37,6 +37,9 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
 
             if (perfil.Monedas < recompensa.Precio)
                 return Resultado.Falla(new Error("Error.Validation", "El estudiante no tiene suficientes puntos."));
+
+            if(perfil.EstudianteId != estudianteId)
+                return Resultado.Falla(new Error("Error.Forbidden", "No tienes permiso para canjear recompensas en este perfil."));
 
             //bool yaPosee = perfil.InventarioRecompensas
             //    .Any(ir => ir.RecompensaId == recompensaId);

@@ -26,7 +26,7 @@ namespace AccesoDatos.RepositoriosEF
                 new IdentityRole { Id = rolProfesorId, Name = "Profesor", NormalizedName = "PROFESOR" },
                 new IdentityRole { Id = rolEstudianteId, Name = "Estudiante", NormalizedName = "ESTUDIANTE" }
             );
-            
+
             // 2. CREACIÓN DE PROFESORES Y ESTUDIANTES
 
             // Profesores
@@ -59,7 +59,7 @@ namespace AccesoDatos.RepositoriosEF
                     ConcurrencyStamp = "a1d3b5e7-9f2d-4b8c-8a1e-3f0e2d5b4a6b"
                 }
             );
-            
+
 
             // Estudiantes
             var estudiante1Id = "a1445865-a24d-4543-a6c6-9443d048cdb1";
@@ -70,7 +70,7 @@ namespace AccesoDatos.RepositoriosEF
 
             modelBuilder.Entity<Estudiante>().HasData(
                 new Estudiante { Id = estudiante1Id, UserName = "santiago", NormalizedUserName = "SANTIAGO", Email = null, NormalizedEmail = null, EmailConfirmed = false, PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==", SecurityStamp = "STATIC_SECURITY_STAMP_3", ConcurrencyStamp = "c4b6e8a0-1d3f-4e9a-9c8e-5d2a4f6b8c0d" },
-                new Estudiante { Id = estudiante2Id, UserName = "valentina", NormalizedUserName = "VALENTINA", Email = null, NormalizedEmail = null, EmailConfirmed = false, PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_4", ConcurrencyStamp = "d5c7f9b1-2e4g-5f0b-a0d9-6e3b5g7c9d1e"},
+                new Estudiante { Id = estudiante2Id, UserName = "valentina", NormalizedUserName = "VALENTINA", Email = null, NormalizedEmail = null, EmailConfirmed = false, PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_4", ConcurrencyStamp = "d5c7f9b1-2e4g-5f0b-a0d9-6e3b5g7c9d1e" },
                 new Estudiante { Id = estudiante3Id, UserName = "matias", NormalizedUserName = "MATIAS", Email = null, NormalizedEmail = null, EmailConfirmed = false, PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_5", ConcurrencyStamp = "e6d80ac2-3f5h-6g1c-b1e0-7f4c6h8d0e2f" },
                 new Estudiante { Id = estudiante4Id, UserName = "camila", NormalizedUserName = "CAMILA", Email = null, NormalizedEmail = null, EmailConfirmed = false, PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_6", ConcurrencyStamp = "f7e91bd3-4g6i-7h2d-c2f1-8g5d7i9e1f3g" },
                 new Estudiante { Id = estudiante5Id, UserName = "lucas", NormalizedUserName = "LUCAS", Email = null, NormalizedEmail = null, EmailConfirmed = false, PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_7", ConcurrencyStamp = "g8f02ce4-5h7j-8i3e-d3g2-9h6e8j0f2g4h" }
@@ -90,15 +90,15 @@ namespace AccesoDatos.RepositoriosEF
 
             // 3. ASIGNACIÓN DE ROLES A USUARIOS
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(
-                new IdentityUserRole<string> { UserId = profesor1Id, RoleId = rolProfesorId }, 
+                new IdentityUserRole<string> { UserId = profesor1Id, RoleId = rolProfesorId },
                 new IdentityUserRole<string> { UserId = profesor2Id, RoleId = rolProfesorId },
-                new IdentityUserRole<string> { UserId = estudiante1Id, RoleId = rolEstudianteId }, 
-                new IdentityUserRole<string> { UserId = estudiante2Id, RoleId = rolEstudianteId }, 
-                new IdentityUserRole<string> { UserId = estudiante3Id, RoleId = rolEstudianteId }, 
-                new IdentityUserRole<string> { UserId = estudiante4Id, RoleId = rolEstudianteId }, 
+                new IdentityUserRole<string> { UserId = estudiante1Id, RoleId = rolEstudianteId },
+                new IdentityUserRole<string> { UserId = estudiante2Id, RoleId = rolEstudianteId },
+                new IdentityUserRole<string> { UserId = estudiante3Id, RoleId = rolEstudianteId },
+                new IdentityUserRole<string> { UserId = estudiante4Id, RoleId = rolEstudianteId },
                 new IdentityUserRole<string> { UserId = estudiante5Id, RoleId = rolEstudianteId }
             );
-            
+
             // 4. CREACIÓN DE MEDALLAS
             var medalla1Id = 1;
             var medalla2Id = 2;
@@ -166,7 +166,111 @@ namespace AccesoDatos.RepositoriosEF
                 new PerfilEstudiante { Id = 4, Monedas = 200, MetaCalificacion = 10, EstudianteId = estudiante4Id, GrupoId = grupo2Id, RutaImagenCompleta = "default/avatar_full.jpg", RutaImagenMiniatura = "default/avatar_thumb.jpg" },
                 new PerfilEstudiante { Id = 5, Monedas = 180, MetaCalificacion = 8, EstudianteId = estudiante5Id, GrupoId = grupo2Id, RutaImagenCompleta = "default/avatar_full.jpg", RutaImagenMiniatura = "default/avatar_thumb.jpg" }
             );
-            
+            // 11. CREACIÓN DE TIENDAS (una por cada grupo)
+            var tienda1Id = 1;
+            var tienda2Id = 2;
+            modelBuilder.Entity<Tienda>().HasData(
+                new { Id = tienda1Id, GrupoId = 1 },
+                new { Id = tienda2Id, GrupoId = 2 }
+            );
+            modelBuilder.Entity<Recompensa>().HasData(
+            // Para Tienda 1
+            new { Id = 1, Nombre = "Estrella Mágica", Precio = 50, RutaImagenCompleta = "star", RutaImagenMiniatura = "star", TiendaId = tienda1Id, RecompensaTipo = "Simple" },
+            new
+            {
+                Id = 2,
+                Nombre = "Regalo Sorpresa",
+                Precio = 30,
+                RutaImagenCompleta = "gift",
+                RutaImagenMiniatura = "gift",
+                TiendaId = tienda1Id,
+                RecompensaTipo = "Simple"
+            },
+            new
+            {
+                Id = 3,
+                Nombre = "Corazón Brillante",
+                Precio = 20,
+                RutaImagenCompleta = "heart",
+                RutaImagenMiniatura = "heart",
+                TiendaId = tienda1Id,
+                RecompensaTipo = "Simple"
+            },
+            new
+            {
+                Id = 4,
+                Nombre = "Medalla de Oro",
+                Precio = 80,
+                RutaImagenCompleta = "medal",
+                RutaImagenMiniatura = "medal",
+                TiendaId = tienda1Id,
+                RecompensaTipo = "Simple"
+            },
+            new
+            {
+                Id = 5,
+                Nombre = "Montón de Monedas",
+                Precio = 100,
+                RutaImagenCompleta = "coins",
+                RutaImagenMiniatura = "coins",
+                TiendaId = tienda1Id,
+                RecompensaTipo = "Simple"
+            },
+
+            // Para Tienda 2
+            new
+            {
+                Id = 6,
+                Nombre = "Trofeo Brillante",
+                Precio = 70,
+                RutaImagenCompleta = "trophy",
+                RutaImagenMiniatura = "trophy",
+                TiendaId = tienda2Id,
+                RecompensaTipo = "Simple"
+            },
+            new
+            {
+                Id = 7,
+                Nombre = "Llama de Fuego",
+                Precio = 40,
+                RutaImagenCompleta = "fire",
+                RutaImagenMiniatura = "fire",
+                TiendaId = tienda2Id,
+                RecompensaTipo = "Simple"
+            },
+            new
+            {
+                Id = 8,
+                Nombre = "Corona Real",
+                Precio = 90,
+                RutaImagenCompleta = "crown",
+                RutaImagenMiniatura = "crown",
+                TiendaId = tienda2Id,
+                RecompensaTipo = "Simple"
+            },
+            new
+            {
+                Id = 9,
+                Nombre = "Cohete Espacial",
+                Precio = 60,
+                RutaImagenCompleta = "rocket",
+                RutaImagenMiniatura = "rocket",
+                TiendaId = tienda2Id,
+                RecompensaTipo = "Simple"
+            },
+            new
+            {
+                Id = 10,
+                Nombre = "Robot Amistoso",
+                Precio = 55,
+                RutaImagenCompleta = "robot",
+                RutaImagenMiniatura = "robot",
+                TiendaId = tienda2Id,
+                RecompensaTipo = "Simple"
+            }
+        );
+
+
         }
     }
 }

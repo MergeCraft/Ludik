@@ -864,6 +864,32 @@ namespace AccesoDatos.Migrations
                     { 5, "e5445865-a24d-4543-a6c6-9443d048cdb5", 2, 8, 180, "default/avatar_full.jpg", "default/avatar_thumb.jpg" }
                 });
 
+            migrationBuilder.InsertData(
+                table: "Tiendas",
+                columns: new[] { "Id", "GrupoId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Recompensas",
+                columns: new[] { "Id", "Nombre", "Precio", "RecompensaTipo", "RutaImagenCompleta", "RutaImagenMiniatura", "TiendaId" },
+                values: new object[,]
+                {
+                    { 1, "Estrella Mágica", 50, "Simple", "star", "star", 1 },
+                    { 2, "Regalo Sorpresa", 30, "Simple", "gift", "gift", 1 },
+                    { 3, "Corazón Brillante", 20, "Simple", "heart", "heart", 1 },
+                    { 4, "Medalla de Oro", 80, "Simple", "medal", "medal", 1 },
+                    { 5, "Montón de Monedas", 100, "Simple", "coins", "coins", 1 },
+                    { 6, "Trofeo Brillante", 70, "Simple", "trophy", "trophy", 2 },
+                    { 7, "Llama de Fuego", 40, "Simple", "fire", "fire", 2 },
+                    { 8, "Corona Real", 90, "Simple", "crown", "crown", 2 },
+                    { 9, "Cohete Espacial", 60, "Simple", "rocket", "rocket", 2 },
+                    { 10, "Robot Amistoso", 55, "Simple", "robot", "robot", 2 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_BarrasProgreso_PerfilEstudianteId",
                 table: "BarrasProgreso",
@@ -952,10 +978,9 @@ namespace AccesoDatos.Migrations
                 column: "PerfilEstudianteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PerfilEstudianteRecompensas_PerfilEstudianteId_RecompensaId",
+                name: "IX_PerfilEstudianteRecompensas_PerfilEstudianteId",
                 table: "PerfilEstudianteRecompensas",
-                columns: new[] { "PerfilEstudianteId", "RecompensaId" },
-                unique: true);
+                column: "PerfilEstudianteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PerfilEstudianteRecompensas_RecompensaId",

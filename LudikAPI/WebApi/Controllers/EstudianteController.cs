@@ -142,8 +142,10 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CanjearRecompensa(int perfilId, int recompensaId)
         {
+            var estudianteId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             // Sin validaciones extra: se llama directamente al caso de uso
-            var resultado = await _canjearRecompensa.EjecutarAsync(recompensaId, perfilId);
+            var resultado = await _canjearRecompensa.EjecutarAsync(recompensaId, perfilId,estudianteId);
             if (resultado.EsExitoso)
                 return Ok(new { message = "Recompensa canjeada correctamente." });
             return this.ManejarFallo(resultado);
@@ -166,7 +168,9 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ObtenerRecompensasInventario(int perfilId)
         {
-            var resultado = await _obtenerRecompensasInventarioPerfil.EjecutarAsync(perfilId);
+            var estudianteId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+             
+            var resultado = await _obtenerRecompensasInventarioPerfil.EjecutarAsync(perfilId,estudianteId);
             if (resultado.EsExitoso)
                 return Ok(resultado.Valor);
             return this.ManejarFallo(resultado);
