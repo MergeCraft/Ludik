@@ -13,18 +13,18 @@ public class ModificarAvatar: IModificarAvatar
 {
     private readonly IRepositorioPerfilEstudianteGrupo _repositorioPerfilesEstudiantes;
     private readonly IRepositorioAvatares _repositorioAvatares;
-    private readonly IRepositorioAtributosAvatar _repositorioAtributosAvatar; // ¡NUEVA DEPENDENCIA!
+    private readonly IRepositorioAtributosAvatar _repositorioAtributosAvatar;
     private readonly IServicioGestionImagenPerfil _servicioGestionImagenPerfil;
 
     public ModificarAvatar(
         IRepositorioPerfilEstudianteGrupo repositorioPerfilesEstudiantes,
         IRepositorioAvatares repositorioAvatares,
-        IRepositorioAtributosAvatar repositorioAtributosAvatar, // ¡NUEVA DEPENDENCIA!
+        IRepositorioAtributosAvatar repositorioAtributosAvatar,
         IServicioGestionImagenPerfil servicioGestionImagenPerfil)
     {
         _repositorioPerfilesEstudiantes = repositorioPerfilesEstudiantes;
         _repositorioAvatares = repositorioAvatares;
-        _repositorioAtributosAvatar = repositorioAtributosAvatar; // ¡NUEVA DEPENDENCIA!
+        _repositorioAtributosAvatar = repositorioAtributosAvatar;
         _servicioGestionImagenPerfil = servicioGestionImagenPerfil;
     }
 
@@ -44,7 +44,13 @@ public class ModificarAvatar: IModificarAvatar
             return resultadoValidacionItems;
 
 
-        var atributosAAsignar = await _repositorioAtributosAvatar.GetByIdsAsync(avatarDto.AtributosIds);
+        var resultadoAtributosAAsignar = await _repositorioAtributosAvatar.GetByIdsAsync(avatarDto.AtributosIds);
+
+        if (resultadoAtributosAAsignar.EsFallo)
+            return resultadoAtributosAAsignar;
+
+        IEnumerable<Entidades.AtributoAvatar> atributosAAsignar = resultadoAtributosAAsignar.Valor;
+
         if (atributosAAsignar.Count() != avatarDto.AtributosIds.Count)
             return Resultado.Falla(new Error("Error.NotFound", "Uno o más atributos seleccionados no fueron encontrados."));
         
@@ -94,12 +100,12 @@ public class ModificarAvatar: IModificarAvatar
         var itemsDesbloqueadosIds = perfilEstudiante.Inventario
             .OfType<Entidades.PersonalizacionAvatar>()
             .Select(pa => pa.AtributoAvatarId)
-            .ToHashSet(); // Usar HashSet para búsquedas O(1)
+            .ToHashSet(); //HashSet para búsquedas O(1)
 
         foreach (var idAtributoSeleccionado in avatarDto.AtributosIds)
         {
             if (!itemsDesbloqueadosIds.Contains(idAtributoSeleccionado))
-                return Resultado.Falla(new Error("Error.Forbidden", $"No posee el atributo con ID {idAtributoSeleccionado}."));
+                return Resultado.Falla(new Error("Error.Forbidden", $"No posees este atributo de avatar. Atributo ID: {idAtributoSeleccionado}."));
             
         }
         return Resultado.Exitoso();

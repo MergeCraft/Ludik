@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LogicaNegocio.Entidades;
-using LogicaNegocio.Entidades;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -48,6 +47,7 @@ namespace AccesoDatos.RepositoriosEF
         public DbSet<EnlaceUnion> EnlacesUnion { get; set; }
         public DbSet<BarraProgreso> BarrasProgreso { get; set; }
         public DbSet<Avatar> Avatares { get; set; }
+        public DbSet<AtributoAvatar> AtributosAvatar { get; set; }
 
 
 
