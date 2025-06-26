@@ -1,13 +1,23 @@
-.studentsContainer {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* 2 columnas por defecto */
-    gap: 10px;
+.itemsContainer {
     /* Espacio entre elementos (opcional) */
     padding: 10px;
     border-radius: 15px;
     background-color: var(--secundario);
     margin-top: 10px;
+}
+
+.studentsContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.storeContent {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 15px;
+    justify-items: center;
 }
 
 .infoGrupo {
@@ -50,19 +60,12 @@
 
 .acciones button:hover {
     background-color: var(--principal);
-
 }
 
 .acciones button svg {
     padding: 0;
 }
 
-.storeContent {
-    display: flex;
-    gap: 15px;
-    width: 100%;
-
-}
 
 .addRewardButton {
     background-color: var(--secundario);
