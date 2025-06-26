@@ -28,6 +28,8 @@ const GroupPage = () => {
   const { data: medals, isLoading: isLoadingMedals } = useMedallasProfesor();
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasTienda(group?.idTienda);
 
+  console.log(students);
+
   const studentsFiltrados = students?.filter((item) => item.nombreEstudiante.toLowerCase().includes(search.toLowerCase()));
 
   const handleOpenApplicationRequests = () => {
@@ -80,7 +82,7 @@ const GroupPage = () => {
         </h3>
       </div>
 
-      <div className={selfStyle.studentsContainer}>
+      <div className={selfStyle.itemsContainer}>
         {showStore ? (
           isLoadingRecompensas ? (
             <div className={styles.barLoaderContainer}>
@@ -101,7 +103,11 @@ const GroupPage = () => {
             <BarLoader color="var(--blanco-secundario)" size={10} />
           </div>
         ) : (
-          studentsFiltrados?.map((item) => <StudentItem key={item.id} student={item} medals={medals} />)
+          <div className={selfStyle.studentsContainer}>
+            {studentsFiltrados?.map((item) => (
+              <StudentItem key={item.id} student={item} medals={medals} />
+            ))}
+          </div>
         )}
       </div>
     </div>

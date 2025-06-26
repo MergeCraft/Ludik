@@ -25,7 +25,7 @@ const StudentItem = ({ student, medals }) => {
 
   return (
     <div className={styles.card}>
-      <img src={student.enlaceAvatar || genericProfileImage} alt="avatar" className={styles.avatar} />
+      <img src={student.enlaceAvatarMiniatura || genericProfileImage} alt="avatar" className={styles.avatar} />
       <div className={styles.centrales}>
         <p>{student.nombreEstudiante}</p>
         <div className={styles.asignarMedalla}>
@@ -58,9 +58,16 @@ const StudentItem = ({ student, medals }) => {
 StudentItem.propTypes = {
   student: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    grupoId: PropTypes.number,
-    enlaceAvatar: PropTypes.string,
+    avatarGrupoId: PropTypes.number,
+    enlaceAvatarCompleto: PropTypes.string,
+    enlaceAvatarMiniatura: PropTypes.string,
+    metaCalificacion: PropTypes.number,
+    estudianteId: PropTypes.string.isRequired,
     nombreEstudiante: PropTypes.string.isRequired,
+    monedas: PropTypes.number,
+    grupoId: PropTypes.number,
+    nombreGrupo: PropTypes.string,
+    calificacionActual: PropTypes.number,
   }).isRequired,
   medals: PropTypes.arrayOf(
     PropTypes.shape({
