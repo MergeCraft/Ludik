@@ -69,24 +69,26 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Estudiantes
             // Arrange
             string idEstudiante = "est456";
             var gruposEntidad = new List<Entidad.Grupo>
-            {
-                new Entidad.Grupo
-                {
-                    Id = 1,
-                    Nombre = "Grupo A",
-                    ProfesorId = "prof1",
-                    Institucion = "Inst1",
-                    Materia = "Mat1"
-                },
-                new Entidad.Grupo
-                {
-                    Id = 2,
-                    Nombre = "Grupo B",
-                    ProfesorId = "prof2",
-                    Institucion = "Inst2",
-                    Materia = "Mat2"
-                }
-            };
+    {
+        new Entidad.Grupo
+        {
+            Id = 1,
+            Nombre = "Grupo A",
+            ProfesorId = "prof1",
+            Institucion = "Inst1",
+            Materia = "Mat1",
+            Alumnos = new List<Entidad.PerfilEstudiante>() // ← aquí
+        },
+        new Entidad.Grupo
+        {
+            Id = 2,
+            Nombre = "Grupo B",
+            ProfesorId = "prof2",
+            Institucion = "Inst2",
+            Materia = "Mat2",
+            Alumnos = new List<Entidad.PerfilEstudiante>() // ← y aquí
+        }
+    };
 
             _repoGruposMock
                 .Setup(r => r.ObtenerGruposPorEstudianteId(idEstudiante))

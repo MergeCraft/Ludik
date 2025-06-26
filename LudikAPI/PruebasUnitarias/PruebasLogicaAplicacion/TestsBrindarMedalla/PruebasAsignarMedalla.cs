@@ -138,18 +138,28 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.BrindarMedalla
             var idMedalla = 1;
             var idGrupo = 10; // Mismo grupo
 
-            var profesor = new Entidad.Profesor { Id = profesorId, Grupos = new List<Entidad.Grupo> { new Entidad.Grupo { Id = idGrupo } } };
-            var perfilEstudiante = new Entidad.PerfilEstudiante { Id = idPerfilEstudiante, GrupoId = idGrupo };
             var medalla = new Entidad.Medalla { Id = idMedalla };
+            var profesor = new Entidad.Profesor
+            {
+                Id = profesorId,
+                Grupos = new List<Entidad.Grupo> { new Entidad.Grupo { Id = idGrupo } },
+                // ← inicializamos la colección de medallas para que Any(...) no sea null
+                Medallas = new List<Entidad.Medalla> { medalla }
+            };
+            var perfilEstudiante = new Entidad.PerfilEstudiante { Id = idPerfilEstudiante, GrupoId = idGrupo };
 
-            _mockRepoProfesores.Setup(r => r.GetByStringIdAsync(profesorId))
+            _mockRepoProfesores
+                .Setup(r => r.GetByStringIdAsync(profesorId))
                 .ReturnsAsync(Resultado<Entidad.Profesor>.Exitoso(profesor));
-            _mockRepoPerfilEstudiantes.Setup(r => r.GetByIdAsync(idPerfilEstudiante))
+            _mockRepoPerfilEstudiantes
+                .Setup(r => r.GetByIdAsync(idPerfilEstudiante))
                 .ReturnsAsync(Resultado<Entidad.PerfilEstudiante>.Exitoso(perfilEstudiante));
-            _mockRepoMedallas.Setup(r => r.GetByIdAsync(idMedalla)).ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(medalla));
+            _mockRepoMedallas
+                .Setup(r => r.GetByIdAsync(idMedalla))
+                .ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(medalla));
 
-            // Importante: Simular que el guardado en el repositorio de la tabla intermedia es exitoso
-            _mockRepoPerfilEstudianteMedalla.Setup(r => r.AddAsync(It.IsAny<Entidad.PerfilEstudianteMedalla>()))
+            _mockRepoPerfilEstudianteMedalla
+                .Setup(r => r.AddAsync(It.IsAny<Entidad.PerfilEstudianteMedalla>()))
                 .ReturnsAsync(Resultado.Exitoso());
 
             // Act
@@ -157,9 +167,9 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.BrindarMedalla
 
             // Assert
             Assert.True(resultado.EsExitoso);
-            // Opcional: Verificar que el método AddAsync fue llamado una vez
             _mockRepoPerfilEstudianteMedalla.Verify(r => r.AddAsync(It.Is<Entidad.PerfilEstudianteMedalla>(pem =>
-                pem.PerfilEstudianteId == idPerfilEstudiante && pem.MedallaId == idMedalla
+                pem.PerfilEstudianteId == idPerfilEstudiante &&
+                pem.MedallaId == idMedalla
             )), Times.Once);
         }
     }

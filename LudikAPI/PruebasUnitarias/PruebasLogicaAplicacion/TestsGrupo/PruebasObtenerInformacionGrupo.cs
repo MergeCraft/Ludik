@@ -49,7 +49,10 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             int grupoId = 2;
             var fechaCreacion = new DateTime(2025, 1, 15, 10, 30, 0);
             var tablaEq = new TablaEquivalencia { Id = 5 };
-            var enlace = new EnlaceUnion("http://url.com/inv", "codigo123") { UrlCompleta = "http://url.com/inv" };
+            var enlace = new EnlaceUnion("http://url.com/inv", "codigo123")
+            {
+                UrlCompleta = "http://url.com/inv"
+            };
             var grupo = new Entidad.Grupo
             {
                 Id = grupoId,
@@ -59,7 +62,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
                 Institucion = "InstX",
                 Materia = "Matemáticas",
                 FCreacion = fechaCreacion,
-                EnlaceUnion = enlace
+                EnlaceUnion = enlace,
+                Tienda = new Entidad.Tienda { Id = 99 }
             };
             _repoGruposMock
                 .Setup(r => r.GetByIdAsync(grupoId))
@@ -80,6 +84,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             Assert.Equal("Matemáticas", dto.Materia);
             Assert.Equal(fechaCreacion, dto.fCreacion);
             Assert.Equal("http://url.com/inv", dto.UrlCompleta);
+            Assert.Equal(99, dto.IdTienda);
         }
 
         [Fact]
@@ -98,7 +103,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
                 Institucion = null,
                 Materia = null,
                 FCreacion = fechaCreacion,
-                EnlaceUnion = null
+                EnlaceUnion = null,
+                Tienda = new Entidad.Tienda { Id = 0 }
             };
             _repoGruposMock
                 .Setup(r => r.GetByIdAsync(grupoId))
@@ -119,6 +125,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             Assert.Null(dto.Materia);
             Assert.Equal(fechaCreacion, dto.fCreacion);
             Assert.Null(dto.UrlCompleta);
+            Assert.Equal(0, dto.IdTienda);
         }
     }
 }
