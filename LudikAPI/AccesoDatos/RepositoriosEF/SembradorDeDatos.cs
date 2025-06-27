@@ -166,7 +166,56 @@ namespace AccesoDatos.RepositoriosEF
                 new PerfilEstudiante { Id = 4, Monedas = 200, MetaCalificacion = 10, EstudianteId = estudiante4Id, GrupoId = grupo2Id, RutaImagenCompleta = "default/avatar_full.jpg", RutaImagenMiniatura = "default/avatar_thumb.jpg" },
                 new PerfilEstudiante { Id = 5, Monedas = 180, MetaCalificacion = 8, EstudianteId = estudiante5Id, GrupoId = grupo2Id, RutaImagenCompleta = "default/avatar_full.jpg", RutaImagenMiniatura = "default/avatar_thumb.jpg" }
             );
-            
+            // =================================================================
+            // --- INICIO DE LA PRECARGA DE ATRIBUTOS DE AVATAR ---
+            // =================================================================
+            PrecargarAtributosAvatar(modelBuilder);
+
+        }
+        private static void PrecargarAtributosAvatar(ModelBuilder modelBuilder)
+        {
+            int idCounter = 1;
+            var atributos = new List<AtributoAvatar>();
+
+            // Función auxiliar para capitalizar nombres
+            Func<string, string> capitalizar = s => char.ToUpper(s[0]) + s.Substring(1);
+
+            // Datos proporcionados
+            var datos = new Dictionary<TipoAtributo, string[]>
+            {
+                { TipoAtributo.Pelo, new[] { "bigHair", "bob", "bun", "curly", "curvy", "dreads", "dreads01", "dreads02", "frida", "frizzle", "fro", "froBand", "hat", "hijab", "longButNotTooLong", "miaWallace", "shaggy", "shaggyMullet", "shavedSides", "shortCurly", "shortFlat", "shortRound", "shortWaved", "sides", "straight01", "straight02", "straightAndStrand", "theCaesar", "theCaesarAndSidePart", "turban", "winterHat1", "winterHat02", "winterHat03", "winterHat04" } },
+                { TipoAtributo.Cejas, new[] { "angry", "angryNatural", "default", "defaultNatural", "flatNatural", "frownNatural", "raisedExcited", "raisedExcitedNatural", "sadConcerned", "sadConcernedNatural", "unibrowNatural", "upDown", "upDownNatural" } },
+                { TipoAtributo.Ojos, new[] { "closed", "cry", "default", "eyeRoll", "happy", "hearts", "side", "squint", "surprised", "wink", "winkWacky", "xDizzy" } },
+                { TipoAtributo.Boca, new[] { "concerned", "default", "disbelief", "eating", "grimace", "sad", "screamOpen", "serious", "smile", "tongue", "twinkle" } },
+                { TipoAtributo.Barba, new[] { "beardLight", "beardMajestic", "beardMedium", "moustacheFancy", "moustacheMagnum" } },
+                { TipoAtributo.Gafas, new[] { "eyepatch", "kurt", "prescription01", "prescription02", "round", "sunglasses", "wayfarers" } },
+                { TipoAtributo.Ropa, new[] { "blazerAndShirt", "blazerAndSweater", "collarAndSweater", "graphicShirt", "hoodie", "overall", "shirtCrewNeck", "shirtScoopNeck", "shirtVNeck" } },
+                { TipoAtributo.ColorPiel, new[] { "614335", "ae5d29", "d08b5b", "edb98a", "f8d25c", "fd9841", "ffdbb4" } },
+                { TipoAtributo.ColorPelo, new[] { "2c1b18", "4a312c", "724133", "a55728", "b58143", "c93305", "d6b370", "e8e1e1", "ecdcbf", "f59797" } },
+                { TipoAtributo.ColorBarba, new[] { "2c1b18", "4a312c", "724133", "a55728", "b58143", "c93305", "d6b370", "e8e1e1", "ecdcbf", "f59797" } },
+                { TipoAtributo.ColorRopa, new[] { "3c4f5c", "65c9ff", "262e33", "5199e4", "25557c", "929598", "a7ffc4", "b1e2ff", "e6e6e6", "ff5c5c", "ff488e", "ffafb9", "ffffb1", "ffffff" } },
+                { TipoAtributo.ColorGafas, new[] { "3c4f5c", "65c9ff", "262e33", "5199e4", "25557c", "929598", "a7ffc4", "b1e2ff", "e6e6e6", "ff5c5c", "ff488e", "ffafb9", "ffdeb5", "ffffb1", "ffffff" } }
+            };
+
+            foreach (var kvp in datos)
+            {
+                foreach (var codigo in kvp.Value)
+                {
+                    atributos.Add(new AtributoAvatar
+                    {
+                        Id = idCounter++,
+                        Tipo = kvp.Key,
+                        // Para los colores, el nombre y el código son el mismo. Para otros, se capitaliza.
+                        Nombre = kvp.Key.ToString().Contains("Color") ? codigo : capitalizar(codigo),
+                        CodigoUnico = codigo,
+                        // TODO: ¡IMPORTANTE! reemplazar esto con rutas de recursos reales una vez obtenidos los recursos.
+                        RutaRecurso = $"avatar/{kvp.Key.ToString().ToLower()}/{codigo}.svg"
+                    });
+                }
+            }
+
+            modelBuilder.Entity<AtributoAvatar>().HasData(atributos);
         }
     }
 }
+

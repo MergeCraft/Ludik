@@ -13,7 +13,11 @@ public enum TipoAtributo
     Gafas,
     Ropa,
     ColorPiel,
-    
+    ColorPelo,
+    ColorBarba,
+    ColorRopa,
+    ColorGafas
+
 }
 
 public class AtributoAvatar : IEntity 

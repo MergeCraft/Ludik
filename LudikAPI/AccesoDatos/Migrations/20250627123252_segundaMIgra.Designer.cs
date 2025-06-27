@@ -4,6 +4,7 @@ using AccesoDatos.RepositoriosEF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    partial class ContextoDbModelSnapshot : ModelSnapshot
+    [Migration("20250627123252_segundaMIgra")]
+    partial class segundaMIgra
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace AccesoDatos.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("AtributoAvatarAvatar", b =>
-                {
-                    b.Property<int>("AtributosSeleccionadosId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AvatarId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AtributosSeleccionadosId", "AvatarId");
-
-                    b.HasIndex("AvatarId");
-
-                    b.ToTable("AvatarAtributos", (string)null);
-                });
 
             modelBuilder.Entity("EquivalenciaMedallas", b =>
                 {
@@ -49,7 +37,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("MedallaId");
 
-                    b.ToTable("EquivalenciaMedallas", (string)null);
+                    b.ToTable("EquivalenciaMedallas");
 
                     b.HasData(
                         new
@@ -86,7 +74,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("HitoId");
 
-                    b.ToTable("EstudianteHitos", (string)null);
+                    b.ToTable("EstudianteHitos");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.AtributoAvatar", b =>
@@ -96,6 +84,9 @@ namespace AccesoDatos.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AvatarId")
+                        .HasColumnType("int");
 
                     b.Property<string>("CodigoUnico")
                         .IsRequired()
@@ -114,1185 +105,9 @@ namespace AccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AtributosAvatar", (string)null);
+                    b.HasIndex("AvatarId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CodigoUnico = "bigHair",
-                            Nombre = "BigHair",
-                            RutaRecurso = "avatar/pelo/bigHair.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CodigoUnico = "bob",
-                            Nombre = "Bob",
-                            RutaRecurso = "avatar/pelo/bob.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CodigoUnico = "bun",
-                            Nombre = "Bun",
-                            RutaRecurso = "avatar/pelo/bun.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CodigoUnico = "curly",
-                            Nombre = "Curly",
-                            RutaRecurso = "avatar/pelo/curly.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CodigoUnico = "curvy",
-                            Nombre = "Curvy",
-                            RutaRecurso = "avatar/pelo/curvy.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CodigoUnico = "dreads",
-                            Nombre = "Dreads",
-                            RutaRecurso = "avatar/pelo/dreads.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CodigoUnico = "dreads01",
-                            Nombre = "Dreads01",
-                            RutaRecurso = "avatar/pelo/dreads01.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CodigoUnico = "dreads02",
-                            Nombre = "Dreads02",
-                            RutaRecurso = "avatar/pelo/dreads02.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CodigoUnico = "frida",
-                            Nombre = "Frida",
-                            RutaRecurso = "avatar/pelo/frida.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CodigoUnico = "frizzle",
-                            Nombre = "Frizzle",
-                            RutaRecurso = "avatar/pelo/frizzle.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CodigoUnico = "fro",
-                            Nombre = "Fro",
-                            RutaRecurso = "avatar/pelo/fro.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CodigoUnico = "froBand",
-                            Nombre = "FroBand",
-                            RutaRecurso = "avatar/pelo/froBand.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 13,
-                            CodigoUnico = "hat",
-                            Nombre = "Hat",
-                            RutaRecurso = "avatar/pelo/hat.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 14,
-                            CodigoUnico = "hijab",
-                            Nombre = "Hijab",
-                            RutaRecurso = "avatar/pelo/hijab.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 15,
-                            CodigoUnico = "longButNotTooLong",
-                            Nombre = "LongButNotTooLong",
-                            RutaRecurso = "avatar/pelo/longButNotTooLong.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 16,
-                            CodigoUnico = "miaWallace",
-                            Nombre = "MiaWallace",
-                            RutaRecurso = "avatar/pelo/miaWallace.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 17,
-                            CodigoUnico = "shaggy",
-                            Nombre = "Shaggy",
-                            RutaRecurso = "avatar/pelo/shaggy.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 18,
-                            CodigoUnico = "shaggyMullet",
-                            Nombre = "ShaggyMullet",
-                            RutaRecurso = "avatar/pelo/shaggyMullet.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 19,
-                            CodigoUnico = "shavedSides",
-                            Nombre = "ShavedSides",
-                            RutaRecurso = "avatar/pelo/shavedSides.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 20,
-                            CodigoUnico = "shortCurly",
-                            Nombre = "ShortCurly",
-                            RutaRecurso = "avatar/pelo/shortCurly.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 21,
-                            CodigoUnico = "shortFlat",
-                            Nombre = "ShortFlat",
-                            RutaRecurso = "avatar/pelo/shortFlat.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 22,
-                            CodigoUnico = "shortRound",
-                            Nombre = "ShortRound",
-                            RutaRecurso = "avatar/pelo/shortRound.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 23,
-                            CodigoUnico = "shortWaved",
-                            Nombre = "ShortWaved",
-                            RutaRecurso = "avatar/pelo/shortWaved.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 24,
-                            CodigoUnico = "sides",
-                            Nombre = "Sides",
-                            RutaRecurso = "avatar/pelo/sides.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 25,
-                            CodigoUnico = "straight01",
-                            Nombre = "Straight01",
-                            RutaRecurso = "avatar/pelo/straight01.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 26,
-                            CodigoUnico = "straight02",
-                            Nombre = "Straight02",
-                            RutaRecurso = "avatar/pelo/straight02.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 27,
-                            CodigoUnico = "straightAndStrand",
-                            Nombre = "StraightAndStrand",
-                            RutaRecurso = "avatar/pelo/straightAndStrand.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 28,
-                            CodigoUnico = "theCaesar",
-                            Nombre = "TheCaesar",
-                            RutaRecurso = "avatar/pelo/theCaesar.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 29,
-                            CodigoUnico = "theCaesarAndSidePart",
-                            Nombre = "TheCaesarAndSidePart",
-                            RutaRecurso = "avatar/pelo/theCaesarAndSidePart.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 30,
-                            CodigoUnico = "turban",
-                            Nombre = "Turban",
-                            RutaRecurso = "avatar/pelo/turban.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 31,
-                            CodigoUnico = "winterHat1",
-                            Nombre = "WinterHat1",
-                            RutaRecurso = "avatar/pelo/winterHat1.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 32,
-                            CodigoUnico = "winterHat02",
-                            Nombre = "WinterHat02",
-                            RutaRecurso = "avatar/pelo/winterHat02.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 33,
-                            CodigoUnico = "winterHat03",
-                            Nombre = "WinterHat03",
-                            RutaRecurso = "avatar/pelo/winterHat03.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 34,
-                            CodigoUnico = "winterHat04",
-                            Nombre = "WinterHat04",
-                            RutaRecurso = "avatar/pelo/winterHat04.svg",
-                            Tipo = 0
-                        },
-                        new
-                        {
-                            Id = 35,
-                            CodigoUnico = "angry",
-                            Nombre = "Angry",
-                            RutaRecurso = "avatar/cejas/angry.svg",
-                            Tipo = 1
-                        },
-                        new
-                        {
-                            Id = 36,
-                            CodigoUnico = "angryNatural",
-                            Nombre = "AngryNatural",
-                            RutaRecurso = "avatar/cejas/angryNatural.svg",
-                            Tipo = 1
-                        },
-                        new
-                        {
-                            Id = 37,
-                            CodigoUnico = "default",
-                            Nombre = "Default",
-                            RutaRecurso = "avatar/cejas/default.svg",
-                            Tipo = 1
-                        },
-                        new
-                        {
-                            Id = 38,
-                            CodigoUnico = "defaultNatural",
-                            Nombre = "DefaultNatural",
-                            RutaRecurso = "avatar/cejas/defaultNatural.svg",
-                            Tipo = 1
-                        },
-                        new
-                        {
-                            Id = 39,
-                            CodigoUnico = "flatNatural",
-                            Nombre = "FlatNatural",
-                            RutaRecurso = "avatar/cejas/flatNatural.svg",
-                            Tipo = 1
-                        },
-                        new
-                        {
-                            Id = 40,
-                            CodigoUnico = "frownNatural",
-                            Nombre = "FrownNatural",
-                            RutaRecurso = "avatar/cejas/frownNatural.svg",
-                            Tipo = 1
-                        },
-                        new
-                        {
-                            Id = 41,
-                            CodigoUnico = "raisedExcited",
-                            Nombre = "RaisedExcited",
-                            RutaRecurso = "avatar/cejas/raisedExcited.svg",
-                            Tipo = 1
-                        },
-                        new
-                        {
-                            Id = 42,
-                            CodigoUnico = "raisedExcitedNatural",
-                            Nombre = "RaisedExcitedNatural",
-                            RutaRecurso = "avatar/cejas/raisedExcitedNatural.svg",
-                            Tipo = 1
-                        },
-                        new
-                        {
-                            Id = 43,
-                            CodigoUnico = "sadConcerned",
-                            Nombre = "SadConcerned",
-                            RutaRecurso = "avatar/cejas/sadConcerned.svg",
-                            Tipo = 1
-                        },
-                        new
-                        {
-                            Id = 44,
-                            CodigoUnico = "sadConcernedNatural",
-                            Nombre = "SadConcernedNatural",
-                            RutaRecurso = "avatar/cejas/sadConcernedNatural.svg",
-                            Tipo = 1
-                        },
-                        new
-                        {
-                            Id = 45,
-                            CodigoUnico = "unibrowNatural",
-                            Nombre = "UnibrowNatural",
-                            RutaRecurso = "avatar/cejas/unibrowNatural.svg",
-                            Tipo = 1
-                        },
-                        new
-                        {
-                            Id = 46,
-                            CodigoUnico = "upDown",
-                            Nombre = "UpDown",
-                            RutaRecurso = "avatar/cejas/upDown.svg",
-                            Tipo = 1
-                        },
-                        new
-                        {
-                            Id = 47,
-                            CodigoUnico = "upDownNatural",
-                            Nombre = "UpDownNatural",
-                            RutaRecurso = "avatar/cejas/upDownNatural.svg",
-                            Tipo = 1
-                        },
-                        new
-                        {
-                            Id = 48,
-                            CodigoUnico = "closed",
-                            Nombre = "Closed",
-                            RutaRecurso = "avatar/ojos/closed.svg",
-                            Tipo = 2
-                        },
-                        new
-                        {
-                            Id = 49,
-                            CodigoUnico = "cry",
-                            Nombre = "Cry",
-                            RutaRecurso = "avatar/ojos/cry.svg",
-                            Tipo = 2
-                        },
-                        new
-                        {
-                            Id = 50,
-                            CodigoUnico = "default",
-                            Nombre = "Default",
-                            RutaRecurso = "avatar/ojos/default.svg",
-                            Tipo = 2
-                        },
-                        new
-                        {
-                            Id = 51,
-                            CodigoUnico = "eyeRoll",
-                            Nombre = "EyeRoll",
-                            RutaRecurso = "avatar/ojos/eyeRoll.svg",
-                            Tipo = 2
-                        },
-                        new
-                        {
-                            Id = 52,
-                            CodigoUnico = "happy",
-                            Nombre = "Happy",
-                            RutaRecurso = "avatar/ojos/happy.svg",
-                            Tipo = 2
-                        },
-                        new
-                        {
-                            Id = 53,
-                            CodigoUnico = "hearts",
-                            Nombre = "Hearts",
-                            RutaRecurso = "avatar/ojos/hearts.svg",
-                            Tipo = 2
-                        },
-                        new
-                        {
-                            Id = 54,
-                            CodigoUnico = "side",
-                            Nombre = "Side",
-                            RutaRecurso = "avatar/ojos/side.svg",
-                            Tipo = 2
-                        },
-                        new
-                        {
-                            Id = 55,
-                            CodigoUnico = "squint",
-                            Nombre = "Squint",
-                            RutaRecurso = "avatar/ojos/squint.svg",
-                            Tipo = 2
-                        },
-                        new
-                        {
-                            Id = 56,
-                            CodigoUnico = "surprised",
-                            Nombre = "Surprised",
-                            RutaRecurso = "avatar/ojos/surprised.svg",
-                            Tipo = 2
-                        },
-                        new
-                        {
-                            Id = 57,
-                            CodigoUnico = "wink",
-                            Nombre = "Wink",
-                            RutaRecurso = "avatar/ojos/wink.svg",
-                            Tipo = 2
-                        },
-                        new
-                        {
-                            Id = 58,
-                            CodigoUnico = "winkWacky",
-                            Nombre = "WinkWacky",
-                            RutaRecurso = "avatar/ojos/winkWacky.svg",
-                            Tipo = 2
-                        },
-                        new
-                        {
-                            Id = 59,
-                            CodigoUnico = "xDizzy",
-                            Nombre = "XDizzy",
-                            RutaRecurso = "avatar/ojos/xDizzy.svg",
-                            Tipo = 2
-                        },
-                        new
-                        {
-                            Id = 60,
-                            CodigoUnico = "concerned",
-                            Nombre = "Concerned",
-                            RutaRecurso = "avatar/boca/concerned.svg",
-                            Tipo = 3
-                        },
-                        new
-                        {
-                            Id = 61,
-                            CodigoUnico = "default",
-                            Nombre = "Default",
-                            RutaRecurso = "avatar/boca/default.svg",
-                            Tipo = 3
-                        },
-                        new
-                        {
-                            Id = 62,
-                            CodigoUnico = "disbelief",
-                            Nombre = "Disbelief",
-                            RutaRecurso = "avatar/boca/disbelief.svg",
-                            Tipo = 3
-                        },
-                        new
-                        {
-                            Id = 63,
-                            CodigoUnico = "eating",
-                            Nombre = "Eating",
-                            RutaRecurso = "avatar/boca/eating.svg",
-                            Tipo = 3
-                        },
-                        new
-                        {
-                            Id = 64,
-                            CodigoUnico = "grimace",
-                            Nombre = "Grimace",
-                            RutaRecurso = "avatar/boca/grimace.svg",
-                            Tipo = 3
-                        },
-                        new
-                        {
-                            Id = 65,
-                            CodigoUnico = "sad",
-                            Nombre = "Sad",
-                            RutaRecurso = "avatar/boca/sad.svg",
-                            Tipo = 3
-                        },
-                        new
-                        {
-                            Id = 66,
-                            CodigoUnico = "screamOpen",
-                            Nombre = "ScreamOpen",
-                            RutaRecurso = "avatar/boca/screamOpen.svg",
-                            Tipo = 3
-                        },
-                        new
-                        {
-                            Id = 67,
-                            CodigoUnico = "serious",
-                            Nombre = "Serious",
-                            RutaRecurso = "avatar/boca/serious.svg",
-                            Tipo = 3
-                        },
-                        new
-                        {
-                            Id = 68,
-                            CodigoUnico = "smile",
-                            Nombre = "Smile",
-                            RutaRecurso = "avatar/boca/smile.svg",
-                            Tipo = 3
-                        },
-                        new
-                        {
-                            Id = 69,
-                            CodigoUnico = "tongue",
-                            Nombre = "Tongue",
-                            RutaRecurso = "avatar/boca/tongue.svg",
-                            Tipo = 3
-                        },
-                        new
-                        {
-                            Id = 70,
-                            CodigoUnico = "twinkle",
-                            Nombre = "Twinkle",
-                            RutaRecurso = "avatar/boca/twinkle.svg",
-                            Tipo = 3
-                        },
-                        new
-                        {
-                            Id = 71,
-                            CodigoUnico = "beardLight",
-                            Nombre = "BeardLight",
-                            RutaRecurso = "avatar/barba/beardLight.svg",
-                            Tipo = 4
-                        },
-                        new
-                        {
-                            Id = 72,
-                            CodigoUnico = "beardMajestic",
-                            Nombre = "BeardMajestic",
-                            RutaRecurso = "avatar/barba/beardMajestic.svg",
-                            Tipo = 4
-                        },
-                        new
-                        {
-                            Id = 73,
-                            CodigoUnico = "beardMedium",
-                            Nombre = "BeardMedium",
-                            RutaRecurso = "avatar/barba/beardMedium.svg",
-                            Tipo = 4
-                        },
-                        new
-                        {
-                            Id = 74,
-                            CodigoUnico = "moustacheFancy",
-                            Nombre = "MoustacheFancy",
-                            RutaRecurso = "avatar/barba/moustacheFancy.svg",
-                            Tipo = 4
-                        },
-                        new
-                        {
-                            Id = 75,
-                            CodigoUnico = "moustacheMagnum",
-                            Nombre = "MoustacheMagnum",
-                            RutaRecurso = "avatar/barba/moustacheMagnum.svg",
-                            Tipo = 4
-                        },
-                        new
-                        {
-                            Id = 76,
-                            CodigoUnico = "eyepatch",
-                            Nombre = "Eyepatch",
-                            RutaRecurso = "avatar/gafas/eyepatch.svg",
-                            Tipo = 5
-                        },
-                        new
-                        {
-                            Id = 77,
-                            CodigoUnico = "kurt",
-                            Nombre = "Kurt",
-                            RutaRecurso = "avatar/gafas/kurt.svg",
-                            Tipo = 5
-                        },
-                        new
-                        {
-                            Id = 78,
-                            CodigoUnico = "prescription01",
-                            Nombre = "Prescription01",
-                            RutaRecurso = "avatar/gafas/prescription01.svg",
-                            Tipo = 5
-                        },
-                        new
-                        {
-                            Id = 79,
-                            CodigoUnico = "prescription02",
-                            Nombre = "Prescription02",
-                            RutaRecurso = "avatar/gafas/prescription02.svg",
-                            Tipo = 5
-                        },
-                        new
-                        {
-                            Id = 80,
-                            CodigoUnico = "round",
-                            Nombre = "Round",
-                            RutaRecurso = "avatar/gafas/round.svg",
-                            Tipo = 5
-                        },
-                        new
-                        {
-                            Id = 81,
-                            CodigoUnico = "sunglasses",
-                            Nombre = "Sunglasses",
-                            RutaRecurso = "avatar/gafas/sunglasses.svg",
-                            Tipo = 5
-                        },
-                        new
-                        {
-                            Id = 82,
-                            CodigoUnico = "wayfarers",
-                            Nombre = "Wayfarers",
-                            RutaRecurso = "avatar/gafas/wayfarers.svg",
-                            Tipo = 5
-                        },
-                        new
-                        {
-                            Id = 83,
-                            CodigoUnico = "blazerAndShirt",
-                            Nombre = "BlazerAndShirt",
-                            RutaRecurso = "avatar/ropa/blazerAndShirt.svg",
-                            Tipo = 6
-                        },
-                        new
-                        {
-                            Id = 84,
-                            CodigoUnico = "blazerAndSweater",
-                            Nombre = "BlazerAndSweater",
-                            RutaRecurso = "avatar/ropa/blazerAndSweater.svg",
-                            Tipo = 6
-                        },
-                        new
-                        {
-                            Id = 85,
-                            CodigoUnico = "collarAndSweater",
-                            Nombre = "CollarAndSweater",
-                            RutaRecurso = "avatar/ropa/collarAndSweater.svg",
-                            Tipo = 6
-                        },
-                        new
-                        {
-                            Id = 86,
-                            CodigoUnico = "graphicShirt",
-                            Nombre = "GraphicShirt",
-                            RutaRecurso = "avatar/ropa/graphicShirt.svg",
-                            Tipo = 6
-                        },
-                        new
-                        {
-                            Id = 87,
-                            CodigoUnico = "hoodie",
-                            Nombre = "Hoodie",
-                            RutaRecurso = "avatar/ropa/hoodie.svg",
-                            Tipo = 6
-                        },
-                        new
-                        {
-                            Id = 88,
-                            CodigoUnico = "overall",
-                            Nombre = "Overall",
-                            RutaRecurso = "avatar/ropa/overall.svg",
-                            Tipo = 6
-                        },
-                        new
-                        {
-                            Id = 89,
-                            CodigoUnico = "shirtCrewNeck",
-                            Nombre = "ShirtCrewNeck",
-                            RutaRecurso = "avatar/ropa/shirtCrewNeck.svg",
-                            Tipo = 6
-                        },
-                        new
-                        {
-                            Id = 90,
-                            CodigoUnico = "shirtScoopNeck",
-                            Nombre = "ShirtScoopNeck",
-                            RutaRecurso = "avatar/ropa/shirtScoopNeck.svg",
-                            Tipo = 6
-                        },
-                        new
-                        {
-                            Id = 91,
-                            CodigoUnico = "shirtVNeck",
-                            Nombre = "ShirtVNeck",
-                            RutaRecurso = "avatar/ropa/shirtVNeck.svg",
-                            Tipo = 6
-                        },
-                        new
-                        {
-                            Id = 92,
-                            CodigoUnico = "614335",
-                            Nombre = "614335",
-                            RutaRecurso = "avatar/colorpiel/614335.svg",
-                            Tipo = 7
-                        },
-                        new
-                        {
-                            Id = 93,
-                            CodigoUnico = "ae5d29",
-                            Nombre = "ae5d29",
-                            RutaRecurso = "avatar/colorpiel/ae5d29.svg",
-                            Tipo = 7
-                        },
-                        new
-                        {
-                            Id = 94,
-                            CodigoUnico = "d08b5b",
-                            Nombre = "d08b5b",
-                            RutaRecurso = "avatar/colorpiel/d08b5b.svg",
-                            Tipo = 7
-                        },
-                        new
-                        {
-                            Id = 95,
-                            CodigoUnico = "edb98a",
-                            Nombre = "edb98a",
-                            RutaRecurso = "avatar/colorpiel/edb98a.svg",
-                            Tipo = 7
-                        },
-                        new
-                        {
-                            Id = 96,
-                            CodigoUnico = "f8d25c",
-                            Nombre = "f8d25c",
-                            RutaRecurso = "avatar/colorpiel/f8d25c.svg",
-                            Tipo = 7
-                        },
-                        new
-                        {
-                            Id = 97,
-                            CodigoUnico = "fd9841",
-                            Nombre = "fd9841",
-                            RutaRecurso = "avatar/colorpiel/fd9841.svg",
-                            Tipo = 7
-                        },
-                        new
-                        {
-                            Id = 98,
-                            CodigoUnico = "ffdbb4",
-                            Nombre = "ffdbb4",
-                            RutaRecurso = "avatar/colorpiel/ffdbb4.svg",
-                            Tipo = 7
-                        },
-                        new
-                        {
-                            Id = 99,
-                            CodigoUnico = "2c1b18",
-                            Nombre = "2c1b18",
-                            RutaRecurso = "avatar/colorpelo/2c1b18.svg",
-                            Tipo = 8
-                        },
-                        new
-                        {
-                            Id = 100,
-                            CodigoUnico = "4a312c",
-                            Nombre = "4a312c",
-                            RutaRecurso = "avatar/colorpelo/4a312c.svg",
-                            Tipo = 8
-                        },
-                        new
-                        {
-                            Id = 101,
-                            CodigoUnico = "724133",
-                            Nombre = "724133",
-                            RutaRecurso = "avatar/colorpelo/724133.svg",
-                            Tipo = 8
-                        },
-                        new
-                        {
-                            Id = 102,
-                            CodigoUnico = "a55728",
-                            Nombre = "a55728",
-                            RutaRecurso = "avatar/colorpelo/a55728.svg",
-                            Tipo = 8
-                        },
-                        new
-                        {
-                            Id = 103,
-                            CodigoUnico = "b58143",
-                            Nombre = "b58143",
-                            RutaRecurso = "avatar/colorpelo/b58143.svg",
-                            Tipo = 8
-                        },
-                        new
-                        {
-                            Id = 104,
-                            CodigoUnico = "c93305",
-                            Nombre = "c93305",
-                            RutaRecurso = "avatar/colorpelo/c93305.svg",
-                            Tipo = 8
-                        },
-                        new
-                        {
-                            Id = 105,
-                            CodigoUnico = "d6b370",
-                            Nombre = "d6b370",
-                            RutaRecurso = "avatar/colorpelo/d6b370.svg",
-                            Tipo = 8
-                        },
-                        new
-                        {
-                            Id = 106,
-                            CodigoUnico = "e8e1e1",
-                            Nombre = "e8e1e1",
-                            RutaRecurso = "avatar/colorpelo/e8e1e1.svg",
-                            Tipo = 8
-                        },
-                        new
-                        {
-                            Id = 107,
-                            CodigoUnico = "ecdcbf",
-                            Nombre = "ecdcbf",
-                            RutaRecurso = "avatar/colorpelo/ecdcbf.svg",
-                            Tipo = 8
-                        },
-                        new
-                        {
-                            Id = 108,
-                            CodigoUnico = "f59797",
-                            Nombre = "f59797",
-                            RutaRecurso = "avatar/colorpelo/f59797.svg",
-                            Tipo = 8
-                        },
-                        new
-                        {
-                            Id = 109,
-                            CodigoUnico = "2c1b18",
-                            Nombre = "2c1b18",
-                            RutaRecurso = "avatar/colorbarba/2c1b18.svg",
-                            Tipo = 9
-                        },
-                        new
-                        {
-                            Id = 110,
-                            CodigoUnico = "4a312c",
-                            Nombre = "4a312c",
-                            RutaRecurso = "avatar/colorbarba/4a312c.svg",
-                            Tipo = 9
-                        },
-                        new
-                        {
-                            Id = 111,
-                            CodigoUnico = "724133",
-                            Nombre = "724133",
-                            RutaRecurso = "avatar/colorbarba/724133.svg",
-                            Tipo = 9
-                        },
-                        new
-                        {
-                            Id = 112,
-                            CodigoUnico = "a55728",
-                            Nombre = "a55728",
-                            RutaRecurso = "avatar/colorbarba/a55728.svg",
-                            Tipo = 9
-                        },
-                        new
-                        {
-                            Id = 113,
-                            CodigoUnico = "b58143",
-                            Nombre = "b58143",
-                            RutaRecurso = "avatar/colorbarba/b58143.svg",
-                            Tipo = 9
-                        },
-                        new
-                        {
-                            Id = 114,
-                            CodigoUnico = "c93305",
-                            Nombre = "c93305",
-                            RutaRecurso = "avatar/colorbarba/c93305.svg",
-                            Tipo = 9
-                        },
-                        new
-                        {
-                            Id = 115,
-                            CodigoUnico = "d6b370",
-                            Nombre = "d6b370",
-                            RutaRecurso = "avatar/colorbarba/d6b370.svg",
-                            Tipo = 9
-                        },
-                        new
-                        {
-                            Id = 116,
-                            CodigoUnico = "e8e1e1",
-                            Nombre = "e8e1e1",
-                            RutaRecurso = "avatar/colorbarba/e8e1e1.svg",
-                            Tipo = 9
-                        },
-                        new
-                        {
-                            Id = 117,
-                            CodigoUnico = "ecdcbf",
-                            Nombre = "ecdcbf",
-                            RutaRecurso = "avatar/colorbarba/ecdcbf.svg",
-                            Tipo = 9
-                        },
-                        new
-                        {
-                            Id = 118,
-                            CodigoUnico = "f59797",
-                            Nombre = "f59797",
-                            RutaRecurso = "avatar/colorbarba/f59797.svg",
-                            Tipo = 9
-                        },
-                        new
-                        {
-                            Id = 119,
-                            CodigoUnico = "3c4f5c",
-                            Nombre = "3c4f5c",
-                            RutaRecurso = "avatar/colorropa/3c4f5c.svg",
-                            Tipo = 10
-                        },
-                        new
-                        {
-                            Id = 120,
-                            CodigoUnico = "65c9ff",
-                            Nombre = "65c9ff",
-                            RutaRecurso = "avatar/colorropa/65c9ff.svg",
-                            Tipo = 10
-                        },
-                        new
-                        {
-                            Id = 121,
-                            CodigoUnico = "262e33",
-                            Nombre = "262e33",
-                            RutaRecurso = "avatar/colorropa/262e33.svg",
-                            Tipo = 10
-                        },
-                        new
-                        {
-                            Id = 122,
-                            CodigoUnico = "5199e4",
-                            Nombre = "5199e4",
-                            RutaRecurso = "avatar/colorropa/5199e4.svg",
-                            Tipo = 10
-                        },
-                        new
-                        {
-                            Id = 123,
-                            CodigoUnico = "25557c",
-                            Nombre = "25557c",
-                            RutaRecurso = "avatar/colorropa/25557c.svg",
-                            Tipo = 10
-                        },
-                        new
-                        {
-                            Id = 124,
-                            CodigoUnico = "929598",
-                            Nombre = "929598",
-                            RutaRecurso = "avatar/colorropa/929598.svg",
-                            Tipo = 10
-                        },
-                        new
-                        {
-                            Id = 125,
-                            CodigoUnico = "a7ffc4",
-                            Nombre = "a7ffc4",
-                            RutaRecurso = "avatar/colorropa/a7ffc4.svg",
-                            Tipo = 10
-                        },
-                        new
-                        {
-                            Id = 126,
-                            CodigoUnico = "b1e2ff",
-                            Nombre = "b1e2ff",
-                            RutaRecurso = "avatar/colorropa/b1e2ff.svg",
-                            Tipo = 10
-                        },
-                        new
-                        {
-                            Id = 127,
-                            CodigoUnico = "e6e6e6",
-                            Nombre = "e6e6e6",
-                            RutaRecurso = "avatar/colorropa/e6e6e6.svg",
-                            Tipo = 10
-                        },
-                        new
-                        {
-                            Id = 128,
-                            CodigoUnico = "ff5c5c",
-                            Nombre = "ff5c5c",
-                            RutaRecurso = "avatar/colorropa/ff5c5c.svg",
-                            Tipo = 10
-                        },
-                        new
-                        {
-                            Id = 129,
-                            CodigoUnico = "ff488e",
-                            Nombre = "ff488e",
-                            RutaRecurso = "avatar/colorropa/ff488e.svg",
-                            Tipo = 10
-                        },
-                        new
-                        {
-                            Id = 130,
-                            CodigoUnico = "ffafb9",
-                            Nombre = "ffafb9",
-                            RutaRecurso = "avatar/colorropa/ffafb9.svg",
-                            Tipo = 10
-                        },
-                        new
-                        {
-                            Id = 131,
-                            CodigoUnico = "ffffb1",
-                            Nombre = "ffffb1",
-                            RutaRecurso = "avatar/colorropa/ffffb1.svg",
-                            Tipo = 10
-                        },
-                        new
-                        {
-                            Id = 132,
-                            CodigoUnico = "ffffff",
-                            Nombre = "ffffff",
-                            RutaRecurso = "avatar/colorropa/ffffff.svg",
-                            Tipo = 10
-                        },
-                        new
-                        {
-                            Id = 133,
-                            CodigoUnico = "3c4f5c",
-                            Nombre = "3c4f5c",
-                            RutaRecurso = "avatar/colorgafas/3c4f5c.svg",
-                            Tipo = 11
-                        },
-                        new
-                        {
-                            Id = 134,
-                            CodigoUnico = "65c9ff",
-                            Nombre = "65c9ff",
-                            RutaRecurso = "avatar/colorgafas/65c9ff.svg",
-                            Tipo = 11
-                        },
-                        new
-                        {
-                            Id = 135,
-                            CodigoUnico = "262e33",
-                            Nombre = "262e33",
-                            RutaRecurso = "avatar/colorgafas/262e33.svg",
-                            Tipo = 11
-                        },
-                        new
-                        {
-                            Id = 136,
-                            CodigoUnico = "5199e4",
-                            Nombre = "5199e4",
-                            RutaRecurso = "avatar/colorgafas/5199e4.svg",
-                            Tipo = 11
-                        },
-                        new
-                        {
-                            Id = 137,
-                            CodigoUnico = "25557c",
-                            Nombre = "25557c",
-                            RutaRecurso = "avatar/colorgafas/25557c.svg",
-                            Tipo = 11
-                        },
-                        new
-                        {
-                            Id = 138,
-                            CodigoUnico = "929598",
-                            Nombre = "929598",
-                            RutaRecurso = "avatar/colorgafas/929598.svg",
-                            Tipo = 11
-                        },
-                        new
-                        {
-                            Id = 139,
-                            CodigoUnico = "a7ffc4",
-                            Nombre = "a7ffc4",
-                            RutaRecurso = "avatar/colorgafas/a7ffc4.svg",
-                            Tipo = 11
-                        },
-                        new
-                        {
-                            Id = 140,
-                            CodigoUnico = "b1e2ff",
-                            Nombre = "b1e2ff",
-                            RutaRecurso = "avatar/colorgafas/b1e2ff.svg",
-                            Tipo = 11
-                        },
-                        new
-                        {
-                            Id = 141,
-                            CodigoUnico = "e6e6e6",
-                            Nombre = "e6e6e6",
-                            RutaRecurso = "avatar/colorgafas/e6e6e6.svg",
-                            Tipo = 11
-                        },
-                        new
-                        {
-                            Id = 142,
-                            CodigoUnico = "ff5c5c",
-                            Nombre = "ff5c5c",
-                            RutaRecurso = "avatar/colorgafas/ff5c5c.svg",
-                            Tipo = 11
-                        },
-                        new
-                        {
-                            Id = 143,
-                            CodigoUnico = "ff488e",
-                            Nombre = "ff488e",
-                            RutaRecurso = "avatar/colorgafas/ff488e.svg",
-                            Tipo = 11
-                        },
-                        new
-                        {
-                            Id = 144,
-                            CodigoUnico = "ffafb9",
-                            Nombre = "ffafb9",
-                            RutaRecurso = "avatar/colorgafas/ffafb9.svg",
-                            Tipo = 11
-                        },
-                        new
-                        {
-                            Id = 145,
-                            CodigoUnico = "ffdeb5",
-                            Nombre = "ffdeb5",
-                            RutaRecurso = "avatar/colorgafas/ffdeb5.svg",
-                            Tipo = 11
-                        },
-                        new
-                        {
-                            Id = 146,
-                            CodigoUnico = "ffffb1",
-                            Nombre = "ffffb1",
-                            RutaRecurso = "avatar/colorgafas/ffffb1.svg",
-                            Tipo = 11
-                        },
-                        new
-                        {
-                            Id = 147,
-                            CodigoUnico = "ffffff",
-                            Nombre = "ffffff",
-                            RutaRecurso = "avatar/colorgafas/ffffff.svg",
-                            Tipo = 11
-                        });
+                    b.ToTable("AtributosAvatar");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Avatar", b =>
@@ -1315,7 +130,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Avatares", (string)null);
+                    b.ToTable("Avatares");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.BarraProgreso", b =>
@@ -1345,7 +160,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("TablaEquivalenciaId");
 
-                    b.ToTable("BarrasProgreso", (string)null);
+                    b.ToTable("BarrasProgreso");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.EnlaceUnion", b =>
@@ -1369,7 +184,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EnlacesUnion", (string)null);
+                    b.ToTable("EnlacesUnion");
 
                     b.HasData(
                         new
@@ -1406,7 +221,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("TablaEquivalenciaId");
 
-                    b.ToTable("Equivalencias", (string)null);
+                    b.ToTable("Equivalencias");
 
                     b.HasData(
                         new
@@ -1474,7 +289,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("TablaEquivalenciaId");
 
-                    b.ToTable("Grupos", (string)null);
+                    b.ToTable("Grupos");
 
                     b.HasData(
                         new
@@ -1519,7 +334,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("RecompensaId");
 
-                    b.ToTable("Hitos", (string)null);
+                    b.ToTable("Hitos");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Medalla", b =>
@@ -1560,7 +375,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("ProfesorId");
 
-                    b.ToTable("Medallas", (string)null);
+                    b.ToTable("Medallas");
 
                     b.HasData(
                         new
@@ -1632,7 +447,7 @@ namespace AccesoDatos.Migrations
                         .IsUnique()
                         .HasDatabaseName("UX_PerfilEstudiante_GrupoId_EstudianteId");
 
-                    b.ToTable("PerfilesEstudiantes", (string)null);
+                    b.ToTable("PerfilesEstudiantes");
 
                     b.HasData(
                         new
@@ -1707,7 +522,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("PerfilEstudianteId");
 
-                    b.ToTable("PerfilEstudianteMedallas", (string)null);
+                    b.ToTable("PerfilEstudianteMedallas");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Pin", b =>
@@ -1739,7 +554,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Pines", (string)null);
+                    b.ToTable("Pines");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.PreguntaRespuestaSeguridad", b =>
@@ -1765,7 +580,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("EstudianteId");
 
-                    b.ToTable("PreguntasRespuestasSeguridad", (string)null);
+                    b.ToTable("PreguntasRespuestasSeguridad");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Recompensa", b =>
@@ -1806,7 +621,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("TiendaId");
 
-                    b.ToTable("Recompensas", (string)null);
+                    b.ToTable("Recompensas");
 
                     b.HasDiscriminator<string>("RecompensaTipo").HasValue("Recompensa");
 
@@ -1832,7 +647,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("PerfilEstudianteId");
 
-                    b.ToTable("RendimientosPeriodos", (string)null);
+                    b.ToTable("RendimientosPeriodos");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.SolicitudUnion", b =>
@@ -1862,7 +677,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("GrupoId");
 
-                    b.ToTable("SolicitudesUnion", (string)null);
+                    b.ToTable("SolicitudesUnion");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.TablaClasificacion", b =>
@@ -1892,7 +707,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("Nombre");
 
-                    b.ToTable("TablasClasificacion", (string)null);
+                    b.ToTable("TablasClasificacion");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.TablaEquivalencia", b =>
@@ -1918,7 +733,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("ProfesorId");
 
-                    b.ToTable("TablasEquivalencia", (string)null);
+                    b.ToTable("TablasEquivalencia");
 
                     b.HasData(
                         new
@@ -1951,7 +766,7 @@ namespace AccesoDatos.Migrations
                     b.HasIndex("GrupoId")
                         .IsUnique();
 
-                    b.ToTable("Tiendas", (string)null);
+                    b.ToTable("Tiendas");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Usuario", b =>
@@ -2257,7 +1072,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("RecompensaId");
 
-                    b.ToTable("PerfilEstudianteRecompensas", (string)null);
+                    b.ToTable("PerfilEstudianteRecompensas");
                 });
 
             modelBuilder.Entity("RendimientoPeriodoMedallas", b =>
@@ -2272,7 +1087,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("RendimientoPeriodoId");
 
-                    b.ToTable("RendimientoPeriodoMedallas", (string)null);
+                    b.ToTable("RendimientoPeriodoMedallas");
                 });
 
             modelBuilder.Entity("TablaClasificacionParticipantes", b =>
@@ -2287,7 +1102,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("TablaClasificacionId");
 
-                    b.ToTable("TablaClasificacionParticipantes", (string)null);
+                    b.ToTable("TablaClasificacionParticipantes");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Potenciador", b =>
@@ -2430,21 +1245,6 @@ namespace AccesoDatos.Migrations
                         });
                 });
 
-            modelBuilder.Entity("AtributoAvatarAvatar", b =>
-                {
-                    b.HasOne("LogicaNegocio.Entidades.AtributoAvatar", null)
-                        .WithMany()
-                        .HasForeignKey("AtributosSeleccionadosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LogicaNegocio.Entidades.Avatar", null)
-                        .WithMany()
-                        .HasForeignKey("AvatarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("EquivalenciaMedallas", b =>
                 {
                     b.HasOne("LogicaNegocio.Entidades.Equivalencia", null)
@@ -2473,6 +1273,13 @@ namespace AccesoDatos.Migrations
                         .HasForeignKey("HitoId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("LogicaNegocio.Entidades.AtributoAvatar", b =>
+                {
+                    b.HasOne("LogicaNegocio.Entidades.Avatar", null)
+                        .WithMany("AtributosSeleccionados")
+                        .HasForeignKey("AvatarId");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Avatar", b =>
@@ -2625,7 +1432,7 @@ namespace AccesoDatos.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("LogicaNegocio.Entidades.RendimientoPeriodo.Rangofecha#LogicaNegocio.ValueObject.RangoFechas", "Rangofecha", b1 =>
+                    b.OwnsOne("LogicaNegocio.ValueObject.RangoFechas", "Rangofecha", b1 =>
                         {
                             b1.Property<int>("RendimientoPeriodoId")
                                 .HasColumnType("int");
@@ -2640,7 +1447,7 @@ namespace AccesoDatos.Migrations
 
                             b1.HasKey("RendimientoPeriodoId");
 
-                            b1.ToTable("RendimientosPeriodos", (string)null);
+                            b1.ToTable("RendimientosPeriodos");
 
                             b1.WithOwner()
                                 .HasForeignKey("RendimientoPeriodoId");
@@ -2708,7 +1515,7 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Usuario", b =>
                 {
-                    b.OwnsOne("LogicaNegocio.Entidades.Usuario.NombreCompleto#LogicaNegocio.ValueObjects.NombreCompleto", "NombreCompleto", b1 =>
+                    b.OwnsOne("LogicaNegocio.ValueObjects.NombreCompleto", "NombreCompleto", b1 =>
                         {
                             b1.Property<string>("UsuarioId")
                                 .HasColumnType("nvarchar(450)");
@@ -2727,7 +1534,7 @@ namespace AccesoDatos.Migrations
 
                             b1.HasKey("UsuarioId");
 
-                            b1.ToTable("Usuarios", (string)null);
+                            b1.ToTable("Usuarios");
 
                             b1.WithOwner()
                                 .HasForeignKey("UsuarioId");
@@ -2893,6 +1700,11 @@ namespace AccesoDatos.Migrations
                         .HasForeignKey("LogicaNegocio.Entidades.Profesor", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("LogicaNegocio.Entidades.Avatar", b =>
+                {
+                    b.Navigation("AtributosSeleccionados");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Grupo", b =>

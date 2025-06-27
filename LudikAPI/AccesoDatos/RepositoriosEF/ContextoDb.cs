@@ -146,9 +146,6 @@ namespace AccesoDatos.RepositoriosEF
                       .HasForeignKey(pm => pm.MedallaId)
                       .OnDelete(DeleteBehavior.Restrict);
 
-                // Si quieres llevar contador en lugar de múltiples filas, define aquí índice único:
-                // entity.HasIndex(pm => new { pm.PerfilEstudianteId, pm.MedallaId }).IsUnique();
-                // Si prefieres permitir filas repetidas, no pongas ese índice.
             });
 
             //Relación M:N entre PerfilEstudiante y Recompensa (Inventario)
@@ -296,6 +293,13 @@ namespace AccesoDatos.RepositoriosEF
                     .HasForeignKey<Avatar>() 
                     .OnDelete(DeleteBehavior.Cascade);
 
+            });
+
+            modelBuilder.Entity<Avatar>(a =>
+            {
+                a.HasMany(avatar => avatar.AtributosSeleccionados)
+                    .WithMany() // Sin propiedad de navegación inversa en AtributoAvatar
+                    .UsingEntity(j => j.ToTable("AvatarAtributos")); // Nombra explícitamente la tabla de unión
             });
 
 
