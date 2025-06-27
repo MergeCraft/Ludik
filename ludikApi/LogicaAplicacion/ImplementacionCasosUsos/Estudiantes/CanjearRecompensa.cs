@@ -41,11 +41,6 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
             if(perfil.EstudianteId != estudianteId)
                 return Resultado.Falla(new Error("Error.Forbidden", "No tienes permiso para canjear recompensas en este perfil."));
 
-            //bool yaPosee = perfil.InventarioRecompensas
-            //    .Any(ir => ir.RecompensaId == recompensaId);
-            //if (yaPosee)
-            //    return Resultado.Falla(new Error("Error.Validation", "El estudiante ya posee esta recompensa."));
-
             perfil.Monedas -= recompensa.Precio;
             perfil.InventarioRecompensas.Add(new PerfilEstudianteRecompensa
             {

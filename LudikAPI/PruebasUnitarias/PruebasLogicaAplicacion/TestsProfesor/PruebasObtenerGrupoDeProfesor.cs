@@ -70,24 +70,26 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
             // Arrange
             string idProfesor = "profABC";
             var gruposEntidad = new List<Entidad.Grupo>
-            {
-                new Entidad.Grupo
-                {
-                    Id = 1,
-                    Nombre = "Grupo Uno",
-                    ProfesorId = idProfesor,
-                    Institucion = "InstA",
-                    Materia = "MatA"
-                },
-                new Entidad.Grupo
-                {
-                    Id = 2,
-                    Nombre = "Grupo Dos",
-                    ProfesorId = idProfesor,
-                    Institucion = "InstB",
-                    Materia = "MatB"
-                }
-            };
+    {
+        new Entidad.Grupo
+        {
+            Id = 1,
+            Nombre = "Grupo Uno",
+            ProfesorId = idProfesor,
+            Institucion = "InstA",
+            Materia = "MatA",
+            Alumnos = new List<Entidad.PerfilEstudiante>() 
+        },
+        new Entidad.Grupo
+        {
+            Id = 2,
+            Nombre = "Grupo Dos",
+            ProfesorId = idProfesor,
+            Institucion = "InstB",
+            Materia = "MatB",
+            Alumnos = new List<Entidad.PerfilEstudiante>() 
+        }
+    };
 
             _repoGruposMock
                 .Setup(r => r.ObtenerGruposPorProfesorId(idProfesor))
@@ -109,6 +111,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
             Assert.Equal(idProfesor, dto1.ProfesorId);
             Assert.Equal("InstA", dto1.Institucion);
             Assert.Equal("MatA", dto1.Materia);
+            Assert.Equal(0, dto1.CantAlumnos); // porque la lista está vacía
 
             var dto2 = resultado.Valor[1];
             Assert.Equal(2, dto2.Id);
@@ -116,6 +119,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
             Assert.Equal(idProfesor, dto2.ProfesorId);
             Assert.Equal("InstB", dto2.Institucion);
             Assert.Equal("MatB", dto2.Materia);
+            Assert.Equal(0, dto2.CantAlumnos); // también vacía
 
             _repoGruposMock.Verify(r => r.ObtenerGruposPorProfesorId(idProfesor), Times.Once);
         }
