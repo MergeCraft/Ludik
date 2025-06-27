@@ -29,13 +29,16 @@ namespace WebApi.Controllers
         /// <param name="avatarDto">DTO que contiene todos los atributos del avatar.</param>
         /// <param name="imagen">El nuevo archivo de imagen del avatar generado.</param>
         /// <returns>Un resultado de la operación. 204 No Content si es exitoso.</returns>
-        [HttpPut("{idPerfilEstudiante}")]
+        [HttpPut("{idPerfilEstudiante}/personalizar")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> ActualizarAvatarDePerfil(int idPerfilEstudiante, [FromForm] AvatarDto avatarDto, IFormFile imagen)
+        public async Task<IActionResult> ActualizarAvatarDePerfil(
+            int idPerfilEstudiante,
+            [FromForm] ActualizarAvatarDto avatarDto,
+            IFormFile imagen)
         {
             if (imagen == null || imagen.Length == 0)
             {
@@ -46,7 +49,7 @@ namespace WebApi.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId))
                 return Unauthorized();
-            
+
             await using var streamImagen = imagen.OpenReadStream();
 
             var resultado = await _modificarAvatar.EjecutarAsync(idPerfilEstudiante, userId, avatarDto, streamImagen);
@@ -59,10 +62,20 @@ namespace WebApi.Controllers
         /// </summary>
         /// <param name="idPerfilEstudiante">El ID del perfil del estudiante.</param>
         /// <returns>Un resultado de la operación.</returns>
-        [HttpGet]
-        public async Task<IActionResult> ObtenerAtributosAvatarQuePoseePerfilEstudiante()
+        [HttpGet("{idPerfilEstudiante}/inventario-avatar")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> ObtenerAtributosAvatarQuePoseePerfilEstudiante(int idPerfilEstudiante)
         {
-            return BadRequest("Sin implementar");
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized();
+
+            var resultado = await _obtenerAtributosAvatar.EjecutarAsync(idPerfilEstudiante, userId);
+            return resultado.EsExitoso ? Ok(resultado.Valor) : this.ManejarFallo(resultado);
         }
 
     }

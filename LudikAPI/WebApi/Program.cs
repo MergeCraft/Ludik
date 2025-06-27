@@ -134,10 +134,10 @@ builder.Services.AddScoped<IRepositorioEnlacesUnionGrupo, RepositorioEnlacesUnio
 builder.Services.AddScoped<IRepositorioSolicitudesUnion, RepositorioSolocitudesUnionEF>();
 builder.Services.AddScoped<IRepositorioPerfilEstudianteGrupo, RepositorioPerfilEstudianteGrupoEF>();
 builder.Services.AddScoped<IRepositorioPerfilEstudianteMedalla, RepositorioPerfilEstudianteMedallaEF>();
-builder.Services.AddScoped<IRepositorioAvatares, RepositorioAvatares>();
+builder.Services.AddScoped<IRepositorioAvatares, RepositorioAvataresEF>();
 builder.Services.AddScoped<IRepositorioTiendas, RepositorioTiendasEF>();
 builder.Services.AddScoped<IRepositorioRecompensas, RepositorioRecompensasEF>();
-
+builder.Services.AddScoped<IRepositorioAtributosAvatar, RepositorioAtributosAvatarEF>();
 
 
 builder.Services.AddAzureClients(clientBuilder =>

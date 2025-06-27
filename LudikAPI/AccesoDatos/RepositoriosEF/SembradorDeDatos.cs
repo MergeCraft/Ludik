@@ -271,6 +271,102 @@ namespace AccesoDatos.RepositoriosEF
         );
 
 
+
+            // --- NUEVO: 11. CREACIÓN DE AVATARES INICIALES ---
+            // Se crea un avatar para cada perfil de estudiante precargado.
+            modelBuilder.Entity<Avatar>().HasData(
+                new Avatar { Id = 1, PerfilEstudianteId = 1, ColorFondo = "b1e2ff", Voltear = false, Rotacion = 0, Zoom = 100 },
+                new Avatar { Id = 2, PerfilEstudianteId = 2, ColorFondo = "a7ffc4", Voltear = false, Rotacion = 0, Zoom = 100 },
+                new Avatar { Id = 3, PerfilEstudianteId = 3, ColorFondo = "ffafb9", Voltear = false, Rotacion = 0, Zoom = 100 },
+                new Avatar { Id = 4, PerfilEstudianteId = 4, ColorFondo = "ffffb1", Voltear = false, Rotacion = 0, Zoom = 100 },
+                new Avatar { Id = 5, PerfilEstudianteId = 5, ColorFondo = "e6e6e6", Voltear = false, Rotacion = 0, Zoom = 100 }
+            );
+
+            // =================================================================
+            // --- INICIO DE LA PRECARGA DE ATRIBUTOS DE AVATAR ---
+            // =================================================================
+            var atributos = PrecargarAtributosAvatar(modelBuilder);
+            AsignarAvatarPorDefecto(modelBuilder, atributos);
+        }
+
+        private static List<AtributoAvatar> PrecargarAtributosAvatar(ModelBuilder modelBuilder)
+        {
+            int idCounter = 1;
+            var atributos = new List<AtributoAvatar>();
+            Func<string, string> capitalizar = s => char.ToUpper(s[0]) + s.Substring(1);
+
+            var datos = new Dictionary<TipoAtributo, string[]> { { TipoAtributo.Pelo, new[] { "bigHair", "bob", "bun", "curly", "curvy", "dreads", "dreads01", "dreads02", "frida", "frizzle", "fro", "froBand", "hat", "hijab", "longButNotTooLong", "miaWallace", "shaggy", "shaggyMullet", "shavedSides", "shortCurly", "shortFlat", "shortRound", "shortWaved", "sides", "straight01", "straight02", "straightAndStrand", "theCaesar", "theCaesarAndSidePart", "turban", "winterHat1", "winterHat02", "winterHat03", "winterHat04" } },
+                { TipoAtributo.Cejas, new[] { "angry", "angryNatural", "default", "defaultNatural", "flatNatural", "frownNatural", "raisedExcited", "raisedExcitedNatural", "sadConcerned", "sadConcernedNatural", "unibrowNatural", "upDown", "upDownNatural" } },
+                { TipoAtributo.Ojos, new[] { "closed", "cry", "default", "eyeRoll", "happy", "hearts", "side", "squint", "surprised", "wink", "winkWacky", "xDizzy" } },
+                { TipoAtributo.Boca, new[] { "concerned", "default", "disbelief", "eating", "grimace", "sad", "screamOpen", "serious", "smile", "tongue", "twinkle" } },
+                { TipoAtributo.Barba, new[] { "beardLight", "beardMajestic", "beardMedium", "moustacheFancy", "moustacheMagnum" } },
+                { TipoAtributo.Gafas, new[] { "eyepatch", "kurt", "prescription01", "prescription02", "round", "sunglasses", "wayfarers" } },
+                { TipoAtributo.Ropa, new[] { "blazerAndShirt", "blazerAndSweater", "collarAndSweater", "graphicShirt", "hoodie", "overall", "shirtCrewNeck", "shirtScoopNeck", "shirtVNeck" } },
+                { TipoAtributo.ColorPiel, new[] { "614335", "ae5d29", "d08b5b", "edb98a", "f8d25c", "fd9841", "ffdbb4" } },
+                { TipoAtributo.ColorPelo, new[] { "2c1b18", "4a312c", "724133", "a55728", "b58143", "c93305", "d6b370", "e8e1e1", "ecdcbf", "f59797" } },
+                { TipoAtributo.ColorBarba, new[] { "2c1b18", "4a312c", "724133", "a55728", "b58143", "c93305", "d6b370", "e8e1e1", "ecdcbf", "f59797" } },
+                { TipoAtributo.ColorRopa, new[] { "3c4f5c", "65c9ff", "262e33", "5199e4", "25557c", "929598", "a7ffc4", "b1e2ff", "e6e6e6", "ff5c5c", "ff488e", "ffafb9", "ffffb1", "ffffff" } },
+                { TipoAtributo.ColorGafas, new[] { "3c4f5c", "65c9ff", "262e33", "5199e4", "25557c", "929598", "a7ffc4", "b1e2ff", "e6e6e6", "ff5c5c", "ff488e", "ffafb9", "ffdeb5", "ffffb1", "ffffff" } }
+            };
+
+            foreach (var kvp in datos)
+            {
+                foreach (var codigo in kvp.Value)
+                {
+                    atributos.Add(new AtributoAvatar
+                    {
+                        Id = idCounter++,
+                        Tipo = kvp.Key,
+                        Nombre = kvp.Key.ToString().Contains("Color") ? codigo : capitalizar(codigo),
+                        CodigoUnico = codigo,
+                        //TODO: Cambiar tu ruta de recursos una vez que tenga los recursos reales
+                        RutaRecurso = $"avatar/{kvp.Key.ToString().ToLower()}/{codigo}.svg"
+                    });
+                }
+            }
+
+            modelBuilder.Entity<AtributoAvatar>().HasData(atributos);
+            return atributos;
+        }
+
+        // --- MÉTODO PARA ASIGNAR ATRIBUTOS POR DEFECTO ---
+        private static void AsignarAvatarPorDefecto(ModelBuilder modelBuilder, List<AtributoAvatar> atributos)
+        {
+            // Se elige un atributo por defecto de cada categoría para el Avatar con Id = 1
+            var avatarPorDefecto = new
+            {
+                Pelo = "shortFlat",
+                Ojos = "default",
+                Cejas = "defaultNatural",
+                Boca = "smile",
+                Ropa = "shirtVNeck",
+                Gafas = "sunglasses",
+                Barba = "beardLight",
+                ColorPiel = "edb98a",
+                ColorPelo = "a55728",
+                ColorRopa = "3c4f5c",
+                ColorGafas = "262e33",
+                ColorBarba = "a55728"
+            };
+
+            var asignaciones = new[]
+            {
+                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.CodigoUnico == avatarPorDefecto.Pelo).Id },
+                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.CodigoUnico == avatarPorDefecto.Ojos).Id },
+                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.CodigoUnico == avatarPorDefecto.Cejas).Id },
+                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.CodigoUnico == avatarPorDefecto.Boca).Id },
+                new {  AvatarId=1 , AtributoSeleccionadoId = atributos.First(a => a.CodigoUnico == avatarPorDefecto.Ropa).Id },
+                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.CodigoUnico == avatarPorDefecto.Gafas).Id },
+                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.CodigoUnico == avatarPorDefecto.Barba).Id },
+                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.Tipo == TipoAtributo.ColorPiel && a.CodigoUnico == avatarPorDefecto.ColorPiel).Id },
+                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.Tipo == TipoAtributo.ColorPelo && a.CodigoUnico == avatarPorDefecto.ColorPelo).Id },
+                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.Tipo == TipoAtributo.ColorRopa && a.CodigoUnico == avatarPorDefecto.ColorRopa).Id },
+                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.Tipo == TipoAtributo.ColorGafas && a.CodigoUnico == avatarPorDefecto.ColorGafas).Id },
+                new { AvatarId=1, AtributoSeleccionadoId = atributos.First(a => a.Tipo == TipoAtributo.ColorBarba && a.CodigoUnico == avatarPorDefecto.ColorBarba).Id }
+            };
+
+            modelBuilder.Entity("AvatarAtributos").HasData(asignaciones);
         }
     }
 }
+

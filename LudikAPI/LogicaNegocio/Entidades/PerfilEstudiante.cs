@@ -56,7 +56,10 @@ namespace LogicaNegocio.Entidades
             
         }
 
-
+        public List<PersonalizacionAvatar> ObtenerItemsAvatarDisponibles()
+        {
+            return Inventario?.OfType<PersonalizacionAvatar>().ToList() ?? new List<PersonalizacionAvatar>();
+        }
     }
 
 }

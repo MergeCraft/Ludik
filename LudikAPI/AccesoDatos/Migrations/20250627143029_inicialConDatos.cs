@@ -8,11 +8,31 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
+<<<<<<<< HEAD:ludikApi/AccesoDatos/Migrations/20250626134119_inicial.cs
     public partial class inicial : Migration
+========
+    public partial class inicialConDatos : Migration
+>>>>>>>> modificarAvatar:LudikAPI/AccesoDatos/Migrations/20250627143029_inicialConDatos.cs
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AtributosAvatar",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Tipo = table.Column<int>(type: "int", nullable: false),
+                    RutaRecurso = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CodigoUnico = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AtributosAvatar", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "EnlacesUnion",
                 columns: table => new
@@ -481,36 +501,20 @@ namespace AccesoDatos.Migrations
                 name: "Avatares",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ColorFondo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Voltear = table.Column<bool>(type: "bit", nullable: false),
                     Rotacion = table.Column<int>(type: "int", nullable: false),
                     Zoom = table.Column<int>(type: "int", nullable: false),
-                    ColorPiel = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cejas = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Ojos = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Boca = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Barba = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ColorBarba = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProbabilidadBarba = table.Column<int>(type: "int", nullable: false),
-                    Gorro = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ColorSombrero = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Pelo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ColorPelo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Gafas = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ColorGafas = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProbabilidadGafas = table.Column<int>(type: "int", nullable: false),
-                    Ropa = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ColorRopa = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LogoRopa = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PerfilEstudianteId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Avatares", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Avatares_PerfilesEstudiantes_Id",
-                        column: x => x.Id,
+                        name: "FK_Avatares_PerfilesEstudiantes_PerfilEstudianteId",
+                        column: x => x.PerfilEstudianteId,
                         principalTable: "PerfilesEstudiantes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -643,6 +647,30 @@ namespace AccesoDatos.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AvatarAtributos",
+                columns: table => new
+                {
+                    AvatarId = table.Column<int>(type: "int", nullable: false),
+                    AtributoSeleccionadoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AvatarAtributos", x => new { x.AvatarId, x.AtributoSeleccionadoId });
+                    table.ForeignKey(
+                        name: "FK_AvatarAtributos_AtributosAvatar_AtributoSeleccionadoId",
+                        column: x => x.AtributoSeleccionadoId,
+                        principalTable: "AtributosAvatar",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AvatarAtributos_Avatares_AvatarId",
+                        column: x => x.AvatarId,
+                        principalTable: "Avatares",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RendimientoPeriodoMedallas",
                 columns: table => new
                 {
@@ -734,6 +762,160 @@ namespace AccesoDatos.Migrations
                         principalTable: "Hitos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AtributosAvatar",
+                columns: new[] { "Id", "CodigoUnico", "Nombre", "RutaRecurso", "Tipo" },
+                values: new object[,]
+                {
+                    { 1, "bigHair", "BigHair", "avatar/pelo/bigHair.svg", 0 },
+                    { 2, "bob", "Bob", "avatar/pelo/bob.svg", 0 },
+                    { 3, "bun", "Bun", "avatar/pelo/bun.svg", 0 },
+                    { 4, "curly", "Curly", "avatar/pelo/curly.svg", 0 },
+                    { 5, "curvy", "Curvy", "avatar/pelo/curvy.svg", 0 },
+                    { 6, "dreads", "Dreads", "avatar/pelo/dreads.svg", 0 },
+                    { 7, "dreads01", "Dreads01", "avatar/pelo/dreads01.svg", 0 },
+                    { 8, "dreads02", "Dreads02", "avatar/pelo/dreads02.svg", 0 },
+                    { 9, "frida", "Frida", "avatar/pelo/frida.svg", 0 },
+                    { 10, "frizzle", "Frizzle", "avatar/pelo/frizzle.svg", 0 },
+                    { 11, "fro", "Fro", "avatar/pelo/fro.svg", 0 },
+                    { 12, "froBand", "FroBand", "avatar/pelo/froBand.svg", 0 },
+                    { 13, "hat", "Hat", "avatar/pelo/hat.svg", 0 },
+                    { 14, "hijab", "Hijab", "avatar/pelo/hijab.svg", 0 },
+                    { 15, "longButNotTooLong", "LongButNotTooLong", "avatar/pelo/longButNotTooLong.svg", 0 },
+                    { 16, "miaWallace", "MiaWallace", "avatar/pelo/miaWallace.svg", 0 },
+                    { 17, "shaggy", "Shaggy", "avatar/pelo/shaggy.svg", 0 },
+                    { 18, "shaggyMullet", "ShaggyMullet", "avatar/pelo/shaggyMullet.svg", 0 },
+                    { 19, "shavedSides", "ShavedSides", "avatar/pelo/shavedSides.svg", 0 },
+                    { 20, "shortCurly", "ShortCurly", "avatar/pelo/shortCurly.svg", 0 },
+                    { 21, "shortFlat", "ShortFlat", "avatar/pelo/shortFlat.svg", 0 },
+                    { 22, "shortRound", "ShortRound", "avatar/pelo/shortRound.svg", 0 },
+                    { 23, "shortWaved", "ShortWaved", "avatar/pelo/shortWaved.svg", 0 },
+                    { 24, "sides", "Sides", "avatar/pelo/sides.svg", 0 },
+                    { 25, "straight01", "Straight01", "avatar/pelo/straight01.svg", 0 },
+                    { 26, "straight02", "Straight02", "avatar/pelo/straight02.svg", 0 },
+                    { 27, "straightAndStrand", "StraightAndStrand", "avatar/pelo/straightAndStrand.svg", 0 },
+                    { 28, "theCaesar", "TheCaesar", "avatar/pelo/theCaesar.svg", 0 },
+                    { 29, "theCaesarAndSidePart", "TheCaesarAndSidePart", "avatar/pelo/theCaesarAndSidePart.svg", 0 },
+                    { 30, "turban", "Turban", "avatar/pelo/turban.svg", 0 },
+                    { 31, "winterHat1", "WinterHat1", "avatar/pelo/winterHat1.svg", 0 },
+                    { 32, "winterHat02", "WinterHat02", "avatar/pelo/winterHat02.svg", 0 },
+                    { 33, "winterHat03", "WinterHat03", "avatar/pelo/winterHat03.svg", 0 },
+                    { 34, "winterHat04", "WinterHat04", "avatar/pelo/winterHat04.svg", 0 },
+                    { 35, "angry", "Angry", "avatar/cejas/angry.svg", 1 },
+                    { 36, "angryNatural", "AngryNatural", "avatar/cejas/angryNatural.svg", 1 },
+                    { 37, "default", "Default", "avatar/cejas/default.svg", 1 },
+                    { 38, "defaultNatural", "DefaultNatural", "avatar/cejas/defaultNatural.svg", 1 },
+                    { 39, "flatNatural", "FlatNatural", "avatar/cejas/flatNatural.svg", 1 },
+                    { 40, "frownNatural", "FrownNatural", "avatar/cejas/frownNatural.svg", 1 },
+                    { 41, "raisedExcited", "RaisedExcited", "avatar/cejas/raisedExcited.svg", 1 },
+                    { 42, "raisedExcitedNatural", "RaisedExcitedNatural", "avatar/cejas/raisedExcitedNatural.svg", 1 },
+                    { 43, "sadConcerned", "SadConcerned", "avatar/cejas/sadConcerned.svg", 1 },
+                    { 44, "sadConcernedNatural", "SadConcernedNatural", "avatar/cejas/sadConcernedNatural.svg", 1 },
+                    { 45, "unibrowNatural", "UnibrowNatural", "avatar/cejas/unibrowNatural.svg", 1 },
+                    { 46, "upDown", "UpDown", "avatar/cejas/upDown.svg", 1 },
+                    { 47, "upDownNatural", "UpDownNatural", "avatar/cejas/upDownNatural.svg", 1 },
+                    { 48, "closed", "Closed", "avatar/ojos/closed.svg", 2 },
+                    { 49, "cry", "Cry", "avatar/ojos/cry.svg", 2 },
+                    { 50, "default", "Default", "avatar/ojos/default.svg", 2 },
+                    { 51, "eyeRoll", "EyeRoll", "avatar/ojos/eyeRoll.svg", 2 },
+                    { 52, "happy", "Happy", "avatar/ojos/happy.svg", 2 },
+                    { 53, "hearts", "Hearts", "avatar/ojos/hearts.svg", 2 },
+                    { 54, "side", "Side", "avatar/ojos/side.svg", 2 },
+                    { 55, "squint", "Squint", "avatar/ojos/squint.svg", 2 },
+                    { 56, "surprised", "Surprised", "avatar/ojos/surprised.svg", 2 },
+                    { 57, "wink", "Wink", "avatar/ojos/wink.svg", 2 },
+                    { 58, "winkWacky", "WinkWacky", "avatar/ojos/winkWacky.svg", 2 },
+                    { 59, "xDizzy", "XDizzy", "avatar/ojos/xDizzy.svg", 2 },
+                    { 60, "concerned", "Concerned", "avatar/boca/concerned.svg", 3 },
+                    { 61, "default", "Default", "avatar/boca/default.svg", 3 },
+                    { 62, "disbelief", "Disbelief", "avatar/boca/disbelief.svg", 3 },
+                    { 63, "eating", "Eating", "avatar/boca/eating.svg", 3 },
+                    { 64, "grimace", "Grimace", "avatar/boca/grimace.svg", 3 },
+                    { 65, "sad", "Sad", "avatar/boca/sad.svg", 3 },
+                    { 66, "screamOpen", "ScreamOpen", "avatar/boca/screamOpen.svg", 3 },
+                    { 67, "serious", "Serious", "avatar/boca/serious.svg", 3 },
+                    { 68, "smile", "Smile", "avatar/boca/smile.svg", 3 },
+                    { 69, "tongue", "Tongue", "avatar/boca/tongue.svg", 3 },
+                    { 70, "twinkle", "Twinkle", "avatar/boca/twinkle.svg", 3 },
+                    { 71, "beardLight", "BeardLight", "avatar/barba/beardLight.svg", 4 },
+                    { 72, "beardMajestic", "BeardMajestic", "avatar/barba/beardMajestic.svg", 4 },
+                    { 73, "beardMedium", "BeardMedium", "avatar/barba/beardMedium.svg", 4 },
+                    { 74, "moustacheFancy", "MoustacheFancy", "avatar/barba/moustacheFancy.svg", 4 },
+                    { 75, "moustacheMagnum", "MoustacheMagnum", "avatar/barba/moustacheMagnum.svg", 4 },
+                    { 76, "eyepatch", "Eyepatch", "avatar/gafas/eyepatch.svg", 5 },
+                    { 77, "kurt", "Kurt", "avatar/gafas/kurt.svg", 5 },
+                    { 78, "prescription01", "Prescription01", "avatar/gafas/prescription01.svg", 5 },
+                    { 79, "prescription02", "Prescription02", "avatar/gafas/prescription02.svg", 5 },
+                    { 80, "round", "Round", "avatar/gafas/round.svg", 5 },
+                    { 81, "sunglasses", "Sunglasses", "avatar/gafas/sunglasses.svg", 5 },
+                    { 82, "wayfarers", "Wayfarers", "avatar/gafas/wayfarers.svg", 5 },
+                    { 83, "blazerAndShirt", "BlazerAndShirt", "avatar/ropa/blazerAndShirt.svg", 6 },
+                    { 84, "blazerAndSweater", "BlazerAndSweater", "avatar/ropa/blazerAndSweater.svg", 6 },
+                    { 85, "collarAndSweater", "CollarAndSweater", "avatar/ropa/collarAndSweater.svg", 6 },
+                    { 86, "graphicShirt", "GraphicShirt", "avatar/ropa/graphicShirt.svg", 6 },
+                    { 87, "hoodie", "Hoodie", "avatar/ropa/hoodie.svg", 6 },
+                    { 88, "overall", "Overall", "avatar/ropa/overall.svg", 6 },
+                    { 89, "shirtCrewNeck", "ShirtCrewNeck", "avatar/ropa/shirtCrewNeck.svg", 6 },
+                    { 90, "shirtScoopNeck", "ShirtScoopNeck", "avatar/ropa/shirtScoopNeck.svg", 6 },
+                    { 91, "shirtVNeck", "ShirtVNeck", "avatar/ropa/shirtVNeck.svg", 6 },
+                    { 92, "614335", "614335", "avatar/colorpiel/614335.svg", 7 },
+                    { 93, "ae5d29", "ae5d29", "avatar/colorpiel/ae5d29.svg", 7 },
+                    { 94, "d08b5b", "d08b5b", "avatar/colorpiel/d08b5b.svg", 7 },
+                    { 95, "edb98a", "edb98a", "avatar/colorpiel/edb98a.svg", 7 },
+                    { 96, "f8d25c", "f8d25c", "avatar/colorpiel/f8d25c.svg", 7 },
+                    { 97, "fd9841", "fd9841", "avatar/colorpiel/fd9841.svg", 7 },
+                    { 98, "ffdbb4", "ffdbb4", "avatar/colorpiel/ffdbb4.svg", 7 },
+                    { 99, "2c1b18", "2c1b18", "avatar/colorpelo/2c1b18.svg", 8 },
+                    { 100, "4a312c", "4a312c", "avatar/colorpelo/4a312c.svg", 8 },
+                    { 101, "724133", "724133", "avatar/colorpelo/724133.svg", 8 },
+                    { 102, "a55728", "a55728", "avatar/colorpelo/a55728.svg", 8 },
+                    { 103, "b58143", "b58143", "avatar/colorpelo/b58143.svg", 8 },
+                    { 104, "c93305", "c93305", "avatar/colorpelo/c93305.svg", 8 },
+                    { 105, "d6b370", "d6b370", "avatar/colorpelo/d6b370.svg", 8 },
+                    { 106, "e8e1e1", "e8e1e1", "avatar/colorpelo/e8e1e1.svg", 8 },
+                    { 107, "ecdcbf", "ecdcbf", "avatar/colorpelo/ecdcbf.svg", 8 },
+                    { 108, "f59797", "f59797", "avatar/colorpelo/f59797.svg", 8 },
+                    { 109, "2c1b18", "2c1b18", "avatar/colorbarba/2c1b18.svg", 9 },
+                    { 110, "4a312c", "4a312c", "avatar/colorbarba/4a312c.svg", 9 },
+                    { 111, "724133", "724133", "avatar/colorbarba/724133.svg", 9 },
+                    { 112, "a55728", "a55728", "avatar/colorbarba/a55728.svg", 9 },
+                    { 113, "b58143", "b58143", "avatar/colorbarba/b58143.svg", 9 },
+                    { 114, "c93305", "c93305", "avatar/colorbarba/c93305.svg", 9 },
+                    { 115, "d6b370", "d6b370", "avatar/colorbarba/d6b370.svg", 9 },
+                    { 116, "e8e1e1", "e8e1e1", "avatar/colorbarba/e8e1e1.svg", 9 },
+                    { 117, "ecdcbf", "ecdcbf", "avatar/colorbarba/ecdcbf.svg", 9 },
+                    { 118, "f59797", "f59797", "avatar/colorbarba/f59797.svg", 9 },
+                    { 119, "3c4f5c", "3c4f5c", "avatar/colorropa/3c4f5c.svg", 10 },
+                    { 120, "65c9ff", "65c9ff", "avatar/colorropa/65c9ff.svg", 10 },
+                    { 121, "262e33", "262e33", "avatar/colorropa/262e33.svg", 10 },
+                    { 122, "5199e4", "5199e4", "avatar/colorropa/5199e4.svg", 10 },
+                    { 123, "25557c", "25557c", "avatar/colorropa/25557c.svg", 10 },
+                    { 124, "929598", "929598", "avatar/colorropa/929598.svg", 10 },
+                    { 125, "a7ffc4", "a7ffc4", "avatar/colorropa/a7ffc4.svg", 10 },
+                    { 126, "b1e2ff", "b1e2ff", "avatar/colorropa/b1e2ff.svg", 10 },
+                    { 127, "e6e6e6", "e6e6e6", "avatar/colorropa/e6e6e6.svg", 10 },
+                    { 128, "ff5c5c", "ff5c5c", "avatar/colorropa/ff5c5c.svg", 10 },
+                    { 129, "ff488e", "ff488e", "avatar/colorropa/ff488e.svg", 10 },
+                    { 130, "ffafb9", "ffafb9", "avatar/colorropa/ffafb9.svg", 10 },
+                    { 131, "ffffb1", "ffffb1", "avatar/colorropa/ffffb1.svg", 10 },
+                    { 132, "ffffff", "ffffff", "avatar/colorropa/ffffff.svg", 10 },
+                    { 133, "3c4f5c", "3c4f5c", "avatar/colorgafas/3c4f5c.svg", 11 },
+                    { 134, "65c9ff", "65c9ff", "avatar/colorgafas/65c9ff.svg", 11 },
+                    { 135, "262e33", "262e33", "avatar/colorgafas/262e33.svg", 11 },
+                    { 136, "5199e4", "5199e4", "avatar/colorgafas/5199e4.svg", 11 },
+                    { 137, "25557c", "25557c", "avatar/colorgafas/25557c.svg", 11 },
+                    { 138, "929598", "929598", "avatar/colorgafas/929598.svg", 11 },
+                    { 139, "a7ffc4", "a7ffc4", "avatar/colorgafas/a7ffc4.svg", 11 },
+                    { 140, "b1e2ff", "b1e2ff", "avatar/colorgafas/b1e2ff.svg", 11 },
+                    { 141, "e6e6e6", "e6e6e6", "avatar/colorgafas/e6e6e6.svg", 11 },
+                    { 142, "ff5c5c", "ff5c5c", "avatar/colorgafas/ff5c5c.svg", 11 },
+                    { 143, "ff488e", "ff488e", "avatar/colorgafas/ff488e.svg", 11 },
+                    { 144, "ffafb9", "ffafb9", "avatar/colorgafas/ffafb9.svg", 11 },
+                    { 145, "ffdeb5", "ffdeb5", "avatar/colorgafas/ffdeb5.svg", 11 },
+                    { 146, "ffffb1", "ffffb1", "avatar/colorgafas/ffffb1.svg", 11 },
+                    { 147, "ffffff", "ffffff", "avatar/colorgafas/ffffff.svg", 11 }
                 });
 
             migrationBuilder.InsertData(
@@ -865,6 +1047,7 @@ namespace AccesoDatos.Migrations
                 });
 
             migrationBuilder.InsertData(
+<<<<<<<< HEAD:ludikApi/AccesoDatos/Migrations/20250626134119_inicial.cs
                 table: "Tiendas",
                 columns: new[] { "Id", "GrupoId" },
                 values: new object[,]
@@ -890,6 +1073,49 @@ namespace AccesoDatos.Migrations
                     { 10, "Robot Amistoso", 55, "Simple", "robot", "robot", 2 }
                 });
 
+========
+                table: "Avatares",
+                columns: new[] { "Id", "ColorFondo", "PerfilEstudianteId", "Rotacion", "Voltear", "Zoom" },
+                values: new object[,]
+                {
+                    { 1, "b1e2ff", 1, 0, false, 100 },
+                    { 2, "a7ffc4", 2, 0, false, 100 },
+                    { 3, "ffafb9", 3, 0, false, 100 },
+                    { 4, "ffffb1", 4, 0, false, 100 },
+                    { 5, "e6e6e6", 5, 0, false, 100 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AvatarAtributos",
+                columns: new[] { "AtributoSeleccionadoId", "AvatarId" },
+                values: new object[,]
+                {
+                    { 21, 1 },
+                    { 37, 1 },
+                    { 38, 1 },
+                    { 68, 1 },
+                    { 71, 1 },
+                    { 81, 1 },
+                    { 91, 1 },
+                    { 95, 1 },
+                    { 102, 1 },
+                    { 112, 1 },
+                    { 119, 1 },
+                    { 135, 1 }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AvatarAtributos_AtributoSeleccionadoId",
+                table: "AvatarAtributos",
+                column: "AtributoSeleccionadoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Avatares_PerfilEstudianteId",
+                table: "Avatares",
+                column: "PerfilEstudianteId",
+                unique: true);
+
+>>>>>>>> modificarAvatar:LudikAPI/AccesoDatos/Migrations/20250627143029_inicialConDatos.cs
             migrationBuilder.CreateIndex(
                 name: "IX_BarrasProgreso_PerfilEstudianteId",
                 table: "BarrasProgreso",
@@ -1097,7 +1323,7 @@ namespace AccesoDatos.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Avatares");
+                name: "AvatarAtributos");
 
             migrationBuilder.DropTable(
                 name: "BarrasProgreso");
@@ -1143,6 +1369,12 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.DropTable(
                 name: "UsuariosRoles");
+
+            migrationBuilder.DropTable(
+                name: "AtributosAvatar");
+
+            migrationBuilder.DropTable(
+                name: "Avatares");
 
             migrationBuilder.DropTable(
                 name: "Equivalencias");

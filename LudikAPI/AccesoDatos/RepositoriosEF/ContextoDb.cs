@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LogicaNegocio.Entidades;
-using LogicaNegocio.Entidades;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -48,6 +47,7 @@ namespace AccesoDatos.RepositoriosEF
         public DbSet<EnlaceUnion> EnlacesUnion { get; set; }
         public DbSet<BarraProgreso> BarrasProgreso { get; set; }
         public DbSet<Avatar> Avatares { get; set; }
+        public DbSet<AtributoAvatar> AtributosAvatar { get; set; }
 
 
 
@@ -146,9 +146,6 @@ namespace AccesoDatos.RepositoriosEF
                       .HasForeignKey(pm => pm.MedallaId)
                       .OnDelete(DeleteBehavior.Restrict);
 
-                // Si quieres llevar contador en lugar de múltiples filas, define aquí índice único:
-                // entity.HasIndex(pm => new { pm.PerfilEstudianteId, pm.MedallaId }).IsUnique();
-                // Si prefieres permitir filas repetidas, no pongas ese índice.
             });
 
            
@@ -281,6 +278,20 @@ namespace AccesoDatos.RepositoriosEF
                     .HasForeignKey<Avatar>() 
                     .OnDelete(DeleteBehavior.Cascade);
 
+            });
+
+            modelBuilder.Entity<Avatar>(a =>
+            {
+                a.HasMany(avatar => avatar.AtributosSeleccionados)
+                    .WithMany()
+                    .UsingEntity<Dictionary<string, object>>( 
+                        "AvatarAtributos", // Nombre de la tabla de unión
+                        // Configuración de la FK hacia AtributoAvatar
+                        j => j.HasOne<AtributoAvatar>().WithMany().HasForeignKey("AtributoSeleccionadoId"),
+                        // Configuración de la FK hacia Avatar
+                        j => j.HasOne<Avatar>().WithMany().HasForeignKey("AvatarId"),
+                        j => j.HasKey("AvatarId", "AtributoSeleccionadoId")
+                    );
             });
 
 
