@@ -298,8 +298,15 @@ namespace AccesoDatos.RepositoriosEF
             modelBuilder.Entity<Avatar>(a =>
             {
                 a.HasMany(avatar => avatar.AtributosSeleccionados)
-                    .WithMany() // Sin propiedad de navegación inversa en AtributoAvatar
-                    .UsingEntity(j => j.ToTable("AvatarAtributos")); // Nombra explícitamente la tabla de unión
+                    .WithMany()
+                    .UsingEntity<Dictionary<string, object>>( 
+                        "AvatarAtributos", // Nombre de la tabla de unión
+                        // Configuración de la FK hacia AtributoAvatar
+                        j => j.HasOne<AtributoAvatar>().WithMany().HasForeignKey("AtributoSeleccionadoId"),
+                        // Configuración de la FK hacia Avatar
+                        j => j.HasOne<Avatar>().WithMany().HasForeignKey("AvatarId"),
+                        j => j.HasKey("AvatarId", "AtributoSeleccionadoId")
+                    );
             });
 
 

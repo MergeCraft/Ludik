@@ -22,19 +22,81 @@ namespace AccesoDatos.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AtributoAvatarAvatar", b =>
+            modelBuilder.Entity("AvatarAtributos", b =>
                 {
-                    b.Property<int>("AtributosSeleccionadosId")
-                        .HasColumnType("int");
-
                     b.Property<int>("AvatarId")
                         .HasColumnType("int");
 
-                    b.HasKey("AtributosSeleccionadosId", "AvatarId");
+                    b.Property<int>("AtributoSeleccionadoId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("AvatarId");
+                    b.HasKey("AvatarId", "AtributoSeleccionadoId");
 
-                    b.ToTable("AvatarAtributos", (string)null);
+                    b.HasIndex("AtributoSeleccionadoId");
+
+                    b.ToTable("AvatarAtributos");
+
+                    b.HasData(
+                        new
+                        {
+                            AvatarId = 1,
+                            AtributoSeleccionadoId = 21
+                        },
+                        new
+                        {
+                            AvatarId = 1,
+                            AtributoSeleccionadoId = 37
+                        },
+                        new
+                        {
+                            AvatarId = 1,
+                            AtributoSeleccionadoId = 38
+                        },
+                        new
+                        {
+                            AvatarId = 1,
+                            AtributoSeleccionadoId = 68
+                        },
+                        new
+                        {
+                            AvatarId = 1,
+                            AtributoSeleccionadoId = 91
+                        },
+                        new
+                        {
+                            AvatarId = 1,
+                            AtributoSeleccionadoId = 81
+                        },
+                        new
+                        {
+                            AvatarId = 1,
+                            AtributoSeleccionadoId = 71
+                        },
+                        new
+                        {
+                            AvatarId = 1,
+                            AtributoSeleccionadoId = 95
+                        },
+                        new
+                        {
+                            AvatarId = 1,
+                            AtributoSeleccionadoId = 102
+                        },
+                        new
+                        {
+                            AvatarId = 1,
+                            AtributoSeleccionadoId = 119
+                        },
+                        new
+                        {
+                            AvatarId = 1,
+                            AtributoSeleccionadoId = 135
+                        },
+                        new
+                        {
+                            AvatarId = 1,
+                            AtributoSeleccionadoId = 112
+                        });
                 });
 
             modelBuilder.Entity("EquivalenciaMedallas", b =>
@@ -49,7 +111,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("MedallaId");
 
-                    b.ToTable("EquivalenciaMedallas", (string)null);
+                    b.ToTable("EquivalenciaMedallas");
 
                     b.HasData(
                         new
@@ -86,7 +148,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("HitoId");
 
-                    b.ToTable("EstudianteHitos", (string)null);
+                    b.ToTable("EstudianteHitos");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.AtributoAvatar", b =>
@@ -114,7 +176,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AtributosAvatar", (string)null);
+                    b.ToTable("AtributosAvatar");
 
                     b.HasData(
                         new
@@ -1298,11 +1360,17 @@ namespace AccesoDatos.Migrations
             modelBuilder.Entity("LogicaNegocio.Entidades.Avatar", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ColorFondo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PerfilEstudianteId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Rotacion")
                         .HasColumnType("int");
@@ -1315,7 +1383,57 @@ namespace AccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Avatares", (string)null);
+                    b.HasIndex("PerfilEstudianteId")
+                        .IsUnique();
+
+                    b.ToTable("Avatares");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ColorFondo = "b1e2ff",
+                            PerfilEstudianteId = 1,
+                            Rotacion = 0,
+                            Voltear = false,
+                            Zoom = 100
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ColorFondo = "a7ffc4",
+                            PerfilEstudianteId = 2,
+                            Rotacion = 0,
+                            Voltear = false,
+                            Zoom = 100
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ColorFondo = "ffafb9",
+                            PerfilEstudianteId = 3,
+                            Rotacion = 0,
+                            Voltear = false,
+                            Zoom = 100
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ColorFondo = "ffffb1",
+                            PerfilEstudianteId = 4,
+                            Rotacion = 0,
+                            Voltear = false,
+                            Zoom = 100
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ColorFondo = "e6e6e6",
+                            PerfilEstudianteId = 5,
+                            Rotacion = 0,
+                            Voltear = false,
+                            Zoom = 100
+                        });
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.BarraProgreso", b =>
@@ -1345,7 +1463,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("TablaEquivalenciaId");
 
-                    b.ToTable("BarrasProgreso", (string)null);
+                    b.ToTable("BarrasProgreso");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.EnlaceUnion", b =>
@@ -1369,7 +1487,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EnlacesUnion", (string)null);
+                    b.ToTable("EnlacesUnion");
 
                     b.HasData(
                         new
@@ -1406,7 +1524,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("TablaEquivalenciaId");
 
-                    b.ToTable("Equivalencias", (string)null);
+                    b.ToTable("Equivalencias");
 
                     b.HasData(
                         new
@@ -1474,7 +1592,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("TablaEquivalenciaId");
 
-                    b.ToTable("Grupos", (string)null);
+                    b.ToTable("Grupos");
 
                     b.HasData(
                         new
@@ -1519,7 +1637,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("RecompensaId");
 
-                    b.ToTable("Hitos", (string)null);
+                    b.ToTable("Hitos");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Medalla", b =>
@@ -1560,7 +1678,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("ProfesorId");
 
-                    b.ToTable("Medallas", (string)null);
+                    b.ToTable("Medallas");
 
                     b.HasData(
                         new
@@ -1632,7 +1750,7 @@ namespace AccesoDatos.Migrations
                         .IsUnique()
                         .HasDatabaseName("UX_PerfilEstudiante_GrupoId_EstudianteId");
 
-                    b.ToTable("PerfilesEstudiantes", (string)null);
+                    b.ToTable("PerfilesEstudiantes");
 
                     b.HasData(
                         new
@@ -1707,7 +1825,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("PerfilEstudianteId");
 
-                    b.ToTable("PerfilEstudianteMedallas", (string)null);
+                    b.ToTable("PerfilEstudianteMedallas");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Pin", b =>
@@ -1739,7 +1857,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Pines", (string)null);
+                    b.ToTable("Pines");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.PreguntaRespuestaSeguridad", b =>
@@ -1765,7 +1883,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("EstudianteId");
 
-                    b.ToTable("PreguntasRespuestasSeguridad", (string)null);
+                    b.ToTable("PreguntasRespuestasSeguridad");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Recompensa", b =>
@@ -1806,7 +1924,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("TiendaId");
 
-                    b.ToTable("Recompensas", (string)null);
+                    b.ToTable("Recompensas");
 
                     b.HasDiscriminator<string>("RecompensaTipo").HasValue("Recompensa");
 
@@ -1832,7 +1950,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("PerfilEstudianteId");
 
-                    b.ToTable("RendimientosPeriodos", (string)null);
+                    b.ToTable("RendimientosPeriodos");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.SolicitudUnion", b =>
@@ -1862,7 +1980,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("GrupoId");
 
-                    b.ToTable("SolicitudesUnion", (string)null);
+                    b.ToTable("SolicitudesUnion");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.TablaClasificacion", b =>
@@ -1892,7 +2010,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("Nombre");
 
-                    b.ToTable("TablasClasificacion", (string)null);
+                    b.ToTable("TablasClasificacion");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.TablaEquivalencia", b =>
@@ -1918,7 +2036,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("ProfesorId");
 
-                    b.ToTable("TablasEquivalencia", (string)null);
+                    b.ToTable("TablasEquivalencia");
 
                     b.HasData(
                         new
@@ -1951,7 +2069,7 @@ namespace AccesoDatos.Migrations
                     b.HasIndex("GrupoId")
                         .IsUnique();
 
-                    b.ToTable("Tiendas", (string)null);
+                    b.ToTable("Tiendas");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Usuario", b =>
@@ -2257,7 +2375,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("RecompensaId");
 
-                    b.ToTable("PerfilEstudianteRecompensas", (string)null);
+                    b.ToTable("PerfilEstudianteRecompensas");
                 });
 
             modelBuilder.Entity("RendimientoPeriodoMedallas", b =>
@@ -2272,7 +2390,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("RendimientoPeriodoId");
 
-                    b.ToTable("RendimientoPeriodoMedallas", (string)null);
+                    b.ToTable("RendimientoPeriodoMedallas");
                 });
 
             modelBuilder.Entity("TablaClasificacionParticipantes", b =>
@@ -2287,7 +2405,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("TablaClasificacionId");
 
-                    b.ToTable("TablaClasificacionParticipantes", (string)null);
+                    b.ToTable("TablaClasificacionParticipantes");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Potenciador", b =>
@@ -2430,11 +2548,11 @@ namespace AccesoDatos.Migrations
                         });
                 });
 
-            modelBuilder.Entity("AtributoAvatarAvatar", b =>
+            modelBuilder.Entity("AvatarAtributos", b =>
                 {
                     b.HasOne("LogicaNegocio.Entidades.AtributoAvatar", null)
                         .WithMany()
-                        .HasForeignKey("AtributosSeleccionadosId")
+                        .HasForeignKey("AtributoSeleccionadoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2479,7 +2597,7 @@ namespace AccesoDatos.Migrations
                 {
                     b.HasOne("LogicaNegocio.Entidades.PerfilEstudiante", null)
                         .WithOne("Avatar")
-                        .HasForeignKey("LogicaNegocio.Entidades.Avatar", "Id")
+                        .HasForeignKey("LogicaNegocio.Entidades.Avatar", "PerfilEstudianteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -2625,7 +2743,7 @@ namespace AccesoDatos.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("LogicaNegocio.Entidades.RendimientoPeriodo.Rangofecha#LogicaNegocio.ValueObject.RangoFechas", "Rangofecha", b1 =>
+                    b.OwnsOne("LogicaNegocio.ValueObject.RangoFechas", "Rangofecha", b1 =>
                         {
                             b1.Property<int>("RendimientoPeriodoId")
                                 .HasColumnType("int");
@@ -2640,7 +2758,7 @@ namespace AccesoDatos.Migrations
 
                             b1.HasKey("RendimientoPeriodoId");
 
-                            b1.ToTable("RendimientosPeriodos", (string)null);
+                            b1.ToTable("RendimientosPeriodos");
 
                             b1.WithOwner()
                                 .HasForeignKey("RendimientoPeriodoId");
@@ -2708,7 +2826,7 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Usuario", b =>
                 {
-                    b.OwnsOne("LogicaNegocio.Entidades.Usuario.NombreCompleto#LogicaNegocio.ValueObjects.NombreCompleto", "NombreCompleto", b1 =>
+                    b.OwnsOne("LogicaNegocio.ValueObjects.NombreCompleto", "NombreCompleto", b1 =>
                         {
                             b1.Property<string>("UsuarioId")
                                 .HasColumnType("nvarchar(450)");
@@ -2727,7 +2845,7 @@ namespace AccesoDatos.Migrations
 
                             b1.HasKey("UsuarioId");
 
-                            b1.ToTable("Usuarios", (string)null);
+                            b1.ToTable("Usuarios");
 
                             b1.WithOwner()
                                 .HasForeignKey("UsuarioId");

@@ -15,7 +15,7 @@ namespace LogicaNegocio.Entidades
         public bool Voltear { get; set; }
         public int Rotacion { get; set; }
         public int Zoom { get; set; }
-
+        public int PerfilEstudianteId { get; set; }
         public virtual ICollection<AtributoAvatar> AtributosSeleccionados { get; set; } = new List<AtributoAvatar>();
 
         public AtributoAvatar ObtenerAtributo(TipoAtributo tipo)
