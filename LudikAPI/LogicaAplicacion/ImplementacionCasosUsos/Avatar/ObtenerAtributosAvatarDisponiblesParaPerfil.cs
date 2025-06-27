@@ -32,7 +32,7 @@ public class ObtenerAtributosAvatarDisponiblesParaPerfil : IObtenerAtributosAvat
         List<PersonalizacionAvatar> itemsDisponiblesParaPersonazarAvatar = perfilEstudiante.ObtenerItemsAvatarDisponibles();
 
         var atributosDto = itemsDisponiblesParaPersonazarAvatar
-            .Select(item => AtributoAvatarMapper.toDto(item.AtributoDesbloqueable));
+            .Select(item => AtributoAvatarMapper.toDto(item.AtributoDesbloqueable)).ToList();
 
         return Resultado<IEnumerable<AtributoAvatarDto>>.Exitoso(atributosDto);
 

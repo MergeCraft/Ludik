@@ -8,11 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
-<<<<<<<< HEAD:ludikApi/AccesoDatos/Migrations/20250626134119_inicial.cs
-    public partial class inicial : Migration
-========
-    public partial class inicialConDatos : Migration
->>>>>>>> modificarAvatar:LudikAPI/AccesoDatos/Migrations/20250627143029_inicialConDatos.cs
+    public partial class iniConDatosPrecargados : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -1047,13 +1043,24 @@ namespace AccesoDatos.Migrations
                 });
 
             migrationBuilder.InsertData(
-<<<<<<<< HEAD:ludikApi/AccesoDatos/Migrations/20250626134119_inicial.cs
                 table: "Tiendas",
                 columns: new[] { "Id", "GrupoId" },
                 values: new object[,]
                 {
                     { 1, 1 },
                     { 2, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Avatares",
+                columns: new[] { "Id", "ColorFondo", "PerfilEstudianteId", "Rotacion", "Voltear", "Zoom" },
+                values: new object[,]
+                {
+                    { 1, "b1e2ff", 1, 0, false, 100 },
+                    { 2, "a7ffc4", 2, 0, false, 100 },
+                    { 3, "ffafb9", 3, 0, false, 100 },
+                    { 4, "ffffb1", 4, 0, false, 100 },
+                    { 5, "e6e6e6", 5, 0, false, 100 }
                 });
 
             migrationBuilder.InsertData(
@@ -1071,18 +1078,6 @@ namespace AccesoDatos.Migrations
                     { 8, "Corona Real", 90, "Simple", "crown", "crown", 2 },
                     { 9, "Cohete Espacial", 60, "Simple", "rocket", "rocket", 2 },
                     { 10, "Robot Amistoso", 55, "Simple", "robot", "robot", 2 }
-                });
-
-========
-                table: "Avatares",
-                columns: new[] { "Id", "ColorFondo", "PerfilEstudianteId", "Rotacion", "Voltear", "Zoom" },
-                values: new object[,]
-                {
-                    { 1, "b1e2ff", 1, 0, false, 100 },
-                    { 2, "a7ffc4", 2, 0, false, 100 },
-                    { 3, "ffafb9", 3, 0, false, 100 },
-                    { 4, "ffffb1", 4, 0, false, 100 },
-                    { 5, "e6e6e6", 5, 0, false, 100 }
                 });
 
             migrationBuilder.InsertData(
@@ -1115,7 +1110,6 @@ namespace AccesoDatos.Migrations
                 column: "PerfilEstudianteId",
                 unique: true);
 
->>>>>>>> modificarAvatar:LudikAPI/AccesoDatos/Migrations/20250627143029_inicialConDatos.cs
             migrationBuilder.CreateIndex(
                 name: "IX_BarrasProgreso_PerfilEstudianteId",
                 table: "BarrasProgreso",

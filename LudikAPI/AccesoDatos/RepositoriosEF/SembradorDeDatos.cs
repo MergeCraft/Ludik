@@ -272,7 +272,7 @@ namespace AccesoDatos.RepositoriosEF
 
 
 
-            // --- NUEVO: 11. CREACIÓN DE AVATARES INICIALES ---
+            // --- 12. CREACIÓN DE AVATARES INICIALES ---
             // Se crea un avatar para cada perfil de estudiante precargado.
             modelBuilder.Entity<Avatar>().HasData(
                 new Avatar { Id = 1, PerfilEstudianteId = 1, ColorFondo = "b1e2ff", Voltear = false, Rotacion = 0, Zoom = 100 },
@@ -286,7 +286,8 @@ namespace AccesoDatos.RepositoriosEF
             // --- INICIO DE LA PRECARGA DE ATRIBUTOS DE AVATAR ---
             // =================================================================
             var atributos = PrecargarAtributosAvatar(modelBuilder);
-            AsignarAvatarPorDefecto(modelBuilder, atributos);
+            var atributosPorDefecto = AsignarAvatarPorDefecto(modelBuilder, atributos);
+            PrecargarInventarioInicial(modelBuilder, atributosPorDefecto);
         }
 
         private static List<AtributoAvatar> PrecargarAtributosAvatar(ModelBuilder modelBuilder)
@@ -330,9 +331,9 @@ namespace AccesoDatos.RepositoriosEF
         }
 
         // --- MÉTODO PARA ASIGNAR ATRIBUTOS POR DEFECTO ---
-        private static void AsignarAvatarPorDefecto(ModelBuilder modelBuilder, List<AtributoAvatar> atributos)
+        private static List<AtributoAvatar> AsignarAvatarPorDefecto(ModelBuilder modelBuilder, List<AtributoAvatar> atributos)
         {
-            // Se elige un atributo por defecto de cada categoría para el Avatar con Id = 1
+            // Objeto auxiliar con los códigos únicos de los atributos por defecto
             var avatarPorDefecto = new
             {
                 Pelo = "shortFlat",
@@ -349,23 +350,72 @@ namespace AccesoDatos.RepositoriosEF
                 ColorBarba = "a55728"
             };
 
-            var asignaciones = new[]
+            // 1. Encontrar y recolectar los objetos AtributoAvatar por defecto en una lista fuertemente tipada.
+            var atributosAsignados = new List<AtributoAvatar>
             {
-                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.CodigoUnico == avatarPorDefecto.Pelo).Id },
-                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.CodigoUnico == avatarPorDefecto.Ojos).Id },
-                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.CodigoUnico == avatarPorDefecto.Cejas).Id },
-                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.CodigoUnico == avatarPorDefecto.Boca).Id },
-                new {  AvatarId=1 , AtributoSeleccionadoId = atributos.First(a => a.CodigoUnico == avatarPorDefecto.Ropa).Id },
-                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.CodigoUnico == avatarPorDefecto.Gafas).Id },
-                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.CodigoUnico == avatarPorDefecto.Barba).Id },
-                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.Tipo == TipoAtributo.ColorPiel && a.CodigoUnico == avatarPorDefecto.ColorPiel).Id },
-                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.Tipo == TipoAtributo.ColorPelo && a.CodigoUnico == avatarPorDefecto.ColorPelo).Id },
-                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.Tipo == TipoAtributo.ColorRopa && a.CodigoUnico == avatarPorDefecto.ColorRopa).Id },
-                new {  AvatarId=1 ,AtributoSeleccionadoId = atributos.First(a => a.Tipo == TipoAtributo.ColorGafas && a.CodigoUnico == avatarPorDefecto.ColorGafas).Id },
-                new { AvatarId=1, AtributoSeleccionadoId = atributos.First(a => a.Tipo == TipoAtributo.ColorBarba && a.CodigoUnico == avatarPorDefecto.ColorBarba).Id }
+                atributos.First(a => a.CodigoUnico == avatarPorDefecto.Pelo),
+                atributos.First(a => a.CodigoUnico == avatarPorDefecto.Ojos),
+                atributos.First(a => a.CodigoUnico == avatarPorDefecto.Cejas),
+                atributos.First(a => a.CodigoUnico == avatarPorDefecto.Boca),
+                atributos.First(a => a.CodigoUnico == avatarPorDefecto.Ropa),
+                atributos.First(a => a.CodigoUnico == avatarPorDefecto.Gafas),
+                atributos.First(a => a.CodigoUnico == avatarPorDefecto.Barba),
+                atributos.First(a => a.Tipo == TipoAtributo.ColorPiel && a.CodigoUnico == avatarPorDefecto.ColorPiel),
+                atributos.First(a => a.Tipo == TipoAtributo.ColorPelo && a.CodigoUnico == avatarPorDefecto.ColorPelo),
+                atributos.First(a => a.Tipo == TipoAtributo.ColorRopa && a.CodigoUnico == avatarPorDefecto.ColorRopa),
+                atributos.First(a => a.Tipo == TipoAtributo.ColorGafas && a.CodigoUnico == avatarPorDefecto.ColorGafas),
+                atributos.First(a => a.Tipo == TipoAtributo.ColorBarba && a.CodigoUnico == avatarPorDefecto.ColorBarba)
             };
 
-            modelBuilder.Entity("AvatarAtributos").HasData(asignaciones);
+            // 2. Usar la lista anterior para crear los datos de la tabla de unión (objetos anónimos).
+            var datosParaTablaDeUnion = atributosAsignados.Select(attr => new
+            {
+                AvatarId = 1,
+                AtributoSeleccionadoId = attr.Id 
+            }).ToArray();
+
+            // 3. Poblar la tabla de unión con los datos correctos.
+            modelBuilder.Entity("AvatarAtributos").HasData(datosParaTablaDeUnion);
+
+            // 4. Devolver la lista de entidades AtributoAvatar, como se requiere para el siguiente paso.
+            return atributosAsignados;
+        }
+
+        private static void PrecargarInventarioInicial(ModelBuilder modelBuilder, List<AtributoAvatar> atributosPorDefecto)
+        {
+            // Empezamos los IDs de las nuevas recompensas después de las existentes (que llegaban hasta 10)
+            int proximoIdRecompensa = 11;
+            var recompensasAvatar = new List<object>();
+
+            foreach (var atributo in atributosPorDefecto)
+            {
+                recompensasAvatar.Add(new
+                {
+                    Id = proximoIdRecompensa++,
+                    Nombre = $"Item: {atributo.Nombre}",
+                    Precio = 0, // Precio 0 porque ya los posee
+                    RutaImagenCompleta = atributo.RutaRecurso,
+                    RutaImagenMiniatura = atributo.RutaRecurso,
+                    TiendaId = 1, // Asignamos a la tienda del primer grupo
+                    RecompensaTipo = "PersonalizacionAvatar",
+                    AtributoAvatarId = atributo.Id
+                });
+            }
+
+            // Precargamos las nuevas recompensas de tipo PersonalizacionAvatar
+            modelBuilder.Entity<PersonalizacionAvatar>().HasData(recompensasAvatar);
+            int proximoIdInventario = 1;
+            // Ahora, vinculamos estas nuevas recompensas con el PerfilEstudiante con Id = 1
+            var inventarioInicial = recompensasAvatar.Select(r => new
+            {
+                Id = proximoIdInventario++,
+                PerfilEstudianteId = 1,
+                // Usamos reflexión para obtener el Id de forma segura del objeto anónimo
+                RecompensaId = (int)r.GetType().GetProperty("Id").GetValue(r, null)
+            }).ToArray();
+
+            // Poblamos la tabla de unión para el inventario
+            modelBuilder.Entity<PerfilEstudianteRecompensa>().HasData(inventarioInicial);
         }
     }
 }

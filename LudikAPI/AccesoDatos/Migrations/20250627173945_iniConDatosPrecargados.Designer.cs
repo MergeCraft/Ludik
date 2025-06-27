@@ -12,13 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-<<<<<<<< HEAD:ludikApi/AccesoDatos/Migrations/20250626134119_inicial.Designer.cs
-    [Migration("20250626134119_inicial")]
-    partial class inicial
-========
-    [Migration("20250627143029_inicialConDatos")]
-    partial class inicialConDatos
->>>>>>>> modificarAvatar:LudikAPI/AccesoDatos/Migrations/20250627143029_inicialConDatos.Designer.cs
+    [Migration("20250627173945_iniConDatosPrecargados")]
+    partial class iniConDatosPrecargados
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
