@@ -18,7 +18,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTienda
         private readonly Mock<IRepositorioRecompensas> _mockRepoRec;
         private readonly Mock<IRepositorioTiendas> _mockRepoTiendas;
         private readonly ObtenerListadoRecompensa _useCase;
-        private const string ProfesorId = "unused"; // no se usa aquí
+        private const string ProfesorId = "unused"; 
 
         public PruebasObtenerListadoRecompensa()
         {
@@ -100,7 +100,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTienda
             var lista = resultado.Valor!.ToList();
             Assert.Equal(2, lista.Count);
 
-            // Verificar mapeo por RecompensaListadoMapper
             Assert.Contains(lista, dto =>
                 dto.Nombre == "R1" &&
                 dto.Precio == 5 &&
