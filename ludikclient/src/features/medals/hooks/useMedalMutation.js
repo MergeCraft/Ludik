@@ -21,10 +21,11 @@ export const useCrearMedalla = (onSuccessCallback) => {
   });
 };
 
-export const useMedallasProfesor = () => {
+export const useMedallasProfesor = (isProfesor) => {
   return useQuery({
     queryKey: ["medallas", "profesor"],
     queryFn: obtenerMedallasProfesor,
+    enabled: isProfesor,
     onError: handleErrores,
   });
 };

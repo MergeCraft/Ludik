@@ -20,12 +20,14 @@ export const crearGrupo = async (grupo) => {
   }
 };
 
-export const obtenerGruposProfesor = async () => {
+export const obtenerGrupos = async (rol) => {
   try {
-    const response = await api.get("/api/profesor/mis-grupos");
+    const endpoint = rol === "Profesor" ? "/api/profesor/mis-grupos" : "/api/estudiante/mis-grupos";
+    const response = await api.get(endpoint);
     return response.data;
   } catch (error) {
-    throw parseError(error, "No se pudieron obtener los grupos del profesor.");
+    console.log(error);
+    throw parseError(error, rol === "Profesor" ? "No se pudieron obtener los grupos del profesor." : "No se pudieron obtener los grupos del estudiante.");
   }
 };
 
@@ -95,15 +97,11 @@ export const rechazarSolicitud = async (solicitudId) => {
 
 export const asignarMedalla = async ({ perfilId, medallaId }) => {
   try {
-    const response = await api.post(
-      `/api/AsignacionMedallas/perfil-estudiante/${perfilId}/medalla/${medallaId}`
-    );
+    const response = await api.post(`/api/AsignacionMedallas/perfil-estudiante/${perfilId}/medalla/${medallaId}`);
     return response.data;
   } catch (error) {
     const data = error?.response?.data;
-    const errores = Array.isArray(data)
-      ? data.map((e) => e.mensaje || e.message || e.error).filter(Boolean)
-      : [data?.mensaje || data?.message || data?.error || "Error al asignar medalla"];
+    const errores = Array.isArray(data) ? data.map((e) => e.mensaje || e.message || e.error).filter(Boolean) : [data?.mensaje || data?.message || data?.error || "Error al asignar medalla"];
     throw errores;
   }
 };

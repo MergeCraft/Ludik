@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSelector } from "react-redux";
+import { selectUserRole } from "../../auth/hooks/userSlice";
 import genericProfileImage from "../../../assets/genericStudentAvatar.png";
 import styles from "./StudentItem.module.css";
 
@@ -9,6 +11,8 @@ import { useAsignarMedalla } from "../hooks/useGrupoMutation";
 
 const StudentItem = ({ student, medals }) => {
   const [selectedMedal, setSelectedMedal] = useState(""); // <- estado para controlar el valor del select
+  const role = useSelector(selectUserRole);
+  const isProfesor = role === "Profesor";
   const { mutate } = useAsignarMedalla();
 
   const handleMedalChange = (e) => {
@@ -28,25 +32,29 @@ const StudentItem = ({ student, medals }) => {
       <img src={student.enlaceAvatarMiniatura || genericProfileImage} alt="avatar" className={styles.avatar} />
       <div className={styles.centrales}>
         <p>{student.nombreEstudiante}</p>
-        <div className={styles.asignarMedalla}>
-          <p>Asignación de medallas</p>
-          <select
-            className={`button ${styles.medallas}`}
-            name="medallas"
-            value={selectedMedal}
-            onChange={(e) => {
-              setSelectedMedal(e.target.value); // actualizar UI
-              handleMedalChange(e); // ejecutar mutación
-            }}
-          >
-            <option value="">Selecciona una medalla</option>
-            {Array.isArray(medals) &&
-              medals.map((medalla) => (
-                <option key={medalla.id} value={medalla.id}>
-                  {medalla.nombre}
-                </option>
-              ))}
-          </select>
+        <div>
+          {isProfesor && (
+            <div className={styles.asignarMedalla}>
+              <p>Asignación de medallas</p>
+              <select
+                className={`button ${styles.medallas}`}
+                name="medallas"
+                value={selectedMedal}
+                onChange={(e) => {
+                  setSelectedMedal(e.target.value); // actualizar UI
+                  handleMedalChange(e); // ejecutar mutación
+                }}
+              >
+                <option value="">Selecciona una medalla</option>
+                {Array.isArray(medals) &&
+                  medals.map((medalla) => (
+                    <option key={medalla.id} value={medalla.id}>
+                      {medalla.nombre}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          )}
         </div>
       </div>
 

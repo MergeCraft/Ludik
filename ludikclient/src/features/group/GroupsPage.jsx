@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "../generics/BaseManagerPage.module.css";
 import { useSelector } from "react-redux";
 import { selectUserRole } from "../auth/hooks/userSlice";
-import { useGruposProfesor } from "./hooks/useGrupoMutation";
+import { useGruposPorRol } from "./hooks/useGrupoMutation";
 import { BarLoader } from "react-spinners";
 
 import GroupItem from "./components/GroupItem";
@@ -20,7 +20,7 @@ const GroupsPage = () => {
   const [modalTipo, setModalTipo] = useState(null);
   const [search, setSearch] = useState("");
 
-  const { data: grupos, isLoading } = useGruposProfesor();
+  const { data: grupos, isLoading } = useGruposPorRol(role);
 
   const gruposFormateados =
     grupos?.map((g) => ({

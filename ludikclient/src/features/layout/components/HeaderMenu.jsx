@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
+import { selectUserRole } from "../../auth/hooks/userSlice.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./HeaderMenu.module.css";
 import { cerrarSesion } from "../../auth/hooks/auth.js";
@@ -9,6 +11,8 @@ const HeaderMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation(); // nuevo
+  const role = useSelector(selectUserRole);
+  const isProfesor = role === "Profesor";
 
   const [showOptions, setShowOptions] = useState(false);
 
@@ -48,17 +52,21 @@ const HeaderMenu = () => {
               <FontAwesomeIcon icon="fa-solid fa-users" size="lg" /> Grupos
             </li>
 
-            <li onClick={() => goTo("/medals")} className={isActive("/medals") ? styles.activeMedallas : ""}>
-              <FontAwesomeIcon icon="fa-solid fa-award" size="lg" /> Medallas
-            </li>
+            {isProfesor && (
+              <>
+                <li onClick={() => goTo("/medals")} className={isActive("/medals") ? styles.activeMedallas : ""}>
+                  <FontAwesomeIcon icon="fa-solid fa-award" size="lg" /> Medallas
+                </li>
 
-            <li onClick={() => goTo("/equivalenceTable")} className={isActive("/equivalenceTable") ? styles.activeRubricas : ""}>
-              <FontAwesomeIcon icon="fa-solid fa-clipboard-list" size="lg" /> Rubricas
-            </li>
+                <li onClick={() => goTo("/equivalenceTable")} className={isActive("/equivalenceTable") ? styles.activeRubricas : ""}>
+                  <FontAwesomeIcon icon="fa-solid fa-clipboard-list" size="lg" /> Rubricas
+                </li>
 
-            <li onClick={() => goTo("/rankings")} className={isActive("/rankings") ? styles.activeRankings : ""}>
-              <FontAwesomeIcon icon="fa-solid fa-ranking-star" size="lg" /> Rankings
-            </li>
+                <li onClick={() => goTo("/rankings")} className={isActive("/rankings") ? styles.activeRankings : ""}>
+                  <FontAwesomeIcon icon="fa-solid fa-ranking-star" size="lg" /> Rankings
+                </li>
+              </>
+            )}
 
             <li onClick={() => goTo("/configuraciones")} className={isActive("/configuraciones") ? styles.activeConfiguraciones : ""}>
               <FontAwesomeIcon icon="fa-solid fa-cogs" size="lg" /> Configuraciones

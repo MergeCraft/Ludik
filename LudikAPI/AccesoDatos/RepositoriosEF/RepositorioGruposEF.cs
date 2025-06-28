@@ -68,6 +68,7 @@ namespace AccesoDatos.RepositoriosEF
 			{
 				var grupo = await _db.Grupos
 					.Include(g => g.TablaEquivalencia)
+						.ThenInclude(t => t.Equivalencias)
 					.Include(g => g.EnlaceUnion)
 					.Include(g => g.Tienda)
 					.FirstOrDefaultAsync(t => t.Id == id);
@@ -251,6 +252,7 @@ namespace AccesoDatos.RepositoriosEF
 			}
 
 			List<Grupo> gruposDelEstudiante = await _db.Grupos
+				.Include(g => g.Alumnos)
 				.Where(g => g.Alumnos.Any(pe => pe.EstudianteId == idEstudiante))
 				.ToListAsync();
 

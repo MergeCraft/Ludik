@@ -15,7 +15,7 @@ namespace LogicaAplicacion.DTOsMappers.RecompensaMappers
             if (entidad == null) return null!; 
             return new RecompensaListadoDto
             {
-                
+                Id = entidad.Id,
                 Nombre = entidad.Nombre,
                 RutaImagenCompleta = entidad.RutaImagenCompleta,
                 RutaImagenMiniatura = entidad.RutaImagenMiniatura,

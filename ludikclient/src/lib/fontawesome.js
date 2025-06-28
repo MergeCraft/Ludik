@@ -36,6 +36,7 @@ import {
   faUserCheck,
   faStore,
   faPlus,
+  faBullseye,
 
   // Nuevos íconos para recompensas
   faCrown,
@@ -84,6 +85,7 @@ import {
   faFlag,
   faPlane,
   faCakeCandles,
+  faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { faUser as farUser } from "@fortawesome/free-regular-svg-icons";
@@ -125,6 +127,8 @@ library.add(
   faUserCheck,
   faStore,
   faPlus,
+  faCartShopping,
+  faBullseye,
 
   // 🎖 Recompensas
   faCrown,

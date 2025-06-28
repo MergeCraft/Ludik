@@ -36,6 +36,7 @@
 .acciones {
     display: flex;
     justify-content: space-evenly;
+    gap: 1px;
     background-color: var(--secundario);
     color: white;
     border-radius: 15px;
@@ -44,9 +45,43 @@
     min-width: 200px;
     width: 100%;
     box-sizing: border-box;
+
 }
 
-.acciones button {
+.resumen {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.resumen div {
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 15px;
+    flex-grow: 1;
+}
+
+.resumen div:nth-child(3) p:first-of-type {
+    color: var(--monedas);
+}
+
+.resumen div:nth-child(2) p:first-of-type {
+    color: var(--medallas);
+}
+
+.resumen div:nth-child(1) p:first-of-type {
+    color: var(--meta-alumno);
+}
+
+.resumen div svg {
+    margin-right: 10px;
+}
+
+.acciones label {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
     min-width: 40px;
     font-size: 90%;
     background-color: transparent;
@@ -58,7 +93,19 @@
     cursor: pointer;
 }
 
-.acciones button:hover {
+.acciones label:hover {
+    background-color: var(--principal);
+}
+
+.acciones input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.acciones label:has(input:checked) {
     background-color: var(--principal);
 }
 
@@ -85,6 +132,11 @@
         flex-direction: column;
         align-items: center;
         font-size: small;
+    }
+
+    .acciones {
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.307);
+
     }
 
 }

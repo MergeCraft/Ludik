@@ -8,7 +8,8 @@ namespace LogicaAplicacion.DTOs.RecompensaDTOs
 {
     public class RecompensaListadoDto
     {
-        public string Nombre { get; set; }
+		public int Id { get; set; }
+		public string Nombre { get; set; }
         public string RutaImagenCompleta { get; set; }
         public string RutaImagenMiniatura { get; set; }
         public int Precio { get; set; }

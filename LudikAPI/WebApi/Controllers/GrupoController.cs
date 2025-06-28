@@ -16,169 +16,138 @@ using LogicaAplicacion.DTOs.PerfilEstudianteDTO;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    [Authorize(Policy = "EsProfesor")]
-    public class GrupoController : ControllerBase
-    {
-        private readonly IAltaGrupo _altaGrupo;
-        private readonly IEditarGrupo _editarGrupo;
-        private readonly IBajaGrupo _bajaGrupo;
-        private readonly IObtenerInformacionGrupo _obtenerInformacionGrupo;
-        private readonly IObtenerPerfilesPorGrupo _obtenerPerfilesPorGrupo;
+	[Route("api/[controller]")]
+	[ApiController]
+	[Authorize] // Solo autenticación, sin restringir aún por rol
+	public class GrupoController : ControllerBase
+	{
+		private readonly IAltaGrupo _altaGrupo;
+		private readonly IEditarGrupo _editarGrupo;
+		private readonly IBajaGrupo _bajaGrupo;
+		private readonly IObtenerInformacionGrupo _obtenerInformacionGrupo;
+		private readonly IObtenerPerfilesPorGrupo _obtenerPerfilesPorGrupo;
 
-        public GrupoController(IAltaGrupo altaGrupo, IEditarGrupo editarGrupo, IBajaGrupo bajaGrupo, IObtenerInformacionGrupo obtenerInformacionGrupo, IObtenerPerfilesPorGrupo obtenerPerfilesPorGrupo)
-        {
-            _altaGrupo = altaGrupo;
-            _editarGrupo = editarGrupo;
-            _bajaGrupo = bajaGrupo;
-            _obtenerInformacionGrupo = obtenerInformacionGrupo;
-            _obtenerPerfilesPorGrupo = obtenerPerfilesPorGrupo;
-        }
-        /// <summary>
-        /// Este endpoint permite registrar un nuevo grupo en el sistema.
-        /// </summary>
-        /// <returns>
-        /// 201 Created: Si el grupo fue registrado correctamente.
-        /// 400 Bad Request: Si los datos enviados son inválidos o faltan.
-        /// 500 Internal Server Error: Si ocurre un error inesperado durante el procesamiento.
-        /// </returns>
+		public GrupoController(
+			IAltaGrupo altaGrupo,
+			IEditarGrupo editarGrupo,
+			IBajaGrupo bajaGrupo,
+			IObtenerInformacionGrupo obtenerInformacionGrupo,
+			IObtenerPerfilesPorGrupo obtenerPerfilesPorGrupo)
+		{
+			_altaGrupo = altaGrupo;
+			_editarGrupo = editarGrupo;
+			_bajaGrupo = bajaGrupo;
+			_obtenerInformacionGrupo = obtenerInformacionGrupo;
+			_obtenerPerfilesPorGrupo = obtenerPerfilesPorGrupo;
+		}
 
-        [HttpPost("alta")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> AltaGrupo([FromBody] GrupoAltaRequestDto grupoRequest)
-        {
+		[HttpPost("alta")]
+		[Authorize(Policy = "EsProfesor")]
+		[ProducesResponseType(StatusCodes.Status201Created)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		public async Task<IActionResult> AltaGrupo([FromBody] GrupoAltaRequestDto grupoRequest)
+		{
+			var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			if (string.IsNullOrEmpty(profesorId))
+				return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
 
-            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (string.IsNullOrEmpty(profesorId))
-                return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
-            
-            var resultado = await _altaGrupo.EjecutarAsync(grupoRequest, profesorId);
+			var resultado = await _altaGrupo.EjecutarAsync(grupoRequest, profesorId);
 
-            if (resultado.EsFallo)
-                return this.ManejarFallo(resultado);
+			if (resultado.EsFallo)
+				return this.ManejarFallo(resultado);
 
-            return StatusCode(StatusCodes.Status201Created, "El grupo ha sido creado correctamente.");
-           
-        }
-        /// <summary>
-        /// Este endpoint permite editar los datos de un grupo existente.
-        /// </summary>
-        /// <returns>
-        /// 200 OK: Si el grupo fue actualizado correctamente.
-        /// 400 Bad Request: Si los datos enviados son inválidos o faltan.
-        /// 404 Not Found: Si el grupo no existe.
-        /// 500 Internal Server Error: Si ocurre un error inesperado durante el procesamiento.
-        /// </returns>
-        [HttpPut("editar/{id:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> EditarGrupo([FromBody] GrupoEditarDto grupoDto)
-        {
-            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (string.IsNullOrEmpty(profesorId))
-                return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
-            
-            var resultado = await _editarGrupo.EjecutarAsync(grupoDto, profesorId);
+			return StatusCode(StatusCodes.Status201Created, "El grupo ha sido creado correctamente.");
+		}
 
-            if (resultado.EsFallo)
-                return this.ManejarFallo(resultado);
+		[HttpPut("editar/{id:int}")]
+		[Authorize(Policy = "EsProfesor")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		public async Task<IActionResult> EditarGrupo([FromBody] GrupoEditarDto grupoDto)
+		{
+			var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			if (string.IsNullOrEmpty(profesorId))
+				return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
 
-            return StatusCode(StatusCodes.Status200OK, "El grupo fue editado con exito.");
+			var resultado = await _editarGrupo.EjecutarAsync(grupoDto, profesorId);
 
-        }
-        /// <summary>
-        /// Este endpoint permite eliminar un grupo existente.
-        /// </summary>
-        /// <returns>
-        /// 200 OK: Si el grupo fue eliminado correctamente.
-        /// 404 Not Found: Si el grupo no existe.
-        /// 500 Internal Server Error: Si ocurre un error inesperado durante el procesamiento.
-        /// </returns>
-        [HttpDelete("eliminar/{id:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> EliminarGrupo(int id)
-        {
-            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			if (resultado.EsFallo)
+				return this.ManejarFallo(resultado);
 
-            if (string.IsNullOrEmpty(profesorId))
-                return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
+			return StatusCode(StatusCodes.Status200OK, "El grupo fue editado con éxito.");
+		}
 
-            var resultado = await _bajaGrupo.EjecutarAsync(id, profesorId);
+		[HttpDelete("eliminar/{id:int}")]
+		[Authorize(Policy = "EsProfesor")]
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		public async Task<IActionResult> EliminarGrupo(int id)
+		{
+			var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (resultado.EsFallo)
-                return this.ManejarFallo(resultado);
-            
-            //DELETE exitoso siempre debe devolver 204 NoContent
-            return StatusCode(StatusCodes.Status204NoContent, "El grupo se ha eliminado de forma exitosa.");
+			if (string.IsNullOrEmpty(profesorId))
+				return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
 
-        }
-        /// <summary>
-        /// Devuelve la información básica de un grupo (sin tienda, alumnos, solicitudes, tablas de clasificación).
-        /// </summary>
-        /// <param name="grupoId">ID del grupo</param>
-        /// <returns>
-        /// 200 OK: Información parcial del grupo.
-        /// 404 Not Found: Grupo no encontrado.
-        /// 500 Internal Server Error: Error inesperado.
-        /// </returns>
-        [HttpGet("info/{grupoId:int}")]
-        [ProducesResponseType(typeof(GrupoInformacionDto), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> ObtenerInformacionGrupo(int grupoId)
-        {
-            try
-            {
-                var resultado = await _obtenerInformacionGrupo.EjecutarAsync(grupoId);
+			var resultado = await _bajaGrupo.EjecutarAsync(id, profesorId);
 
-                if (resultado.EsFallo)
-                    return this.ManejarFallo(resultado);
+			if (resultado.EsFallo)
+				return this.ManejarFallo(resultado);
 
-                return Ok(resultado.Valor);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new
-                {
-                    Mensaje = "Ocurrió un error inesperado al obtener la información del grupo. " + ex.Message
-                });
-            }
-        }
-        /// <summary>
-        /// Devuelve la lista de perfiles de estudiantes de un grupo.
-        /// </summary>
-        /// <param name="grupoId">Id del grupo</param>
-        /// <returns>Lista de perfiles de estudiantes</returns>
-        [HttpGet("{grupoId:int}/perfiles")]
-        [ProducesResponseType(typeof(List<PerfilEstudianteInformacionDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> ObtenerPerfilesPorGrupo(int grupoId)
-        {
-            try
-            {
-                // Aquí asumo que el método del caso de uso devuelve Resultado<List<PerfilEstudianteInformacionDto>>
-                var resultado = await _obtenerPerfilesPorGrupo.EjecutarAsync(grupoId);
+			return StatusCode(StatusCodes.Status204NoContent, "El grupo se ha eliminado de forma exitosa.");
+		}
 
-                if (resultado.EsFallo)
-                    return this.ManejarFallo(resultado);
+		[HttpGet("info/{grupoId:int}")]
+		[Authorize] // Estudiantes y profesores autenticados
+		[ProducesResponseType(typeof(GrupoInformacionDto), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		public async Task<IActionResult> ObtenerInformacionGrupo(int grupoId)
+		{
+			try
+			{
+				var resultado = await _obtenerInformacionGrupo.EjecutarAsync(grupoId);
 
-                return Ok(resultado.Valor);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new
-                {
-                    Mensaje = "Ocurrió un error inesperado al obtener los perfiles del grupo. " + ex.Message
-                });
-            }
-        }
-    }
+				if (resultado.EsFallo)
+					return this.ManejarFallo(resultado);
+
+				return Ok(resultado.Valor);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, new
+				{
+					Mensaje = "Ocurrió un error inesperado al obtener la información del grupo. " + ex.Message
+				});
+			}
+		}
+
+		[HttpGet("{grupoId:int}/perfiles")]
+		[Authorize] // Estudiantes y profesores autenticados
+		[ProducesResponseType(typeof(List<PerfilEstudianteInformacionDto>), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		public async Task<IActionResult> ObtenerPerfilesPorGrupo(int grupoId)
+		{
+			try
+			{
+				var resultado = await _obtenerPerfilesPorGrupo.EjecutarAsync(grupoId);
+
+				if (resultado.EsFallo)
+					return this.ManejarFallo(resultado);
+
+				return Ok(resultado.Valor);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, new
+				{
+					Mensaje = "Ocurrió un error inesperado al obtener los perfiles del grupo. " + ex.Message
+				});
+			}
+		}
+	}
 }

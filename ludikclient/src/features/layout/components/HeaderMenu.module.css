@@ -108,7 +108,7 @@
 }
 
 .activeMedallas svg {
-  color: #8c8416;
+  color: var(--medallas);
 }
 
 .activeRubricas {

@@ -2,7 +2,7 @@ import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import * as Toast from "../../../lib/toastify";
 import {
   crearGrupo,
-  obtenerGruposProfesor,
+  obtenerGrupos,
   obtenerGrupo,
   obtenerAlumnosGrupo,
   obtenerSolicitudesUnion,
@@ -33,10 +33,11 @@ export const useCrearGrupo = (onSuccessCallback) => {
   });
 };
 
-export const useGruposProfesor = () => {
+export const useGruposPorRol = (rol) => {
   return useQuery({
-    queryKey: ["grupos", "profesor"],
-    queryFn: obtenerGruposProfesor,
+    queryKey: ["grupos", rol],
+    queryFn: () => obtenerGrupos(rol),
+    enabled: !!rol, // solo si el rol está definido
     onError: manejarErrores,
   });
 };

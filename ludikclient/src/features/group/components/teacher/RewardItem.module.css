@@ -22,7 +22,6 @@
 }
 
 .iconContainer {
-
     border-radius: 15px;
     text-align: center;
     padding: 0 20px;
@@ -51,6 +50,17 @@
     border: 1px solid var(--principal);
     border-top: none;
     background-color: var(--secundario);
+    border-radius: 0 0 15px 15px;
+    color: var(--blanco-principal);
+    cursor: pointer;
+}
+
+.canjearRecompensa {
+    height: 35px;
+    width: 100%;
+    border: none;
+    border-top: none;
+    background-color: var(--boton-secundario);
     border-radius: 0 0 15px 15px;
     color: var(--blanco-principal);
     cursor: pointer;
