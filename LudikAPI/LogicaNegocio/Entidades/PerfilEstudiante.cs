@@ -24,7 +24,7 @@ namespace LogicaNegocio.Entidades
         public string RutaImagenCompleta { get; set; }
         public string RutaImagenMiniatura { get; set; }
         public List<PerfilEstudianteMedalla> PerfilMedallas { get; set; } = new();
-        // (Opcional) Para acceso directo a Medalla:
+
         [NotMapped]
         public IEnumerable<Medalla> MedallasObtenidas => PerfilMedallas.Select(pm => pm.Medalla);
 

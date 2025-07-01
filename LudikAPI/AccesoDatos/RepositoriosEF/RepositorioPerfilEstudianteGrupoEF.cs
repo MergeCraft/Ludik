@@ -73,6 +73,7 @@ namespace AccesoDatos.RepositoriosEF
                 var perfil = await _db.PerfilesEstudiantes
                     .Include(p => p.InventarioRecompensas)
                         .ThenInclude(ir => ir.Recompensa)
+                            .ThenInclude(r => (r as PersonalizacionAvatar).AtributoDesbloqueable)
                     .Include(p => p.PerfilMedallas)
                         .ThenInclude(pm => pm.Medalla)
                     .Include(p => p.BarraProgreso)
