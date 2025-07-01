@@ -40,6 +40,8 @@ using LogicaAplicacion.InterfacesCasosUsos.Recompensa;
 using LogicaAplicacion.ImplementacionCasosUsos.Recompensa;
 using LogicaAplicacion.InterfacesCasosUsos.Tienda;
 using LogicaAplicacion.ImplementacionCasosUsos.Tienda;
+using LogicaAplicacion.ImplementacionCasosUsos.Imagenes.Estrategias;
+using LogicaNegocio.ConstantesAplicacion;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -187,7 +189,10 @@ builder.Services.AddScoped<IAsignarMedalla, AsignarMedalla>();
 builder.Services.AddScoped<IQuitarMedalla, QuitarMedalla>();
 builder.Services.AddScoped<IObtenerTablasEquivalenciaDelProfesor,ObtenerTablasEquivalenciaDelProfesor>();
 builder.Services.AddScoped<IObtenerPerfilConMedallas, ObtenerPerfilConMedallas>();
-builder.Services.AddScoped<IServicioGestionImagenPerfil, ServicioGestionImagenPerfil>();
+
+builder.Services.AddScoped<IServicioGestionImagen, ServicioGestionImagen>();
+builder.Services.AddKeyedScoped<IActualizadorRutaImagen, ActualizadorImagenPerfilEstudiante>(Constantes.PropositoImagen.PerfilEstudiante);
+builder.Services.AddKeyedScoped<IActualizadorRutaImagen, ActualizadorImagenPerfilProfesor>(Constantes.PropositoImagen.PerfilProfesor);
 builder.Services.AddScoped<IServicioProcesamientoImagenes, ServicioImageSharp>();
 builder.Services.AddScoped<IModificarAvatar, ModificarAvatar>();
 builder.Services.AddScoped<IObtenerAtributosAvatarDisponiblesParaPerfil, ObtenerAtributosAvatarDisponiblesParaPerfil>();

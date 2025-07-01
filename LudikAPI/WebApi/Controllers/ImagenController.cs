@@ -1,53 +1,56 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using LogicaAplicacion.DTOs.ImagenDto;
 using LogicaAplicacion.DTOs.ImagenPerfilDtos;
 using LogicaAplicacion.InterfacesCasosUsos.Imagenes;
+using Microsoft.AspNetCore.Authorization;
 using WebApi.Helpers;
 
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "EsProfesorOEstudiante")]
     public class ImagenController : ControllerBase
     {
-        private readonly IServicioGestionImagenPerfil _servicioGestionImagen;
+        private readonly IServicioGestionImagen _servicioGestionImagen;
 
-        public ImagenController(IServicioGestionImagenPerfil servicioGestionImagen)
+        public ImagenController(IServicioGestionImagen servicioGestionImagen)
         {
             _servicioGestionImagen = servicioGestionImagen;
         }
 
-        [HttpPost("{idPerfilEstudiante}/imagen")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> SubirImagen([FromRoute] int idPerfilEstudiante, IFormFile imagen)
+        public async Task<IActionResult> SubirImagen([FromQuery] string proposito, IFormFile imagen, [FromQuery] int? entidadId)
         {
-            //Todo: refactorizar para que se pueda utilizar de manera generica por un profesor o un estudiante. 
-            // Actualmente solo se permite a estudiantes subir imagenes de perfil.
             if (imagen == null || imagen.Length == 0)
             {
                 return BadRequest(new { Codigo = "Error.Validation", Mensaje = "No se ha proporcionado una imagen válida." });
             }
+            if (string.IsNullOrWhiteSpace(proposito))
+            {
+                return BadRequest(new { Codigo = "Error.Validation", Mensaje = "El parámetro 'proposito' es requerido." });
+            }
 
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (string.IsNullOrEmpty(userIdString))
-            {
-                return Unauthorized();
-            }
+
             await using var streamImagen = imagen.OpenReadStream();
 
-            var resultado = await _servicioGestionImagen.SubirImagenPerfilAsync(idPerfilEstudiante, userIdString, streamImagen);
+            var request = new SubirImagenDto { ImagenStream = streamImagen, IdUsuarioAutenticado=userIdString, Proposito=proposito, EntidadAsociadaId= entidadId };
+            var resultado = await _servicioGestionImagen.SubirImagenAsync(request);
 
             return resultado.EsExitoso
                 ? Ok()
                 : this.ManejarFallo(resultado);
         }
 
-        [HttpGet("{idPerfilEstudiante}/imagen")]
+        [HttpGet("{idPerfilEstudiante}")]
         [ProducesResponseType(typeof(ImagenPerfilDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]

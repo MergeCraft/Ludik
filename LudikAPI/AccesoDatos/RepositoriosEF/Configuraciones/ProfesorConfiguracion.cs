@@ -1,6 +1,13 @@
-﻿namespace AccesoDatos.RepositoriosEF.Configuraciones;
+﻿using LogicaNegocio.Entidades;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-public class ProfesorConfiguracion
+namespace AccesoDatos.RepositoriosEF.Configuraciones;
+
+public class ProfesorConfiguracion : IEntityTypeConfiguration<Profesor>
 {
-    
+    public void Configure(EntityTypeBuilder<Profesor> builder)
+    {
+        throw new NotImplementedException();
+    }
 }

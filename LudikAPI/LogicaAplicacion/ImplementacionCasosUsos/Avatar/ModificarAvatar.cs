@@ -1,8 +1,10 @@
 ﻿using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.AvatarDTOs;
+using LogicaAplicacion.DTOs.ImagenDto;
 using LogicaAplicacion.DTOsMappers;
 using LogicaAplicacion.InterfacesCasosUsos.Avatar;
 using LogicaAplicacion.InterfacesCasosUsos.Imagenes;
+using LogicaNegocio.ConstantesAplicacion;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
 using Entidades = LogicaNegocio.Entidades;
@@ -14,18 +16,18 @@ public class ModificarAvatar: IModificarAvatar
     private readonly IRepositorioPerfilEstudianteGrupo _repositorioPerfilesEstudiantes;
     private readonly IRepositorioAvatares _repositorioAvatares;
     private readonly IRepositorioAtributosAvatar _repositorioAtributosAvatar;
-    private readonly IServicioGestionImagenPerfil _servicioGestionImagenPerfil;
+    private readonly IServicioGestionImagen _servicioGestionImagen;
 
     public ModificarAvatar(
         IRepositorioPerfilEstudianteGrupo repositorioPerfilesEstudiantes,
         IRepositorioAvatares repositorioAvatares,
         IRepositorioAtributosAvatar repositorioAtributosAvatar,
-        IServicioGestionImagenPerfil servicioGestionImagenPerfil)
+        IServicioGestionImagen servicioGestionImagen)
     {
         _repositorioPerfilesEstudiantes = repositorioPerfilesEstudiantes;
         _repositorioAvatares = repositorioAvatares;
         _repositorioAtributosAvatar = repositorioAtributosAvatar;
-        _servicioGestionImagenPerfil = servicioGestionImagenPerfil;
+        _servicioGestionImagen = servicioGestionImagen;
     }
 
     public async Task<Resultado> EjecutarAsync(int idPerfilEstudiante, string idUsuarioAutenticado, ActualizarAvatarDto avatarDto, Stream streamImagen)
@@ -67,8 +69,15 @@ public class ModificarAvatar: IModificarAvatar
         Resultado resultadoActualizarAvatar = await _repositorioAvatares.UpdateAsync(avatarAActualizar);
         if (resultadoActualizarAvatar.EsFallo)
             return resultadoActualizarAvatar;
+        SubirImagenDto subirImagenDto = new SubirImagenDto
+        {
+            ImagenStream = streamImagen,
+            IdUsuarioAutenticado = idUsuarioAutenticado,
+            Proposito = Constantes.PropositoImagen.PerfilEstudiante,
+            EntidadAsociadaId = idPerfilEstudiante
+        };
 
-        Resultado resultadoSubirImagen = await _servicioGestionImagenPerfil.SubirImagenPerfilAsync(idPerfilEstudiante, idUsuarioAutenticado, streamImagen);
+        Resultado resultadoSubirImagen = await _servicioGestionImagen.SubirImagenAsync(subirImagenDto);
         if (resultadoSubirImagen.EsFallo)
         {
             //TODO: Considerar una estrategia de compensación aquí si la actualización del avatar fue exitosa pero la subida de imagen falló.

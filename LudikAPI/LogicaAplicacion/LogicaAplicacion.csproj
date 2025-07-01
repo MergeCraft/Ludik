@@ -12,9 +12,10 @@
 
   <ItemGroup>
     <Folder Include="DTOs\AtributoAvatarDTOs\" />
+    <Folder Include="DTOs\ImagenDto\" />
     <Folder Include="ImplementacionCasosUsos\Avatar\" />
+    <Folder Include="ImplementacionCasosUsos\Imagenes\Estrategias\" />
     <Folder Include="ImplementacionCasosUsos\Usuarios\" />
-    <Folder Include="InterfacesCasosUsos\Imagenes\" />
     <Folder Include="InterfacesCasosUsos\Usuario\" />
   </ItemGroup>
 
