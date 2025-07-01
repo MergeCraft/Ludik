@@ -62,31 +62,32 @@ namespace AccesoDatos.RepositoriosEF
 			}
 		}
 
-		public async Task<Resultado<Grupo>> GetByIdAsync(int id)
-		{
-			try
-			{
-				var grupo = await _db.Grupos
-					.Include(g => g.TablaEquivalencia)
-						.ThenInclude(t => t.Equivalencias)
-					.Include(g => g.EnlaceUnion)
-					.Include(g => g.Tienda)
-					.FirstOrDefaultAsync(t => t.Id == id);
+        public async Task<Resultado<Grupo>> GetByIdAsync(int id)
+        {
+            try
+            {
+                var grupo = await _db.Grupos
+                    .Include(g => g.Alumnos)                              
+                    .Include(g => g.TablaEquivalencia)
+                        .ThenInclude(t => t.Equivalencias)
+                    .Include(g => g.EnlaceUnion)
+                    .Include(g => g.Tienda)
+                    .FirstOrDefaultAsync(t => t.Id == id);
 
-				if (grupo == null)
-				{
-					return Resultado<Grupo>.Falla(Error.NotFound);
-				}
+                if (grupo == null)
+                {
+                    return Resultado<Grupo>.Falla(Error.NotFound);
+                }
 
-				return Resultado<Grupo>.Exitoso(grupo);
-			}
-			catch (Exception e)
-			{
-				return Resultado<Grupo>.Falla(Error.Unexpected);
-			}
-		}
+                return Resultado<Grupo>.Exitoso(grupo);
+            }
+            catch (Exception e)
+            {
+                return Resultado<Grupo>.Falla(Error.Unexpected);
+            }
+        }
 
-		public async Task<Resultado<IEnumerable<Grupo>>> GetAllAsync()
+        public async Task<Resultado<IEnumerable<Grupo>>> GetAllAsync()
 		{
 			try
 			{

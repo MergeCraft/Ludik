@@ -36,6 +36,8 @@ namespace LogicaNegocio.Entidades
 
         public List<PerfilEstudianteRecompensa> InventarioRecompensas { get; set; } = new();
 
+        public List<TablaClasificacion> TablasClasificacion { get; set; } = new();
+
         [NotMapped]
         public IEnumerable<Recompensa> Inventario =>
             InventarioRecompensas.Select(x => x.Recompensa);

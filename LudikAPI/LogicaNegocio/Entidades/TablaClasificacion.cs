@@ -20,15 +20,36 @@ namespace LogicaNegocio.Entidades
         public List<PerfilEstudiante> Participantes { get; set; }
 
         public int GrupoId { get; set; } 
+        public Grupo Grupo { get; set; }
+
 
         public void actualizar()
 		{
 
 		}
-
+        
+        public List<PerfilEstudiante> obtenerParticipantesOrdenadosPorCantidaDe(Medalla medalla)
+        {
+            return Participantes.FindAll(p => p.MedallasObtenidas.Contains(medalla))
+                .OrderByDescending(p => p.MedallasObtenidas.Count(m => m.Id == medalla.Id))
+                .ToList();
+        }
         public Resultado esValido()
         {
-            throw new NotImplementedException();
+            var errores = new List<Error>();
+
+            if (string.IsNullOrWhiteSpace(Nombre) || Nombre.Length < 3 || Nombre.Length > 50)
+                errores.Add(new Error("Error.Validation", "El nombre debe tener entre 3 y 50 caracteres."));
+
+            if (MedallaAsociadaId <= 0)
+                errores.Add(new Error("Error.Validation", "Debe seleccionarse una medalla."));
+
+            if (GrupoId <= 0)
+                errores.Add(new Error("Error.Validation", "La tabla debe pertenecer a un grupo."));
+
+            return errores.Any()
+                ? Resultado.Falla(errores)
+                : Resultado.Exitoso();
         }
     }
 

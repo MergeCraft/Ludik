@@ -40,6 +40,8 @@ using LogicaAplicacion.InterfacesCasosUsos.Recompensa;
 using LogicaAplicacion.ImplementacionCasosUsos.Recompensa;
 using LogicaAplicacion.InterfacesCasosUsos.Tienda;
 using LogicaAplicacion.ImplementacionCasosUsos.Tienda;
+using LogicaAplicacion.InterfacesCasosUsos.TablaClasificacion;
+using LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -138,6 +140,7 @@ builder.Services.AddScoped<IRepositorioAvatares, RepositorioAvataresEF>();
 builder.Services.AddScoped<IRepositorioTiendas, RepositorioTiendasEF>();
 builder.Services.AddScoped<IRepositorioRecompensas, RepositorioRecompensasEF>();
 builder.Services.AddScoped<IRepositorioAtributosAvatar, RepositorioAtributosAvatarEF>();
+builder.Services.AddScoped<IRepositorioTablasClasificacion, RepositorioTablasClasificacionEF>();
 
 
 builder.Services.AddAzureClients(clientBuilder =>
@@ -199,6 +202,8 @@ builder.Services.AddScoped<IBajaRecompensa, BajaRecompensa>();
 builder.Services.AddScoped<ICanjearRecompensa, CanjearRecompensa>();
 builder.Services.AddScoped<IObtenerListadoRecompensa, ObtenerListadoRecompensa>();
 builder.Services.AddScoped<IObtenerRecompensasInventarioPerfil, ObtenerRecompensasInventarioPerfil>();
+builder.Services.AddScoped<IAltaTablaClasificacion, AltaTablaClasificacion>();
+builder.Services.AddScoped<IObtenerTablaClasificacion, ObtenerTablaClasificacion>();
 
 
 
