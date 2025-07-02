@@ -13,6 +13,7 @@ using LogicaNegocio.InterfacesEntidades;
 using LogicaNegocio.Resultados;
 using LogicaNegocio.ValueObjects;
 using Microsoft.AspNetCore.Identity;
+using LogicaAplicacion.InterfacesCasosUsos.Login;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
 {
@@ -23,6 +24,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
         public AltaEstudiante(UserManager<Usuario> userManager)
         {
             _userManager = userManager;
+            
         }
 
         /// <summary>

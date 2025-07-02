@@ -15,6 +15,7 @@
     <Folder Include="DTOs\ImagenDto\" />
     <Folder Include="ImplementacionCasosUsos\Avatar\" />
     <Folder Include="ImplementacionCasosUsos\Imagenes\Estrategias\" />
+    <Folder Include="ImplementacionCasosUsos\Login\" />
     <Folder Include="ImplementacionCasosUsos\Usuarios\" />
     <Folder Include="InterfacesCasosUsos\Usuario\" />
   </ItemGroup>

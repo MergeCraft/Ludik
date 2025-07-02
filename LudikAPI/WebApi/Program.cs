@@ -42,6 +42,9 @@ using LogicaAplicacion.InterfacesCasosUsos.Tienda;
 using LogicaAplicacion.ImplementacionCasosUsos.Tienda;
 using LogicaAplicacion.ImplementacionCasosUsos.Imagenes.Estrategias;
 using LogicaNegocio.ConstantesAplicacion;
+using LogicaAplicacion.ImplementacionCasosUsos.Login;
+using LogicaAplicacion.InterfacesCasosUsos.Jwt;
+using LogicaAplicacion.InterfacesCasosUsos.Login;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -204,6 +207,7 @@ builder.Services.AddScoped<IBajaRecompensa, BajaRecompensa>();
 builder.Services.AddScoped<ICanjearRecompensa, CanjearRecompensa>();
 builder.Services.AddScoped<IObtenerListadoRecompensa, ObtenerListadoRecompensa>();
 builder.Services.AddScoped<IObtenerRecompensasInventarioPerfil, ObtenerRecompensasInventarioPerfil>();
+builder.Services.AddScoped<ILoginUsuario, LoginUsuario>();
 
 
 

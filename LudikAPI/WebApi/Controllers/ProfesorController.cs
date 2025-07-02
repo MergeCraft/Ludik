@@ -12,6 +12,7 @@ using LogicaAplicacion.DTOs.SolocitudUnionDTOs;
 using LogicaAplicacion.InterfacesCasosUsos.SolicitudUnion;
 using WebApi.Helpers;
 using LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion;
+using LogicaAplicacion.InterfacesCasosUsos.Login;
 
 namespace WebApi.Controllers
 {
@@ -19,18 +20,25 @@ namespace WebApi.Controllers
     [ApiController]
     public class ProfesorController : ControllerBase
     {
-        private readonly  IAltaProfesor _altaProfesor;
+        private readonly IAltaProfesor _altaProfesor;
         private readonly IObtenerGruposDeProfesor _obtenerGruposDeProfesor;
         private readonly IObtenerSolicitudesUnionDelGrupo _obtenerSolicitudesUnionDelGrupo;
         private readonly IAceptarSolicitudUnion _aceptarSolicitudUnion;
         private readonly IRechazarSolicitudUnion _rechazarSolicitudUnion;
-        public ProfesorController(IAltaProfesor altaProfesor, IObtenerGruposDeProfesor obtenerGruposDeProfesor, IObtenerSolicitudesUnionDelGrupo obtenerSolicitudesUnionDelGrupo,IAceptarSolicitudUnion aceptarSolicitudUnion, IRechazarSolicitudUnion rechazarSolicitudUnion)
+        private readonly ILoginUsuario _loginUsuario;
+        public ProfesorController(IAltaProfesor altaProfesor, 
+            IObtenerGruposDeProfesor obtenerGruposDeProfesor, 
+            IObtenerSolicitudesUnionDelGrupo obtenerSolicitudesUnionDelGrupo,
+            IAceptarSolicitudUnion aceptarSolicitudUnion, 
+            IRechazarSolicitudUnion rechazarSolicitudUnion,
+            ILoginUsuario loginUsuario)
         {
             _altaProfesor = altaProfesor;
             _obtenerGruposDeProfesor = obtenerGruposDeProfesor;
             _obtenerSolicitudesUnionDelGrupo = obtenerSolicitudesUnionDelGrupo;
             _aceptarSolicitudUnion = aceptarSolicitudUnion;
             _rechazarSolicitudUnion = rechazarSolicitudUnion;
+            _loginUsuario = loginUsuario;
         }
         /// <summary>
         /// Este endpoint permite registrar un nuevo Profesor en el sistema.
@@ -50,11 +58,22 @@ namespace WebApi.Controllers
         {
             Resultado resultado = await _altaProfesor.EjecutarAsync(profesorDto);
 
+         
             if (resultado.EsFallo)
-                return this.ManejarFallo(resultado);
-            
+               return this.ManejarFallo(resultado);
+           
+           var loginDto = new LoginSolicitudDto
+           {
+               NombreUsuario = profesorDto.NombreUsuario,
+               Contrasenia = profesorDto.Contrasenia
+           };
+           
+           var resultadoLogin = await _loginUsuario.EjecutarAsync(loginDto);
+           
+           return resultadoLogin.EsExitoso
+               ? CreatedAtAction(nameof(AltaProfesor), resultadoLogin.Valor)
+               : this.ManejarFallo(resultadoLogin);
 
-            return Created();
         }
         /// <summary>
         /// Obtiene todos los grupos que un profesor posee.

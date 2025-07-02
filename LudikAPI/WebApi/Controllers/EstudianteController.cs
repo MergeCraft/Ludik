@@ -14,6 +14,7 @@ using System.Security.Claims;
 using WebApi.Helpers;
 using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;
 using LogicaAplicacion.DTOs.RecompensaDTOs;
+using LogicaAplicacion.InterfacesCasosUsos.Login;
 
 namespace WebApi.Controllers
 {
@@ -26,15 +27,22 @@ namespace WebApi.Controllers
 		private readonly IObtenerGruposDeEstudiante _obtenerGruposPorEstudiante;
 		private readonly ICanjearRecompensa _canjearRecompensa;
 		private readonly IObtenerRecompensasInventarioPerfil _obtenerRecompensasInventarioPerfil;
+        private readonly ILoginUsuario _loginUsuario;
 
-		public EstudianteController(IAltaEstudiante altaEstudiante, ICrearSolicitudUnion crearSolicitudUnion, IObtenerGruposDeEstudiante obtenerGruposPorEstudiante, ICanjearRecompensa canjearRecompensa, IObtenerRecompensasInventarioPerfil obtenerRecompensasInventarioPerfil)
+		public EstudianteController(IAltaEstudiante altaEstudiante, 
+            ICrearSolicitudUnion crearSolicitudUnion, 
+            IObtenerGruposDeEstudiante obtenerGruposPorEstudiante, 
+            ICanjearRecompensa canjearRecompensa, 
+            IObtenerRecompensasInventarioPerfil obtenerRecompensasInventarioPerfil,
+            ILoginUsuario loginUsuario)
 		{
 			_altaEstudiante = altaEstudiante;
 			_crearSolicitudUnion = crearSolicitudUnion;
 			_obtenerGruposPorEstudiante = obtenerGruposPorEstudiante;
 			_canjearRecompensa = canjearRecompensa;
 			_obtenerRecompensasInventarioPerfil = obtenerRecompensasInventarioPerfil;
-		}
+            _loginUsuario = loginUsuario;
+        }
 
 		/// <summary>
 		/// Este endpoint permite registrar un nuevo estudiante en el sistema.
@@ -53,11 +61,23 @@ namespace WebApi.Controllers
 		{
 			Resultado resultado = await _altaEstudiante.EjecutarAsync(estudianteDto);
 
-			return resultado.EsExitoso
-				? StatusCode(StatusCodes.Status201Created)
-				: this.ManejarFallo(resultado);
-			// StatusCode(StatusCodes.Status201Created, "Estudiante registrado correctamente.")
-		}
+
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
+            
+            var loginDto = new LoginSolicitudDto
+            {
+                NombreUsuario = estudianteDto.NombreUsuario,
+                Contrasenia = estudianteDto.Contrasenia
+            };
+
+            var resultadoLogin = await _loginUsuario.EjecutarAsync(loginDto);
+
+            return resultadoLogin.EsExitoso
+                ? CreatedAtAction(nameof(AltaEstudiante), resultadoLogin.Valor)
+                : this.ManejarFallo(resultadoLogin);
+
+        }
 
 		/// <summary>
 		/// Un estudiante autenticado obtiene todos los grupos a los que pertenece.
