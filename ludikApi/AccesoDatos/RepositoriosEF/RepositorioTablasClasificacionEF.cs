@@ -34,9 +34,27 @@ namespace AccesoDatos.RepositoriosEF
             
         }
 
-        public Task<Resultado<IEnumerable<TablaClasificacion>>> GetAllAsync()
+        public async Task<Resultado<IEnumerable<TablaClasificacion>>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var tablas = await _db.TablasClasificacion
+                    .AsNoTracking()
+                    .Include(tc => tc.MedallaAsociada)
+                    .Include(tc => tc.Participantes)
+                        .ThenInclude(p => p.Estudiante)
+                    .Include(tc => tc.Participantes)
+                        .ThenInclude(p => p.PerfilMedallas)
+                    .ToListAsync();
+
+                return Resultado<IEnumerable<TablaClasificacion>>.Exitoso(tablas);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<IEnumerable<TablaClasificacion>>.Falla(
+                    new Error("Error.DB", ex.Message)
+                );
+            }
         }
 
         public async Task<Resultado<TablaClasificacion>> GetByIdAsync(int id)
@@ -44,27 +62,51 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var tabla = await _db.TablasClasificacion
+                    .AsNoTracking()                            // opcional, por si no necesitas cambios de vuelta
                     .Include(tc => tc.MedallaAsociada)
+                    .Include(tc => tc.Participantes)           // <-- aquí traes el M:N
+                        .ThenInclude(p => p.Estudiante)       // para usar datos del estudiante
                     .Include(tc => tc.Participantes)
-                        .ThenInclude(p => p.Estudiante)
-                    .Include(tc => tc.Participantes)
-                        .ThenInclude(p => p.PerfilMedallas)
+                        .ThenInclude(p => p.PerfilMedallas)   // para contar medallas
                     .FirstOrDefaultAsync(tc => tc.Id == id);
 
                 if (tabla == null)
-                    return Resultado<TablaClasificacion>.Falla(new Error("NotFound", "Tabla no encontrada."));
+                    return Resultado<TablaClasificacion>.Falla(
+                        new Error("NotFound", "Tabla no encontrada.")
+                    );
 
                 return Resultado<TablaClasificacion>.Exitoso(tabla);
             }
             catch (Exception ex)
             {
-                return Resultado<TablaClasificacion>.Falla(new Error("Error.DB", ex.Message));
+                return Resultado<TablaClasificacion>.Falla(
+                    new Error("Error.DB", ex.Message)
+                );
             }
         }
 
-        public Task<Resultado> RemoveAsync(int id)
+        public async Task<Resultado> RemoveAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var tabla = await _db.TablasClasificacion.FindAsync(id);
+                if (tabla == null)
+                    return Resultado.Falla(new Error("NotFound", "Tabla de clasificación no encontrada."));
+
+                _db.TablasClasificacion.Remove(tabla);
+                await _db.SaveChangesAsync();
+
+                return Resultado.Exitoso();
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
+                return Resultado.Falla(new Error("Error.DB", $"Error al eliminar la tabla: {detalle}"));
+            }
+            catch (Exception ex)
+            {
+                return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
+            }
         }
 
         public Task<Resultado> RemoveAsync(TablaClasificacion unObjeto)

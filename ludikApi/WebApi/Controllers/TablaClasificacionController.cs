@@ -18,10 +18,15 @@ namespace WebApi.Controllers
     {
         private readonly IAltaTablaClasificacion _altaTablaClasificacion;
         private readonly IObtenerTablaClasificacion _obtenerTablaClasificacion;
-        public TablaClasificacionController(IAltaTablaClasificacion altaTablaClasificacion,IObtenerTablaClasificacion obtenerTablaClasificacion)
+        private readonly IObtenerTodasLasTablasClasificacion _obtenerTodasLasTablasClasificacion;
+        private readonly IBajaTablaClasificacion _bajaTablaClasificacion;
+        public TablaClasificacionController(IAltaTablaClasificacion altaTablaClasificacion,IObtenerTablaClasificacion obtenerTablaClasificacion, IObtenerTodasLasTablasClasificacion obtenerTodasLasTablasClasificacion, IBajaTablaClasificacion bajaTablaClasificacion)
         {
             _altaTablaClasificacion = altaTablaClasificacion;
             _obtenerTablaClasificacion = obtenerTablaClasificacion;
+            _obtenerTodasLasTablasClasificacion = obtenerTodasLasTablasClasificacion;
+            _bajaTablaClasificacion = bajaTablaClasificacion;
+            
         }
         /// <summary>
         /// Crea una nueva tabla de clasificación dentro de un grupo.
@@ -85,6 +90,50 @@ namespace WebApi.Controllers
             // 4) Si todo OK, devolvemos 200 con el DTO
             return Ok(resultado.Valor);
         }
+        /// <summary>
+        /// Obtiene todas las tablas de clasificación (cada una con sus participantes ordenados).
+        /// </summary>
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<TablaClasificacionInfoDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<Error>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<IActionResult> ObtenerTodasLasTablasClasificacion()
+        {
+            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(profesorId))
+                return Unauthorized(new Error("Error.Unauthorized", "No se pudo identificar al profesor."));
 
+            var resultado = await _obtenerTodasLasTablasClasificacion.EjecutarAsync();
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
+
+            return Ok(resultado.Valor);
+        }
+        /// <summary>
+        /// Elimina una tabla de clasificación por su ID.
+        /// </summary>
+        /// <param name="tablaId">ID de la tabla a eliminar.</param>
+        /// <response code="204">Eliminación exitosa.</response>
+        /// <response code="400">Falló la operación.</response>
+        /// <response code="401">Usuario no autenticado.</response>
+        /// <response code="403">Usuario no autorizado.</response>
+        [HttpDelete("{tablaId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(IEnumerable<Error>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<IActionResult> EliminarTablaClasificacion(int tablaId)
+        {
+            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(profesorId))
+                return Unauthorized(new Error("Error.Unauthorized", "No se pudo identificar al profesor del token."));
+
+            var resultado = await _bajaTablaClasificacion.EjecutarAsync(tablaId);
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
+
+            return NoContent();
+        }
     }
 }

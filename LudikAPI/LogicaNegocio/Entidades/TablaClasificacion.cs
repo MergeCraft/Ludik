@@ -27,11 +27,22 @@ namespace LogicaNegocio.Entidades
 		{
 
 		}
-        
-        public List<PerfilEstudiante> obtenerParticipantesOrdenadosPorCantidaDe(Medalla medalla)
+
+        public void OrdenarParticipantesPorMedallaAsociada()
         {
-            return Participantes.FindAll(p => p.MedallasObtenidas.Contains(medalla))
-                .OrderByDescending(p => p.MedallasObtenidas.Count(m => m.Id == medalla.Id))
+            if (Participantes == null)
+                return;
+
+            foreach (var p in Participantes)
+            {
+                if (p.PerfilMedallas == null)
+                    p.PerfilMedallas = new List<PerfilEstudianteMedalla>();
+            }
+
+            Participantes = Participantes
+                .OrderByDescending(p =>
+                    p.PerfilMedallas.Count(pm => pm.MedallaId == MedallaAsociadaId)
+                )
                 .ToList();
         }
         public Resultado esValido()

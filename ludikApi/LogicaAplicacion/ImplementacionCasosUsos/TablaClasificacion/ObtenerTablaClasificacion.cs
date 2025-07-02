@@ -32,7 +32,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion
                 return Resultado<TablaClasificacionInfoDto>.Falla(
                     new Error("TablaClasificacion.NoEncontrada", "No existe la tabla especificada.")
                 );
-
+            tabla.OrdenarParticipantesPorMedallaAsociada();
             var dto = TablaClasificacionInfoMapper.Map(tabla);
 
             return Resultado<TablaClasificacionInfoDto>.Exitoso(dto);

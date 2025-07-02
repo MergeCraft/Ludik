@@ -204,6 +204,8 @@ builder.Services.AddScoped<IObtenerListadoRecompensa, ObtenerListadoRecompensa>(
 builder.Services.AddScoped<IObtenerRecompensasInventarioPerfil, ObtenerRecompensasInventarioPerfil>();
 builder.Services.AddScoped<IAltaTablaClasificacion, AltaTablaClasificacion>();
 builder.Services.AddScoped<IObtenerTablaClasificacion, ObtenerTablaClasificacion>();
+builder.Services.AddScoped<IObtenerTodasLasTablasClasificacion, ObtenerTodasLasTablasClasificacion>();
+builder.Services.AddScoped<IBajaTablaClasificacion, BajaTablaClasificacion>();
 
 
 
