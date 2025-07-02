@@ -173,102 +173,20 @@ namespace AccesoDatos.RepositoriosEF
                 new { Id = tienda1Id, GrupoId = 1 },
                 new { Id = tienda2Id, GrupoId = 2 }
             );
-            modelBuilder.Entity<Recompensa>().HasData(
-            // Para Tienda 1
-            new { Id = 1, Nombre = "Estrella Mágica", Precio = 50, RutaImagenCompleta = "star", RutaImagenMiniatura = "star", TiendaId = tienda1Id, RecompensaTipo = "Simple" },
-            new
-            {
-                Id = 2,
-                Nombre = "Regalo Sorpresa",
-                Precio = 30,
-                RutaImagenCompleta = "gift",
-                RutaImagenMiniatura = "gift",
-                TiendaId = tienda1Id,
-                RecompensaTipo = "Simple"
-            },
-            new
-            {
-                Id = 3,
-                Nombre = "Corazón Brillante",
-                Precio = 20,
-                RutaImagenCompleta = "heart",
-                RutaImagenMiniatura = "heart",
-                TiendaId = tienda1Id,
-                RecompensaTipo = "Simple"
-            },
-            new
-            {
-                Id = 4,
-                Nombre = "Medalla de Oro",
-                Precio = 80,
-                RutaImagenCompleta = "medal",
-                RutaImagenMiniatura = "medal",
-                TiendaId = tienda1Id,
-                RecompensaTipo = "Simple"
-            },
-            new
-            {
-                Id = 5,
-                Nombre = "Montón de Monedas",
-                Precio = 100,
-                RutaImagenCompleta = "coins",
-                RutaImagenMiniatura = "coins",
-                TiendaId = tienda1Id,
-                RecompensaTipo = "Simple"
-            },
-
-            // Para Tienda 2
-            new
-            {
-                Id = 6,
-                Nombre = "Trofeo Brillante",
-                Precio = 70,
-                RutaImagenCompleta = "trophy",
-                RutaImagenMiniatura = "trophy",
-                TiendaId = tienda2Id,
-                RecompensaTipo = "Simple"
-            },
-            new
-            {
-                Id = 7,
-                Nombre = "Llama de Fuego",
-                Precio = 40,
-                RutaImagenCompleta = "fire",
-                RutaImagenMiniatura = "fire",
-                TiendaId = tienda2Id,
-                RecompensaTipo = "Simple"
-            },
-            new
-            {
-                Id = 8,
-                Nombre = "Corona Real",
-                Precio = 90,
-                RutaImagenCompleta = "crown",
-                RutaImagenMiniatura = "crown",
-                TiendaId = tienda2Id,
-                RecompensaTipo = "Simple"
-            },
-            new
-            {
-                Id = 9,
-                Nombre = "Cohete Espacial",
-                Precio = 60,
-                RutaImagenCompleta = "rocket",
-                RutaImagenMiniatura = "rocket",
-                TiendaId = tienda2Id,
-                RecompensaTipo = "Simple"
-            },
-            new
-            {
-                Id = 10,
-                Nombre = "Robot Amistoso",
-                Precio = 55,
-                RutaImagenCompleta = "robot",
-                RutaImagenMiniatura = "robot",
-                TiendaId = tienda2Id,
-                RecompensaTipo = "Simple"
-            }
-        );
+            modelBuilder.Entity<RecompensaSimple>().HasData(
+                // Para Tienda 1
+                new RecompensaSimple { Id = 1, Nombre = "Estrella Mágica", Precio = 50, RutaImagenCompleta = "star", RutaImagenMiniatura = "star", TiendaId = tienda1Id },
+                new RecompensaSimple { Id = 2, Nombre = "Regalo Sorpresa", Precio = 30, RutaImagenCompleta = "gift", RutaImagenMiniatura = "gift", TiendaId = tienda1Id },
+                new RecompensaSimple { Id = 3, Nombre = "Corazón Brillante", Precio = 20, RutaImagenCompleta = "heart", RutaImagenMiniatura = "heart", TiendaId = tienda1Id },
+                new RecompensaSimple { Id = 4, Nombre = "Medalla de Oro", Precio = 80, RutaImagenCompleta = "medal", RutaImagenMiniatura = "medal", TiendaId = tienda1Id },
+                new RecompensaSimple { Id = 5, Nombre = "Montón de Monedas", Precio = 100, RutaImagenCompleta = "coins", RutaImagenMiniatura = "coins", TiendaId = tienda1Id },
+                // Para Tienda 2
+                new RecompensaSimple { Id = 6, Nombre = "Trofeo Brillante", Precio = 70, RutaImagenCompleta = "trophy", RutaImagenMiniatura = "trophy", TiendaId = tienda2Id },
+                new RecompensaSimple { Id = 7, Nombre = "Llama de Fuego", Precio = 40, RutaImagenCompleta = "fire", RutaImagenMiniatura = "fire", TiendaId = tienda2Id },
+                new RecompensaSimple { Id = 8, Nombre = "Corona Real", Precio = 90, RutaImagenCompleta = "crown", RutaImagenMiniatura = "crown", TiendaId = tienda2Id },
+                new RecompensaSimple { Id = 9, Nombre = "Cohete Espacial", Precio = 60, RutaImagenCompleta = "rocket", RutaImagenMiniatura = "rocket", TiendaId = tienda2Id },
+                new RecompensaSimple { Id = 10, Nombre = "Robot Amistoso", Precio = 55, RutaImagenCompleta = "robot", RutaImagenMiniatura = "robot", TiendaId = tienda2Id }
+            );
 
 
 
@@ -383,38 +301,32 @@ namespace AccesoDatos.RepositoriosEF
 
         private static void PrecargarInventarioInicial(ModelBuilder modelBuilder, List<AtributoAvatar> atributosPorDefecto)
         {
-            // Empezamos los IDs de las nuevas recompensas después de las existentes (que llegaban hasta 10)
+
             int proximoIdRecompensa = 11;
-            var recompensasAvatar = new List<object>();
+            var recompensasAvatar = new List<PersonalizacionAvatar>();
 
             foreach (var atributo in atributosPorDefecto)
             {
-                recompensasAvatar.Add(new
+                recompensasAvatar.Add(new PersonalizacionAvatar
                 {
                     Id = proximoIdRecompensa++,
                     Nombre = $"Item: {atributo.Nombre}",
                     Precio = 0, // Precio 0 porque ya los posee
                     RutaImagenCompleta = atributo.RutaRecurso,
                     RutaImagenMiniatura = atributo.RutaRecurso,
-                    TiendaId = 1, // Asignamos a la tienda del primer grupo
-                    RecompensaTipo = "PersonalizacionAvatar",
+                    TiendaId = 1,
                     AtributoAvatarId = atributo.Id
                 });
             }
 
-            // Precargamos las nuevas recompensas de tipo PersonalizacionAvatar
             modelBuilder.Entity<PersonalizacionAvatar>().HasData(recompensasAvatar);
-            int proximoIdInventario = 1;
-            // Ahora, vinculamos estas nuevas recompensas con el PerfilEstudiante con Id = 1
-            var inventarioInicial = recompensasAvatar.Select(r => new
+
+            var inventarioInicial = recompensasAvatar.Select(r => new PerfilEstudianteRecompensa
             {
-                Id = proximoIdInventario++,
-                PerfilEstudianteId = 1,
-                // Usamos reflexión para obtener el Id de forma segura del objeto anónimo
-                RecompensaId = (int)r.GetType().GetProperty("Id").GetValue(r, null)
+                PerfilEstudianteId = 1, 
+                RecompensaId = r.Id
             }).ToArray();
 
-            // Poblamos la tabla de unión para el inventario
             modelBuilder.Entity<PerfilEstudianteRecompensa>().HasData(inventarioInicial);
         }
     }

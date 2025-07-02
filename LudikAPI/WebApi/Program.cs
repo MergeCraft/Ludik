@@ -45,6 +45,9 @@ using LogicaNegocio.ConstantesAplicacion;
 using LogicaAplicacion.ImplementacionCasosUsos.Login;
 using LogicaAplicacion.InterfacesCasosUsos.Jwt;
 using LogicaAplicacion.InterfacesCasosUsos.Login;
+using IManejadorJwt = LogicaAplicacion.InterfacesCasosUsos.Jwt.IManejadorJwt;
+using LogicaAplicacion.InterfacesCasosUsos.ServicioPrecargaArchivos;
+using WebApi.Servicios;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -147,9 +150,8 @@ builder.Services.AddScoped<IRepositorioAtributosAvatar, RepositorioAtributosAvat
 
 builder.Services.AddAzureClients(clientBuilder =>
 {
-    // Usa esta línea si NO estás en el entorno de desarrollo.
-    // Configura la conexión al servicio de Azure Blob Storage real.
-    // La cadena de conexión debe estar en tus secretos de usuario o Azure Key Vault en producción.
+
+    // TODO: La cadena de conexión debe estar en secretos de usuario o Azure Key Vault en producción.
     if (!builder.Environment.IsDevelopment())
     {
         var connectionString = builder.Configuration.GetConnectionString("AzureStorage");
@@ -209,8 +211,9 @@ builder.Services.AddScoped<IObtenerListadoRecompensa, ObtenerListadoRecompensa>(
 builder.Services.AddScoped<IObtenerRecompensasInventarioPerfil, ObtenerRecompensasInventarioPerfil>();
 builder.Services.AddScoped<ILoginUsuario, LoginUsuario>();
 
+builder.Services.AddScoped<ISeedServicio, SeedServicio>();
 
-
+  
 // -------------------------------
 //      Swagger y CORS
 // -------------------------------
@@ -266,6 +269,27 @@ builder.Services.AddCors(options =>
 
 
 var app = builder.Build();
+
+// --- INICIO: Lógica para precargar archivos 
+if (app.Environment.IsDevelopment())
+{
+    using (var scope = app.Services.CreateScope()) 
+    {
+        var services = scope.ServiceProvider;
+        try
+        {
+            var seeder = services.GetRequiredService<ISeedServicio>();
+            // Usamos .GetAwaiter().GetResult() para ejecutarlo de forma síncrona en el arranque.
+            seeder.PrecargarArchivosAsync().GetAwaiter().GetResult();
+        }
+        catch (Exception ex)
+        {
+            var logger = services.GetRequiredService<ILogger<Program>>();
+            logger.LogError(ex, "Ocurrió un error durante la precarga de archivos.");
+        }
+    }
+}
+// --- FIN: Lógica para precargar archivos ---
 
 // -------------------------------
 // Seed Roles al iniciar la app

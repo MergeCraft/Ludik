@@ -40,8 +40,7 @@ namespace AccesoDatos.RepositoriosEF
         public DbSet<BarraProgreso> BarrasProgreso { get; set; }
         public DbSet<Avatar> Avatares { get; set; }
         public DbSet<AtributoAvatar> AtributosAvatar { get; set; }
-
-
+        public DbSet<PerfilEstudianteRecompensa> PerfilEstudianteRecompensas { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -50,9 +49,9 @@ namespace AccesoDatos.RepositoriosEF
 
             modelBuilder.Entity<Usuario>().UseTptMappingStrategy();
 
-            modelBuilder.Entity<Estudiante>().ToTable("Estudiantes");
-            modelBuilder.Entity<Profesor>().ToTable("Profesores");
-
+            /*
+                modelBuilder.Entity<Estudiante>().ToTable("Estudiantes");
+               modelBuilder.Entity<Profesor>().ToTable("Profesores");
             modelBuilder.Entity<Estudiante>()
                 .HasOne<Usuario>()
                 .WithOne()
@@ -64,7 +63,11 @@ namespace AccesoDatos.RepositoriosEF
                 .WithOne()
                 .HasForeignKey<Profesor>(p => p.Id)
                 .OnDelete(DeleteBehavior.Cascade);
-
+            */
+            modelBuilder.Entity<Recompensa>()
+                .HasDiscriminator<string>("RecompensaTipo")
+                .HasValue<RecompensaSimple>("Simple")
+                .HasValue<PersonalizacionAvatar>("PersonalizacionAvatar");
 
             // --- REGLAS DE BORRADO EN CASCADA DESDE GRUPO ---
             // Un Profesor es dueño de sus Medallas, Grupos y Tablas de Equivalencia.
@@ -308,9 +311,6 @@ namespace AccesoDatos.RepositoriosEF
                  .OnDelete(DeleteBehavior.Cascade);
             });
 
-            modelBuilder.Entity<Recompensa>()
-                .HasDiscriminator<string>("RecompensaTipo")
-                .HasValue<RecompensaSimple>("Simple");
 
             modelBuilder.Entity<BarraProgreso>(bp =>
             {
@@ -341,19 +341,20 @@ namespace AccesoDatos.RepositoriosEF
 
             modelBuilder.Entity<PerfilEstudianteRecompensa>(pr =>
             {
+                pr.HasKey(x => new { x.PerfilEstudianteId, x.RecompensaId });
+
                 pr.ToTable("PerfilEstudianteRecompensas");
-                pr.HasKey(x => x.Id);
-                pr.Property(x => x.Id).ValueGeneratedOnAdd();
+
 
                 pr.HasOne(x => x.PerfilEstudiante)
-                  .WithMany(pe => pe.InventarioRecompensas)
-                  .HasForeignKey(x => x.PerfilEstudianteId)
-                  .OnDelete(DeleteBehavior.Cascade);
+                    .WithMany(pe => pe.InventarioRecompensas)
+                    .HasForeignKey(x => x.PerfilEstudianteId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 pr.HasOne(x => x.Recompensa)
-                  .WithMany()                             // <-- sin navegación inversa
-                  .HasForeignKey(x => x.RecompensaId)
-                  .OnDelete(DeleteBehavior.Restrict);
+                    .WithMany() // No hay navegación inversa directa desde Recompensa a esta tabla de unión.
+                    .HasForeignKey(x => x.RecompensaId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<SolicitudUnion>()

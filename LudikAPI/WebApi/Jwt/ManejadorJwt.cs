@@ -1,13 +1,14 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.IdentityModel.Tokens;
 using LogicaAplicacion.InterfacesCasosUsos.Jwt;
+using Microsoft.IdentityModel.Tokens;
+
 
 namespace WebApi.Jwt
 {
-    public class ManejadorJwt : IManejadorJwt
-    {
+    public class ManejadorJwt :IManejadorJwt{
+
         private readonly IConfiguration _configuracion;
 
         public ManejadorJwt(IConfiguration config)

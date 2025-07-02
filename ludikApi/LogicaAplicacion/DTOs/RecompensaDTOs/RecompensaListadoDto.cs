@@ -13,5 +13,6 @@ namespace LogicaAplicacion.DTOs.RecompensaDTOs
         public string RutaImagenCompleta { get; set; }
         public string RutaImagenMiniatura { get; set; }
         public int Precio { get; set; }
+        public bool RequiereImagen { get; set; }
     }
 }

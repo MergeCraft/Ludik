@@ -22,7 +22,6 @@ namespace AccesoDatos.Servicios
         {
             try
             {
-                // stream que permita seek para leerlo múltiples veces sin problema
                 var sourceStream = new MemoryStream();
                 await streamOriginal.CopyToAsync(sourceStream);
                 sourceStream.Position = 0;

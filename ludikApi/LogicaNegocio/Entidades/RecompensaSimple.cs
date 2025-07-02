@@ -8,5 +8,6 @@ namespace LogicaNegocio.Entidades
 {
     public class RecompensaSimple : Recompensa
     {
+
     }
 }
