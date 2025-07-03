@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using System.Linq;
+using LogicaAplicacion.DTOs.EstablecerMetaCalificacionDto;
 using LogicaAplicacion.InterfacesCasosUsos.PerfilEstudiante;
 using LogicaNegocio.Resultados;
 using LogicaAplicacion.DTOs.PerfilEstudianteDTO;
 using WebApi.Helpers;
+using LogicaAplicacion.DTOs.UsuarioDTOs;
 
 namespace WebApi.Controllers
 {
@@ -16,9 +18,11 @@ namespace WebApi.Controllers
     public class PerfilEstudianteController : ControllerBase
     {
         private readonly IObtenerPerfilConMedallas _uc;
-        public PerfilEstudianteController(IObtenerPerfilConMedallas uc)
+        private readonly IEstablecerMetaCalificacion _establecerMetaCalificacion;
+        public PerfilEstudianteController(IObtenerPerfilConMedallas uc, IEstablecerMetaCalificacion establecerMetaCalificacion)
         {
             _uc = uc;
+            _establecerMetaCalificacion = establecerMetaCalificacion;
         }
 
         /// <summary>
@@ -52,5 +56,30 @@ namespace WebApi.Controllers
 
             return Ok(resultado.Valor);
         }
+        /// <summary>
+        /// Establece la meta de calificacion para el perfil de estudiante.
+        /// </summary>
+        /// <param name="id">El ID de la tabla de equivalencia a modificar.</param>
+        /// <param name="dto">Objeto con los datos necesarios para establecer la meta de calificacion.</param>
+        /// <response code="200">**OK.** Se establecio la meta de calificacion exitosamente.</response>
+        /// <response code="400">**Solicitud Incorrecta.** Los datos proporcionados son inválidos.</response>
+        /// <response code="403">**Prohibido.** El usuario no posee el perfil del estudiante al cual desea establecerle la meta de calificacion.</response>
+        /// <response code="404">**No Encontrado.** No se encontró un perfil de estudiante o grupo con los IDs brindados.</response>
+        [HttpPost("definir-meta-califiacion")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DefinirMetaCalificacion([FromBody] EstablecerMetaCalificacionDto dto)
+        {
+            if (dto == null)
+                return BadRequest(new Error("Error.Validation", "El DTO de meta de calificación no puede ser nulo."));
+            var estudianteId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var resultado = await _establecerMetaCalificacion.EjecutarAsync(dto, estudianteId);
+            return resultado.EsExitoso
+                ? Ok(new { message = "Meta de calificación establecida correctamente." })
+                : this.ManejarFallo(resultado);
+        }
+
     }
 }

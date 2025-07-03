@@ -219,7 +219,7 @@ builder.Services.AddScoped<IObtenerTablaClasificacion, ObtenerTablaClasificacion
 builder.Services.AddScoped<IObtenerTodasLasTablasClasificacion, ObtenerTodasLasTablasClasificacion>();
 builder.Services.AddScoped<IBajaTablaClasificacion, BajaTablaClasificacion>();
 builder.Services.AddScoped<ILoginUsuario, LoginUsuario>();
-
+builder.Services.AddScoped<IEstablecerMetaCalificacion, EstablecerMetaCalificacion>();
 builder.Services.AddScoped<IObtenerContenidoBarraProgreso, ObtenerContenidoBarraProgreso>();
 builder.Services.AddScoped<ISeedServicio, SeedServicio>();
 

@@ -62,6 +62,20 @@ namespace LogicaNegocio.Entidades
         {
             return Inventario?.OfType<PersonalizacionAvatar>().ToList() ?? new List<PersonalizacionAvatar>();
         }
+
+        public Resultado EstablecerMetaDeCalificacion(int nuevaMeta)
+        {
+            int notaMaxDeTablaEquivalencia = Grupo.TablaEquivalencia.ObtenerNotaMaxima();
+            if (nuevaMeta < 0 || notaMaxDeTablaEquivalencia < nuevaMeta)
+            {
+                return Resultado.Falla(new Error("Error.Validation", "La meta de calificación debe estar entre 0 y "+notaMaxDeTablaEquivalencia+"."));
+            }
+
+
+            this.MetaCalificacion = nuevaMeta;
+
+            return Resultado.Exitoso();
+        }
     }
 
 }
