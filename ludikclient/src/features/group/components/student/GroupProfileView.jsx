@@ -10,6 +10,8 @@ import styles from "./GroupProfileView.module.css";
 const GroupProfileView = ({ perfil, isLoading }) => {
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasPerfil(perfil?.id);
 
+  console.log(perfil);
+
   return isLoading ? (
     <div className={styles.barLoaderContainer}>
       <BarLoader color="var(--blanco-secundario)" size={10} />

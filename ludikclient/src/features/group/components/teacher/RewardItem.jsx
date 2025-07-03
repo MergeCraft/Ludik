@@ -10,11 +10,19 @@ const RewardItem = ({ reward, redeemed, perfilId }) => {
   const role = useSelector(selectUserRole);
   const isProfesor = role === "Profesor";
 
-  const { mutate: claimReward, isLoading: isClaiming } = useClaimReward(perfilId, reward.id);
+  const { mutate: claimReward, isLoading: isClaiming } = useClaimReward(perfilId, reward.id, isProfesor);
+
+  console.log(perfilId);
 
   const handleClaimReward = () => {
-    if (!perfilId) return;
+    console.log("Entre a la funcion");
+    console.log(!isProfesor || !perfilId);
+
+    if (isProfesor || !perfilId) return;
+
     claimReward(perfilId, reward.id);
+
+    console.log("Reclame la recompensa");
   };
 
   return (

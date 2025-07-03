@@ -11,6 +11,7 @@ import { useAsignarMedalla } from "../hooks/useGrupoMutation";
 
 const StudentItem = ({ student, medals }) => {
   const [selectedMedal, setSelectedMedal] = useState(""); // <- estado para controlar el valor del select
+  const [medalAsignationOption, setMedalAsignationOption] = useState(true);
   const role = useSelector(selectUserRole);
   const isProfesor = role === "Profesor";
   const { mutate } = useAsignarMedalla();
@@ -32,28 +33,56 @@ const StudentItem = ({ student, medals }) => {
       <img src={student.enlaceAvatarMiniatura || genericProfileImage} alt="avatar" className={styles.avatar} />
       <div className={styles.centrales}>
         <p>{student.nombreEstudiante}</p>
-        <div>
+        <div className={styles.actionsContainer}>
           {isProfesor && (
-            <div className={styles.asignarMedalla}>
-              <p>Asignación de medallas</p>
-              <select
-                className={`button ${styles.medallas}`}
-                name="medallas"
-                value={selectedMedal}
-                onChange={(e) => {
-                  setSelectedMedal(e.target.value); // actualizar UI
-                  handleMedalChange(e); // ejecutar mutación
-                }}
-              >
-                <option value="">Selecciona una medalla</option>
-                {Array.isArray(medals) &&
-                  medals.map((medalla) => (
-                    <option key={medalla.id} value={medalla.id}>
-                      {medalla.nombre}
-                    </option>
-                  ))}
-              </select>
-            </div>
+            <>
+              <button className={styles.opcionBorrado} onClick={() => setMedalAsignationOption((prev) => !prev)}>
+                <FontAwesomeIcon icon="fa-solid fa-trash" size="lg" />
+                <FontAwesomeIcon icon="fa-solid fa-arrow-right-arrow-left" size="2xs" />
+                <FontAwesomeIcon icon="fa-solid fa-plus" size="lg" />
+              </button>
+              <div className={styles.asignarMedalla}>
+                <p>{medalAsignationOption ? "Asignación de medallas" : "Eliminar medallas"}</p>
+
+                {medalAsignationOption ? (
+                  <select
+                    className={`button ${styles.medallas}`}
+                    name="medallas"
+                    value={selectedMedal}
+                    onChange={(e) => {
+                      setSelectedMedal(e.target.value); // actualizar UI
+                      handleMedalChange(e); // ejecutar mutación
+                    }}
+                  >
+                    <option value="">Selecciona medalla</option>
+                    {Array.isArray(medals) &&
+                      medals.map((medalla) => (
+                        <option key={medalla.id} value={medalla.id}>
+                          {medalla.nombre}
+                        </option>
+                      ))}
+                  </select>
+                ) : (
+                  <select
+                    className={`button ${styles.medallas}`}
+                    name="medallas"
+                    value={selectedMedal}
+                    onChange={(e) => {
+                      setSelectedMedal(e.target.value); // actualizar UI
+                      handleMedalChange(e); // ejecutar mutación
+                    }}
+                  >
+                    <option value="">Selecciona medalla</option>
+                    {Array.isArray(medals) &&
+                      medals.map((medalla) => (
+                        <option key={medalla.id} value={medalla.id}>
+                          {medalla.nombre}
+                        </option>
+                      ))}
+                  </select>
+                )}
+              </div>
+            </>
           )}
         </div>
       </div>

@@ -27,8 +27,11 @@ export const useRecompensasPerfil = (perfilId) => {
   });
 };
 
-export const useClaimReward = (perfilId, recompensaId) => {
+export const useClaimReward = (perfilId, recompensaId, isProfesor) => {
   const queryClient = useQueryClient();
+
+  if (isProfesor) return { mutate: () => {}, isLoading: false };
+
   return useMutation({
     mutationFn: () => canjearRecompensa({ perfilId, recompensaId }),
     onSuccess: () => {

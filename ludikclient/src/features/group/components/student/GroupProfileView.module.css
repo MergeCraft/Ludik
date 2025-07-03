@@ -89,7 +89,7 @@
 }
 
 .recompensasGrid>* {
-    background-color: var(--secundario);
+    border: 2px solid var(--secundario);
     padding-bottom: 10px;
 }
 

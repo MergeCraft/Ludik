@@ -136,7 +136,7 @@ const GroupPage = () => {
           ) : (
             <div className={selfStyle.storeContent}>
               {recompensas?.map((reward) => (
-                <RewardItem key={reward.id + reward.nombre} reward={reward} redeemed={false} perfilId={perfil.id} />
+                <RewardItem key={reward.id + reward.nombre} reward={reward} redeemed={false} perfilId={perfil?.id} />
               ))}
               <button className={selfStyle.addRewardButton} onClick={handleOpenRewardCreateForm}>
                 <FontAwesomeIcon icon="fa-solid fa-plus" size="2xl" />
