@@ -27,15 +27,6 @@ namespace LogicaNegocio.Entidades
             Equivalencias = new List<Equivalencia>();
         }
 
-		public Equivalencia siguienteEquivalencia(List<Medalla> medallas)
-		{
-			return null;
-		}
-
-		public int hallarValorMaxDeTabla()
-		{
-			return 0;
-		}
 
 
         public Resultado esValido()
@@ -47,8 +38,6 @@ namespace LogicaNegocio.Entidades
                 errores.Add(new Error("Error.Validation", "El nombre de la Tabla debe tener entre 3 y 50 caracteres."));
             
 
-            // Si no hay equivalencias, la tabla está "vacía" pero es válida en ese estado.
-            // Las reglas de negocio complejas aplican cuando hay al menos una equivalencia.
             if (Equivalencias == null || !Equivalencias.Any())
                 return errores.Any() ? Resultado.Falla(errores) : Resultado.Exitoso();
             
@@ -138,6 +127,38 @@ namespace LogicaNegocio.Entidades
             // Si no se cumple ninguna equivalencia, retornar 0
             return 0;
 
+        }
+
+        public int ObtenerNotaMinima()
+        {
+            if (Equivalencias == null || Equivalencias.Count == 0)
+                return 0;
+            
+            return Equivalencias.Min(e => e.Nota);
+        }
+        public int ObtenerNotaMaxima()
+        {
+            if (Equivalencias == null || Equivalencias.Count == 0)
+                return 0;
+
+            return Equivalencias.Max(e => e.Nota);
+        }
+
+        public List<Medalla> ObtenerMedallasNecesariasParaSiguienteNota(int notaActualDelPerfil)
+        {
+            //Ordenar de menor a mayor
+            Equivalencias.Sort((a, b) => a.Nota.CompareTo(b.Nota));
+
+            foreach (var eq in Equivalencias)
+            {
+                if (eq.Nota > notaActualDelPerfil)
+                {
+                    return eq.MedallasNecesarias;
+                }
+            }
+
+            // Si no hay una nota superior, retornar una lista vacía
+            return new List<Medalla>();
         }
     }
 

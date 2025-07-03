@@ -36,6 +36,7 @@ using Microsoft.OpenApi.Models;
 using WebApi.Helpers;
 using WebApi.Jwt;
 using LogicaAplicacion.ImplementacionCasosUsos.Avatar;
+using LogicaAplicacion.ImplementacionCasosUsos.BarraProgreso;
 using LogicaAplicacion.InterfacesCasosUsos.Recompensa;
 using LogicaAplicacion.ImplementacionCasosUsos.Recompensa;
 using LogicaAplicacion.InterfacesCasosUsos.Tienda;
@@ -48,6 +49,7 @@ using LogicaAplicacion.InterfacesCasosUsos.Login;
 using IManejadorJwt = LogicaAplicacion.InterfacesCasosUsos.Jwt.IManejadorJwt;
 using LogicaAplicacion.InterfacesCasosUsos.ServicioPrecargaArchivos;
 using WebApi.Servicios;
+using LogicaAplicacion.InterfacesCasosUsos.BarraProgreso;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -211,6 +213,7 @@ builder.Services.AddScoped<IObtenerListadoRecompensa, ObtenerListadoRecompensa>(
 builder.Services.AddScoped<IObtenerRecompensasInventarioPerfil, ObtenerRecompensasInventarioPerfil>();
 builder.Services.AddScoped<ILoginUsuario, LoginUsuario>();
 
+builder.Services.AddScoped<IObtenerContenidoBarraProgreso, ObtenerContenidoBarraProgreso>();
 builder.Services.AddScoped<ISeedServicio, SeedServicio>();
 
   
