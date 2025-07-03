@@ -26,12 +26,13 @@ namespace WebApi.Controllers
         private readonly IAceptarSolicitudUnion _aceptarSolicitudUnion;
         private readonly IRechazarSolicitudUnion _rechazarSolicitudUnion;
         private readonly ILoginUsuario _loginUsuario;
+        private readonly IReinicioLogrosDeUnGrupo _reinicioLogrosDeUnGrupo;
         public ProfesorController(IAltaProfesor altaProfesor, 
             IObtenerGruposDeProfesor obtenerGruposDeProfesor, 
             IObtenerSolicitudesUnionDelGrupo obtenerSolicitudesUnionDelGrupo,
             IAceptarSolicitudUnion aceptarSolicitudUnion, 
             IRechazarSolicitudUnion rechazarSolicitudUnion,
-            ILoginUsuario loginUsuario)
+            ILoginUsuario loginUsuario,IReinicioLogrosDeUnGrupo reinicioLogrosDeUnGrupo)
         {
             _altaProfesor = altaProfesor;
             _obtenerGruposDeProfesor = obtenerGruposDeProfesor;
@@ -39,6 +40,7 @@ namespace WebApi.Controllers
             _aceptarSolicitudUnion = aceptarSolicitudUnion;
             _rechazarSolicitudUnion = rechazarSolicitudUnion;
             _loginUsuario = loginUsuario;
+            _reinicioLogrosDeUnGrupo = reinicioLogrosDeUnGrupo;
         }
         /// <summary>
         /// Este endpoint permite registrar un nuevo Profesor en el sistema.
@@ -243,6 +245,56 @@ namespace WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new
                 {
                     Mensaje = "Ocurrió un error inesperado al rechazar la solicitud. " + ex.Message
+                });
+            }
+        }
+        /// <summary>
+        /// Reinicia los logros (medallas) de los perfiles de estudiante de un grupo,
+        /// registrando previamente el rendimiento del período.
+        /// </summary>
+        /// <param name="grupoId">ID del grupo</param>
+        /// <returns>
+        /// 200 OK: Logros reiniciados exitosamente.
+        /// 400 Bad Request: Si hay errores de validación.
+        /// 404 Not Found: Si el grupo no existe.
+        /// 401 Unauthorized: Si no está autenticado.
+        /// 500 Internal Server Error: Si ocurre un error inesperado.
+        /// </returns>
+        [HttpPost("reiniciar-logros")]
+        [Authorize(Policy = "EsProfesor")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ReiniciarLogros([FromQuery][Required] int grupoId)
+        {
+            try
+            {
+                var idProfesorAutenticado = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (string.IsNullOrEmpty(idProfesorAutenticado))
+                    return Unauthorized(new { Mensaje = "No se pudo identificar al usuario autenticado." });
+
+
+                var resultado = await _reinicioLogrosDeUnGrupo.EjecutarAsync(grupoId,idProfesorAutenticado);
+
+                if (resultado.EsFallo)
+                {
+                    if (resultado.Errores.Any(e => e.Codigo == Error.NotFound.Codigo))
+                        return NotFound(resultado.Errores.ToList());
+
+                    return BadRequest(resultado.Errores.ToList());
+                }
+
+                return Ok(new { Mensaje = "Los logros del grupo fueron reiniciados correctamente." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    Mensaje = "Ocurrió un error inesperado al reiniciar los logros. " + ex.Message
                 });
             }
         }

@@ -149,6 +149,7 @@ builder.Services.AddScoped<IRepositorioTiendas, RepositorioTiendasEF>();
 builder.Services.AddScoped<IRepositorioRecompensas, RepositorioRecompensasEF>();
 builder.Services.AddScoped<IRepositorioAtributosAvatar, RepositorioAtributosAvatarEF>();
 builder.Services.AddScoped<IRepositorioTablasClasificacion, RepositorioTablasClasificacionEF>();
+builder.Services.AddScoped<IRepositorioRendimientoPeriodos, RepositorioRendimientoPeriodosEF>();
 
 
 builder.Services.AddAzureClients(clientBuilder =>
@@ -216,6 +217,7 @@ builder.Services.AddScoped<IAltaTablaClasificacion, AltaTablaClasificacion>();
 builder.Services.AddScoped<IObtenerTablaClasificacion, ObtenerTablaClasificacion>();
 builder.Services.AddScoped<IObtenerTodasLasTablasClasificacion, ObtenerTodasLasTablasClasificacion>();
 builder.Services.AddScoped<IBajaTablaClasificacion, BajaTablaClasificacion>();
+builder.Services.AddScoped<IReinicioLogrosDeUnGrupo, ReinicioLogrosDeUnGrupo>();
 builder.Services.AddScoped<ILoginUsuario, LoginUsuario>();
 
 builder.Services.AddScoped<ISeedServicio, SeedServicio>();

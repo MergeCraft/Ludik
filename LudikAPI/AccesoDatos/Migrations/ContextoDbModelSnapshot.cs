@@ -2034,9 +2034,8 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("NotaObtenida")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("NotaObtenida")
+                        .HasColumnType("int");
 
                     b.Property<int>("PerfilEstudianteId")
                         .HasColumnType("int");
@@ -2472,17 +2471,17 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("RendimientoPeriodoMedallas", b =>
                 {
-                    b.Property<int>("MedallaId")
-                        .HasColumnType("int");
-
                     b.Property<int>("RendimientoPeriodoId")
                         .HasColumnType("int");
 
-                    b.HasKey("MedallaId", "RendimientoPeriodoId");
+                    b.Property<int>("MedallaId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("RendimientoPeriodoId");
+                    b.HasKey("RendimientoPeriodoId", "MedallaId");
 
-                    b.ToTable("RendimientoPeriodoMedallas");
+                    b.HasIndex("MedallaId");
+
+                    b.ToTable("RendimientoPeriodoMedallas", (string)null);
                 });
 
             modelBuilder.Entity("TablaClasificacionParticipantes", b =>

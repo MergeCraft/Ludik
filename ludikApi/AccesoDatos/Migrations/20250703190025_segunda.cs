@@ -5,7 +5,7 @@
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
-    public partial class proteccionDeNullos : Migration
+    public partial class segunda : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

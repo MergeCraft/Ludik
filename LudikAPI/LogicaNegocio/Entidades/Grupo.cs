@@ -4,6 +4,7 @@ using LogicaNegocio.InterfacesEntidades;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using LogicaNegocio.Resultados;
+using LogicaNegocio.ValueObject;
 
 namespace LogicaNegocio.Entidades
 {
@@ -90,6 +91,30 @@ namespace LogicaNegocio.Entidades
                 return 0;
 
             return TablaEquivalencia.MaximaCalificacionSegun(medallasObtenidas);
+        }
+        public List<RendimientoPeriodo> ReiniciarMedallasEstudiantes(DateTime desde, DateTime hasta)
+        {
+            var rendimientos = new List<RendimientoPeriodo>();
+
+            foreach (var perfil in Alumnos)
+            {
+                var rendimiento = new RendimientoPeriodo
+                {
+                    PerfilEstudianteId = perfil.Id,
+                    MedallasObtuvoEstudiante = perfil.MedallasObtenidas?.ToList() ?? new List<Medalla>(),
+                    NotaObtenida = perfil.CalcularNotaActual(),
+                    Rangofecha = new RangoFechas(desde, hasta)
+                };
+
+                rendimientos.Add(rendimiento);
+
+                perfil.HistorialRendimientoPeriodos.Add(rendimiento);
+
+                perfil.PerfilMedallas.Clear();
+                
+            }
+
+            return rendimientos;
         }
     }
 

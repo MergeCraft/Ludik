@@ -175,36 +175,34 @@ namespace AccesoDatos.RepositoriosEF
                         .WithMany()
                         .HasForeignKey("EstudianteId"));
 
-            // Relación M:N entre RendimientoPeriodo y Medalla
-            modelBuilder.Entity<RendimientoPeriodo>()
-                .HasMany(rp => rp.MedallasObtuvoEstudiante)
-                .WithMany() // No hay navegación de vuelta en Medalla.
-                .UsingEntity<Dictionary<string, object>>(
-                    "RendimientoPeriodoMedallas", // Nombre para la nueva tabla de unión.
-                    j => j
-                        .HasOne<Medalla>()
-                        .WithMany()
-                        .HasForeignKey("MedallaId")
-                        .OnDelete(DeleteBehavior.Restrict),
-                    j => j
-                        .HasOne<RendimientoPeriodo>()
-                        .WithMany()
-                        .HasForeignKey("RendimientoPeriodoId"));
-
             modelBuilder.Entity<RendimientoPeriodo>(rp =>
             {
-                // Le indicamos a EF que RangoFechas es un "owned type" de RendimientoPeriodo
+                rp.HasKey(r => r.Id);
+                rp.Property(r => r.Id)
+                  .UseIdentityColumn()    // SQL Server: IDENTITY(1,1)
+                  .ValueGeneratedOnAdd(); // nunca incluirá el Id en el INSERT
+
                 rp.OwnsOne(r => r.Rangofecha, rf =>
                 {
-                    // Estas dos propiedades se incluirán como columnas en la tabla RendimientosPeriodos
                     rf.Property(x => x.fechaInicio)
-                        .HasColumnName("FechaInicio")
-                        .IsRequired();
-
+                      .HasColumnName("FechaInicio")
+                      .IsRequired();
                     rf.Property(x => x.fechaFin)
-                        .HasColumnName("FechaFin")
-                        .IsRequired();
+                      .HasColumnName("FechaFin")
+                      .IsRequired();
                 });
+
+                rp.HasMany(r => r.MedallasObtuvoEstudiante)
+                  .WithMany()
+                  .UsingEntity<Dictionary<string, object>>(
+                      "RendimientoPeriodoMedallas",
+                      j => j.HasOne<Medalla>().WithMany().HasForeignKey("MedallaId").OnDelete(DeleteBehavior.Restrict),
+                      j => j.HasOne<RendimientoPeriodo>().WithMany().HasForeignKey("RendimientoPeriodoId").OnDelete(DeleteBehavior.Cascade),
+                      j =>
+                      {
+                          j.HasKey("RendimientoPeriodoId", "MedallaId");
+                          j.ToTable("RendimientoPeriodoMedallas");
+                      });
             });
 
             // CONFIGURACIÓN DE PERFIL ESTUDIANTE Y RELACIONES
@@ -370,7 +368,7 @@ namespace AccesoDatos.RepositoriosEF
                         });
             });
 
-
+            
             modelBuilder.Entity<SolicitudUnion>()
                 .HasOne(s => s.Estudiante)
                 .WithMany()

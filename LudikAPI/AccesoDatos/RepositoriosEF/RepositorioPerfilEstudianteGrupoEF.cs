@@ -163,5 +163,22 @@ namespace AccesoDatos.RepositoriosEF
         {
             throw new NotImplementedException();
         }
+        public async Task<Resultado> SaveCambiosAsync()
+        {
+            try
+            {
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
+                return Resultado.Falla(new Error("Error.BD", $"Error al guardar los cambios: {detalle}"));
+            }
+            catch (Exception ex)
+            {
+                return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
+            }
+        }
     }
 }

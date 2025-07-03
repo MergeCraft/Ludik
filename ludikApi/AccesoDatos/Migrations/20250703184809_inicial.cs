@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
-    public partial class inicialConDatos : Migration
+    public partial class inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -578,7 +578,7 @@ namespace AccesoDatos.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FechaInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaFin = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    NotaObtenida = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NotaObtenida = table.Column<int>(type: "int", nullable: false),
                     PerfilEstudianteId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -596,24 +596,24 @@ namespace AccesoDatos.Migrations
                 name: "TablaClasificacionParticipantes",
                 columns: table => new
                 {
-                    PerfilEstudianteId = table.Column<int>(type: "int", nullable: false),
-                    TablaClasificacionId = table.Column<int>(type: "int", nullable: false)
+                    TablaClasificacionId = table.Column<int>(type: "int", nullable: false),
+                    PerfilEstudianteId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TablaClasificacionParticipantes", x => new { x.PerfilEstudianteId, x.TablaClasificacionId });
+                    table.PrimaryKey("PK_TablaClasificacionParticipantes", x => new { x.TablaClasificacionId, x.PerfilEstudianteId });
                     table.ForeignKey(
                         name: "FK_TablaClasificacionParticipantes_PerfilesEstudiantes_PerfilEstudianteId",
                         column: x => x.PerfilEstudianteId,
                         principalTable: "PerfilesEstudiantes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_TablaClasificacionParticipantes_TablasClasificacion_TablaClasificacionId",
                         column: x => x.TablaClasificacionId,
                         principalTable: "TablasClasificacion",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -678,12 +678,12 @@ namespace AccesoDatos.Migrations
                 name: "RendimientoPeriodoMedallas",
                 columns: table => new
                 {
-                    MedallaId = table.Column<int>(type: "int", nullable: false),
-                    RendimientoPeriodoId = table.Column<int>(type: "int", nullable: false)
+                    RendimientoPeriodoId = table.Column<int>(type: "int", nullable: false),
+                    MedallaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RendimientoPeriodoMedallas", x => new { x.MedallaId, x.RendimientoPeriodoId });
+                    table.PrimaryKey("PK_RendimientoPeriodoMedallas", x => new { x.RendimientoPeriodoId, x.MedallaId });
                     table.ForeignKey(
                         name: "FK_RendimientoPeriodoMedallas_Medallas_MedallaId",
                         column: x => x.MedallaId,
@@ -1278,9 +1278,9 @@ namespace AccesoDatos.Migrations
                 column: "TiendaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RendimientoPeriodoMedallas_RendimientoPeriodoId",
+                name: "IX_RendimientoPeriodoMedallas_MedallaId",
                 table: "RendimientoPeriodoMedallas",
-                column: "RendimientoPeriodoId");
+                column: "MedallaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RendimientosPeriodos_PerfilEstudianteId",
@@ -1305,9 +1305,9 @@ namespace AccesoDatos.Migrations
                 column: "GrupoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TablaClasificacionParticipantes_TablaClasificacionId",
+                name: "IX_TablaClasificacionParticipantes_PerfilEstudianteId",
                 table: "TablaClasificacionParticipantes",
-                column: "TablaClasificacionId");
+                column: "PerfilEstudianteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TablasClasificacion_GrupoId",
