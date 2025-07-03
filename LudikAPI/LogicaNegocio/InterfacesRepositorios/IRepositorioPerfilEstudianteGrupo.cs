@@ -13,6 +13,8 @@ namespace InterfacesRepositorio
 
         Task<Resultado<PerfilEstudiante>> GetByEstudianteYGrupoConMedallasAsync(string estudianteId, int grupoId);
         public Task<Resultado<IEnumerable<Recompensa>>> ObtenerItemsAvatarAdquiridosAsync(int idPerfilEstudiante);
+        public Task<Resultado> SaveCambiosAsync();
+
 
 
 

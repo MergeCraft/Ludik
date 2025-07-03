@@ -11,9 +11,9 @@ namespace LogicaNegocio.Entidades
         [Required]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "El nombre Recompensa  debe tener entre 3 y 50 caracteres.")]
         public string Nombre { get; set; }
-        
-        public string RutaImagenCompleta { get; set; }
+        public string RutaImagenCompleta { get; set; }                                                                                                                                                                                  
         public string RutaImagenMiniatura { get; set; }
+        public bool RequiereImagen { get; set; }
 
         public int Precio { get; set; }
         public int TiendaId { get; set; }

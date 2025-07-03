@@ -73,11 +73,15 @@ namespace AccesoDatos.RepositoriosEF
                 var perfil = await _db.PerfilesEstudiantes
                     .Include(p => p.InventarioRecompensas)
                         .ThenInclude(ir => ir.Recompensa)
+                            .ThenInclude(r => (r as PersonalizacionAvatar).AtributoDesbloqueable)
                     .Include(p => p.PerfilMedallas)
                         .ThenInclude(pm => pm.Medalla)
                     .Include(p => p.BarraProgreso)
                     .Include(p => p.Estudiante)   
                     .Include(p => p.Grupo)     
+                    .Include(p => p.Grupo.TablaEquivalencia)
+                        .ThenInclude(te => te.Equivalencias)
+                            .ThenInclude(eq => eq.MedallasNecesarias)
                     .FirstOrDefaultAsync(p => p.Id == id);
 
                 if (perfil == null)
@@ -161,6 +165,23 @@ namespace AccesoDatos.RepositoriosEF
         public Task<Resultado<IEnumerable<Recompensa>>> ObtenerItemsAvatarAdquiridosAsync(int idPerfilEstudiante)
         {
             throw new NotImplementedException();
+        }
+        public async Task<Resultado> SaveCambiosAsync()
+        {
+            try
+            {
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
+                return Resultado.Falla(new Error("Error.BD", $"Error al guardar los cambios: {detalle}"));
+            }
+            catch (Exception ex)
+            {
+                return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
+            }
         }
     }
 }

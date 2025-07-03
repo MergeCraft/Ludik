@@ -1,10 +1,12 @@
 ﻿using LogicaNegocio.Entidades;
 using LogicaAplicacion.DTOs.UsuarioDTOs;
+using LogicaAplicacion.InterfacesCasosUsos.Login;
 using LogicaNegocio.Excepciones;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Jwt;
+using WebApi.Helpers;
 
 namespace WebApi.Controllers
 {
@@ -12,18 +14,11 @@ namespace WebApi.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly IManejadorJwt _manejadorJwt;
-        private readonly UserManager<Usuario> _userManager; 
-        private readonly SignInManager<Usuario> _signInManager;
+        private readonly ILoginUsuario _loginUsuario;
 
-        public LoginController(
-            IManejadorJwt manejadorJwt,
-            UserManager<Usuario> userManager,
-            SignInManager<Usuario> signInManager)
+        public LoginController(ILoginUsuario loginUsuario)
         {
-            _manejadorJwt = manejadorJwt;
-            _userManager = userManager;
-            _signInManager = signInManager;
+            _loginUsuario = loginUsuario;
         }
 
         /// <summary>
@@ -48,59 +43,11 @@ namespace WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            try
-            {
+            var resultado = await _loginUsuario.EjecutarAsync(loginSolicitud);
 
-                var result = await _signInManager.PasswordSignInAsync(
-                    loginSolicitud.NombreUsuario,
-                    loginSolicitud.Contrasenia,
-                    isPersistent: false,
-                    lockoutOnFailure: true);
-
-                if (result.Succeeded)
-                {
-                    var usuario = await _userManager.FindByNameAsync(loginSolicitud.NombreUsuario);
-                    if (usuario == null)
-                        return Unauthorized(new { Mensaje = "Error al obtener los detalles del usuario." });
-                    
-
-                    var roles = await _userManager.GetRolesAsync(usuario);
-                    string rolUnico = roles.FirstOrDefault();
-
-                    string token = _manejadorJwt.GenerarToken(
-                        usuario.Id,
-                        usuario.UserName,
-                        rolUnico
-                    );
-
-                    var respuesta = new LoginRespuestaDto
-                    {
-                        Token = token,
-                        Rol = rolUnico, 
-                        NombreUsuario = usuario.UserName,
-                        Id = usuario.Id
-                    };
-
-                    return Ok(respuesta);
-                }
-
-                if (result.IsLockedOut)
-                    return Unauthorized(new { Mensaje = "Cuenta bloqueada. Intente más tarde." });
-                
-
-                // Si ninguna de las anteriores, es credenciales incorrectas.
-                return Unauthorized(new { Mensaje = "Nombre de usuario o contraseña incorrectos." });
-
-            }
-            catch (ArgumentNullException ex)
-            {
-                return BadRequest(new { Mensaje = "Los datos de la solicitud no pueden ser nulos.", Detalle = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    new { Mensaje = $"Ocurrió un error inesperado durante el inicio de sesión.", Detalle = ex.Message });
-            }
+            return resultado.EsExitoso
+                ? Ok(resultado.Valor)
+                : this.ManejarFallo(resultado);
         }
     }
 

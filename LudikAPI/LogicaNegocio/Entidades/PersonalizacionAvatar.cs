@@ -8,4 +8,9 @@ public class PersonalizacionAvatar: Recompensa
 
     [ForeignKey(nameof(AtributoAvatarId))]
     public virtual AtributoAvatar AtributoDesbloqueable { get; set; }
+
+    public PersonalizacionAvatar()
+    {
+        RequiereImagen = true; // Por defecto, las personalizaciones de avatar requieren imagen
+    }
 }

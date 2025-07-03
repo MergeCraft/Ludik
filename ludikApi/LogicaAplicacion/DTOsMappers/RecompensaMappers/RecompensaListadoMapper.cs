@@ -19,7 +19,8 @@ namespace LogicaAplicacion.DTOsMappers.RecompensaMappers
                 Nombre = entidad.Nombre,
                 RutaImagenCompleta = entidad.RutaImagenCompleta,
                 RutaImagenMiniatura = entidad.RutaImagenMiniatura,
-                Precio = entidad.Precio
+                Precio = entidad.Precio,
+                RequiereImagen = entidad.RequiereImagen
             };
         }
     }

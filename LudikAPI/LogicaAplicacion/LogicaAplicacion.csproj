@@ -7,15 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="InterfacesCasosUsos\Usuario\**" />
+    <EmbeddedResource Remove="InterfacesCasosUsos\Usuario\**" />
+    <None Remove="InterfacesCasosUsos\Usuario\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\LogicaNegocio\LogicaNegocio.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="DTOs\AtributoAvatarDTOs\" />
+    <Folder Include="DTOs\ImagenDto\" />
     <Folder Include="ImplementacionCasosUsos\Avatar\" />
+    <Folder Include="ImplementacionCasosUsos\Imagenes\Estrategias\" />
+    <Folder Include="ImplementacionCasosUsos\Login\" />
     <Folder Include="ImplementacionCasosUsos\Usuarios\" />
-    <Folder Include="InterfacesCasosUsos\Imagenes\" />
-    <Folder Include="InterfacesCasosUsos\Usuario\" />
+    <Folder Include="InterfacesCasosUsos\ServicioPrecargaArchivos\" />
   </ItemGroup>
 
 </Project>

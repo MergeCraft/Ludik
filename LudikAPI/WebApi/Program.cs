@@ -36,10 +36,22 @@ using Microsoft.OpenApi.Models;
 using WebApi.Helpers;
 using WebApi.Jwt;
 using LogicaAplicacion.ImplementacionCasosUsos.Avatar;
+using LogicaAplicacion.ImplementacionCasosUsos.BarraProgreso;
 using LogicaAplicacion.InterfacesCasosUsos.Recompensa;
 using LogicaAplicacion.ImplementacionCasosUsos.Recompensa;
 using LogicaAplicacion.InterfacesCasosUsos.Tienda;
 using LogicaAplicacion.ImplementacionCasosUsos.Tienda;
+using LogicaAplicacion.ImplementacionCasosUsos.Imagenes.Estrategias;
+using LogicaNegocio.ConstantesAplicacion;
+using LogicaAplicacion.ImplementacionCasosUsos.Login;
+using LogicaAplicacion.InterfacesCasosUsos.Jwt;
+using LogicaAplicacion.InterfacesCasosUsos.Login;
+using IManejadorJwt = LogicaAplicacion.InterfacesCasosUsos.Jwt.IManejadorJwt;
+using LogicaAplicacion.InterfacesCasosUsos.ServicioPrecargaArchivos;
+using WebApi.Servicios;
+using LogicaAplicacion.InterfacesCasosUsos.TablaClasificacion;
+using LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion;
+using LogicaAplicacion.InterfacesCasosUsos.BarraProgreso;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -138,13 +150,14 @@ builder.Services.AddScoped<IRepositorioAvatares, RepositorioAvataresEF>();
 builder.Services.AddScoped<IRepositorioTiendas, RepositorioTiendasEF>();
 builder.Services.AddScoped<IRepositorioRecompensas, RepositorioRecompensasEF>();
 builder.Services.AddScoped<IRepositorioAtributosAvatar, RepositorioAtributosAvatarEF>();
+builder.Services.AddScoped<IRepositorioTablasClasificacion, RepositorioTablasClasificacionEF>();
+builder.Services.AddScoped<IRepositorioRendimientoPeriodos, RepositorioRendimientoPeriodosEF>();
 
 
 builder.Services.AddAzureClients(clientBuilder =>
 {
-    // Usa esta línea si NO estás en el entorno de desarrollo.
-    // Configura la conexión al servicio de Azure Blob Storage real.
-    // La cadena de conexión debe estar en tus secretos de usuario o Azure Key Vault en producción.
+
+    // TODO: La cadena de conexión debe estar en secretos de usuario o Azure Key Vault en producción.
     if (!builder.Environment.IsDevelopment())
     {
         var connectionString = builder.Configuration.GetConnectionString("AzureStorage");
@@ -187,7 +200,10 @@ builder.Services.AddScoped<IAsignarMedalla, AsignarMedalla>();
 builder.Services.AddScoped<IQuitarMedalla, QuitarMedalla>();
 builder.Services.AddScoped<IObtenerTablasEquivalenciaDelProfesor,ObtenerTablasEquivalenciaDelProfesor>();
 builder.Services.AddScoped<IObtenerPerfilConMedallas, ObtenerPerfilConMedallas>();
-builder.Services.AddScoped<IServicioGestionImagenPerfil, ServicioGestionImagenPerfil>();
+
+builder.Services.AddScoped<IServicioGestionImagen, ServicioGestionImagen>();
+builder.Services.AddKeyedScoped<IActualizadorRutaImagen, ActualizadorImagenPerfilEstudiante>(Constantes.PropositoImagen.PerfilEstudiante);
+builder.Services.AddKeyedScoped<IActualizadorRutaImagen, ActualizadorImagenPerfilProfesor>(Constantes.PropositoImagen.PerfilProfesor);
 builder.Services.AddScoped<IServicioProcesamientoImagenes, ServicioImageSharp>();
 builder.Services.AddScoped<IModificarAvatar, ModificarAvatar>();
 builder.Services.AddScoped<IObtenerAtributosAvatarDisponiblesParaPerfil, ObtenerAtributosAvatarDisponiblesParaPerfil>();
@@ -199,9 +215,17 @@ builder.Services.AddScoped<IBajaRecompensa, BajaRecompensa>();
 builder.Services.AddScoped<ICanjearRecompensa, CanjearRecompensa>();
 builder.Services.AddScoped<IObtenerListadoRecompensa, ObtenerListadoRecompensa>();
 builder.Services.AddScoped<IObtenerRecompensasInventarioPerfil, ObtenerRecompensasInventarioPerfil>();
+builder.Services.AddScoped<IAltaTablaClasificacion, AltaTablaClasificacion>();
+builder.Services.AddScoped<IObtenerTablaClasificacion, ObtenerTablaClasificacion>();
+builder.Services.AddScoped<IObtenerTodasLasTablasClasificacion, ObtenerTodasLasTablasClasificacion>();
+builder.Services.AddScoped<IBajaTablaClasificacion, BajaTablaClasificacion>();
+builder.Services.AddScoped<IReinicioLogrosDeUnGrupo, ReinicioLogrosDeUnGrupo>();
+builder.Services.AddScoped<ILoginUsuario, LoginUsuario>();
 
+builder.Services.AddScoped<IObtenerContenidoBarraProgreso, ObtenerContenidoBarraProgreso>();
+builder.Services.AddScoped<ISeedServicio, SeedServicio>();
 
-
+  
 // -------------------------------
 //      Swagger y CORS
 // -------------------------------
@@ -257,6 +281,27 @@ builder.Services.AddCors(options =>
 
 
 var app = builder.Build();
+
+// --- INICIO: Lógica para precargar archivos 
+if (app.Environment.IsDevelopment())
+{
+    using (var scope = app.Services.CreateScope()) 
+    {
+        var services = scope.ServiceProvider;
+        try
+        {
+            var seeder = services.GetRequiredService<ISeedServicio>();
+            // Usamos .GetAwaiter().GetResult() para ejecutarlo de forma síncrona en el arranque.
+            seeder.PrecargarArchivosAsync().GetAwaiter().GetResult();
+        }
+        catch (Exception ex)
+        {
+            var logger = services.GetRequiredService<ILogger<Program>>();
+            logger.LogError(ex, "Ocurrió un error durante la precarga de archivos.");
+        }
+    }
+}
+// --- FIN: Lógica para precargar archivos ---
 
 // -------------------------------
 // Seed Roles al iniciar la app

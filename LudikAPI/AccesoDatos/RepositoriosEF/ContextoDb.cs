@@ -17,14 +17,6 @@ namespace AccesoDatos.RepositoriosEF
         {
         }
 
-        // OnConfiguring queda de respaldo
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=ludik;Integrated Security=True;Encrypt=False");
-            }
-        }
 
         //Aqui se definen las tablas de la base de datos
         public DbSet<Profesor> Profesores { get; set; }
@@ -48,8 +40,7 @@ namespace AccesoDatos.RepositoriosEF
         public DbSet<BarraProgreso> BarrasProgreso { get; set; }
         public DbSet<Avatar> Avatares { get; set; }
         public DbSet<AtributoAvatar> AtributosAvatar { get; set; }
-
-
+        public DbSet<PerfilEstudianteRecompensa> PerfilEstudianteRecompensas { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -58,9 +49,9 @@ namespace AccesoDatos.RepositoriosEF
 
             modelBuilder.Entity<Usuario>().UseTptMappingStrategy();
 
-            modelBuilder.Entity<Estudiante>().ToTable("Estudiantes");
-            modelBuilder.Entity<Profesor>().ToTable("Profesores");
-
+            /*
+                modelBuilder.Entity<Estudiante>().ToTable("Estudiantes");
+               modelBuilder.Entity<Profesor>().ToTable("Profesores");
             modelBuilder.Entity<Estudiante>()
                 .HasOne<Usuario>()
                 .WithOne()
@@ -72,7 +63,11 @@ namespace AccesoDatos.RepositoriosEF
                 .WithOne()
                 .HasForeignKey<Profesor>(p => p.Id)
                 .OnDelete(DeleteBehavior.Cascade);
-
+            */
+            modelBuilder.Entity<Recompensa>()
+                .HasDiscriminator<string>("RecompensaTipo")
+                .HasValue<RecompensaSimple>("Simple")
+                .HasValue<PersonalizacionAvatar>("PersonalizacionAvatar");
 
             // --- REGLAS DE BORRADO EN CASCADA DESDE GRUPO ---
             // Un Profesor es dueño de sus Medallas, Grupos y Tablas de Equivalencia.
@@ -148,35 +143,6 @@ namespace AccesoDatos.RepositoriosEF
 
             });
            
-           
-
-            modelBuilder.Entity<TablaClasificacion>()
-                .HasMany(tc => tc.Participantes)
-                .WithMany() // No hay navegación de vuelta en PerfilEstudiante para esta relación
-                .UsingEntity<Dictionary<string, object>>(
-                    "TablaClasificacionParticipantes", // Nombre de la tabla de unión
-                    // Configuración para la FK a PerfilEstudiante
-                    j => j
-                        .HasOne<PerfilEstudiante>()
-                        .WithMany()
-                        .HasForeignKey("PerfilEstudianteId")
-                        .OnDelete(DeleteBehavior.Cascade), // Si se borra un Perfil, que se elimine su participación.
-
-                    // Configuración para la FK a TablaClasificacion
-                    j => j
-                        .HasOne<TablaClasificacion>()
-                        .WithMany()
-                        .HasForeignKey("TablaClasificacionId")
-                        .OnDelete(DeleteBehavior.Restrict) 
-                );
-            modelBuilder.Entity<TablaClasificacion>(tc =>
-            {
-                tc.HasOne(t => t.MedallaAsociada)
-                  .WithMany() // o .WithMany(m => m.TablasClasificacion) si tuvieras navegación inversa en Medalla
-                  .HasForeignKey("MedallaAsociadaId") // asegúrate de que coincide con el nombre de la columna FK
-                  .OnDelete(DeleteBehavior.Restrict);
-            });
-
             // Relación M:N entre Equivalencia y Medalla (MedallasNecesarias)
             modelBuilder.Entity<Equivalencia>()
                 .HasMany(e => e.MedallasNecesarias)
@@ -209,36 +175,34 @@ namespace AccesoDatos.RepositoriosEF
                         .WithMany()
                         .HasForeignKey("EstudianteId"));
 
-            // Relación M:N entre RendimientoPeriodo y Medalla
-            modelBuilder.Entity<RendimientoPeriodo>()
-                .HasMany(rp => rp.MedallasObtuvoEstudiante)
-                .WithMany() // No hay navegación de vuelta en Medalla.
-                .UsingEntity<Dictionary<string, object>>(
-                    "RendimientoPeriodoMedallas", // Nombre para la nueva tabla de unión.
-                    j => j
-                        .HasOne<Medalla>()
-                        .WithMany()
-                        .HasForeignKey("MedallaId")
-                        .OnDelete(DeleteBehavior.Restrict),
-                    j => j
-                        .HasOne<RendimientoPeriodo>()
-                        .WithMany()
-                        .HasForeignKey("RendimientoPeriodoId"));
-
             modelBuilder.Entity<RendimientoPeriodo>(rp =>
             {
-                // Le indicamos a EF que RangoFechas es un "owned type" de RendimientoPeriodo
+                rp.HasKey(r => r.Id);
+                rp.Property(r => r.Id)
+                  .UseIdentityColumn()    // SQL Server: IDENTITY(1,1)
+                  .ValueGeneratedOnAdd(); // nunca incluirá el Id en el INSERT
+
                 rp.OwnsOne(r => r.Rangofecha, rf =>
                 {
-                    // Estas dos propiedades se incluirán como columnas en la tabla RendimientosPeriodos
                     rf.Property(x => x.fechaInicio)
-                        .HasColumnName("FechaInicio")
-                        .IsRequired();
-
+                      .HasColumnName("FechaInicio")
+                      .IsRequired();
                     rf.Property(x => x.fechaFin)
-                        .HasColumnName("FechaFin")
-                        .IsRequired();
+                      .HasColumnName("FechaFin")
+                      .IsRequired();
                 });
+
+                rp.HasMany(r => r.MedallasObtuvoEstudiante)
+                  .WithMany()
+                  .UsingEntity<Dictionary<string, object>>(
+                      "RendimientoPeriodoMedallas",
+                      j => j.HasOne<Medalla>().WithMany().HasForeignKey("MedallaId").OnDelete(DeleteBehavior.Restrict),
+                      j => j.HasOne<RendimientoPeriodo>().WithMany().HasForeignKey("RendimientoPeriodoId").OnDelete(DeleteBehavior.Cascade),
+                      j =>
+                      {
+                          j.HasKey("RendimientoPeriodoId", "MedallaId");
+                          j.ToTable("RendimientoPeriodoMedallas");
+                      });
             });
 
             // CONFIGURACIÓN DE PERFIL ESTUDIANTE Y RELACIONES
@@ -316,9 +280,6 @@ namespace AccesoDatos.RepositoriosEF
                  .OnDelete(DeleteBehavior.Cascade);
             });
 
-            modelBuilder.Entity<Recompensa>()
-                .HasDiscriminator<string>("RecompensaTipo")
-                .HasValue<RecompensaSimple>("Simple");
 
             modelBuilder.Entity<BarraProgreso>(bp =>
             {
@@ -329,6 +290,8 @@ namespace AccesoDatos.RepositoriosEF
                     .HasForeignKey("TablaEquivalenciaId")
                     .OnDelete(DeleteBehavior.Restrict);
             });
+
+
 
             modelBuilder.Entity<TablaEquivalencia>(te =>
             {
@@ -349,21 +312,63 @@ namespace AccesoDatos.RepositoriosEF
 
             modelBuilder.Entity<PerfilEstudianteRecompensa>(pr =>
             {
+                pr.HasKey(x => new { x.PerfilEstudianteId, x.RecompensaId });
+
                 pr.ToTable("PerfilEstudianteRecompensas");
-                pr.HasKey(x => x.Id);
-                pr.Property(x => x.Id).ValueGeneratedOnAdd();
+
 
                 pr.HasOne(x => x.PerfilEstudiante)
-                  .WithMany(pe => pe.InventarioRecompensas)
-                  .HasForeignKey(x => x.PerfilEstudianteId)
-                  .OnDelete(DeleteBehavior.Cascade);
+                    .WithMany(pe => pe.InventarioRecompensas)
+                    .HasForeignKey(x => x.PerfilEstudianteId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 pr.HasOne(x => x.Recompensa)
-                  .WithMany()                             // <-- sin navegación inversa
-                  .HasForeignKey(x => x.RecompensaId)
-                  .OnDelete(DeleteBehavior.Restrict);
+                    .WithMany() // No hay navegación inversa directa desde Recompensa a esta tabla de unión.
+                    .HasForeignKey(x => x.RecompensaId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
+            modelBuilder.Entity<TablaClasificacion>(entity =>
+            {
+                entity.HasKey(t => t.Id);
+
+                entity.Property(t => t.Nombre)
+                      .IsRequired()
+                      .HasMaxLength(50);
+
+                entity.HasOne(t => t.MedallaAsociada)
+                      .WithMany()
+                      .HasForeignKey(t => t.MedallaAsociadaId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(t => t.Grupo)
+                      .WithMany(g => g.TablasClasificacion)
+                      .HasForeignKey(t => t.GrupoId)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                entity
+                    .HasMany(t => t.Participantes)
+                    .WithMany(p => p.TablasClasificacion) // ← ya no es string, es propiedad real
+                    .UsingEntity<Dictionary<string, object>>(
+                        "TablaClasificacionParticipantes",
+                        j => j
+                            .HasOne<PerfilEstudiante>()
+                            .WithMany()
+                            .HasForeignKey("PerfilEstudianteId")
+                            .OnDelete(DeleteBehavior.Restrict),
+                        j => j
+                            .HasOne<TablaClasificacion>()
+                            .WithMany()
+                            .HasForeignKey("TablaClasificacionId")
+                            .OnDelete(DeleteBehavior.Cascade),
+                        j =>
+                        {
+                            j.HasKey("TablaClasificacionId", "PerfilEstudianteId");
+                            j.ToTable("TablaClasificacionParticipantes");
+                        });
+            });
+
+            
             modelBuilder.Entity<SolicitudUnion>()
                 .HasOne(s => s.Estudiante)
                 .WithMany()

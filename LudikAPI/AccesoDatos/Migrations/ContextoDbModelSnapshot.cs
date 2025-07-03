@@ -1830,21 +1830,16 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("LogicaNegocio.Entidades.PerfilEstudianteRecompensa", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<int>("PerfilEstudianteId")
                         .HasColumnType("int");
 
                     b.Property<int>("RecompensaId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
-                    b.HasIndex("PerfilEstudianteId");
+                    b.HasKey("PerfilEstudianteId", "RecompensaId");
 
                     b.HasIndex("RecompensaId");
 
@@ -1853,75 +1848,75 @@ namespace AccesoDatos.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 11
+                            RecompensaId = 11,
+                            Id = 0
                         },
                         new
                         {
-                            Id = 2,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 12
+                            RecompensaId = 12,
+                            Id = 0
                         },
                         new
                         {
-                            Id = 3,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 13
+                            RecompensaId = 13,
+                            Id = 0
                         },
                         new
                         {
-                            Id = 4,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 14
+                            RecompensaId = 14,
+                            Id = 0
                         },
                         new
                         {
-                            Id = 5,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 15
+                            RecompensaId = 15,
+                            Id = 0
                         },
                         new
                         {
-                            Id = 6,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 16
+                            RecompensaId = 16,
+                            Id = 0
                         },
                         new
                         {
-                            Id = 7,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 17
+                            RecompensaId = 17,
+                            Id = 0
                         },
                         new
                         {
-                            Id = 8,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 18
+                            RecompensaId = 18,
+                            Id = 0
                         },
                         new
                         {
-                            Id = 9,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 19
+                            RecompensaId = 19,
+                            Id = 0
                         },
                         new
                         {
-                            Id = 10,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 20
+                            RecompensaId = 20,
+                            Id = 0
                         },
                         new
                         {
-                            Id = 11,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 21
+                            RecompensaId = 21,
+                            Id = 0
                         },
                         new
                         {
-                            Id = 12,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 22
+                            RecompensaId = 22,
+                            Id = 0
                         });
                 });
 
@@ -2004,6 +1999,9 @@ namespace AccesoDatos.Migrations
                         .HasMaxLength(21)
                         .HasColumnType("nvarchar(21)");
 
+                    b.Property<bool>("RequiereImagen")
+                        .HasColumnType("bit");
+
                     b.Property<string>("RutaImagenCompleta")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -2026,108 +2024,6 @@ namespace AccesoDatos.Migrations
                     b.HasDiscriminator<string>("RecompensaTipo").HasValue("Recompensa");
 
                     b.UseTphMappingStrategy();
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Nombre = "Estrella Mágica",
-                            Precio = 50,
-                            RecompensaTipo = "Simple",
-                            RutaImagenCompleta = "star",
-                            RutaImagenMiniatura = "star",
-                            TiendaId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Nombre = "Regalo Sorpresa",
-                            Precio = 30,
-                            RecompensaTipo = "Simple",
-                            RutaImagenCompleta = "gift",
-                            RutaImagenMiniatura = "gift",
-                            TiendaId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Nombre = "Corazón Brillante",
-                            Precio = 20,
-                            RecompensaTipo = "Simple",
-                            RutaImagenCompleta = "heart",
-                            RutaImagenMiniatura = "heart",
-                            TiendaId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Nombre = "Medalla de Oro",
-                            Precio = 80,
-                            RecompensaTipo = "Simple",
-                            RutaImagenCompleta = "medal",
-                            RutaImagenMiniatura = "medal",
-                            TiendaId = 1
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Nombre = "Montón de Monedas",
-                            Precio = 100,
-                            RecompensaTipo = "Simple",
-                            RutaImagenCompleta = "coins",
-                            RutaImagenMiniatura = "coins",
-                            TiendaId = 1
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Nombre = "Trofeo Brillante",
-                            Precio = 70,
-                            RecompensaTipo = "Simple",
-                            RutaImagenCompleta = "trophy",
-                            RutaImagenMiniatura = "trophy",
-                            TiendaId = 2
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Nombre = "Llama de Fuego",
-                            Precio = 40,
-                            RecompensaTipo = "Simple",
-                            RutaImagenCompleta = "fire",
-                            RutaImagenMiniatura = "fire",
-                            TiendaId = 2
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Nombre = "Corona Real",
-                            Precio = 90,
-                            RecompensaTipo = "Simple",
-                            RutaImagenCompleta = "crown",
-                            RutaImagenMiniatura = "crown",
-                            TiendaId = 2
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Nombre = "Cohete Espacial",
-                            Precio = 60,
-                            RecompensaTipo = "Simple",
-                            RutaImagenCompleta = "rocket",
-                            RutaImagenMiniatura = "rocket",
-                            TiendaId = 2
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Nombre = "Robot Amistoso",
-                            Precio = 55,
-                            RecompensaTipo = "Simple",
-                            RutaImagenCompleta = "robot",
-                            RutaImagenMiniatura = "robot",
-                            TiendaId = 2
-                        });
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.RendimientoPeriodo", b =>
@@ -2138,9 +2034,8 @@ namespace AccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("NotaObtenida")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("NotaObtenida")
+                        .HasColumnType("int");
 
                     b.Property<int>("PerfilEstudianteId")
                         .HasColumnType("int");
@@ -2576,32 +2471,32 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("RendimientoPeriodoMedallas", b =>
                 {
-                    b.Property<int>("MedallaId")
-                        .HasColumnType("int");
-
                     b.Property<int>("RendimientoPeriodoId")
                         .HasColumnType("int");
 
-                    b.HasKey("MedallaId", "RendimientoPeriodoId");
+                    b.Property<int>("MedallaId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("RendimientoPeriodoId");
+                    b.HasKey("RendimientoPeriodoId", "MedallaId");
 
-                    b.ToTable("RendimientoPeriodoMedallas");
+                    b.HasIndex("MedallaId");
+
+                    b.ToTable("RendimientoPeriodoMedallas", (string)null);
                 });
 
             modelBuilder.Entity("TablaClasificacionParticipantes", b =>
                 {
-                    b.Property<int>("PerfilEstudianteId")
-                        .HasColumnType("int");
-
                     b.Property<int>("TablaClasificacionId")
                         .HasColumnType("int");
 
-                    b.HasKey("PerfilEstudianteId", "TablaClasificacionId");
+                    b.Property<int>("PerfilEstudianteId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("TablaClasificacionId");
+                    b.HasKey("TablaClasificacionId", "PerfilEstudianteId");
 
-                    b.ToTable("TablaClasificacionParticipantes");
+                    b.HasIndex("PerfilEstudianteId");
+
+                    b.ToTable("TablaClasificacionParticipantes", (string)null);
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.PersonalizacionAvatar", b =>
@@ -2621,7 +2516,7 @@ namespace AccesoDatos.Migrations
                             Id = 11,
                             Nombre = "Item: ShortFlat",
                             Precio = 0,
-                            RecompensaTipo = "PersonalizacionAvatar",
+                            RequiereImagen = true,
                             RutaImagenCompleta = "avatar/pelo/shortFlat.svg",
                             RutaImagenMiniatura = "avatar/pelo/shortFlat.svg",
                             TiendaId = 1,
@@ -2632,7 +2527,7 @@ namespace AccesoDatos.Migrations
                             Id = 12,
                             Nombre = "Item: Default",
                             Precio = 0,
-                            RecompensaTipo = "PersonalizacionAvatar",
+                            RequiereImagen = true,
                             RutaImagenCompleta = "avatar/cejas/default.svg",
                             RutaImagenMiniatura = "avatar/cejas/default.svg",
                             TiendaId = 1,
@@ -2643,7 +2538,7 @@ namespace AccesoDatos.Migrations
                             Id = 13,
                             Nombre = "Item: DefaultNatural",
                             Precio = 0,
-                            RecompensaTipo = "PersonalizacionAvatar",
+                            RequiereImagen = true,
                             RutaImagenCompleta = "avatar/cejas/defaultNatural.svg",
                             RutaImagenMiniatura = "avatar/cejas/defaultNatural.svg",
                             TiendaId = 1,
@@ -2654,7 +2549,7 @@ namespace AccesoDatos.Migrations
                             Id = 14,
                             Nombre = "Item: Smile",
                             Precio = 0,
-                            RecompensaTipo = "PersonalizacionAvatar",
+                            RequiereImagen = true,
                             RutaImagenCompleta = "avatar/boca/smile.svg",
                             RutaImagenMiniatura = "avatar/boca/smile.svg",
                             TiendaId = 1,
@@ -2665,7 +2560,7 @@ namespace AccesoDatos.Migrations
                             Id = 15,
                             Nombre = "Item: ShirtVNeck",
                             Precio = 0,
-                            RecompensaTipo = "PersonalizacionAvatar",
+                            RequiereImagen = true,
                             RutaImagenCompleta = "avatar/ropa/shirtVNeck.svg",
                             RutaImagenMiniatura = "avatar/ropa/shirtVNeck.svg",
                             TiendaId = 1,
@@ -2676,7 +2571,7 @@ namespace AccesoDatos.Migrations
                             Id = 16,
                             Nombre = "Item: Sunglasses",
                             Precio = 0,
-                            RecompensaTipo = "PersonalizacionAvatar",
+                            RequiereImagen = true,
                             RutaImagenCompleta = "avatar/gafas/sunglasses.svg",
                             RutaImagenMiniatura = "avatar/gafas/sunglasses.svg",
                             TiendaId = 1,
@@ -2687,7 +2582,7 @@ namespace AccesoDatos.Migrations
                             Id = 17,
                             Nombre = "Item: BeardLight",
                             Precio = 0,
-                            RecompensaTipo = "PersonalizacionAvatar",
+                            RequiereImagen = true,
                             RutaImagenCompleta = "avatar/barba/beardLight.svg",
                             RutaImagenMiniatura = "avatar/barba/beardLight.svg",
                             TiendaId = 1,
@@ -2698,7 +2593,7 @@ namespace AccesoDatos.Migrations
                             Id = 18,
                             Nombre = "Item: edb98a",
                             Precio = 0,
-                            RecompensaTipo = "PersonalizacionAvatar",
+                            RequiereImagen = true,
                             RutaImagenCompleta = "avatar/colorpiel/edb98a.svg",
                             RutaImagenMiniatura = "avatar/colorpiel/edb98a.svg",
                             TiendaId = 1,
@@ -2709,7 +2604,7 @@ namespace AccesoDatos.Migrations
                             Id = 19,
                             Nombre = "Item: a55728",
                             Precio = 0,
-                            RecompensaTipo = "PersonalizacionAvatar",
+                            RequiereImagen = true,
                             RutaImagenCompleta = "avatar/colorpelo/a55728.svg",
                             RutaImagenMiniatura = "avatar/colorpelo/a55728.svg",
                             TiendaId = 1,
@@ -2720,7 +2615,7 @@ namespace AccesoDatos.Migrations
                             Id = 20,
                             Nombre = "Item: 3c4f5c",
                             Precio = 0,
-                            RecompensaTipo = "PersonalizacionAvatar",
+                            RequiereImagen = true,
                             RutaImagenCompleta = "avatar/colorropa/3c4f5c.svg",
                             RutaImagenMiniatura = "avatar/colorropa/3c4f5c.svg",
                             TiendaId = 1,
@@ -2731,7 +2626,7 @@ namespace AccesoDatos.Migrations
                             Id = 21,
                             Nombre = "Item: 262e33",
                             Precio = 0,
-                            RecompensaTipo = "PersonalizacionAvatar",
+                            RequiereImagen = true,
                             RutaImagenCompleta = "avatar/colorgafas/262e33.svg",
                             RutaImagenMiniatura = "avatar/colorgafas/262e33.svg",
                             TiendaId = 1,
@@ -2742,7 +2637,7 @@ namespace AccesoDatos.Migrations
                             Id = 22,
                             Nombre = "Item: a55728",
                             Precio = 0,
-                            RecompensaTipo = "PersonalizacionAvatar",
+                            RequiereImagen = true,
                             RutaImagenCompleta = "avatar/colorbarba/a55728.svg",
                             RutaImagenMiniatura = "avatar/colorbarba/a55728.svg",
                             TiendaId = 1,
@@ -2768,13 +2663,115 @@ namespace AccesoDatos.Migrations
                     b.HasBaseType("LogicaNegocio.Entidades.Recompensa");
 
                     b.HasDiscriminator().HasValue("Simple");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nombre = "Estrella Mágica",
+                            Precio = 50,
+                            RequiereImagen = false,
+                            RutaImagenCompleta = "star",
+                            RutaImagenMiniatura = "star",
+                            TiendaId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Nombre = "Regalo Sorpresa",
+                            Precio = 30,
+                            RequiereImagen = false,
+                            RutaImagenCompleta = "gift",
+                            RutaImagenMiniatura = "gift",
+                            TiendaId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Nombre = "Corazón Brillante",
+                            Precio = 20,
+                            RequiereImagen = false,
+                            RutaImagenCompleta = "heart",
+                            RutaImagenMiniatura = "heart",
+                            TiendaId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Nombre = "Medalla de Oro",
+                            Precio = 80,
+                            RequiereImagen = false,
+                            RutaImagenCompleta = "medal",
+                            RutaImagenMiniatura = "medal",
+                            TiendaId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Nombre = "Montón de Monedas",
+                            Precio = 100,
+                            RequiereImagen = false,
+                            RutaImagenCompleta = "coins",
+                            RutaImagenMiniatura = "coins",
+                            TiendaId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Nombre = "Trofeo Brillante",
+                            Precio = 70,
+                            RequiereImagen = false,
+                            RutaImagenCompleta = "trophy",
+                            RutaImagenMiniatura = "trophy",
+                            TiendaId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Nombre = "Llama de Fuego",
+                            Precio = 40,
+                            RequiereImagen = false,
+                            RutaImagenCompleta = "fire",
+                            RutaImagenMiniatura = "fire",
+                            TiendaId = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Nombre = "Corona Real",
+                            Precio = 90,
+                            RequiereImagen = false,
+                            RutaImagenCompleta = "crown",
+                            RutaImagenMiniatura = "crown",
+                            TiendaId = 2
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Nombre = "Cohete Espacial",
+                            Precio = 60,
+                            RequiereImagen = false,
+                            RutaImagenCompleta = "rocket",
+                            RutaImagenMiniatura = "rocket",
+                            TiendaId = 2
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Nombre = "Robot Amistoso",
+                            Precio = 55,
+                            RequiereImagen = false,
+                            RutaImagenCompleta = "robot",
+                            RutaImagenMiniatura = "robot",
+                            TiendaId = 2
+                        });
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Estudiante", b =>
                 {
                     b.HasBaseType("LogicaNegocio.Entidades.Usuario");
 
-                    b.ToTable("Estudiantes", (string)null);
+                    b.ToTable("Estudiantes");
 
                     b.HasData(
                         new
@@ -2853,7 +2850,7 @@ namespace AccesoDatos.Migrations
                 {
                     b.HasBaseType("LogicaNegocio.Entidades.Usuario");
 
-                    b.ToTable("Profesores", (string)null);
+                    b.ToTable("Profesores");
 
                     b.HasData(
                         new
@@ -3150,7 +3147,7 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("LogicaNegocio.Entidades.TablaClasificacion", b =>
                 {
-                    b.HasOne("LogicaNegocio.Entidades.Grupo", null)
+                    b.HasOne("LogicaNegocio.Entidades.Grupo", "Grupo")
                         .WithMany("TablasClasificacion")
                         .HasForeignKey("GrupoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -3161,6 +3158,8 @@ namespace AccesoDatos.Migrations
                         .HasForeignKey("MedallaAsociadaId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Grupo");
 
                     b.Navigation("MedallaAsociada");
                 });
@@ -3331,13 +3330,13 @@ namespace AccesoDatos.Migrations
                     b.HasOne("LogicaNegocio.Entidades.PerfilEstudiante", null)
                         .WithMany()
                         .HasForeignKey("PerfilEstudianteId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("LogicaNegocio.Entidades.TablaClasificacion", null)
                         .WithMany()
                         .HasForeignKey("TablaClasificacionId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
