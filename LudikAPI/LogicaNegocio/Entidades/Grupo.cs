@@ -26,9 +26,9 @@ namespace LogicaNegocio.Entidades
 
         public Tienda Tienda { get; set; }
 
-        public List<TablaClasificacion> TablasClasificacion { get; set; }
+        public List<TablaClasificacion> TablasClasificacion { get; set; } = new();
 
-        public List<PerfilEstudiante> Alumnos { get; set; }
+        public List<PerfilEstudiante> Alumnos { get; set; } = new();
 
         public List<SolicitudUnion> Solicitudes { get; set; }
         [ForeignKey(nameof(EnlaceUnion))]

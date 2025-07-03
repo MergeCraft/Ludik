@@ -143,35 +143,6 @@ namespace AccesoDatos.RepositoriosEF
 
             });
            
-           
-
-            modelBuilder.Entity<TablaClasificacion>()
-                .HasMany(tc => tc.Participantes)
-                .WithMany() // No hay navegación de vuelta en PerfilEstudiante para esta relación
-                .UsingEntity<Dictionary<string, object>>(
-                    "TablaClasificacionParticipantes", // Nombre de la tabla de unión
-                    // Configuración para la FK a PerfilEstudiante
-                    j => j
-                        .HasOne<PerfilEstudiante>()
-                        .WithMany()
-                        .HasForeignKey("PerfilEstudianteId")
-                        .OnDelete(DeleteBehavior.Cascade), // Si se borra un Perfil, que se elimine su participación.
-
-                    // Configuración para la FK a TablaClasificacion
-                    j => j
-                        .HasOne<TablaClasificacion>()
-                        .WithMany()
-                        .HasForeignKey("TablaClasificacionId")
-                        .OnDelete(DeleteBehavior.Restrict) 
-                );
-            modelBuilder.Entity<TablaClasificacion>(tc =>
-            {
-                tc.HasOne(t => t.MedallaAsociada)
-                  .WithMany() // o .WithMany(m => m.TablasClasificacion) si tuvieras navegación inversa en Medalla
-                  .HasForeignKey("MedallaAsociadaId") // asegúrate de que coincide con el nombre de la columna FK
-                  .OnDelete(DeleteBehavior.Restrict);
-            });
-
             // Relación M:N entre Equivalencia y Medalla (MedallasNecesarias)
             modelBuilder.Entity<Equivalencia>()
                 .HasMany(e => e.MedallasNecesarias)
@@ -322,6 +293,8 @@ namespace AccesoDatos.RepositoriosEF
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
+
+
             modelBuilder.Entity<TablaEquivalencia>(te =>
             {
                 // Una TablaEquivalencia tiene muchas Equivalencias.
@@ -356,6 +329,47 @@ namespace AccesoDatos.RepositoriosEF
                     .HasForeignKey(x => x.RecompensaId)
                     .OnDelete(DeleteBehavior.Restrict);
             });
+
+            modelBuilder.Entity<TablaClasificacion>(entity =>
+            {
+                entity.HasKey(t => t.Id);
+
+                entity.Property(t => t.Nombre)
+                      .IsRequired()
+                      .HasMaxLength(50);
+
+                entity.HasOne(t => t.MedallaAsociada)
+                      .WithMany()
+                      .HasForeignKey(t => t.MedallaAsociadaId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(t => t.Grupo)
+                      .WithMany(g => g.TablasClasificacion)
+                      .HasForeignKey(t => t.GrupoId)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                entity
+                    .HasMany(t => t.Participantes)
+                    .WithMany(p => p.TablasClasificacion) // ← ya no es string, es propiedad real
+                    .UsingEntity<Dictionary<string, object>>(
+                        "TablaClasificacionParticipantes",
+                        j => j
+                            .HasOne<PerfilEstudiante>()
+                            .WithMany()
+                            .HasForeignKey("PerfilEstudianteId")
+                            .OnDelete(DeleteBehavior.Restrict),
+                        j => j
+                            .HasOne<TablaClasificacion>()
+                            .WithMany()
+                            .HasForeignKey("TablaClasificacionId")
+                            .OnDelete(DeleteBehavior.Cascade),
+                        j =>
+                        {
+                            j.HasKey("TablaClasificacionId", "PerfilEstudianteId");
+                            j.ToTable("TablaClasificacionParticipantes");
+                        });
+            });
+
 
             modelBuilder.Entity<SolicitudUnion>()
                 .HasOne(s => s.Estudiante)
