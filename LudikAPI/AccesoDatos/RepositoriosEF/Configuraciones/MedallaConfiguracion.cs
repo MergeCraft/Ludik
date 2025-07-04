@@ -8,6 +8,6 @@ public class MedallaConfiguracion:IEntityTypeConfiguration<Medalla>
 {
     public void Configure(EntityTypeBuilder<Medalla> builder)
     {
-        throw new NotImplementedException();
+        builder.HasIndex(x => x.Nombre);
     }
 }
