@@ -1561,6 +1561,9 @@ namespace AccesoDatos.Migrations
                     b.Property<DateTime>("FCreacion")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("FechaUltimoReinicio")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Institucion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

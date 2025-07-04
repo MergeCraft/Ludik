@@ -38,7 +38,10 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
 
             foreach (var grupo in grupos)
             {
-                var rendimientos = grupo.ReiniciarMedallasEstudiantes(grupo.FCreacion, DateTime.Now);
+                var ahora = DateTime.Now;
+                var desde = grupo.FechaUltimoReinicio ?? grupo.FCreacion;
+
+                var rendimientos = grupo.ReiniciarMedallasEstudiantes(desde, ahora);
 
                 foreach (var rendimiento in rendimientos)
                 {
@@ -46,6 +49,11 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
                     if (addRes.EsFallo)
                         return Resultado.Falla(addRes.Errores);
                 }
+
+                grupo.FechaUltimoReinicio = ahora;
+                var updRes = await _repoGrupos.UpdateAsync(grupo);
+                if (updRes.EsFallo)
+                    return Resultado.Falla(updRes.Errores);
             }
 
             var saveRes = await _repoPerfiles.SaveCambiosAsync();

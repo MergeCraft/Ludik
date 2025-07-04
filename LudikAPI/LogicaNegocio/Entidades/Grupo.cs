@@ -40,6 +40,7 @@ namespace LogicaNegocio.Entidades
         [ForeignKey(nameof(Profesor))]
         public string ProfesorId { get; set; }
         public Profesor Profesor { get; set; }
+        public DateTime? FechaUltimoReinicio { get; set; }
 
         public void asignarMedalla(PerfilEstudiante pEstudiante, Medalla m)
 		{

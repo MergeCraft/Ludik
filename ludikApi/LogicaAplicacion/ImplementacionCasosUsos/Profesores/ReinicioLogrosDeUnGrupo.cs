@@ -27,25 +27,28 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
         public async Task<Resultado> EjecutarAsync(int grupoId, string profesorId)
         {
             var grupoRes = await _repoGrupos.GetByIdAsync(grupoId);
-            if (grupoRes.EsFallo)
-                return Resultado.Falla(grupoRes.Errores);
+            if (grupoRes.EsFallo) return Resultado.Falla(grupoRes.Errores);
 
             var grupo = grupoRes.Valor;
-            if(grupo.ProfesorId != profesorId)
-                return Resultado.Falla(new Error("Error.Validation", "El profesor no tiene permiso para reiniciar los logros de este grupo."));
+            if (grupo.ProfesorId != profesorId)
+                return Resultado.Falla(new Error("Error.Validation", "Sin permiso."));
 
-            var rendimientos = grupo.ReiniciarMedallasEstudiantes(grupo.FCreacion, DateTime.Now);
+            var ahora = DateTime.Now;
+            var desde = grupo.FechaUltimoReinicio ?? grupo.FCreacion;
 
-            foreach (var rendimiento in rendimientos)
+            var rendimientos = grupo.ReiniciarMedallasEstudiantes(desde, ahora);
+            foreach (var r in rendimientos)
             {
-                var addRes = await _repoRendimientos.AddAsync(rendimiento);
-                if (addRes.EsFallo)
-                    return Resultado.Falla(addRes.Errores);
+                var addRes = await _repoRendimientos.AddAsync(r);
+                if (addRes.EsFallo) return Resultado.Falla(addRes.Errores);
             }
 
-            var saveRes = await _repoPerfiles.SaveCambiosAsync(); 
-            if (saveRes.EsFallo)
-                return Resultado.Falla(saveRes.Errores);
+            grupo.FechaUltimoReinicio = ahora;
+            var updRes = await _repoGrupos.UpdateAsync(grupo);
+            if (updRes.EsFallo) return Resultado.Falla(updRes.Errores);
+
+            var saveRes = await _repoPerfiles.SaveCambiosAsync();
+            if (saveRes.EsFallo) return Resultado.Falla(saveRes.Errores);
 
             return Resultado.Exitoso();
         }

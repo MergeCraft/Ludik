@@ -215,15 +215,18 @@ namespace AccesoDatos.RepositoriosEF
             {
                 if (string.IsNullOrWhiteSpace(idProfesor))
                     return Resultado<IEnumerable<Grupo>>.Falla(
-                        new Error("Grupo.GetByProfesor.Validacion",
-                                  "El ID de profesor no puede estar vacío."));
+                        new Error("Grupo.GetByProfesor.Validacion", "El ID de profesor no puede estar vacío."));
 
                 var grupos = await _db.Grupos
-                    // Incluye lo mínimo que tu caso de uso requiera:
+                    .Include(g => g.Alumnos)
+                        .ThenInclude(a => a.PerfilMedallas)
+                            .ThenInclude(pm => pm.Medalla)
+
                     .Include(g => g.Alumnos)
                         .ThenInclude(a => a.HistorialRendimientoPeriodos)
                             .ThenInclude(rp => rp.RendimientoMedallas)
                                 .ThenInclude(rpm => rpm.Medalla)
+
                     .Include(g => g.TablaEquivalencia)
                         .ThenInclude(te => te.Equivalencias)
                             .ThenInclude(eq => eq.MedallasNecesarias)
