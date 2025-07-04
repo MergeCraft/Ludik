@@ -2782,7 +2782,7 @@ namespace AccesoDatos.Migrations
                 {
                     b.HasBaseType("LogicaNegocio.Entidades.Usuario");
 
-                    b.ToTable("Estudiantes");
+                    b.ToTable("Estudiantes", (string)null);
 
                     b.HasData(
                         new
@@ -2861,7 +2861,7 @@ namespace AccesoDatos.Migrations
                 {
                     b.HasBaseType("LogicaNegocio.Entidades.Usuario");
 
-                    b.ToTable("Profesores");
+                    b.ToTable("Profesores", (string)null);
 
                     b.HasData(
                         new

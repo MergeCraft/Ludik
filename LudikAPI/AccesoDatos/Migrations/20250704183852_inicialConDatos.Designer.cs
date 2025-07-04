@@ -12,13 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-<<<<<<<< HEAD:LudikAPI/AccesoDatos/Migrations/20250704133637_inicialConDatos.Designer.cs
-    [Migration("20250704133637_inicialConDatos")]
+    [Migration("20250704183852_inicialConDatos")]
     partial class inicialConDatos
-========
-    [Migration("20250704140358_inicial")]
-    partial class inicial
->>>>>>>> e53675d86453aa301cd842dbf35f55d1296c3c58:LudikAPI/AccesoDatos/Migrations/20250704140358_inicial.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -2790,7 +2785,7 @@ namespace AccesoDatos.Migrations
                 {
                     b.HasBaseType("LogicaNegocio.Entidades.Usuario");
 
-                    b.ToTable("Estudiantes");
+                    b.ToTable("Estudiantes", (string)null);
 
                     b.HasData(
                         new
@@ -2869,7 +2864,7 @@ namespace AccesoDatos.Migrations
                 {
                     b.HasBaseType("LogicaNegocio.Entidades.Usuario");
 
-                    b.ToTable("Profesores");
+                    b.ToTable("Profesores", (string)null);
 
                     b.HasData(
                         new

@@ -54,7 +54,10 @@ namespace AccesoDatos.RepositoriosEF
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ContextoDb).Assembly);
 
             // Llamada al método de extensión para las tablas de Identity
-            modelBuilder.ConfigurarTablasIdentity();
+            modelBuilder.ConfigurarTablasIdentity(); 
+
+            // ----PLANTAR DATOS-----
+            modelBuilder.Semilla();
 
             /*
                 modelBuilder.Entity<Estudiante>().ToTable("Estudiantes");
