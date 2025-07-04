@@ -184,7 +184,7 @@ namespace AccesoDatos.Migrations
                             Id = 1,
                             CodigoUnico = "bigHair",
                             Nombre = "BigHair",
-                            RutaRecurso = "avatar/pelo/bigHair.svg",
+                            RutaRecurso = "top-bigHair.png",
                             Tipo = 0
                         },
                         new
@@ -192,7 +192,7 @@ namespace AccesoDatos.Migrations
                             Id = 2,
                             CodigoUnico = "bob",
                             Nombre = "Bob",
-                            RutaRecurso = "avatar/pelo/bob.svg",
+                            RutaRecurso = "top-bob.png",
                             Tipo = 0
                         },
                         new
@@ -200,7 +200,7 @@ namespace AccesoDatos.Migrations
                             Id = 3,
                             CodigoUnico = "bun",
                             Nombre = "Bun",
-                            RutaRecurso = "avatar/pelo/bun.svg",
+                            RutaRecurso = "top-bun.png",
                             Tipo = 0
                         },
                         new
@@ -208,7 +208,7 @@ namespace AccesoDatos.Migrations
                             Id = 4,
                             CodigoUnico = "curly",
                             Nombre = "Curly",
-                            RutaRecurso = "avatar/pelo/curly.svg",
+                            RutaRecurso = "top-curly.png",
                             Tipo = 0
                         },
                         new
@@ -216,7 +216,7 @@ namespace AccesoDatos.Migrations
                             Id = 5,
                             CodigoUnico = "curvy",
                             Nombre = "Curvy",
-                            RutaRecurso = "avatar/pelo/curvy.svg",
+                            RutaRecurso = "top-curvy.png",
                             Tipo = 0
                         },
                         new
@@ -224,7 +224,7 @@ namespace AccesoDatos.Migrations
                             Id = 6,
                             CodigoUnico = "dreads",
                             Nombre = "Dreads",
-                            RutaRecurso = "avatar/pelo/dreads.svg",
+                            RutaRecurso = "top-dreads.png",
                             Tipo = 0
                         },
                         new
@@ -232,7 +232,7 @@ namespace AccesoDatos.Migrations
                             Id = 7,
                             CodigoUnico = "dreads01",
                             Nombre = "Dreads01",
-                            RutaRecurso = "avatar/pelo/dreads01.svg",
+                            RutaRecurso = "top-dreads01.png",
                             Tipo = 0
                         },
                         new
@@ -240,7 +240,7 @@ namespace AccesoDatos.Migrations
                             Id = 8,
                             CodigoUnico = "dreads02",
                             Nombre = "Dreads02",
-                            RutaRecurso = "avatar/pelo/dreads02.svg",
+                            RutaRecurso = "top-dreads02.png",
                             Tipo = 0
                         },
                         new
@@ -248,7 +248,7 @@ namespace AccesoDatos.Migrations
                             Id = 9,
                             CodigoUnico = "frida",
                             Nombre = "Frida",
-                            RutaRecurso = "avatar/pelo/frida.svg",
+                            RutaRecurso = "top-frida.png",
                             Tipo = 0
                         },
                         new
@@ -256,7 +256,7 @@ namespace AccesoDatos.Migrations
                             Id = 10,
                             CodigoUnico = "frizzle",
                             Nombre = "Frizzle",
-                            RutaRecurso = "avatar/pelo/frizzle.svg",
+                            RutaRecurso = "top-frizzle.png",
                             Tipo = 0
                         },
                         new
@@ -264,7 +264,7 @@ namespace AccesoDatos.Migrations
                             Id = 11,
                             CodigoUnico = "fro",
                             Nombre = "Fro",
-                            RutaRecurso = "avatar/pelo/fro.svg",
+                            RutaRecurso = "top-fro.png",
                             Tipo = 0
                         },
                         new
@@ -272,7 +272,7 @@ namespace AccesoDatos.Migrations
                             Id = 12,
                             CodigoUnico = "froBand",
                             Nombre = "FroBand",
-                            RutaRecurso = "avatar/pelo/froBand.svg",
+                            RutaRecurso = "top-froBand.png",
                             Tipo = 0
                         },
                         new
@@ -280,7 +280,7 @@ namespace AccesoDatos.Migrations
                             Id = 13,
                             CodigoUnico = "hat",
                             Nombre = "Hat",
-                            RutaRecurso = "avatar/pelo/hat.svg",
+                            RutaRecurso = "top-hat.png",
                             Tipo = 0
                         },
                         new
@@ -288,7 +288,7 @@ namespace AccesoDatos.Migrations
                             Id = 14,
                             CodigoUnico = "hijab",
                             Nombre = "Hijab",
-                            RutaRecurso = "avatar/pelo/hijab.svg",
+                            RutaRecurso = "top-hijab.png",
                             Tipo = 0
                         },
                         new
@@ -296,7 +296,7 @@ namespace AccesoDatos.Migrations
                             Id = 15,
                             CodigoUnico = "longButNotTooLong",
                             Nombre = "LongButNotTooLong",
-                            RutaRecurso = "avatar/pelo/longButNotTooLong.svg",
+                            RutaRecurso = "top-longButNotTooLong.png",
                             Tipo = 0
                         },
                         new
@@ -304,7 +304,7 @@ namespace AccesoDatos.Migrations
                             Id = 16,
                             CodigoUnico = "miaWallace",
                             Nombre = "MiaWallace",
-                            RutaRecurso = "avatar/pelo/miaWallace.svg",
+                            RutaRecurso = "top-miaWallace.png",
                             Tipo = 0
                         },
                         new
@@ -312,7 +312,7 @@ namespace AccesoDatos.Migrations
                             Id = 17,
                             CodigoUnico = "shaggy",
                             Nombre = "Shaggy",
-                            RutaRecurso = "avatar/pelo/shaggy.svg",
+                            RutaRecurso = "top-shaggy.png",
                             Tipo = 0
                         },
                         new
@@ -320,7 +320,7 @@ namespace AccesoDatos.Migrations
                             Id = 18,
                             CodigoUnico = "shaggyMullet",
                             Nombre = "ShaggyMullet",
-                            RutaRecurso = "avatar/pelo/shaggyMullet.svg",
+                            RutaRecurso = "top-shaggyMullet.png",
                             Tipo = 0
                         },
                         new
@@ -328,7 +328,7 @@ namespace AccesoDatos.Migrations
                             Id = 19,
                             CodigoUnico = "shavedSides",
                             Nombre = "ShavedSides",
-                            RutaRecurso = "avatar/pelo/shavedSides.svg",
+                            RutaRecurso = "top-shavedSides.png",
                             Tipo = 0
                         },
                         new
@@ -336,7 +336,7 @@ namespace AccesoDatos.Migrations
                             Id = 20,
                             CodigoUnico = "shortCurly",
                             Nombre = "ShortCurly",
-                            RutaRecurso = "avatar/pelo/shortCurly.svg",
+                            RutaRecurso = "top-shortCurly.png",
                             Tipo = 0
                         },
                         new
@@ -344,7 +344,7 @@ namespace AccesoDatos.Migrations
                             Id = 21,
                             CodigoUnico = "shortFlat",
                             Nombre = "ShortFlat",
-                            RutaRecurso = "avatar/pelo/shortFlat.svg",
+                            RutaRecurso = "top-shortFlat.png",
                             Tipo = 0
                         },
                         new
@@ -352,7 +352,7 @@ namespace AccesoDatos.Migrations
                             Id = 22,
                             CodigoUnico = "shortRound",
                             Nombre = "ShortRound",
-                            RutaRecurso = "avatar/pelo/shortRound.svg",
+                            RutaRecurso = "top-shortRound.png",
                             Tipo = 0
                         },
                         new
@@ -360,7 +360,7 @@ namespace AccesoDatos.Migrations
                             Id = 23,
                             CodigoUnico = "shortWaved",
                             Nombre = "ShortWaved",
-                            RutaRecurso = "avatar/pelo/shortWaved.svg",
+                            RutaRecurso = "top-shortWaved.png",
                             Tipo = 0
                         },
                         new
@@ -368,7 +368,7 @@ namespace AccesoDatos.Migrations
                             Id = 24,
                             CodigoUnico = "sides",
                             Nombre = "Sides",
-                            RutaRecurso = "avatar/pelo/sides.svg",
+                            RutaRecurso = "top-sides.png",
                             Tipo = 0
                         },
                         new
@@ -376,7 +376,7 @@ namespace AccesoDatos.Migrations
                             Id = 25,
                             CodigoUnico = "straight01",
                             Nombre = "Straight01",
-                            RutaRecurso = "avatar/pelo/straight01.svg",
+                            RutaRecurso = "top-straight01.png",
                             Tipo = 0
                         },
                         new
@@ -384,7 +384,7 @@ namespace AccesoDatos.Migrations
                             Id = 26,
                             CodigoUnico = "straight02",
                             Nombre = "Straight02",
-                            RutaRecurso = "avatar/pelo/straight02.svg",
+                            RutaRecurso = "top-straight02.png",
                             Tipo = 0
                         },
                         new
@@ -392,7 +392,7 @@ namespace AccesoDatos.Migrations
                             Id = 27,
                             CodigoUnico = "straightAndStrand",
                             Nombre = "StraightAndStrand",
-                            RutaRecurso = "avatar/pelo/straightAndStrand.svg",
+                            RutaRecurso = "top-straightAndStrand.png",
                             Tipo = 0
                         },
                         new
@@ -400,7 +400,7 @@ namespace AccesoDatos.Migrations
                             Id = 28,
                             CodigoUnico = "theCaesar",
                             Nombre = "TheCaesar",
-                            RutaRecurso = "avatar/pelo/theCaesar.svg",
+                            RutaRecurso = "top-theCaesar.png",
                             Tipo = 0
                         },
                         new
@@ -408,7 +408,7 @@ namespace AccesoDatos.Migrations
                             Id = 29,
                             CodigoUnico = "theCaesarAndSidePart",
                             Nombre = "TheCaesarAndSidePart",
-                            RutaRecurso = "avatar/pelo/theCaesarAndSidePart.svg",
+                            RutaRecurso = "top-theCaesarAndSidePart.png",
                             Tipo = 0
                         },
                         new
@@ -416,7 +416,7 @@ namespace AccesoDatos.Migrations
                             Id = 30,
                             CodigoUnico = "turban",
                             Nombre = "Turban",
-                            RutaRecurso = "avatar/pelo/turban.svg",
+                            RutaRecurso = "top-turban.png",
                             Tipo = 0
                         },
                         new
@@ -424,7 +424,7 @@ namespace AccesoDatos.Migrations
                             Id = 31,
                             CodigoUnico = "winterHat1",
                             Nombre = "WinterHat1",
-                            RutaRecurso = "avatar/pelo/winterHat1.svg",
+                            RutaRecurso = "top-winterHat1.png",
                             Tipo = 0
                         },
                         new
@@ -432,7 +432,7 @@ namespace AccesoDatos.Migrations
                             Id = 32,
                             CodigoUnico = "winterHat02",
                             Nombre = "WinterHat02",
-                            RutaRecurso = "avatar/pelo/winterHat02.svg",
+                            RutaRecurso = "top-winterHat02.png",
                             Tipo = 0
                         },
                         new
@@ -440,7 +440,7 @@ namespace AccesoDatos.Migrations
                             Id = 33,
                             CodigoUnico = "winterHat03",
                             Nombre = "WinterHat03",
-                            RutaRecurso = "avatar/pelo/winterHat03.svg",
+                            RutaRecurso = "top-winterHat03.png",
                             Tipo = 0
                         },
                         new
@@ -448,7 +448,7 @@ namespace AccesoDatos.Migrations
                             Id = 34,
                             CodigoUnico = "winterHat04",
                             Nombre = "WinterHat04",
-                            RutaRecurso = "avatar/pelo/winterHat04.svg",
+                            RutaRecurso = "top-winterHat04.png",
                             Tipo = 0
                         },
                         new
@@ -456,7 +456,7 @@ namespace AccesoDatos.Migrations
                             Id = 35,
                             CodigoUnico = "angry",
                             Nombre = "Angry",
-                            RutaRecurso = "avatar/cejas/angry.svg",
+                            RutaRecurso = "eyebrows-angry.png",
                             Tipo = 1
                         },
                         new
@@ -464,7 +464,7 @@ namespace AccesoDatos.Migrations
                             Id = 36,
                             CodigoUnico = "angryNatural",
                             Nombre = "AngryNatural",
-                            RutaRecurso = "avatar/cejas/angryNatural.svg",
+                            RutaRecurso = "eyebrows-angryNatural.png",
                             Tipo = 1
                         },
                         new
@@ -472,7 +472,7 @@ namespace AccesoDatos.Migrations
                             Id = 37,
                             CodigoUnico = "default",
                             Nombre = "Default",
-                            RutaRecurso = "avatar/cejas/default.svg",
+                            RutaRecurso = "eyebrows-default.png",
                             Tipo = 1
                         },
                         new
@@ -480,7 +480,7 @@ namespace AccesoDatos.Migrations
                             Id = 38,
                             CodigoUnico = "defaultNatural",
                             Nombre = "DefaultNatural",
-                            RutaRecurso = "avatar/cejas/defaultNatural.svg",
+                            RutaRecurso = "eyebrows-defaultNatural.png",
                             Tipo = 1
                         },
                         new
@@ -488,7 +488,7 @@ namespace AccesoDatos.Migrations
                             Id = 39,
                             CodigoUnico = "flatNatural",
                             Nombre = "FlatNatural",
-                            RutaRecurso = "avatar/cejas/flatNatural.svg",
+                            RutaRecurso = "eyebrows-flatNatural.png",
                             Tipo = 1
                         },
                         new
@@ -496,7 +496,7 @@ namespace AccesoDatos.Migrations
                             Id = 40,
                             CodigoUnico = "frownNatural",
                             Nombre = "FrownNatural",
-                            RutaRecurso = "avatar/cejas/frownNatural.svg",
+                            RutaRecurso = "eyebrows-frownNatural.png",
                             Tipo = 1
                         },
                         new
@@ -504,7 +504,7 @@ namespace AccesoDatos.Migrations
                             Id = 41,
                             CodigoUnico = "raisedExcited",
                             Nombre = "RaisedExcited",
-                            RutaRecurso = "avatar/cejas/raisedExcited.svg",
+                            RutaRecurso = "eyebrows-raisedExcited.png",
                             Tipo = 1
                         },
                         new
@@ -512,7 +512,7 @@ namespace AccesoDatos.Migrations
                             Id = 42,
                             CodigoUnico = "raisedExcitedNatural",
                             Nombre = "RaisedExcitedNatural",
-                            RutaRecurso = "avatar/cejas/raisedExcitedNatural.svg",
+                            RutaRecurso = "eyebrows-raisedExcitedNatural.png",
                             Tipo = 1
                         },
                         new
@@ -520,7 +520,7 @@ namespace AccesoDatos.Migrations
                             Id = 43,
                             CodigoUnico = "sadConcerned",
                             Nombre = "SadConcerned",
-                            RutaRecurso = "avatar/cejas/sadConcerned.svg",
+                            RutaRecurso = "eyebrows-sadConcerned.png",
                             Tipo = 1
                         },
                         new
@@ -528,7 +528,7 @@ namespace AccesoDatos.Migrations
                             Id = 44,
                             CodigoUnico = "sadConcernedNatural",
                             Nombre = "SadConcernedNatural",
-                            RutaRecurso = "avatar/cejas/sadConcernedNatural.svg",
+                            RutaRecurso = "eyebrows-sadConcernedNatural.png",
                             Tipo = 1
                         },
                         new
@@ -536,7 +536,7 @@ namespace AccesoDatos.Migrations
                             Id = 45,
                             CodigoUnico = "unibrowNatural",
                             Nombre = "UnibrowNatural",
-                            RutaRecurso = "avatar/cejas/unibrowNatural.svg",
+                            RutaRecurso = "eyebrows-unibrowNatural.png",
                             Tipo = 1
                         },
                         new
@@ -544,7 +544,7 @@ namespace AccesoDatos.Migrations
                             Id = 46,
                             CodigoUnico = "upDown",
                             Nombre = "UpDown",
-                            RutaRecurso = "avatar/cejas/upDown.svg",
+                            RutaRecurso = "eyebrows-upDown.png",
                             Tipo = 1
                         },
                         new
@@ -552,7 +552,7 @@ namespace AccesoDatos.Migrations
                             Id = 47,
                             CodigoUnico = "upDownNatural",
                             Nombre = "UpDownNatural",
-                            RutaRecurso = "avatar/cejas/upDownNatural.svg",
+                            RutaRecurso = "eyebrows-upDownNatural.png",
                             Tipo = 1
                         },
                         new
@@ -560,7 +560,7 @@ namespace AccesoDatos.Migrations
                             Id = 48,
                             CodigoUnico = "closed",
                             Nombre = "Closed",
-                            RutaRecurso = "avatar/ojos/closed.svg",
+                            RutaRecurso = "eyes-closed.png",
                             Tipo = 2
                         },
                         new
@@ -568,7 +568,7 @@ namespace AccesoDatos.Migrations
                             Id = 49,
                             CodigoUnico = "cry",
                             Nombre = "Cry",
-                            RutaRecurso = "avatar/ojos/cry.svg",
+                            RutaRecurso = "eyes-cry.png",
                             Tipo = 2
                         },
                         new
@@ -576,7 +576,7 @@ namespace AccesoDatos.Migrations
                             Id = 50,
                             CodigoUnico = "default",
                             Nombre = "Default",
-                            RutaRecurso = "avatar/ojos/default.svg",
+                            RutaRecurso = "eyes-default.png",
                             Tipo = 2
                         },
                         new
@@ -584,7 +584,7 @@ namespace AccesoDatos.Migrations
                             Id = 51,
                             CodigoUnico = "eyeRoll",
                             Nombre = "EyeRoll",
-                            RutaRecurso = "avatar/ojos/eyeRoll.svg",
+                            RutaRecurso = "eyes-eyeRoll.png",
                             Tipo = 2
                         },
                         new
@@ -592,7 +592,7 @@ namespace AccesoDatos.Migrations
                             Id = 52,
                             CodigoUnico = "happy",
                             Nombre = "Happy",
-                            RutaRecurso = "avatar/ojos/happy.svg",
+                            RutaRecurso = "eyes-happy.png",
                             Tipo = 2
                         },
                         new
@@ -600,7 +600,7 @@ namespace AccesoDatos.Migrations
                             Id = 53,
                             CodigoUnico = "hearts",
                             Nombre = "Hearts",
-                            RutaRecurso = "avatar/ojos/hearts.svg",
+                            RutaRecurso = "eyes-hearts.png",
                             Tipo = 2
                         },
                         new
@@ -608,7 +608,7 @@ namespace AccesoDatos.Migrations
                             Id = 54,
                             CodigoUnico = "side",
                             Nombre = "Side",
-                            RutaRecurso = "avatar/ojos/side.svg",
+                            RutaRecurso = "eyes-side.png",
                             Tipo = 2
                         },
                         new
@@ -616,7 +616,7 @@ namespace AccesoDatos.Migrations
                             Id = 55,
                             CodigoUnico = "squint",
                             Nombre = "Squint",
-                            RutaRecurso = "avatar/ojos/squint.svg",
+                            RutaRecurso = "eyes-squint.png",
                             Tipo = 2
                         },
                         new
@@ -624,7 +624,7 @@ namespace AccesoDatos.Migrations
                             Id = 56,
                             CodigoUnico = "surprised",
                             Nombre = "Surprised",
-                            RutaRecurso = "avatar/ojos/surprised.svg",
+                            RutaRecurso = "eyes-surprised.png",
                             Tipo = 2
                         },
                         new
@@ -632,7 +632,7 @@ namespace AccesoDatos.Migrations
                             Id = 57,
                             CodigoUnico = "wink",
                             Nombre = "Wink",
-                            RutaRecurso = "avatar/ojos/wink.svg",
+                            RutaRecurso = "eyes-wink.png",
                             Tipo = 2
                         },
                         new
@@ -640,7 +640,7 @@ namespace AccesoDatos.Migrations
                             Id = 58,
                             CodigoUnico = "winkWacky",
                             Nombre = "WinkWacky",
-                            RutaRecurso = "avatar/ojos/winkWacky.svg",
+                            RutaRecurso = "eyes-winkWacky.png",
                             Tipo = 2
                         },
                         new
@@ -648,7 +648,7 @@ namespace AccesoDatos.Migrations
                             Id = 59,
                             CodigoUnico = "xDizzy",
                             Nombre = "XDizzy",
-                            RutaRecurso = "avatar/ojos/xDizzy.svg",
+                            RutaRecurso = "eyes-xDizzy.png",
                             Tipo = 2
                         },
                         new
@@ -656,7 +656,7 @@ namespace AccesoDatos.Migrations
                             Id = 60,
                             CodigoUnico = "concerned",
                             Nombre = "Concerned",
-                            RutaRecurso = "avatar/boca/concerned.svg",
+                            RutaRecurso = "mouth-concerned.png",
                             Tipo = 3
                         },
                         new
@@ -664,7 +664,7 @@ namespace AccesoDatos.Migrations
                             Id = 61,
                             CodigoUnico = "default",
                             Nombre = "Default",
-                            RutaRecurso = "avatar/boca/default.svg",
+                            RutaRecurso = "mouth-default.png",
                             Tipo = 3
                         },
                         new
@@ -672,7 +672,7 @@ namespace AccesoDatos.Migrations
                             Id = 62,
                             CodigoUnico = "disbelief",
                             Nombre = "Disbelief",
-                            RutaRecurso = "avatar/boca/disbelief.svg",
+                            RutaRecurso = "mouth-disbelief.png",
                             Tipo = 3
                         },
                         new
@@ -680,7 +680,7 @@ namespace AccesoDatos.Migrations
                             Id = 63,
                             CodigoUnico = "eating",
                             Nombre = "Eating",
-                            RutaRecurso = "avatar/boca/eating.svg",
+                            RutaRecurso = "mouth-eating.png",
                             Tipo = 3
                         },
                         new
@@ -688,7 +688,7 @@ namespace AccesoDatos.Migrations
                             Id = 64,
                             CodigoUnico = "grimace",
                             Nombre = "Grimace",
-                            RutaRecurso = "avatar/boca/grimace.svg",
+                            RutaRecurso = "mouth-grimace.png",
                             Tipo = 3
                         },
                         new
@@ -696,7 +696,7 @@ namespace AccesoDatos.Migrations
                             Id = 65,
                             CodigoUnico = "sad",
                             Nombre = "Sad",
-                            RutaRecurso = "avatar/boca/sad.svg",
+                            RutaRecurso = "mouth-sad.png",
                             Tipo = 3
                         },
                         new
@@ -704,7 +704,7 @@ namespace AccesoDatos.Migrations
                             Id = 66,
                             CodigoUnico = "screamOpen",
                             Nombre = "ScreamOpen",
-                            RutaRecurso = "avatar/boca/screamOpen.svg",
+                            RutaRecurso = "mouth-screamOpen.png",
                             Tipo = 3
                         },
                         new
@@ -712,7 +712,7 @@ namespace AccesoDatos.Migrations
                             Id = 67,
                             CodigoUnico = "serious",
                             Nombre = "Serious",
-                            RutaRecurso = "avatar/boca/serious.svg",
+                            RutaRecurso = "mouth-serious.png",
                             Tipo = 3
                         },
                         new
@@ -720,7 +720,7 @@ namespace AccesoDatos.Migrations
                             Id = 68,
                             CodigoUnico = "smile",
                             Nombre = "Smile",
-                            RutaRecurso = "avatar/boca/smile.svg",
+                            RutaRecurso = "mouth-smile.png",
                             Tipo = 3
                         },
                         new
@@ -728,7 +728,7 @@ namespace AccesoDatos.Migrations
                             Id = 69,
                             CodigoUnico = "tongue",
                             Nombre = "Tongue",
-                            RutaRecurso = "avatar/boca/tongue.svg",
+                            RutaRecurso = "mouth-tongue.png",
                             Tipo = 3
                         },
                         new
@@ -736,7 +736,7 @@ namespace AccesoDatos.Migrations
                             Id = 70,
                             CodigoUnico = "twinkle",
                             Nombre = "Twinkle",
-                            RutaRecurso = "avatar/boca/twinkle.svg",
+                            RutaRecurso = "mouth-twinkle.png",
                             Tipo = 3
                         },
                         new
@@ -744,7 +744,7 @@ namespace AccesoDatos.Migrations
                             Id = 71,
                             CodigoUnico = "beardLight",
                             Nombre = "BeardLight",
-                            RutaRecurso = "avatar/barba/beardLight.svg",
+                            RutaRecurso = "beard-beardLight.png",
                             Tipo = 4
                         },
                         new
@@ -752,7 +752,7 @@ namespace AccesoDatos.Migrations
                             Id = 72,
                             CodigoUnico = "beardMajestic",
                             Nombre = "BeardMajestic",
-                            RutaRecurso = "avatar/barba/beardMajestic.svg",
+                            RutaRecurso = "beard-beardMajestic.png",
                             Tipo = 4
                         },
                         new
@@ -760,7 +760,7 @@ namespace AccesoDatos.Migrations
                             Id = 73,
                             CodigoUnico = "beardMedium",
                             Nombre = "BeardMedium",
-                            RutaRecurso = "avatar/barba/beardMedium.svg",
+                            RutaRecurso = "beard-beardMedium.png",
                             Tipo = 4
                         },
                         new
@@ -768,7 +768,7 @@ namespace AccesoDatos.Migrations
                             Id = 74,
                             CodigoUnico = "moustacheFancy",
                             Nombre = "MoustacheFancy",
-                            RutaRecurso = "avatar/barba/moustacheFancy.svg",
+                            RutaRecurso = "beard-moustacheFancy.png",
                             Tipo = 4
                         },
                         new
@@ -776,7 +776,7 @@ namespace AccesoDatos.Migrations
                             Id = 75,
                             CodigoUnico = "moustacheMagnum",
                             Nombre = "MoustacheMagnum",
-                            RutaRecurso = "avatar/barba/moustacheMagnum.svg",
+                            RutaRecurso = "beard-moustacheMagnum.png",
                             Tipo = 4
                         },
                         new
@@ -784,7 +784,7 @@ namespace AccesoDatos.Migrations
                             Id = 76,
                             CodigoUnico = "eyepatch",
                             Nombre = "Eyepatch",
-                            RutaRecurso = "avatar/gafas/eyepatch.svg",
+                            RutaRecurso = "accessories-eyepatch.png",
                             Tipo = 5
                         },
                         new
@@ -792,7 +792,7 @@ namespace AccesoDatos.Migrations
                             Id = 77,
                             CodigoUnico = "kurt",
                             Nombre = "Kurt",
-                            RutaRecurso = "avatar/gafas/kurt.svg",
+                            RutaRecurso = "accessories-kurt.png",
                             Tipo = 5
                         },
                         new
@@ -800,7 +800,7 @@ namespace AccesoDatos.Migrations
                             Id = 78,
                             CodigoUnico = "prescription01",
                             Nombre = "Prescription01",
-                            RutaRecurso = "avatar/gafas/prescription01.svg",
+                            RutaRecurso = "accessories-prescription01.png",
                             Tipo = 5
                         },
                         new
@@ -808,7 +808,7 @@ namespace AccesoDatos.Migrations
                             Id = 79,
                             CodigoUnico = "prescription02",
                             Nombre = "Prescription02",
-                            RutaRecurso = "avatar/gafas/prescription02.svg",
+                            RutaRecurso = "accessories-prescription02.png",
                             Tipo = 5
                         },
                         new
@@ -816,7 +816,7 @@ namespace AccesoDatos.Migrations
                             Id = 80,
                             CodigoUnico = "round",
                             Nombre = "Round",
-                            RutaRecurso = "avatar/gafas/round.svg",
+                            RutaRecurso = "accessories-round.png",
                             Tipo = 5
                         },
                         new
@@ -824,7 +824,7 @@ namespace AccesoDatos.Migrations
                             Id = 81,
                             CodigoUnico = "sunglasses",
                             Nombre = "Sunglasses",
-                            RutaRecurso = "avatar/gafas/sunglasses.svg",
+                            RutaRecurso = "accessories-sunglasses.png",
                             Tipo = 5
                         },
                         new
@@ -832,7 +832,7 @@ namespace AccesoDatos.Migrations
                             Id = 82,
                             CodigoUnico = "wayfarers",
                             Nombre = "Wayfarers",
-                            RutaRecurso = "avatar/gafas/wayfarers.svg",
+                            RutaRecurso = "accessories-wayfarers.png",
                             Tipo = 5
                         },
                         new
@@ -840,7 +840,7 @@ namespace AccesoDatos.Migrations
                             Id = 83,
                             CodigoUnico = "blazerAndShirt",
                             Nombre = "BlazerAndShirt",
-                            RutaRecurso = "avatar/ropa/blazerAndShirt.svg",
+                            RutaRecurso = "clothing-blazerAndShirt.png",
                             Tipo = 6
                         },
                         new
@@ -848,7 +848,7 @@ namespace AccesoDatos.Migrations
                             Id = 84,
                             CodigoUnico = "blazerAndSweater",
                             Nombre = "BlazerAndSweater",
-                            RutaRecurso = "avatar/ropa/blazerAndSweater.svg",
+                            RutaRecurso = "clothing-blazerAndSweater.png",
                             Tipo = 6
                         },
                         new
@@ -856,7 +856,7 @@ namespace AccesoDatos.Migrations
                             Id = 85,
                             CodigoUnico = "collarAndSweater",
                             Nombre = "CollarAndSweater",
-                            RutaRecurso = "avatar/ropa/collarAndSweater.svg",
+                            RutaRecurso = "clothing-collarAndSweater.png",
                             Tipo = 6
                         },
                         new
@@ -864,7 +864,7 @@ namespace AccesoDatos.Migrations
                             Id = 86,
                             CodigoUnico = "graphicShirt",
                             Nombre = "GraphicShirt",
-                            RutaRecurso = "avatar/ropa/graphicShirt.svg",
+                            RutaRecurso = "clothing-graphicShirt.png",
                             Tipo = 6
                         },
                         new
@@ -872,7 +872,7 @@ namespace AccesoDatos.Migrations
                             Id = 87,
                             CodigoUnico = "hoodie",
                             Nombre = "Hoodie",
-                            RutaRecurso = "avatar/ropa/hoodie.svg",
+                            RutaRecurso = "clothing-hoodie.png",
                             Tipo = 6
                         },
                         new
@@ -880,7 +880,7 @@ namespace AccesoDatos.Migrations
                             Id = 88,
                             CodigoUnico = "overall",
                             Nombre = "Overall",
-                            RutaRecurso = "avatar/ropa/overall.svg",
+                            RutaRecurso = "clothing-overall.png",
                             Tipo = 6
                         },
                         new
@@ -888,7 +888,7 @@ namespace AccesoDatos.Migrations
                             Id = 89,
                             CodigoUnico = "shirtCrewNeck",
                             Nombre = "ShirtCrewNeck",
-                            RutaRecurso = "avatar/ropa/shirtCrewNeck.svg",
+                            RutaRecurso = "clothing-shirtCrewNeck.png",
                             Tipo = 6
                         },
                         new
@@ -896,7 +896,7 @@ namespace AccesoDatos.Migrations
                             Id = 90,
                             CodigoUnico = "shirtScoopNeck",
                             Nombre = "ShirtScoopNeck",
-                            RutaRecurso = "avatar/ropa/shirtScoopNeck.svg",
+                            RutaRecurso = "clothing-shirtScoopNeck.png",
                             Tipo = 6
                         },
                         new
@@ -904,7 +904,7 @@ namespace AccesoDatos.Migrations
                             Id = 91,
                             CodigoUnico = "shirtVNeck",
                             Nombre = "ShirtVNeck",
-                            RutaRecurso = "avatar/ropa/shirtVNeck.svg",
+                            RutaRecurso = "clothing-shirtVNeck.png",
                             Tipo = 6
                         },
                         new
@@ -912,7 +912,7 @@ namespace AccesoDatos.Migrations
                             Id = 92,
                             CodigoUnico = "614335",
                             Nombre = "614335",
-                            RutaRecurso = "avatar/colorpiel/614335.svg",
+                            RutaRecurso = "skinColor-614335.png",
                             Tipo = 7
                         },
                         new
@@ -920,7 +920,7 @@ namespace AccesoDatos.Migrations
                             Id = 93,
                             CodigoUnico = "ae5d29",
                             Nombre = "ae5d29",
-                            RutaRecurso = "avatar/colorpiel/ae5d29.svg",
+                            RutaRecurso = "skinColor-ae5d29.png",
                             Tipo = 7
                         },
                         new
@@ -928,7 +928,7 @@ namespace AccesoDatos.Migrations
                             Id = 94,
                             CodigoUnico = "d08b5b",
                             Nombre = "d08b5b",
-                            RutaRecurso = "avatar/colorpiel/d08b5b.svg",
+                            RutaRecurso = "skinColor-d08b5b.png",
                             Tipo = 7
                         },
                         new
@@ -936,7 +936,7 @@ namespace AccesoDatos.Migrations
                             Id = 95,
                             CodigoUnico = "edb98a",
                             Nombre = "edb98a",
-                            RutaRecurso = "avatar/colorpiel/edb98a.svg",
+                            RutaRecurso = "skinColor-edb98a.png",
                             Tipo = 7
                         },
                         new
@@ -944,7 +944,7 @@ namespace AccesoDatos.Migrations
                             Id = 96,
                             CodigoUnico = "f8d25c",
                             Nombre = "f8d25c",
-                            RutaRecurso = "avatar/colorpiel/f8d25c.svg",
+                            RutaRecurso = "skinColor-f8d25c.png",
                             Tipo = 7
                         },
                         new
@@ -952,7 +952,7 @@ namespace AccesoDatos.Migrations
                             Id = 97,
                             CodigoUnico = "fd9841",
                             Nombre = "fd9841",
-                            RutaRecurso = "avatar/colorpiel/fd9841.svg",
+                            RutaRecurso = "skinColor-fd9841.png",
                             Tipo = 7
                         },
                         new
@@ -960,7 +960,7 @@ namespace AccesoDatos.Migrations
                             Id = 98,
                             CodigoUnico = "ffdbb4",
                             Nombre = "ffdbb4",
-                            RutaRecurso = "avatar/colorpiel/ffdbb4.svg",
+                            RutaRecurso = "skinColor-ffdbb4.png",
                             Tipo = 7
                         },
                         new
@@ -968,7 +968,7 @@ namespace AccesoDatos.Migrations
                             Id = 99,
                             CodigoUnico = "2c1b18",
                             Nombre = "2c1b18",
-                            RutaRecurso = "avatar/colorpelo/2c1b18.svg",
+                            RutaRecurso = "hairColor-2c1b18.png",
                             Tipo = 8
                         },
                         new
@@ -976,7 +976,7 @@ namespace AccesoDatos.Migrations
                             Id = 100,
                             CodigoUnico = "4a312c",
                             Nombre = "4a312c",
-                            RutaRecurso = "avatar/colorpelo/4a312c.svg",
+                            RutaRecurso = "hairColor-4a312c.png",
                             Tipo = 8
                         },
                         new
@@ -984,7 +984,7 @@ namespace AccesoDatos.Migrations
                             Id = 101,
                             CodigoUnico = "724133",
                             Nombre = "724133",
-                            RutaRecurso = "avatar/colorpelo/724133.svg",
+                            RutaRecurso = "hairColor-724133.png",
                             Tipo = 8
                         },
                         new
@@ -992,7 +992,7 @@ namespace AccesoDatos.Migrations
                             Id = 102,
                             CodigoUnico = "a55728",
                             Nombre = "a55728",
-                            RutaRecurso = "avatar/colorpelo/a55728.svg",
+                            RutaRecurso = "hairColor-a55728.png",
                             Tipo = 8
                         },
                         new
@@ -1000,7 +1000,7 @@ namespace AccesoDatos.Migrations
                             Id = 103,
                             CodigoUnico = "b58143",
                             Nombre = "b58143",
-                            RutaRecurso = "avatar/colorpelo/b58143.svg",
+                            RutaRecurso = "hairColor-b58143.png",
                             Tipo = 8
                         },
                         new
@@ -1008,7 +1008,7 @@ namespace AccesoDatos.Migrations
                             Id = 104,
                             CodigoUnico = "c93305",
                             Nombre = "c93305",
-                            RutaRecurso = "avatar/colorpelo/c93305.svg",
+                            RutaRecurso = "hairColor-c93305.png",
                             Tipo = 8
                         },
                         new
@@ -1016,7 +1016,7 @@ namespace AccesoDatos.Migrations
                             Id = 105,
                             CodigoUnico = "d6b370",
                             Nombre = "d6b370",
-                            RutaRecurso = "avatar/colorpelo/d6b370.svg",
+                            RutaRecurso = "hairColor-d6b370.png",
                             Tipo = 8
                         },
                         new
@@ -1024,7 +1024,7 @@ namespace AccesoDatos.Migrations
                             Id = 106,
                             CodigoUnico = "e8e1e1",
                             Nombre = "e8e1e1",
-                            RutaRecurso = "avatar/colorpelo/e8e1e1.svg",
+                            RutaRecurso = "hairColor-e8e1e1.png",
                             Tipo = 8
                         },
                         new
@@ -1032,7 +1032,7 @@ namespace AccesoDatos.Migrations
                             Id = 107,
                             CodigoUnico = "ecdcbf",
                             Nombre = "ecdcbf",
-                            RutaRecurso = "avatar/colorpelo/ecdcbf.svg",
+                            RutaRecurso = "hairColor-ecdcbf.png",
                             Tipo = 8
                         },
                         new
@@ -1040,7 +1040,7 @@ namespace AccesoDatos.Migrations
                             Id = 108,
                             CodigoUnico = "f59797",
                             Nombre = "f59797",
-                            RutaRecurso = "avatar/colorpelo/f59797.svg",
+                            RutaRecurso = "hairColor-f59797.png",
                             Tipo = 8
                         },
                         new
@@ -1048,7 +1048,7 @@ namespace AccesoDatos.Migrations
                             Id = 109,
                             CodigoUnico = "2c1b18",
                             Nombre = "2c1b18",
-                            RutaRecurso = "avatar/colorbarba/2c1b18.svg",
+                            RutaRecurso = "beardColor-2c1b18.png",
                             Tipo = 9
                         },
                         new
@@ -1056,7 +1056,7 @@ namespace AccesoDatos.Migrations
                             Id = 110,
                             CodigoUnico = "4a312c",
                             Nombre = "4a312c",
-                            RutaRecurso = "avatar/colorbarba/4a312c.svg",
+                            RutaRecurso = "beardColor-4a312c.png",
                             Tipo = 9
                         },
                         new
@@ -1064,7 +1064,7 @@ namespace AccesoDatos.Migrations
                             Id = 111,
                             CodigoUnico = "724133",
                             Nombre = "724133",
-                            RutaRecurso = "avatar/colorbarba/724133.svg",
+                            RutaRecurso = "beardColor-724133.png",
                             Tipo = 9
                         },
                         new
@@ -1072,7 +1072,7 @@ namespace AccesoDatos.Migrations
                             Id = 112,
                             CodigoUnico = "a55728",
                             Nombre = "a55728",
-                            RutaRecurso = "avatar/colorbarba/a55728.svg",
+                            RutaRecurso = "beardColor-a55728.png",
                             Tipo = 9
                         },
                         new
@@ -1080,7 +1080,7 @@ namespace AccesoDatos.Migrations
                             Id = 113,
                             CodigoUnico = "b58143",
                             Nombre = "b58143",
-                            RutaRecurso = "avatar/colorbarba/b58143.svg",
+                            RutaRecurso = "beardColor-b58143.png",
                             Tipo = 9
                         },
                         new
@@ -1088,7 +1088,7 @@ namespace AccesoDatos.Migrations
                             Id = 114,
                             CodigoUnico = "c93305",
                             Nombre = "c93305",
-                            RutaRecurso = "avatar/colorbarba/c93305.svg",
+                            RutaRecurso = "beardColor-c93305.png",
                             Tipo = 9
                         },
                         new
@@ -1096,7 +1096,7 @@ namespace AccesoDatos.Migrations
                             Id = 115,
                             CodigoUnico = "d6b370",
                             Nombre = "d6b370",
-                            RutaRecurso = "avatar/colorbarba/d6b370.svg",
+                            RutaRecurso = "beardColor-d6b370.png",
                             Tipo = 9
                         },
                         new
@@ -1104,7 +1104,7 @@ namespace AccesoDatos.Migrations
                             Id = 116,
                             CodigoUnico = "e8e1e1",
                             Nombre = "e8e1e1",
-                            RutaRecurso = "avatar/colorbarba/e8e1e1.svg",
+                            RutaRecurso = "beardColor-e8e1e1.png",
                             Tipo = 9
                         },
                         new
@@ -1112,7 +1112,7 @@ namespace AccesoDatos.Migrations
                             Id = 117,
                             CodigoUnico = "ecdcbf",
                             Nombre = "ecdcbf",
-                            RutaRecurso = "avatar/colorbarba/ecdcbf.svg",
+                            RutaRecurso = "beardColor-ecdcbf.png",
                             Tipo = 9
                         },
                         new
@@ -1120,7 +1120,7 @@ namespace AccesoDatos.Migrations
                             Id = 118,
                             CodigoUnico = "f59797",
                             Nombre = "f59797",
-                            RutaRecurso = "avatar/colorbarba/f59797.svg",
+                            RutaRecurso = "beardColor-f59797.png",
                             Tipo = 9
                         },
                         new
@@ -1128,7 +1128,7 @@ namespace AccesoDatos.Migrations
                             Id = 119,
                             CodigoUnico = "3c4f5c",
                             Nombre = "3c4f5c",
-                            RutaRecurso = "avatar/colorropa/3c4f5c.svg",
+                            RutaRecurso = "clothesColor-3c4f5c.png",
                             Tipo = 10
                         },
                         new
@@ -1136,7 +1136,7 @@ namespace AccesoDatos.Migrations
                             Id = 120,
                             CodigoUnico = "65c9ff",
                             Nombre = "65c9ff",
-                            RutaRecurso = "avatar/colorropa/65c9ff.svg",
+                            RutaRecurso = "clothesColor-65c9ff.png",
                             Tipo = 10
                         },
                         new
@@ -1144,7 +1144,7 @@ namespace AccesoDatos.Migrations
                             Id = 121,
                             CodigoUnico = "262e33",
                             Nombre = "262e33",
-                            RutaRecurso = "avatar/colorropa/262e33.svg",
+                            RutaRecurso = "clothesColor-262e33.png",
                             Tipo = 10
                         },
                         new
@@ -1152,7 +1152,7 @@ namespace AccesoDatos.Migrations
                             Id = 122,
                             CodigoUnico = "5199e4",
                             Nombre = "5199e4",
-                            RutaRecurso = "avatar/colorropa/5199e4.svg",
+                            RutaRecurso = "clothesColor-5199e4.png",
                             Tipo = 10
                         },
                         new
@@ -1160,7 +1160,7 @@ namespace AccesoDatos.Migrations
                             Id = 123,
                             CodigoUnico = "25557c",
                             Nombre = "25557c",
-                            RutaRecurso = "avatar/colorropa/25557c.svg",
+                            RutaRecurso = "clothesColor-25557c.png",
                             Tipo = 10
                         },
                         new
@@ -1168,7 +1168,7 @@ namespace AccesoDatos.Migrations
                             Id = 124,
                             CodigoUnico = "929598",
                             Nombre = "929598",
-                            RutaRecurso = "avatar/colorropa/929598.svg",
+                            RutaRecurso = "clothesColor-929598.png",
                             Tipo = 10
                         },
                         new
@@ -1176,7 +1176,7 @@ namespace AccesoDatos.Migrations
                             Id = 125,
                             CodigoUnico = "a7ffc4",
                             Nombre = "a7ffc4",
-                            RutaRecurso = "avatar/colorropa/a7ffc4.svg",
+                            RutaRecurso = "clothesColor-a7ffc4.png",
                             Tipo = 10
                         },
                         new
@@ -1184,7 +1184,7 @@ namespace AccesoDatos.Migrations
                             Id = 126,
                             CodigoUnico = "b1e2ff",
                             Nombre = "b1e2ff",
-                            RutaRecurso = "avatar/colorropa/b1e2ff.svg",
+                            RutaRecurso = "clothesColor-b1e2ff.png",
                             Tipo = 10
                         },
                         new
@@ -1192,7 +1192,7 @@ namespace AccesoDatos.Migrations
                             Id = 127,
                             CodigoUnico = "e6e6e6",
                             Nombre = "e6e6e6",
-                            RutaRecurso = "avatar/colorropa/e6e6e6.svg",
+                            RutaRecurso = "clothesColor-e6e6e6.png",
                             Tipo = 10
                         },
                         new
@@ -1200,7 +1200,7 @@ namespace AccesoDatos.Migrations
                             Id = 128,
                             CodigoUnico = "ff5c5c",
                             Nombre = "ff5c5c",
-                            RutaRecurso = "avatar/colorropa/ff5c5c.svg",
+                            RutaRecurso = "clothesColor-ff5c5c.png",
                             Tipo = 10
                         },
                         new
@@ -1208,7 +1208,7 @@ namespace AccesoDatos.Migrations
                             Id = 129,
                             CodigoUnico = "ff488e",
                             Nombre = "ff488e",
-                            RutaRecurso = "avatar/colorropa/ff488e.svg",
+                            RutaRecurso = "clothesColor-ff488e.png",
                             Tipo = 10
                         },
                         new
@@ -1216,7 +1216,7 @@ namespace AccesoDatos.Migrations
                             Id = 130,
                             CodigoUnico = "ffafb9",
                             Nombre = "ffafb9",
-                            RutaRecurso = "avatar/colorropa/ffafb9.svg",
+                            RutaRecurso = "clothesColor-ffafb9.png",
                             Tipo = 10
                         },
                         new
@@ -1224,7 +1224,7 @@ namespace AccesoDatos.Migrations
                             Id = 131,
                             CodigoUnico = "ffffb1",
                             Nombre = "ffffb1",
-                            RutaRecurso = "avatar/colorropa/ffffb1.svg",
+                            RutaRecurso = "clothesColor-ffffb1.png",
                             Tipo = 10
                         },
                         new
@@ -1232,7 +1232,7 @@ namespace AccesoDatos.Migrations
                             Id = 132,
                             CodigoUnico = "ffffff",
                             Nombre = "ffffff",
-                            RutaRecurso = "avatar/colorropa/ffffff.svg",
+                            RutaRecurso = "clothesColor-ffffff.png",
                             Tipo = 10
                         },
                         new
@@ -1240,7 +1240,7 @@ namespace AccesoDatos.Migrations
                             Id = 133,
                             CodigoUnico = "3c4f5c",
                             Nombre = "3c4f5c",
-                            RutaRecurso = "avatar/colorgafas/3c4f5c.svg",
+                            RutaRecurso = "accessoriesColor-3c4f5c.png",
                             Tipo = 11
                         },
                         new
@@ -1248,7 +1248,7 @@ namespace AccesoDatos.Migrations
                             Id = 134,
                             CodigoUnico = "65c9ff",
                             Nombre = "65c9ff",
-                            RutaRecurso = "avatar/colorgafas/65c9ff.svg",
+                            RutaRecurso = "accessoriesColor-65c9ff.png",
                             Tipo = 11
                         },
                         new
@@ -1256,7 +1256,7 @@ namespace AccesoDatos.Migrations
                             Id = 135,
                             CodigoUnico = "262e33",
                             Nombre = "262e33",
-                            RutaRecurso = "avatar/colorgafas/262e33.svg",
+                            RutaRecurso = "accessoriesColor-262e33.png",
                             Tipo = 11
                         },
                         new
@@ -1264,7 +1264,7 @@ namespace AccesoDatos.Migrations
                             Id = 136,
                             CodigoUnico = "5199e4",
                             Nombre = "5199e4",
-                            RutaRecurso = "avatar/colorgafas/5199e4.svg",
+                            RutaRecurso = "accessoriesColor-5199e4.png",
                             Tipo = 11
                         },
                         new
@@ -1272,7 +1272,7 @@ namespace AccesoDatos.Migrations
                             Id = 137,
                             CodigoUnico = "25557c",
                             Nombre = "25557c",
-                            RutaRecurso = "avatar/colorgafas/25557c.svg",
+                            RutaRecurso = "accessoriesColor-25557c.png",
                             Tipo = 11
                         },
                         new
@@ -1280,7 +1280,7 @@ namespace AccesoDatos.Migrations
                             Id = 138,
                             CodigoUnico = "929598",
                             Nombre = "929598",
-                            RutaRecurso = "avatar/colorgafas/929598.svg",
+                            RutaRecurso = "accessoriesColor-929598.png",
                             Tipo = 11
                         },
                         new
@@ -1288,7 +1288,7 @@ namespace AccesoDatos.Migrations
                             Id = 139,
                             CodigoUnico = "a7ffc4",
                             Nombre = "a7ffc4",
-                            RutaRecurso = "avatar/colorgafas/a7ffc4.svg",
+                            RutaRecurso = "accessoriesColor-a7ffc4.png",
                             Tipo = 11
                         },
                         new
@@ -1296,7 +1296,7 @@ namespace AccesoDatos.Migrations
                             Id = 140,
                             CodigoUnico = "b1e2ff",
                             Nombre = "b1e2ff",
-                            RutaRecurso = "avatar/colorgafas/b1e2ff.svg",
+                            RutaRecurso = "accessoriesColor-b1e2ff.png",
                             Tipo = 11
                         },
                         new
@@ -1304,7 +1304,7 @@ namespace AccesoDatos.Migrations
                             Id = 141,
                             CodigoUnico = "e6e6e6",
                             Nombre = "e6e6e6",
-                            RutaRecurso = "avatar/colorgafas/e6e6e6.svg",
+                            RutaRecurso = "accessoriesColor-e6e6e6.png",
                             Tipo = 11
                         },
                         new
@@ -1312,7 +1312,7 @@ namespace AccesoDatos.Migrations
                             Id = 142,
                             CodigoUnico = "ff5c5c",
                             Nombre = "ff5c5c",
-                            RutaRecurso = "avatar/colorgafas/ff5c5c.svg",
+                            RutaRecurso = "accessoriesColor-ff5c5c.png",
                             Tipo = 11
                         },
                         new
@@ -1320,7 +1320,7 @@ namespace AccesoDatos.Migrations
                             Id = 143,
                             CodigoUnico = "ff488e",
                             Nombre = "ff488e",
-                            RutaRecurso = "avatar/colorgafas/ff488e.svg",
+                            RutaRecurso = "accessoriesColor-ff488e.png",
                             Tipo = 11
                         },
                         new
@@ -1328,7 +1328,7 @@ namespace AccesoDatos.Migrations
                             Id = 144,
                             CodigoUnico = "ffafb9",
                             Nombre = "ffafb9",
-                            RutaRecurso = "avatar/colorgafas/ffafb9.svg",
+                            RutaRecurso = "accessoriesColor-ffafb9.png",
                             Tipo = 11
                         },
                         new
@@ -1336,7 +1336,7 @@ namespace AccesoDatos.Migrations
                             Id = 145,
                             CodigoUnico = "ffdeb5",
                             Nombre = "ffdeb5",
-                            RutaRecurso = "avatar/colorgafas/ffdeb5.svg",
+                            RutaRecurso = "accessoriesColor-ffdeb5.png",
                             Tipo = 11
                         },
                         new
@@ -1344,7 +1344,7 @@ namespace AccesoDatos.Migrations
                             Id = 146,
                             CodigoUnico = "ffffb1",
                             Nombre = "ffffb1",
-                            RutaRecurso = "avatar/colorgafas/ffffb1.svg",
+                            RutaRecurso = "accessoriesColor-ffffb1.png",
                             Tipo = 11
                         },
                         new
@@ -1352,7 +1352,7 @@ namespace AccesoDatos.Migrations
                             Id = 147,
                             CodigoUnico = "ffffff",
                             Nombre = "ffffff",
-                            RutaRecurso = "avatar/colorgafas/ffffff.svg",
+                            RutaRecurso = "accessoriesColor-ffffff.png",
                             Tipo = 11
                         });
                 });
@@ -2517,8 +2517,8 @@ namespace AccesoDatos.Migrations
                             Nombre = "Item: ShortFlat",
                             Precio = 0,
                             RequiereImagen = true,
-                            RutaImagenCompleta = "avatar/pelo/shortFlat.svg",
-                            RutaImagenMiniatura = "avatar/pelo/shortFlat.svg",
+                            RutaImagenCompleta = "top-shortFlat.png",
+                            RutaImagenMiniatura = "top-shortFlat.png",
                             TiendaId = 1,
                             AtributoAvatarId = 21
                         },
@@ -2528,8 +2528,8 @@ namespace AccesoDatos.Migrations
                             Nombre = "Item: Default",
                             Precio = 0,
                             RequiereImagen = true,
-                            RutaImagenCompleta = "avatar/cejas/default.svg",
-                            RutaImagenMiniatura = "avatar/cejas/default.svg",
+                            RutaImagenCompleta = "eyebrows-default.png",
+                            RutaImagenMiniatura = "eyebrows-default.png",
                             TiendaId = 1,
                             AtributoAvatarId = 37
                         },
@@ -2539,8 +2539,8 @@ namespace AccesoDatos.Migrations
                             Nombre = "Item: DefaultNatural",
                             Precio = 0,
                             RequiereImagen = true,
-                            RutaImagenCompleta = "avatar/cejas/defaultNatural.svg",
-                            RutaImagenMiniatura = "avatar/cejas/defaultNatural.svg",
+                            RutaImagenCompleta = "eyebrows-defaultNatural.png",
+                            RutaImagenMiniatura = "eyebrows-defaultNatural.png",
                             TiendaId = 1,
                             AtributoAvatarId = 38
                         },
@@ -2550,8 +2550,8 @@ namespace AccesoDatos.Migrations
                             Nombre = "Item: Smile",
                             Precio = 0,
                             RequiereImagen = true,
-                            RutaImagenCompleta = "avatar/boca/smile.svg",
-                            RutaImagenMiniatura = "avatar/boca/smile.svg",
+                            RutaImagenCompleta = "mouth-smile.png",
+                            RutaImagenMiniatura = "mouth-smile.png",
                             TiendaId = 1,
                             AtributoAvatarId = 68
                         },
@@ -2561,8 +2561,8 @@ namespace AccesoDatos.Migrations
                             Nombre = "Item: ShirtVNeck",
                             Precio = 0,
                             RequiereImagen = true,
-                            RutaImagenCompleta = "avatar/ropa/shirtVNeck.svg",
-                            RutaImagenMiniatura = "avatar/ropa/shirtVNeck.svg",
+                            RutaImagenCompleta = "clothing-shirtVNeck.png",
+                            RutaImagenMiniatura = "clothing-shirtVNeck.png",
                             TiendaId = 1,
                             AtributoAvatarId = 91
                         },
@@ -2572,8 +2572,8 @@ namespace AccesoDatos.Migrations
                             Nombre = "Item: Sunglasses",
                             Precio = 0,
                             RequiereImagen = true,
-                            RutaImagenCompleta = "avatar/gafas/sunglasses.svg",
-                            RutaImagenMiniatura = "avatar/gafas/sunglasses.svg",
+                            RutaImagenCompleta = "accessories-sunglasses.png",
+                            RutaImagenMiniatura = "accessories-sunglasses.png",
                             TiendaId = 1,
                             AtributoAvatarId = 81
                         },
@@ -2583,8 +2583,8 @@ namespace AccesoDatos.Migrations
                             Nombre = "Item: BeardLight",
                             Precio = 0,
                             RequiereImagen = true,
-                            RutaImagenCompleta = "avatar/barba/beardLight.svg",
-                            RutaImagenMiniatura = "avatar/barba/beardLight.svg",
+                            RutaImagenCompleta = "beard-beardLight.png",
+                            RutaImagenMiniatura = "beard-beardLight.png",
                             TiendaId = 1,
                             AtributoAvatarId = 71
                         },
@@ -2594,8 +2594,8 @@ namespace AccesoDatos.Migrations
                             Nombre = "Item: edb98a",
                             Precio = 0,
                             RequiereImagen = true,
-                            RutaImagenCompleta = "avatar/colorpiel/edb98a.svg",
-                            RutaImagenMiniatura = "avatar/colorpiel/edb98a.svg",
+                            RutaImagenCompleta = "skinColor-edb98a.png",
+                            RutaImagenMiniatura = "skinColor-edb98a.png",
                             TiendaId = 1,
                             AtributoAvatarId = 95
                         },
@@ -2605,8 +2605,8 @@ namespace AccesoDatos.Migrations
                             Nombre = "Item: a55728",
                             Precio = 0,
                             RequiereImagen = true,
-                            RutaImagenCompleta = "avatar/colorpelo/a55728.svg",
-                            RutaImagenMiniatura = "avatar/colorpelo/a55728.svg",
+                            RutaImagenCompleta = "hairColor-a55728.png",
+                            RutaImagenMiniatura = "hairColor-a55728.png",
                             TiendaId = 1,
                             AtributoAvatarId = 102
                         },
@@ -2616,8 +2616,8 @@ namespace AccesoDatos.Migrations
                             Nombre = "Item: 3c4f5c",
                             Precio = 0,
                             RequiereImagen = true,
-                            RutaImagenCompleta = "avatar/colorropa/3c4f5c.svg",
-                            RutaImagenMiniatura = "avatar/colorropa/3c4f5c.svg",
+                            RutaImagenCompleta = "clothesColor-3c4f5c.png",
+                            RutaImagenMiniatura = "clothesColor-3c4f5c.png",
                             TiendaId = 1,
                             AtributoAvatarId = 119
                         },
@@ -2627,8 +2627,8 @@ namespace AccesoDatos.Migrations
                             Nombre = "Item: 262e33",
                             Precio = 0,
                             RequiereImagen = true,
-                            RutaImagenCompleta = "avatar/colorgafas/262e33.svg",
-                            RutaImagenMiniatura = "avatar/colorgafas/262e33.svg",
+                            RutaImagenCompleta = "accessoriesColor-262e33.png",
+                            RutaImagenMiniatura = "accessoriesColor-262e33.png",
                             TiendaId = 1,
                             AtributoAvatarId = 135
                         },
@@ -2638,8 +2638,8 @@ namespace AccesoDatos.Migrations
                             Nombre = "Item: a55728",
                             Precio = 0,
                             RequiereImagen = true,
-                            RutaImagenCompleta = "avatar/colorbarba/a55728.svg",
-                            RutaImagenMiniatura = "avatar/colorbarba/a55728.svg",
+                            RutaImagenCompleta = "beardColor-a55728.png",
+                            RutaImagenMiniatura = "beardColor-a55728.png",
                             TiendaId = 1,
                             AtributoAvatarId = 112
                         });

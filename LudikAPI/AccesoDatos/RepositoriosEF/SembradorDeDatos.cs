@@ -213,6 +213,21 @@ namespace AccesoDatos.RepositoriosEF
             int idCounter = 1;
             var atributos = new List<AtributoAvatar>();
             Func<string, string> capitalizar = s => char.ToUpper(s[0]) + s.Substring(1);
+            var mapeoPrefijos = new Dictionary<TipoAtributo, string>
+            {
+                { TipoAtributo.Pelo, "top-" },
+                { TipoAtributo.Cejas, "eyebrows-" },
+                { TipoAtributo.Ojos, "eyes-" },
+                { TipoAtributo.Boca, "mouth-" },
+                { TipoAtributo.Barba, "beard-" }, 
+                { TipoAtributo.Gafas, "accessories-" },
+                { TipoAtributo.Ropa, "clothing-" },
+                { TipoAtributo.ColorPiel, "skinColor-" },
+                { TipoAtributo.ColorPelo, "hairColor-" },
+                { TipoAtributo.ColorBarba, "beardColor-" },
+                { TipoAtributo.ColorRopa, "clothesColor-" },
+                { TipoAtributo.ColorGafas, "accessoriesColor-" }
+            };
 
             var datos = new Dictionary<TipoAtributo, string[]> { { TipoAtributo.Pelo, new[] { "bigHair", "bob", "bun", "curly", "curvy", "dreads", "dreads01", "dreads02", "frida", "frizzle", "fro", "froBand", "hat", "hijab", "longButNotTooLong", "miaWallace", "shaggy", "shaggyMullet", "shavedSides", "shortCurly", "shortFlat", "shortRound", "shortWaved", "sides", "straight01", "straight02", "straightAndStrand", "theCaesar", "theCaesarAndSidePart", "turban", "winterHat1", "winterHat02", "winterHat03", "winterHat04" } },
                 { TipoAtributo.Cejas, new[] { "angry", "angryNatural", "default", "defaultNatural", "flatNatural", "frownNatural", "raisedExcited", "raisedExcitedNatural", "sadConcerned", "sadConcernedNatural", "unibrowNatural", "upDown", "upDownNatural" } },
@@ -230,16 +245,19 @@ namespace AccesoDatos.RepositoriosEF
 
             foreach (var kvp in datos)
             {
+
+                var prefijo = mapeoPrefijos[kvp.Key];
+                var tipoAtributo = kvp.Key;
+
                 foreach (var codigo in kvp.Value)
                 {
                     atributos.Add(new AtributoAvatar
                     {
                         Id = idCounter++,
-                        Tipo = kvp.Key,
-                        Nombre = kvp.Key.ToString().Contains("Color") ? codigo : capitalizar(codigo),
+                        Tipo = tipoAtributo,
+                        Nombre = tipoAtributo.ToString().Contains("Color") ? codigo : capitalizar(codigo),
                         CodigoUnico = codigo,
-                        //TODO: Cambiar tu ruta de recursos una vez que tenga los recursos reales
-                        RutaRecurso = $"avatar/{kvp.Key.ToString().ToLower()}/{codigo}.svg"
+                        RutaRecurso = $"{prefijo}{codigo}.png"
                     });
                 }
             }
