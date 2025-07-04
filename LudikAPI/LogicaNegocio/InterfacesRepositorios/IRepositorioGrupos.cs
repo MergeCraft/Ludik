@@ -2,6 +2,7 @@ using InterfacesRepositorio;
 using LogicaNegocio.Entidades;
 using System.Collections.Generic;
 using LogicaNegocio.InterfacesRepositorio;
+using LogicaNegocio.Resultados;
 
 namespace InterfacesRepositorio
 {
@@ -15,7 +16,7 @@ namespace InterfacesRepositorio
 
         Task rechazarSolicitudAsync(SolicitudUnion idSolictud);
 
-        Task<List<Grupo>> obtenerGruposPorProfesorAsync(int idProfesor);
+        Task<Resultado<IEnumerable<Grupo>>> obtenerGruposPorProfesorAsync(string idProfesor);
 
         Task unirseAGrupoAsync(int idAlumno, Grupo grupo);
 
@@ -28,6 +29,7 @@ namespace InterfacesRepositorio
 
         Task<List<Grupo>> ObtenerGruposPorEstudianteId(string idEstudiante);
         Task<List<Grupo>> ObtenerGruposPorProfesorId(string idProfesor);
+
     }
 
 }

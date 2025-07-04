@@ -209,10 +209,40 @@ namespace AccesoDatos.RepositoriosEF
 			throw new NotImplementedException();
 		}
 
-		public Task<List<Grupo>> obtenerGruposPorProfesorAsync(int idProfesor)
+		public async Task<Resultado<IEnumerable<Grupo>>> obtenerGruposPorProfesorAsync(string idProfesor)
 		{
-			throw new NotImplementedException();
-		}
+            try
+            {
+                if (string.IsNullOrWhiteSpace(idProfesor))
+                    return Resultado<IEnumerable<Grupo>>.Falla(
+                        new Error("Grupo.GetByProfesor.Validacion",
+                                  "El ID de profesor no puede estar vacío."));
+
+                var grupos = await _db.Grupos
+                    // Incluye lo mínimo que tu caso de uso requiera:
+                    .Include(g => g.Alumnos)
+                        .ThenInclude(a => a.HistorialRendimientoPeriodos)
+                            .ThenInclude(rp => rp.RendimientoMedallas)
+                                .ThenInclude(rpm => rpm.Medalla)
+                    .Include(g => g.TablaEquivalencia)
+                        .ThenInclude(te => te.Equivalencias)
+                            .ThenInclude(eq => eq.MedallasNecesarias)
+                    .Where(g => g.ProfesorId == idProfesor)
+                    .ToListAsync();
+
+                if (!grupos.Any())
+                    return Resultado<IEnumerable<Grupo>>.Falla(
+                        new Error("Grupo.GetByProfesor.Vacio",
+                                  $"El profesor {idProfesor} no tiene grupos registrados."));
+
+                return Resultado<IEnumerable<Grupo>>.Exitoso(grupos);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<IEnumerable<Grupo>>.Falla(
+                    new Error("Grupo.GetByProfesor.DbError", ex.Message));
+            }
+        }
 
 		public Task unirseAGrupoAsync(int idAlumno, Grupo grupo)
 		{

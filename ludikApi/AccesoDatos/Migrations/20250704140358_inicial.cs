@@ -678,12 +678,15 @@ namespace AccesoDatos.Migrations
                 name: "RendimientoPeriodoMedallas",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RendimientoPeriodoId = table.Column<int>(type: "int", nullable: false),
-                    MedallaId = table.Column<int>(type: "int", nullable: false)
+                    MedallaId = table.Column<int>(type: "int", nullable: false),
+                    FechaOtorgada = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RendimientoPeriodoMedallas", x => new { x.RendimientoPeriodoId, x.MedallaId });
+                    table.PrimaryKey("PK_RendimientoPeriodoMedallas", x => x.Id);
                     table.ForeignKey(
                         name: "FK_RendimientoPeriodoMedallas_Medallas_MedallaId",
                         column: x => x.MedallaId,
@@ -1281,6 +1284,11 @@ namespace AccesoDatos.Migrations
                 name: "IX_RendimientoPeriodoMedallas_MedallaId",
                 table: "RendimientoPeriodoMedallas",
                 column: "MedallaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RendimientoPeriodoMedallas_RendimientoPeriodoId_MedallaId",
+                table: "RendimientoPeriodoMedallas",
+                columns: new[] { "RendimientoPeriodoId", "MedallaId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_RendimientosPeriodos_PerfilEstudianteId",

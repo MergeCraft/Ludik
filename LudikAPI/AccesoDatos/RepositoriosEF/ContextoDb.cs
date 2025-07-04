@@ -31,6 +31,8 @@ namespace AccesoDatos.RepositoriosEF
         public DbSet<TablaEquivalencia> TablasEquivalencia { get; set; }
         public DbSet<SolicitudUnion> SolicitudesUnion { get; set; }
         public DbSet<RendimientoPeriodo> RendimientosPeriodos { get; set; }
+        public DbSet<RendimientoPeriodoMedalla> RendimientosPeriodosMedallas { get; set; }
+
         public DbSet<PreguntaRespuestaSeguridad> PreguntasRespuestasSeguridad { get; set; }
         public DbSet<Potenciador> Potenciadores { get; set; }
         public DbSet<Pin> Pines { get; set; }
@@ -177,11 +179,13 @@ namespace AccesoDatos.RepositoriosEF
 
             modelBuilder.Entity<RendimientoPeriodo>(rp =>
             {
+                // PK e identidad
                 rp.HasKey(r => r.Id);
                 rp.Property(r => r.Id)
                   .UseIdentityColumn()    // SQL Server: IDENTITY(1,1)
-                  .ValueGeneratedOnAdd(); // nunca incluirá el Id en el INSERT
+                  .ValueGeneratedOnAdd();
 
+                // Owned type RangoFechas
                 rp.OwnsOne(r => r.Rangofecha, rf =>
                 {
                     rf.Property(x => x.fechaInicio)
@@ -192,17 +196,36 @@ namespace AccesoDatos.RepositoriosEF
                       .IsRequired();
                 });
 
-                rp.HasMany(r => r.MedallasObtuvoEstudiante)
-                  .WithMany()
-                  .UsingEntity<Dictionary<string, object>>(
-                      "RendimientoPeriodoMedallas",
-                      j => j.HasOne<Medalla>().WithMany().HasForeignKey("MedallaId").OnDelete(DeleteBehavior.Restrict),
-                      j => j.HasOne<RendimientoPeriodo>().WithMany().HasForeignKey("RendimientoPeriodoId").OnDelete(DeleteBehavior.Cascade),
-                      j =>
-                      {
-                          j.HasKey("RendimientoPeriodoId", "MedallaId");
-                          j.ToTable("RendimientoPeriodoMedallas");
-                      });
+                //  M:N explícita a través de RendimientoPeriodoMedalla
+                rp.HasMany(r => r.RendimientoMedallas)
+                  .WithOne(rpm => rpm.RendimientoPeriodo)
+                  .HasForeignKey(rpm => rpm.RendimientoPeriodoId)
+                  .OnDelete(DeleteBehavior.Cascade);
+            });
+            modelBuilder.Entity<RendimientoPeriodoMedalla>(rpm =>
+            {
+                rpm.ToTable("RendimientoPeriodoMedallas");
+
+                // PK propia
+                rpm.HasKey(x => x.Id);
+                rpm.Property(x => x.Id)
+                   .UseIdentityColumn()
+                   .ValueGeneratedOnAdd();
+
+                // FK al periodo
+                rpm.HasOne(x => x.RendimientoPeriodo)
+                   .WithMany(rp => rp.RendimientoMedallas)
+                   .HasForeignKey(x => x.RendimientoPeriodoId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+                // FK a la medalla
+                rpm.HasOne(x => x.Medalla)
+                   .WithMany()  // si necesitas navegación inversa, pon .WithMany(m => m.Rendimientos)
+                   .HasForeignKey(x => x.MedallaId)
+                   .OnDelete(DeleteBehavior.Restrict);
+
+                // Índice compuesto (opcional)
+                rpm.HasIndex(x => new { x.RendimientoPeriodoId, x.MedallaId });
             });
 
             // CONFIGURACIÓN DE PERFIL ESTUDIANTE Y RELACIONES

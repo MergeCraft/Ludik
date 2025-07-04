@@ -101,17 +101,22 @@ namespace LogicaNegocio.Entidades
                 var rendimiento = new RendimientoPeriodo
                 {
                     PerfilEstudianteId = perfil.Id,
-                    MedallasObtuvoEstudiante = perfil.MedallasObtenidas?.ToList() ?? new List<Medalla>(),
                     NotaObtenida = perfil.CalcularNotaActual(),
-                    Rangofecha = new RangoFechas(desde, hasta)
+                    Rangofecha = new RangoFechas(desde, hasta),
+
+                    RendimientoMedallas = perfil.MedallasObtenidas
+                        .Select(m => new RendimientoPeriodoMedalla
+                        {
+                            MedallaId = m.Id,
+                            Medalla = m,          
+                                                  
+                        })
+                        .ToList()
                 };
 
                 rendimientos.Add(rendimiento);
 
-                perfil.HistorialRendimientoPeriodos.Add(rendimiento);
-
                 perfil.PerfilMedallas.Clear();
-                
             }
 
             return rendimientos;

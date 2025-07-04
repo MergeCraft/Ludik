@@ -18,7 +18,7 @@ namespace LogicaNegocio.Entidades
 
         public int NotaObtenida { get; set; }
 
-        public List<Medalla> MedallasObtuvoEstudiante { get; set; }
+        public List<RendimientoPeriodoMedalla> RendimientoMedallas { get; set; } = new();
 
         [ForeignKey(nameof(PerfilEstudiante))]
         public int PerfilEstudianteId { get; set; } // Clave for�nea

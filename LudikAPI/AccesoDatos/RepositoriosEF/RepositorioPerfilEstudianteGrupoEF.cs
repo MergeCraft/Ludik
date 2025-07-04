@@ -23,16 +23,20 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var perfiles = await _db.PerfilesEstudiantes
-                    .Include(p => p.BarraProgreso)
-                    .Include(p => p.Estudiante)
-                    .Include(p => p.PerfilMedallas)                       
-                        .ThenInclude(pm => pm.Medalla)
-                    .Include(p => p.Grupo)
-                        .ThenInclude(g => g.TablaEquivalencia)           
-                            .ThenInclude(te => te.Equivalencias)
-                                .ThenInclude(eq => eq.MedallasNecesarias) 
-                    .Where(p => p.GrupoId == grupoId)
-                    .ToListAsync();
+            .Include(p => p.BarraProgreso)
+            .Include(p => p.Estudiante)
+            .Include(p => p.PerfilMedallas)
+                .ThenInclude(pm => pm.Medalla)
+            .Include(p => p.Grupo)
+                .ThenInclude(g => g.TablaEquivalencia)
+                    .ThenInclude(te => te.Equivalencias)
+                        .ThenInclude(eq => eq.MedallasNecesarias)
+            // >>> Nuevo Include para los historiales de rendimiento
+            .Include(p => p.HistorialRendimientoPeriodos)
+                .ThenInclude(rp => rp.RendimientoMedallas)
+                    .ThenInclude(rpm => rpm.Medalla)
+            .Where(p => p.GrupoId == grupoId)
+            .ToListAsync();
 
                 if (perfiles == null || !perfiles.Any())
                     return Resultado<List<PerfilEstudiante>>.Falla(

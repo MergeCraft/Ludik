@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250703184809_inicial")]
+    [Migration("20250704140358_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -2050,6 +2050,32 @@ namespace AccesoDatos.Migrations
                     b.ToTable("RendimientosPeriodos");
                 });
 
+            modelBuilder.Entity("LogicaNegocio.Entidades.RendimientoPeriodoMedalla", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("FechaOtorgada")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MedallaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RendimientoPeriodoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MedallaId");
+
+                    b.HasIndex("RendimientoPeriodoId", "MedallaId");
+
+                    b.ToTable("RendimientoPeriodoMedallas", (string)null);
+                });
+
             modelBuilder.Entity("LogicaNegocio.Entidades.SolicitudUnion", b =>
                 {
                     b.Property<int>("Id")
@@ -2470,21 +2496,6 @@ namespace AccesoDatos.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("TokensUsuario", (string)null);
-                });
-
-            modelBuilder.Entity("RendimientoPeriodoMedallas", b =>
-                {
-                    b.Property<int>("RendimientoPeriodoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MedallaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RendimientoPeriodoId", "MedallaId");
-
-                    b.HasIndex("MedallaId");
-
-                    b.ToTable("RendimientoPeriodoMedallas", (string)null);
                 });
 
             modelBuilder.Entity("TablaClasificacionParticipantes", b =>
@@ -3129,6 +3140,25 @@ namespace AccesoDatos.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("LogicaNegocio.Entidades.RendimientoPeriodoMedalla", b =>
+                {
+                    b.HasOne("LogicaNegocio.Entidades.Medalla", "Medalla")
+                        .WithMany()
+                        .HasForeignKey("MedallaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("LogicaNegocio.Entidades.RendimientoPeriodo", "RendimientoPeriodo")
+                        .WithMany("RendimientoMedallas")
+                        .HasForeignKey("RendimientoPeriodoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Medalla");
+
+                    b.Navigation("RendimientoPeriodo");
+                });
+
             modelBuilder.Entity("LogicaNegocio.Entidades.SolicitudUnion", b =>
                 {
                     b.HasOne("LogicaNegocio.Entidades.Estudiante", "Estudiante")
@@ -3313,21 +3343,6 @@ namespace AccesoDatos.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RendimientoPeriodoMedallas", b =>
-                {
-                    b.HasOne("LogicaNegocio.Entidades.Medalla", null)
-                        .WithMany()
-                        .HasForeignKey("MedallaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("LogicaNegocio.Entidades.RendimientoPeriodo", null)
-                        .WithMany()
-                        .HasForeignKey("RendimientoPeriodoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("TablaClasificacionParticipantes", b =>
                 {
                     b.HasOne("LogicaNegocio.Entidades.PerfilEstudiante", null)
@@ -3397,6 +3412,11 @@ namespace AccesoDatos.Migrations
                     b.Navigation("InventarioRecompensas");
 
                     b.Navigation("PerfilMedallas");
+                });
+
+            modelBuilder.Entity("LogicaNegocio.Entidades.RendimientoPeriodo", b =>
+                {
+                    b.Navigation("RendimientoMedallas");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.TablaEquivalencia", b =>

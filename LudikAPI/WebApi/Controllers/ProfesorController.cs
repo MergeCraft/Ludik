@@ -13,6 +13,7 @@ using LogicaAplicacion.InterfacesCasosUsos.SolicitudUnion;
 using WebApi.Helpers;
 using LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion;
 using LogicaAplicacion.InterfacesCasosUsos.Login;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace WebApi.Controllers
 {
@@ -27,12 +28,13 @@ namespace WebApi.Controllers
         private readonly IRechazarSolicitudUnion _rechazarSolicitudUnion;
         private readonly ILoginUsuario _loginUsuario;
         private readonly IReinicioLogrosDeUnGrupo _reinicioLogrosDeUnGrupo;
+        private readonly IReinicioLogrosDeTodosLosGrupos _reinicioLogrosDeTodosLosGrupos;
         public ProfesorController(IAltaProfesor altaProfesor, 
             IObtenerGruposDeProfesor obtenerGruposDeProfesor, 
             IObtenerSolicitudesUnionDelGrupo obtenerSolicitudesUnionDelGrupo,
             IAceptarSolicitudUnion aceptarSolicitudUnion, 
             IRechazarSolicitudUnion rechazarSolicitudUnion,
-            ILoginUsuario loginUsuario,IReinicioLogrosDeUnGrupo reinicioLogrosDeUnGrupo)
+            ILoginUsuario loginUsuario,IReinicioLogrosDeUnGrupo reinicioLogrosDeUnGrupo,IReinicioLogrosDeTodosLosGrupos reinicioLogrosDeTodosLosGrupos)
         {
             _altaProfesor = altaProfesor;
             _obtenerGruposDeProfesor = obtenerGruposDeProfesor;
@@ -41,6 +43,7 @@ namespace WebApi.Controllers
             _rechazarSolicitudUnion = rechazarSolicitudUnion;
             _loginUsuario = loginUsuario;
             _reinicioLogrosDeUnGrupo = reinicioLogrosDeUnGrupo;
+            _reinicioLogrosDeTodosLosGrupos = reinicioLogrosDeTodosLosGrupos;
         }
         /// <summary>
         /// Este endpoint permite registrar un nuevo Profesor en el sistema.
@@ -296,6 +299,52 @@ namespace WebApi.Controllers
                 {
                     Mensaje = "Ocurrió un error inesperado al reiniciar los logros. " + ex.Message
                 });
+            }
+        }
+        /// <summary>
+        /// Reinicia los logros de **todos** los grupos del profesor autenticado,
+        /// registrando previamente el historial en RendimientoPeriodo.
+        /// </summary>
+        /// <returns>
+        /// 200 OK: Logros reiniciados en todos los grupos.
+        /// 400 Bad Request: Errores de validación.
+        /// 401 Unauthorized: Usuario no autenticado.
+        /// 403 Forbidden: Si el usuario no es profesor.
+        /// 500 Internal Server Error: Error inesperado.
+        /// </returns>
+        [HttpPost("reiniciar-todos-logros")]
+        [Authorize(Policy = "EsProfesor")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ReiniciarTodosLogros()
+        {
+            try
+            {
+                // 1) Obtengo el ID del profesor desde el token
+                var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(profesorId))
+                    return Unauthorized(new { Mensaje = "No se pudo identificar al profesor autenticado." });
+
+                // 2) Ejecuto el caso de uso
+                var resultado = await _reinicioLogrosDeTodosLosGrupos.EjecutarAsync(profesorId);
+
+                // 3) Manejo errores
+                if (resultado.EsFallo)
+                {
+                    // En este diseño no habrá NotFound individual, así que devolvemos BadRequest
+                    return BadRequest(resultado.Errores.ToList());
+                }
+
+                // 4) Todo OK
+                return Ok(new { Mensaje = "Los logros de todos los grupos fueron reiniciados correctamente." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new { Mensaje = "Error inesperado al reiniciar todos los logros. " + ex.Message });
             }
         }
 
