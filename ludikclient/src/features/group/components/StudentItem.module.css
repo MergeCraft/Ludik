@@ -39,11 +39,18 @@ p {
     flex-grow: 1;
 }
 
+.actionsContainer {
+    display: flex;
+    gap: 10px;
+    width: 40%;
+}
+
 .asignarMedalla {
     border-radius: 15px;
     border: 1px solid var(--secundario);
     padding: 10px;
-    width: 40%;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .asignarMedalla p {
@@ -51,11 +58,39 @@ p {
     margin-bottom: 5px;
 }
 
+.opcionBorrado {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    padding: 0 10px;
+    border: 1px solid var(--secundario);
+    background-color: var(--principal);
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.opcionBorrado svg:nth-child(1) {
+    color: var(--boton-terciario);
+
+}
+
+.opcionBorrado svg:nth-child(2) {
+    color: var(--blanco-principal);
+}
+
+.opcionBorrado svg:nth-child(3) {
+    color: var(--boton-secundario);
+
+}
+
 .medallas {
     margin: 0;
     width: 100%;
     padding: 0px 5px;
     text-align: center;
+    border-radius: 7px;
+    font-size: small;
 }
 
 .medallas option {

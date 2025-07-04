@@ -67,17 +67,20 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var grupo = await _db.Grupos
-                    .Include(g => g.Alumnos)                              
+                    .Include(g => g.Alumnos)
+						.ThenInclude(a => a.HistorialRendimientoPeriodos)
+                    .Include(g => g.Alumnos)
+                        .ThenInclude(al => al.PerfilMedallas)
+                            .ThenInclude(pm => pm.Medalla)
                     .Include(g => g.TablaEquivalencia)
                         .ThenInclude(t => t.Equivalencias)
+							.ThenInclude(tm => tm.MedallasNecesarias)
                     .Include(g => g.EnlaceUnion)
                     .Include(g => g.Tienda)
-                    .FirstOrDefaultAsync(t => t.Id == id);
+                    .FirstOrDefaultAsync(g => g.Id == id);
 
                 if (grupo == null)
-                {
                     return Resultado<Grupo>.Falla(Error.NotFound);
-                }
 
                 return Resultado<Grupo>.Exitoso(grupo);
             }

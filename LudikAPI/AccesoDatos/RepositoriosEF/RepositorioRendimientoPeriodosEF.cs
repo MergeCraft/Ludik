@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaNegocio.Resultados;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
 {
@@ -17,9 +18,26 @@ namespace AccesoDatos.RepositoriosEF
             _db = db;
         }
 
-        public Task<Resultado> AddAsync(RendimientoPeriodo unObjeto)
+        public async Task<Resultado> AddAsync(RendimientoPeriodo unObjeto)
         {
-            throw new NotImplementedException();
+            if (unObjeto == null)
+                return Resultado.Falla(new Error("Error.Validation", "El objeto RendimientoPeriodo no puede ser nulo."));
+
+            try
+            {
+                await _db.RendimientosPeriodos.AddAsync(unObjeto);
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
+                return Resultado.Falla(new Error("Error.Unexpected", $"Error al guardar el rendimiento: {detalle}"));
+            }
+            catch (Exception ex)
+            {
+                return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
+            }
         }
 
         public void almacenarLogrosPrevios(int idGrupo)
