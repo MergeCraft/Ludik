@@ -222,7 +222,7 @@ builder.Services.AddScoped<IBajaTablaClasificacion, BajaTablaClasificacion>();
 builder.Services.AddScoped<IReinicioLogrosDeUnGrupo, ReinicioLogrosDeUnGrupo>();
 builder.Services.AddScoped<IReinicioLogrosDeTodosLosGrupos, ReinicioLogrosDeTodosLosGrupos>();
 builder.Services.AddScoped<ILoginUsuario, LoginUsuario>();
-
+builder.Services.AddScoped<IEstablecerMetaCalificacion, EstablecerMetaCalificacion>();
 builder.Services.AddScoped<IObtenerContenidoBarraProgreso, ObtenerContenidoBarraProgreso>();
 builder.Services.AddScoped<ISeedServicio, SeedServicio>();
 
