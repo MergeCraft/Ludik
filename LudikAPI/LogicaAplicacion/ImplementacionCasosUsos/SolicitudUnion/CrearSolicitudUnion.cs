@@ -40,7 +40,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
             if (enlace == null || enlace.Expiracion < DateTime.UtcNow)
                 return Resultado.Falla(new Error("Error.Validation", "El enlace es inválido o ha expirado."));
 
-            var estudiante = await _repoEstudiantes.GetByIdAsyncString(dto.IdEstudiante);
+            var estudiante = await _repoEstudiantes.GetByStringIdAsync(dto.IdEstudiante);
             if (estudiante == null)
                 return Resultado.Falla(new Error("Error.Validation", "El estudiante no existe."));
 

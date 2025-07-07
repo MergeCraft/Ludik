@@ -70,9 +70,25 @@ namespace AccesoDatos.RepositoriosEF
                 return Resultado<Estudiante>.Falla(new Error("Unexpected",e.Message));
             }
         }
-        public async Task<Estudiante> GetByIdAsyncString(string id)
+        public async Task<Resultado<Estudiante>> GetByStringIdAsync(string id)
         {
-            return await _db.Estudiantes.FirstOrDefaultAsync(e => e.Id == id);
+            try
+            {
+                var estudiante = await _db.Estudiantes
+                    .Include(e => e.PreguntasSeguridad)
+                    .FirstOrDefaultAsync(e => e.Id == id);
+
+                if (estudiante == null)
+                    return Resultado<Estudiante>.Falla(Error.NotFound);
+                
+
+                return Resultado<Estudiante>.Exitoso(estudiante);
+            }
+            catch (Exception e)
+            {
+
+                return Resultado<Estudiante>.Falla(new Error("Error.Unexpected", e.Message));
+            }
         }
 
         public Task<Resultado<IEnumerable<Estudiante>>> GetAllAsync()

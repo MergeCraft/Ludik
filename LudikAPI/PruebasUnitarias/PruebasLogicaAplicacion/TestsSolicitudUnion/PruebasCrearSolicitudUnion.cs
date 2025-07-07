@@ -89,7 +89,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             _repoEnlacesMock.Setup(r => r.ObtenerPorCodigoAsync("codigo123"))
                 .ReturnsAsync(enlace);
 
-            _repoEstudiantesMock.Setup(r => r.GetByIdAsyncString("estu123"))
+            _repoEstudiantesMock.Setup(r => r.GetByStringIdAsync("estu123"))
                 .ReturnsAsync((Entidad.Estudiante)null!);
 
             var servicio = new CrearSolicitudUnion(
@@ -123,7 +123,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             _repoEnlacesMock.Setup(r => r.ObtenerPorCodigoAsync("codigo123"))
                 .ReturnsAsync(enlace);
 
-            _repoEstudiantesMock.Setup(r => r.GetByIdAsyncString("estu123"))
+            _repoEstudiantesMock.Setup(r => r.GetByStringIdAsync("estu123"))
                 .ReturnsAsync(estudiante);
 
             _repoGruposMock.Setup(r => r.ObtenerPorEnlaceAsync("codigo123"))
@@ -159,7 +159,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             };
 
             _repoEnlacesMock.Setup(r => r.ObtenerPorCodigoAsync("codigo123")).ReturnsAsync(enlace);
-            _repoEstudiantesMock.Setup(r => r.GetByIdAsyncString("estu123")).ReturnsAsync(estudiante);
+            _repoEstudiantesMock.Setup(r => r.GetByStringIdAsync("estu123")).ReturnsAsync(estudiante);
             _repoGruposMock.Setup(r => r.ObtenerPorEnlaceAsync("codigo123")).ReturnsAsync(grupo);
             _repoSolicitudesMock.Setup(r => r.ExisteSolicitudPendiente("estu123", 5)).ReturnsAsync(true);
 
@@ -193,7 +193,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             };
 
             _repoEnlacesMock.Setup(r => r.ObtenerPorCodigoAsync("codigo123")).ReturnsAsync(enlace);
-            _repoEstudiantesMock.Setup(r => r.GetByIdAsyncString("estu123")).ReturnsAsync(estudiante);
+            _repoEstudiantesMock.Setup(r => r.GetByStringIdAsync("estu123")).ReturnsAsync(estudiante);
             _repoGruposMock.Setup(r => r.ObtenerPorEnlaceAsync("codigo123")).ReturnsAsync(grupo);
             _repoSolicitudesMock.Setup(r => r.ExisteSolicitudPendiente("estu123", 5)).ReturnsAsync(false);
             _repoSolicitudesMock.Setup(r => r.AddAsync(It.IsAny<SolicitudUnion>()))
@@ -229,7 +229,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion
             };
 
             _repoEnlacesMock.Setup(r => r.ObtenerPorCodigoAsync("codigo123")).ReturnsAsync(enlace);
-            _repoEstudiantesMock.Setup(r => r.GetByIdAsyncString("estu123")).ReturnsAsync(estudiante);
+            _repoEstudiantesMock.Setup(r => r.GetByStringIdAsync("estu123")).ReturnsAsync(estudiante);
             _repoGruposMock.Setup(r => r.ObtenerPorEnlaceAsync("codigo123")).ReturnsAsync(grupo);
             _repoSolicitudesMock.Setup(r => r.ExisteSolicitudPendiente("estu123", 5)).ReturnsAsync(false);
             _repoSolicitudesMock.Setup(r => r.AddAsync(It.IsAny<SolicitudUnion>()))
