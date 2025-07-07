@@ -11,6 +11,8 @@ namespace LogicaNegocio.Entidades
 
         public Recompensa Recompensa { get; set; }
 
+        public bool Otorgado { get; set; }
+
         public bool cumple(int cantMedallasPerfiles)
 		{
 			return true;

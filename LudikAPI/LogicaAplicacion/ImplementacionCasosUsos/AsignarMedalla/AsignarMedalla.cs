@@ -40,7 +40,7 @@ public class AsignarMedalla: IAsignarMedalla
         var perfilEstudiante = perfilResultado.Valor;
         var medalla = medallaResultado.Valor;
 
-       
+
         perfilEstudiante.Monedas = perfilEstudiante.Monedas + medalla.MonedasOtorgadas;
 
         if (!profesor.Grupos.Any(g => g.Id == perfilEstudiante.GrupoId))
