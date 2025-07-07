@@ -52,6 +52,7 @@ using WebApi.Servicios;
 using LogicaAplicacion.InterfacesCasosUsos.TablaClasificacion;
 using LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion;
 using LogicaAplicacion.InterfacesCasosUsos.BarraProgreso;
+using LogicaNegocio.Observer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -133,7 +134,8 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("EsProfesorOEstudiante", policy => policy.RequireRole("Profesor", "Estudiante"));
 });
 
-
+//inyeccion observadores
+builder.Services.AddScoped<IObserver<PerfilEstudianteMedalla>, PerfilObserver>();
 
 // Inyeccion de dependencias repositorios
 builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();

@@ -13,16 +13,19 @@ public class AsignarMedalla: IAsignarMedalla
     private readonly IRepositorioMedallas _repositorioMedallas;
     private readonly IRepositorioProfesores _repositorioProfesores;
     private readonly IRepositorioPerfilEstudianteMedalla _repositorioPerfilEstudianteMedalla;
+    private readonly IObserver<PerfilEstudianteMedalla> _perfilObserver;
     public AsignarMedalla(
         IRepositorioPerfilEstudianteGrupo repositorioPerfilEstudiante,
         IRepositorioMedallas repositorioMedalla,
         IRepositorioProfesores repositorioProfesor,
-        IRepositorioPerfilEstudianteMedalla repositorioPerfilEstudianteMedalla)
+        IRepositorioPerfilEstudianteMedalla repositorioPerfilEstudianteMedalla,
+        IObserver<PerfilEstudianteMedalla> perfilObserver)
     {
         _repositorioPerfilEstudiantes = repositorioPerfilEstudiante;
         _repositorioMedallas = repositorioMedalla;
         _repositorioProfesores = repositorioProfesor;
         _repositorioPerfilEstudianteMedalla = repositorioPerfilEstudianteMedalla;
+        _perfilObserver = perfilObserver;
     }
 
 
@@ -55,6 +58,9 @@ public class AsignarMedalla: IAsignarMedalla
             MedallaId = medalla.Id,
         };
         var addResultado = await _repositorioPerfilEstudianteMedalla.AddAsync(nuevaAsignacion);
+        perfilEstudiante.Subscribe(_perfilObserver);                  
+        perfilEstudiante.NotifyMedallaAsignada(nuevaAsignacion);      
+        perfilEstudiante.Unsubscribe(_perfilObserver);
         return addResultado;
     }
 }

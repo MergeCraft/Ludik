@@ -9,23 +9,11 @@ namespace LogicaNegocio.Observer
     public class Observable<TEvent>
     {
         private readonly List<IObserver<TEvent>> _observers = new();
-
-        
-        public void Subscribe(IObserver<TEvent> observer)
-        {
-            if (!_observers.Contains(observer))
-                _observers.Add(observer);
-        }
-
-        
-        public void Unsubscribe(IObserver<TEvent> observer)
-            => _observers.Remove(observer);
-
-        
+        public void Subscribe(IObserver<TEvent> o)
+        { if (!_observers.Contains(o)) _observers.Add(o); }
+        public void Unsubscribe(IObserver<TEvent> o)
+            => _observers.Remove(o);
         protected void Notify(TEvent evt)
-        {
-            foreach (var obs in _observers)
-                obs.Update(evt);
-        }
+            => _observers.ForEach(o => o.OnNext(evt));
     }
 }

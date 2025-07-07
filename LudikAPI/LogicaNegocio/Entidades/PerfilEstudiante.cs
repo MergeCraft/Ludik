@@ -4,10 +4,11 @@ using LogicaNegocio.InterfacesEntidades;
 using System.ComponentModel.DataAnnotations.Schema;
 using LogicaNegocio.Resultados;
 using LogicaNegocio.Entidades;
+using LogicaNegocio.Observer;
 
 namespace LogicaNegocio.Entidades
 {
-	public class PerfilEstudiante : IEntity, IValidable
+	public class PerfilEstudiante : Observable<PerfilEstudianteMedalla>, IEntity, IValidable
     {
         public int Id { get; set; }
 
@@ -76,6 +77,8 @@ namespace LogicaNegocio.Entidades
 
             return Resultado.Exitoso();
         }
+        public void NotifyMedallaAsignada(PerfilEstudianteMedalla asignacion)
+        => Notify(asignacion);
     }
 
 }

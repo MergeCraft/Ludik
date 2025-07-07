@@ -13,10 +13,7 @@ namespace LogicaNegocio.Entidades
 
         public bool Otorgado { get; set; }
 
-        public bool cumple(int cantMedallasPerfiles)
-		{
-			return true;
-		}
+        public bool Cumple(int totalMedallas) => totalMedallas >= CantMedallasRequeridas;
 
         public Resultado esValido()
         {
