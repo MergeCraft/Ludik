@@ -1,9 +1,10 @@
-﻿using LogicaAplicacion.InterfacesCasosUsos.RecuperarContrasena;
+﻿using LogicaAplicacion.DTOs.PreguntasDeSeguridadDTOs;
+using LogicaAplicacion.InterfacesCasosUsos.RecuperarContrasena;
 using LogicaNegocio.Resultados;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Helpers;
 using WebApi.Jwt;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace WebApi.Controllers
 {
@@ -22,39 +23,41 @@ namespace WebApi.Controllers
             _restablecerContrasena = restablecerContrasena;
         }
 
-        [HttpGet]
+
         /// <summary>
         /// Obtener las preguntas de seguridad que ha respondido el estudiante al momento de registrase.
         /// </summary>
         /// <response code="200">Devuelve la lista de preguntas.</response>
-        /// <response code="400"></response>
         /// <response code="404"></response>
         /// <response code="500">Error interno del servidor.</response>
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpGet("preguntas/{nombreUsuario}")]
+        [ProducesResponseType(typeof(PreguntasDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
-        public string ObtenerPreguntasDeSeguridadPorNombreUsuario([FromBody] string nombreUsuario)
+        public async Task<IActionResult> ObtenerPreguntasDeSeguridadPorNombreUsuario(string nombreUsuario)
         {
-            Resultado resultado = _obtenerPreguntasDeSegurididadPorNombreUsuario.EjecutarAsync(nombreUsuario);
-            return resultado.EsFallo ? ManejadorJwt(resultado)
-                : resultado.Valor;
+            var resultado = await _obtenerPreguntasDeSegurididadPorNombreUsuario.EjecutarAsync(nombreUsuario);
+
+
+            return resultado.EsExitoso ? Ok(resultado.Valor) : this.ManejarFallo(resultado);
         }
 
-        [HttpPut("{id}")]
+
         /// <summary>
         /// Restablecer la contraseña de un estudiante.
         /// </summary>
         /// <response code="204">La contraseña fue restablecida con éxito.</response>
         /// <response code="401"></response>
         /// <response code="500">Error interno del servidor.</response>
+        [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public void RestablecerContrasena(int id, [FromBody] string value)
+        public async Task<IActionResult> RestablecerContrasena(int id, [FromBody] string value)
         {
+            return StatusCode(StatusCodes.Status400BadRequest, "Sin implementar");
         }
+
 
     }
 }

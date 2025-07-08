@@ -11,6 +11,9 @@ namespace LogicaNegocio.Entidades
         public String Pregunta { get; set; }
 
         public String Respuesta { get; set; }
+
+        public String EstudianteId { get; set; }
+
         public bool coincide(PreguntaRespuestaSeguridad pRS)
 		{
 			return true;

@@ -10,23 +10,22 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.RecuperarContrasena;
 public class ObtenerPreguntasDeSeguridadPorNombreUsuario: IObtenerPreguntasDeSegurididadPorNombreUsuario
 {
 
-    private readonly IRepositorioEstudiantes _repositorioEstudiantes;
-    public ObtenerPreguntasDeSeguridadPorNombreUsuario(IRepositorioEstudiantes repositorioEstudiantes)
+    private readonly IRepositorioPreguntasSeguridad _repositorioPreguntasSeguridad;
+    public ObtenerPreguntasDeSeguridadPorNombreUsuario(IRepositorioPreguntasSeguridad repositorioPreguntasSeguridad)
     {
-        _repositorioEstudiantes = repositorioEstudiantes;
+        _repositorioPreguntasSeguridad = repositorioPreguntasSeguridad;
     }
     public async Task<Resultado<PreguntasDto>> EjecutarAsync(string nombreUsuario)
     {
-        Resultado<Estudiante> resultadoEstudiante = await _repositorioEstudiantes.GetByStringIdAsync(nombreUsuario);
-
+        Resultado<List<PreguntaRespuestaSeguridad>> resultado = await _repositorioPreguntasSeguridad.GetByNombreUsuarioAsync(nombreUsuario);
   
-        if (resultadoEstudiante.EsFallo)
-            return Resultado<PreguntasDto>.Falla(resultadoEstudiante.Errores);
+        if (resultado.EsFallo)
+            return Resultado<PreguntasDto>.Falla(resultado.Errores);
         
 
-        var estudiante = resultadoEstudiante.Valor;
+        List<PreguntaRespuestaSeguridad> preguntasYRespuestas = resultado.Valor;
 
-        PreguntasDto dto = PreguntaDeSeguridadMapper.ToDto(estudiante.PreguntasSeguridad);
+        PreguntasDto dto = PreguntasDeSeguridadMapper.toDto(preguntasYRespuestas);
 
         return Resultado<PreguntasDto>.Exitoso(dto);
     }

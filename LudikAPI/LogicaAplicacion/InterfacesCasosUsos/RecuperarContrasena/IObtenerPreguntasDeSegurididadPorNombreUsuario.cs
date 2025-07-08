@@ -1,4 +1,5 @@
-﻿using LogicaNegocio.Resultados;
+﻿using LogicaAplicacion.DTOs.PreguntasDeSeguridadDTOs;
+using LogicaNegocio.Resultados;
 
 namespace LogicaAplicacion.InterfacesCasosUsos.RecuperarContrasena;
 
