@@ -339,13 +339,18 @@ namespace AccesoDatos.RepositoriosEF
 
             modelBuilder.Entity<PersonalizacionAvatar>().HasData(recompensasAvatar);
 
-            var inventarioInicial = recompensasAvatar.Select(r => new PerfilEstudianteRecompensa
-            {
-                PerfilEstudianteId = 1, 
-                RecompensaId = r.Id
-            }).ToArray();
+            int nextSeedId = 1;              
+            var inventarioInicial = recompensasAvatar
+                .Select(r => new PerfilEstudianteRecompensa
+                {
+                    Id = nextSeedId++,  
+                    PerfilEstudianteId = 1,
+                    RecompensaId = r.Id
+                })
+                .ToArray();
 
-            modelBuilder.Entity<PerfilEstudianteRecompensa>().HasData(inventarioInicial);
+            modelBuilder.Entity<PerfilEstudianteRecompensa>()
+                        .HasData(inventarioInicial);
         }
     }
 }

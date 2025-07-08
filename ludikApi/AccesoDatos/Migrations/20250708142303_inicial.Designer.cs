@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250704185338_inicial")]
+    [Migration("20250708142303_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -1636,6 +1636,9 @@ namespace AccesoDatos.Migrations
                     b.Property<int>("CantMedallasRequeridas")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Otorgado")
+                        .HasColumnType("bit");
+
                     b.Property<int>("RecompensaId")
                         .HasColumnType("int");
 
@@ -1836,93 +1839,98 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("LogicaNegocio.Entidades.PerfilEstudianteRecompensa", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("PerfilEstudianteId")
                         .HasColumnType("int");
 
                     b.Property<int>("RecompensaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("PerfilEstudianteId", "RecompensaId");
+                    b.HasKey("Id");
 
                     b.HasIndex("RecompensaId");
+
+                    b.HasIndex("PerfilEstudianteId", "RecompensaId");
 
                     b.ToTable("PerfilEstudianteRecompensas", (string)null);
 
                     b.HasData(
                         new
                         {
+                            Id = 1,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 11,
-                            Id = 0
+                            RecompensaId = 11
                         },
                         new
                         {
+                            Id = 2,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 12,
-                            Id = 0
+                            RecompensaId = 12
                         },
                         new
                         {
+                            Id = 3,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 13,
-                            Id = 0
+                            RecompensaId = 13
                         },
                         new
                         {
+                            Id = 4,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 14,
-                            Id = 0
+                            RecompensaId = 14
                         },
                         new
                         {
+                            Id = 5,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 15,
-                            Id = 0
+                            RecompensaId = 15
                         },
                         new
                         {
+                            Id = 6,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 16,
-                            Id = 0
+                            RecompensaId = 16
                         },
                         new
                         {
+                            Id = 7,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 17,
-                            Id = 0
+                            RecompensaId = 17
                         },
                         new
                         {
+                            Id = 8,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 18,
-                            Id = 0
+                            RecompensaId = 18
                         },
                         new
                         {
+                            Id = 9,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 19,
-                            Id = 0
+                            RecompensaId = 19
                         },
                         new
                         {
+                            Id = 10,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 20,
-                            Id = 0
+                            RecompensaId = 20
                         },
                         new
                         {
+                            Id = 11,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 21,
-                            Id = 0
+                            RecompensaId = 21
                         },
                         new
                         {
+                            Id = 12,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 22,
-                            Id = 0
+                            RecompensaId = 22
                         });
                 });
 

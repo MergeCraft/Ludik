@@ -709,7 +709,8 @@ namespace AccesoDatos.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CantMedallasRequeridas = table.Column<int>(type: "int", nullable: false),
-                    RecompensaId = table.Column<int>(type: "int", nullable: false)
+                    RecompensaId = table.Column<int>(type: "int", nullable: false),
+                    Otorgado = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -726,13 +727,14 @@ namespace AccesoDatos.Migrations
                 name: "PerfilEstudianteRecompensas",
                 columns: table => new
                 {
-                    PerfilEstudianteId = table.Column<int>(type: "int", nullable: false),
-                    RecompensaId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PerfilEstudianteId = table.Column<int>(type: "int", nullable: false),
+                    RecompensaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PerfilEstudianteRecompensas", x => new { x.PerfilEstudianteId, x.RecompensaId });
+                    table.PrimaryKey("PK_PerfilEstudianteRecompensas", x => x.Id);
                     table.ForeignKey(
                         name: "FK_PerfilEstudianteRecompensas_PerfilesEstudiantes_PerfilEstudianteId",
                         column: x => x.PerfilEstudianteId,
@@ -1131,21 +1133,21 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.InsertData(
                 table: "PerfilEstudianteRecompensas",
-                columns: new[] { "PerfilEstudianteId", "RecompensaId", "Id" },
+                columns: new[] { "Id", "PerfilEstudianteId", "RecompensaId" },
                 values: new object[,]
                 {
-                    { 1, 11, 0 },
-                    { 1, 12, 0 },
-                    { 1, 13, 0 },
-                    { 1, 14, 0 },
-                    { 1, 15, 0 },
-                    { 1, 16, 0 },
-                    { 1, 17, 0 },
-                    { 1, 18, 0 },
-                    { 1, 19, 0 },
-                    { 1, 20, 0 },
-                    { 1, 21, 0 },
-                    { 1, 22, 0 }
+                    { 1, 1, 11 },
+                    { 2, 1, 12 },
+                    { 3, 1, 13 },
+                    { 4, 1, 14 },
+                    { 5, 1, 15 },
+                    { 6, 1, 16 },
+                    { 7, 1, 17 },
+                    { 8, 1, 18 },
+                    { 9, 1, 19 },
+                    { 10, 1, 20 },
+                    { 11, 1, 21 },
+                    { 12, 1, 22 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -1245,6 +1247,11 @@ namespace AccesoDatos.Migrations
                 name: "IX_PerfilEstudianteMedallas_PerfilEstudianteId",
                 table: "PerfilEstudianteMedallas",
                 column: "PerfilEstudianteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PerfilEstudianteRecompensas_PerfilEstudianteId_RecompensaId",
+                table: "PerfilEstudianteRecompensas",
+                columns: new[] { "PerfilEstudianteId", "RecompensaId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_PerfilEstudianteRecompensas_RecompensaId",
