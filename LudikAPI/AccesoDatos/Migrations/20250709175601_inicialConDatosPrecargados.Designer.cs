@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250704185338_inicial")]
-    partial class inicial
+    [Migration("20250709175601_inicialConDatosPrecargados")]
+    partial class inicialConDatosPrecargados
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1636,6 +1636,9 @@ namespace AccesoDatos.Migrations
                     b.Property<int>("CantMedallasRequeridas")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Otorgado")
+                        .HasColumnType("bit");
+
                     b.Property<int>("RecompensaId")
                         .HasColumnType("int");
 
@@ -1958,6 +1961,70 @@ namespace AccesoDatos.Migrations
                     b.ToTable("Pines");
                 });
 
+            modelBuilder.Entity("LogicaNegocio.Entidades.PreguntaDeSeguridad", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Texto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PreguntasDeSeguridad");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Texto = "¿Cuál era el nombre de tu escuela primaria?"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Texto = "¿Cuál es el primer nombre de tu abuela materna?"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Texto = "¿Cuál era el nombre de tu primera mascota?"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Texto = "¿Cuál era el apodo que te decía tu familia en la infancia?"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Texto = "¿Cuál es el nombre de tu personaje de ficción favorito (de un libro, serie o videojuego)?"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Texto = "¿Cuál fue el primer videojuego que lograste completar?"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Texto = "Si pudieras tener un superpoder, ¿cuál sería?"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Texto = "¿Cuál es el apellido del primer amigo o amiga que hiciste al empezar el liceo?"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Texto = "¿Cuál es el nombre del hospital donde naciste?"
+                        });
+                });
+
             modelBuilder.Entity("LogicaNegocio.Entidades.PreguntaRespuestaSeguridad", b =>
                 {
                     b.Property<int>("Id")
@@ -1967,11 +2034,14 @@ namespace AccesoDatos.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("EstudianteId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Pregunta")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("IdPreguntaDeSeguridadDelSistema")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PreguntaDeSeguridadId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Respuesta")
                         .IsRequired()
@@ -1980,6 +2050,8 @@ namespace AccesoDatos.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EstudianteId");
+
+                    b.HasIndex("PreguntaDeSeguridadId");
 
                     b.ToTable("PreguntasRespuestasSeguridad");
                 });
@@ -3094,9 +3166,21 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("LogicaNegocio.Entidades.PreguntaRespuestaSeguridad", b =>
                 {
-                    b.HasOne("LogicaNegocio.Entidades.Estudiante", null)
+                    b.HasOne("LogicaNegocio.Entidades.Estudiante", "Estudiante")
                         .WithMany("PreguntasSeguridad")
-                        .HasForeignKey("EstudianteId");
+                        .HasForeignKey("EstudianteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LogicaNegocio.Entidades.PreguntaDeSeguridad", "PreguntaDeSeguridad")
+                        .WithMany()
+                        .HasForeignKey("PreguntaDeSeguridadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Estudiante");
+
+                    b.Navigation("PreguntaDeSeguridad");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Recompensa", b =>

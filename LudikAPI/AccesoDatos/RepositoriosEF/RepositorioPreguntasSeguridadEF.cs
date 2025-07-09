@@ -41,9 +41,8 @@ namespace AccesoDatos.RepositoriosEF
                 if (usuario == null)
                     return Resultado<List<PreguntaRespuestaSeguridad>>.Falla(Error.NotFound);
                 
-                var preguntas = await _db.PreguntasRespuestasSeguridad
-                    .Where(p => p.EstudianteId == usuario.Id)
-                    .ToListAsync();
+                var preguntas = await _db.PreguntasRespuestasSeguridad.Include(p => p.PreguntaDeSeguridad)
+                    .Where(p => p.EstudianteId == usuario.Id).ToListAsync();
 
                 return Resultado<List<PreguntaRespuestaSeguridad>>.Exitoso(preguntas);
             }

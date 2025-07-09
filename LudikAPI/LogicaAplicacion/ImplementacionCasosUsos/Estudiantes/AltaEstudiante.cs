@@ -65,7 +65,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
 
                 var preguntaRespuestaEntidad = new PreguntaRespuestaSeguridad
                 {
-                    IdPreguntaDeSeguridadDelSistema = preguntaDto.PreguntaId,
+                    PreguntaDeSeguridadId = preguntaDto.PreguntaId,
                     Respuesta = respuestaHasheada
                 };
                 estudianteNuevo.PreguntasSeguridad.Add(preguntaRespuestaEntidad);

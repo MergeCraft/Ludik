@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
-    public partial class inicial : Migration
+    public partial class inicialConDatosPrecargados : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -60,6 +60,19 @@ namespace AccesoDatos.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pines", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PreguntasDeSeguridad",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Texto = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PreguntasDeSeguridad", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -250,9 +263,10 @@ namespace AccesoDatos.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Pregunta = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdPreguntaDeSeguridadDelSistema = table.Column<int>(type: "int", nullable: false),
+                    PreguntaDeSeguridadId = table.Column<int>(type: "int", nullable: false),
                     Respuesta = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EstudianteId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    EstudianteId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -261,7 +275,14 @@ namespace AccesoDatos.Migrations
                         name: "FK_PreguntasRespuestasSeguridad_Estudiantes_EstudianteId",
                         column: x => x.EstudianteId,
                         principalTable: "Estudiantes",
-                        principalColumn: "UsuarioId");
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PreguntasRespuestasSeguridad_PreguntasDeSeguridad_PreguntaDeSeguridadId",
+                        column: x => x.PreguntaDeSeguridadId,
+                        principalTable: "PreguntasDeSeguridad",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -709,7 +730,8 @@ namespace AccesoDatos.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CantMedallasRequeridas = table.Column<int>(type: "int", nullable: false),
-                    RecompensaId = table.Column<int>(type: "int", nullable: false)
+                    RecompensaId = table.Column<int>(type: "int", nullable: false),
+                    Otorgado = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -932,6 +954,22 @@ namespace AccesoDatos.Migrations
                 {
                     { 1, "MAT1A25", new DateTime(2026, 4, 15, 10, 30, 0, 0, DateTimeKind.Utc), "https://www.ludik.app/unirse/MAT1A25" },
                     { 2, "HISTU25", new DateTime(2026, 4, 15, 10, 30, 0, 0, DateTimeKind.Utc), "https://www.ludik.app/unirse/HISTU25" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PreguntasDeSeguridad",
+                columns: new[] { "Id", "Texto" },
+                values: new object[,]
+                {
+                    { 1, "¿Cuál era el nombre de tu escuela primaria?" },
+                    { 2, "¿Cuál es el primer nombre de tu abuela materna?" },
+                    { 3, "¿Cuál era el nombre de tu primera mascota?" },
+                    { 4, "¿Cuál era el apodo que te decía tu familia en la infancia?" },
+                    { 5, "¿Cuál es el nombre de tu personaje de ficción favorito (de un libro, serie o videojuego)?" },
+                    { 6, "¿Cuál fue el primer videojuego que lograste completar?" },
+                    { 7, "Si pudieras tener un superpoder, ¿cuál sería?" },
+                    { 8, "¿Cuál es el apellido del primer amigo o amiga que hiciste al empezar el liceo?" },
+                    { 9, "¿Cuál es el nombre del hospital donde naciste?" }
                 });
 
             migrationBuilder.InsertData(
@@ -1257,6 +1295,11 @@ namespace AccesoDatos.Migrations
                 column: "EstudianteId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PreguntasRespuestasSeguridad_PreguntaDeSeguridadId",
+                table: "PreguntasRespuestasSeguridad",
+                column: "PreguntaDeSeguridadId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ReclamacionesRoles_RolId",
                 table: "ReclamacionesRoles",
                 column: "RolId");
@@ -1426,6 +1469,9 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.DropTable(
                 name: "Hitos");
+
+            migrationBuilder.DropTable(
+                name: "PreguntasDeSeguridad");
 
             migrationBuilder.DropTable(
                 name: "RendimientosPeriodos");

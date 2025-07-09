@@ -211,7 +211,61 @@ namespace AccesoDatos.RepositoriosEF
             // --- PRECARGA DE PREGUNTAS DE SEGURIDAD ---
             // ===========================================
             PrecargarPreguntasDeSeguridad(modelBuilder);
-            
+
+            // ===========================================
+            // --- PRECARGA DE RESPUESTAS DE SEGURIDAD ---
+            // ===========================================
+            PrecargarRespuestasDeSeguridad(modelBuilder);
+
+        }
+        private static void PrecargarRespuestasDeSeguridad(ModelBuilder modelBuilder)
+        {
+            // --- IDs de los estudiantes a los que asignaremos respuestas ---
+            var estudiante1Id = "a1445865-a24d-4543-a6c6-9443d048cdb1"; // santiago
+            var estudiante2Id = "b2445865-a24d-4543-a6c6-9443d048cdb2"; // valentina
+
+            // --- Hashes Pre-generados para las respuestas ---
+            // Respuestas para Santiago: "Cecilia1." y "Cecilia1."
+            var hashPrimaria = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==";
+            var hashMascota = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==";
+
+            // Respuestas para Valentina: "Cecilia1." y "Cecilia1."
+            var hashAbuela = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==";
+            var hashPersonaje = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==";
+
+            modelBuilder.Entity<PreguntaRespuestaSeguridad>().HasData(
+                // --- Respuestas para Santiago ---
+                new PreguntaRespuestaSeguridad
+                {
+                    Id = 1, // PK de esta tabla
+                    PreguntaDeSeguridadId = 1, // FK a "¿Cuál era el nombre de tu escuela primaria?"
+                    Respuesta = hashPrimaria,
+                    EstudianteId = estudiante1Id
+                },
+                new PreguntaRespuestaSeguridad
+                {
+                    Id = 2,
+                    PreguntaDeSeguridadId = 3, // FK a "¿Cuál era el nombre de tu primera mascota?"
+                    Respuesta = hashMascota,
+                    EstudianteId = estudiante1Id
+                },
+
+                // --- Respuestas para Valentina ---
+                new PreguntaRespuestaSeguridad
+                {
+                    Id = 3,
+                    PreguntaDeSeguridadId = 2, // FK a "¿Cuál es el primer nombre de tu abuela materna?"
+                    Respuesta = hashAbuela,
+                    EstudianteId = estudiante2Id
+                },
+                new PreguntaRespuestaSeguridad
+                {
+                    Id = 4,
+                    PreguntaDeSeguridadId = 5, // FK a "¿Cuál es el nombre de tu personaje de ficción favorito...?"
+                    Respuesta = hashPersonaje,
+                    EstudianteId = estudiante2Id
+                }
+            );
         }
 
         private static void PrecargarPreguntasDeSeguridad(ModelBuilder modelBuilder)

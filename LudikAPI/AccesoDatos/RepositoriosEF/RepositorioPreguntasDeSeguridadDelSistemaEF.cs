@@ -1,6 +1,7 @@
 ﻿using LogicaNegocio.Entidades;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF;
 
@@ -37,8 +38,19 @@ public class RepositorioPreguntasDeSeguridadDelSistemaEF: IRepositorioPreguntasD
         throw new NotImplementedException();
     }
 
-    public Task<Resultado<IEnumerable<PreguntaDeSeguridad>>> GetAllAsync()
+    public async Task<Resultado<IEnumerable<PreguntaDeSeguridad>>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        try
+        {
+            var preguntas = await _db.PreguntasDeSeguridad
+                .AsNoTracking()
+                .ToListAsync();
+
+            return Resultado<IEnumerable<PreguntaDeSeguridad>>.Exitoso(preguntas);
+        }
+        catch (Exception e)
+        {
+            return Resultado<IEnumerable<PreguntaDeSeguridad>>.Falla(new Error ("Error.Unexpected", e.Message));
+        }
     }
 }

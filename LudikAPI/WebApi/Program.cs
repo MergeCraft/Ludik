@@ -45,7 +45,6 @@ using LogicaAplicacion.ImplementacionCasosUsos.Imagenes.Estrategias;
 using LogicaNegocio.ConstantesAplicacion;
 using LogicaAplicacion.ImplementacionCasosUsos.Login;
 using LogicaAplicacion.ImplementacionCasosUsos.RecuperarContrasena;
-using LogicaAplicacion.InterfacesCasosUsos.Jwt;
 using LogicaAplicacion.InterfacesCasosUsos.Login;
 using IManejadorJwt = LogicaAplicacion.InterfacesCasosUsos.Jwt.IManejadorJwt;
 using LogicaAplicacion.InterfacesCasosUsos.ServicioPrecargaArchivos;
@@ -155,7 +154,7 @@ builder.Services.AddScoped<IRepositorioAtributosAvatar, RepositorioAtributosAvat
 builder.Services.AddScoped<IRepositorioTablasClasificacion, RepositorioTablasClasificacionEF>();
 builder.Services.AddScoped<IRepositorioRendimientoPeriodos, RepositorioRendimientoPeriodosEF>();
 builder.Services.AddScoped<IRepositorioPreguntasSeguridad, RepositorioPreguntasSeguridadEF>();
-//builder.Services.AddScoped<IRepositorioPreguntasDeSeguridadDelSistema, RepositorioPreguntasDeSeguridadDelSistemaEF>
+builder.Services.AddScoped<IRepositorioPreguntasDeSeguridadDelSistema, RepositorioPreguntasDeSeguridadDelSistemaEF>();
 
 
 builder.Services.AddAzureClients(clientBuilder =>
@@ -231,6 +230,7 @@ builder.Services.AddScoped<ILoginUsuario, LoginUsuario>();
 builder.Services.AddScoped<ISeedServicio, SeedServicio>();
 
 builder.Services.AddScoped<IObtenerPreguntasDeSegurididadPorNombreUsuario,ObtenerPreguntasDeSeguridadPorNombreUsuario>();
+builder.Services.AddScoped<IObtenerPreguntasDeSeguridadDelSistema, ObtenerPreguntasDeSeguridadDelSistema>();
 builder.Services.AddScoped<IRestablecerContrasena,RestablecerContrasena>();
   
 // -------------------------------

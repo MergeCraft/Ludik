@@ -8,7 +8,7 @@ namespace LogicaNegocio.Entidades
     {
         public int Id { get; set; }
 
-        public int IdPreguntaDeSeguridadDelSistema { get; set; }
+        public int PreguntaDeSeguridadId { get; set; }
         public PreguntaDeSeguridad PreguntaDeSeguridad { get; set; } 
 
         public String Respuesta { get; set; }

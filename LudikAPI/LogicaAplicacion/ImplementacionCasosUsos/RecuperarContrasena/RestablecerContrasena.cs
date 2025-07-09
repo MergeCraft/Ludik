@@ -1,8 +1,10 @@
-﻿using InterfacesRepositorio;
+﻿using System.ComponentModel;
+using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.RestablecerContrasenaDTO;
 using LogicaAplicacion.InterfacesCasosUsos.RecuperarContrasena;
 using LogicaNegocio.Entidades;
 using LogicaNegocio.Excepciones;
+using LogicaNegocio.InterfacesRepositorio;
 using LogicaNegocio.Resultados;
 using Microsoft.AspNetCore.Identity;
 
@@ -13,15 +15,18 @@ public class RestablecerContrasena: IRestablecerContrasena
     private readonly IRepositorioUsuarios _repositorioUsuarios;
     private readonly UserManager<Usuario> _userManager;
     private readonly IPasswordHasher<Usuario> _passwordHasher;
+    private readonly IRepositorioPreguntasSeguridad _repositorioPreguntasSeguridad;
 
     public RestablecerContrasena(
         IRepositorioUsuarios repositorioUsuarios,
         UserManager<Usuario> userManager,
-        IPasswordHasher<Usuario> passwordHasher)
+        IPasswordHasher<Usuario> passwordHasher,
+        IRepositorioPreguntasSeguridad repositorioPreguntasSeguridad)
     {
         _repositorioUsuarios = repositorioUsuarios;
         _userManager = userManager;
         _passwordHasher = passwordHasher;
+        _repositorioPreguntasSeguridad = repositorioPreguntasSeguridad;
     }
 
     public async Task<Resultado> EjecutarAsync(InformacionParaRestablecerContrasenaDto dto)
@@ -32,11 +37,12 @@ public class RestablecerContrasena: IRestablecerContrasena
 
             var estudiante = usuario as Estudiante;
             if (estudiante == null)
-                return Resultado.Falla(Error.Validation); 
-            
+                return Resultado.Falla(Error.Validation);
+            //Debo de cargarle al estudiante las preguntas de seguridad que ha respondido al momento de registrarse.
+            await _repositorioPreguntasSeguridad.GetByNombreUsuarioAsync(dto.NombreUsuario);
 
             // Mapear dto a entidades para la verificación
-            var respuestasIngresadas = dto.Respuestas.Select(r => new PreguntaRespuestaSeguridad { Id = r.Id, Respuesta = r.Respuesta }).ToList();
+            var respuestasIngresadas = dto.Respuestas.Select(r => new PreguntaRespuestaSeguridad { PreguntaDeSeguridadId = r.PreguntaDeSeguridadId, Respuesta = r.Respuesta }).ToList();
 
 
             if (!estudiante.CoincidenLasRespuestas(respuestasIngresadas, _passwordHasher))

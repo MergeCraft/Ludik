@@ -15,13 +15,16 @@ namespace WebApi.Controllers
     {
         private readonly IObtenerPreguntasDeSegurididadPorNombreUsuario _obtenerPreguntasDeSegurididadPorNombreUsuario;
         private readonly IRestablecerContrasena _restablecerContrasena;
+        private readonly IObtenerPreguntasDeSeguridadDelSistema _obtenerPreguntasDeSeguridadDelSistema;
 
         public RecuperarContrasenaController(
             IObtenerPreguntasDeSegurididadPorNombreUsuario obteeDeSegurididadPorNombreUsuario,
-            IRestablecerContrasena restablecerContrasena)
+            IRestablecerContrasena restablecerContrasena,
+            IObtenerPreguntasDeSeguridadDelSistema obtenerPreguntasDeSeguridadDelSistema)
         {
             _obtenerPreguntasDeSegurididadPorNombreUsuario = obteeDeSegurididadPorNombreUsuario;
             _restablecerContrasena = restablecerContrasena;
+            _obtenerPreguntasDeSeguridadDelSistema = obtenerPreguntasDeSeguridadDelSistema;
         }
 
 
@@ -38,6 +41,24 @@ namespace WebApi.Controllers
         public async Task<IActionResult> ObtenerPreguntasDeSeguridadPorNombreUsuario(string nombreUsuario)
         {
             var resultado = await _obtenerPreguntasDeSegurididadPorNombreUsuario.EjecutarAsync(nombreUsuario);
+
+
+            return resultado.EsExitoso ? Ok(resultado.Valor) : this.ManejarFallo(resultado);
+        }
+
+        /// <summary>
+        /// Obtener todas las preguntas de seguridad que hay cargadas en el sistema.
+        /// </summary>
+        /// <response code="200">Devuelve la lista de preguntas del sistema.</response>
+        /// <response code="404"></response>
+        /// <response code="500">Error interno del servidor.</response>
+        [HttpGet("preguntas")]
+        [ProducesResponseType(typeof(PreguntasDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ObtenerPreguntasDeSeguridadDelSistema()
+        {
+            var resultado = await _obtenerPreguntasDeSeguridadDelSistema.EjecutarAsync();
 
 
             return resultado.EsExitoso ? Ok(resultado.Valor) : this.ManejarFallo(resultado);
@@ -65,7 +86,7 @@ namespace WebApi.Controllers
                 return this.ManejarFallo(resultado);
             }
 
-            return StatusCode(StatusCodes.Status204NoContent,"Se cambio la contraseña con éxito.");
+            return NoContent();
         }
 
 

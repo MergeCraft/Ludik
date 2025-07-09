@@ -22,7 +22,7 @@ namespace LogicaNegocio.Entidades
 
             foreach (var respuestaIngresada in respuestasIngresadas)
             {
-
+                //Todo: hay que cargar el id de la preguntaRespuestaSeguridad
                 var preguntaAlmacenada = this.PreguntasSeguridad.FirstOrDefault(p => p.Id == respuestaIngresada.Id);
 
                 if (preguntaAlmacenada == null) return false;
