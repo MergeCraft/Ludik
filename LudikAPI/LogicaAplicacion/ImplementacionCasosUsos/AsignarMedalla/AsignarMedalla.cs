@@ -46,7 +46,10 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.AsignarMedalla
             var perfilEstudiante = perfilResultado.Valor;
             var medalla = medallaResultado.Valor;
 
-            perfilEstudiante.Monedas += medalla.MonedasOtorgadas;
+            // Aplicar potenciador si existe
+            double factor = perfilEstudiante.ObtenerMultiplicadorMonedas();
+            int monedasGanadas = (int)(medalla.MonedasOtorgadas * factor);
+            perfilEstudiante.Monedas += monedasGanadas;
 
             if (!profesor.Grupos.Any(g => g.Id == perfilEstudiante.GrupoId))
                 return Resultado.Falla(Error.Forbidden);

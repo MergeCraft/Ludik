@@ -12,6 +12,8 @@ namespace InterfacesRepositorio
 
 		List<Medalla> getMedallasAlumno(int idAlumno, int idGrupo);
 		Task<Estudiante> GetByIdAsyncString(string id);
+		Task<Resultado<Estudiante>> GetByPerfilIdAsync(int perfilId);
+
 
 
     }

@@ -17,10 +17,12 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
     {
         private readonly IRepositorioSolicitudesUnion _repoSolicitudes;
         private readonly IRepositorioGrupos _repoGrupos; 
-        public AceptarSolicitudUnion(IRepositorioSolicitudesUnion repoSolicitudes,IRepositorioGrupos repositorioGrupos)
+        private readonly IRepositorioPerfilEstudianteGrupo _repoPerfilEstudianteGrupo;
+        public AceptarSolicitudUnion(IRepositorioSolicitudesUnion repoSolicitudes,IRepositorioGrupos repositorioGrupos, IRepositorioPerfilEstudianteGrupo repoPerfilEstudianteGrupo)
         {
             _repoSolicitudes = repoSolicitudes;
             _repoGrupos = repositorioGrupos;
+            _repoPerfilEstudianteGrupo = repoPerfilEstudianteGrupo;
         }
         public async Task<Resultado> EjecutarAsync(int idSolicitud)
         {
@@ -38,11 +40,11 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
             var perfil = new Entidad.PerfilEstudiante
             {
                 EstudianteId = solicitud.EstudianteId,
-                RutaImagenCompleta = "nomejodasporahora",
-                RutaImagenMiniatura="tampocomejodasporahora"
+                RutaImagenCompleta = "Default",
+                RutaImagenMiniatura="Default"
             };
 
-        
+            var resultadoPerfil = await _repoPerfilEstudianteGrupo.AddAsync(perfil);
             grupo.Alumnos ??= new List<Entidad.PerfilEstudiante>();
             grupo.Alumnos.Add(perfil);
 

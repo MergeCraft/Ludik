@@ -45,8 +45,23 @@ namespace LogicaNegocio.Entidades
 
         public BarraProgreso BarraProgreso { get; set; }
 
+        public Potenciador? PotenciadorActivo { get; private set; }
 
-
+        public void ActivarPotenciador(Potenciador p)
+        {
+            p.FechaActivacion = DateTime.UtcNow;
+            PotenciadorActivo = p;
+        }
+        public void LimpiarPotenciadorExpirado()
+        {
+            if (PotenciadorActivo != null && !PotenciadorActivo.EstaActivo)
+                PotenciadorActivo = null;
+        }
+        public double ObtenerMultiplicadorMonedas()
+        {
+            LimpiarPotenciadorExpirado();
+            return PotenciadorActivo?.Multiplicador ?? 1.0;
+        }
         public Resultado esValido()
         {
             throw new NotImplementedException();

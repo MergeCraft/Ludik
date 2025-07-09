@@ -60,9 +60,26 @@ namespace AccesoDatos.RepositoriosEF
             }
         }
 
-        public Task<Resultado> AddAsync(PerfilEstudiante unObjeto)
+        public async Task<Resultado> AddAsync(PerfilEstudiante unObjeto)
         {
-            throw new NotImplementedException();
+            if (unObjeto == null)
+                return Resultado.Falla(new Error("Error.Validation", "El perfil de estudiante no puede ser nulo."));
+
+            try
+            {
+                await _db.PerfilesEstudiantes.AddAsync(unObjeto);
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
+                return Resultado.Falla(new Error("Error.Unexpected", $"Error al agregar el perfil: {detalle}"));
+            }
+            catch (Exception ex)
+            {
+                return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
+            }
         }
 
         public Task<Resultado<IEnumerable<PerfilEstudiante>>> GetAllAsync()
@@ -86,6 +103,7 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(p => p.Grupo.TablaEquivalencia)
                         .ThenInclude(te => te.Equivalencias)
                             .ThenInclude(eq => eq.MedallasNecesarias)
+                    .Include(p => p.PotenciadorActivo)
                     .FirstOrDefaultAsync(p => p.Id == id);
 
                 if (perfil == null)

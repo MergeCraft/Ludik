@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250708142303_inicial")]
+    [Migration("20250709191104_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -1743,6 +1743,9 @@ namespace AccesoDatos.Migrations
                     b.Property<int>("Monedas")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PotenciadorActivoId")
+                        .HasColumnType("int");
+
                     b.Property<string>("RutaImagenCompleta")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1754,6 +1757,8 @@ namespace AccesoDatos.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EstudianteId");
+
+                    b.HasIndex("PotenciadorActivoId");
 
                     b.HasIndex("GrupoId", "EstudianteId")
                         .IsUnique()
@@ -2674,11 +2679,14 @@ namespace AccesoDatos.Migrations
                 {
                     b.HasBaseType("LogicaNegocio.Entidades.Recompensa");
 
+                    b.Property<TimeSpan>("Duracion")
+                        .HasColumnType("time");
+
+                    b.Property<DateTime>("FechaActivacion")
+                        .HasColumnType("datetime2");
+
                     b.Property<double>("Multiplicador")
                         .HasColumnType("float");
-
-                    b.Property<DateTime>("Periodo")
-                        .HasColumnType("datetime2");
 
                     b.HasDiscriminator().HasValue("Potenciador");
                 });
@@ -3057,9 +3065,15 @@ namespace AccesoDatos.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("LogicaNegocio.Entidades.Potenciador", "PotenciadorActivo")
+                        .WithMany()
+                        .HasForeignKey("PotenciadorActivoId");
+
                     b.Navigation("Estudiante");
 
                     b.Navigation("Grupo");
+
+                    b.Navigation("PotenciadorActivo");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.PerfilEstudianteMedalla", b =>
