@@ -12,7 +12,7 @@ public class PreguntaDeSeguridadMapper
         return new PreguntaDeSeguridadDto
         {
             Id = pR.Id,
-            Pregunta = pR.Pregunta
+            Pregunta = pR.PreguntaDeSeguridad.Texto
         };
     }
 }

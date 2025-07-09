@@ -155,6 +155,7 @@ builder.Services.AddScoped<IRepositorioAtributosAvatar, RepositorioAtributosAvat
 builder.Services.AddScoped<IRepositorioTablasClasificacion, RepositorioTablasClasificacionEF>();
 builder.Services.AddScoped<IRepositorioRendimientoPeriodos, RepositorioRendimientoPeriodosEF>();
 builder.Services.AddScoped<IRepositorioPreguntasSeguridad, RepositorioPreguntasSeguridadEF>();
+//builder.Services.AddScoped<IRepositorioPreguntasDeSeguridadDelSistema, RepositorioPreguntasDeSeguridadDelSistemaEF>
 
 
 builder.Services.AddAzureClients(clientBuilder =>

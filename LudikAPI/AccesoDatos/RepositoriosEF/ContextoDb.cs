@@ -33,7 +33,7 @@ namespace AccesoDatos.RepositoriosEF
         public DbSet<SolicitudUnion> SolicitudesUnion { get; set; }
         public DbSet<RendimientoPeriodo> RendimientosPeriodos { get; set; }
         public DbSet<RendimientoPeriodoMedalla> RendimientosPeriodosMedallas { get; set; }
-
+        public DbSet<PreguntaDeSeguridad> PreguntasDeSeguridad { get; set; }
         public DbSet<PreguntaRespuestaSeguridad> PreguntasRespuestasSeguridad { get; set; }
         public DbSet<Potenciador> Potenciadores { get; set; }
         public DbSet<Pin> Pines { get; set; }

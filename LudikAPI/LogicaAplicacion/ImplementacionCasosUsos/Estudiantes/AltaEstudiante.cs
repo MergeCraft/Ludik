@@ -19,12 +19,15 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
 {
     public class AltaEstudiante : IAltaEstudiante
     {
-        private readonly UserManager<Usuario> _userManager;
+        private readonly UserManager<Usuario> _userManager; 
+        private readonly IPasswordHasher<Usuario> _passwordHasher;
 
-        public AltaEstudiante(UserManager<Usuario> userManager)
+        public AltaEstudiante(UserManager<Usuario> userManager,
+            IPasswordHasher<Usuario> passwordHasher)
         {
             _userManager = userManager;
-            
+            _passwordHasher = passwordHasher;
+
         }
 
         /// <summary>
@@ -37,8 +40,14 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
         {
 
             if (estudianteAltaDto == null)
-                return Resultado.Falla(new Error("Validation", "Los datos del estudiante no pueden ser nulos."));
-            
+                return Resultado.Falla(new Error("Error.Validation", "Los datos del estudiante no pueden ser nulos."));
+
+            if (estudianteAltaDto.PreguntasDeSeguridad == null || estudianteAltaDto.PreguntasDeSeguridad.Count != 2)
+                return Resultado.Falla(new Error("Error.Validation", "Se deben proporcionar exactamente 2 preguntas de seguridad."));
+
+            if (estudianteAltaDto.PreguntasDeSeguridad[0].PreguntaId == estudianteAltaDto.PreguntasDeSeguridad[1].PreguntaId)
+                return Resultado.Falla(new Error("Error.Validation", "Debe seleccionar dos preguntas de seguridad diferentes."));
+
             var resultadoNombre = NombreCompleto.Crear(estudianteAltaDto.Nombre, estudianteAltaDto.Apellido);
             if (resultadoNombre.EsFallo)
                 return Resultado.Falla(resultadoNombre.Errores);
@@ -47,8 +56,21 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
 
             var existeNombre = await _userManager.FindByNameAsync(estudianteAltaDto.NombreUsuario);
             if (existeNombre != null)
-                return Resultado.Falla(new Error("Conflict", "El nombre de usuario ya está en uso."));
+                return Resultado.Falla(new Error("Error.Conflict", "El nombre de usuario ya está en uso."));
             
+            estudianteNuevo.PreguntasSeguridad = new List<PreguntaRespuestaSeguridad>();
+            foreach (var preguntaDto in estudianteAltaDto.PreguntasDeSeguridad)
+            {
+                var respuestaHasheada = _passwordHasher.HashPassword(estudianteNuevo, preguntaDto.Respuesta);
+
+                var preguntaRespuestaEntidad = new PreguntaRespuestaSeguridad
+                {
+                    IdPreguntaDeSeguridadDelSistema = preguntaDto.PreguntaId,
+                    Respuesta = respuestaHasheada
+                };
+                estudianteNuevo.PreguntasSeguridad.Add(preguntaRespuestaEntidad);
+            }
+
 
             var resultadoCreacion = await _userManager.CreateAsync(estudianteNuevo, estudianteAltaDto.Contrasenia);
             if (!resultadoCreacion.Succeeded)
@@ -64,7 +86,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
 
                 await _userManager.DeleteAsync(estudianteNuevo);
 
-                return Resultado.Falla(new Error("Internal","Ocurrió un error crítico al procesar el registro. No se pudo asignar el rol."));
+                return Resultado.Falla(new Error ("Error.Unexpected", "Ocurrió un error crítico al procesar el registro. No se pudo asignar el rol."));
             }
 
             return Resultado.Exitoso();
