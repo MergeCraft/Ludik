@@ -16,8 +16,8 @@ namespace LogicaNegocio.Entidades
 
         public bool coincide(PreguntaRespuestaSeguridad pRS)
 		{
-			return true;
-		}
+            return string.Equals(this.Respuesta.Trim().ToLower(), pRS.Respuesta.Trim().ToLower(), StringComparison.OrdinalIgnoreCase);
+        }
 
         public Resultado esValido()
         {

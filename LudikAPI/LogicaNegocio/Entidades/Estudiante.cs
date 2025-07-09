@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace LogicaNegocio.Entidades
 {
@@ -10,12 +11,33 @@ namespace LogicaNegocio.Entidades
         public List<Hito> Hitos { get; set; }
 
         public List<PreguntaRespuestaSeguridad> PreguntasSeguridad { get; set; }
-        
 
-        public Boolean constrastarRespuestas(PreguntaRespuestaSeguridad pRS)
-		{
-			return true;
-		}
+
+        public bool CoincidenLasRespuestas(List<PreguntaRespuestaSeguridad> respuestasIngresadas, IPasswordHasher<Usuario> hasher)
+        {
+            if (respuestasIngresadas == null || this.PreguntasSeguridad == null) return false;
+
+            // Comprueba que se haya enviado el mismo número de respuestas que las almacenadas.
+            if (respuestasIngresadas.Count != this.PreguntasSeguridad.Count) return false;
+
+            foreach (var respuestaIngresada in respuestasIngresadas)
+            {
+
+                var preguntaAlmacenada = this.PreguntasSeguridad.FirstOrDefault(p => p.Id == respuestaIngresada.Id);
+
+                if (preguntaAlmacenada == null) return false;
+
+                // verificar la respuesta ingresada contra la respuesta hasheada almacenada.
+                var resultadoVerificacion = hasher.VerifyHashedPassword(this, preguntaAlmacenada.Respuesta, respuestaIngresada.Respuesta);
+
+                if (resultadoVerificacion == PasswordVerificationResult.Failed)
+                    return false;
+                
+            }
+
+            // Si todas las respuestas coinciden, la validación es exitosa
+            return true;
+        }
 
 
 
