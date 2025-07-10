@@ -39,7 +39,13 @@ namespace LogicaNegocio.Entidades
             return true;
         }
 
+        public int ContarCantidadMedallasTotales()
+        {
+            if (Perfiles == null || !Perfiles.Any())
+                return 0;
 
+            return Perfiles.Sum(perfil => perfil.PerfilMedallas?.Count ?? 0);
+        }
 
 
     }

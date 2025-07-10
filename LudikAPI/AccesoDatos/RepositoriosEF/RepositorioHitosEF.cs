@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaNegocio.Resultados;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
 {
@@ -17,34 +18,95 @@ namespace AccesoDatos.RepositoriosEF
             _db = db;
         }
 
-        public Task<Resultado> AddAsync(Hito unObjeto)
+        public async Task<Resultado> AddAsync(Hito unObjeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _db.Hitos.AddAsync(unObjeto);
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (Exception ex)
+            {
+                return Resultado.Falla(new Error("Error.Database", ex.Message));
+            }
         }
 
-        public Task<Resultado<IEnumerable<Hito>>> GetAllAsync()
+        public async Task<Resultado<IEnumerable<Hito>>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var hitos = await _db.Hitos
+                    .Include(h => h.Recompensa)
+                    .ToListAsync();
+                return Resultado<IEnumerable<Hito>>.Exitoso(hitos);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<IEnumerable<Hito>>.Falla(new Error("Error.Database", ex.Message));
+            }
         }
 
-        public Task<Resultado<Hito>> GetByIdAsync(int id)
+        public async Task<Resultado<Hito>> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var hito = await _db.Hitos
+                    .Include(h => h.Recompensa)
+                    .FirstOrDefaultAsync(h => h.Id == id);
+                if (hito == null)
+                    return Resultado<Hito>.Falla(new Error("Error.NotFound", "Hito no encontrado."));
+                return Resultado<Hito>.Exitoso(hito);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<Hito>.Falla(new Error("Error.Database", ex.Message));
+            }
         }
 
-        public Task<Resultado> RemoveAsync(int id)
+        public async Task<Resultado> RemoveAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var hito = await _db.Hitos.FindAsync(id);
+                if (hito == null)
+                    return Resultado.Falla(new Error("Error.NotFound", "Hito no encontrado."));
+                _db.Hitos.Remove(hito);
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (Exception ex)
+            {
+                return Resultado.Falla(new Error("Error.Database", ex.Message));
+            }
         }
 
-        public Task<Resultado> RemoveAsync(Hito unObjeto)
+        public async Task<Resultado> RemoveAsync(Hito unObjeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Hitos.Remove(unObjeto);
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (Exception ex)
+            {
+                return Resultado.Falla(new Error("Error.Database", ex.Message));
+            }
         }
 
-        public Task<Resultado> UpdateAsync(Hito unObjeto)
+        public async Task<Resultado> UpdateAsync(Hito unObjeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Hitos.Update(unObjeto);
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (Exception ex)
+            {
+                return Resultado.Falla(new Error("Error.Database", ex.Message));
+            }
         }
     }
 }

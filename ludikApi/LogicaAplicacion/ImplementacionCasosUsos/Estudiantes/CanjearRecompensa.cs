@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using InterfacesRepositorio;
 using LogicaAplicacion.InterfacesCasosUsos.Estudiante;
 using LogicaNegocio.Entidades;
+using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
@@ -14,13 +15,15 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
     {
         private readonly IRepositorioRecompensas _repositorioRecompensas;
         private readonly IRepositorioPerfilEstudianteGrupo _repositorioPerfilEstudianteGrupo;
+        private readonly IRepositorioPerfilEstudianteRecompensa _repositorioPerfilEstudianteRecompensa;
 
         public CanjearRecompensa(
             IRepositorioRecompensas repositorioRecompensas,
-            IRepositorioPerfilEstudianteGrupo repositorioPerfilEstudianteGrupo)
+            IRepositorioPerfilEstudianteGrupo repositorioPerfilEstudianteGrupo,IRepositorioPerfilEstudianteRecompensa repositorioPerfilEstudianteRecompensa)
         {
             _repositorioRecompensas = repositorioRecompensas;
             _repositorioPerfilEstudianteGrupo = repositorioPerfilEstudianteGrupo;
+            _repositorioPerfilEstudianteRecompensa = repositorioPerfilEstudianteRecompensa;
         }
 
         public async Task<Resultado> EjecutarAsync(int recompensaId, int perfilEstudianteID,string estudianteId)
@@ -42,15 +45,28 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
                 return Resultado.Falla(new Error("Error.Forbidden", "No tienes permiso para canjear recompensas en este perfil."));
 
             perfil.Monedas -= recompensa.Precio;
-            perfil.InventarioRecompensas.Add(new PerfilEstudianteRecompensa
+
+            var perfilYRecompensa = new PerfilEstudianteRecompensa
             {
                 PerfilEstudianteId = perfil.Id,
                 RecompensaId = recompensa.Id
-            });
+            };
 
-            var resultadoUpdate = await _repositorioPerfilEstudianteGrupo.UpdateAsync(perfil);
-            if (resultadoUpdate.EsFallo)
-                return resultadoUpdate;
+            var resultadoAdd =
+                await _repositorioPerfilEstudianteRecompensa
+                      .AddAsync(perfilYRecompensa);
+            if (resultadoAdd.EsFallo)
+                return Resultado.Falla(
+                    new Error("Error.Database",
+                              "No se pudo agregar la recompensa al perfil."));
+
+            var resultadoUpd =
+                await _repositorioPerfilEstudianteGrupo
+                      .UpdateAsync(perfil);
+            if (resultadoUpd.EsFallo)
+                return Resultado.Falla(
+                    new Error("Error.Database",
+                              "No se pudo actualizar el perfil del estudiante."));
 
             return Resultado.Exitoso();
         }
