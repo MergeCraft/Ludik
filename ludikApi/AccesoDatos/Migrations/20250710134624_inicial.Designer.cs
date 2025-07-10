@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250709191104_inicial")]
+    [Migration("20250710134624_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -3067,7 +3067,8 @@ namespace AccesoDatos.Migrations
 
                     b.HasOne("LogicaNegocio.Entidades.Potenciador", "PotenciadorActivo")
                         .WithMany()
-                        .HasForeignKey("PotenciadorActivoId");
+                        .HasForeignKey("PotenciadorActivoId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Estudiante");
 

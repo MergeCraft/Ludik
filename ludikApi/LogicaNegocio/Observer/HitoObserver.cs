@@ -48,14 +48,8 @@ namespace LogicaNegocio.Observer
             {
                 // 1) Perfil origen y carga completa del estudiante
                 var perfilOrigen = evt.PerfilEstudiante;
-                var estResult = _repoEstudiantes.GetByPerfilIdAsync(perfilOrigen.Id)
-                                  .GetAwaiter().GetResult();
-                if (estResult.EsFallo)
-                {
-                    _logger.LogError($"[HitoObserver] No se pudo cargar estudiante para perfil {perfilOrigen.Id}: {estResult.EsFallo}");
-                    return;
-                }
-                var estudiante = estResult.Valor!;
+                
+                var estudiante = perfilOrigen.Estudiante;
 
                 // 2) Calcular total de medallas en TODOS sus perfiles
                 int totalMedallas = estudiante.ContarCantidadMedallasTotales();
@@ -91,6 +85,7 @@ namespace LogicaNegocio.Observer
                     {
                         if (hito.Recompensa is Potenciador pot)
                         {
+                           
                             perfil.ActivarPotenciador(pot);
                             _logger.LogInformation($"[HitoObserver] Potenciador x{pot.Multiplicador} activado en perfil {perfil.Id}.");
                         }
@@ -112,7 +107,7 @@ namespace LogicaNegocio.Observer
                                 _logger.LogInformation($"[HitoObserver] Recompensa {hito.Recompensa.Id} añadida al inventario del perfil {perfil.Id}.");
                             }
                         }
-
+                        //AQUI ESTA FALLANDO CUANDO INTENTA GUARDAR LOS CAMBIOS
                         // 4.3) Persistir cambios de cada perfil
                         var updPerfil = _repoPerfiles.UpdateAsync(perfil).GetAwaiter().GetResult();
                         if (updPerfil.EsFallo)

@@ -553,7 +553,8 @@ namespace AccesoDatos.Migrations
                         name: "FK_PerfilesEstudiantes_Recompensas_PotenciadorActivoId",
                         column: x => x.PotenciadorActivoId,
                         principalTable: "Recompensas",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

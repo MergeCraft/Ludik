@@ -3064,7 +3064,8 @@ namespace AccesoDatos.Migrations
 
                     b.HasOne("LogicaNegocio.Entidades.Potenciador", "PotenciadorActivo")
                         .WithMany()
-                        .HasForeignKey("PotenciadorActivoId");
+                        .HasForeignKey("PotenciadorActivoId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Estudiante");
 

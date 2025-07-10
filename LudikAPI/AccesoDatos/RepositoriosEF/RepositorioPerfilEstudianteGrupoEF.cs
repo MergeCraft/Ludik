@@ -98,23 +98,50 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(p => p.PerfilMedallas)
                         .ThenInclude(pm => pm.Medalla)
                     .Include(p => p.BarraProgreso)
-                    .Include(p => p.Estudiante)   
-                    .Include(p => p.Grupo)     
-                    .Include(p => p.Grupo.TablaEquivalencia)
-                        .ThenInclude(te => te.Equivalencias)
-                            .ThenInclude(eq => eq.MedallasNecesarias)
+                    .Include(p => p.Grupo)
+                        .ThenInclude(g => g.TablaEquivalencia)
+                            .ThenInclude(te => te.Equivalencias)
+                                .ThenInclude(eq => eq.MedallasNecesarias)
                     .Include(p => p.PotenciadorActivo)
+                    .Include(p => p.Estudiante)
+                        .ThenInclude(e => e.Perfiles)
+                            .ThenInclude(pe => pe.PerfilMedallas)
+                                .ThenInclude(pm => pm.Medalla)
+                    .Include(p => p.Estudiante)
+                        .ThenInclude(e => e.Perfiles)
+                            .ThenInclude(pe => pe.PotenciadorActivo)
+                    .Include(p => p.Estudiante)
+                        .ThenInclude(e => e.Perfiles)
+                            .ThenInclude(pe => pe.InventarioRecompensas)
+                                .ThenInclude(ir => ir.Recompensa)
+                    .Include(p => p.Estudiante)
+                        .ThenInclude(e => e.Perfiles)
+                            .ThenInclude(pe => pe.BarraProgreso)
+                    .Include(p => p.Estudiante)
+                        .ThenInclude(e => e.Perfiles)
+                            .ThenInclude(pe => pe.Grupo)
+                                .ThenInclude(g => g.TablaEquivalencia)
+                                    .ThenInclude(te => te.Equivalencias)
+                                        .ThenInclude(eq => eq.MedallasNecesarias)
+                    .Include(p => p.Estudiante)
+                        .ThenInclude(e => e.Perfiles)
+                            .ThenInclude(pe => pe.HistorialRendimientoPeriodos)
+                                .ThenInclude(hr => hr.RendimientoMedallas)
+                                    .ThenInclude(rm => rm.Medalla)
                     .FirstOrDefaultAsync(p => p.Id == id);
 
                 if (perfil == null)
+                {
                     return Resultado<PerfilEstudiante>.Falla(
                         new Error("Error.NotFound", $"No se encontró el perfil de estudiante con Id: {id}."));
+                }
 
                 return Resultado<PerfilEstudiante>.Exitoso(perfil);
             }
             catch (Exception ex)
             {
-                return Resultado<PerfilEstudiante>.Falla(new Error("Error.Unexpected", ex.Message));
+                return Resultado<PerfilEstudiante>.Falla(
+                    new Error("Error.Unexpected", $"Error inesperado: {ex.Message}"));
             }
         }
 
