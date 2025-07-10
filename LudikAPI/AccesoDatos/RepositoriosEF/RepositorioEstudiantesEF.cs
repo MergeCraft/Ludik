@@ -157,6 +157,9 @@ namespace AccesoDatos.RepositoriosEF
             }
         }
 
-
+        public Task<Estudiante> GetByIdAsyncString(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

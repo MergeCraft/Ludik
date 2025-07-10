@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
-    public partial class inicialConDatosPrecargados : Migration
+    public partial class inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -263,7 +263,6 @@ namespace AccesoDatos.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdPreguntaDeSeguridadDelSistema = table.Column<int>(type: "int", nullable: false),
                     PreguntaDeSeguridadId = table.Column<int>(type: "int", nullable: false),
                     Respuesta = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EstudianteId = table.Column<string>(type: "nvarchar(450)", nullable: false)
@@ -802,79 +801,6 @@ namespace AccesoDatos.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-<<<<<<<< HEAD:LudikAPI/AccesoDatos/Migrations/20250709175601_inicialConDatosPrecargados.cs
-            migrationBuilder.CreateTable(
-                name: "Hitos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CantMedallasRequeridas = table.Column<int>(type: "int", nullable: false),
-                    RecompensaId = table.Column<int>(type: "int", nullable: false),
-                    Otorgado = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Hitos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Hitos_Recompensas_RecompensaId",
-                        column: x => x.RecompensaId,
-                        principalTable: "Recompensas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PerfilEstudianteRecompensas",
-                columns: table => new
-                {
-                    PerfilEstudianteId = table.Column<int>(type: "int", nullable: false),
-                    RecompensaId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PerfilEstudianteRecompensas", x => new { x.PerfilEstudianteId, x.RecompensaId });
-                    table.ForeignKey(
-                        name: "FK_PerfilEstudianteRecompensas_PerfilesEstudiantes_PerfilEstudianteId",
-                        column: x => x.PerfilEstudianteId,
-                        principalTable: "PerfilesEstudiantes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PerfilEstudianteRecompensas_Recompensas_RecompensaId",
-                        column: x => x.RecompensaId,
-                        principalTable: "Recompensas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EstudianteHitos",
-                columns: table => new
-                {
-                    EstudianteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    HitoId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EstudianteHitos", x => new { x.EstudianteId, x.HitoId });
-                    table.ForeignKey(
-                        name: "FK_EstudianteHitos_Estudiantes_EstudianteId",
-                        column: x => x.EstudianteId,
-                        principalTable: "Estudiantes",
-                        principalColumn: "UsuarioId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EstudianteHitos_Hitos_HitoId",
-                        column: x => x.HitoId,
-                        principalTable: "Hitos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-========
->>>>>>>> HitosYmas:LudikAPI/AccesoDatos/Migrations/20250710134624_inicial.cs
             migrationBuilder.InsertData(
                 table: "AtributosAvatar",
                 columns: new[] { "Id", "CodigoUnico", "Nombre", "RutaRecurso", "Tipo" },
@@ -1120,6 +1046,17 @@ namespace AccesoDatos.Migrations
                     { 1, "Asistencia y participación en todas las clases del mes.", 30, "Participación Perfecta", "8e445865-a24d-4543-a6c6-9443d048cdb9", false, "icono_asistencia.png" },
                     { 2, "Ayuda destacada a compañeros en proyectos grupales.", 25, "Maestro de la Colaboración", "8e445865-a24d-4543-a6c6-9443d048cdb9", false, "icono_colaboracion.png" },
                     { 3, "Realización de preguntas perspicaces que enriquecen la clase.", 15, "Mente Curiosa", "9e445865-a24d-4543-a6c6-9443d048cdb0", false, "icono_pregunta.png" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PreguntasRespuestasSeguridad",
+                columns: new[] { "Id", "EstudianteId", "PreguntaDeSeguridadId", "Respuesta" },
+                values: new object[,]
+                {
+                    { 1, "a1445865-a24d-4543-a6c6-9443d048cdb1", 1, "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==" },
+                    { 2, "a1445865-a24d-4543-a6c6-9443d048cdb1", 3, "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==" },
+                    { 3, "b2445865-a24d-4543-a6c6-9443d048cdb2", 2, "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==" },
+                    { 4, "b2445865-a24d-4543-a6c6-9443d048cdb2", 5, "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==" }
                 });
 
             migrationBuilder.InsertData(

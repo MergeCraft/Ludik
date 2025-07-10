@@ -12,13 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-<<<<<<<< HEAD:LudikAPI/AccesoDatos/Migrations/20250709175601_inicialConDatosPrecargados.Designer.cs
-    [Migration("20250709175601_inicialConDatosPrecargados")]
-    partial class inicialConDatosPrecargados
-========
-    [Migration("20250710134624_inicial")]
+    [Migration("20250710180828_inicial")]
     partial class inicial
->>>>>>>> HitosYmas:LudikAPI/AccesoDatos/Migrations/20250710134624_inicial.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -2052,9 +2047,6 @@ namespace AccesoDatos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("IdPreguntaDeSeguridadDelSistema")
-                        .HasColumnType("int");
-
                     b.Property<int>("PreguntaDeSeguridadId")
                         .HasColumnType("int");
 
@@ -2069,6 +2061,36 @@ namespace AccesoDatos.Migrations
                     b.HasIndex("PreguntaDeSeguridadId");
 
                     b.ToTable("PreguntasRespuestasSeguridad");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            EstudianteId = "a1445865-a24d-4543-a6c6-9443d048cdb1",
+                            PreguntaDeSeguridadId = 1,
+                            Respuesta = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg=="
+                        },
+                        new
+                        {
+                            Id = 2,
+                            EstudianteId = "a1445865-a24d-4543-a6c6-9443d048cdb1",
+                            PreguntaDeSeguridadId = 3,
+                            Respuesta = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg=="
+                        },
+                        new
+                        {
+                            Id = 3,
+                            EstudianteId = "b2445865-a24d-4543-a6c6-9443d048cdb2",
+                            PreguntaDeSeguridadId = 2,
+                            Respuesta = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg=="
+                        },
+                        new
+                        {
+                            Id = 4,
+                            EstudianteId = "b2445865-a24d-4543-a6c6-9443d048cdb2",
+                            PreguntaDeSeguridadId = 5,
+                            Respuesta = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg=="
+                        });
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Recompensa", b =>
