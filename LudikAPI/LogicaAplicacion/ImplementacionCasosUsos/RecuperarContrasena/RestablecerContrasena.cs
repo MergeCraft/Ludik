@@ -42,7 +42,8 @@ public class RestablecerContrasena: IRestablecerContrasena
             await _repositorioPreguntasSeguridad.GetByNombreUsuarioAsync(dto.NombreUsuario);
 
             // Mapear dto a entidades para la verificación
-            var respuestasIngresadas = dto.Respuestas.Select(r => new PreguntaRespuestaSeguridad { PreguntaDeSeguridadId = r.PreguntaDeSeguridadId, Respuesta = r.Respuesta }).ToList();
+            var respuestasIngresadas = dto.Respuestas.
+                Select(r => new PreguntaRespuestaSeguridad { Id = r.PreguntaRespuestaSeguridadId ,PreguntaDeSeguridadId = r.PreguntaDeSeguridadId, Respuesta = r.Respuesta }).ToList();
 
 
             if (!estudiante.CoincidenLasRespuestas(respuestasIngresadas, _passwordHasher))

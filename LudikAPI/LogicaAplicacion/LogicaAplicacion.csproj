@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ImplementacionCasosUsos\Usuarios\**" />
     <Compile Remove="InterfacesCasosUsos\Usuario\**" />
+    <EmbeddedResource Remove="ImplementacionCasosUsos\Usuarios\**" />
     <EmbeddedResource Remove="InterfacesCasosUsos\Usuario\**" />
+    <None Remove="ImplementacionCasosUsos\Usuarios\**" />
     <None Remove="InterfacesCasosUsos\Usuario\**" />
   </ItemGroup>
 
@@ -24,7 +27,6 @@
     <Folder Include="ImplementacionCasosUsos\Imagenes\Estrategias\" />
     <Folder Include="ImplementacionCasosUsos\Login\" />
     <Folder Include="ImplementacionCasosUsos\RecuperarContrasena\" />
-    <Folder Include="ImplementacionCasosUsos\Usuarios\" />
     <Folder Include="InterfacesCasosUsos\RecuperarContrasena\" />
     <Folder Include="InterfacesCasosUsos\ServicioPrecargaArchivos\" />
   </ItemGroup>

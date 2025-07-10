@@ -67,6 +67,7 @@ namespace WebApi.Controllers
 
         /// <summary>
         /// Verifica las respuestas de seguridad y restablece la contraseña de un estudiante.
+        /// Nota: Se requiere el id de la pregunta de seguridad que hay en el sistema y el id de la respuesta de seguridad que se ha guardado en la base de datos al momento de registrarse el estudiante.
         /// </summary>
         /// <response code="204">La contraseña fue restablecida con éxito.</response>
         /// <response code="400">Datos inválidos o la contraseña no cumple las políticas.</response>
