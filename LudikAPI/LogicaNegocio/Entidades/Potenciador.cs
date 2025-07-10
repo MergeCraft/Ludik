@@ -1,4 +1,6 @@
 using System;
+using LogicaNegocio.InterfacesRepositorios;
+using LogicaNegocio.Resultados;
 
 namespace LogicaNegocio.Entidades
 {
@@ -13,6 +15,11 @@ namespace LogicaNegocio.Entidades
         public bool EstaActivo =>
             DateTime.UtcNow >= FechaActivacion && DateTime.UtcNow <= FechaActivacion + Duracion;
 
+        public override Resultado Otorgar(PerfilEstudiante perfil,IRepositorioPerfilEstudianteRecompensa _ /*no usado*/){
+
+            perfil.ActivarPotenciador(this);
+            return Resultado.Exitoso();
+        }
     }
 
 }

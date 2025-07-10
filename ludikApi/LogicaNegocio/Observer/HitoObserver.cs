@@ -17,20 +17,17 @@ namespace LogicaNegocio.Observer
         private readonly IRepositorioPerfilEstudianteGrupo _repoPerfiles;
         private readonly ILogger<HitoObserver> _logger;
         private readonly IRepositorioPerfilEstudianteRecompensa _repoRecompensas;
-        private readonly IRepositorioEstudiantes _repoEstudiantes;
 
         public HitoObserver(
             IRepositorioHitos repoHitos,
             IRepositorioPerfilEstudianteGrupo repoPerfiles,
             ILogger<HitoObserver> logger,
-            IRepositorioPerfilEstudianteRecompensa repoRecompensas,
-            IRepositorioEstudiantes repoEstudiantes)
+            IRepositorioPerfilEstudianteRecompensa repoRecompensas)
         {
             _repoHitos = repoHitos;
             _repoPerfiles = repoPerfiles;
             _logger = logger;
             _repoRecompensas = repoRecompensas;
-            _repoEstudiantes = repoEstudiantes;
         }
         public void OnCompleted()
         {
@@ -46,77 +43,50 @@ namespace LogicaNegocio.Observer
         {
             try
             {
-                // 1) Perfil origen y carga completa del estudiante
                 var perfilOrigen = evt.PerfilEstudiante;
-                
                 var estudiante = perfilOrigen.Estudiante;
-
-                // 2) Calcular total de medallas en TODOS sus perfiles
                 int totalMedallas = estudiante.ContarCantidadMedallasTotales();
-
-                // 3) Traer hitos pendientes
                 var allHitosResult = _repoHitos.GetAllAsync().GetAwaiter().GetResult();
+
                 if (allHitosResult.EsFallo)
                 {
                     _logger.LogError($"[HitoObserver] Error al leer hitos: {allHitosResult.EsFallo}");
                     return;
                 }
+
                 var hitosPendientes = allHitosResult.Valor!
-                    .Where(h => !h.Otorgado)
+                    .Where(h => !h.Otorgado && h.Cumple(totalMedallas))
                     .ToList();
 
-                // 4) Procesar cada hito cumplido
-                foreach (var hito in hitosPendientes)
-                {
-                    if (!hito.Cumple(totalMedallas))
-                        continue;
-
-                    // 4.1) Marcar como otorgado
+                foreach (var hito in hitosPendientes){
                     hito.Otorgado = true;
                     var updHito = _repoHitos.UpdateAsync(hito).GetAwaiter().GetResult();
-                    if (updHito.EsFallo)
-                    {
+                    if (updHito.EsFallo){
                         _logger.LogError($"[HitoObserver] No se pudo marcar hito {hito.Id}: {updHito.EsFallo}");
                         continue;
                     }
 
-                    // 4.2) Aplicar recompensa a **todos** los perfiles
                     foreach (var perfil in estudiante.Perfiles)
                     {
-                        if (hito.Recompensa is Potenciador pot)
-                        {
-                           
-                            perfil.ActivarPotenciador(pot);
-                            _logger.LogInformation($"[HitoObserver] Potenciador x{pot.Multiplicador} activado en perfil {perfil.Id}.");
+                        var otorgarResultado =hito.Recompensa.Otorgar(perfil, _repoRecompensas);
+
+                        if (otorgarResultado.EsFallo){
+                            _logger.LogError(
+                                $"[HitoObserver] Falló al otorgar recompensa {hito.Recompensa.Id} " +$"en perfil {perfil.Id}: {otorgarResultado.EsFallo}");
                         }
-                        else
-                        {
-                            var pr = new PerfilEstudianteRecompensa
-                            {
-                                PerfilEstudianteId = perfil.Id,
-                                RecompensaId = hito.Recompensa.Id
-                            };
-                            var addRec = _repoRecompensas.AddAsync(pr).GetAwaiter().GetResult();
-                            if (addRec.EsFallo)
-                            {
-                                _logger.LogError($"[HitoObserver] No se pudo agregar recompensa {hito.Recompensa.Id} al perfil {perfil.Id}: {addRec.EsFallo}");
-                            }
-                            else
-                            {
-                                perfil.InventarioRecompensas.Add(pr);
-                                _logger.LogInformation($"[HitoObserver] Recompensa {hito.Recompensa.Id} añadida al inventario del perfil {perfil.Id}.");
-                            }
+                        else{
+                            _logger.LogInformation(
+                                $"[HitoObserver] Recompensa {hito.Recompensa.Id} aplicada " + $"en perfil {perfil.Id}.");
                         }
-                        //AQUI ESTA FALLANDO CUANDO INTENTA GUARDAR LOS CAMBIOS
-                        // 4.3) Persistir cambios de cada perfil
+
                         var updPerfil = _repoPerfiles.UpdateAsync(perfil).GetAwaiter().GetResult();
-                        if (updPerfil.EsFallo)
+                        if (updPerfil.EsFallo){
                             _logger.LogError($"[HitoObserver] Error al actualizar perfil {perfil.Id}: {updPerfil.EsFallo}");
+                        }
                     }
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex){
                 _logger.LogError(ex, "[HitoObserver] Excepción interna al procesar hitos.");
             }
         }

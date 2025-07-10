@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using LogicaNegocio.InterfacesRepositorios;
+using LogicaNegocio.Resultados;
 
 namespace LogicaNegocio.Entidades;
 
@@ -12,5 +14,10 @@ public class PersonalizacionAvatar: Recompensa
     public PersonalizacionAvatar()
     {
         RequiereImagen = true; // Por defecto, las personalizaciones de avatar requieren imagen
+    }
+
+    public override Resultado Otorgar(PerfilEstudiante perfil, IRepositorioPerfilEstudianteRecompensa repoRecompensa)
+    {
+        throw new NotImplementedException();
     }
 }

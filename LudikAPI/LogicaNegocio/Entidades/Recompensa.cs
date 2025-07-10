@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using LogicaNegocio.InterfacesEntidades;
+using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
 
 namespace LogicaNegocio.Entidades
@@ -34,12 +35,9 @@ namespace LogicaNegocio.Entidades
             return Resultado.Exitoso();
         }
 
-        public void otorgar(PerfilEstudiante pEstudiante)
-		{
+        public abstract Resultado Otorgar(PerfilEstudiante perfil,IRepositorioPerfilEstudianteRecompensa repoRecompensa);
 
-		}
-
-		public void pagar(int precio)
+        public void pagar(int precio)
 		{
 
 		}
