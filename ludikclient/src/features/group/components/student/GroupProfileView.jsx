@@ -1,29 +1,37 @@
+// GroupProfileView.jsx
 import React from "react";
 import PropTypes from "prop-types";
+import BarLoader from "../../../generics/BarLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { BarLoader } from "react-spinners";
-import { useRecompensasPerfil } from "../../hooks/useStudentMutation";
-import RewardItem from "../teacher/RewardItem";
+import { useRecompensasPerfil, useImagenPerfil, useBarraProgresoPerfil } from "../../hooks/useStudentMutation";
+import RewardItem from "../RewardItem";
 
 import styles from "./GroupProfileView.module.css";
 
 const GroupProfileView = ({ perfil, isLoading }) => {
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasPerfil(perfil?.id);
+  const { data: imagenPerfil, isLoading: isLoadingImagen } = useImagenPerfil(perfil?.id);
+  const { data: barraProgreso, isLoading: isLoadingBarra } = useBarraProgresoPerfil(perfil?.id);
 
-  console.log(perfil);
+  console.log(barraProgreso);
+
+  const avatarUrl = imagenPerfil?.urlCompleta;
 
   return isLoading ? (
-    <div className={styles.barLoaderContainer}>
-      <BarLoader color="var(--blanco-secundario)" size={10} />
-    </div>
+    <BarLoader />
   ) : (
     <div className={styles.container}>
       <section>
         <h3>Avatar</h3>
-        <img
-          src="https://www.researchgate.net/publication/341068087/figure/fig3/AS:11431281104224771@1669979151092/Figura-2-Avatar-que-aparece-por-defecto-en-Facebook.png"
-          alt={`Avatar de ${perfil.nombreEstudiante}`}
-        />
+        {isLoadingImagen ? (
+          <BarLoader />
+        ) : (
+          <img
+            src={avatarUrl || "https://www.researchgate.net/publication/341068087/figure/fig3/AS:11431281104224771@1669979151092/Figura-2-Avatar-que-aparece-por-defecto-en-Facebook.png"}
+            alt={`Avatar de ${perfil.nombreEstudiante}`}
+            className={styles.avatar}
+          />
+        )}
       </section>
 
       <section>
@@ -53,11 +61,30 @@ const GroupProfileView = ({ perfil, isLoading }) => {
             <p>Meta personal</p>
           </div>
         </div>
-        <div>
-          <p>
-            <FontAwesomeIcon icon="fa fa-bullseye" /> {perfil.metaCalificacion}
-          </p>
-          <p>Meta personal</p>
+        <div className={styles.progressBarContainer}>
+          <div className={styles.progressBar}>
+            <label htmlFor="progreso-1">
+              <input type="radio" id="progreso-1" name="progreso" />
+            </label>
+            <label htmlFor="progreso-2">
+              <input type="radio" id="progreso-2" name="progreso" />
+            </label>
+            <label htmlFor="progreso-3">
+              <input type="radio" id="progreso-3" name="progreso" />
+            </label>
+            <label htmlFor="progreso-4">
+              <input type="radio" id="progreso-4" name="progreso" />
+            </label>
+            <label htmlFor="progreso-5">
+              <input type="radio" id="progreso-5" name="progreso" />
+            </label>
+            <label htmlFor="progreso-6">
+              <input type="radio" id="progreso-6" name="progreso" />
+            </label>
+            <label htmlFor="progreso-7">
+              <input type="radio" id="progreso-7" name="progreso" />
+            </label>
+          </div>
         </div>
       </section>
 
@@ -82,9 +109,7 @@ const GroupProfileView = ({ perfil, isLoading }) => {
       <section>
         <h3>Recompensas</h3>
         {isLoadingRecompensas ? (
-          <div className={styles.barLoaderContainer}>
-            <BarLoader color="var(--blanco-secundario)" size={10} />
-          </div>
+          <BarLoader />
         ) : (
           <div className={styles.recompensasGrid}>
             {recompensas?.length > 0 ? recompensas.map((reward) => <RewardItem key={reward.nombre} reward={reward} redeemed={true} />) : <p>No tienes recompensas aún.</p>}

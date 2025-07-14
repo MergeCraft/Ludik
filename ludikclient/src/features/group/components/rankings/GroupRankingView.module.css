@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+.agregarRanking {
+    background-color: var(--secundario);
+    color: var(--principal);
+    border: 1px solid var(--principal);
+    border-radius: 15px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.loaderContainer {
+    text-align: center;
+    padding: 2rem;
+}
+
+.sinRankings {
+    text-align: center;
+}

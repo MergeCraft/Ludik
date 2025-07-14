@@ -68,6 +68,43 @@
     margin-top: 10px;
 }
 
+.progressBar {
+    display: flex;
+    justify-content: center;
+}
+
+.progressBar label {
+    background-color: var(--blanco-principal);
+    padding: 10px;
+    flex-grow: 1;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.progressBar label:hover {
+    box-shadow: 0 0 0 1px var(--terciario);
+    transform: scale(1.01);
+}
+
+.progressBar label:first-child {
+    border-radius: 10px 0 0 10px;
+}
+
+.progressBar label:last-child {
+    border-radius: 0 10px 10px 0;
+}
+
+.progressBar input {
+    margin: 0;
+    display: none;
+}
+
+label:has(input[type="radio"]:checked) {
+    background-color: var(--secundario);
+    box-shadow: 0 0 0 2px var(--secundario);
+}
+
+
 .recompensasGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));

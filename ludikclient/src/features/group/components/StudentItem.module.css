@@ -59,29 +59,13 @@ p {
 }
 
 .opcionBorrado {
-    display: flex;
-    flex-direction: column;
+    color: var(--blanco-principal);
     justify-content: center;
-    gap: 3px;
     padding: 0 10px;
     border: 1px solid var(--secundario);
     background-color: var(--principal);
     border-radius: 15px;
     cursor: pointer;
-}
-
-.opcionBorrado svg:nth-child(1) {
-    color: var(--boton-terciario);
-
-}
-
-.opcionBorrado svg:nth-child(2) {
-    color: var(--blanco-principal);
-}
-
-.opcionBorrado svg:nth-child(3) {
-    color: var(--boton-secundario);
-
 }
 
 .medallas {

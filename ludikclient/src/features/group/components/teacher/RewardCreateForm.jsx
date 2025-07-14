@@ -81,7 +81,6 @@ const RewardCreateForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(recompensa);
   };
 
   return (

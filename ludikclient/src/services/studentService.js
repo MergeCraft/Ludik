@@ -27,3 +27,12 @@ export const obtenerRecompensasPerfil = async (perfilId) => {
     throw parseError(error, "No se pudo obtener el inventario de recompensas.");
   }
 };
+
+export const obtenerBarraProgresoPerfil = async (perfilId) => {
+  try {
+    const response = await api.get(`/api/BarraProgreso/${perfilId}`);
+    return response.data;
+  } catch (error) {
+    throw parseError(error, "No se pudo obtener la barra de progreso del estudiante.");
+  }
+};

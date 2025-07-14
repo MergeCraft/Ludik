@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { selectUserRole } from "../../auth/hooks/userSlice.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./HeaderMenu.module.css";
-import { cerrarSesion } from "../../auth/hooks/auth.js";
+import { cerrarSesion } from "../../../services/authService";
 
 const HeaderMenu = () => {
   const dispatch = useDispatch();
@@ -60,10 +60,6 @@ const HeaderMenu = () => {
 
                 <li onClick={() => goTo("/equivalenceTable")} className={isActive("/equivalenceTable") ? styles.activeRubricas : ""}>
                   <FontAwesomeIcon icon="fa-solid fa-clipboard-list" size="lg" /> Rubricas
-                </li>
-
-                <li onClick={() => goTo("/rankings")} className={isActive("/rankings") ? styles.activeRankings : ""}>
-                  <FontAwesomeIcon icon="fa-solid fa-ranking-star" size="lg" /> Rankings
                 </li>
               </>
             )}

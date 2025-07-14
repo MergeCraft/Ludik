@@ -25,7 +25,7 @@ export const useEditarTablaEquivalencia = (onSuccessCallback) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, ...payload }) => actualizarTablaEquivalencia(id, payload),
+    mutationFn: ({ id, data }) => actualizarTablaEquivalencia(id, data),
     onSuccess: (data) => {
       Toast.notificarExito("Tabla de equivalencia actualizada.");
       queryClient.invalidateQueries(["tablasEquivalencia"]);

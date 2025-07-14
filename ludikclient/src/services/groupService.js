@@ -20,6 +20,35 @@ export const crearGrupo = async (grupo) => {
   }
 };
 
+export const editarGrupo = async (grupo) => {
+  try {
+    const response = await api.put(`/api/Grupo/editar/${grupo.id}`, grupo);
+    return response.data;
+  } catch (error) {
+    throw parseError(error, "Error al editar el grupo.");
+  }
+};
+
+export const eliminarGrupo = async (id) => {
+  try {
+    const response = await api.delete(`/api/Grupo/eliminar/${id}`);
+    return response.data;
+  } catch (error) {
+    throw parseError(error, "Error al eliminar el grupo.");
+  }
+};
+
+export const reiniciarLogrosGrupo = async (grupoId) => {
+  try {
+    const response = await api.post(`/api/Profesor/reiniciar-logros`, null, {
+      params: { grupoId },
+    });
+    return response.data;
+  } catch (error) {
+    throw parseError(error, "Error al reiniciar los logros del grupo.");
+  }
+};
+
 export const obtenerGrupos = async (rol) => {
   try {
     const endpoint = rol === "Profesor" ? "/api/profesor/mis-grupos" : "/api/estudiante/mis-grupos";

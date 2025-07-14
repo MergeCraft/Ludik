@@ -36,7 +36,7 @@
 .acciones {
     display: flex;
     justify-content: space-evenly;
-    gap: 1px;
+    gap: 2px;
     background-color: var(--secundario);
     color: white;
     border-radius: 15px;
@@ -136,7 +136,5 @@
 
     .acciones {
         box-shadow: 0 3px 15px rgba(0, 0, 0, 0.307);
-
     }
-
 }

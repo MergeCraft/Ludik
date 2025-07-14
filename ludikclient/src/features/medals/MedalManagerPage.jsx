@@ -1,10 +1,9 @@
 // MedalManagerPage.jsx
 import React, { useState } from "react";
 import styles from "./MedalManagerPage.module.css";
-import genericStyles from "../generics/BaseManagerPage.module.css";
 import MedalCard from "./components/MedalCard";
 import MedalCreateForm from "./components/MedalCreateForm.jsx";
-import { BarLoader } from "react-spinners";
+import BarLoader from "../generics/BarLoader.jsx";
 import BaseManagerPage from "../generics/BaseManagerPage";
 import PropTypes from "prop-types";
 import { useMedallasProfesor } from "./hooks/useMedalMutation.js";
@@ -44,9 +43,7 @@ const MedalManagerPage = () => {
   const filteredMedallas = medallas?.filter((m) => m.nombre.toLowerCase().includes(search.toLowerCase())) || [];
 
   const items = isLoading ? (
-    <div className={genericStyles.barLoaderContainer}>
-      <BarLoader color="var(--blanco-secundario)" size={10} />
-    </div>
+    <BarLoader />
   ) : (
     <div className={styles.medalsContainer}>
       {filteredMedallas.map((medalla) => (

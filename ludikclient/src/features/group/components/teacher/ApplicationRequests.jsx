@@ -3,17 +3,14 @@ import PropTypes from "prop-types";
 
 import { useSolicitudesUnion } from "../../hooks/useGrupoMutation";
 
-import { BarLoader } from "react-spinners";
-
-import selfStyles from "./ApplicationRequests.module.css";
-
-import styles from "../../../generics/BaseManagerPage.module.css";
+import styles from "./ApplicationRequests.module.css";
 
 import * as Toast from "../../../../lib/toastify";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import RequestItem from "./RequestItem";
+import BarLoader from "../../../generics/BarLoader";
 
 const ApplicationRequests = ({ groupId, link }) => {
   // Carga de las solicitudes de unión
@@ -26,17 +23,17 @@ const ApplicationRequests = ({ groupId, link }) => {
 
   if (isLoading) {
     return (
-      <div className={styles.barLoaderContainer}>
-        <BarLoader color="#fff" size={10} />
+      <div>
+        <BarLoader />
       </div>
     );
   }
 
   return (
-    <div className={selfStyles.applicationRequests}>
-      <div className={selfStyles.linkContainer}>
-        <p className={selfStyles.link}>{link}</p>
-        <button aria-label="Copiar link" onClick={handleCopy} className={selfStyles.copyBtn}>
+    <div className={styles.applicationRequests}>
+      <div className={styles.linkContainer}>
+        <p className={styles.link}>{link}</p>
+        <button aria-label="Copiar link" onClick={handleCopy} className={styles.copyBtn}>
           <FontAwesomeIcon icon="fa-solid fa-copy" />
         </button>
       </div>

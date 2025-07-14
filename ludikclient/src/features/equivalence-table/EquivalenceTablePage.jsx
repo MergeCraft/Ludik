@@ -1,35 +1,37 @@
 import React, { useState } from "react";
-
-import styles from "../generics/BaseManagerPage.module.css";
-
-import selfStyles from "./EquivalenceTablePage.module.css";
-
-import { BarLoader } from "react-spinners";
-
+import styles from "./EquivalenceTablePage.module.css";
+import BarLoader from "../generics/BarLoader";
 import BaseManagerPage from "../generics/BaseManagerPage";
-
 import EquivalenceTableItem from "./components/EquivalenceTableItem";
-
 import EquivalenceTableCreateModal from "./components/EquivalenceTableCreateModal";
-
 import { useTablasEquivalencia } from "./hooks/useEquivalenceTableMutation";
 
 const EquivalenceTablePage = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalTipo, setModalTipo] = useState(null);
-  const [search, setSearch] = useState(""); // 🔍 estado de búsqueda
+  const [editedTable, setEditedTable] = useState(null);
+  const [search, setSearch] = useState("");
 
-  // Carga de las tablas de equivalencia
-  const { data: equivalences, isLoading } = useTablasEquivalencia();
-  // Filtra según el nombre o la descripción
+  const { data: equivalences, isLoading, refetch } = useTablasEquivalencia();
   const equivalencesFiltradas = (equivalences ?? []).filter((item) => (item.nombre ?? "").toLowerCase().includes(search.toLowerCase()));
 
-  const handleOpenModal = (tipo) => {
+  const handleOpenModal = (tipo, table = null) => {
     setModalTipo(tipo);
+    setEditedTable(table);
     setShowModal(true);
   };
 
-  const modalContent = modalTipo === "crear" ? <EquivalenceTableCreateModal onClose={() => setShowModal(false)} /> : null;
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setEditedTable(null);
+  };
+
+  const handleSave = () => {
+    refetch();
+    handleCloseModal();
+  };
+
+  const modalContent = <EquivalenceTableCreateModal onClose={handleCloseModal} onSave={handleSave} table={modalTipo === "editar" ? editedTable : null} />;
 
   const actions = (
     <button className="button-secondary" onClick={() => handleOpenModal("crear")}>
@@ -38,13 +40,11 @@ const EquivalenceTablePage = () => {
   );
 
   const items = isLoading ? (
-    <div className={styles.barLoaderContainer}>
-      <BarLoader color="var(--blanco-secundario)" size={10} />
-    </div>
+    <BarLoader />
   ) : (
-    <div className={selfStyles.tablesContainer}>
+    <div className={styles.tablesContainer}>
       {equivalencesFiltradas.map((item) => (
-        <EquivalenceTableItem key={item.id} item={item} />
+        <EquivalenceTableItem key={item.id} item={item} onEdit={() => handleOpenModal("editar", item)} />
       ))}
     </div>
   );

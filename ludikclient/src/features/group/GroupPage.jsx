@@ -1,22 +1,23 @@
 // GroupPage.jsx
 import React, { useState } from "react";
-import styles from "../generics/BaseManagerPage.module.css";
-import selfStyle from "./GroupPage.module.css";
+import style from "./GroupPage.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { BarLoader } from "react-spinners";
+import BarLoader from "../generics/BarLoader.jsx";
 import { useSelector } from "react-redux";
 import { selectUserRole } from "../auth/hooks/userSlice";
 import BaseManagerPage from "../generics/BaseManagerPage";
 import StudentItem from "./components/StudentItem";
-import RewardItem from "./components/teacher/RewardItem.jsx";
+import RewardItem from "./components/RewardItem.jsx";
 import RewardCreateForm from "./components/teacher/RewardCreateForm.jsx";
 import GroupProfileView from "./components/student/GroupProfileView.jsx";
+import GroupConfigView from "./components/configs/GroupConfigView.jsx";
 import { useGrupo, useAlumnosGrupo, useRecompensasTienda } from "./hooks/useGrupoMutation";
 import { usePerfilGrupo } from "./hooks/useStudentMutation.js";
 
 import { useMedallasProfesor } from "../medals/hooks/useMedalMutation";
 import { useParams } from "react-router-dom";
 import ApplicationRequests from "./components/teacher/ApplicationRequests";
+import GroupRankingView from "./components/rankings/GroupRankingView.jsx";
 
 // ...imports
 const GroupPage = () => {
@@ -54,7 +55,7 @@ const GroupPage = () => {
   };
 
   const actions = (
-    <div className={selfStyle.acciones}>
+    <div className={style.acciones}>
       {!isProfesor && (
         <label>
           <input type="radio" value="perfil" checked={selectedView === "perfil"} onChange={() => setSelectedView("perfil")} />
@@ -72,22 +73,31 @@ const GroupPage = () => {
         <FontAwesomeIcon icon="fa-solid fa-store" size="xl" />
       </label>
 
+      <label>
+        <input type="radio" value="rankings" checked={selectedView === "rankings"} onChange={() => setSelectedView("rankings")} />
+        <FontAwesomeIcon icon="fa-solid fa-ranking-star" size="xl" />
+      </label>
+
       {isProfesor && (
-        <label>
-          <input type="radio" value="solicitudes" checked={selectedView === "solicitudes"} onChange={handleOpenApplicationRequests} />
-          <FontAwesomeIcon icon="fa-solid fa-user-plus" size="xl" />
-        </label>
+        <>
+          <label>
+            <input type="radio" value="solicitudes" checked={selectedView === "solicitudes"} onChange={handleOpenApplicationRequests} />
+            <FontAwesomeIcon icon="fa-solid fa-user-plus" size="xl" />
+          </label>
+          <label>
+            <input type="radio" value="configs" checked={selectedView === "configs"} onChange={() => setSelectedView("configs")} />
+            <FontAwesomeIcon icon="fa-solid fa-gear" size="xl" />
+          </label>
+        </>
       )}
     </div>
   );
 
   const items = isLoadingGroup ? (
-    <div className={styles.barLoaderContainer}>
-      <BarLoader color="var(--blanco-secundario)" size={10} />
-    </div>
+    <BarLoader />
   ) : (
-    <div className={selfStyle.groupContainer}>
-      <div className={selfStyle.infoGrupo}>
+    <div className={style.groupContainer}>
+      <div className={style.infoGrupo}>
         <h3>
           <FontAwesomeIcon icon="fa-solid fa-book-bookmark" /> {group.materia.toUpperCase()}
         </h3>
@@ -96,15 +106,13 @@ const GroupPage = () => {
         </h3>
       </div>
 
-      <div className={selfStyle.itemsContainer}>
+      <div className={style.itemsContainer}>
         {!isProfesor &&
           (isLoadingPerfil || !perfil ? (
-            <div className={styles.barLoaderContainer}>
-              <BarLoader color="var(--blanco-secundario)" size={10} />
-            </div>
+            <BarLoader />
           ) : (
             selectedView !== "perfil" && (
-              <div className={selfStyle.resumen}>
+              <div className={style.resumen}>
                 <div>
                   <p>
                     <FontAwesomeIcon icon="fa fa-bullseye" />
@@ -130,26 +138,22 @@ const GroupPage = () => {
 
         {selectedView === "tienda" ? (
           isLoadingRecompensas ? (
-            <div className={styles.barLoaderContainer}>
-              <BarLoader color="var(--blanco-secundario)" size={10} />
-            </div>
+            <BarLoader />
           ) : (
-            <div className={selfStyle.storeContent}>
+            <div className={style.storeContent}>
+              <button className={style.addRewardButton} onClick={handleOpenRewardCreateForm}>
+                <FontAwesomeIcon icon="fa-solid fa-plus" size="2xl" />
+              </button>
               {recompensas?.map((reward) => (
                 <RewardItem key={reward.id + reward.nombre} reward={reward} redeemed={false} perfilId={perfil?.id} />
               ))}
-              <button className={selfStyle.addRewardButton} onClick={handleOpenRewardCreateForm}>
-                <FontAwesomeIcon icon="fa-solid fa-plus" size="2xl" />
-              </button>
             </div>
           )
         ) : selectedView === "alumnos" ? (
           isLoadingStudents || isLoadingMedals ? (
-            <div className={styles.barLoaderContainer}>
-              <BarLoader color="var(--blanco-secundario)" size={10} />
-            </div>
+            <BarLoader />
           ) : (
-            <div className={selfStyle.studentsContainer}>
+            <div className={style.studentsContainer}>
               {studentsFiltrados?.map((item) => (
                 <StudentItem key={item.id} student={item} medals={medals} />
               ))}
@@ -157,6 +161,10 @@ const GroupPage = () => {
           )
         ) : selectedView === "perfil" ? (
           <GroupProfileView perfil={perfil} isLoading={isLoadingPerfil} />
+        ) : selectedView === "rankings" ? (
+          <GroupRankingView setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
+        ) : selectedView === "configs" ? (
+          <GroupConfigView id={groupId} group={group} setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} />
         ) : null}
       </div>
     </div>

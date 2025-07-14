@@ -1,19 +1,38 @@
-// GroupCreateModal.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./GroupCreateForm.module.css";
 import * as Toast from "../../../../lib/toastify.js";
 import PropTypes from "prop-types";
 
-import { useCrearGrupo } from "../../hooks/useGrupoMutation.js";
+import { useSelector } from "react-redux";
+import { selectUserId } from "../../../auth/hooks/userSlice";
+
+import { useCrearGrupo, useEditarGrupo } from "../../hooks/useGrupoMutation.js";
 import { useTablasEquivalencia } from "../../../equivalence-table/hooks/useEquivalenceTableMutation";
 
-export const GroupCreateModal = ({ onClose }) => {
-  const [grupo, setGrupo] = useState({ nombre: "", institucion: "", materia: "", tablaEquivalenciaId: "" });
+export const GroupCreateModal = ({ onClose, idGrupo, grupoInicial }) => {
+  const profesorId = useSelector(selectUserId);
 
-  const { mutateAsync: crear } = useCrearGrupo();
+  const [grupo, setGrupo] = useState({
+    nombre: "",
+    institucion: "",
+    materia: "",
+    tablaEquivalenciaId: "",
+  });
 
-  // Hook para obtener las tablas de equivalencia
+  const { mutateAsync: crearGrupo } = useCrearGrupo();
+  const { mutateAsync: editarGrupo } = useEditarGrupo();
   const { data: tablasEquivalencia, isLoading } = useTablasEquivalencia();
+
+  useEffect(() => {
+    if (grupoInicial) {
+      setGrupo({
+        nombre: grupoInicial.nombre || "",
+        institucion: grupoInicial.institucion || "",
+        materia: grupoInicial.materia || "",
+        tablaEquivalenciaId: grupoInicial.tablaEquivalenciaId?.toString() || "",
+      });
+    }
+  }, [grupoInicial]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,10 +55,12 @@ export const GroupCreateModal = ({ onClose }) => {
         return false;
       }
     }
+
     if (!grupo.tablaEquivalenciaId) {
       Toast.notificarWarning("Debes seleccionar una rúbrica.");
       return false;
     }
+
     return true;
   };
 
@@ -47,20 +68,25 @@ export const GroupCreateModal = ({ onClose }) => {
     e.preventDefault();
     if (!validar()) return;
 
-    const userData = JSON.parse(sessionStorage.getItem("userData"));
-    const profesorId = userData?.usuarioId;
-
     const grupoFinal = {
       ...grupo,
       tablaEquivalenciaId: Number(grupo.tablaEquivalenciaId),
-      profesorId,
+      profesorId: profesorId,
     };
 
-    await crear(grupoFinal);
- 
-    // Cerrar el modal
-    onClose();
+    try {
+      if (grupoInicial) {
+        await editarGrupo({ ...grupoFinal, id: idGrupo });
+      } else {
+        await crearGrupo(grupoFinal);
+      }
+
+      onClose();
+    } catch (error) {
+      // manejo de errores ya se hace en los hooks
+    }
   };
+
   return (
     <form className={styles.modalForm} onSubmit={handleSubmit}>
       <label>
@@ -86,8 +112,7 @@ export const GroupCreateModal = ({ onClose }) => {
             {isLoading ? (
               <option disabled>Cargando...</option>
             ) : (
-              tablasEquivalencia &&
-              tablasEquivalencia.map((tabla) => (
+              tablasEquivalencia?.map((tabla) => (
                 <option key={tabla.id} value={tabla.id}>
                   {`${tabla.nombre} - ${tabla.equivalencias.length} ${tabla.equivalencias.length > 1 ? "notas" : "nota"}`}
                 </option>
@@ -98,7 +123,7 @@ export const GroupCreateModal = ({ onClose }) => {
       </label>
 
       <button type="submit" className={`${styles.btnSubmit} button-secondary`}>
-        Crear grupo
+        {grupoInicial ? "Guardar cambios" : "Crear grupo"}
       </button>
     </form>
   );
@@ -106,6 +131,14 @@ export const GroupCreateModal = ({ onClose }) => {
 
 GroupCreateModal.propTypes = {
   onClose: PropTypes.func.isRequired,
+  idGrupo: PropTypes.number.isRequired,
+  grupoInicial: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    nombre: PropTypes.string.isRequired,
+    institucion: PropTypes.string.isRequired,
+    materia: PropTypes.string.isRequired,
+    tablaEquivalenciaId: PropTypes.number.isRequired,
+  }),
 };
 
 export default GroupCreateModal;
