@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaNegocio.Resultados;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
 {
@@ -25,6 +26,30 @@ namespace AccesoDatos.RepositoriosEF
         public Task<Resultado<IEnumerable<PreguntaRespuestaSeguridad>>> GetAllAsync()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Resultado<List<PreguntaRespuestaSeguridad>>> GetByNombreUsuarioAsync(string nombreUsuario)
+        {
+            try
+            {
+
+                // Se usa AsNoTracking() como optimización, ya que no vamos a modificar esta entidad
+                var usuario = await _db.Users
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(u => u.UserName == nombreUsuario);
+
+                if (usuario == null)
+                    return Resultado<List<PreguntaRespuestaSeguridad>>.Falla(Error.NotFound);
+                
+                var preguntas = await _db.PreguntasRespuestasSeguridad.Include(p => p.PreguntaDeSeguridad)
+                    .Where(p => p.EstudianteId == usuario.Id).ToListAsync();
+
+                return Resultado<List<PreguntaRespuestaSeguridad>>.Exitoso(preguntas);
+            }
+            catch (Exception e)
+            {
+                return Resultado<List<PreguntaRespuestaSeguridad>>.Falla(new Error("Error.Unexpected", e.Message));
+            }
         }
 
         public Task<Resultado<PreguntaRespuestaSeguridad>> GetByIdAsync(int id)

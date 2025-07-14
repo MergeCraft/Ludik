@@ -4,10 +4,11 @@ using LogicaNegocio.InterfacesEntidades;
 using System.ComponentModel.DataAnnotations.Schema;
 using LogicaNegocio.Resultados;
 using LogicaNegocio.Entidades;
+using LogicaNegocio.Observer;
 
 namespace LogicaNegocio.Entidades
 {
-	public class PerfilEstudiante : IEntity, IValidable
+	public class PerfilEstudiante : Observable<PerfilEstudianteMedalla>, IEntity, IValidable
     {
         public int Id { get; set; }
 
@@ -44,8 +45,25 @@ namespace LogicaNegocio.Entidades
 
         public BarraProgreso BarraProgreso { get; set; }
 
+        public int? PotenciadorActivoId { get; set; }
 
+        public Potenciador? PotenciadorActivo { get; set; }
 
+        public void ActivarPotenciador(Potenciador p)
+        {
+            p.FechaActivacion = DateTime.UtcNow;
+            PotenciadorActivo = p;
+            PotenciadorActivoId = p.Id;
+        }
+        public void LimpiarPotenciadorExpirado()
+        {
+            if (PotenciadorActivo != null && !PotenciadorActivo.EstaActivo)
+                PotenciadorActivo = null;
+        }
+        public double ObtenerMultiplicadorMonedas()
+        {
+            return PotenciadorActivo?.Multiplicador ?? 1.0;
+        }
         public Resultado esValido()
         {
             throw new NotImplementedException();
@@ -76,6 +94,8 @@ namespace LogicaNegocio.Entidades
 
             return Resultado.Exitoso();
         }
+        public void NotifyMedallaAsignada(PerfilEstudianteMedalla asignacion)
+        => Notify(asignacion);
     }
 
 }

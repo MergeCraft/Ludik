@@ -200,12 +200,90 @@ namespace AccesoDatos.RepositoriosEF
                 new Avatar { Id = 5, PerfilEstudianteId = 5, ColorFondo = "e6e6e6", Voltear = false, Rotacion = 0, Zoom = 100 }
             );
 
-            // =================================================================
+            // ====================================================
             // --- INICIO DE LA PRECARGA DE ATRIBUTOS DE AVATAR ---
-            // =================================================================
+            // ====================================================
             var atributos = PrecargarAtributosAvatar(modelBuilder);
             var atributosPorDefecto = AsignarAvatarPorDefecto(modelBuilder, atributos);
             PrecargarInventarioInicial(modelBuilder, atributosPorDefecto);
+
+            // ===========================================
+            // --- PRECARGA DE PREGUNTAS DE SEGURIDAD ---
+            // ===========================================
+            PrecargarPreguntasDeSeguridad(modelBuilder);
+
+            // ===========================================
+            // --- PRECARGA DE RESPUESTAS DE SEGURIDAD ---
+            // ===========================================
+            PrecargarRespuestasDeSeguridad(modelBuilder);
+
+        }
+        private static void PrecargarRespuestasDeSeguridad(ModelBuilder modelBuilder)
+        {
+            // --- IDs de los estudiantes a los que asignaremos respuestas ---
+            var estudiante1Id = "a1445865-a24d-4543-a6c6-9443d048cdb1"; // santiago
+            var estudiante2Id = "b2445865-a24d-4543-a6c6-9443d048cdb2"; // valentina
+
+            // --- Hashes Pre-generados para las respuestas ---
+            // Respuestas para Santiago: "Cecilia1." y "Cecilia1."
+            var hashPrimaria = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==";
+            var hashMascota = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==";
+
+            // Respuestas para Valentina: "Cecilia1." y "Cecilia1."
+            var hashAbuela = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==";
+            var hashPersonaje = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==";
+
+            modelBuilder.Entity<PreguntaRespuestaSeguridad>().HasData(
+                // --- Respuestas para Santiago ---
+                new PreguntaRespuestaSeguridad
+                {
+                    Id = 1, // PK de esta tabla
+                    PreguntaDeSeguridadId = 1, // FK a "¿Cuál era el nombre de tu escuela primaria?"
+                    Respuesta = hashPrimaria,
+                    EstudianteId = estudiante1Id
+                },
+                new PreguntaRespuestaSeguridad
+                {
+                    Id = 2,
+                    PreguntaDeSeguridadId = 3, // FK a "¿Cuál era el nombre de tu primera mascota?"
+                    Respuesta = hashMascota,
+                    EstudianteId = estudiante1Id
+                },
+
+                // --- Respuestas para Valentina ---
+                new PreguntaRespuestaSeguridad
+                {
+                    Id = 3,
+                    PreguntaDeSeguridadId = 2, // FK a "¿Cuál es el primer nombre de tu abuela materna?"
+                    Respuesta = hashAbuela,
+                    EstudianteId = estudiante2Id
+                },
+                new PreguntaRespuestaSeguridad
+                {
+                    Id = 4,
+                    PreguntaDeSeguridadId = 5, // FK a "¿Cuál es el nombre de tu personaje de ficción favorito...?"
+                    Respuesta = hashPersonaje,
+                    EstudianteId = estudiante2Id
+                }
+            );
+        }
+
+        private static void PrecargarPreguntasDeSeguridad(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PreguntaDeSeguridad>().HasData(
+                new PreguntaDeSeguridad { Id = 1, Texto = "¿Cuál era el nombre de tu escuela primaria?" },
+                new PreguntaDeSeguridad { Id = 2, Texto = "¿Cuál es el primer nombre de tu abuela materna?" },
+                new PreguntaDeSeguridad { Id = 3, Texto = "¿Cuál era el nombre de tu primera mascota?" },
+                new PreguntaDeSeguridad { Id = 4, Texto = "¿Cuál era el apodo que te decía tu familia en la infancia?" },
+                new PreguntaDeSeguridad { Id = 5, Texto = "¿Cuál es el nombre de tu personaje de ficción favorito (de un libro, serie o videojuego)?" },
+                new PreguntaDeSeguridad { Id = 6, Texto = "¿Cuál fue el primer videojuego que lograste completar?" },
+                new PreguntaDeSeguridad { Id = 7, Texto = "Si pudieras tener un superpoder, ¿cuál sería?" },
+                new PreguntaDeSeguridad { Id = 8, Texto = "¿Cuál es el apellido del primer amigo o amiga que hiciste al empezar el liceo?" },
+                new PreguntaDeSeguridad { Id = 9, Texto = "¿Cuál es el nombre del hospital donde naciste?" }
+
+
+
+            );
         }
 
         private static List<AtributoAvatar> PrecargarAtributosAvatar(ModelBuilder modelBuilder)
@@ -339,13 +417,18 @@ namespace AccesoDatos.RepositoriosEF
 
             modelBuilder.Entity<PersonalizacionAvatar>().HasData(recompensasAvatar);
 
-            var inventarioInicial = recompensasAvatar.Select(r => new PerfilEstudianteRecompensa
-            {
-                PerfilEstudianteId = 1, 
-                RecompensaId = r.Id
-            }).ToArray();
+            int nextSeedId = 1;              
+            var inventarioInicial = recompensasAvatar
+                .Select(r => new PerfilEstudianteRecompensa
+                {
+                    Id = nextSeedId++,  
+                    PerfilEstudianteId = 1,
+                    RecompensaId = r.Id
+                })
+                .ToArray();
 
-            modelBuilder.Entity<PerfilEstudianteRecompensa>().HasData(inventarioInicial);
+            modelBuilder.Entity<PerfilEstudianteRecompensa>()
+                        .HasData(inventarioInicial);
         }
     }
 }

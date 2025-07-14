@@ -10,19 +10,20 @@ public class PerfilEstudianteRecompensaConfiguracion : IEntityTypeConfiguration<
     {
         builder.ToTable("PerfilEstudianteRecompensas");
 
-        // Clave primaria compuesta
-        builder.HasKey(x => new { x.PerfilEstudianteId, x.RecompensaId });
+        builder.HasKey(x => x.Id);
+        builder.Property(x => x.Id)
+               .ValueGeneratedOnAdd();
 
-        // Si se borra el Perfil, se borran sus recompensas del inventario.
         builder.HasOne(x => x.PerfilEstudiante)
-            .WithMany(pe => pe.InventarioRecompensas)
-            .HasForeignKey(x => x.PerfilEstudianteId)
-            .OnDelete(DeleteBehavior.Cascade);
+               .WithMany(pe => pe.InventarioRecompensas)
+               .HasForeignKey(x => x.PerfilEstudianteId)
+               .OnDelete(DeleteBehavior.Cascade);
 
-        // No se puede borrar una Recompensa si está en el inventario de un perfil.
         builder.HasOne(x => x.Recompensa)
-            .WithMany()
-            .HasForeignKey(x => x.RecompensaId)
-            .OnDelete(DeleteBehavior.Restrict);
+               .WithMany()
+               .HasForeignKey(x => x.RecompensaId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(x => new { x.PerfilEstudianteId, x.RecompensaId });
     }
 }

@@ -14,6 +14,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Estudiante
     public class PruebasAltaEstudiante
     {
         private readonly Mock<UserManager<Usuario>> _userManagerMock;
+        private readonly Mock<IPasswordHasher<Usuario>> _passwordHasherMock;
 
         public PruebasAltaEstudiante()
         {
@@ -21,13 +22,17 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Estudiante
             _userManagerMock = new Mock<UserManager<Usuario>>(
                 storeMock.Object, null, null, null, null, null, null, null, null
             );
+            _passwordHasherMock = new Mock<IPasswordHasher<Usuario>>();
         }
 
         [Fact]
         public async Task Ejecutar_DtoNulo_RetornaFalloConErrorEsperado()
         {
             // Arrange
-            var service = new AltaEstudiante(_userManagerMock.Object);
+            _passwordHasherMock
+                .Setup(h => h.HashPassword(It.IsAny<Usuario>(), It.IsAny<string>()))
+                .Returns("hashed_respuesta_de_prueba");
+            var service = new AltaEstudiante(_userManagerMock.Object, _passwordHasherMock.Object);
             EstudianteAltaDto dto = null!;
 
             // Act
@@ -44,6 +49,9 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Estudiante
         public async Task Ejecutar_NombreUsuarioExiste_RetornaFalloConErrorDeConflicto()
         {
             // Arrange
+            _passwordHasherMock
+                .Setup(h => h.HashPassword(It.IsAny<Usuario>(), It.IsAny<string>()))
+                .Returns("hashed_respuesta_de_prueba");
             var dto = new EstudianteAltaDto
             {
                 NombreUsuario = "pedro25",
@@ -55,7 +63,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Estudiante
             _userManagerMock.Setup(x => x.FindByNameAsync("pedro25"))
                 .ReturnsAsync(new Usuario()); // Simula que ya existe
 
-            var service = new AltaEstudiante(_userManagerMock.Object);
+            var service = new AltaEstudiante(_userManagerMock.Object, _passwordHasherMock.Object);
 
             // Act
             var resultado = await service.EjecutarAsync(dto);
@@ -71,6 +79,9 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Estudiante
         public async Task Ejecutar_DatosValidos_CreaUsuarioYAsignaRol()
         {
             // Arrange
+            _passwordHasherMock
+                .Setup(h => h.HashPassword(It.IsAny<Usuario>(), It.IsAny<string>()))
+                .Returns("hashed_respuesta_de_prueba");
             var dto = new EstudianteAltaDto
             {
                 NombreUsuario = "maria99",
@@ -90,7 +101,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Estudiante
                     x.AddToRoleAsync(It.IsAny<Usuario>(), "Estudiante"))
                 .ReturnsAsync(IdentityResult.Success);
 
-            var service = new AltaEstudiante(_userManagerMock.Object);
+            var service = new AltaEstudiante(_userManagerMock.Object, _passwordHasherMock.Object);
 
             // Act
             await service.EjecutarAsync(dto);
@@ -99,6 +110,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Estudiante
             _userManagerMock.Verify(x => x.CreateAsync(It.IsAny<Usuario>(), "Misecreto.5"), Times.Once);
             _userManagerMock.Verify(x => x.AddToRoleAsync(It.IsAny<Usuario>(), "Estudiante"), Times.Once);
         }
-        //faltan dos pruebas mas que tiene que ver con el chequeo de cada campo
+        
     }
 }

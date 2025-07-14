@@ -70,9 +70,24 @@ namespace AccesoDatos.RepositoriosEF
                 return Resultado<Estudiante>.Falla(new Error("Unexpected",e.Message));
             }
         }
-        public async Task<Estudiante> GetByIdAsyncString(string id)
+        public async Task<Resultado<Estudiante>> GetByStringIdAsync(string id)
         {
-            return await _db.Estudiantes.FirstOrDefaultAsync(e => e.Id == id);
+            try
+            {
+                var usuario = await _db.Users.FirstOrDefaultAsync(e => e.Id == id);
+
+                if (usuario == null)
+                    return Resultado<Estudiante>.Falla(Error.NotFound);
+                Estudiante estudiante = (Estudiante)usuario;
+                
+ 
+                return Resultado<Estudiante>.Exitoso(estudiante);
+            }
+            catch (Exception e)
+            {
+
+                return Resultado<Estudiante>.Falla(new Error("Error.Unexpected", e.Message));
+            }
         }
 
         public Task<Resultado<IEnumerable<Estudiante>>> GetAllAsync()
@@ -101,6 +116,50 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
+        public async Task<Resultado<Estudiante>> GetByPerfilIdAsync(int perfilId)
+        {
+            try
+            {
+                // 1) Recuperar el Perfil para saber su EstudianteId
+                var perfil = await _db.PerfilesEstudiantes
+                    .AsNoTracking()
+                    .Include(p => p.Estudiante)          // trae el estudiante
+                    .FirstOrDefaultAsync(p => p.Id == perfilId);
 
+                if (perfil == null)
+                    return Resultado<Estudiante>.Falla(
+                        new Error("Error.NotFound", $"No se encontró el perfil con Id {perfilId}."));
+
+                var estudianteId = perfil.EstudianteId;
+
+                // 2) Recuperar EL ESTUDIANTE completo con todos sus perfiles y medallas
+                var estudiante = await _db.Estudiantes
+                    .AsNoTracking()
+                    .Where(e => e.Id == estudianteId)
+                    .Include(e => e.Perfiles)
+                        .ThenInclude(p => p.PerfilMedallas)
+                            .ThenInclude(pm => pm.Medalla)
+                    // si persistes PotenciadorActivo, inclúyelo también:
+                    .Include(e => e.Perfiles)
+                        .ThenInclude(p => p.PotenciadorActivo)
+                    .FirstOrDefaultAsync();
+
+                if (estudiante == null)
+                    return Resultado<Estudiante>.Falla(
+                        new Error("Error.NotFound", $"Estudiante {estudianteId} no encontrado."));
+
+                return Resultado<Estudiante>.Exitoso(estudiante);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<Estudiante>.Falla(
+                    new Error("Error.Unexpected", ex.Message));
+            }
+        }
+
+        public Task<Estudiante> GetByIdAsyncString(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

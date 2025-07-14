@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ImplementacionCasosUsos\Usuarios\**" />
     <Compile Remove="InterfacesCasosUsos\Usuario\**" />
+    <EmbeddedResource Remove="ImplementacionCasosUsos\Usuarios\**" />
     <EmbeddedResource Remove="InterfacesCasosUsos\Usuario\**" />
+    <None Remove="ImplementacionCasosUsos\Usuarios\**" />
     <None Remove="InterfacesCasosUsos\Usuario\**" />
   </ItemGroup>
 
@@ -19,10 +22,12 @@
   <ItemGroup>
     <Folder Include="DTOs\AtributoAvatarDTOs\" />
     <Folder Include="DTOs\ImagenDto\" />
+    <Folder Include="DTOs\RestablecerContrasenaDTO\" />
     <Folder Include="ImplementacionCasosUsos\Avatar\" />
     <Folder Include="ImplementacionCasosUsos\Imagenes\Estrategias\" />
     <Folder Include="ImplementacionCasosUsos\Login\" />
-    <Folder Include="ImplementacionCasosUsos\Usuarios\" />
+    <Folder Include="ImplementacionCasosUsos\RecuperarContrasena\" />
+    <Folder Include="InterfacesCasosUsos\RecuperarContrasena\" />
     <Folder Include="InterfacesCasosUsos\ServicioPrecargaArchivos\" />
   </ItemGroup>
 

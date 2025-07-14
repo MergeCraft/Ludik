@@ -8,13 +8,14 @@ namespace LogicaNegocio.Entidades
     {
         public int Id { get; set; }
 
-        public String Pregunta { get; set; }
+        public int PreguntaDeSeguridadId { get; set; }
+        public PreguntaDeSeguridad PreguntaDeSeguridad { get; set; } 
 
         public String Respuesta { get; set; }
-        public bool coincide(PreguntaRespuestaSeguridad pRS)
-		{
-			return true;
-		}
+
+        public String EstudianteId { get; set; }
+        public Estudiante Estudiante { get; set; }
+
 
         public Resultado esValido()
         {
