@@ -2,6 +2,9 @@ import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import * as Toast from "../../../lib/toastify";
 import {
   crearGrupo,
+  editarGrupo,
+  eliminarGrupo,
+  reiniciarLogrosGrupo,
   obtenerGrupos,
   obtenerGrupo,
   obtenerAlumnosGrupo,
@@ -13,6 +16,8 @@ import {
 } from "../../../services/groupService";
 
 import { obtenerRecompensasTienda } from "../../../services/storeService";
+
+import { obtenerRankings, crearRanking, eliminarRanking, obtenerRankingPorId } from "../../../services/rankingsService";
 
 const manejarErrores = (error) => {
   const errores = Array.isArray(error) ? error : [error.message];
@@ -28,6 +33,45 @@ export const useCrearGrupo = (onSuccessCallback) => {
       Toast.notificarExito("Grupo creado exitosamente.");
       queryClient.invalidateQueries(["grupos"]);
       if (onSuccessCallback) onSuccessCallback(data);
+    },
+    onError: manejarErrores,
+  });
+};
+
+export const useEditarGrupo = (onSuccessCallback) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: editarGrupo,
+    onSuccess: (data) => {
+      Toast.notificarExito("Grupo editado correctamente.");
+      queryClient.invalidateQueries(["grupo", data.id]);
+      if (onSuccessCallback) onSuccessCallback(data);
+    },
+    onError: manejarErrores,
+  });
+};
+
+export const useEliminarGrupo = (onSuccessCallback) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: eliminarGrupo,
+    onSuccess: (_, id) => {
+      Toast.notificarExito("Grupo eliminado correctamente.");
+      queryClient.invalidateQueries(["grupos"]);
+      if (onSuccessCallback) onSuccessCallback(id);
+    },
+    onError: manejarErrores,
+  });
+};
+
+export const useReiniciarLogrosGrupo = (onSuccessCallback) => {
+  return useMutation({
+    mutationFn: reiniciarLogrosGrupo,
+    onSuccess: () => {
+      Toast.notificarExito("Logros reiniciados correctamente.");
+      if (onSuccessCallback) onSuccessCallback();
     },
     onError: manejarErrores,
   });
@@ -133,3 +177,50 @@ export const useRecompensasTienda = (tiendaId) => {
     onError: manejarErrores,
   });
 };
+
+//Rankings
+
+export const useRankings = () => {
+  return useQuery({
+    queryKey: ["rankings"],
+    queryFn: obtenerRankings,
+    onError: manejarErrores,
+  });
+};
+
+export const useCrearRanking = (onSuccessCallback) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ grupoId, ranking }) => crearRanking(grupoId, ranking),
+    onSuccess: (data) => {
+      Toast.notificarExito("Ranking creado correctamente.");
+      queryClient.invalidateQueries(["rankings"]);
+      if (onSuccessCallback) onSuccessCallback(data);
+    },
+    onError: manejarErrores,
+  });
+};
+
+export const useEliminarRanking = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id) => eliminarRanking(id),
+    onSuccess: () => {
+      Toast.notificarExito("Ranking eliminado correctamente.");
+      queryClient.invalidateQueries(["rankings"]);
+    },
+    onError: manejarErrores,
+  });
+};
+
+export const useRankingPorId = (id) => {
+  return useQuery({
+    queryKey: ["ranking", id],
+    queryFn: () => obtenerRankingPorId(id),
+    enabled: !!id,
+    onError: manejarErrores,
+  });
+};
+
+//configs

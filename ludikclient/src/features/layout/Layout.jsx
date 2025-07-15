@@ -1,25 +1,16 @@
+// src/features/layout/Layout.jsx
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import styles from "./Layout.module.css";
 import HeaderMenu from "./components/HeaderMenu";
 import logo from "../../assets/logo.png";
+import { useSelector } from "react-redux";
+import { selectIsAuthenticated } from "../auth/hooks/userSlice";
 
 function Layout() {
   const navigate = useNavigate();
 
-  // Detectar si hay usuario logueado con sessionStorage y userData
-  const userDataString = sessionStorage.getItem("userData");
-  let isLoggedIn = false;
-  if (userDataString) {
-    try {
-      const userData = JSON.parse(userDataString);
-      if (userData && typeof userData.token === "string" && userData.token.trim() !== "") {
-        isLoggedIn = true;
-      }
-    } catch (error) {
-      console.error("Error parsing userData from sessionStorage", error);
-    }
-  }
+  const isLoggedIn = useSelector(selectIsAuthenticated);
 
   return (
     <div className={styles.layoutContainer}>

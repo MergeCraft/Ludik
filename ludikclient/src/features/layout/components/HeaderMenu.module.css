@@ -120,15 +120,6 @@
   color: #358c16;
 }
 
-.activeRankings {
-  background-color: var(--secundario);
-  box-shadow: 0 0 1px 1px var(--terciario);
-}
-
-.activeRankings svg {
-  color: #8c5716;
-}
-
 .activeConfiguraciones {
   background-color: var(--secundario);
   box-shadow: 0 0 1px 1px var(--terciario);

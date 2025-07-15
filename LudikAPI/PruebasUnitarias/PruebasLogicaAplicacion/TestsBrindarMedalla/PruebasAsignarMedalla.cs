@@ -1,176 +1,138 @@
-﻿using LogicaNegocio.Resultados;
-using Moq;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Entidad = LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.ImplementacionCasosUsos.AsignarMedalla;
+using LogicaNegocio.Resultados;
+using Moq;
+using Xunit;
 using LogicaNegocio.InterfacesRepositorios;
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion.BrindarMedalla
 {
     public class PruebasAsignarMedalla
     {
-        private readonly Mock<IRepositorioProfesores> _mockRepoProfesores;
-        private readonly Mock<IRepositorioPerfilEstudianteGrupo> _mockRepoPerfilEstudiantes;
-        private readonly Mock<IRepositorioMedallas> _mockRepoMedallas;
-        private readonly Mock<IRepositorioPerfilEstudianteMedalla> _mockRepoPerfilEstudianteMedalla;
-        private readonly AsignarMedalla _asignarMedallaUseCase;
+        private readonly Mock<IRepositorioPerfilEstudianteGrupo> _mockPerfilRepo;
+        private readonly Mock<IRepositorioMedallas> _mockMedallasRepo;
+        private readonly Mock<IRepositorioProfesores> _mockProfesoresRepo;
+        private readonly Mock<IRepositorioPerfilEstudianteMedalla> _mockPerfilMedallaRepo;
+        private readonly AsignarMedalla _casoUso;
+
+        private const string ProfesorId = "prof-1";
+        private const int PerfilId = 1;
+        private const int MedallaId = 2;
 
         public PruebasAsignarMedalla()
         {
-            _mockRepoProfesores = new Mock<IRepositorioProfesores>();
-            _mockRepoPerfilEstudiantes = new Mock<IRepositorioPerfilEstudianteGrupo>();
-            _mockRepoMedallas = new Mock<IRepositorioMedallas>();
-            _mockRepoPerfilEstudianteMedalla = new Mock<IRepositorioPerfilEstudianteMedalla>();
+            _mockPerfilRepo = new Mock<IRepositorioPerfilEstudianteGrupo>();
+            _mockMedallasRepo = new Mock<IRepositorioMedallas>();
+            _mockProfesoresRepo = new Mock<IRepositorioProfesores>();
+            _mockPerfilMedallaRepo = new Mock<IRepositorioPerfilEstudianteMedalla>();
 
-            _asignarMedallaUseCase = new AsignarMedalla(
-                _mockRepoPerfilEstudiantes.Object,
-                _mockRepoMedallas.Object,
-                _mockRepoProfesores.Object,
-                _mockRepoPerfilEstudianteMedalla.Object
+            
+            _casoUso = new AsignarMedalla(
+                _mockPerfilRepo.Object,
+                _mockMedallasRepo.Object,
+                _mockProfesoresRepo.Object,
+                _mockPerfilMedallaRepo.Object,
+                new List<IObserver<Entidad.PerfilEstudianteMedalla>>()
             );
         }
 
         [Fact]
-        public async Task EjecutarAsync_ProfesorNoExiste_DebeRetornarFalloNotFound()
+        public async Task ProfesorNoExiste_RetornaNotFound()
         {
-            // Arrange
-            var profesorId = "id-inexistente";
-            _mockRepoProfesores.Setup(r => r.GetByStringIdAsync(profesorId))
+            _mockProfesoresRepo
+                .Setup(r => r.GetByStringIdAsync(ProfesorId))
                 .ReturnsAsync(Resultado<Entidad.Profesor>.Falla(Error.NotFound));
 
-            // Act
-            var resultado = await _asignarMedallaUseCase.EjecutarAsync(profesorId, 1, 1);
+            var res = await _casoUso.EjecutarAsync(ProfesorId, PerfilId, MedallaId);
 
-            // Assert
-            Assert.True(resultado.EsFallo);
-            Assert.Equal(Error.NotFound.Codigo, resultado.Errores.First().Codigo);
+            Assert.True(res.EsFallo);
+            Assert.Equal("Error.NotFound", res.Errores.First().Codigo);
         }
 
         [Fact]
-        public async Task EjecutarAsync_PerfilEstudianteNoExiste_DebeRetornarFalloNotFound()
+        public async Task PerfilNoExiste_RetornaNotFound()
         {
-            // Arrange
-            var profesorId = "profesor-123";
-            var idPerfilEstudiante = 99; // ID inexistente
-            var profesor = new Entidad.Profesor { Id = profesorId };
-
-            _mockRepoProfesores.Setup(r => r.GetByStringIdAsync(profesorId))
-                .ReturnsAsync(Resultado<Entidad.Profesor>.Exitoso(profesor));
-
-            _mockRepoPerfilEstudiantes.Setup(r => r.GetByIdAsync(idPerfilEstudiante))
+            _mockProfesoresRepo
+                .Setup(r => r.GetByStringIdAsync(ProfesorId))
+                .ReturnsAsync(Resultado<Entidad.Profesor>.Exitoso(new Entidad.Profesor()));
+            _mockPerfilRepo
+                .Setup(r => r.GetByIdAsync(PerfilId))
                 .ReturnsAsync(Resultado<Entidad.PerfilEstudiante>.Falla(Error.NotFound));
 
-            // Act
-            var resultado = await _asignarMedallaUseCase.EjecutarAsync(profesorId, idPerfilEstudiante, 1);
+            var res = await _casoUso.EjecutarAsync(ProfesorId, PerfilId, MedallaId);
 
-            // Assert
-            Assert.True(resultado.EsFallo);
-            Assert.Equal(Error.NotFound.Codigo, resultado.Errores.First().Codigo);
+            Assert.True(res.EsFallo);
+            Assert.Equal("Error.NotFound", res.Errores.First().Codigo);
         }
 
         [Fact]
-        public async Task EjecutarAsync_MedallaNoExiste_DebeRetornarFalloNotFound()
+        public async Task MedallaNoExiste_RetornaNotFound()
         {
-            // Arrange
-            var profesorId = "profesor-123";
-            var idPerfilEstudiante = 1;
-            var idMedalla = 99; // ID inexistente
-            var profesor = new Entidad.Profesor { Id = profesorId };
-            var perfilEstudiante = new Entidad.PerfilEstudiante { Id = idPerfilEstudiante, GrupoId = 10 };
-
-            _mockRepoProfesores.Setup(r => r.GetByStringIdAsync(profesorId))
-                .ReturnsAsync(Resultado<Entidad.Profesor>.Exitoso(profesor));
-
-            _mockRepoPerfilEstudiantes.Setup(r => r.GetByIdAsync(idPerfilEstudiante))
-                .ReturnsAsync(Resultado<Entidad.PerfilEstudiante>.Exitoso(perfilEstudiante));
-
-            _mockRepoMedallas.Setup(r => r.GetByIdAsync(idMedalla))
+            _mockProfesoresRepo
+                .Setup(r => r.GetByStringIdAsync(ProfesorId))
+                .ReturnsAsync(Resultado<Entidad.Profesor>.Exitoso(new Entidad.Profesor()));
+            _mockPerfilRepo
+                .Setup(r => r.GetByIdAsync(PerfilId))
+                .ReturnsAsync(Resultado<Entidad.PerfilEstudiante>.Exitoso(new Entidad.PerfilEstudiante { GrupoId = 5 }));
+            _mockMedallasRepo
+                .Setup(r => r.GetByIdAsync(MedallaId))
                 .ReturnsAsync(Resultado<Entidad.Medalla>.Falla(Error.NotFound));
 
-            // Act
-            var resultado = await _asignarMedallaUseCase.EjecutarAsync(profesorId, idPerfilEstudiante, idMedalla);
+            var res = await _casoUso.EjecutarAsync(ProfesorId, PerfilId, MedallaId);
 
-            // Assert
-            Assert.True(resultado.EsFallo);
-            Assert.Equal(Error.NotFound.Codigo, resultado.Errores.First().Codigo);
+            Assert.True(res.EsFallo);
+            Assert.Equal("Error.NotFound", res.Errores.First().Codigo);
         }
 
         [Fact]
-        public async Task EjecutarAsync_ProfesorNoPerteneceAlGrupoDelEstudiante_DebeRetornarFalloForbidden()
+        public async Task ProfesorNoPerteneceAlGrupo_RetornaForbidden()
         {
-            // Arrange
-            var profesorId = "profesor-123";
-            var idPerfilEstudiante = 1;
-            var idMedalla = 1;
-            var idGrupoEstudiante = 10;
-            var idGrupoProfesor = 20; // Grupo diferente
+            var profesor = new Entidad.Profesor { Id = ProfesorId, Grupos = new List<Entidad.Grupo> { new Entidad.Grupo { Id = 10 } }, Medallas = new List<Entidad.Medalla> { new Entidad.Medalla { Id = MedallaId } } };
+            _mockProfesoresRepo.Setup(r => r.GetByStringIdAsync(ProfesorId)).ReturnsAsync(Resultado<Entidad.Profesor>.Exitoso(profesor));
+            _mockPerfilRepo.Setup(r => r.GetByIdAsync(PerfilId)).ReturnsAsync(Resultado<Entidad.PerfilEstudiante>.Exitoso(new Entidad.PerfilEstudiante { GrupoId = 20 }));
+            _mockMedallasRepo.Setup(r => r.GetByIdAsync(MedallaId)).ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(new Entidad.Medalla { Id = MedallaId }));
 
-            var profesor = new Entidad.Profesor
-                { Id = profesorId, Grupos = new List<Entidad.Grupo> { new Entidad.Grupo { Id = idGrupoProfesor } } };
-            var perfilEstudiante = new Entidad.PerfilEstudiante { Id = idPerfilEstudiante, GrupoId = idGrupoEstudiante };
-            var medalla = new Entidad.Medalla { Id = idMedalla };
+            var res = await _casoUso.EjecutarAsync(ProfesorId, PerfilId, MedallaId);
 
-            _mockRepoProfesores.Setup(r => r.GetByStringIdAsync(profesorId))
-                .ReturnsAsync(Resultado<Entidad.Profesor>.Exitoso(profesor));
-            _mockRepoPerfilEstudiantes.Setup(r => r.GetByIdAsync(idPerfilEstudiante))
-                .ReturnsAsync(Resultado<Entidad.PerfilEstudiante>.Exitoso(perfilEstudiante));
-            _mockRepoMedallas.Setup(r => r.GetByIdAsync(idMedalla)).ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(medalla));
-
-            // Act
-            var resultado = await _asignarMedallaUseCase.EjecutarAsync(profesorId, idPerfilEstudiante, idMedalla);
-
-            // Assert
-            Assert.True(resultado.EsFallo);
-            Assert.Equal(Error.Forbidden.Codigo, resultado.Errores.First().Codigo);
+            Assert.True(res.EsFallo);
+            Assert.Equal("Error.Forbidden", res.Errores.First().Codigo);
         }
 
         [Fact]
-        public async Task EjecutarAsync_DatosValidosYProfesorPerteneceAlGrupo_DebeRetornarExitoso()
+        public async Task ProfesorNoPoseeMedalla_RetornaForbidden()
         {
-            // Arrange
-            var profesorId = "profesor-123";
-            var idPerfilEstudiante = 1;
-            var idMedalla = 1;
-            var idGrupo = 10; // Mismo grupo
+            var profesor = new Entidad.Profesor { Id = ProfesorId, Grupos = new List<Entidad.Grupo> { new Entidad.Grupo { Id = 10 } }, Medallas = new List<Entidad.Medalla>() };
+            _mockProfesoresRepo.Setup(r => r.GetByStringIdAsync(ProfesorId)).ReturnsAsync(Resultado<Entidad.Profesor>.Exitoso(profesor));
+            _mockPerfilRepo.Setup(r => r.GetByIdAsync(PerfilId)).ReturnsAsync(Resultado<Entidad.PerfilEstudiante>.Exitoso(new Entidad.PerfilEstudiante { GrupoId = 10 }));
+            _mockMedallasRepo.Setup(r => r.GetByIdAsync(MedallaId)).ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(new Entidad.Medalla { Id = MedallaId }));
 
-            var medalla = new Entidad.Medalla { Id = idMedalla };
-            var profesor = new Entidad.Profesor
-            {
-                Id = profesorId,
-                Grupos = new List<Entidad.Grupo> { new Entidad.Grupo { Id = idGrupo } },
-                // ← inicializamos la colección de medallas para que Any(...) no sea null
-                Medallas = new List<Entidad.Medalla> { medalla }
-            };
-            var perfilEstudiante = new Entidad.PerfilEstudiante { Id = idPerfilEstudiante, GrupoId = idGrupo };
+            var res = await _casoUso.EjecutarAsync(ProfesorId, PerfilId, MedallaId);
 
-            _mockRepoProfesores
-                .Setup(r => r.GetByStringIdAsync(profesorId))
-                .ReturnsAsync(Resultado<Entidad.Profesor>.Exitoso(profesor));
-            _mockRepoPerfilEstudiantes
-                .Setup(r => r.GetByIdAsync(idPerfilEstudiante))
-                .ReturnsAsync(Resultado<Entidad.PerfilEstudiante>.Exitoso(perfilEstudiante));
-            _mockRepoMedallas
-                .Setup(r => r.GetByIdAsync(idMedalla))
-                .ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(medalla));
+            Assert.True(res.EsFallo);
+            Assert.Equal("Error.Forbidden", res.Errores.First().Codigo);
+        }
 
-            _mockRepoPerfilEstudianteMedalla
-                .Setup(r => r.AddAsync(It.IsAny<Entidad.PerfilEstudianteMedalla>()))
+        [Fact]
+        public async Task CaminoFeliz_AgregaAsignacionYNotifica()
+        {
+            var profesor = new Entidad.Profesor { Id = ProfesorId, Grupos = new List<Entidad.Grupo> { new Entidad.Grupo { Id = 10 } }, Medallas = new List<Entidad.Medalla> { new Entidad.Medalla { Id = MedallaId } } };
+            var perfilEst = new Entidad.PerfilEstudiante { Id = PerfilId, GrupoId = 10 };
+            var medalla = new Entidad.Medalla { Id = MedallaId, MonedasOtorgadas = 5 };
+
+            _mockProfesoresRepo.Setup(r => r.GetByStringIdAsync(ProfesorId)).ReturnsAsync(Resultado<Entidad.Profesor>.Exitoso(profesor));
+            _mockPerfilRepo.Setup(r => r.GetByIdAsync(PerfilId)).ReturnsAsync(Resultado<Entidad.PerfilEstudiante>.Exitoso(perfilEst));
+            _mockMedallasRepo.Setup(r => r.GetByIdAsync(MedallaId)).ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(medalla));
+            _mockPerfilMedallaRepo.Setup(r => r.AddAsync(It.IsAny<Entidad.PerfilEstudianteMedalla>()))
                 .ReturnsAsync(Resultado.Exitoso());
 
-            // Act
-            var resultado = await _asignarMedallaUseCase.EjecutarAsync(profesorId, idPerfilEstudiante, idMedalla);
+            var res = await _casoUso.EjecutarAsync(ProfesorId, PerfilId, MedallaId);
 
-            // Assert
-            Assert.True(resultado.EsExitoso);
-            _mockRepoPerfilEstudianteMedalla.Verify(r => r.AddAsync(It.Is<Entidad.PerfilEstudianteMedalla>(pem =>
-                pem.PerfilEstudianteId == idPerfilEstudiante &&
-                pem.MedallaId == idMedalla
-            )), Times.Once);
+            Assert.True(res.EsExitoso);
+            _mockPerfilMedallaRepo.Verify(r => r.AddAsync(It.Is<Entidad.PerfilEstudianteMedalla>(p => p.PerfilEstudianteId == PerfilId && p.MedallaId == MedallaId)), Times.Once);
         }
     }
 }

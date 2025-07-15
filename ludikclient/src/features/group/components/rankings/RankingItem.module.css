@@ -1,0 +1,60 @@
+.rankingCard {
+    background-color: var(--principal);
+    padding: 10px 20px;
+    border-radius: 1rem;
+    padding-bottom: 15px;
+    cursor: pointer;
+}
+
+.rankingCard h3 {
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--secundario);
+}
+
+.medalCard {
+    padding-bottom: 10px;
+}
+
+.medalla {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.participantes {
+    list-style: none;
+    padding: 0 20px;
+}
+
+.participante {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+}
+
+.participantes li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--secundario);
+    color: var(--blanco);
+}
+
+.posicion {
+    font-weight: bold;
+}
+
+.accionesRanking {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px
+}
+
+.accionesRanking button {
+    flex-grow: 1;
+    border-radius: 15px;
+    border: none;
+    padding: 7px 0;
+
+}

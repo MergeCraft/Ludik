@@ -60,9 +60,26 @@ namespace AccesoDatos.RepositoriosEF
             }
         }
 
-        public Task<Resultado> AddAsync(PerfilEstudiante unObjeto)
+        public async Task<Resultado> AddAsync(PerfilEstudiante unObjeto)
         {
-            throw new NotImplementedException();
+            if (unObjeto == null)
+                return Resultado.Falla(new Error("Error.Validation", "El perfil de estudiante no puede ser nulo."));
+
+            try
+            {
+                await _db.PerfilesEstudiantes.AddAsync(unObjeto);
+                await _db.SaveChangesAsync();
+                return Resultado.Exitoso();
+            }
+            catch (DbUpdateException dbEx)
+            {
+                var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
+                return Resultado.Falla(new Error("Error.Unexpected", $"Error al agregar el perfil: {detalle}"));
+            }
+            catch (Exception ex)
+            {
+                return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
+            }
         }
 
         public Task<Resultado<IEnumerable<PerfilEstudiante>>> GetAllAsync()
@@ -81,22 +98,50 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(p => p.PerfilMedallas)
                         .ThenInclude(pm => pm.Medalla)
                     .Include(p => p.BarraProgreso)
-                    .Include(p => p.Estudiante)   
-                    .Include(p => p.Grupo)     
-                    .Include(p => p.Grupo.TablaEquivalencia)
-                        .ThenInclude(te => te.Equivalencias)
-                            .ThenInclude(eq => eq.MedallasNecesarias)
+                    .Include(p => p.Grupo)
+                        .ThenInclude(g => g.TablaEquivalencia)
+                            .ThenInclude(te => te.Equivalencias)
+                                .ThenInclude(eq => eq.MedallasNecesarias)
+                    .Include(p => p.PotenciadorActivo)
+                    .Include(p => p.Estudiante)
+                        .ThenInclude(e => e.Perfiles)
+                            .ThenInclude(pe => pe.PerfilMedallas)
+                                .ThenInclude(pm => pm.Medalla)
+                    .Include(p => p.Estudiante)
+                        .ThenInclude(e => e.Perfiles)
+                            .ThenInclude(pe => pe.PotenciadorActivo)
+                    .Include(p => p.Estudiante)
+                        .ThenInclude(e => e.Perfiles)
+                            .ThenInclude(pe => pe.InventarioRecompensas)
+                                .ThenInclude(ir => ir.Recompensa)
+                    .Include(p => p.Estudiante)
+                        .ThenInclude(e => e.Perfiles)
+                            .ThenInclude(pe => pe.BarraProgreso)
+                    .Include(p => p.Estudiante)
+                        .ThenInclude(e => e.Perfiles)
+                            .ThenInclude(pe => pe.Grupo)
+                                .ThenInclude(g => g.TablaEquivalencia)
+                                    .ThenInclude(te => te.Equivalencias)
+                                        .ThenInclude(eq => eq.MedallasNecesarias)
+                    .Include(p => p.Estudiante)
+                        .ThenInclude(e => e.Perfiles)
+                            .ThenInclude(pe => pe.HistorialRendimientoPeriodos)
+                                .ThenInclude(hr => hr.RendimientoMedallas)
+                                    .ThenInclude(rm => rm.Medalla)
                     .FirstOrDefaultAsync(p => p.Id == id);
 
                 if (perfil == null)
+                {
                     return Resultado<PerfilEstudiante>.Falla(
                         new Error("Error.NotFound", $"No se encontró el perfil de estudiante con Id: {id}."));
+                }
 
                 return Resultado<PerfilEstudiante>.Exitoso(perfil);
             }
             catch (Exception ex)
             {
-                return Resultado<PerfilEstudiante>.Falla(new Error("Error.Unexpected", ex.Message));
+                return Resultado<PerfilEstudiante>.Falla(
+                    new Error("Error.Unexpected", $"Error inesperado: {ex.Message}"));
             }
         }
 

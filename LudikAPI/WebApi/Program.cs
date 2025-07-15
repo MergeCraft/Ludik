@@ -53,6 +53,7 @@ using LogicaAplicacion.InterfacesCasosUsos.TablaClasificacion;
 using LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion;
 using LogicaAplicacion.InterfacesCasosUsos.BarraProgreso;
 using LogicaAplicacion.InterfacesCasosUsos.RecuperarContrasena;
+using LogicaNegocio.Observer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -134,7 +135,9 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("EsProfesorOEstudiante", policy => policy.RequireRole("Profesor", "Estudiante"));
 });
 
-
+//inyeccion observadores
+builder.Services.AddScoped<IObserver<PerfilEstudianteMedalla>, PerfilObserver>();
+builder.Services.AddScoped<IObserver<PerfilEstudianteMedalla>, HitoObserver>();
 
 // Inyeccion de dependencias repositorios
 builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
@@ -153,6 +156,8 @@ builder.Services.AddScoped<IRepositorioRecompensas, RepositorioRecompensasEF>();
 builder.Services.AddScoped<IRepositorioAtributosAvatar, RepositorioAtributosAvatarEF>();
 builder.Services.AddScoped<IRepositorioTablasClasificacion, RepositorioTablasClasificacionEF>();
 builder.Services.AddScoped<IRepositorioRendimientoPeriodos, RepositorioRendimientoPeriodosEF>();
+builder.Services.AddScoped<IRepositorioHitos, RepositorioHitosEF>();
+builder.Services.AddScoped<IRepositorioPerfilEstudianteRecompensa, RepositorioPerfilEstudianteRecompensaEF>();
 builder.Services.AddScoped<IRepositorioPreguntasSeguridad, RepositorioPreguntasSeguridadEF>();
 builder.Services.AddScoped<IRepositorioPreguntasDeSeguridadDelSistema, RepositorioPreguntasDeSeguridadDelSistemaEF>();
 

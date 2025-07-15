@@ -37,9 +37,7 @@ const StudentItem = ({ student, medals }) => {
           {isProfesor && (
             <>
               <button className={styles.opcionBorrado} onClick={() => setMedalAsignationOption((prev) => !prev)}>
-                <FontAwesomeIcon icon="fa-solid fa-trash" size="lg" />
-                <FontAwesomeIcon icon="fa-solid fa-arrow-right-arrow-left" size="2xs" />
-                <FontAwesomeIcon icon="fa-solid fa-plus" size="lg" />
+                <FontAwesomeIcon icon="fa-solid fa-arrow-right-arrow-left" size="l" />
               </button>
               <div className={styles.asignarMedalla}>
                 <p>{medalAsignationOption ? "Asignación de medallas" : "Eliminar medallas"}</p>
@@ -54,7 +52,7 @@ const StudentItem = ({ student, medals }) => {
                       handleMedalChange(e); // ejecutar mutación
                     }}
                   >
-                    <option value="">Selecciona medalla</option>
+                    <option value="">Asgina Medalla</option>
                     {Array.isArray(medals) &&
                       medals.map((medalla) => (
                         <option key={medalla.id} value={medalla.id}>
@@ -72,7 +70,7 @@ const StudentItem = ({ student, medals }) => {
                       handleMedalChange(e); // ejecutar mutación
                     }}
                   >
-                    <option value="">Selecciona medalla</option>
+                    <option value="">Elimina medalla</option>
                     {Array.isArray(medals) &&
                       medals.map((medalla) => (
                         <option key={medalla.id} value={medalla.id}>

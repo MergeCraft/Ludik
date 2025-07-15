@@ -1,8 +1,9 @@
 // hooks/useStudentMutation.js
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import * as Toast from "../../../lib/toastify";
-import { obtenerPerfilGrupo, obtenerRecompensasPerfil } from "../../../services/studentService";
+import { obtenerPerfilGrupo, obtenerRecompensasPerfil, obtenerBarraProgresoPerfil } from "../../../services/studentService";
 import { canjearRecompensa } from "../../../services/storeService";
+import { obtenerImagenPerfil } from "../../../services/imagesService";
 
 const manejarErrores = (error) => {
   const errores = Array.isArray(error) ? error : [error.message];
@@ -38,6 +39,24 @@ export const useClaimReward = (perfilId, recompensaId, isProfesor) => {
       Toast.notificarExito("¡Recompensa canjeada exitosamente!");
       queryClient.invalidateQueries(["perfilGrupo", perfilId]);
     },
+    onError: manejarErrores,
+  });
+};
+
+export const useImagenPerfil = (perfilId) => {
+  return useQuery({
+    queryKey: ["imagenPerfil", perfilId],
+    queryFn: () => obtenerImagenPerfil(perfilId),
+    enabled: !!perfilId,
+    onError: manejarErrores,
+  });
+};
+
+export const useBarraProgresoPerfil = (perfilId) => {
+  return useQuery({
+    queryKey: ["barraProgresoPerfil", perfilId],
+    queryFn: () => obtenerBarraProgresoPerfil(perfilId),
+    enabled: !!perfilId,
     onError: manejarErrores,
   });
 };

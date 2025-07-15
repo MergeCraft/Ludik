@@ -1,4 +1,6 @@
 using System;
+using LogicaNegocio.InterfacesRepositorios;
+using LogicaNegocio.Resultados;
 
 namespace LogicaNegocio.Entidades
 {
@@ -6,6 +8,10 @@ namespace LogicaNegocio.Entidades
 	{
         public String CodigoHexadecimal { get; set; }
 
+        public override Resultado Otorgar(PerfilEstudiante perfil, IRepositorioPerfilEstudianteRecompensa repoRecompensa)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

@@ -1,0 +1,44 @@
+.extendedView {
+    background-color: var(--principal);
+    border-radius: 1.5rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.extendedView h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: var(--blanco);
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--secundario);
+}
+
+.extendedView p {
+    font-size: 1rem;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: var(--blanco);
+}
+
+.extendedView strong {
+    color: var(--terciario);
+}
+
+.participantes {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.participantes li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--secundario);
+    color: var(--blanco);
+}
+
+.posicion {
+    font-weight: bold;
+    color: var(--secundario);
+}

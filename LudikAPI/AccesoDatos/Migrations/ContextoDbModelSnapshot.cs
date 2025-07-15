@@ -1740,6 +1740,9 @@ namespace AccesoDatos.Migrations
                     b.Property<int>("Monedas")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PotenciadorActivoId")
+                        .HasColumnType("int");
+
                     b.Property<string>("RutaImagenCompleta")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1751,6 +1754,8 @@ namespace AccesoDatos.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EstudianteId");
+
+                    b.HasIndex("PotenciadorActivoId");
 
                     b.HasIndex("GrupoId", "EstudianteId")
                         .IsUnique()
@@ -1836,93 +1841,98 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("LogicaNegocio.Entidades.PerfilEstudianteRecompensa", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("PerfilEstudianteId")
                         .HasColumnType("int");
 
                     b.Property<int>("RecompensaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("PerfilEstudianteId", "RecompensaId");
+                    b.HasKey("Id");
 
                     b.HasIndex("RecompensaId");
+
+                    b.HasIndex("PerfilEstudianteId", "RecompensaId");
 
                     b.ToTable("PerfilEstudianteRecompensas", (string)null);
 
                     b.HasData(
                         new
                         {
+                            Id = 1,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 11,
-                            Id = 0
+                            RecompensaId = 11
                         },
                         new
                         {
+                            Id = 2,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 12,
-                            Id = 0
+                            RecompensaId = 12
                         },
                         new
                         {
+                            Id = 3,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 13,
-                            Id = 0
+                            RecompensaId = 13
                         },
                         new
                         {
+                            Id = 4,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 14,
-                            Id = 0
+                            RecompensaId = 14
                         },
                         new
                         {
+                            Id = 5,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 15,
-                            Id = 0
+                            RecompensaId = 15
                         },
                         new
                         {
+                            Id = 6,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 16,
-                            Id = 0
+                            RecompensaId = 16
                         },
                         new
                         {
+                            Id = 7,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 17,
-                            Id = 0
+                            RecompensaId = 17
                         },
                         new
                         {
+                            Id = 8,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 18,
-                            Id = 0
+                            RecompensaId = 18
                         },
                         new
                         {
+                            Id = 9,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 19,
-                            Id = 0
+                            RecompensaId = 19
                         },
                         new
                         {
+                            Id = 10,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 20,
-                            Id = 0
+                            RecompensaId = 20
                         },
                         new
                         {
+                            Id = 11,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 21,
-                            Id = 0
+                            RecompensaId = 21
                         },
                         new
                         {
+                            Id = 12,
                             PerfilEstudianteId = 1,
-                            RecompensaId = 22,
-                            Id = 0
+                            RecompensaId = 22
                         });
                 });
 
@@ -2762,11 +2772,14 @@ namespace AccesoDatos.Migrations
                 {
                     b.HasBaseType("LogicaNegocio.Entidades.Recompensa");
 
+                    b.Property<TimeSpan>("Duracion")
+                        .HasColumnType("time");
+
+                    b.Property<DateTime>("FechaActivacion")
+                        .HasColumnType("datetime2");
+
                     b.Property<double>("Multiplicador")
                         .HasColumnType("float");
-
-                    b.Property<DateTime>("Periodo")
-                        .HasColumnType("datetime2");
 
                     b.HasDiscriminator().HasValue("Potenciador");
                 });
@@ -3145,9 +3158,16 @@ namespace AccesoDatos.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("LogicaNegocio.Entidades.Potenciador", "PotenciadorActivo")
+                        .WithMany()
+                        .HasForeignKey("PotenciadorActivoId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("Estudiante");
 
                     b.Navigation("Grupo");
+
+                    b.Navigation("PotenciadorActivo");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.PerfilEstudianteMedalla", b =>

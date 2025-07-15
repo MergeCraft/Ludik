@@ -12,6 +12,7 @@ public class RecompensaConfiguracion : IEntityTypeConfiguration<Recompensa>
 
         builder.HasDiscriminator<string>("RecompensaTipo")
             .HasValue<RecompensaSimple>("Simple")
-            .HasValue<PersonalizacionAvatar>("PersonalizacionAvatar");
+            .HasValue<PersonalizacionAvatar>("PersonalizacionAvatar")
+            .HasValue<Potenciador>("Potenciador");
     }
 }

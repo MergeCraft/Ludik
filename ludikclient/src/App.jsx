@@ -2,7 +2,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store } from "./app/store";
+import { store, persistor } from "./app/store";
+import { PersistGate } from "redux-persist/integration/react";
 import { ToastContainer } from "react-toastify";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "react-toastify/dist/ReactToastify.css";
@@ -26,34 +27,33 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <Router>
-          <Routes>
-            {/* Rutas públicas SIN Layout */}
-            <Route path="/login" element={<AuthPage />} />
-            <Route path="/signup" element={<AuthPage />} />
+      <PersistGate loading={null} persistor={persistor}>
+        <QueryClientProvider client={queryClient}>
+          <Router>
+            <Routes>
+              {/* Rutas públicas SIN Layout */}
+              <Route path="/login" element={<AuthPage />} />
+              <Route path="/signup" element={<AuthPage />} />
 
-            {/* Rutas con Layout */}
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
+              {/* Rutas con Layout */}
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
 
-              {/* Rutas protegidas */}
-              <Route element={<PrivateRoute allowedRoles={["Profesor"]} />}></Route>
+                {/* Rutas protegidas */}
+                <Route element={<PrivateRoute allowedRoles={["Profesor"]} />}></Route>
 
-              <Route path="groups" element={<GroupsPage />} />
-              <Route path="medals" element={<MedalManagerPage />} />
-              <Route path="profile" element={<ProfilePage />} />
-              <Route path="equivalenceTable" element={<EquivalenceTablePage />} />
-              <Route path="/grupo/:id" element={<GroupPage />} />
+                <Route path="groups" element={<GroupsPage />} />
+                <Route path="medals" element={<MedalManagerPage />} />
+                <Route path="profile" element={<ProfilePage />} />
+                <Route path="equivalenceTable" element={<EquivalenceTablePage />} />
+                <Route path="/grupo/:id" element={<GroupPage />} />
+              </Route>
+            </Routes>
+          </Router>
 
-
-              {/* Puedes agregar más rutas protegidas aquí */}
-            </Route>
-          </Routes>
-        </Router>
-
-        <ToastContainer hideProgressBar={true} autoClose={1500} closeOnClick pauseOnHover />
-      </QueryClientProvider>
+          <ToastContainer hideProgressBar={true} autoClose={1500} closeOnClick pauseOnHover />
+        </QueryClientProvider>
+      </PersistGate>
     </Provider>
   );
 }

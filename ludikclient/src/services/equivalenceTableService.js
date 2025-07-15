@@ -52,6 +52,7 @@ export const actualizarTablaEquivalencia = async (id, data) => {
 export const obtenerTablasEquivalencia = async () => {
   try {
     const response = await api.get("/api/TablaEquivalencia");
+
     return response.data;
   } catch (error) {
     throw parseError(error, "Error al obtener las tablas de equivalencia.");

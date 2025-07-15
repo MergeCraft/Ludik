@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import styles from "../generics/BaseManagerPage.module.css";
 import { useSelector } from "react-redux";
 import { selectUserRole } from "../auth/hooks/userSlice";
 import { useGruposPorRol } from "./hooks/useGrupoMutation";
-import { BarLoader } from "react-spinners";
+import BarLoader from "../generics/BarLoader";
 
 import GroupItem from "./components/GroupItem";
 import GroupCreateModal from "./components/teacher/GroupCreateForm";
@@ -46,13 +45,7 @@ const GroupsPage = () => {
     </button>
   );
 
-  const items = isLoading ? (
-    <div className={styles.barLoaderContainer}>
-      <BarLoader color="var(--blanco-secundario)" size={10} />
-    </div>
-  ) : (
-    gruposFiltrados.map((group, index) => <GroupItem key={index} {...group} />)
-  );
+  const items = isLoading ? <BarLoader /> : gruposFiltrados.map((group, index) => <GroupItem key={index} {...group} />);
 
   return (
     <BaseManagerPage

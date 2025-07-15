@@ -5,11 +5,13 @@
   --blanco-principal: #d9d9d9;
   --blanco-secundario: #c8c8c8;
   --boton-principal: #046e9b;
-  --secundario-boton-princial: #003e59;
+  --secundario-boton-princial: #004f70;
   --boton-secundario: #079b04;
   --secundario-boton-secundario: #076404;
   --boton-terciario: #9B0404;
   --secundario-boton-terciario: #640404;
+  --boton-quinario: #9b9604;
+  --secundario-boton-quinario: #646204;
   --letras-secundario: #49c0f8;
   --principal: #131f24;
   --secundario: #23353c;
@@ -28,7 +30,7 @@ body {
 .button {
   background-color: var(--boton-principal);
   border: none;
-  box-shadow: 0 3px 0 3px var(--secundario-boton-princial);
+  box-shadow: 0 1px 0 3px var(--secundario-boton-princial);
   border-radius: 10px;
   color: var(--blanco-principal);
   font-size: 16px;
@@ -41,7 +43,7 @@ body {
 
 .button:active {
   box-shadow: 0 0 0 2px var(--secundario-boton-princial);
-  transform: translateY(3px);
+  transform: translateY(2px);
   /* Simula la presión */
   outline: none;
 }
@@ -49,7 +51,7 @@ body {
 .button-secondary {
   background-color: var(--boton-secundario);
   border: none;
-  box-shadow: 0 3px 0 3px var(--secundario-boton-secundario);
+  box-shadow: 0 1px 0 3px var(--secundario-boton-secundario);
   border-radius: 10px;
   color: var(--blanco-principal);
   font-size: 16px;
@@ -62,7 +64,7 @@ body {
 
 .button-secondary:active {
   box-shadow: 0 0 0 2px var(--secundario-boton-secundario);
-  transform: translateY(3px);
+  transform: translateY(2px);
   /* Simula la presión */
   outline: none;
 }
@@ -70,7 +72,7 @@ body {
 .button-tertiary {
   background-color: var(--boton-terciario);
   border: none;
-  box-shadow: 0 3px 0 3px var(--secundario-boton-terciario);
+  box-shadow: 0 1px 0 3px var(--secundario-boton-terciario);
   border-radius: 10px;
   color: var(--blanco-principal);
   font-size: 16px;
@@ -82,8 +84,51 @@ body {
 }
 
 .button-tertiary:active {
-  box-shadow: 0 0 0 2px var(--secundario-boton-secundario);
-  transform: translateY(3px);
+  box-shadow: 0 0 0 2px var(--secundario-boton-terciario);
+  transform: translateY(2px);
+  /* Simula la presión */
+  outline: none;
+}
+
+.button-quaternary {
+  background-color: var(--principal);
+  border: none;
+  box-shadow: 0 1px 0 3px var(--secundario);
+  border-radius: 10px;
+  color: var(--blanco-principal);
+  font-size: 16px;
+  padding: 10px 26px;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  transition: transform 0.2s, box-shadow 0.2s ease;
+}
+
+.button-quaternary:active {
+  box-shadow: 0 0 0 2px var(--secundario);
+  transform: translateY(2px);
+  /* Simula la presión */
+  outline: none;
+}
+
+.button-quinary {
+  background-color: var(--boton-quinario);
+  border: none;
+  box-shadow: 0 1px 0 3px var(--secundario-boton-quinario);
+  border-radius: 10px;
+  color: var(--blanco-principal);
+  font-size: 16px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.22);
+  padding: 10px 26px;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  transition: transform 0.2s, box-shadow 0.2s ease;
+}
+
+.button-quinary:active {
+  box-shadow: 0 0 0 2px var(--secundario-boton-quinario);
+  transform: translateY(2px);
   /* Simula la presión */
   outline: none;
 }
