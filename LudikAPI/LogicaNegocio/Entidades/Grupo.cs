@@ -37,6 +37,8 @@ namespace LogicaNegocio.Entidades
 
         public EnlaceUnion EnlaceUnion { get; set; }
 
+        public List<SolicitudPerfilMedalla> SolicitudesPerfilMedalla { get; set; } = new();
+
         [ForeignKey(nameof(Profesor))]
         public string ProfesorId { get; set; }
         public Profesor Profesor { get; set; }

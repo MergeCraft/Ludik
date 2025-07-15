@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250710180828_inicial")]
+    [Migration("20250715182044_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -2188,6 +2188,37 @@ namespace AccesoDatos.Migrations
                     b.ToTable("RendimientoPeriodoMedallas", (string)null);
                 });
 
+            modelBuilder.Entity("LogicaNegocio.Entidades.SolicitudPerfilMedalla", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("GrupoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PerfilEstudianteMedallaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GrupoId");
+
+                    b.HasIndex("PerfilEstudianteMedallaId");
+
+                    b.ToTable("SolicitudesPerfilMedalla");
+                });
+
             modelBuilder.Entity("LogicaNegocio.Entidades.SolicitudUnion", b =>
                 {
                     b.Property<int>("Id")
@@ -3293,6 +3324,25 @@ namespace AccesoDatos.Migrations
                     b.Navigation("RendimientoPeriodo");
                 });
 
+            modelBuilder.Entity("LogicaNegocio.Entidades.SolicitudPerfilMedalla", b =>
+                {
+                    b.HasOne("LogicaNegocio.Entidades.Grupo", "Grupo")
+                        .WithMany("SolicitudesPerfilMedalla")
+                        .HasForeignKey("GrupoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LogicaNegocio.Entidades.PerfilEstudianteMedalla", "PerfilEstudianteMedalla")
+                        .WithMany()
+                        .HasForeignKey("PerfilEstudianteMedallaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Grupo");
+
+                    b.Navigation("PerfilEstudianteMedalla");
+                });
+
             modelBuilder.Entity("LogicaNegocio.Entidades.SolicitudUnion", b =>
                 {
                     b.HasOne("LogicaNegocio.Entidades.Estudiante", "Estudiante")
@@ -3526,6 +3576,8 @@ namespace AccesoDatos.Migrations
                     b.Navigation("Alumnos");
 
                     b.Navigation("Solicitudes");
+
+                    b.Navigation("SolicitudesPerfilMedalla");
 
                     b.Navigation("TablasClasificacion");
 
