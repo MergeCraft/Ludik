@@ -52,6 +52,7 @@ using WebApi.Servicios;
 using LogicaAplicacion.InterfacesCasosUsos.TablaClasificacion;
 using LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion;
 using LogicaAplicacion.InterfacesCasosUsos.BarraProgreso;
+using LogicaAplicacion.InterfacesCasosUsos.Kudo;
 using LogicaAplicacion.InterfacesCasosUsos.RecuperarContrasena;
 using LogicaNegocio.Observer;
 
@@ -237,7 +238,8 @@ builder.Services.AddScoped<ISeedServicio, SeedServicio>();
 builder.Services.AddScoped<IObtenerPreguntasDeSegurididadPorNombreUsuario,ObtenerPreguntasDeSeguridadPorNombreUsuario>();
 builder.Services.AddScoped<IObtenerPreguntasDeSeguridadDelSistema, ObtenerPreguntasDeSeguridadDelSistema>();
 builder.Services.AddScoped<IRestablecerContrasena,RestablecerContrasena>();
-  
+
+builder.Services.AddScoped<IAsignarKudo, IAsignarKudo>();
 // -------------------------------
 //      Swagger y CORS
 // -------------------------------

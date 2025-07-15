@@ -24,7 +24,10 @@ namespace LogicaNegocio.Entidades
         public int Monedas { get; set; }
         public string RutaImagenCompleta { get; set; }
         public string RutaImagenMiniatura { get; set; }
-        public List<PerfilEstudianteMedalla> PerfilMedallas { get; set; } = new();
+        public List<PerfilEstudianteMedalla> PerfilMedallas { get; set; }
+        public int CantidadKudosDisponibles { get; set; }
+        public List<KudoOtorgado> KudosOtorgados { get; private set; }
+        public List<KudoOtorgado> KudosRecibidos { get; private set; }
 
         [NotMapped]
         public IEnumerable<Medalla> MedallasObtenidas => PerfilMedallas.Select(pm => pm.Medalla);
@@ -35,9 +38,9 @@ namespace LogicaNegocio.Entidades
         [ForeignKey(nameof(GrupoId))]
         public Grupo Grupo { get; set; }
 
-        public List<PerfilEstudianteRecompensa> InventarioRecompensas { get; set; } = new();
+        public List<PerfilEstudianteRecompensa> InventarioRecompensas { get; set; }
 
-        public List<TablaClasificacion> TablasClasificacion { get; set; } = new();
+        public List<TablaClasificacion> TablasClasificacion { get; set; }
 
         [NotMapped]
         public IEnumerable<Recompensa> Inventario =>
@@ -48,6 +51,15 @@ namespace LogicaNegocio.Entidades
         public int? PotenciadorActivoId { get; set; }
 
         public Potenciador? PotenciadorActivo { get; set; }
+
+        public PerfilEstudiante()
+        {
+            this.PerfilMedallas = new List<PerfilEstudianteMedalla>();
+            this.KudosOtorgados = new List<KudoOtorgado>();
+            this.KudosRecibidos = new List<KudoOtorgado>();
+            this.InventarioRecompensas = new List<PerfilEstudianteRecompensa>();
+            this.TablasClasificacion = new List<TablaClasificacion>();
+        }
 
         public void ActivarPotenciador(Potenciador p)
         {
@@ -96,6 +108,22 @@ namespace LogicaNegocio.Entidades
         }
         public void NotifyMedallaAsignada(PerfilEstudianteMedalla asignacion)
         => Notify(asignacion);
+
+        /// <summary>
+        /// Encapsula la lógica de negocio para otorgar un kudo.
+        /// Verifica si hay kudos disponibles y descuenta uno.
+        /// </summary>
+        /// <returns>Un resultado exitoso si se pudo otorgar, o de falla en caso contrario.</returns>
+        public Resultado OtorgarKudo(TipoKudo tipoKudo)
+        {
+            if (CantidadKudosDisponibles <= 0)
+            {
+                return Resultado.Falla(new Error("Error.Validation", "No tienes Kudos disponibles esta semana. Recibirás más el próximo lunes."));
+            }
+
+            CantidadKudosDisponibles--;
+            return Resultado.Exitoso();
+        }
     }
 
 }
