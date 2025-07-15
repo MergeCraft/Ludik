@@ -54,6 +54,8 @@ using LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion;
 using LogicaAplicacion.InterfacesCasosUsos.BarraProgreso;
 using LogicaAplicacion.InterfacesCasosUsos.RecuperarContrasena;
 using LogicaNegocio.Observer;
+using LogicaAplicacion.InterfacesCasosUsos.SolicitudPerfilMedalla;
+using LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -160,6 +162,7 @@ builder.Services.AddScoped<IRepositorioHitos, RepositorioHitosEF>();
 builder.Services.AddScoped<IRepositorioPerfilEstudianteRecompensa, RepositorioPerfilEstudianteRecompensaEF>();
 builder.Services.AddScoped<IRepositorioPreguntasSeguridad, RepositorioPreguntasSeguridadEF>();
 builder.Services.AddScoped<IRepositorioPreguntasDeSeguridadDelSistema, RepositorioPreguntasDeSeguridadDelSistemaEF>();
+builder.Services.AddScoped<IRepositorioSolicitudPerfilMedalla, RepositorioSolicitudPerfilMedallaEF>();
 
 
 builder.Services.AddAzureClients(clientBuilder =>
@@ -237,7 +240,8 @@ builder.Services.AddScoped<ISeedServicio, SeedServicio>();
 builder.Services.AddScoped<IObtenerPreguntasDeSegurididadPorNombreUsuario,ObtenerPreguntasDeSeguridadPorNombreUsuario>();
 builder.Services.AddScoped<IObtenerPreguntasDeSeguridadDelSistema, ObtenerPreguntasDeSeguridadDelSistema>();
 builder.Services.AddScoped<IRestablecerContrasena,RestablecerContrasena>();
-  
+builder.Services.AddScoped<IAltaSolicitudPerfilMedalla, AltaSolicitudPerfilMedalla>();
+
 // -------------------------------
 //      Swagger y CORS
 // -------------------------------

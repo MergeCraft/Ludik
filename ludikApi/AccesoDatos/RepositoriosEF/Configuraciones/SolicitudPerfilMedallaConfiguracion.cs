@@ -16,12 +16,18 @@ namespace AccesoDatos.RepositoriosEF.Configuraciones
         {
             builder.HasKey(spm => spm.Id);
 
-            builder.HasIndex(spm => spm.PerfilEstudianteMedallaId);
+            builder.HasIndex(spm => spm.PerfilEstudianteId);
+            builder.HasIndex(spm => spm.MedallaId);
             builder.HasIndex(spm => spm.GrupoId);
 
-            builder.HasOne(spm => spm.PerfilEstudianteMedalla)
-                .WithMany() 
-                .HasForeignKey(spm => spm.PerfilEstudianteMedallaId)
+            builder.HasOne<PerfilEstudiante>()
+                .WithMany()  
+                .HasForeignKey(spm => spm.PerfilEstudianteId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne<Medalla>()
+                .WithMany()  
+                .HasForeignKey(spm => spm.MedallaId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(spm => spm.Grupo)
@@ -34,6 +40,9 @@ namespace AccesoDatos.RepositoriosEF.Configuraciones
                 .HasMaxLength(500);
 
             builder.Property(spm => spm.Fecha)
+                .IsRequired();
+
+            builder.Property(spm => spm.Estado)
                 .IsRequired();
         }
     }

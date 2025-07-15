@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250715182044_inicial")]
+    [Migration("20250715192133_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -2201,20 +2201,28 @@ namespace AccesoDatos.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("GrupoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PerfilEstudianteMedallaId")
+                    b.Property<int>("MedallaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PerfilEstudianteId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GrupoId");
 
-                    b.HasIndex("PerfilEstudianteMedallaId");
+                    b.HasIndex("MedallaId");
+
+                    b.HasIndex("PerfilEstudianteId");
 
                     b.ToTable("SolicitudesPerfilMedalla");
                 });
@@ -3332,15 +3340,19 @@ namespace AccesoDatos.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LogicaNegocio.Entidades.PerfilEstudianteMedalla", "PerfilEstudianteMedalla")
+                    b.HasOne("LogicaNegocio.Entidades.Medalla", null)
                         .WithMany()
-                        .HasForeignKey("PerfilEstudianteMedallaId")
+                        .HasForeignKey("MedallaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("LogicaNegocio.Entidades.PerfilEstudiante", null)
+                        .WithMany()
+                        .HasForeignKey("PerfilEstudianteId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Grupo");
-
-                    b.Navigation("PerfilEstudianteMedalla");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.SolicitudUnion", b =>

@@ -727,6 +727,42 @@ namespace AccesoDatos.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SolicitudesPerfilMedalla",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PerfilEstudianteId = table.Column<int>(type: "int", nullable: false),
+                    MedallaId = table.Column<int>(type: "int", nullable: false),
+                    Estado = table.Column<int>(type: "int", nullable: false),
+                    GrupoId = table.Column<int>(type: "int", nullable: false),
+                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SolicitudesPerfilMedalla", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SolicitudesPerfilMedalla_Grupos_GrupoId",
+                        column: x => x.GrupoId,
+                        principalTable: "Grupos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SolicitudesPerfilMedalla_Medallas_MedallaId",
+                        column: x => x.MedallaId,
+                        principalTable: "Medallas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SolicitudesPerfilMedalla_PerfilesEstudiantes_PerfilEstudianteId",
+                        column: x => x.PerfilEstudianteId,
+                        principalTable: "PerfilesEstudiantes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TablaClasificacionParticipantes",
                 columns: table => new
                 {
@@ -772,34 +808,6 @@ namespace AccesoDatos.Migrations
                         principalTable: "Avatares",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SolicitudesPerfilMedalla",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PerfilEstudianteMedallaId = table.Column<int>(type: "int", nullable: false),
-                    GrupoId = table.Column<int>(type: "int", nullable: false),
-                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SolicitudesPerfilMedalla", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SolicitudesPerfilMedalla_Grupos_GrupoId",
-                        column: x => x.GrupoId,
-                        principalTable: "Grupos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SolicitudesPerfilMedalla_PerfilEstudianteMedallas_PerfilEstudianteMedallaId",
-                        column: x => x.PerfilEstudianteMedallaId,
-                        principalTable: "PerfilEstudianteMedallas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -1409,9 +1417,14 @@ namespace AccesoDatos.Migrations
                 column: "GrupoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SolicitudesPerfilMedalla_PerfilEstudianteMedallaId",
+                name: "IX_SolicitudesPerfilMedalla_MedallaId",
                 table: "SolicitudesPerfilMedalla",
-                column: "PerfilEstudianteMedallaId");
+                column: "MedallaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SolicitudesPerfilMedalla_PerfilEstudianteId",
+                table: "SolicitudesPerfilMedalla",
+                column: "PerfilEstudianteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SolicitudesUnion_EstudianteId",
@@ -1496,6 +1509,9 @@ namespace AccesoDatos.Migrations
                 name: "IniciosSesionUsuario");
 
             migrationBuilder.DropTable(
+                name: "PerfilEstudianteMedallas");
+
+            migrationBuilder.DropTable(
                 name: "PerfilEstudianteRecompensas");
 
             migrationBuilder.DropTable(
@@ -1542,9 +1558,6 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.DropTable(
                 name: "RendimientosPeriodos");
-
-            migrationBuilder.DropTable(
-                name: "PerfilEstudianteMedallas");
 
             migrationBuilder.DropTable(
                 name: "TablasClasificacion");

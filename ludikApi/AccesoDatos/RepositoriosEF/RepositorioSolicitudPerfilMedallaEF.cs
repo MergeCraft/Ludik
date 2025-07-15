@@ -8,7 +8,7 @@ using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
 using Microsoft.EntityFrameworkCore;
 
-namespace AccesoDatos.RepositoriosEF.Configuraciones
+namespace AccesoDatos.RepositoriosEF
 {
     public class RepositorioSolicitudPerfilMedallaEF : IRepositorioSolicitudPerfilMedalla
     {
@@ -42,8 +42,6 @@ namespace AccesoDatos.RepositoriosEF.Configuraciones
             {
                 var lista = await _db.SolicitudesPerfilMedalla
                     .Where(s => s.GrupoId == grupoId)
-                    .Include(s => s.PerfilEstudianteMedalla)
-                        .ThenInclude(pem => pem.Medalla)
                     .ToListAsync();
 
                 return Resultado<List<SolicitudPerfilMedalla>>.Exitoso(lista);
