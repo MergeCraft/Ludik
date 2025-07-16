@@ -29,5 +29,9 @@ public class GrupoConfiguracion : IEntityTypeConfiguration<Grupo>
             .WithMany() // No hay navegación inversa desde TablaEquivalencia
             .HasForeignKey("TablaEquivalenciaId")
             .OnDelete(DeleteBehavior.Restrict);
+        builder.HasMany(gr => gr.SolicitudesPerfilMedalla)
+            .WithOne(spm => spm.Grupo)
+            .HasForeignKey(spm => spm.GrupoId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

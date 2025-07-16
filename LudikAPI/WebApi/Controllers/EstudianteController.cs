@@ -15,6 +15,8 @@ using WebApi.Helpers;
 using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;
 using LogicaAplicacion.DTOs.RecompensaDTOs;
 using LogicaAplicacion.InterfacesCasosUsos.Login;
+using LogicaAplicacion.InterfacesCasosUsos.SolicitudPerfilMedalla;
+using LogicaAplicacion.DTOs.SolicitudPerfilMedallaDTOs;
 
 namespace WebApi.Controllers
 {
@@ -28,13 +30,15 @@ namespace WebApi.Controllers
 		private readonly ICanjearRecompensa _canjearRecompensa;
 		private readonly IObtenerRecompensasInventarioPerfil _obtenerRecompensasInventarioPerfil;
         private readonly ILoginUsuario _loginUsuario;
+        private readonly IAltaSolicitudPerfilMedalla _altaSolicitudPerfilMedalla;
 
-		public EstudianteController(IAltaEstudiante altaEstudiante, 
+
+        public EstudianteController(IAltaEstudiante altaEstudiante, 
             ICrearSolicitudUnion crearSolicitudUnion, 
             IObtenerGruposDeEstudiante obtenerGruposPorEstudiante, 
             ICanjearRecompensa canjearRecompensa, 
             IObtenerRecompensasInventarioPerfil obtenerRecompensasInventarioPerfil,
-            ILoginUsuario loginUsuario)
+            ILoginUsuario loginUsuario,IAltaSolicitudPerfilMedalla altaSolicitudPerfilMedalla)
 		{
 			_altaEstudiante = altaEstudiante;
 			_crearSolicitudUnion = crearSolicitudUnion;
@@ -42,6 +46,7 @@ namespace WebApi.Controllers
 			_canjearRecompensa = canjearRecompensa;
 			_obtenerRecompensasInventarioPerfil = obtenerRecompensasInventarioPerfil;
             _loginUsuario = loginUsuario;
+            _altaSolicitudPerfilMedalla = altaSolicitudPerfilMedalla;
         }
 
 		/// <summary>
@@ -195,6 +200,30 @@ namespace WebApi.Controllers
 				return Ok(resultado.Valor);
 			return this.ManejarFallo(resultado);
 		}
-	}
+        /// <summary>
+        /// Un estudiante autenticado solicita una medalla para uno de sus perfiles.
+        /// </summary>
+        [HttpPost("solicitudes-medalla")]
+        [Authorize(Policy = "EsEstudiante")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(object), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> SolicitarMedalla(
+            [FromBody] AltaSolicitudPerfilMedallaDto dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var resultado = await _altaSolicitudPerfilMedalla.EjecutarAsync(dto);
+
+            if (resultado.EsExitoso)
+                return StatusCode(StatusCodes.Status201Created);
+
+            return this.ManejarFallo(resultado);
+        }
+    }
 }
 
