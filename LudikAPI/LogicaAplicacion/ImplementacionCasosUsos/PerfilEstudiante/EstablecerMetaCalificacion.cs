@@ -16,19 +16,27 @@ public class EstablecerMetaCalificacion: IEstablecerMetaCalificacion
         _repositorioPerfilesEstudiantes = repositorioPerfilesEstudiantes;
     }
 
-    public async Task<Resultado> EjecutarAsync(EstablecerMetaCalificacionDto dto, string estudianteId)
-    {
-        var resultadoPerfil = await _repositorioPerfilesEstudiantes.GetByIdAsync(dto.PerfilEstudianteId);
-        if (resultadoPerfil == null || resultadoPerfil.EsFallo)
-            return Resultado.Falla(Error.NotFound);
+	public async Task<Resultado> EjecutarAsync(EstablecerMetaCalificacionDto dto, string estudianteId)
+	{
+		var resultadoPerfil = await _repositorioPerfilesEstudiantes.GetByIdAsync(dto.PerfilEstudianteId);
+		if (resultadoPerfil == null || resultadoPerfil.EsFallo)
+			return Resultado.Falla(Error.NotFound);
 
-        Entidades.PerfilEstudiante perfilEstudiante = resultadoPerfil.Valor;
-        if (perfilEstudiante.EstudianteId != estudianteId)
-            return Resultado<BarraProgresoDto>.Falla(Error.Forbidden);
+		Entidades.PerfilEstudiante perfilEstudiante = resultadoPerfil.Valor;
+		if (perfilEstudiante.EstudianteId != estudianteId)
+			return Resultado<BarraProgresoDto>.Falla(Error.Forbidden);
 
-        var resultado = perfilEstudiante.EstablecerMetaDeCalificacion( dto.MetaCalificacion);
+		var resultado = perfilEstudiante.EstablecerMetaDeCalificacion(dto.MetaCalificacion);
 
-        return resultado;
+		if (resultado.EsExitoso)
+		{
+			// Guardar los cambios
+			var resultadoUpdate = await _repositorioPerfilesEstudiantes.UpdateAsync(perfilEstudiante);
+			if (resultadoUpdate.EsFallo)
+				return resultadoUpdate;
+		}
 
-    }
+		return resultado;
+	}
+
 }

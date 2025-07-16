@@ -18,9 +18,9 @@ const GroupItem = ({ id, name, grade, students, imgSrc }) => {
       <div className={styles.card}>
         <img className={styles.icon} alt="Group Icon" src={imgSrc} />
         <div className={styles.info}>
-          <div className={styles.name}>{name}</div>
-          <div className={styles.grade}>{grade}</div>
-          <div className={styles.studentCount}>Alumnos: {students}</div>
+          <p className={styles.name}>{name}</p>
+          <p className={styles.grade}>{grade}</p>
+          <p className={styles.studentCount}>Alumnos: {students}</p>
         </div>
         <FontAwesomeIcon icon="arrow-right-from-bracket" className={styles.enterIcon} />
       </div>

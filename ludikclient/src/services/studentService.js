@@ -36,3 +36,15 @@ export const obtenerBarraProgresoPerfil = async (perfilId) => {
     throw parseError(error, "No se pudo obtener la barra de progreso del estudiante.");
   }
 };
+
+export const definirMetaCalificacion = async ({ perfilEstudianteId, metaCalificacion }) => {
+  try {
+    const response = await api.post(`/api/PerfilEstudiante/definir-meta-califiacion`, {
+      perfilEstudianteId,
+      metaCalificacion,
+    });
+    return response.data;
+  } catch (error) {
+    throw parseError(error, "No se pudo establecer la meta de calificación.");
+  }
+};

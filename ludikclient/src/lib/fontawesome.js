@@ -37,6 +37,7 @@ import {
   faStore,
   faPlus,
   faBullseye,
+  faChevronLeft,
 
   // Nuevos íconos para recompensas
   faCrown,
@@ -129,6 +130,7 @@ library.add(
   faPlus,
   faCartShopping,
   faBullseye,
+  faChevronLeft,
 
   // 🎖 Recompensas
   faCrown,

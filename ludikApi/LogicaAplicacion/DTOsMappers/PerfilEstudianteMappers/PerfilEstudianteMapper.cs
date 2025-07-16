@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LogicaNegocio.Entidades;
 using LogicaAplicacion.DTOs.PerfilEstudianteDTO;
+using LogicaAplicacion.DTOsMappers.MedallaMappers;
 
 public static class PerfilEstudianteMapper
 {
@@ -22,7 +23,8 @@ public static class PerfilEstudianteMapper
             Monedas = perfil.Monedas,
             GrupoId = perfil.GrupoId,
             NombreGrupo = perfil.Grupo.Nombre,
-            CalificacionActual = calificacionActual
-        };
+            CalificacionActual = calificacionActual,
+			Medallas = perfil.MedallasObtenidas.Select(MedallaMapper.toDto).ToList()
+		};
     }
 }

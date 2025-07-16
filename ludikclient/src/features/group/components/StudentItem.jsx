@@ -7,23 +7,27 @@ import { selectUserRole } from "../../auth/hooks/userSlice";
 import genericProfileImage from "../../../assets/genericStudentAvatar.png";
 import styles from "./StudentItem.module.css";
 
-import { useAsignarMedalla } from "../hooks/useGrupoMutation";
+import { useAsignarMedalla, useEliminarMedalla } from "../hooks/useGrupoMutation";
 
 const StudentItem = ({ student, medals }) => {
   const [selectedMedal, setSelectedMedal] = useState(""); // <- estado para controlar el valor del select
   const [medalAsignationOption, setMedalAsignationOption] = useState(true);
   const role = useSelector(selectUserRole);
   const isProfesor = role === "Profesor";
-  const { mutate } = useAsignarMedalla();
+  
+  const { mutate: asignar } = useAsignarMedalla();
+  const { mutate: eliminar } = useEliminarMedalla();
 
   const handleMedalChange = (e) => {
     const medallaId = Number(e.target.value);
     if (!medallaId) return;
 
-    mutate(
+    const mutationFn = medalAsignationOption ? asignar : eliminar;
+
+    mutationFn(
       { perfilId: student.id, medallaId },
       {
-        onSuccess: () => setSelectedMedal(""), // <- resetea el select al éxito
+        onSuccess: () => setSelectedMedal(""),
       }
     );
   };
@@ -32,7 +36,7 @@ const StudentItem = ({ student, medals }) => {
     <div className={styles.card}>
       <img src={student.enlaceAvatarMiniatura || genericProfileImage} alt="avatar" className={styles.avatar} />
       <div className={styles.centrales}>
-        <p>{student.nombreEstudiante}</p>
+        <p className={styles.nombreEstudiante}>{student.nombreEstudiante}</p>
         <div className={styles.actionsContainer}>
           {isProfesor && (
             <>
@@ -69,10 +73,11 @@ const StudentItem = ({ student, medals }) => {
                       setSelectedMedal(e.target.value); // actualizar UI
                       handleMedalChange(e); // ejecutar mutación
                     }}
+                    disabled={!Array.isArray(student.medallas) || student.medallas.length === 0}
                   >
-                    <option value="">Elimina medalla</option>
+                    <option value="">{Array.isArray(student.medallas) && student.medallas.length > 0 ? "Elimina medalla" : "Alumno sin medallas"}</option>
                     {Array.isArray(medals) &&
-                      medals.map((medalla) => (
+                      student.medallas.map((medalla) => (
                         <option key={medalla.id} value={medalla.id}>
                           {medalla.nombre}
                         </option>
@@ -93,16 +98,26 @@ const StudentItem = ({ student, medals }) => {
 StudentItem.propTypes = {
   student: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    avatarGrupoId: PropTypes.number,
-    enlaceAvatarCompleto: PropTypes.string,
-    enlaceAvatarMiniatura: PropTypes.string,
-    metaCalificacion: PropTypes.number,
+    avatarGrupoId: PropTypes.number.isRequired,
+    enlaceAvatarCompleto: PropTypes.string.isRequired,
+    enlaceAvatarMiniatura: PropTypes.string.isRequired,
+    metaCalificacion: PropTypes.number.isRequired,
     estudianteId: PropTypes.string.isRequired,
     nombreEstudiante: PropTypes.string.isRequired,
-    monedas: PropTypes.number,
-    grupoId: PropTypes.number,
-    nombreGrupo: PropTypes.string,
-    calificacionActual: PropTypes.number,
+    monedas: PropTypes.number.isRequired,
+    grupoId: PropTypes.number.isRequired,
+    nombreGrupo: PropTypes.string.isRequired,
+    calificacionActual: PropTypes.number.isRequired,
+    medallas: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        nombre: PropTypes.string.isRequired,
+        urlImagen: PropTypes.string.isRequired,
+        descripcion: PropTypes.string.isRequired,
+        cantidadMedallasBrinda: PropTypes.number.isRequired,
+        esAsignacionMutua: PropTypes.bool.isRequired,
+      })
+    ).isRequired,
   }).isRequired,
   medals: PropTypes.arrayOf(
     PropTypes.shape({

@@ -134,3 +134,16 @@ export const asignarMedalla = async ({ perfilId, medallaId }) => {
     throw errores;
   }
 };
+
+export const eliminarMedalla = async ({ perfilId, medallaId }) => {
+  try {
+    const response = await api.delete(`/api/AsignacionMedallas/perfil-estudiante/${perfilId}/medalla/${medallaId}`);
+    return response.data;
+  } catch (error) {
+    const data = error?.response?.data;
+    const errores = Array.isArray(data)
+      ? data.map((e) => e.mensaje || e.message || e.error).filter(Boolean)
+      : [data?.mensaje || data?.message || data?.error || "Error al eliminar la medalla"];
+    throw errores;
+  }
+};

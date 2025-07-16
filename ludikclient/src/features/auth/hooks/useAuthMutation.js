@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import { iniciarSesion, registrarse } from "../../../services/authService";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { iniciarSesion, registrarse, obtenerPreguntasSeguridad, obtenerPreguntasPorUsuario, restablecerContrasena } from "../../../services/authService";
 import { useDispatch } from "react-redux";
 import * as Toast from "../../../lib/toastify";
 
@@ -12,7 +12,7 @@ export const useLogin = () => {
     mutationFn: (credenciales) => iniciarSesion(credenciales, dispatch),
     onSuccess: (user) => {
       navigate("/groups");
-      Toast.notificarExito(`Bienvenido ${user.nombreUsuario}`);
+      Toast.notificarExito(`¡Bienvenid@ ${user.nombreUsuario}!`);
     },
     onError: (error) => {
       Toast.notificarError(error.message || "Error al iniciar sesión");
@@ -29,10 +29,46 @@ export const useRegistro = () => {
     onSuccess: (user) => {
       navigate("/groups");
       Toast.notificarExito("Registro exitoso");
-      Toast.notificarExito(`Bienvenido ${user.nombreUsuario}`);
+      Toast.notificarExito(`¡Bienvenid@ ${user.nombreUsuario}!`);
     },
     onError: (error) => {
       Toast.notificarError(error.message || "Error al registrar");
+    },
+  });
+};
+
+export const usePreguntasSeguridad = () => {
+  return useQuery({
+    queryKey: ["preguntasSeguridad"],
+    queryFn: obtenerPreguntasSeguridad,
+    staleTime: 1000 * 60 * 10, // 10 minutos
+  });
+};
+
+export const usePreguntasPorUsuario = () => {
+  return useMutation({
+    mutationFn: obtenerPreguntasPorUsuario,
+    onSuccess: (preguntas) => {
+      if (!preguntas || preguntas.length === 0) {
+        Toast.notificarWarning("Este usuario no tiene preguntas de seguridad registradas.");
+      }
+    },
+    onError: (error) => {
+      Toast.notificarError(error.message || "No se pudieron obtener las preguntas.");
+    },
+  });
+};
+
+export const useRestablecerContrasena = () => {
+  const navigate = useNavigate();
+  return useMutation({
+    mutationFn: restablecerContrasena,
+    onSuccess: () => {
+      Toast.notificarExito("Contraseña restablecida con éxito. Inicia sesión.");
+      navigate("/login");
+    },
+    onError: (error) => {
+      Toast.notificarError(error.message || "No se pudo restablecer la contraseña.");
     },
   });
 };

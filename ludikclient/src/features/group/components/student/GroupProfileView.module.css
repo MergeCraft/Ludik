@@ -68,30 +68,33 @@
     margin-top: 10px;
 }
 
+.progressBarContainer p {
+    margin-bottom: 10px;
+}
+
 .progressBar {
     display: flex;
     justify-content: center;
 }
 
 .progressBar label {
-    background-color: var(--blanco-principal);
-    padding: 10px;
+    position: relative;
+    padding: 15px;
     flex-grow: 1;
     cursor: pointer;
     transition: .3s;
 }
 
 .progressBar label:hover {
-    box-shadow: 0 0 0 1px var(--terciario);
-    transform: scale(1.01);
+    transform: scale(1.02);
 }
 
 .progressBar label:first-child {
-    border-radius: 10px 0 0 10px;
+    border-radius: 20px 0 0 20px;
 }
 
 .progressBar label:last-child {
-    border-radius: 0 10px 10px 0;
+    border-radius: 0 20px 20px 0;
 }
 
 .progressBar input {
@@ -99,11 +102,27 @@
     display: none;
 }
 
-label:has(input[type="radio"]:checked) {
-    background-color: var(--secundario);
-    box-shadow: 0 0 0 2px var(--secundario);
+.alcanzado {
+    background-color: var(--meta-alumno);
 }
 
+.noAlcanzado {
+    background-color: var(--blanco-principal);
+}
+
+.label .icono {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    color: var(--meta-alumno);
+    pointer-events: none;
+}
+
+.progressBar label:has(input[type="radio"]:checked) {
+    background-color: var(--secundario);
+}
 
 .recompensasGrid {
     display: grid;

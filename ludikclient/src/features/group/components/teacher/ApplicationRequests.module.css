@@ -12,7 +12,7 @@
     align-items: center;
     gap: 10px;
     position: relative;
-    min-width: 100%;
+    max-width: 100%;
     overflow: hidden;
     margin-bottom: 15px;
 }
