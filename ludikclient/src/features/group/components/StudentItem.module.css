@@ -25,7 +25,6 @@
 
 p {
     color: var(--blanco-principal);
-    margin: 0;
 }
 
 .card svg {
@@ -37,12 +36,15 @@ p {
     justify-content: space-between;
     align-items: center;
     flex-grow: 1;
+    gap: 10px;
 }
+
 
 .actionsContainer {
     display: flex;
     gap: 10px;
     width: 40%;
+
 }
 
 .asignarMedalla {
@@ -81,9 +83,30 @@ p {
     background-color: var(--secundario);
 }
 
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 992px) {
+    .card {
+        gap: 10px
+    }
+
+    .card svg {
+        font-size: small;
+    }
+
+    .nombreEstudiante {
+        text-align: start;
+        font-size: small;
+        width: 7ch;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
     .asignarMedalla {
-        width: 50%;
+        flex-grow: 1;
+    }
+
+    .actionsContainer {
+        flex-grow: 1;
     }
 
     .medallas {

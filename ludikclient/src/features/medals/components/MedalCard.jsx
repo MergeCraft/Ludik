@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import styles from "./MedalCard.module.css";
 
-const MedalCard = ({ nombre, descripcion, urlImagen, cantidadMedallasBrinda, esAsignacionMutua, onEdit, editOption }) => {
+const MedalCard = ({ nombre, descripcion, urlImagen, cantidadMedallasBrinda, esAsignacionMutua, onEdit, showEditOption }) => {
   const [showPopoverTitulo, setShowPopoverTitulo] = useState(false);
   const [showPopoverDesc, setShowPopoverDesc] = useState(false);
   const popoverTituloRef = useRef(null);
@@ -24,7 +24,7 @@ const MedalCard = ({ nombre, descripcion, urlImagen, cantidadMedallasBrinda, esA
   }, []);
 
   return (
-    <div className={styles.medallaCard}>
+    <div className={`${styles.medallaCard} ${!showEditOption ? styles.bottomPadding : ""}`}>
       <div className={styles.medallaContainer}>
         <div className={styles.medallaImagenWrapper}>
           <img src={urlImagen} alt={nombre} className={styles.medallaImagen} />
@@ -59,14 +59,14 @@ const MedalCard = ({ nombre, descripcion, urlImagen, cantidadMedallasBrinda, esA
           )}
         </div>
 
-        {editOption && (
+        {showEditOption && (
           <p className={styles.medallaPuntos}>
             <FontAwesomeIcon icon="fa-solid fa-coins" /> {cantidadMedallasBrinda}
           </p>
         )}
       </div>
 
-      {editOption && (
+      {showEditOption && (
         <button className={styles.editBtn} onClick={onEdit}>
           <FontAwesomeIcon icon="fa-solid fa-pen-to-square" size="lg" />
         </button>
@@ -82,7 +82,7 @@ MedalCard.propTypes = {
   cantidadMedallasBrinda: PropTypes.number.isRequired,
   esAsignacionMutua: PropTypes.bool.isRequired,
   onEdit: PropTypes.func.isRequired,
-  editOption: PropTypes.bool.isRequired,
+  showEditOption: PropTypes.bool.isRequired,
 };
 
 export default MedalCard;

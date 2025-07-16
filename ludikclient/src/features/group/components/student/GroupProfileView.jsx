@@ -3,17 +3,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import BarLoader from "../../../generics/BarLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRecompensasPerfil, useImagenPerfil, useBarraProgresoPerfil } from "../../hooks/useStudentMutation";
+import { useRecompensasPerfil, useImagenPerfil, useBarraProgresoPerfil, useDefinirMetaCalificacion } from "../../hooks/useStudentMutation";
 import RewardItem from "../RewardItem";
+import MedalCard from "../../../medals/components/MedalCard";
 
 import styles from "./GroupProfileView.module.css";
 
 const GroupProfileView = ({ perfil, isLoading }) => {
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasPerfil(perfil?.id);
-  const { data: imagenPerfil, isLoading: isLoadingImagen } = useImagenPerfil(perfil?.id);
+  const { data: imagenPerfil, isLoading: isLoadingImagen, isError: isErrorImagen } = useImagenPerfil(perfil?.id);
   const { data: barraProgreso, isLoading: isLoadingBarra } = useBarraProgresoPerfil(perfil?.id);
 
-  console.log(barraProgreso);
+  const { mutate: setMeta } = useDefinirMetaCalificacion(perfil?.id);
 
   const avatarUrl = imagenPerfil?.urlCompleta;
 
@@ -23,14 +24,10 @@ const GroupProfileView = ({ perfil, isLoading }) => {
     <div className={styles.container}>
       <section>
         <h3>Avatar</h3>
-        {isLoadingImagen ? (
+        {isLoadingImagen && !imagenPerfil && !isErrorImagen ? (
           <BarLoader />
         ) : (
-          <img
-            src={avatarUrl || "https://www.researchgate.net/publication/341068087/figure/fig3/AS:11431281104224771@1669979151092/Figura-2-Avatar-que-aparece-por-defecto-en-Facebook.png"}
-            alt={`Avatar de ${perfil.nombreEstudiante}`}
-            className={styles.avatar}
-          />
+          <img src={avatarUrl || "https://cdn-icons-png.flaticon.com/512/847/847969.png"} alt={`Avatar de ${perfil.nombreEstudiante}`} className={styles.avatar} />
         )}
       </section>
 
@@ -62,29 +59,23 @@ const GroupProfileView = ({ perfil, isLoading }) => {
           </div>
         </div>
         <div className={styles.progressBarContainer}>
-          <div className={styles.progressBar}>
-            <label htmlFor="progreso-1">
-              <input type="radio" id="progreso-1" name="progreso" />
-            </label>
-            <label htmlFor="progreso-2">
-              <input type="radio" id="progreso-2" name="progreso" />
-            </label>
-            <label htmlFor="progreso-3">
-              <input type="radio" id="progreso-3" name="progreso" />
-            </label>
-            <label htmlFor="progreso-4">
-              <input type="radio" id="progreso-4" name="progreso" />
-            </label>
-            <label htmlFor="progreso-5">
-              <input type="radio" id="progreso-5" name="progreso" />
-            </label>
-            <label htmlFor="progreso-6">
-              <input type="radio" id="progreso-6" name="progreso" />
-            </label>
-            <label htmlFor="progreso-7">
-              <input type="radio" id="progreso-7" name="progreso" />
-            </label>
-          </div>
+          <p>Progreso hacia la próxima calificación</p>
+          {!isLoadingBarra && barraProgreso && (
+            <div className={styles.progressBar}>
+              {Array.from({ length: barraProgreso.calificacionMaxima }, (_, index) => {
+                const numero = index + barraProgreso.calificacionMinima;
+                const alcanzado = numero <= barraProgreso.calificacionActual;
+                const esMeta = numero === perfil.metaCalificacion;
+
+                return (
+                  <label key={`progreso-${numero}`} htmlFor={`progreso-${numero}`} className={`${styles.label} ${alcanzado ? styles.alcanzado : styles.noAlcanzado}`}>
+                    <input type="radio" id={`progreso-${numero}`} name="progreso" checked={esMeta} onChange={() => setMeta(numero)} />
+                    {esMeta && <FontAwesomeIcon icon="fa fa-bullseye" className={styles.icono} />}
+                  </label>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 
@@ -95,12 +86,16 @@ const GroupProfileView = ({ perfil, isLoading }) => {
             <p>No tienes medallas aún.</p>
           ) : (
             perfil.medallas.map((medalla) => (
-              <div key={medalla.medallaId} className={styles.medallaItem}>
-                <FontAwesomeIcon icon={["fa", medalla.icono]} size="2x" />
-                <p>{medalla.nombre}</p>
-                <small>{medalla.descripcion}</small>
-                <span>x{medalla.cantidad}</span>
-              </div>
+              <MedalCard
+                key={medalla.medallaId + medalla.nombre}
+                nombre={medalla.nombre}
+                descripcion={medalla.descripcion}
+                urlImagen={medalla.urlImagen || "https://cdn-icons-png.flaticon.com/512/2583/2583341.png"} // reemplazalo si no tenés imagen
+                cantidadMedallasBrinda={medalla.cantidad}
+                esAsignacionMutua={false}
+                onEdit={() => {}}
+                showEditOption={false}
+              />
             ))
           )}
         </div>
@@ -112,7 +107,7 @@ const GroupProfileView = ({ perfil, isLoading }) => {
           <BarLoader />
         ) : (
           <div className={styles.recompensasGrid}>
-            {recompensas?.length > 0 ? recompensas.map((reward) => <RewardItem key={reward.nombre} reward={reward} redeemed={true} />) : <p>No tienes recompensas aún.</p>}
+            {recompensas?.length > 0 ? recompensas.map((reward) => <RewardItem key={reward.nombre + reward.id} reward={reward} redeemed={true} />) : <p>No tienes recompensas aún.</p>}
           </div>
         )}
       </section>

@@ -1,7 +1,7 @@
 // hooks/useStudentMutation.js
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import * as Toast from "../../../lib/toastify";
-import { obtenerPerfilGrupo, obtenerRecompensasPerfil, obtenerBarraProgresoPerfil } from "../../../services/studentService";
+import { obtenerPerfilGrupo, obtenerRecompensasPerfil, obtenerBarraProgresoPerfil, definirMetaCalificacion } from "../../../services/studentService";
 import { canjearRecompensa } from "../../../services/storeService";
 import { obtenerImagenPerfil } from "../../../services/imagesService";
 
@@ -49,6 +49,10 @@ export const useImagenPerfil = (perfilId) => {
     queryFn: () => obtenerImagenPerfil(perfilId),
     enabled: !!perfilId,
     onError: manejarErrores,
+    retry: (failureCount, error) => {
+      if (error?.response?.status === 404) return false;
+      return failureCount < 1; // si querés limitar otros errores
+    },
   });
 };
 
@@ -57,6 +61,20 @@ export const useBarraProgresoPerfil = (perfilId) => {
     queryKey: ["barraProgresoPerfil", perfilId],
     queryFn: () => obtenerBarraProgresoPerfil(perfilId),
     enabled: !!perfilId,
+    onError: manejarErrores,
+  });
+};
+
+export const useDefinirMetaCalificacion = (perfilId) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (metaCalificacion) => definirMetaCalificacion({ perfilEstudianteId: perfilId, metaCalificacion }),
+    onSuccess: () => {
+      Toast.notificarExito("Meta de calificación actualizada.");
+      queryClient.invalidateQueries(["perfilGrupo", perfilId]);
+      queryClient.invalidateQueries(["barraProgresoPerfil", perfilId]);
+    },
     onError: manejarErrores,
   });
 };

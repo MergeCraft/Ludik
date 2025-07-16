@@ -69,7 +69,7 @@ const LoginForm = () => {
       </button>
 
       <div className={`${styles.acciones} ${styles.accionesLogin}`}>
-        <a href="/restaurar" className={styles.enlace}>
+        <a href="/passwordRecovery" className={styles.enlace}>
           ¿Olvidaste tu contraseña?
         </a>
         <hr />

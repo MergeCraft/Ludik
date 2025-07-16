@@ -47,7 +47,7 @@ const MedalManagerPage = () => {
   ) : (
     <div className={styles.medalsContainer}>
       {filteredMedallas.map((medalla) => (
-        <MedalCard key={medalla.id} {...medalla} onEdit={() => handleOpenEdit(medalla.id)} />
+        <MedalCard key={medalla.id} {...medalla} onEdit={() => handleOpenEdit(medalla.id)} showEditOption={true} />
       ))}
     </div>
   );

@@ -8,6 +8,10 @@
     text-align: center;
 }
 
+.bottomPadding {
+    padding-bottom: 15px;
+}
+
 .medallaContainer {
     display: flex;
     flex-direction: column;
@@ -15,7 +19,6 @@
     align-items: center;
     padding: 10px 10px 0 10px;
     gap: 7px;
-
 }
 
 .tituloWrapper {

@@ -26,7 +26,7 @@ function Home() {
             </button>
 
             <button
-              className={classNames("button", styles.botonComienzo, styles.botonCuenta)}
+              className={classNames("button", styles.botonComienzo, styles.buttonWhite)}
               onClick={() => {
                 setTimeout(() => navigate("/login"), 200);
               }}

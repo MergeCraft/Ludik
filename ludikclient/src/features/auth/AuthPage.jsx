@@ -5,13 +5,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForms";
+import PasswordRecoveryForm from "./components/PasswordRecoveryForm";
 import styles from "./AuthPage.module.css";
 import logo from "../../assets/logo.png";
 
 const AuthPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const isLogin = location.pathname === "/login";
+  const path = location.pathname;
+  const isLogin = path === "/login";
+  const isPasswordRecovery = path === "/passwordRecovery";
 
   // ✅ Obtenemos la información del usuario desde Redux
   const { token, isAuthenticated } = useSelector((state) => state.userData);
@@ -33,7 +36,7 @@ const AuthPage = () => {
         <img src={logo} alt="Ludik Logo" className={styles.logoImage} />
       </div>
 
-      <div className={styles.formBox}>{isLogin ? <LoginForm /> : <SignupForm />}</div>
+      <div className={styles.formBox}>{isPasswordRecovery ? <PasswordRecoveryForm /> : isLogin ? <LoginForm /> : <SignupForm />}</div>
     </main>
   );
 };

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogicaAplicacion.DTOs.MedallaDTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,5 +29,7 @@ namespace LogicaAplicacion.DTOs.PerfilEstudianteDTO
         public string NombreGrupo { get; set; }
 
         public int CalificacionActual { get; set; }
-    }
+
+        public List<MedallaDto> Medallas { get; set; }
+	}
 }

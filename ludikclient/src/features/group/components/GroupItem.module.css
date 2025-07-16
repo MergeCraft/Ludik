@@ -53,3 +53,21 @@
     cursor: pointer;
     /* Indicamos que es un ícono clickeable */
 }
+
+@media screen and (max-width: 992px) {
+
+    .card {
+        padding: 10px 20px;
+    }
+
+    .enterIcon {
+        height: 24px;
+        width: 24px;
+    }
+
+    .name,
+    .grade,
+    .studentCount {
+        font-size: small;
+    }
+}

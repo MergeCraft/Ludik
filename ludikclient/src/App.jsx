@@ -34,6 +34,7 @@ function App() {
               {/* Rutas públicas SIN Layout */}
               <Route path="/login" element={<AuthPage />} />
               <Route path="/signup" element={<AuthPage />} />
+              <Route path="/passwordRecovery" element={<AuthPage />} />
 
               {/* Rutas con Layout */}
               <Route path="/" element={<Layout />}>

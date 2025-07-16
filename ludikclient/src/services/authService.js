@@ -40,3 +40,31 @@ export const cerrarSesion = (dispatch) => {
   dispatch(logout());
   persistor.purge();
 };
+
+export const obtenerPreguntasSeguridad = async () => {
+  const response = await api.get("/api/RecuperarContrasena/preguntas");
+  return response.data.preguntas;
+};
+
+export const obtenerPreguntasPorUsuario = async (nombreUsuario) => {
+  try {
+    const response = await api.get(`/api/RecuperarContrasena/preguntas/${nombreUsuario}`);
+    return response.data.preguntas;
+  } catch (error) {
+    const raw = error?.response?.data;
+    const mensaje =
+      raw?.mensaje || raw?.message || raw?.error || (typeof raw === "string" ? raw : "") || "Error desconocido.";
+    throw new Error(mensaje);
+  }
+};
+
+export const restablecerContrasena = async (payload) => {
+  try {
+    await api.post("/api/RecuperarContrasena/restablecer", payload);
+  } catch (error) {
+    const raw = error?.response?.data;
+    const mensaje =
+      raw?.mensaje || raw?.message || raw?.error || (typeof raw === "string" ? raw : "") || "Error desconocido.";
+    throw new Error(mensaje);
+  }
+};
