@@ -14,39 +14,42 @@ using LogicaNegocio.Resultados;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.BarraProgreso
 {
-    public class ObtenerContenidoBarraProgreso: IObtenerContenidoBarraProgreso
-    {
-        private readonly IRepositorioPerfilEstudianteGrupo _repositorioPerfilesEstudiantes;
+	public class ObtenerContenidoBarraProgreso : IObtenerContenidoBarraProgreso
+	{
+		private readonly IRepositorioPerfilEstudianteGrupo _repositorioPerfilesEstudiantes;
 
-        public ObtenerContenidoBarraProgreso(
-            IRepositorioPerfilEstudianteGrupo repositorioPerfilesEstudiantes)
-        {
-            _repositorioPerfilesEstudiantes = repositorioPerfilesEstudiantes;
-        }
-        public async Task<Resultado<BarraProgresoDto>> EjecutarAsync(int perfilEstudianteId, string idUsuarioAutenticado)
-        {
-            var resultadoPerfil = await _repositorioPerfilesEstudiantes.GetByIdAsync(perfilEstudianteId);
-            if (resultadoPerfil == null || resultadoPerfil.EsFallo)
-                return Resultado<BarraProgresoDto>.Falla(Error.NotFound);
+		public ObtenerContenidoBarraProgreso(
+			IRepositorioPerfilEstudianteGrupo repositorioPerfilesEstudiantes)
+		{
+			_repositorioPerfilesEstudiantes = repositorioPerfilesEstudiantes;
+		}
+		public async Task<Resultado<BarraProgresoDto>> EjecutarAsync(int perfilEstudianteId, string idUsuarioAutenticado)
+		{
+			var resultadoPerfil = await _repositorioPerfilesEstudiantes.GetByIdAsync(perfilEstudianteId);
+			if (resultadoPerfil == null || resultadoPerfil.EsFallo)
+				return Resultado<BarraProgresoDto>.Falla(Error.NotFound);
 
-            Entidades.PerfilEstudiante perfilEstudiante = resultadoPerfil.Valor;
+			Entidades.PerfilEstudiante perfilEstudiante = resultadoPerfil.Valor;
 
-            if (perfilEstudiante.EstudianteId != idUsuarioAutenticado)
-                return Resultado<BarraProgresoDto>.Falla(Error.Forbidden);
+			if (perfilEstudiante.EstudianteId != idUsuarioAutenticado)
+				return Resultado<BarraProgresoDto>.Falla(Error.Forbidden);
 
-            Entidades.TablaEquivalencia tablaEquivalencia = perfilEstudiante.Grupo.TablaEquivalencia;
-            int notaActualDelPerfil = tablaEquivalencia.MaximaCalificacionSegun(perfilEstudiante.MedallasObtenidas);
-            int notaMinimaDeTablaEquivalencia = tablaEquivalencia.ObtenerNotaMinima();
-            int notaMaximaDeTablaEquivalencia = tablaEquivalencia.ObtenerNotaMaxima();
-            List<Entidades.Medalla> medallasNecesariasParaSiguienteNota = tablaEquivalencia.ObtenerMedallasNecesariasParaSiguienteNota(notaActualDelPerfil);
-            BarraProgresoDto barraProgresoDto = new BarraProgresoDto
-            {
-                CalificacionActual = notaActualDelPerfil,
-                CalificacionMinima = notaMinimaDeTablaEquivalencia,
-                CalificacionMaxima = notaMaximaDeTablaEquivalencia,
-                MedallasNecesariasParaSiguienteNota = medallasNecesariasParaSiguienteNota.Select(m => MedallaBasicaMapper.toDto(m)).ToList()
-            };
-            return Resultado<BarraProgresoDto>.Exitoso(barraProgresoDto);
-        }
-    }
+			if (perfilEstudiante.Grupo == null || perfilEstudiante.Grupo.TablaEquivalencia == null)
+				return Resultado<BarraProgresoDto>.Falla(Error.NotFound);
+
+			Entidades.TablaEquivalencia tablaEquivalencia = perfilEstudiante.Grupo.TablaEquivalencia;
+			int notaActualDelPerfil = tablaEquivalencia.MaximaCalificacionSegun(perfilEstudiante.MedallasObtenidas);
+			int notaMinimaDeTablaEquivalencia = tablaEquivalencia.ObtenerNotaMinima();
+			int notaMaximaDeTablaEquivalencia = tablaEquivalencia.ObtenerNotaMaxima();
+			List<Entidades.Medalla> medallasNecesariasParaSiguienteNota = tablaEquivalencia.ObtenerMedallasNecesariasParaSiguienteNota(notaActualDelPerfil);
+			BarraProgresoDto barraProgresoDto = new BarraProgresoDto
+			{
+				CalificacionActual = notaActualDelPerfil,
+				CalificacionMinima = notaMinimaDeTablaEquivalencia,
+				CalificacionMaxima = notaMaximaDeTablaEquivalencia,
+				MedallasNecesariasParaSiguienteNota = medallasNecesariasParaSiguienteNota.Select(m => MedallaBasicaMapper.toDto(m)).ToList()
+			};
+			return Resultado<BarraProgresoDto>.Exitoso(barraProgresoDto);
+		}
+	}
 }

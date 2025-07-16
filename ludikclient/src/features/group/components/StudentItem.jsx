@@ -14,7 +14,7 @@ const StudentItem = ({ student, medals }) => {
   const [medalAsignationOption, setMedalAsignationOption] = useState(true);
   const role = useSelector(selectUserRole);
   const isProfesor = role === "Profesor";
-
+  
   const { mutate: asignar } = useAsignarMedalla();
   const { mutate: eliminar } = useEliminarMedalla();
 
