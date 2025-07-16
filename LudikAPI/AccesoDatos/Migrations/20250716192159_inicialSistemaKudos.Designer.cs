@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250710180828_inicial")]
-    partial class inicial
+    [Migration("20250716192159_inicialSistemaKudos")]
+    partial class inicialSistemaKudos
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1649,6 +1649,37 @@ namespace AccesoDatos.Migrations
                     b.ToTable("Hitos");
                 });
 
+            modelBuilder.Entity("LogicaNegocio.Entidades.KudoOtorgado", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("FechaOtorgamiento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PerfilEstudianteEmisorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PerfilEstudianteReceptorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TipoKudoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PerfilEstudianteEmisorId");
+
+                    b.HasIndex("PerfilEstudianteReceptorId");
+
+                    b.HasIndex("TipoKudoId");
+
+                    b.ToTable("KudosOtorgados");
+                });
+
             modelBuilder.Entity("LogicaNegocio.Entidades.Medalla", b =>
                 {
                     b.Property<int>("Id")
@@ -1659,8 +1690,8 @@ namespace AccesoDatos.Migrations
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("MonedasOtorgadas")
                         .HasColumnType("int");
@@ -1698,7 +1729,7 @@ namespace AccesoDatos.Migrations
                             Nombre = "Participación Perfecta",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             TieneAsignacionMutua = false,
-                            UrlImagenMiniatura = "icono_asistencia.png"
+                            UrlImagenMiniatura = "medalla_participacion_perfecta.png"
                         },
                         new
                         {
@@ -1706,9 +1737,9 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Ayuda destacada a compañeros en proyectos grupales.",
                             MonedasOtorgadas = 25,
                             Nombre = "Maestro de la Colaboración",
-                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            ProfesorId = "9e445865-a24d-4543-a6c6-9443d048cdb0",
                             TieneAsignacionMutua = false,
-                            UrlImagenMiniatura = "icono_colaboracion.png"
+                            UrlImagenMiniatura = "medalla_maestro_colaboracion.png"
                         },
                         new
                         {
@@ -1718,7 +1749,107 @@ namespace AccesoDatos.Migrations
                             Nombre = "Mente Curiosa",
                             ProfesorId = "9e445865-a24d-4543-a6c6-9443d048cdb0",
                             TieneAsignacionMutua = false,
-                            UrlImagenMiniatura = "icono_pregunta.png"
+                            UrlImagenMiniatura = "medalla_mente_curiosa.png"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Descripcion = "Se otorga por ser un pilar de apoyo para tus compañeros. Demuestra que estás siempre dispuesto a ofrecer tu ayuda cuando alguien la necesita.",
+                            MonedasOtorgadas = 20,
+                            Nombre = "Compañerismo",
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            TieneAsignacionMutua = false,
+                            UrlImagenMiniatura = "medalla_companerismo.png"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Descripcion = "Premia a las mentes que nunca dejan de preguntar. Se consigue al realizar preguntas que desafían al grupo y enriquecen el aprendizaje de todos.",
+                            MonedasOtorgadas = 15,
+                            Nombre = "Curiosidad Insaciable",
+                            ProfesorId = "9e445865-a24d-4543-a6c6-9443d048cdb0",
+                            TieneAsignacionMutua = false,
+                            UrlImagenMiniatura = "medalla_curiosidad_insaciable.png"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Descripcion = "Reconoce a quienes inspiran con su ejemplo. Se obtiene al demostrar una actitud y un esfuerzo que motivan a todo el grupo a superarse.",
+                            MonedasOtorgadas = 25,
+                            Nombre = "Faro del Grupo",
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            TieneAsignacionMutua = false,
+                            UrlImagenMiniatura = "medalla_faro_del_grupo.png"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Descripcion = "Para aquellos que no solo tienen buenas ideas, sino que construyen sobre las de los demás para crear algo aún mejor.",
+                            MonedasOtorgadas = 20,
+                            Nombre = "Arquitecto de Ideas",
+                            ProfesorId = "9e445865-a24d-4543-a6c6-9443d048cdb0",
+                            TieneAsignacionMutua = false,
+                            UrlImagenMiniatura = "medalla_arquitecto_ideas.png"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Descripcion = "Se otorga por demostrar liderazgo natural, guiando y organizando al equipo para alcanzar metas comunes de forma efectiva.",
+                            MonedasOtorgadas = 25,
+                            Nombre = "Capitán de Equipo",
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            TieneAsignacionMutua = false,
+                            UrlImagenMiniatura = "medalla_capitan_equipo.png"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Descripcion = "Premia la iniciativa de buscar y compartir recursos valiosos (videos, artículos, herramientas) que benefician a toda la clase.",
+                            MonedasOtorgadas = 15,
+                            Nombre = "Cazador de Tesoros",
+                            ProfesorId = "9e445865-a24d-4543-a6c6-9443d048cdb0",
+                            TieneAsignacionMutua = false,
+                            UrlImagenMiniatura = "medalla_cazador_tesoros.png"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Descripcion = "Se consigue al fomentar activamente un ambiente de respeto e inclusión, asegurando que cada miembro del grupo se sienta valorado.",
+                            MonedasOtorgadas = 20,
+                            Nombre = "Espíritu de Equipo",
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            TieneAsignacionMutua = false,
+                            UrlImagenMiniatura = "medalla_espiritu_equipo.png"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Descripcion = "Reconoce la habilidad de dar críticas constructivas que ayudan a los compañeros a mejorar su trabajo de forma positiva y amable.",
+                            MonedasOtorgadas = 15,
+                            Nombre = "Pulidor de Diamantes",
+                            ProfesorId = "9e445865-a24d-4543-a6c6-9443d048cdb0",
+                            TieneAsignacionMutua = false,
+                            UrlImagenMiniatura = "medalla_pulidor_diamantes.png"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Descripcion = "Se otorga por aportar ideas creativas y soluciones originales que sacan al grupo de la rutina y abren nuevas posibilidades.",
+                            MonedasOtorgadas = 20,
+                            Nombre = "Mente Innovadora",
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            TieneAsignacionMutua = false,
+                            UrlImagenMiniatura = "medalla_mente_innovadora.png"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Descripcion = "Premia la increíble habilidad de tomar un tema complejo y explicarlo de una manera tan clara y sencilla que todos puedan entenderlo.",
+                            MonedasOtorgadas = 25,
+                            Nombre = "El Explicador",
+                            ProfesorId = "9e445865-a24d-4543-a6c6-9443d048cdb0",
+                            TieneAsignacionMutua = false,
+                            UrlImagenMiniatura = "medalla_el_explicador.png"
                         });
                 });
 
@@ -1729,6 +1860,9 @@ namespace AccesoDatos.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CantidadKudosDisponibles")
+                        .HasColumnType("int");
 
                     b.Property<string>("EstudianteId")
                         .IsRequired()
@@ -1770,6 +1904,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 1,
+                            CantidadKudosDisponibles = 0,
                             EstudianteId = "a1445865-a24d-4543-a6c6-9443d048cdb1",
                             GrupoId = 1,
                             MetaCalificacion = 8,
@@ -1780,6 +1915,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 2,
+                            CantidadKudosDisponibles = 0,
                             EstudianteId = "b2445865-a24d-4543-a6c6-9443d048cdb2",
                             GrupoId = 1,
                             MetaCalificacion = 9,
@@ -1790,6 +1926,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 3,
+                            CantidadKudosDisponibles = 0,
                             EstudianteId = "c3445865-a24d-4543-a6c6-9443d048cdb3",
                             GrupoId = 1,
                             MetaCalificacion = 7,
@@ -1800,6 +1937,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 4,
+                            CantidadKudosDisponibles = 0,
                             EstudianteId = "d4445865-a24d-4543-a6c6-9443d048cdb4",
                             GrupoId = 2,
                             MetaCalificacion = 10,
@@ -1810,6 +1948,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 5,
+                            CantidadKudosDisponibles = 0,
                             EstudianteId = "e5445865-a24d-4543-a6c6-9443d048cdb5",
                             GrupoId = 2,
                             MetaCalificacion = 8,
@@ -2316,6 +2455,89 @@ namespace AccesoDatos.Migrations
                         {
                             Id = 2,
                             GrupoId = 2
+                        });
+                });
+
+            modelBuilder.Entity("LogicaNegocio.Entidades.TipoKudo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TiposKudo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Descripcion = "Considera dar este kudo cuando un compañero te dedica tiempo para explicarte algo que no entendías o te ayuda a completar una tarea.",
+                            Nombre = "Gracias por la Ayuda"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Descripcion = "Considera dar este kudo cuando la pregunta de un compañero aclara una duda para todo el grupo o genera un debate que enriquece la clase.",
+                            Nombre = "Esa Pregunta Suma"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Descripcion = "Considera dar este kudo cuando el esfuerzo, la perseverancia o la actitud positiva de un compañero te motiven a superarte.",
+                            Nombre = "Inspirador"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Descripcion = "Considera dar este kudo cuando un compañero toma tu idea o la de alguien más y la mejora, aportando un punto de vista que hace el trabajo más fuerte.",
+                            Nombre = "Conectando Ideas"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Descripcion = "Considera dar este kudo cuando un compañero organiza el trabajo en equipo, se asegura de que todos participen o guía al grupo para cumplir el objetivo.",
+                            Nombre = "Líder de Equipo"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Descripcion = "Considera dar este kudo cuando un compañero comparte un enlace, video, apunte o cualquier material que te resultó muy útil para estudiar o hacer una tarea.",
+                            Nombre = "Bibliotecario"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Descripcion = "Considera dar este kudo cuando notes que un compañero se esfuerza por integrar a otros, asegurándose de que nadie se quede atrás y todos se sientan parte del equipo.",
+                            Nombre = "Codo a Codo"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Descripcion = "Considera dar este kudo cuando un compañero te da una sugerencia para mejorar tu trabajo de forma respetuosa y con la intención real de ayudar.",
+                            Nombre = "Crítica que Construye"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Descripcion = "Considera dar este kudo cuando un compañero propone una solución original a un problema o una idea innovadora para un proyecto que sorprende al grupo.",
+                            Nombre = "Chispa Creativa"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Descripcion = "Considera dar este kudo cuando la explicación de un compañero sobre un tema muy difícil hace que, finalmente, lo entiendas con total claridad.",
+                            Nombre = "Einstein"
                         });
                 });
 
@@ -3136,6 +3358,33 @@ namespace AccesoDatos.Migrations
                     b.Navigation("Recompensa");
                 });
 
+            modelBuilder.Entity("LogicaNegocio.Entidades.KudoOtorgado", b =>
+                {
+                    b.HasOne("LogicaNegocio.Entidades.PerfilEstudiante", "Emisor")
+                        .WithMany("KudosOtorgados")
+                        .HasForeignKey("PerfilEstudianteEmisorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("LogicaNegocio.Entidades.PerfilEstudiante", "Receptor")
+                        .WithMany("KudosRecibidos")
+                        .HasForeignKey("PerfilEstudianteReceptorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("LogicaNegocio.Entidades.TipoKudo", "TipoKudo")
+                        .WithMany()
+                        .HasForeignKey("TipoKudoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Emisor");
+
+                    b.Navigation("Receptor");
+
+                    b.Navigation("TipoKudo");
+                });
+
             modelBuilder.Entity("LogicaNegocio.Entidades.Medalla", b =>
                 {
                     b.HasOne("LogicaNegocio.Entidades.Profesor", "Creador")
@@ -3544,6 +3793,10 @@ namespace AccesoDatos.Migrations
                     b.Navigation("HistorialRendimientoPeriodos");
 
                     b.Navigation("InventarioRecompensas");
+
+                    b.Navigation("KudosOtorgados");
+
+                    b.Navigation("KudosRecibidos");
 
                     b.Navigation("PerfilMedallas");
                 });

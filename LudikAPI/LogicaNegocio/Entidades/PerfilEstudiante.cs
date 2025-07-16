@@ -114,15 +114,16 @@ namespace LogicaNegocio.Entidades
         /// Verifica si hay kudos disponibles y descuenta uno.
         /// </summary>
         /// <returns>Un resultado exitoso si se pudo otorgar, o de falla en caso contrario.</returns>
-        public Resultado OtorgarKudo(TipoKudo tipoKudo)
+        public Resultado<KudoOtorgado> OtorgarKudo(TipoKudo tipoKudo, PerfilEstudiante perfilReceptor)
         {
             if (CantidadKudosDisponibles <= 0)
-            {
-                return Resultado.Falla(new Error("Error.Validation", "No tienes Kudos disponibles esta semana. Recibirás más el próximo lunes."));
-            }
+                return Resultado<KudoOtorgado>.Falla(new Error("Error.Validation", "No tienes Kudos disponibles esta semana. Recibirás más el próximo lunes."));
+            
 
             CantidadKudosDisponibles--;
-            return Resultado.Exitoso();
+            var kudoOtorgado = new KudoOtorgado(this, perfilReceptor, tipoKudo, DateTime.UtcNow);
+            
+            return Resultado<KudoOtorgado>.Exitoso(kudoOtorgado);
         }
     }
 

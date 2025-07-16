@@ -74,11 +74,14 @@ namespace AccesoDatos.RepositoriosEF
         {
             try
             {
-                var usuario = await _db.Users.FirstOrDefaultAsync(e => e.Id == id);
+                var estudiante = await _db.Estudiantes
+                    .Include(e => e.Perfiles)             
+                    .Include(e => e.Hitos)                
+                    .Include(e => e.PreguntasSeguridad)   
+                    .FirstOrDefaultAsync(e => e.Id == id);
 
-                if (usuario == null)
+                if (estudiante == null)
                     return Resultado<Estudiante>.Falla(Error.NotFound);
-                Estudiante estudiante = (Estudiante)usuario;
                 
  
                 return Resultado<Estudiante>.Exitoso(estudiante);

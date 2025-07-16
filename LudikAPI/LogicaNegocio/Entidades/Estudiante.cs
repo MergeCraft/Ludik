@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using LogicaNegocio.Resultados;
 using Microsoft.AspNetCore.Identity;
 
 namespace LogicaNegocio.Entidades
@@ -46,7 +47,15 @@ namespace LogicaNegocio.Entidades
             return Perfiles.Sum(perfil => perfil.PerfilMedallas?.Count ?? 0);
         }
 
-
+        public Resultado<PerfilEstudiante> ObtenerPerfilEstudiantePor(int id)
+        {
+            if (Perfiles == null || !Perfiles.Any())
+                return Resultado<PerfilEstudiante>.Falla(new Error("Error.NotFound", "No se encontraron perfiles asociados al estudiante."));
+            var perfil = Perfiles.FirstOrDefault(p => p.Id == id);
+            if (perfil == null)
+                return Resultado<PerfilEstudiante>.Falla(new Error("Error.NotFound", $"No se encontró el perfil con ID {id}."));
+            return Resultado<PerfilEstudiante>.Exitoso(perfil);
+        }
     }
 
 }

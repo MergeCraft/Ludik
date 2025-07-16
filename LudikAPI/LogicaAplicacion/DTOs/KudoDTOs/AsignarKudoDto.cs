@@ -2,7 +2,8 @@
 
 public class AsignarKudoDto
 {
-    public int IdEstudianteRecibe { get; set; }
+    public int IdPerfilEstudianteRecibe { get; set; }
+    public int IdPerfilEstudianteEmisor { get; set; }
 
     public TipoKudoDto Kudo { get; set; }
 }

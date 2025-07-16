@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using WebApi.Helpers;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace WebApi.Controllers
 {
@@ -30,7 +29,7 @@ namespace WebApi.Controllers
         /// </summary>
         /// <param name="value"></param>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -41,9 +40,9 @@ namespace WebApi.Controllers
             if (string.IsNullOrEmpty(estudianteId))
                 return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
 
-            var resultado = await _asignarKudo.EjecutarAsync(kudoDto);
+            var resultado = await _asignarKudo.EjecutarAsync(estudianteId,kudoDto);
 
-            return resultado.EsExitoso ? Ok(resultado) : this.ManejarFallo(resultado);
+            return resultado.EsExitoso ? NoContent() : this.ManejarFallo(resultado);
 
             
         }

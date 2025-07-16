@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
-    public partial class inicial : Migration
+    public partial class inicialSistemaKudos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -87,6 +87,20 @@ namespace AccesoDatos.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.RolId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TiposKudo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TiposKudo", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -291,7 +305,7 @@ namespace AccesoDatos.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     UrlImagenMiniatura = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MonedasOtorgadas = table.Column<int>(type: "int", nullable: false),
                     TieneAsignacionMutua = table.Column<bool>(type: "bit", nullable: false),
@@ -551,6 +565,7 @@ namespace AccesoDatos.Migrations
                     Monedas = table.Column<int>(type: "int", nullable: false),
                     RutaImagenCompleta = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RutaImagenMiniatura = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CantidadKudosDisponibles = table.Column<int>(type: "int", nullable: false),
                     GrupoId = table.Column<int>(type: "int", nullable: false),
                     PotenciadorActivoId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -650,6 +665,40 @@ namespace AccesoDatos.Migrations
                         principalTable: "TablasEquivalencia",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "KudosOtorgados",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PerfilEstudianteEmisorId = table.Column<int>(type: "int", nullable: false),
+                    PerfilEstudianteReceptorId = table.Column<int>(type: "int", nullable: false),
+                    TipoKudoId = table.Column<int>(type: "int", nullable: false),
+                    FechaOtorgamiento = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_KudosOtorgados", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_KudosOtorgados_PerfilesEstudiantes_PerfilEstudianteEmisorId",
+                        column: x => x.PerfilEstudianteEmisorId,
+                        principalTable: "PerfilesEstudiantes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_KudosOtorgados_PerfilesEstudiantes_PerfilEstudianteReceptorId",
+                        column: x => x.PerfilEstudianteReceptorId,
+                        principalTable: "PerfilesEstudiantes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_KudosOtorgados_TiposKudo_TipoKudoId",
+                        column: x => x.TipoKudoId,
+                        principalTable: "TiposKudo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -990,6 +1039,23 @@ namespace AccesoDatos.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "TiposKudo",
+                columns: new[] { "Id", "Descripcion", "Nombre" },
+                values: new object[,]
+                {
+                    { 1, "Considera dar este kudo cuando un compañero te dedica tiempo para explicarte algo que no entendías o te ayuda a completar una tarea.", "Gracias por la Ayuda" },
+                    { 2, "Considera dar este kudo cuando la pregunta de un compañero aclara una duda para todo el grupo o genera un debate que enriquece la clase.", "Esa Pregunta Suma" },
+                    { 3, "Considera dar este kudo cuando el esfuerzo, la perseverancia o la actitud positiva de un compañero te motiven a superarte.", "Inspirador" },
+                    { 4, "Considera dar este kudo cuando un compañero toma tu idea o la de alguien más y la mejora, aportando un punto de vista que hace el trabajo más fuerte.", "Conectando Ideas" },
+                    { 5, "Considera dar este kudo cuando un compañero organiza el trabajo en equipo, se asegura de que todos participen o guía al grupo para cumplir el objetivo.", "Líder de Equipo" },
+                    { 6, "Considera dar este kudo cuando un compañero comparte un enlace, video, apunte o cualquier material que te resultó muy útil para estudiar o hacer una tarea.", "Bibliotecario" },
+                    { 7, "Considera dar este kudo cuando notes que un compañero se esfuerza por integrar a otros, asegurándose de que nadie se quede atrás y todos se sientan parte del equipo.", "Codo a Codo" },
+                    { 8, "Considera dar este kudo cuando un compañero te da una sugerencia para mejorar tu trabajo de forma respetuosa y con la intención real de ayudar.", "Crítica que Construye" },
+                    { 9, "Considera dar este kudo cuando un compañero propone una solución original a un problema o una idea innovadora para un proyecto que sorprende al grupo.", "Chispa Creativa" },
+                    { 10, "Considera dar este kudo cuando la explicación de un compañero sobre un tema muy difícil hace que, finalmente, lo entiendas con total claridad.", "Einstein" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Usuarios",
                 columns: new[] { "UsuarioId", "IntentosFallidos", "EstampaConcurrencia", "Correo", "CorreoConfirmado", "ImagenPerfil", "BloqueoHabilitado", "FinBloqueo", "CorreoNormalizado", "NombreUsuarioNormalizado", "ContraseniaHash", "Telefono", "TelefonoConfirmado", "EstampaSeguridad", "AutenticacionDosFactores", "NombreUsuario", "Apellido", "Nombre" },
                 values: new object[,]
@@ -1043,9 +1109,19 @@ namespace AccesoDatos.Migrations
                 columns: new[] { "Id", "Descripcion", "MonedasOtorgadas", "Nombre", "ProfesorId", "TieneAsignacionMutua", "UrlImagenMiniatura" },
                 values: new object[,]
                 {
-                    { 1, "Asistencia y participación en todas las clases del mes.", 30, "Participación Perfecta", "8e445865-a24d-4543-a6c6-9443d048cdb9", false, "icono_asistencia.png" },
-                    { 2, "Ayuda destacada a compañeros en proyectos grupales.", 25, "Maestro de la Colaboración", "8e445865-a24d-4543-a6c6-9443d048cdb9", false, "icono_colaboracion.png" },
-                    { 3, "Realización de preguntas perspicaces que enriquecen la clase.", 15, "Mente Curiosa", "9e445865-a24d-4543-a6c6-9443d048cdb0", false, "icono_pregunta.png" }
+                    { 1, "Asistencia y participación en todas las clases del mes.", 30, "Participación Perfecta", "8e445865-a24d-4543-a6c6-9443d048cdb9", false, "medalla_participacion_perfecta.png" },
+                    { 2, "Ayuda destacada a compañeros en proyectos grupales.", 25, "Maestro de la Colaboración", "9e445865-a24d-4543-a6c6-9443d048cdb0", false, "medalla_maestro_colaboracion.png" },
+                    { 3, "Realización de preguntas perspicaces que enriquecen la clase.", 15, "Mente Curiosa", "9e445865-a24d-4543-a6c6-9443d048cdb0", false, "medalla_mente_curiosa.png" },
+                    { 4, "Se otorga por ser un pilar de apoyo para tus compañeros. Demuestra que estás siempre dispuesto a ofrecer tu ayuda cuando alguien la necesita.", 20, "Compañerismo", "8e445865-a24d-4543-a6c6-9443d048cdb9", false, "medalla_companerismo.png" },
+                    { 5, "Premia a las mentes que nunca dejan de preguntar. Se consigue al realizar preguntas que desafían al grupo y enriquecen el aprendizaje de todos.", 15, "Curiosidad Insaciable", "9e445865-a24d-4543-a6c6-9443d048cdb0", false, "medalla_curiosidad_insaciable.png" },
+                    { 6, "Reconoce a quienes inspiran con su ejemplo. Se obtiene al demostrar una actitud y un esfuerzo que motivan a todo el grupo a superarse.", 25, "Faro del Grupo", "8e445865-a24d-4543-a6c6-9443d048cdb9", false, "medalla_faro_del_grupo.png" },
+                    { 7, "Para aquellos que no solo tienen buenas ideas, sino que construyen sobre las de los demás para crear algo aún mejor.", 20, "Arquitecto de Ideas", "9e445865-a24d-4543-a6c6-9443d048cdb0", false, "medalla_arquitecto_ideas.png" },
+                    { 8, "Se otorga por demostrar liderazgo natural, guiando y organizando al equipo para alcanzar metas comunes de forma efectiva.", 25, "Capitán de Equipo", "8e445865-a24d-4543-a6c6-9443d048cdb9", false, "medalla_capitan_equipo.png" },
+                    { 9, "Premia la iniciativa de buscar y compartir recursos valiosos (videos, artículos, herramientas) que benefician a toda la clase.", 15, "Cazador de Tesoros", "9e445865-a24d-4543-a6c6-9443d048cdb0", false, "medalla_cazador_tesoros.png" },
+                    { 10, "Se consigue al fomentar activamente un ambiente de respeto e inclusión, asegurando que cada miembro del grupo se sienta valorado.", 20, "Espíritu de Equipo", "8e445865-a24d-4543-a6c6-9443d048cdb9", false, "medalla_espiritu_equipo.png" },
+                    { 11, "Reconoce la habilidad de dar críticas constructivas que ayudan a los compañeros a mejorar su trabajo de forma positiva y amable.", 15, "Pulidor de Diamantes", "9e445865-a24d-4543-a6c6-9443d048cdb0", false, "medalla_pulidor_diamantes.png" },
+                    { 12, "Se otorga por aportar ideas creativas y soluciones originales que sacan al grupo de la rutina y abren nuevas posibilidades.", 20, "Mente Innovadora", "8e445865-a24d-4543-a6c6-9443d048cdb9", false, "medalla_mente_innovadora.png" },
+                    { 13, "Premia la increíble habilidad de tomar un tema complejo y explicarlo de una manera tan clara y sencilla que todos puedan entenderlo.", 25, "El Explicador", "9e445865-a24d-4543-a6c6-9443d048cdb0", false, "medalla_el_explicador.png" }
                 });
 
             migrationBuilder.InsertData(
@@ -1100,14 +1176,14 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.InsertData(
                 table: "PerfilesEstudiantes",
-                columns: new[] { "Id", "EstudianteId", "GrupoId", "MetaCalificacion", "Monedas", "PotenciadorActivoId", "RutaImagenCompleta", "RutaImagenMiniatura" },
+                columns: new[] { "Id", "CantidadKudosDisponibles", "EstudianteId", "GrupoId", "MetaCalificacion", "Monedas", "PotenciadorActivoId", "RutaImagenCompleta", "RutaImagenMiniatura" },
                 values: new object[,]
                 {
-                    { 1, "a1445865-a24d-4543-a6c6-9443d048cdb1", 1, 8, 120, null, "default/avatar_full.jpg", "default/avatar_thumb.jpg" },
-                    { 2, "b2445865-a24d-4543-a6c6-9443d048cdb2", 1, 9, 150, null, "default/avatar_full.jpg", "default/avatar_thumb.jpg" },
-                    { 3, "c3445865-a24d-4543-a6c6-9443d048cdb3", 1, 7, 95, null, "default/avatar_full.jpg", "default/avatar_thumb.jpg" },
-                    { 4, "d4445865-a24d-4543-a6c6-9443d048cdb4", 2, 10, 200, null, "default/avatar_full.jpg", "default/avatar_thumb.jpg" },
-                    { 5, "e5445865-a24d-4543-a6c6-9443d048cdb5", 2, 8, 180, null, "default/avatar_full.jpg", "default/avatar_thumb.jpg" }
+                    { 1, 0, "a1445865-a24d-4543-a6c6-9443d048cdb1", 1, 8, 120, null, "default/avatar_full.jpg", "default/avatar_thumb.jpg" },
+                    { 2, 0, "b2445865-a24d-4543-a6c6-9443d048cdb2", 1, 9, 150, null, "default/avatar_full.jpg", "default/avatar_thumb.jpg" },
+                    { 3, 0, "c3445865-a24d-4543-a6c6-9443d048cdb3", 1, 7, 95, null, "default/avatar_full.jpg", "default/avatar_thumb.jpg" },
+                    { 4, 0, "d4445865-a24d-4543-a6c6-9443d048cdb4", 2, 10, 200, null, "default/avatar_full.jpg", "default/avatar_thumb.jpg" },
+                    { 5, 0, "e5445865-a24d-4543-a6c6-9443d048cdb5", 2, 8, 180, null, "default/avatar_full.jpg", "default/avatar_thumb.jpg" }
                 });
 
             migrationBuilder.InsertData(
@@ -1271,6 +1347,21 @@ namespace AccesoDatos.Migrations
                 name: "IX_IniciosSesionUsuario_UsuarioId",
                 table: "IniciosSesionUsuario",
                 column: "UsuarioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_KudosOtorgados_PerfilEstudianteEmisorId",
+                table: "KudosOtorgados",
+                column: "PerfilEstudianteEmisorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_KudosOtorgados_PerfilEstudianteReceptorId",
+                table: "KudosOtorgados",
+                column: "PerfilEstudianteReceptorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_KudosOtorgados_TipoKudoId",
+                table: "KudosOtorgados",
+                column: "TipoKudoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Medallas_Nombre",
@@ -1458,6 +1549,9 @@ namespace AccesoDatos.Migrations
                 name: "IniciosSesionUsuario");
 
             migrationBuilder.DropTable(
+                name: "KudosOtorgados");
+
+            migrationBuilder.DropTable(
                 name: "PerfilEstudianteMedallas");
 
             migrationBuilder.DropTable(
@@ -1498,6 +1592,9 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.DropTable(
                 name: "Hitos");
+
+            migrationBuilder.DropTable(
+                name: "TiposKudo");
 
             migrationBuilder.DropTable(
                 name: "PreguntasDeSeguridad");

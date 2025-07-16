@@ -42,6 +42,7 @@ using LogicaAplicacion.ImplementacionCasosUsos.Recompensa;
 using LogicaAplicacion.InterfacesCasosUsos.Tienda;
 using LogicaAplicacion.ImplementacionCasosUsos.Tienda;
 using LogicaAplicacion.ImplementacionCasosUsos.Imagenes.Estrategias;
+using LogicaAplicacion.ImplementacionCasosUsos.Kudo;
 using LogicaNegocio.ConstantesAplicacion;
 using LogicaAplicacion.ImplementacionCasosUsos.Login;
 using LogicaAplicacion.ImplementacionCasosUsos.RecuperarContrasena;
@@ -161,7 +162,9 @@ builder.Services.AddScoped<IRepositorioHitos, RepositorioHitosEF>();
 builder.Services.AddScoped<IRepositorioPerfilEstudianteRecompensa, RepositorioPerfilEstudianteRecompensaEF>();
 builder.Services.AddScoped<IRepositorioPreguntasSeguridad, RepositorioPreguntasSeguridadEF>();
 builder.Services.AddScoped<IRepositorioPreguntasDeSeguridadDelSistema, RepositorioPreguntasDeSeguridadDelSistemaEF>();
-
+builder.Services.AddScoped<IRepositorioTiposKudo, RepositorioTiposKudoEF>();
+builder.Services.AddScoped<IRepositorioKudosOtorgados, RepositorioKudosOtorgadosEF>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddAzureClients(clientBuilder =>
 {
@@ -239,7 +242,7 @@ builder.Services.AddScoped<IObtenerPreguntasDeSegurididadPorNombreUsuario,Obtene
 builder.Services.AddScoped<IObtenerPreguntasDeSeguridadDelSistema, ObtenerPreguntasDeSeguridadDelSistema>();
 builder.Services.AddScoped<IRestablecerContrasena,RestablecerContrasena>();
 
-builder.Services.AddScoped<IAsignarKudo, IAsignarKudo>();
+builder.Services.AddScoped<IAsignarKudo, AsignarKudo>();
 // -------------------------------
 //      Swagger y CORS
 // -------------------------------
