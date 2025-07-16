@@ -141,6 +141,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddScoped<IObserver<PerfilEstudianteMedalla>, PerfilObserver>();
 builder.Services.AddScoped<IObserver<PerfilEstudianteMedalla>, HitoObserver>();
 builder.Services.AddScoped<IObserver<SolicitudPerfilMedalla>, ProfesorSolicitudPerfilMedallaObserver>();
+builder.Services.AddScoped<IObserver<SolicitudPerfilMedalla>, NotificacionSolicitudPerfilMedallaObserver>();
 
 // Inyeccion de dependencias repositorios
 builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
@@ -242,6 +243,9 @@ builder.Services.AddScoped<IObtenerPreguntasDeSegurididadPorNombreUsuario,Obtene
 builder.Services.AddScoped<IObtenerPreguntasDeSeguridadDelSistema, ObtenerPreguntasDeSeguridadDelSistema>();
 builder.Services.AddScoped<IRestablecerContrasena,RestablecerContrasena>();
 builder.Services.AddScoped<IAltaSolicitudPerfilMedalla, AltaSolicitudPerfilMedalla>();
+builder.Services.AddScoped<IObtenerSolicitudPerfilMedalla, ObtenerSolicitudesPerfilMedalla>();
+builder.Services.AddScoped<IAceptarSolicitudPerfilMedalla, AceptarSolicitudPerfilMedalla>();
+builder.Services.AddScoped<IRechazarSolicitudPerfilMedalla, RechazarSolicitudPerfilMedalla>();
 
 // -------------------------------
 //      Swagger y CORS

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LogicaNegocio.Entidades;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
+using LogicaNegocio.ValueObject;
 using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
@@ -41,7 +42,7 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var lista = await _db.SolicitudesPerfilMedalla
-                    .Where(s => s.GrupoId == grupoId)
+                    .Where(s => s.GrupoId == grupoId && s.Estado == EstadoSolicitud.Pendiente)
                     .ToListAsync();
 
                 return Resultado<List<SolicitudPerfilMedalla>>.Exitoso(lista);
@@ -53,9 +54,22 @@ namespace AccesoDatos.RepositoriosEF
             }
         }
 
-        public Task<Resultado<SolicitudPerfilMedalla>> GetByIdAsync(int id)
+        public async Task<Resultado<SolicitudPerfilMedalla>> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var solicitud = await _db.SolicitudesPerfilMedalla
+                    .FirstOrDefaultAsync(s => s.Id == id);
+
+                if (solicitud == null)
+                    return Resultado<SolicitudPerfilMedalla>.Falla(new Error("Error.NotFound", $"No se encontró la solicitud con ID {id}."));
+
+                return Resultado<SolicitudPerfilMedalla>.Exitoso(solicitud);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<SolicitudPerfilMedalla>.Falla(new Error("Error.Unexpected", ex.Message));
+            }
         }
 
         public Task<Resultado> RemoveAsync(int id)

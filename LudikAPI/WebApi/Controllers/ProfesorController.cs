@@ -14,6 +14,9 @@ using WebApi.Helpers;
 using LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion;
 using LogicaAplicacion.InterfacesCasosUsos.Login;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using LogicaAplicacion.InterfacesCasosUsos.SolicitudPerfilMedalla;
+using LogicaAplicacion.DTOs.SolicitudPerfilMedallaDTOs;
+using LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla;
 
 namespace WebApi.Controllers
 {
@@ -29,12 +32,15 @@ namespace WebApi.Controllers
         private readonly ILoginUsuario _loginUsuario;
         private readonly IReinicioLogrosDeUnGrupo _reinicioLogrosDeUnGrupo;
         private readonly IReinicioLogrosDeTodosLosGrupos _reinicioLogrosDeTodosLosGrupos;
+        private readonly IObtenerSolicitudPerfilMedalla _obtenerSolicitudPerfilMedalla;
+        private readonly IAceptarSolicitudPerfilMedalla _aceptarSolicitudPerfilMedalla;
+        private readonly IRechazarSolicitudPerfilMedalla _rechazarSolicitudPerfilMedalla;
         public ProfesorController(IAltaProfesor altaProfesor, 
             IObtenerGruposDeProfesor obtenerGruposDeProfesor, 
             IObtenerSolicitudesUnionDelGrupo obtenerSolicitudesUnionDelGrupo,
             IAceptarSolicitudUnion aceptarSolicitudUnion, 
             IRechazarSolicitudUnion rechazarSolicitudUnion,
-            ILoginUsuario loginUsuario,IReinicioLogrosDeUnGrupo reinicioLogrosDeUnGrupo,IReinicioLogrosDeTodosLosGrupos reinicioLogrosDeTodosLosGrupos)
+            ILoginUsuario loginUsuario,IReinicioLogrosDeUnGrupo reinicioLogrosDeUnGrupo,IReinicioLogrosDeTodosLosGrupos reinicioLogrosDeTodosLosGrupos,IObtenerSolicitudPerfilMedalla obtenerSolicitudPerfilMedalla,IAceptarSolicitudPerfilMedalla aceptarSolicitudPerfilMedalla,IRechazarSolicitudPerfilMedalla rechazarSolicitudPerfilMedalla)
         {
             _altaProfesor = altaProfesor;
             _obtenerGruposDeProfesor = obtenerGruposDeProfesor;
@@ -44,6 +50,9 @@ namespace WebApi.Controllers
             _loginUsuario = loginUsuario;
             _reinicioLogrosDeUnGrupo = reinicioLogrosDeUnGrupo;
             _reinicioLogrosDeTodosLosGrupos = reinicioLogrosDeTodosLosGrupos;
+            _obtenerSolicitudPerfilMedalla = obtenerSolicitudPerfilMedalla;
+            _aceptarSolicitudPerfilMedalla = aceptarSolicitudPerfilMedalla;
+            _rechazarSolicitudPerfilMedalla = rechazarSolicitudPerfilMedalla;
         }
         /// <summary>
         /// Este endpoint permite registrar un nuevo Profesor en el sistema.
@@ -347,6 +356,137 @@ namespace WebApi.Controllers
                     new { Mensaje = "Error inesperado al reiniciar todos los logros. " + ex.Message });
             }
         }
+        /// <summary>
+        /// Obtiene las solicitudes de medalla para un grupo del profesor autenticado.
+        /// </summary>
+        /// <param name="grupoId">ID del grupo</param>
+        /// <returns>
+        /// 200 OK: Lista de solicitudes de medalla del grupo.
+        /// 400 Bad Request: Grupo inválido o error de validación.
+        /// 404 Not Found: Grupo no encontrado o sin solicitudes.
+        /// 401 Unauthorized: Usuario no autenticado.
+        /// 500 Internal Server Error: Error inesperado.
+        /// </returns>
+        [HttpGet("solicitudes-medallas")]
+        [Authorize(Policy = "EsProfesor")]
+        [ProducesResponseType(typeof(List<SolicitudPerfilMedallaDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(List<Error>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(object), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ObtenerSolicitudesPerfilMedalla([FromQuery][Required] int grupoId)
+        {
+            try
+            {
+                var idProfesor = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(idProfesor))
+                    return Unauthorized(new { Mensaje = "No se pudo identificar al usuario autenticado." });
 
+                var resultado = await _obtenerSolicitudPerfilMedalla.EjecutarAsync(grupoId);
+
+                if (resultado.EsFallo)
+                {
+                    if (resultado.Errores.Any(e => e.Codigo == Error.NotFound.Codigo))
+                        return NotFound(resultado.Errores.ToList());
+
+                    return BadRequest(resultado.Errores.ToList());
+                }
+
+                return Ok(resultado.Valor);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new { Mensaje = "Ocurrió un error inesperado al obtener las solicitudes de medalla. " + ex.Message });
+            }
+        }
+        /// <summary>
+        /// Acepta una solicitud de medalla enviada por un perfil de estudiante.
+        /// </summary>
+        /// <param name="solicitudId">ID de la solicitud de perfil medalla</param>
+        /// <returns>
+        /// 200 OK: Si la solicitud fue aceptada y la medalla asignada exitosamente.
+        /// 400 Bad Request: Si la solicitud ya fue procesada o es inválida.
+        /// 404 Not Found: Si la solicitud no existe.
+        /// 401 Unauthorized: Si no está autenticado.
+        /// 500 Internal Server Error: Si ocurre un error inesperado.
+        /// </returns>
+        [HttpPost("aceptar-solicitud-medalla")]
+        [Authorize(Policy = "EsProfesor")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> AceptarSolicitudMedalla([FromQuery][Required] int solicitudId)
+        {
+            try
+            {
+                var idProfesor = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(idProfesor))
+                    return Unauthorized(new { Mensaje = "No se pudo identificar al profesor autenticado." });
+
+                var resultado = await _aceptarSolicitudPerfilMedalla.EjecutarAsync(solicitudId);
+
+                if (resultado.EsFallo)
+                {
+                    if (resultado.Errores.Any(e => e.Codigo == "Error.NotFound"))
+                        return NotFound(resultado.Errores.ToList());
+
+                    return BadRequest(resultado.Errores.ToList());
+                }
+
+                return Ok(new { Mensaje = "La solicitud fue aceptada y la medalla asignada correctamente." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new { Mensaje = "Error inesperado al aceptar la solicitud de medalla. " + ex.Message });
+            }
+        }
+        /// <summary>
+        /// Rechaza una solicitud de medalla enviada por un perfil de estudiante.
+        /// </summary>
+        /// <param name="solicitudId">ID de la solicitud de perfil medalla</param>
+        /// <returns>
+        /// 200 OK: Si la solicitud fue rechazada correctamente.
+        /// 400 Bad Request: Si la solicitud ya fue procesada o es inválida.
+        /// 404 Not Found: Si la solicitud no existe.
+        /// 401 Unauthorized: Si no está autenticado.
+        /// 500 Internal Server Error: Si ocurre un error inesperado.
+        /// </returns>
+        [HttpPost("rechazar-solicitud-medalla")]
+        [Authorize(Policy = "EsProfesor")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> RechazarSolicitudMedalla([FromQuery][Required] int solicitudId)
+        {
+            try
+            {
+                var idProfesor = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(idProfesor))
+                    return Unauthorized(new { Mensaje = "No se pudo identificar al profesor autenticado." });
+
+                var resultado = await _rechazarSolicitudPerfilMedalla.EjecutarAsync(solicitudId);
+
+                if (resultado.EsFallo)
+                {
+                    if (resultado.Errores.Any(e => e.Codigo == "Error.NotFound"))
+                        return NotFound(resultado.Errores.ToList());
+
+                    return BadRequest(resultado.Errores.ToList());
+                }
+
+                return Ok(new { Mensaje = "La solicitud fue rechazada correctamente." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new { Mensaje = "Error inesperado al rechazar la solicitud de medalla. " + ex.Message });
+            }
+        }
     }
 }

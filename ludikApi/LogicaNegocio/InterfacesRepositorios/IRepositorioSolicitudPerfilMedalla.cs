@@ -12,5 +12,6 @@ namespace LogicaNegocio.InterfacesRepositorios
     public interface IRepositorioSolicitudPerfilMedalla: IRepositorio<SolicitudPerfilMedalla>
     {
         Task<Resultado<List<SolicitudPerfilMedalla>>> GetByPerfilAsync(int perfilEstudianteId);
+        Task<Resultado<List<SolicitudPerfilMedalla>>> GetByGrupoAsync(int grupoId);
     }
 }

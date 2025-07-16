@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LogicaNegocio.Entidades;
+using LogicaNegocio.ValueObject;
 using Microsoft.Extensions.Logging;
 
 namespace LogicaNegocio.Observer
@@ -16,9 +17,12 @@ namespace LogicaNegocio.Observer
 
         public void OnNext(SolicitudPerfilMedalla s)
         {
-            _logger.LogInformation(
-                $"[Observer] Grupo {s.GrupoId}: nueva solicitud de medalla " +
-                $"{s.MedallaId} por perfil {s.PerfilEstudianteId}.");
+            if (s.Estado == EstadoSolicitud.Pendiente)
+            {
+                _logger.LogInformation(
+                    $"[Observer] Grupo {s.GrupoId}: nueva solicitud de medalla " +
+                    $"{s.MedallaId} por perfil {s.PerfilEstudianteId}.");
+            }
         }
 
         public void OnError(Exception error)
