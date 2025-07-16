@@ -82,5 +82,21 @@ namespace AccesoDatos.RepositoriosEF
                     new Error("Error.Unexpected", ex.Message));
             }
         }
+        public async Task<Resultado<List<SolicitudPerfilMedalla>>> GetByPerfilAsync(int perfilEstudianteId)
+        {
+            try
+            {
+                var lista = await _db.SolicitudesPerfilMedalla
+                    .Where(s => s.PerfilEstudianteId == perfilEstudianteId)
+                    .ToListAsync();
+
+                return Resultado<List<SolicitudPerfilMedalla>>.Exitoso(lista);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<List<SolicitudPerfilMedalla>>.Falla(
+                    new Error("Error.Unexpected", ex.Message));
+            }
+        }
     }
 }

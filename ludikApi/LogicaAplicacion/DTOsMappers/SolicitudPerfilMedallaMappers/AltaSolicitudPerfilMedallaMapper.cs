@@ -10,12 +10,12 @@ namespace LogicaAplicacion.DTOsMappers.SolicitudPerfilMedallaMappers
 {
     public static class AltaSolicitudPerfilMedallaMapper
     {
-        public static SolicitudPerfilMedalla Map(AltaSolicitudPerfilMedallaDto dto)
+        public static SolicitudPerfilMedalla Map(AltaSolicitudPerfilMedallaDto dto,int grupoId)
             => new SolicitudPerfilMedalla
             {
                 PerfilEstudianteId = dto.PerfilEstudianteId,
                 MedallaId = dto.MedallaId,
-                GrupoId = dto.GrupoId,
+                GrupoId = grupoId,
                 Descripcion = dto.Descripcion
             };
     }

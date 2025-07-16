@@ -140,6 +140,7 @@ builder.Services.AddAuthorization(options =>
 //inyeccion observadores
 builder.Services.AddScoped<IObserver<PerfilEstudianteMedalla>, PerfilObserver>();
 builder.Services.AddScoped<IObserver<PerfilEstudianteMedalla>, HitoObserver>();
+builder.Services.AddScoped<IObserver<SolicitudPerfilMedalla>, ProfesorSolicitudPerfilMedallaObserver>();
 
 // Inyeccion de dependencias repositorios
 builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();

@@ -16,9 +16,6 @@ namespace LogicaAplicacion.DTOs.SolicitudPerfilMedallaDTOs
         public int MedallaId { get; set; }
 
         [Required]
-        public int GrupoId { get; set; }
-
-        [Required]
         [StringLength(500, ErrorMessage = "La descripción no puede exceder 500 caracteres.")]
         public string Descripcion { get; set; }
     }

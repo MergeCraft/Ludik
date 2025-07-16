@@ -5,10 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using LogicaNegocio.Resultados;
 using LogicaNegocio.ValueObject;
+using LogicaNegocio.Observer;
 
 namespace LogicaNegocio.Entidades
 {
-	public class Grupo : IEntity, IValidable
+	public class Grupo : Observable<SolicitudPerfilMedalla>, IEntity, IValidable
     {
         public int Id { get; set; }
         [Required]
@@ -123,6 +124,11 @@ namespace LogicaNegocio.Entidades
             }
 
             return rendimientos;
+        }
+        public void AgregarSolicitudPerfilMedalla(SolicitudPerfilMedalla solicitud)
+        {
+            SolicitudesPerfilMedalla.Add(solicitud);
+            Notify(solicitud);
         }
     }
 
