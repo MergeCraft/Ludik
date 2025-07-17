@@ -46,6 +46,7 @@ namespace AccesoDatos.RepositoriosEF
         public DbSet<PerfilEstudianteRecompensa> PerfilEstudianteRecompensas { get; set; }
         public DbSet<KudoOtorgado> KudosOtorgados { get; set; }
         public DbSet<TipoKudo> TiposKudo { get; set; }
+        public DbSet<UmbralParaMedallaPorKudos> UmbralesParaMedallasPorKudos { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
