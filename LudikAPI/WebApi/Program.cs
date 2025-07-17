@@ -165,6 +165,7 @@ builder.Services.AddScoped<IRepositorioPerfilEstudianteRecompensa, RepositorioPe
 builder.Services.AddScoped<IRepositorioPreguntasSeguridad, RepositorioPreguntasSeguridadEF>();
 builder.Services.AddScoped<IRepositorioPreguntasDeSeguridadDelSistema, RepositorioPreguntasDeSeguridadDelSistemaEF>();
 builder.Services.AddScoped<IRepositorioSolicitudPerfilMedalla, RepositorioSolicitudPerfilMedallaEF>();
+builder.Services.AddScoped<IRepositorioProyectoAulaColaborativo, RepositorioProyectoAulaColaborativoEF>();
 
 
 builder.Services.AddAzureClients(clientBuilder =>

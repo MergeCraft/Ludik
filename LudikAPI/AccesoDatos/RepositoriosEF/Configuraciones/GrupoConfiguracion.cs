@@ -33,5 +33,11 @@ public class GrupoConfiguracion : IEntityTypeConfiguration<Grupo>
             .WithOne(spm => spm.Grupo)
             .HasForeignKey(spm => spm.GrupoId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(gr => gr.Pac)
+                .WithOne(pac => pac.Grupo)
+                .HasForeignKey<ProyectoAulaColaborativo>(pac => pac.GrupoId)
+                .OnDelete(DeleteBehavior.Cascade);
+
     }
 }

@@ -45,6 +45,7 @@ namespace AccesoDatos.RepositoriosEF
         public DbSet<Avatar> Avatares { get; set; }
         public DbSet<AtributoAvatar> AtributosAvatar { get; set; }
         public DbSet<PerfilEstudianteRecompensa> PerfilEstudianteRecompensas { get; set; }
+        public DbSet<ProyectoAulaColaborativo> ProyectosAulaColaborativos { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
