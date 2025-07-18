@@ -30,6 +30,8 @@
     <Folder Include="InterfacesCasosUsos\Kudo\" />
     <Folder Include="InterfacesCasosUsos\RecuperarContrasena\" />
     <Folder Include="InterfacesCasosUsos\ServicioPrecargaArchivos\" />
+    <Folder Include="Eventos\" />
+    <Folder Include="ManejadoresDeEventos\" />
   </ItemGroup>
 
 </Project>

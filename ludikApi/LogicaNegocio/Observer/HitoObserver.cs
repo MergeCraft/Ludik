@@ -39,14 +39,14 @@ namespace LogicaNegocio.Observer
             throw new NotImplementedException();
         }
 
-        public void OnNext(PerfilEstudianteMedalla evt)
+        public async void OnNext(PerfilEstudianteMedalla evt)
         {
             try
             {
                 var perfilOrigen = evt.PerfilEstudiante;
                 var estudiante = perfilOrigen.Estudiante;
                 int totalMedallas = estudiante.ContarCantidadMedallasTotales();
-                var allHitosResult = _repoHitos.GetAllAsync().GetAwaiter().GetResult();
+                var allHitosResult = await _repoHitos.GetAllAsync();
 
                 if (allHitosResult.EsFallo)
                 {
@@ -60,7 +60,7 @@ namespace LogicaNegocio.Observer
 
                 foreach (var hito in hitosPendientes){
                     hito.Otorgado = true;
-                    var updHito = _repoHitos.UpdateAsync(hito).GetAwaiter().GetResult();
+                    var updHito = await _repoHitos.UpdateAsync(hito);
                     if (updHito.EsFallo){
                         _logger.LogError($"[HitoObserver] No se pudo marcar hito {hito.Id}: {updHito.EsFallo}");
                         continue;
@@ -79,7 +79,7 @@ namespace LogicaNegocio.Observer
                                 $"[HitoObserver] Recompensa {hito.Recompensa.Id} aplicada " + $"en perfil {perfil.Id}.");
                         }
 
-                        var updPerfil = _repoPerfiles.UpdateAsync(perfil).GetAwaiter().GetResult();
+                        var updPerfil = await _repoPerfiles.UpdateAsync(perfil);
                         if (updPerfil.EsFallo){
                             _logger.LogError($"[HitoObserver] Error al actualizar perfil {perfil.Id}: {updPerfil.EsFallo}");
                         }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250716192159_inicialSistemaKudos")]
+    [Migration("20250718121825_inicialSistemaKudos")]
     partial class inicialSistemaKudos
     {
         /// <inheritdoc />
@@ -2541,6 +2541,37 @@ namespace AccesoDatos.Migrations
                         });
                 });
 
+            modelBuilder.Entity("LogicaNegocio.Entidades.UmbralParaMedallaPorKudos", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CantidadKudos")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GrupoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MedallaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TipoKudoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GrupoId");
+
+                    b.HasIndex("MedallaId");
+
+                    b.HasIndex("TipoKudoId");
+
+                    b.ToTable("UmbralesParaMedallasPorKudos");
+                });
+
             modelBuilder.Entity("LogicaNegocio.Entidades.Usuario", b =>
                 {
                     b.Property<string>("Id")
@@ -3598,6 +3629,33 @@ namespace AccesoDatos.Migrations
                         .IsRequired();
 
                     b.Navigation("Grupo");
+                });
+
+            modelBuilder.Entity("LogicaNegocio.Entidades.UmbralParaMedallaPorKudos", b =>
+                {
+                    b.HasOne("LogicaNegocio.Entidades.Grupo", "Grupo")
+                        .WithMany()
+                        .HasForeignKey("GrupoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LogicaNegocio.Entidades.Medalla", "Medalla")
+                        .WithMany()
+                        .HasForeignKey("MedallaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("LogicaNegocio.Entidades.TipoKudo", "TipoKudo")
+                        .WithMany()
+                        .HasForeignKey("TipoKudoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Grupo");
+
+                    b.Navigation("Medalla");
+
+                    b.Navigation("TipoKudo");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Usuario", b =>

@@ -499,6 +499,40 @@ namespace AccesoDatos.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UmbralesParaMedallasPorKudos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CantidadKudos = table.Column<int>(type: "int", nullable: false),
+                    MedallaId = table.Column<int>(type: "int", nullable: false),
+                    TipoKudoId = table.Column<int>(type: "int", nullable: false),
+                    GrupoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UmbralesParaMedallasPorKudos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UmbralesParaMedallasPorKudos_Grupos_GrupoId",
+                        column: x => x.GrupoId,
+                        principalTable: "Grupos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UmbralesParaMedallasPorKudos_Medallas_MedallaId",
+                        column: x => x.MedallaId,
+                        principalTable: "Medallas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UmbralesParaMedallasPorKudos_TiposKudo_TipoKudoId",
+                        column: x => x.TipoKudoId,
+                        principalTable: "TiposKudo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Recompensas",
                 columns: table => new
                 {
@@ -1513,6 +1547,21 @@ namespace AccesoDatos.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_UmbralesParaMedallasPorKudos_GrupoId",
+                table: "UmbralesParaMedallasPorKudos",
+                column: "GrupoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UmbralesParaMedallasPorKudos_MedallaId",
+                table: "UmbralesParaMedallasPorKudos",
+                column: "MedallaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UmbralesParaMedallasPorKudos_TipoKudoId",
+                table: "UmbralesParaMedallasPorKudos",
+                column: "TipoKudoId");
+
+            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "Usuarios",
                 column: "CorreoNormalizado");
@@ -1582,6 +1631,9 @@ namespace AccesoDatos.Migrations
                 name: "TokensUsuario");
 
             migrationBuilder.DropTable(
+                name: "UmbralesParaMedallasPorKudos");
+
+            migrationBuilder.DropTable(
                 name: "UsuariosRoles");
 
             migrationBuilder.DropTable(
@@ -1594,9 +1646,6 @@ namespace AccesoDatos.Migrations
                 name: "Hitos");
 
             migrationBuilder.DropTable(
-                name: "TiposKudo");
-
-            migrationBuilder.DropTable(
                 name: "PreguntasDeSeguridad");
 
             migrationBuilder.DropTable(
@@ -1604,6 +1653,9 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.DropTable(
                 name: "TablasClasificacion");
+
+            migrationBuilder.DropTable(
+                name: "TiposKudo");
 
             migrationBuilder.DropTable(
                 name: "Roles");

@@ -69,12 +69,12 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.AsignarMedalla
             // Suscribir y notificar a todos los observers
             foreach (var obs in _observers)
             {
-                perfilEstudiante.Subscribe(obs);
+                perfilEstudiante.Suscribir(obs);
             }
             perfilEstudiante.NotifyMedallaAsignada(nuevaAsignacion);
             foreach (var obs in _observers)
             {
-                perfilEstudiante.Unsubscribe(obs);
+                perfilEstudiante.Desuscribir(obs);
             }
 
             return Resultado.Exitoso();

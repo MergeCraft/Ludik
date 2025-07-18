@@ -13,11 +13,15 @@ public class KudoOtorgado : IEntity
     public PerfilEstudiante Receptor { get; set; }
 
     public int TipoKudoId { get; set; }
-    public TipoKudo TipoKudo { get; set; } // La razón del kudo
+    public TipoKudo TipoKudo { get; set; }
 
     public DateTime FechaOtorgamiento { get; set; }
 
-    private KudoOtorgado() { } // Constructor para EF Core
+    // Si este kudo fue usado para obtener una medalla, guardamos el ID de esa asignación
+    // Es nulable porque un kudo recién otorgado aún no ha sido utilizado
+    public int? PerfilEstudianteMedallaId { get; set; }
+    public PerfilEstudianteMedalla AsignacionMedalla { get; set; }
+    private KudoOtorgado() { } 
 
     public KudoOtorgado(PerfilEstudiante emisor, PerfilEstudiante receptor, TipoKudo tipo, DateTime fecha)
     {

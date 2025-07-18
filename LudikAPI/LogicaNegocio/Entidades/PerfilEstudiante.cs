@@ -107,7 +107,7 @@ namespace LogicaNegocio.Entidades
             return Resultado.Exitoso();
         }
         public void NotifyMedallaAsignada(PerfilEstudianteMedalla asignacion)
-        => Notify(asignacion);
+        => Notificar(asignacion);
 
         /// <summary>
         /// Encapsula la lógica de negocio para otorgar un kudo.
@@ -124,6 +124,34 @@ namespace LogicaNegocio.Entidades
             var kudoOtorgado = new KudoOtorgado(this, perfilReceptor, tipoKudo, DateTime.UtcNow);
             
             return Resultado<KudoOtorgado>.Exitoso(kudoOtorgado);
+        }
+
+        public void EvaluarAsignarMedallaPorKudos(UmbralParaMedallaPorKudos umbral)
+        {
+            // Obtener solo los kudos que no han sido usados para NINGUNA medalla.
+            var kudosDisponibles = this.KudosRecibidos
+                .Where(k => k.TipoKudoId == umbral.TipoKudoId && k.PerfilEstudianteMedallaId == null)
+                .ToList();
+
+            if (kudosDisponibles.Count >= umbral.CantidadKudos)
+            {
+                var nuevaAsignacionMedalla = new PerfilEstudianteMedalla
+                {
+                    PerfilEstudiante = this,
+                    Medalla = umbral.Medalla,
+                };
+
+                var kudosAGastar = kudosDisponibles.Take(umbral.CantidadKudos).ToList();
+                foreach (var kudo in kudosAGastar)
+                {
+                    kudo.AsignacionMedalla = nuevaAsignacionMedalla; 
+                }
+
+                this.PerfilMedallas.Add(nuevaAsignacionMedalla);
+
+                //TODO: Notificar a los observadores.
+                this.NotifyMedallaAsignada(nuevaAsignacionMedalla);
+            }
         }
     }
 
