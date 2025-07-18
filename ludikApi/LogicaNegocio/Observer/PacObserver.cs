@@ -53,6 +53,7 @@ namespace LogicaNegocio.Observer
                 var upd = _repoPac.UpdateAsync(pac).GetAwaiter().GetResult();
                 if (upd.EsFallo)
                     _logger.LogError($"[PacObserver] Error al actualizar PAC {pac.Id}: {upd.Errores}");
+
             }
             catch (Exception ex)
             {
