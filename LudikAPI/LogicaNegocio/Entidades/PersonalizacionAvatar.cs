@@ -16,7 +16,7 @@ public class PersonalizacionAvatar: Recompensa
         RequiereImagen = true; // Por defecto, las personalizaciones de avatar requieren imagen
     }
 
-    public override Resultado Otorgar(PerfilEstudiante perfil, IRepositorioPerfilEstudianteRecompensa repoRecompensa)
+    public override Resultado Otorgar(PerfilEstudiante perfil)
     {
         throw new NotImplementedException();
     }

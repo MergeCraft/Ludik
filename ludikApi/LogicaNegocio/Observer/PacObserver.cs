@@ -14,17 +14,20 @@ namespace LogicaNegocio.Observer
     public class PacObserver : IObserver<PerfilEstudianteMedalla>
     {
         private readonly IRepositorioProyectoAulaColaborativo _repoPac;
+        private readonly IRepositorioPerfilEstudianteRecompensa _repoRecompensa;
         private readonly IRepositorioGrupos _repoGrupos;
         private readonly ILogger<PacObserver> _logger;
 
         public PacObserver(
             IRepositorioProyectoAulaColaborativo repoPac,
             IRepositorioGrupos repoGrupos,
-            ILogger<PacObserver> logger)
+            ILogger<PacObserver> logger,
+            IRepositorioPerfilEstudianteRecompensa repoRecompensa)
         {
             _repoPac = repoPac;
             _repoGrupos = repoGrupos;
             _logger = logger;
+            _repoRecompensa = repoRecompensa;
         }
 
         public void OnNext(PerfilEstudianteMedalla evt)
@@ -53,6 +56,26 @@ namespace LogicaNegocio.Observer
                 var upd = _repoPac.UpdateAsync(pac).GetAwaiter().GetResult();
                 if (upd.EsFallo)
                     _logger.LogError($"[PacObserver] Error al actualizar PAC {pac.Id}: {upd.Errores}");
+                if(pac.Estado == EstadoPAC.Completado)
+                {
+                    foreach(var p in grupo.Alumnos)
+                    {
+                        var otorgarResultado = pac.RecompensaClase.Otorgar(p);
+                        if (otorgarResultado.EsFallo)
+                        {
+                            _logger.LogError(
+                                $"[PacObserver] Falló al otorgar recompensa {pac.RecompensaClase.Id} " +
+                                $"en perfil {p.Id}: {otorgarResultado.Errores}");
+                        }
+                        else
+                        {
+                            _logger.LogInformation(
+                                $"[PacObserver] Recompensa {pac.RecompensaClase.Id} aplicada " +
+                                $"en perfil {p.Id}.");
+                        }
+                    }
+                }
+                   
 
             }
             catch (Exception ex)

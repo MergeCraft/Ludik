@@ -15,7 +15,7 @@ namespace LogicaNegocio.Entidades
         public bool EstaActivo =>
             DateTime.UtcNow >= FechaActivacion && DateTime.UtcNow <= FechaActivacion + Duracion;
 
-        public override Resultado Otorgar(PerfilEstudiante perfil,IRepositorioPerfilEstudianteRecompensa _ /*no usado*/){
+        public override Resultado Otorgar(PerfilEstudiante perfil){
 
             perfil.ActivarPotenciador(this);
             return Resultado.Exitoso();

@@ -8,7 +8,7 @@ namespace LogicaNegocio.Entidades
 	{
         public String CodigoHexadecimal { get; set; }
 
-        public override Resultado Otorgar(PerfilEstudiante perfil, IRepositorioPerfilEstudianteRecompensa repoRecompensa)
+        public override Resultado Otorgar(PerfilEstudiante perfil)
         {
             throw new NotImplementedException();
         }
