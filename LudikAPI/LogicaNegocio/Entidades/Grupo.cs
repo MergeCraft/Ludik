@@ -132,6 +132,12 @@ namespace LogicaNegocio.Entidades
             SolicitudesPerfilMedalla.Add(solicitud);
             Notify(solicitud);
         }
+        public int ContarMedallasTotales()
+        {
+            return Alumnos.Sum(p => p.PerfilMedallas.Count);
+
+            // return Alumnos.Sum(p => p.MedallasObtenidas.Count);
+        }
     }
 
 }

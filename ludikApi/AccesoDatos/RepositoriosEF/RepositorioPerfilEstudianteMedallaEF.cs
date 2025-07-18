@@ -162,5 +162,31 @@ namespace AccesoDatos.RepositoriosEF
         {
             throw new NotImplementedException();
         }
+
+        public async Task<Resultado<PerfilEstudianteMedalla>> GetByIdConPerfilYMedallaAsync(int id)
+        {
+            try
+            {
+                var entidad = await _db.PerfilEstudianteMedallas
+                    .Include(pm => pm.PerfilEstudiante)
+                        .ThenInclude(pe => pe.PerfilMedallas)
+                    .Include(pm => pm.PerfilEstudiante)
+                        .ThenInclude(pe => pe.Estudiante)
+                            .ThenInclude(est => est.Perfiles)
+                    .Include(pm => pm.Medalla)
+                    .FirstOrDefaultAsync(pm => pm.Id == id);
+
+                if (entidad == null)
+                    return Resultado<PerfilEstudianteMedalla>
+                        .Falla(new Error("Error.NotFound", $"No se encontró la asignación con Id={id}."));
+
+                return Resultado<PerfilEstudianteMedalla>.Exitoso(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<PerfilEstudianteMedalla>
+                    .Falla(new Error("Error.Unexpected", ex.Message));
+            }
+        }
     }
 }

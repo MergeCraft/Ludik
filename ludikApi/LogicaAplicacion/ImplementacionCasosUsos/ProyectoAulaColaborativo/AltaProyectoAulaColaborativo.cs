@@ -17,37 +17,35 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.ProyectoAulaColaborativo
     {
         private readonly IRepositorioProyectoAulaColaborativo _repoPac;
         private readonly IRepositorioGrupos _repoGrupos;
+        private readonly IRepositorioRecompensas _repoRecompensas;
 
-        public AltaProyectoAulaColaborativo(
-            IRepositorioProyectoAulaColaborativo repoPac,
-            IRepositorioGrupos repoGrupos)
+        public AltaProyectoAulaColaborativo(IRepositorioProyectoAulaColaborativo repoPac,IRepositorioGrupos repoGrupos, IRepositorioRecompensas repoRecompensas)
         {
             _repoPac = repoPac;
             _repoGrupos = repoGrupos;
+            _repoRecompensas = repoRecompensas;
         }
         public async Task<Resultado> EjecutarAsync(int grupoId, AltaProyectoAulaColaborativoDto dto)
         {
-            // 1) DTO no nulo
             if (dto == null)
-                return Resultado.Falla(new Error("Error.Validation",
-                    "No hay información para dar de alta el proyecto colaborativo."));
+                return Resultado.Falla(new Error("Error.Validation","No hay información para dar de alta el proyecto colaborativo."));
 
-            // 2) Grupo existe
             var grupoRes = await _repoGrupos.GetByIdAsync(grupoId);
             if (grupoRes.EsFallo)
-                return Resultado.Falla(new Error("Error.Validation",
-                    $"No se encontró el grupo con ID {grupoId}."));
+                return Resultado.Falla(new Error("Error.Validation",$"No se encontró el grupo con ID {grupoId}."));
 
-            // 3) Verificar que no haya ya un PAC activo para ese grupo
             var pacs = await _repoPac.GetByGrupoAsync(grupoId);
             if (pacs.EsFallo)
-                return Resultado.Falla(new Error("Error.Unexpected",
-                    "Error verificando proyectos existentes."));
+                return Resultado.Falla(new Error("Error.Unexpected","Error verificando proyectos existentes."));
             if (pacs.Valor!.Any(p => p.Estado == EstadoPAC.Activo))
-                return Resultado.Falla(new Error("Error.Validation",
-                    "Ya existe un proyecto colaborativo activo para este grupo."));
+                return Resultado.Falla(new Error("Error.Validation","Ya existe un proyecto colaborativo activo para este grupo."));
 
             var pac = ProyectoAulaColaborativoMapper.ToDomain(dto, grupoId);
+
+            var recRes = await _repoRecompensas.GetByIdAsync(dto.RecompensaClaseId);
+            if (recRes.EsFallo)
+                return Resultado.Falla(new Error("Error.Validation",$"No se encontró la recompensa con ID {dto.RecompensaClaseId}."));
+            pac.RecompensaClase = recRes.Valor!;
 
             var valid = pac.esValido();
             if (valid.EsFallo)

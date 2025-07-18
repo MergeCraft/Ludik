@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using LogicaAplicacion.InterfacesCasosUsos.SolicitudPerfilMedalla;
 using LogicaAplicacion.DTOs.SolicitudPerfilMedallaDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla;
+using LogicaAplicacion.InterfacesCasosUsos.ProyectoAulaColaborativo;
+using LogicaAplicacion.DTOs.ProyectoAulaColaborativoDTOs;
 
 namespace WebApi.Controllers
 {
@@ -35,12 +37,13 @@ namespace WebApi.Controllers
         private readonly IObtenerSolicitudPerfilMedalla _obtenerSolicitudPerfilMedalla;
         private readonly IAceptarSolicitudPerfilMedalla _aceptarSolicitudPerfilMedalla;
         private readonly IRechazarSolicitudPerfilMedalla _rechazarSolicitudPerfilMedalla;
+        private readonly IAltaProyectoAulaColaborativo _altaPac;
         public ProfesorController(IAltaProfesor altaProfesor, 
             IObtenerGruposDeProfesor obtenerGruposDeProfesor, 
             IObtenerSolicitudesUnionDelGrupo obtenerSolicitudesUnionDelGrupo,
             IAceptarSolicitudUnion aceptarSolicitudUnion, 
             IRechazarSolicitudUnion rechazarSolicitudUnion,
-            ILoginUsuario loginUsuario,IReinicioLogrosDeUnGrupo reinicioLogrosDeUnGrupo,IReinicioLogrosDeTodosLosGrupos reinicioLogrosDeTodosLosGrupos,IObtenerSolicitudPerfilMedalla obtenerSolicitudPerfilMedalla,IAceptarSolicitudPerfilMedalla aceptarSolicitudPerfilMedalla,IRechazarSolicitudPerfilMedalla rechazarSolicitudPerfilMedalla)
+            ILoginUsuario loginUsuario,IReinicioLogrosDeUnGrupo reinicioLogrosDeUnGrupo,IReinicioLogrosDeTodosLosGrupos reinicioLogrosDeTodosLosGrupos,IObtenerSolicitudPerfilMedalla obtenerSolicitudPerfilMedalla,IAceptarSolicitudPerfilMedalla aceptarSolicitudPerfilMedalla,IRechazarSolicitudPerfilMedalla rechazarSolicitudPerfilMedalla,IAltaProyectoAulaColaborativo altaProyectoAulaColaborativo)
         {
             _altaProfesor = altaProfesor;
             _obtenerGruposDeProfesor = obtenerGruposDeProfesor;
@@ -53,6 +56,7 @@ namespace WebApi.Controllers
             _obtenerSolicitudPerfilMedalla = obtenerSolicitudPerfilMedalla;
             _aceptarSolicitudPerfilMedalla = aceptarSolicitudPerfilMedalla;
             _rechazarSolicitudPerfilMedalla = rechazarSolicitudPerfilMedalla;
+            _altaPac = altaProyectoAulaColaborativo;
         }
         /// <summary>
         /// Este endpoint permite registrar un nuevo Profesor en el sistema.
@@ -486,6 +490,51 @@ namespace WebApi.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     new { Mensaje = "Error inesperado al rechazar la solicitud de medalla. " + ex.Message });
+            }
+        }
+        /// <summary>
+        /// Crea un Proyecto de Aula Colaborativo (PAC) para un grupo.
+        /// </summary>
+        /// <param name="grupoId">ID del grupo</param>
+        /// <param name="dto">Datos del PAC (nombre, meta, recompensa)</param>
+        /// <returns>
+        /// 200 OK: PAC creado exitosamente.
+        /// 400 Bad Request: Datos inválidos o ya existe un PAC activo.
+        /// 401 Unauthorized: No autenticado.
+        /// 403 Forbidden: No tiene rol de profesor.
+        /// 404 Not Found: Grupo no encontrado.
+        /// 500 Internal Server Error: Error inesperado.
+        /// </returns>
+        [HttpPost("pac")]
+        [Authorize(Policy = "EsProfesor")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> AltaProyectoColaborativo([FromQuery][Required] int grupoId,[FromBody] AltaProyectoAulaColaborativoDto dto)
+        {
+            try
+            {
+                var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(profesorId))
+                    return Unauthorized(new { Mensaje = "No se pudo identificar al usuario autenticado." });
+
+                var resultado = await _altaPac.EjecutarAsync(grupoId, dto);
+                if (resultado.EsFallo)
+                {
+                    if (resultado.Errores.Any(e => e.Codigo == Error.NotFound.Codigo))
+                        return NotFound(resultado.Errores.ToList());
+                    return BadRequest(resultado.Errores.ToList());
+                }
+
+                return Ok(new { Mensaje = "Proyecto colaborativo creado correctamente." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new { Mensaje = "Ocurrió un error inesperado al crear el PAC. " + ex.Message });
             }
         }
     }

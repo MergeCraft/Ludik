@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250717183508_inicial")]
+    [Migration("20250718133421_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
