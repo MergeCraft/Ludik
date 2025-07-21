@@ -16,18 +16,17 @@ namespace LogicaNegocio.Observer
         private readonly IRepositorioHitos _repoHitos;
         private readonly IRepositorioPerfilEstudianteGrupo _repoPerfiles;
         private readonly ILogger<HitoObserver> _logger;
-        private readonly IRepositorioPerfilEstudianteRecompensa _repoRecompensas;
+        private readonly IRepositorioPerfilEstudianteRecompensa repoRecompensaPerfil;
+        
 
         public HitoObserver(
             IRepositorioHitos repoHitos,
             IRepositorioPerfilEstudianteGrupo repoPerfiles,
-            ILogger<HitoObserver> logger,
-            IRepositorioPerfilEstudianteRecompensa repoRecompensas)
+            ILogger<HitoObserver> logger)
         {
             _repoHitos = repoHitos;
             _repoPerfiles = repoPerfiles;
             _logger = logger;
-            _repoRecompensas = repoRecompensas;
         }
         public void OnCompleted()
         {
@@ -68,7 +67,7 @@ namespace LogicaNegocio.Observer
 
                     foreach (var perfil in estudiante.Perfiles)
                     {
-                        var otorgarResultado =hito.Recompensa.Otorgar(perfil, _repoRecompensas);
+                        var otorgarResultado =hito.Recompensa.Otorgar(perfil);
 
                         if (otorgarResultado.EsFallo){
                             _logger.LogError(

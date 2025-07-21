@@ -35,7 +35,7 @@ namespace LogicaNegocio.Entidades
             return Resultado.Exitoso();
         }
 
-        public abstract Resultado Otorgar(PerfilEstudiante perfil,IRepositorioPerfilEstudianteRecompensa repoRecompensa);
+        public abstract Resultado Otorgar(PerfilEstudiante perfil);
 
         public void pagar(int precio)
 		{

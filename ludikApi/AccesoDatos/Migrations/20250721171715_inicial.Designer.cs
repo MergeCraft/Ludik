@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250716183617_inicial")]
+    [Migration("20250721171715_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -2093,6 +2093,48 @@ namespace AccesoDatos.Migrations
                         });
                 });
 
+            modelBuilder.Entity("LogicaNegocio.Entidades.ProyectoAulaColaborativo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CantidadMedallasNecesarias")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GrupoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("RecompensaClaseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalContribuciones")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Visual")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GrupoId")
+                        .IsUnique()
+                        .HasDatabaseName("IX_PAC_GrupoId");
+
+                    b.HasIndex("RecompensaClaseId");
+
+                    b.ToTable("ProyectosAulaColaborativo", (string)null);
+                });
+
             modelBuilder.Entity("LogicaNegocio.Entidades.Recompensa", b =>
                 {
                     b.Property<int>("Id")
@@ -3269,6 +3311,25 @@ namespace AccesoDatos.Migrations
                     b.Navigation("PreguntaDeSeguridad");
                 });
 
+            modelBuilder.Entity("LogicaNegocio.Entidades.ProyectoAulaColaborativo", b =>
+                {
+                    b.HasOne("LogicaNegocio.Entidades.Grupo", "Grupo")
+                        .WithOne("Pac")
+                        .HasForeignKey("LogicaNegocio.Entidades.ProyectoAulaColaborativo", "GrupoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LogicaNegocio.Entidades.Recompensa", "RecompensaClase")
+                        .WithMany()
+                        .HasForeignKey("RecompensaClaseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Grupo");
+
+                    b.Navigation("RecompensaClase");
+                });
+
             modelBuilder.Entity("LogicaNegocio.Entidades.Recompensa", b =>
                 {
                     b.HasOne("LogicaNegocio.Entidades.Tienda", "Tienda")
@@ -3586,6 +3647,9 @@ namespace AccesoDatos.Migrations
             modelBuilder.Entity("LogicaNegocio.Entidades.Grupo", b =>
                 {
                     b.Navigation("Alumnos");
+
+                    b.Navigation("Pac")
+                        .IsRequired();
 
                     b.Navigation("Solicitudes");
 

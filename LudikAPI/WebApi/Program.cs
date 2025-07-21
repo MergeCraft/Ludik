@@ -56,6 +56,8 @@ using LogicaAplicacion.InterfacesCasosUsos.RecuperarContrasena;
 using LogicaNegocio.Observer;
 using LogicaAplicacion.InterfacesCasosUsos.SolicitudPerfilMedalla;
 using LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla;
+using LogicaAplicacion.InterfacesCasosUsos.ProyectoAulaColaborativo;
+using LogicaAplicacion.ImplementacionCasosUsos.ProyectoAulaColaborativo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -142,6 +144,7 @@ builder.Services.AddScoped<IObserver<PerfilEstudianteMedalla>, PerfilObserver>()
 builder.Services.AddScoped<IObserver<PerfilEstudianteMedalla>, HitoObserver>();
 builder.Services.AddScoped<IObserver<SolicitudPerfilMedalla>, ProfesorSolicitudPerfilMedallaObserver>();
 builder.Services.AddScoped<IObserver<SolicitudPerfilMedalla>, NotificacionSolicitudPerfilMedallaObserver>();
+builder.Services.AddScoped<IObserver<PerfilEstudianteMedalla>, PacObserver>();
 
 // Inyeccion de dependencias repositorios
 builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
@@ -165,6 +168,7 @@ builder.Services.AddScoped<IRepositorioPerfilEstudianteRecompensa, RepositorioPe
 builder.Services.AddScoped<IRepositorioPreguntasSeguridad, RepositorioPreguntasSeguridadEF>();
 builder.Services.AddScoped<IRepositorioPreguntasDeSeguridadDelSistema, RepositorioPreguntasDeSeguridadDelSistemaEF>();
 builder.Services.AddScoped<IRepositorioSolicitudPerfilMedalla, RepositorioSolicitudPerfilMedallaEF>();
+builder.Services.AddScoped<IRepositorioProyectoAulaColaborativo, RepositorioProyectoAulaColaborativoEF>();
 
 
 builder.Services.AddAzureClients(clientBuilder =>
@@ -246,6 +250,7 @@ builder.Services.AddScoped<IAltaSolicitudPerfilMedalla, AltaSolicitudPerfilMedal
 builder.Services.AddScoped<IObtenerSolicitudPerfilMedalla, ObtenerSolicitudesPerfilMedalla>();
 builder.Services.AddScoped<IAceptarSolicitudPerfilMedalla, AceptarSolicitudPerfilMedalla>();
 builder.Services.AddScoped<IRechazarSolicitudPerfilMedalla, RechazarSolicitudPerfilMedalla>();
+builder.Services.AddScoped<IAltaProyectoAulaColaborativo, AltaProyectoAulaColaborativo>();
 
 // -------------------------------
 //      Swagger y CORS

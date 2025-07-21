@@ -45,6 +45,8 @@ namespace LogicaNegocio.Entidades
         public Profesor Profesor { get; set; }
         public DateTime? FechaUltimoReinicio { get; set; }
 
+        public ProyectoAulaColaborativo Pac { get; set; }
+
         public void asignarMedalla(PerfilEstudiante pEstudiante, Medalla m)
 		{
 
@@ -129,6 +131,12 @@ namespace LogicaNegocio.Entidades
         {
             SolicitudesPerfilMedalla.Add(solicitud);
             Notify(solicitud);
+        }
+        public int ContarMedallasTotales()
+        {
+            return Alumnos.Sum(p => p.PerfilMedallas.Count);
+
+            // return Alumnos.Sum(p => p.MedallasObtenidas.Count);
         }
     }
 

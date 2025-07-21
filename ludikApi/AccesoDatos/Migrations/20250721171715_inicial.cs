@@ -578,6 +578,37 @@ namespace AccesoDatos.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProyectosAulaColaborativo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GrupoId = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Visual = table.Column<int>(type: "int", nullable: false),
+                    CantidadMedallasNecesarias = table.Column<int>(type: "int", nullable: false),
+                    TotalContribuciones = table.Column<int>(type: "int", nullable: false),
+                    RecompensaClaseId = table.Column<int>(type: "int", nullable: false),
+                    Estado = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProyectosAulaColaborativo", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProyectosAulaColaborativo_Grupos_GrupoId",
+                        column: x => x.GrupoId,
+                        principalTable: "Grupos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProyectosAulaColaborativo_Recompensas_RecompensaClaseId",
+                        column: x => x.RecompensaClaseId,
+                        principalTable: "Recompensas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EstudianteHitos",
                 columns: table => new
                 {
@@ -1365,6 +1396,17 @@ namespace AccesoDatos.Migrations
                 column: "PreguntaDeSeguridadId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PAC_GrupoId",
+                table: "ProyectosAulaColaborativo",
+                column: "GrupoId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProyectosAulaColaborativo_RecompensaClaseId",
+                table: "ProyectosAulaColaborativo",
+                column: "RecompensaClaseId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ReclamacionesRoles_RolId",
                 table: "ReclamacionesRoles",
                 column: "RolId");
@@ -1519,6 +1561,9 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.DropTable(
                 name: "PreguntasRespuestasSeguridad");
+
+            migrationBuilder.DropTable(
+                name: "ProyectosAulaColaborativo");
 
             migrationBuilder.DropTable(
                 name: "ReclamacionesRoles");
