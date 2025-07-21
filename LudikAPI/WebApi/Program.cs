@@ -281,7 +281,7 @@ builder.Services.AddScoped<IEliminarUmbralParaMedallaPorKudos, EliminarUmbralPar
 
 // Inyeccion de dependencias para servicios
 builder.Services.AddScoped<IServicioDeReinicioSemanal, ServicioDeReinicioSemanal>();
-
+builder.Services.AddScoped<IGeneradorUrlImagen, GeneradorUrlImagen>();
 
 
 
@@ -402,6 +402,13 @@ app.MapControllers();
 
 // Habilitar el Dashboard de Hangfire
 app.UseHangfireDashboard();
+
+// Programar el trabajo recurrente
+RecurringJob.AddOrUpdate<IServicioDeReinicioSemanal>(
+    "reinicio-semanal-kudos",
+    servicio => servicio.ReiniciarKudosDeEstudiantesAsync(),
+    "0 0 * * 1",
+    TimeZoneInfo.Local); 
 
 app.Run();
 

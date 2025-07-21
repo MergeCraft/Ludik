@@ -3,6 +3,7 @@ using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.MedallaDTOs;
 using LogicaAplicacion.DTOsMappers.MedallaMappers;
 using LogicaAplicacion.InterfacesCasosUsos.Medalla;
+using LogicaAplicacion.Servicios;
 using LogicaNegocio.Resultados;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Medallas;
@@ -10,10 +11,12 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Medallas;
 public class ObtenerTodasLasMedallas : IObtenerTodasLasMedallas
 {
     private readonly IRepositorioMedallas _repositorioMedallas;
-
-    public ObtenerTodasLasMedallas(IRepositorioMedallas repositorioMedallas)
+    private readonly IGeneradorUrlImagen _generadorUrlImagen;
+    public ObtenerTodasLasMedallas(IRepositorioMedallas repositorioMedallas, 
+        IGeneradorUrlImagen generadorUrlImagen)
     {
         _repositorioMedallas = repositorioMedallas;
+        _generadorUrlImagen = generadorUrlImagen;
     }
     /// <summary>
     /// Obtiene todas las medallas.
@@ -29,10 +32,28 @@ public class ObtenerTodasLasMedallas : IObtenerTodasLasMedallas
         if (resultadoRepo.EsFallo)
             return Resultado<IEnumerable<MedallaDto>>.Falla(resultadoRepo.Errores);
         
-        var medallasEntidades = resultadoRepo.Valor;
+        IEnumerable<Medalla> medallas = resultadoRepo.Valor;
 
-        var medallasDtos = medallasEntidades.Select(medalla => MedallaMapper.toDto(medalla));
+        IEnumerable<MedallaDto> medallasDtos = await GenerarUrlsDeLecturaParaImagenes(medallas);
 
         return Resultado<IEnumerable<MedallaDto>>.Exitoso(medallasDtos);
+    }
+
+    private async Task<IEnumerable<MedallaDto>> GenerarUrlsDeLecturaParaImagenes(IEnumerable<Medalla> medallas)
+    {
+        var tareasGeneracionUrl = medallas.Select(medalla =>
+            _generadorUrlImagen.GenerarUrlLecturaAsync(medalla.UrlImagenMiniatura)
+        ).ToList();
+
+        // Task.WhenAll espera a que todas las tareas en la lista se completen.
+        string[] urlsGeneradas = await Task.WhenAll(tareasGeneracionUrl);
+
+        var medallasDtos = medallas.Select((medalla, index) =>
+        {
+            var dto = MedallaMapper.toDto(medalla);
+            dto.UrlImagen = urlsGeneradas[index];
+            return dto;
+        });
+        return medallasDtos;
     }
 }
