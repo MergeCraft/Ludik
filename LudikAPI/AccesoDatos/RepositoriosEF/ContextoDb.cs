@@ -31,6 +31,7 @@ namespace AccesoDatos.RepositoriosEF
         public DbSet<TablaClasificacion> TablasClasificacion { get; set; }
         public DbSet<TablaEquivalencia> TablasEquivalencia { get; set; }
         public DbSet<SolicitudUnion> SolicitudesUnion { get; set; }
+        public DbSet<SolicitudPerfilMedalla> SolicitudesPerfilMedalla { get; set; }
         public DbSet<RendimientoPeriodo> RendimientosPeriodos { get; set; }
         public DbSet<RendimientoPeriodoMedalla> RendimientosPeriodosMedallas { get; set; }
         public DbSet<PreguntaDeSeguridad> PreguntasDeSeguridad { get; set; }
@@ -44,6 +45,7 @@ namespace AccesoDatos.RepositoriosEF
         public DbSet<Avatar> Avatares { get; set; }
         public DbSet<AtributoAvatar> AtributosAvatar { get; set; }
         public DbSet<PerfilEstudianteRecompensa> PerfilEstudianteRecompensas { get; set; }
+        public DbSet<ProyectoAulaColaborativo> ProyectosAulaColaborativos { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

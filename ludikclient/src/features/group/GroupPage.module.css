@@ -105,8 +105,8 @@
     pointer-events: none;
 }
 
-.acciones label:has(input:checked) {
-    background-color: var(--principal);
+.activeLabel {
+    background-color: var(--principal) !important;
 }
 
 .acciones button svg {

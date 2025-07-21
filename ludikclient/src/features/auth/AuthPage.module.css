@@ -24,6 +24,7 @@
 }
 
 .formBox {
+  position: relative;
   background-color: var(--secundario);
   border-radius: 15px;
   padding: 20px;
@@ -72,7 +73,7 @@
   margin-bottom: 0.5rem;
 }
 
-.recuerdame{
+.recuerdame {
   margin: 0;
 }
 
@@ -226,4 +227,95 @@ input:checked+.slider .switchLabel.alumno {
   display: flex;
   width: 200%;
   transition: 0.5s ease-in-out;
+}
+
+.preguntas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.preguntas label, .preguntas input {
+  margin: 0;
+}
+
+.paginacionPreguntas {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.puntoWrap {
+  cursor: pointer;
+}
+
+.puntoWrap input[type="radio"] {
+  display: none;
+}
+
+.punto {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: var(--terciario);
+  border-radius: 50%;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.puntoWrap input[type="radio"]:checked+.punto {
+  background-color: var(--principal);
+  transform: scale(1.4);
+}
+
+.preguntaActiva {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-inline: 10px;
+  max-width: 500px;
+}
+
+.formularioRecuperacion h2 {
+  text-align: center;
+  margin-top: 0;
+}
+
+.preguntasRecuperacion {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 15px;
+  border: 1px solid var(--terciario);
+  padding: 10px;
+}
+
+.preguntasRecuperacion h4 {
+  text-align: center;
+  margin: 0;
+}
+
+.formularioPreguntas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.botonVolver {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.2rem;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: var(--terciario);
+  cursor: pointer;
+}
+
+.botonVolver:hover {
+  color: #555;
 }

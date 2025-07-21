@@ -10,16 +10,12 @@ namespace LogicaNegocio.Entidades
 {
     public class RecompensaSimple : Recompensa
     {
-        public override Resultado Otorgar(PerfilEstudiante perfil,IRepositorioPerfilEstudianteRecompensa repoRecompensa){
+        public override Resultado Otorgar(PerfilEstudiante perfil){
             var pr = new PerfilEstudianteRecompensa
             {
                 PerfilEstudianteId = perfil.Id,
                 RecompensaId = this.Id
             };
-            var res = repoRecompensa.AddAsync(pr).GetAwaiter().GetResult();
-            if (res.EsFallo)
-                return res;
-
             perfil.InventarioRecompensas.Add(pr);
             return Resultado.Exitoso();
         }

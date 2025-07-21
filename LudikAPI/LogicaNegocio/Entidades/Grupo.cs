@@ -5,10 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using LogicaNegocio.Resultados;
 using LogicaNegocio.ValueObject;
+using LogicaNegocio.Observer;
 
 namespace LogicaNegocio.Entidades
 {
-	public class Grupo : IEntity, IValidable
+	public class Grupo : Observable<SolicitudPerfilMedalla>, IEntity, IValidable
     {
         public int Id { get; set; }
         [Required]
@@ -37,10 +38,14 @@ namespace LogicaNegocio.Entidades
 
         public EnlaceUnion EnlaceUnion { get; set; }
 
+        public List<SolicitudPerfilMedalla> SolicitudesPerfilMedalla { get; set; } = new();
+
         [ForeignKey(nameof(Profesor))]
         public string ProfesorId { get; set; }
         public Profesor Profesor { get; set; }
         public DateTime? FechaUltimoReinicio { get; set; }
+
+        public ProyectoAulaColaborativo Pac { get; set; }
 
         public void asignarMedalla(PerfilEstudiante pEstudiante, Medalla m)
 		{
@@ -121,6 +126,17 @@ namespace LogicaNegocio.Entidades
             }
 
             return rendimientos;
+        }
+        public void AgregarSolicitudPerfilMedalla(SolicitudPerfilMedalla solicitud)
+        {
+            SolicitudesPerfilMedalla.Add(solicitud);
+            Notify(solicitud);
+        }
+        public int ContarMedallasTotales()
+        {
+            return Alumnos.Sum(p => p.PerfilMedallas.Count);
+
+            // return Alumnos.Sum(p => p.MedallasObtenidas.Count);
         }
     }
 

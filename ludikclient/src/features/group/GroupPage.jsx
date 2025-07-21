@@ -40,6 +40,8 @@ const GroupPage = () => {
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasTienda(group?.idTienda);
   const { data: perfil, isLoadingPerfil } = usePerfilGrupo(groupId, isProfesor);
 
+  console.log(medals);
+
   const studentsFiltrados = students?.filter((item) => item.nombreEstudiante.toLowerCase().includes(search.toLowerCase()));
 
   const handleOpenRewardCreateForm = () => {
@@ -54,37 +56,39 @@ const GroupPage = () => {
     setShowModal(true);
   };
 
+  const getLabelClass = (view) => (selectedView === view ? style.activeLabel : "");
+
   const actions = (
     <div className={style.acciones}>
       {!isProfesor && (
-        <label>
+        <label className={getLabelClass("perfil")}>
           <input type="radio" value="perfil" checked={selectedView === "perfil"} onChange={() => setSelectedView("perfil")} />
           <FontAwesomeIcon icon="fa-solid fa-user" size="xl" />
         </label>
       )}
 
-      <label>
+      <label className={getLabelClass("alumnos")}>
         <input type="radio" value="alumnos" checked={selectedView === "alumnos"} onChange={() => setSelectedView("alumnos")} />
         <FontAwesomeIcon icon="fa-solid fa-users" size="xl" />
       </label>
 
-      <label>
+      <label className={getLabelClass("tienda")}>
         <input type="radio" value="tienda" checked={selectedView === "tienda"} onChange={() => setSelectedView("tienda")} />
         <FontAwesomeIcon icon="fa-solid fa-store" size="xl" />
       </label>
 
-      <label>
+      <label className={getLabelClass("rankings")}>
         <input type="radio" value="rankings" checked={selectedView === "rankings"} onChange={() => setSelectedView("rankings")} />
         <FontAwesomeIcon icon="fa-solid fa-ranking-star" size="xl" />
       </label>
 
       {isProfesor && (
         <>
-          <label>
+          <label className={getLabelClass("solicitudes")}>
             <input type="radio" value="solicitudes" checked={selectedView === "solicitudes"} onChange={handleOpenApplicationRequests} />
             <FontAwesomeIcon icon="fa-solid fa-user-plus" size="xl" />
           </label>
-          <label>
+          <label className={getLabelClass("configs")}>
             <input type="radio" value="configs" checked={selectedView === "configs"} onChange={() => setSelectedView("configs")} />
             <FontAwesomeIcon icon="fa-solid fa-gear" size="xl" />
           </label>
@@ -141,9 +145,12 @@ const GroupPage = () => {
             <BarLoader />
           ) : (
             <div className={style.storeContent}>
-              <button className={style.addRewardButton} onClick={handleOpenRewardCreateForm}>
-                <FontAwesomeIcon icon="fa-solid fa-plus" size="2xl" />
-              </button>
+              {isProfesor && (
+                <button className={style.addRewardButton} onClick={handleOpenRewardCreateForm}>
+                  <FontAwesomeIcon icon="fa-solid fa-plus" size="2xl" />
+                </button>
+              )}
+
               {recompensas?.map((reward) => (
                 <RewardItem key={reward.id + reward.nombre} reward={reward} redeemed={false} perfilId={perfil?.id} />
               ))}

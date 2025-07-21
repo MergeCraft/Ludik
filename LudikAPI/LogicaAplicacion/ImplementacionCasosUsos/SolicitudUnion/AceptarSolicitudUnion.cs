@@ -36,7 +36,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
             solicitud.Estado = EstadoSolicitud.Aceptada;
 
             var grupo = solicitud.Grupo;
-
+            //TODO arreglar imagenes default con las que aparecera.
             var perfil = new Entidad.PerfilEstudiante
             {
                 EstudianteId = solicitud.EstudianteId,

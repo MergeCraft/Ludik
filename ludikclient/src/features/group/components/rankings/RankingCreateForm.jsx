@@ -40,7 +40,6 @@ const RankingCreateForm = ({ onClose, groupId }) => {
           medallaAsociadaId: Number(ranking.medallaId),
         },
       });
-      Toast.notificarExito("Ranking creado correctamente.");
       onClose();
     } catch (error) {
       console.error("Error al crear el ranking:", error);

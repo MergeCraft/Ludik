@@ -1,11 +1,12 @@
-// components/SignupForm.js
 import React, { useState } from "react";
 import classNames from "classnames";
 import styles from "../AuthPage.module.css";
-import { useRegistro } from "../hooks/useAuthMutation.js";
+import { useRegistro, usePreguntasSeguridad } from "../hooks/useAuthMutation.js";
 import * as Toast from "../../../lib/toastify.js";
+import BarLoader from "../../generics/BarLoader.jsx";
 
 const SignupForm = () => {
+  const { data: preguntasDisponibles = [], isLoading: cargandoPreguntas } = usePreguntasSeguridad();
   const [isProfesor, setIsProfesor] = useState(true);
   const { mutateAsync: registrar } = useRegistro();
 
@@ -64,14 +65,39 @@ const SignupForm = () => {
           Toast.notificarError("Las contraseñas no coinciden.");
           return;
         }
-        const data = { nombreUsuario: usuario, nombre, apellido, contrasenia: contrasena };
+
+        const respuestasValidas = preguntasDisponibles
+          .map((pregunta, idx) => ({
+            preguntaId: pregunta.id,
+            respuesta: alumnoData[`respuesta${idx + 1}`]?.trim(),
+          }))
+          .filter((r) => r.respuesta && r.respuesta.length >= 4);
+
+        if (respuestasValidas.length < 2) {
+          Toast.notificarWarning("Debes responder al menos 2 preguntas de seguridad con 4 caracteres o más.");
+          return;
+        }
+
+        if (respuestasValidas.length > 2) {
+          Toast.notificarWarning("Solo se tomarán en cuenta las primeras 2 respuestas válidas.");
+        }
+
+        const data = {
+          nombreUsuario: usuario,
+          nombre,
+          apellido,
+          contrasenia: contrasena,
+          preguntasDeSeguridad: respuestasValidas.slice(0, 2),
+        };
+
         await registrar({ data, tipoUsuario: "alumno" });
       }
     } catch (error) {
-      // Este catch previene errores no atrapados
       console.error("Error inesperado en el registro:", error);
     }
   };
+
+  const [preguntaIndex, setPreguntaIndex] = useState(0);
 
   return (
     <>
@@ -90,7 +116,7 @@ const SignupForm = () => {
           className={styles.formInner}
           style={{
             transform: isProfesor ? "translateX(-50%)" : "translateX(0)",
-            height: isProfesor ? "425px" : "515px",
+            height: isProfesor ? "585px" : "515px",
           }}
         >
           {/* Formulario Profesor */}
@@ -262,6 +288,42 @@ const SignupForm = () => {
                 onBlur={() => validarContrasenasCoinciden(alumnoData.contrasena, alumnoData.repetirContrasena)}
               />
             </div>
+
+            {cargandoPreguntas ? (
+              <BarLoader />
+            ) : (
+              preguntasDisponibles.length > 0 && (
+                <div className={styles.preguntas}>
+                  <p>Responde dos de la preguntas de seguridad</p>
+                  <div className={styles.paginacionPreguntas}>
+                    {preguntasDisponibles.map((_, idx) => (
+                      <label key={idx} className={styles.puntoWrap}>
+                        <input type="radio" name="paginacion" checked={preguntaIndex === idx} onChange={() => setPreguntaIndex(idx)} />
+                        <span className={styles.punto}></span>
+                      </label>
+                    ))}
+                  </div>
+
+                  <div className={styles.preguntaActiva}>
+                    <label htmlFor={`pregunta-${preguntaIndex}`} className={styles.etiqueta}>
+                      {preguntasDisponibles[preguntaIndex]?.pregunta || "Pregunta no disponible"}
+                    </label>
+                    <input
+                      id={`pregunta-${preguntaIndex}`}
+                      type="text"
+                      className={styles.input}
+                      value={alumnoData[`respuesta${preguntaIndex + 1}`] || ""}
+                      onChange={(e) =>
+                        setAlumnoData((prev) => ({
+                          ...prev,
+                          [`respuesta${preguntaIndex + 1}`]: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
+                </div>
+              )
+            )}
           </form>
         </div>
       </div>

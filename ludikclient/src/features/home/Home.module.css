@@ -61,17 +61,15 @@
   font-weight: bold;
 }
 
-.feature p{
+.feature p {
   font-family: Arial, Helvetica, sans-serif;
 
 }
 
 .menuComenzar {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  height: 6rem;
+  justify-content: center;
+  gap: 20px;
   opacity: 0;
 }
 
@@ -79,13 +77,13 @@
   width: 250px;
 }
 
-.botonCuenta {
+.buttonWhite {
   background-color: var(--blanco-principal);
-  box-shadow: 0 3px 0 3px var(--blanco-secundario);
+  box-shadow: 0 1px 0 3px var(--blanco-secundario);
   color: var(--boton-principal);
 }
 
-.botonCuenta:active {
+.buttonWhite:active {
   box-shadow: 0 0 0 2px var(--blanco-secundario);
   transform: translateY(3px);
   outline: none;

@@ -13,6 +13,7 @@ import {
   aceptarSolicitud,
   rechazarSolicitud,
   asignarMedalla,
+  eliminarMedalla,
 } from "../../../services/groupService";
 
 import { obtenerRecompensasTienda } from "../../../services/storeService";
@@ -161,6 +162,20 @@ export const useAsignarMedalla = (onSuccessCallback) => {
     onSuccess: (data) => {
       Toast.notificarExito("Medalla asignada exitosamente.");
       queryClient.invalidateQueries(["alumnos"]); // podrías parametrizar por grupo si lo deseas
+      if (onSuccessCallback) onSuccessCallback(data);
+    },
+    onError: manejarErrores,
+  });
+};
+
+export const useEliminarMedalla = (onSuccessCallback) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: eliminarMedalla,
+    onSuccess: (data) => {
+      Toast.notificarExito("Medalla eliminada exitosamente.");
+      queryClient.invalidateQueries(["alumnos"]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
     onError: manejarErrores,
