@@ -1,0 +1,127 @@
+/* StudentAvatarEditor.module.css */
+
+.editorContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    /* ligero sombreado usando color --principal con opacidad */
+}
+
+.avatarPreview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border: 2px dashed var(--terciario);
+    border-radius: 15px;
+    min-height: 200px;
+    color: var(--terciario);
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    border-bottom: 2px solid var(--terciario);
+    padding-bottom: 0.5rem;
+}
+
+.tabLabel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: small;
+    color: var(--terciario);
+    transition: color 0.3s ease;
+    user-select: none;
+}
+
+.tabLabel:hover {
+    color: var(--boton-principal);
+}
+
+.tabLabel input[type="radio"] {
+    display: none;
+}
+
+.tabButton {
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+    color: var(--terciario);
+    transition: color 0.3s ease;
+}
+
+.tabLabel input[type="radio"]:checked+.tabButton,
+.tabLabel input[type="radio"]:checked+.tabButton:hover {
+    color: var(--boton-principal);
+}
+
+.tabText {
+    margin-top: 0.2rem;
+}
+
+.optionsPanel {
+    padding: 1rem;
+    border-radius: 0.75rem;
+    background-color: white;
+    box-shadow: inset 0 0 5px rgba(55, 86, 98, 0.1);
+    /* color --terciario con baja opacidad */
+    color: var(--principal);
+    font-size: 0.95rem;
+}
+
+.optionItem {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.optionLabel {
+    font-weight: 600;
+    min-width: 130px;
+    color: var(--secundario);
+}
+
+.optionInput,
+.optionSelect {
+    flex: 1;
+    padding: 0.45rem 0.6rem;
+    border: 1px solid var(--blanco-secundario);
+    border-radius: 0.375rem;
+    font-size: 0.9rem;
+    color: var(--principal);
+    background-color: var(--blanco-principal);
+    transition: border-color 0.3s ease;
+}
+
+.optionInput:focus,
+.optionSelect:focus {
+    outline: none;
+    border-color: var(--boton-principal);
+    box-shadow: 0 0 5px var(--boton-principal);
+}
+
+.radioGroup {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.radioLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--secundario);
+    user-select: none;
+}
+
+.radioLabel input {
+    accent-color: var(--boton-principal);
+}

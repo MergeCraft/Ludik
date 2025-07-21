@@ -12,6 +12,7 @@
 }
 
 .container section {
+    position: relative;
     background-color: var(--principal);
     text-align: center;
     padding: 10px;
@@ -147,6 +148,19 @@
 .recompensasGrid>* {
     border: 2px solid var(--secundario);
     padding-bottom: 10px;
+}
+
+.editIconContainer {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: var(--texto-principal);
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    padding: 5px;
 }
 
 

@@ -1,7 +1,7 @@
 // hooks/useStudentMutation.js
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import * as Toast from "../../../lib/toastify";
-import { obtenerPerfilGrupo, obtenerRecompensasPerfil, obtenerBarraProgresoPerfil, definirMetaCalificacion } from "../../../services/studentService";
+import { obtenerPerfilGrupo, obtenerRecompensasPerfil, obtenerBarraProgresoPerfil, definirMetaCalificacion, obtenerInventarioAvatar } from "../../../services/studentService";
 import { canjearRecompensa } from "../../../services/storeService";
 import { obtenerImagenPerfil } from "../../../services/imagesService";
 
@@ -76,5 +76,13 @@ export const useDefinirMetaCalificacion = (perfilId) => {
       queryClient.invalidateQueries(["barraProgresoPerfil", perfilId]);
     },
     onError: manejarErrores,
+  });
+};
+
+export const useInventarioAvatar = (idPerfilEstudiante, enabled = true) => {
+  return useQuery({
+    queryKey: ["inventario-avatar", idPerfilEstudiante],
+    queryFn: () => obtenerInventarioAvatar(idPerfilEstudiante),
+    enabled: !!idPerfilEstudiante && enabled,
   });
 };

@@ -6,10 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecompensasPerfil, useImagenPerfil, useBarraProgresoPerfil, useDefinirMetaCalificacion } from "../../hooks/useStudentMutation";
 import RewardItem from "../RewardItem";
 import MedalCard from "../../../medals/components/MedalCard";
+import StudentAvatarEditor from "./StudentAvatarEditor";
 
 import styles from "./GroupProfileView.module.css";
 
-const GroupProfileView = ({ perfil, isLoading }) => {
+const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, setShowModal }) => {
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasPerfil(perfil?.id);
   const { data: imagenPerfil, isLoading: isLoadingImagen, isError: isErrorImagen } = useImagenPerfil(perfil?.id);
   const { data: barraProgreso, isLoading: isLoadingBarra } = useBarraProgresoPerfil(perfil?.id);
@@ -29,11 +30,24 @@ const GroupProfileView = ({ perfil, isLoading }) => {
         ) : (
           <img src={avatarUrl || "https://cdn-icons-png.flaticon.com/512/847/847969.png"} alt={`Avatar de ${perfil.nombreEstudiante}`} className={styles.avatar} />
         )}
+        <button
+          className={styles.editIconContainer}
+          onClick={() => {
+            setModalContent(<StudentAvatarEditor idPerfil={perfil.id} />);
+            setModalTitle("Personalizar avatar");
+            setShowModal(true);
+          }}
+        >
+          <FontAwesomeIcon icon="fa fa-pen-to-square" />
+        </button>
       </section>
 
       <section>
         <h3>Nombre</h3>
         <p>{perfil.nombreEstudiante}</p>
+        <button className={styles.editIconContainer}>
+          <FontAwesomeIcon icon="fa fa-pen-to-square" />
+        </button>
       </section>
 
       <section>
@@ -138,6 +152,9 @@ GroupProfileView.propTypes = {
     ).isRequired,
   }).isRequired,
   isLoading: PropTypes.bool.isRequired,
+  setModalContent: PropTypes.func.isRequired,
+  setModalTitle: PropTypes.func.isRequired,
+  setShowModal: PropTypes.func.isRequired,
 };
 
 export default GroupProfileView;
