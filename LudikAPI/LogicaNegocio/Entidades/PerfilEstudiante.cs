@@ -4,11 +4,10 @@ using LogicaNegocio.InterfacesEntidades;
 using System.ComponentModel.DataAnnotations.Schema;
 using LogicaNegocio.Resultados;
 using LogicaNegocio.Entidades;
-using LogicaNegocio.Observer;
 
 namespace LogicaNegocio.Entidades
 {
-	public class PerfilEstudiante : Observable<PerfilEstudianteMedalla>, IEntity, IValidable
+	public class PerfilEstudiante : IEntity, IValidable
     {
         public int Id { get; set; }
 
@@ -106,8 +105,6 @@ namespace LogicaNegocio.Entidades
 
             return Resultado.Exitoso();
         }
-        public void NotifyMedallaAsignada(PerfilEstudianteMedalla asignacion)
-        => Notificar(asignacion);
 
         /// <summary>
         /// Encapsula la lógica de negocio para otorgar un kudo.
@@ -149,8 +146,6 @@ namespace LogicaNegocio.Entidades
 
                 this.PerfilMedallas.Add(nuevaAsignacionMedalla);
 
-                //TODO: Notificar a los observadores.
-                this.NotifyMedallaAsignada(nuevaAsignacionMedalla);
             }
         }
     }

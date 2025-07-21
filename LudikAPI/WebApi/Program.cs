@@ -1,29 +1,52 @@
-using System.Text;
 using AccesoDatos.RepositoriosEF;
 using AccesoDatos.Servicios;
 using Azure.Identity;
 using Azure.Storage.Blobs;
-using LogicaNegocio.Entidades;
+using Hangfire;
+using Hangfire.SqlServer;
 using InterfacesRepositorio;
 using LogicaAplicacion.ImplementacionCasosUsos.AsignarMedalla;
+using LogicaAplicacion.ImplementacionCasosUsos.Avatar;
+using LogicaAplicacion.ImplementacionCasosUsos.BarraProgreso;
 using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;
 using LogicaAplicacion.ImplementacionCasosUsos.Grupos;
 using LogicaAplicacion.ImplementacionCasosUsos.Imagenes;
+using LogicaAplicacion.ImplementacionCasosUsos.Imagenes.Estrategias;
+using LogicaAplicacion.ImplementacionCasosUsos.Kudo;
+using LogicaAplicacion.ImplementacionCasosUsos.Login;
 using LogicaAplicacion.ImplementacionCasosUsos.Medallas;
 using LogicaAplicacion.ImplementacionCasosUsos.PerfilEstudiante;
 using LogicaAplicacion.ImplementacionCasosUsos.Profesores;
+using LogicaAplicacion.ImplementacionCasosUsos.Recompensa;
+using LogicaAplicacion.ImplementacionCasosUsos.RecuperarContrasena;
 using LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion;
+using LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion;
 using LogicaAplicacion.ImplementacionCasosUsos.TablaEquivalencia;
+using LogicaAplicacion.ImplementacionCasosUsos.Tienda;
+using LogicaAplicacion.ImplementacionCasosUsos.UmbralParaObtenerMedallaPorKudos;
+using LogicaAplicacion.ImplementacionServicios;
 using LogicaAplicacion.InterfacesCasosUsos.AsignacionMedalla;
 using LogicaAplicacion.InterfacesCasosUsos.Avatar;
+using LogicaAplicacion.InterfacesCasosUsos.BarraProgreso;
 using LogicaAplicacion.InterfacesCasosUsos.Estudiante;
 using LogicaAplicacion.InterfacesCasosUsos.Grupo;
 using LogicaAplicacion.InterfacesCasosUsos.Imagenes;
+using LogicaAplicacion.InterfacesCasosUsos.Kudo;
+using LogicaAplicacion.InterfacesCasosUsos.Login;
 using LogicaAplicacion.InterfacesCasosUsos.Medalla;
 using LogicaAplicacion.InterfacesCasosUsos.PerfilEstudiante;
 using LogicaAplicacion.InterfacesCasosUsos.Profesor;
+using LogicaAplicacion.InterfacesCasosUsos.Recompensa;
+using LogicaAplicacion.InterfacesCasosUsos.RecuperarContrasena;
+using LogicaAplicacion.InterfacesCasosUsos.ServicioPrecargaArchivos;
 using LogicaAplicacion.InterfacesCasosUsos.SolicitudUnion;
+using LogicaAplicacion.InterfacesCasosUsos.TablaClasificacion;
 using LogicaAplicacion.InterfacesCasosUsos.TablaEquivalencia;
+using LogicaAplicacion.InterfacesCasosUsos.Tienda;
+using LogicaAplicacion.InterfacesCasosUsos.UmbralParaObtenerMedallaPorKudos;
+using LogicaAplicacion.Servicios;
+using LogicaNegocio.ConstantesAplicacion;
+using LogicaNegocio.Entidades;
 using LogicaNegocio.InterfacesRepositorios;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -33,31 +56,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 using WebApi.Helpers;
 using WebApi.Jwt;
-using LogicaAplicacion.ImplementacionCasosUsos.Avatar;
-using LogicaAplicacion.ImplementacionCasosUsos.BarraProgreso;
-using LogicaAplicacion.InterfacesCasosUsos.Recompensa;
-using LogicaAplicacion.ImplementacionCasosUsos.Recompensa;
-using LogicaAplicacion.InterfacesCasosUsos.Tienda;
-using LogicaAplicacion.ImplementacionCasosUsos.Tienda;
-using LogicaAplicacion.ImplementacionCasosUsos.Imagenes.Estrategias;
-using LogicaAplicacion.ImplementacionCasosUsos.Kudo;
-using LogicaNegocio.ConstantesAplicacion;
-using LogicaAplicacion.ImplementacionCasosUsos.Login;
-using LogicaAplicacion.ImplementacionCasosUsos.RecuperarContrasena;
-using LogicaAplicacion.InterfacesCasosUsos.Login;
-using IManejadorJwt = LogicaAplicacion.InterfacesCasosUsos.Jwt.IManejadorJwt;
-using LogicaAplicacion.InterfacesCasosUsos.ServicioPrecargaArchivos;
 using WebApi.Servicios;
-using LogicaAplicacion.InterfacesCasosUsos.TablaClasificacion;
-using LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion;
-using LogicaAplicacion.ImplementacionCasosUsos.UmbralParaObtenerMedallaPorKudos;
-using LogicaAplicacion.InterfacesCasosUsos.BarraProgreso;
-using LogicaAplicacion.InterfacesCasosUsos.Kudo;
-using LogicaAplicacion.InterfacesCasosUsos.RecuperarContrasena;
-using LogicaAplicacion.InterfacesCasosUsos.UmbralParaObtenerMedallaPorKudos;
-using LogicaNegocio.Observer;
+using IManejadorJwt = LogicaAplicacion.InterfacesCasosUsos.Jwt.IManejadorJwt;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -93,6 +96,24 @@ builder.Services.AddIdentity<Usuario, IdentityRole>(opciones =>
 	.AddEntityFrameworkStores<ContextoDb>()
 	.AddDefaultTokenProviders();
 
+//--------------------------
+// Configuración de Hangfire
+//--------------------------
+builder.Services.AddHangfire(config => config
+    .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+    .UseSimpleAssemblyNameTypeSerializer()
+    .UseRecommendedSerializerSettings()
+    .UseSqlServerStorage(cadenaDeConexionBD, new SqlServerStorageOptions
+    {
+        CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+        SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+        QueuePollInterval = TimeSpan.Zero,
+        UseRecommendedIsolationLevel = true,
+        DisableGlobalLocks = true // Mejora el rendimiento en SQL Server
+    }));
+
+//procesador de trabajos de Hangfire
+builder.Services.AddHangfireServer();
 
 
 // -------------------------------
@@ -139,9 +160,12 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("EsProfesorOEstudiante", policy => policy.RequireRole("Profesor", "Estudiante"));
 });
 
-//inyeccion observadores
-builder.Services.AddScoped<IObserver<PerfilEstudianteMedalla>, PerfilObserver>();
-builder.Services.AddScoped<IObserver<PerfilEstudianteMedalla>, HitoObserver>();
+// Registrar MediatR
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(LogicaAplicacion.AssemblyReference).Assembly));
+
+builder.Services.AddScoped<INotificacionServicio, NotificacionServicioFalso>();
+
 
 // Inyeccion de dependencias repositorios
 builder.Services.AddScoped<IRepositorioAvatares, RepositorioAvataresEF>();
@@ -255,11 +279,12 @@ builder.Services.AddScoped<IActualizarUmbralParaMedallaPorKudos, ActualizarUmbra
 builder.Services.AddScoped<IEliminarUmbralParaMedallaPorKudos, EliminarUmbralParaMedallaPorKudos>();
 
 
+// Inyeccion de dependencias para servicios
+builder.Services.AddScoped<IServicioDeReinicioSemanal, ServicioDeReinicioSemanal>();
 
 
 
 
-    
 
 
 // -------------------------------
@@ -374,6 +399,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Habilitar el Dashboard de Hangfire
+app.UseHangfireDashboard();
 
 app.Run();
 

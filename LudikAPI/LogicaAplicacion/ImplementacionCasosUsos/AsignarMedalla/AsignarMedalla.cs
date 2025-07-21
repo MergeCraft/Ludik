@@ -1,9 +1,11 @@
-﻿using LogicaNegocio.Entidades;
-using InterfacesRepositorio;
+﻿using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.MedallaDTOs;
+using LogicaAplicacion.Eventos;
 using LogicaAplicacion.InterfacesCasosUsos.AsignacionMedalla;
+using Entidades = LogicaNegocio.Entidades;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
+using MediatR;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,20 +18,21 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.AsignarMedalla
         private readonly IRepositorioMedallas _repositorioMedallas;
         private readonly IRepositorioProfesores _repositorioProfesores;
         private readonly IRepositorioPerfilEstudianteMedalla _repositorioPerfilEstudianteMedalla;
-        private readonly List<IObserver<PerfilEstudianteMedalla>> _observers;
+        
 
+        private readonly IMediator _mediator;
         public AsignarMedalla(
             IRepositorioPerfilEstudianteGrupo repositorioPerfilEstudiante,
             IRepositorioMedallas repositorioMedalla,
             IRepositorioProfesores repositorioProfesor,
             IRepositorioPerfilEstudianteMedalla repositorioPerfilEstudianteMedalla,
-            IEnumerable<IObserver<PerfilEstudianteMedalla>> observers)
+            IMediator mediator)
         {
             _repositorioPerfilEstudiantes = repositorioPerfilEstudiante;
             _repositorioMedallas = repositorioMedalla;
             _repositorioProfesores = repositorioProfesor;
             _repositorioPerfilEstudianteMedalla = repositorioPerfilEstudianteMedalla;
-            _observers = observers.ToList();
+            _mediator = mediator;
         }
 
         public async Task<Resultado> EjecutarAsync(string profesorId, int idPerfilEstudiante, int idMedalla)
@@ -43,7 +46,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.AsignarMedalla
             if (medallaResultado.EsFallo) return Resultado.Falla(Error.NotFound);
 
             var profesor = profesorResultado.Valor;
-            var perfilEstudiante = perfilResultado.Valor;
+            Entidades.PerfilEstudiante perfilEstudiante = perfilResultado.Valor;
             var medalla = medallaResultado.Valor;
 
             // Aplicar potenciador si existe
@@ -57,7 +60,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.AsignarMedalla
             if (!profesor.Medallas.Any(m => m.Id == medalla.Id))
                 return Resultado.Falla(Error.Forbidden);
 
-            var nuevaAsignacion = new PerfilEstudianteMedalla
+            var nuevaAsignacion = new Entidades.PerfilEstudianteMedalla
             {
                 PerfilEstudianteId = perfilEstudiante.Id,
                 MedallaId = medalla.Id,
@@ -66,17 +69,9 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.AsignarMedalla
             var addResultado = await _repositorioPerfilEstudianteMedalla.AddAsync(nuevaAsignacion);
             if (addResultado.EsFallo) return addResultado;
 
-            // Suscribir y notificar a todos los observers
-            foreach (var obs in _observers)
-            {
-                perfilEstudiante.Suscribir(obs);
-            }
-            perfilEstudiante.NotifyMedallaAsignada(nuevaAsignacion);
-            foreach (var obs in _observers)
-            {
-                perfilEstudiante.Desuscribir(obs);
-            }
-
+            var evento = new AsignacionMedallaCompletadaEvento(idPerfilEstudiante, idMedalla, perfilEstudiante.Estudiante);
+            await _mediator.Publish(evento);
+            
             return Resultado.Exitoso();
         }
     }

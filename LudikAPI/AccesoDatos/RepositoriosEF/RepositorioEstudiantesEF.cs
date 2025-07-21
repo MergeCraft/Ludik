@@ -42,18 +42,7 @@ namespace AccesoDatos.RepositoriosEF
         }
 
 
-        public async Task<Resultado<IEnumerable<Estudiante>>> GetAll()
-        {
-            try
-            {
-                var estudiantes = await _db.Estudiantes.ToListAsync();
-                return Resultado<IEnumerable<Estudiante>>.Exitoso(estudiantes); 
-            }
-            catch (Exception e)
-            {
-                return Resultado<IEnumerable<Estudiante>>.Falla(Error.Unexpected);
-            }
-        }
+       
 
         public async Task<Resultado<Estudiante>> GetByIdAsync(int id)
         {
@@ -93,9 +82,17 @@ namespace AccesoDatos.RepositoriosEF
             }
         }
 
-        public Task<Resultado<IEnumerable<Estudiante>>> GetAllAsync()
+        public async Task<Resultado<IEnumerable<Estudiante>>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var estudiantes = await _db.Estudiantes.ToListAsync();
+                return Resultado<IEnumerable<Estudiante>>.Exitoso(estudiantes);
+            }
+            catch (Exception e)
+            {
+                return Resultado<IEnumerable<Estudiante>>.Falla(Error.Unexpected);
+            }
         }
 
 

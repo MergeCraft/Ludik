@@ -15,13 +15,19 @@ public class AsignarKudo: IAsignarKudo
     private readonly IRepositorioPerfilEstudianteGrupo _repositorioPerfil;
     private readonly IRepositorioEstudiantes _repositorioEstudiantes;
     private readonly IRepositorioTiposKudo _repositorioTiposKudo;
+    private readonly IRepositorioUmbralesParaMedallasPorKudos _repositorioUmbralesParaMedallas;
     private readonly IUnitOfWork _unitOfWork;
 
-    public AsignarKudo(IRepositorioPerfilEstudianteGrupo repositorioPerfil, IRepositorioTiposKudo repositorioTipoKudo, IRepositorioEstudiantes repositorioEstudiantes, IUnitOfWork unitOfWork)
+    public AsignarKudo(IRepositorioPerfilEstudianteGrupo repositorioPerfil, 
+        IRepositorioTiposKudo repositorioTipoKudo, 
+        IRepositorioEstudiantes repositorioEstudiantes,
+        IRepositorioUmbralesParaMedallasPorKudos repositorioUmbrales,
+        IUnitOfWork unitOfWork)
     {
         _repositorioPerfil = repositorioPerfil;
         _repositorioEstudiantes = repositorioEstudiantes;
         _repositorioTiposKudo = repositorioTipoKudo;
+        _repositorioUmbralesParaMedallas = repositorioUmbrales;
         _unitOfWork = unitOfWork;
     }
 
@@ -71,9 +77,33 @@ public class AsignarKudo: IAsignarKudo
             return Resultado.Falla(Error.Unexpected); 
         }
 
-        // 7. Evaluar si se debe asignar medalla (este será el siguiente paso)
-        // ... lógica de observer/eventos para notificar al sistema de medallas ...
 
+        //En caso de que se haya otorgado un kudo, se evalúa si el perfil receptor cumple con algún umbral para obtener una medalla.
+        var resultadoUmbrales = await _repositorioUmbralesParaMedallas.GetAllByProfesorAndGrupoIdAsync(perfilEstudianteReceptor.GrupoId, perfilEstudianteReceptor.Grupo.ProfesorId);
+        if(resultadoUmbrales.EsFallo)
+            return Resultado.Falla(resultadoUmbrales.Errores);
+        var umbrales = resultadoUmbrales.Valor;
+
+        return await EvaluarAsignarMedalla(perfilEstudianteReceptor, umbrales);
+
+    }
+
+    public async Task<Resultado> EvaluarAsignarMedalla(Entidades.PerfilEstudiante perfilEstudiante, IEnumerable<UmbralParaMedallaPorKudos> umbrales)
+    {
+        if (perfilEstudiante == null || umbrales == null || !umbrales.Any())
+            return Resultado.Falla(Error.Validation);
+        foreach (var umbral in umbrales)
+        {
+            perfilEstudiante.EvaluarAsignarMedallaPorKudos(umbral);
+        }
+        try
+        {
+            await _unitOfWork.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            return Resultado.Falla(Error.Unexpected);
+        }
         return Resultado.Exitoso();
     }
 }

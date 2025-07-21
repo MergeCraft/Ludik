@@ -30,8 +30,10 @@
     <Folder Include="InterfacesCasosUsos\Kudo\" />
     <Folder Include="InterfacesCasosUsos\RecuperarContrasena\" />
     <Folder Include="InterfacesCasosUsos\ServicioPrecargaArchivos\" />
-    <Folder Include="Eventos\" />
-    <Folder Include="ManejadoresDeEventos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="13.0.0" />
   </ItemGroup>
 
 </Project>
