@@ -115,21 +115,20 @@ namespace LogicaNegocio.Entidades
             }
         }
 
-        public int MaximaCalificacionSegun(IEnumerable<Medalla> medallasObtenidas)
-        {
-            Equivalencias.Sort((a, b) => b.Nota.CompareTo(a.Nota)); // Ordenar de mayor a menor
-            foreach (var eq in Equivalencias)
-            {
-                if (eq.CumpleMedallasNecesarias(medallasObtenidas))
-                    return eq.Nota;
-            }
+		public int MaximaCalificacionSegun(IEnumerable<Medalla> medallasObtenidas)
+		{
+			if (medallasObtenidas == null || !medallasObtenidas.Any())
+				return 0;
 
-            // Si no se cumple ninguna equivalencia, retornar 0
-            return 0;
+			var equivalencia = Equivalencias
+				.OrderByDescending(e => e.Nota)
+				.FirstOrDefault(e => e.CumpleMedallasNecesarias(medallasObtenidas));
 
-        }
+			return equivalencia?.Nota ?? 0;
+		}
 
-        public int ObtenerNotaMinima()
+
+		public int ObtenerNotaMinima()
         {
             if (Equivalencias == null || Equivalencias.Count == 0)
                 return 0;
@@ -144,23 +143,18 @@ namespace LogicaNegocio.Entidades
             return Equivalencias.Max(e => e.Nota);
         }
 
-        public List<Medalla> ObtenerMedallasNecesariasParaSiguienteNota(int notaActualDelPerfil)
-        {
-            //Ordenar de menor a mayor
-            Equivalencias.Sort((a, b) => a.Nota.CompareTo(b.Nota));
+		public List<Medalla> ObtenerMedallasNecesariasParaSiguienteNota(int notaActualDelPerfil)
+		{
+			if (Equivalencias == null)
+				return new List<Medalla>();
 
-            foreach (var eq in Equivalencias)
-            {
-                if (eq.Nota > notaActualDelPerfil)
-                {
-                    return eq.MedallasNecesarias;
-                }
-            }
-
-            // Si no hay una nota superior, retornar una lista vacía
-            return new List<Medalla>();
-        }
-    }
+			return Equivalencias
+				.Where(e => e != null && e.Nota > notaActualDelPerfil && e.MedallasNecesarias != null)
+				.OrderBy(e => e.Nota)
+				.Select(e => e.MedallasNecesarias)
+				.FirstOrDefault() ?? new List<Medalla>();
+		}
+	}
 
 }
 

@@ -22,7 +22,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
     border-bottom: 2px solid var(--terciario);
     padding-bottom: 0.5rem;
 }
@@ -34,10 +34,11 @@
     cursor: pointer;
     border: none;
     background: none;
-    font-size: small;
+    font-size: x-small;
     color: var(--terciario);
     transition: color 0.3s ease;
     user-select: none;
+    text-align: center;
 }
 
 .tabLabel:hover {
@@ -124,4 +125,70 @@
 
 .radioLabel input {
     accent-color: var(--boton-principal);
+}
+
+.tabContentGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.subTitle {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.itemGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.75rem;
+}
+
+.avatarItemCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: var(--secundario);
+    cursor: pointer;
+}
+
+.avatarItemCard img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    max-height: 60px;
+    object-fit: contain;
+    margin-bottom: 0.25rem;
+    border-radius: 15px;
+}
+
+.avatarItemCard p {
+    font-size: 0.75rem;
+    text-align: center;
+    margin: 0;
+    color: #444;
+}
+
+.colorBox {
+    width: 40px;
+    height: 40px;
+    border-radius: 0.25rem;
+    border: 1px solid var(--blanco-principal);
+    margin-bottom: 0.25rem;
+}
+
+.radioInputHidden {
+    display: none;
+}
+
+.avatarItemCard:has(input[type="radio"]:checked) {
+    border: 1px solid var(--terciario);
 }

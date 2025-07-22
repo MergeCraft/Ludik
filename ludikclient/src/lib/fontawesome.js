@@ -87,6 +87,10 @@ import {
   faPlane,
   faCakeCandles,
   faCartShopping,
+  faGlasses,
+  faShirt,
+  faMask,
+  faFaceKissBeam,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { faUser as farUser } from "@fortawesome/free-regular-svg-icons";
@@ -178,5 +182,9 @@ library.add(
   faBinoculars,
   faFlag,
   faPlane,
-  faCakeCandles
+  faCakeCandles,
+  faGlasses,
+  faShirt,
+  faMask,
+  faFaceKissBeam
 );
