@@ -86,13 +86,35 @@
     transition: .3s;
 }
 
+.progressBar label::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 60%;
+    /* tamaño vertical del "borde" */
+    background-color: var(--secundario);
+}
+
 .progressBar label:hover {
-    transform: scale(1.02);
+    box-shadow: 0 0 0 1px var(--meta-alumno);
+    z-index: 200;
+}
+
+.progressBar label:hover::before {
+    opacity: 0;
 }
 
 .progressBar label:first-child {
     border-radius: 20px 0 0 20px;
 }
+
+.progressBar label:first-child::before {
+    display: none;
+}
+
 
 .progressBar label:last-child {
     border-radius: 0 20px 20px 0;
