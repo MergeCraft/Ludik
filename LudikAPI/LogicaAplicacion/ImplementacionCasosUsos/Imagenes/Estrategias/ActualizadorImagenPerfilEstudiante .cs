@@ -28,8 +28,8 @@ public class ActualizadorImagenPerfilEstudiante: IActualizadorRutaImagen
             return Resultado.Falla(Error.Forbidden);
         }
 
-        perfil.RutaImagenCompleta = rutas["completa"];
-        perfil.RutaImagenMiniatura = rutas["mini"];
+        perfil.NombreImagenCompleta = rutas["completa"];
+        perfil.NombreImagenMiniatura = rutas["mini"];
         await _repositorioPerfiles.UpdateAsync(perfil);
 
         return Resultado.Exitoso();

@@ -42,7 +42,7 @@ public class ObtenerTodasLasMedallas : IObtenerTodasLasMedallas
     private async Task<IEnumerable<MedallaDto>> GenerarUrlsDeLecturaParaImagenes(IEnumerable<Medalla> medallas)
     {
         var tareasGeneracionUrl = medallas.Select(medalla =>
-            _generadorUrlImagen.GenerarUrlLecturaAsync(medalla.UrlImagenMiniatura)
+            _generadorUrlImagen.GenerarUrlLecturaAsync(medalla.NombreImagenMiniatura)
         ).ToList();
 
         // Task.WhenAll espera a que todas las tareas en la lista se completen.

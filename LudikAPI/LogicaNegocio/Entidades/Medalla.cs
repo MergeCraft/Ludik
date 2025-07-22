@@ -15,7 +15,7 @@ namespace LogicaNegocio.Entidades
         [StringLength(150, MinimumLength = 0, ErrorMessage = "la descripcion de la medalla debe tener entre 3 y 150 caracteres.")]
         public String Descripcion { get; set; }
         [Required]
-        public String UrlImagenMiniatura { get; set; }
+        public String NombreImagenMiniatura { get; set; }
 
         public int MonedasOtorgadas { get; set; }
 

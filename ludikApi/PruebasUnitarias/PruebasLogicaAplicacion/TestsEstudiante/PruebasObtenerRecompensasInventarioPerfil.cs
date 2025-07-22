@@ -4,7 +4,10 @@ using System.Threading.Tasks;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.RecompensaDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;
+using LogicaAplicacion.ImplementacionServicios;
+using LogicaAplicacion.Servicios;
 using LogicaNegocio.Entidades;
+using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
 using Moq;
 using Xunit;
@@ -14,6 +17,9 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsEstudiante
     public class PruebasObtenerRecompensasInventarioPerfil
     {
         private readonly Mock<IRepositorioPerfilEstudianteGrupo> _mockPerfilRepo;
+
+        private readonly IGeneradorUrlImagen _generadorUrlImagen =
+            new GeneradorUrlImagen(new Mock<IRepositorioAlmacenamientoArchivos>().Object);
         private readonly ObtenerRecompensasInventarioPerfil _casoUso;
 
         private const int PerfilId = 101;
@@ -22,7 +28,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsEstudiante
         public PruebasObtenerRecompensasInventarioPerfil()
         {
             _mockPerfilRepo = new Mock<IRepositorioPerfilEstudianteGrupo>();
-            _casoUso = new ObtenerRecompensasInventarioPerfil(_mockPerfilRepo.Object);
+            _casoUso = new ObtenerRecompensasInventarioPerfil(_mockPerfilRepo.Object, _generadorUrlImagen);
         }
 
         [Fact]
@@ -63,16 +69,16 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsEstudiante
             var recompensa1 = new RecompensaSimple
             {
                 Nombre = "Espada mágica",
-                RutaImagenCompleta = "url1",
-                RutaImagenMiniatura = "mini1",
+                NombreImagenCompleta = "url1",
+                NombreImagenMiniatura = "mini1",
                 Precio = 100
             };
 
             var recompensa2 = new RecompensaSimple
             {
                 Nombre = "Escudo legendario",
-                RutaImagenCompleta = "url2",
-                RutaImagenMiniatura = "mini2",
+                NombreImagenCompleta = "url2",
+                NombreImagenMiniatura = "mini2",
                 Precio = 150
             };
 

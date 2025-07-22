@@ -15,8 +15,8 @@ namespace LogicaAplicacion.DTOsMappers.RecompensaMappers
             return new RecompensaAltaDto
             {
                 Nombre = recompensa.Nombre,
-                RutaImagenCompleta = recompensa.RutaImagenCompleta,
-                RutaImagenMiniatura = recompensa.RutaImagenMiniatura,
+                RutaImagenCompleta = recompensa.NombreImagenCompleta,
+                RutaImagenMiniatura = recompensa.NombreImagenMiniatura,
                 Precio = recompensa.Precio,
             };
         }
@@ -26,8 +26,8 @@ namespace LogicaAplicacion.DTOsMappers.RecompensaMappers
             return new RecompensaSimple
             {
                 Nombre = dto.Nombre,
-                RutaImagenCompleta = dto.RutaImagenCompleta ?? "",
-                RutaImagenMiniatura = dto.RutaImagenMiniatura ?? "",
+                NombreImagenCompleta = dto.RutaImagenCompleta ?? "",
+                NombreImagenMiniatura = dto.RutaImagenMiniatura ?? "",
                 Precio = dto.Precio,
                 Tienda = tienda,
                 TiendaId = tienda.Id

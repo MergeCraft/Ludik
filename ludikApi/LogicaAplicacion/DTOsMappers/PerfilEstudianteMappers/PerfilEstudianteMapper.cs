@@ -14,8 +14,8 @@ public static class PerfilEstudianteMapper
         return new PerfilEstudianteInformacionDto
         {
             Id = perfil.Id,
-            EnlaceAvatarMiniatura = perfil.RutaImagenMiniatura,
-            EnlaceAvatarCompleto = perfil.RutaImagenCompleta,
+            EnlaceAvatarMiniatura = perfil.NombreImagenMiniatura,
+            EnlaceAvatarCompleto = perfil.NombreImagenCompleta,
             MetaCalificacion = perfil.MetaCalificacion,
             EstudianteId = perfil.EstudianteId,
             NombreEstudiante = perfil.Estudiante.NombreCompleto.Nombre,

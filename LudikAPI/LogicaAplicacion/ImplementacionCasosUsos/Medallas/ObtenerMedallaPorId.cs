@@ -12,8 +12,8 @@ public class ObtenerMedallaPorId : IObtenerMedallaPorId
 	private readonly IRepositorioMedallas _repositorioMedallas;
 	private readonly IGeneradorUrlImagen _generadorUrlImagen;
 
-    public ObtenerMedallaPorId(IRepositorioMedallas repositorioMedallas
-        , IGeneradorUrlImagen generadorUrlImagen)
+    public ObtenerMedallaPorId(IRepositorioMedallas repositorioMedallas, 
+        IGeneradorUrlImagen generadorUrlImagen)
 	{
 		_repositorioMedallas = repositorioMedallas;
 		_generadorUrlImagen = generadorUrlImagen;

@@ -10,15 +10,15 @@ namespace LogicaAplicacion.DTOsMappers.RecompensaMappers
 {
     public static class RecompensaListadoMapper
     {
-        public static RecompensaListadoDto ToDto(Recompensa entidad)
+        public static RecompensaDto ToDto(Recompensa entidad)
         {
             if (entidad == null) return null!; 
-            return new RecompensaListadoDto
+            return new RecompensaDto
             {
                 Id = entidad.Id,
                 Nombre = entidad.Nombre,
-                RutaImagenCompleta = entidad.RutaImagenCompleta,
-                RutaImagenMiniatura = entidad.RutaImagenMiniatura,
+                RutaImagenCompleta = entidad.NombreImagenCompleta,
+                RutaImagenMiniatura = entidad.NombreImagenMiniatura,
                 Precio = entidad.Precio,
                 RequiereImagen = entidad.RequiereImagen
             };

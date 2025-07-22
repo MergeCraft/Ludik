@@ -21,8 +21,8 @@ namespace LogicaNegocio.Entidades
         public Estudiante Estudiante { get; set; }
 
         public int Monedas { get; set; }
-        public string RutaImagenCompleta { get; set; }
-        public string RutaImagenMiniatura { get; set; }
+        public string NombreImagenCompleta { get; set; }
+        public string NombreImagenMiniatura { get; set; }
         public List<PerfilEstudianteMedalla> PerfilMedallas { get; set; }
         public int CantidadKudosDisponibles { get; set; }
         public List<KudoOtorgado> KudosOtorgados { get; private set; }

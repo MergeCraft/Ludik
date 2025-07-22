@@ -157,11 +157,11 @@ namespace AccesoDatos.RepositoriosEF
 
             // 10. CREACIÓN DE PERFILES DE ESTUDIANTE (VINCULANDO ESTUDIANTES Y GRUPOS)
             modelBuilder.Entity<PerfilEstudiante>().HasData(
-                new PerfilEstudiante { Id = 1, Monedas = 120, MetaCalificacion = 8, EstudianteId = estudiante1Id, GrupoId = grupo1Id, RutaImagenCompleta = "default/avatar_full.jpg", RutaImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 2, Monedas = 150, MetaCalificacion = 9, EstudianteId = estudiante2Id, GrupoId = grupo1Id, RutaImagenCompleta = "default/avatar_full.jpg", RutaImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 3, Monedas = 95, MetaCalificacion = 7, EstudianteId = estudiante3Id, GrupoId = grupo1Id, RutaImagenCompleta = "default/avatar_full.jpg", RutaImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 4, Monedas = 200, MetaCalificacion = 10, EstudianteId = estudiante4Id, GrupoId = grupo2Id, RutaImagenCompleta = "default/avatar_full.jpg", RutaImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 5, Monedas = 180, MetaCalificacion = 8, EstudianteId = estudiante5Id, GrupoId = grupo2Id, RutaImagenCompleta = "default/avatar_full.jpg", RutaImagenMiniatura = "default/avatar_thumb.jpg" }
+                new PerfilEstudiante { Id = 1, Monedas = 120, MetaCalificacion = 8, EstudianteId = estudiante1Id, GrupoId = grupo1Id, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
+                new PerfilEstudiante { Id = 2, Monedas = 150, MetaCalificacion = 9, EstudianteId = estudiante2Id, GrupoId = grupo1Id, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
+                new PerfilEstudiante { Id = 3, Monedas = 95, MetaCalificacion = 7, EstudianteId = estudiante3Id, GrupoId = grupo1Id, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
+                new PerfilEstudiante { Id = 4, Monedas = 200, MetaCalificacion = 10, EstudianteId = estudiante4Id, GrupoId = grupo2Id, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
+                new PerfilEstudiante { Id = 5, Monedas = 180, MetaCalificacion = 8, EstudianteId = estudiante5Id, GrupoId = grupo2Id, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" }
             );
             // 11. CREACIÓN DE TIENDAS (una por cada grupo)
             var tienda1Id = 1;
@@ -172,17 +172,17 @@ namespace AccesoDatos.RepositoriosEF
             );
             modelBuilder.Entity<RecompensaSimple>().HasData(
                 // Para Tienda 1
-                new RecompensaSimple { Id = 1, Nombre = "Estrella Mágica", Precio = 50, RutaImagenCompleta = "star", RutaImagenMiniatura = "star", TiendaId = tienda1Id },
-                new RecompensaSimple { Id = 2, Nombre = "Regalo Sorpresa", Precio = 30, RutaImagenCompleta = "gift", RutaImagenMiniatura = "gift", TiendaId = tienda1Id },
-                new RecompensaSimple { Id = 3, Nombre = "Corazón Brillante", Precio = 20, RutaImagenCompleta = "heart", RutaImagenMiniatura = "heart", TiendaId = tienda1Id },
-                new RecompensaSimple { Id = 4, Nombre = "Medalla de Oro", Precio = 80, RutaImagenCompleta = "medal", RutaImagenMiniatura = "medal", TiendaId = tienda1Id },
-                new RecompensaSimple { Id = 5, Nombre = "Montón de Monedas", Precio = 100, RutaImagenCompleta = "coins", RutaImagenMiniatura = "coins", TiendaId = tienda1Id },
+                new RecompensaSimple { Id = 1, Nombre = "Estrella Mágica", Precio = 50, NombreImagenCompleta = "star", NombreImagenMiniatura = "star", TiendaId = tienda1Id },
+                new RecompensaSimple { Id = 2, Nombre = "Regalo Sorpresa", Precio = 30, NombreImagenCompleta = "gift", NombreImagenMiniatura = "gift", TiendaId = tienda1Id },
+                new RecompensaSimple { Id = 3, Nombre = "Corazón Brillante", Precio = 20, NombreImagenCompleta = "heart", NombreImagenMiniatura = "heart", TiendaId = tienda1Id },
+                new RecompensaSimple { Id = 4, Nombre = "Medalla de Oro", Precio = 80, NombreImagenCompleta = "medal", NombreImagenMiniatura = "medal", TiendaId = tienda1Id },
+                new RecompensaSimple { Id = 5, Nombre = "Montón de Monedas", Precio = 100, NombreImagenCompleta = "coins", NombreImagenMiniatura = "coins", TiendaId = tienda1Id },
                 // Para Tienda 2
-                new RecompensaSimple { Id = 6, Nombre = "Trofeo Brillante", Precio = 70, RutaImagenCompleta = "trophy", RutaImagenMiniatura = "trophy", TiendaId = tienda2Id },
-                new RecompensaSimple { Id = 7, Nombre = "Llama de Fuego", Precio = 40, RutaImagenCompleta = "fire", RutaImagenMiniatura = "fire", TiendaId = tienda2Id },
-                new RecompensaSimple { Id = 8, Nombre = "Corona Real", Precio = 90, RutaImagenCompleta = "crown", RutaImagenMiniatura = "crown", TiendaId = tienda2Id },
-                new RecompensaSimple { Id = 9, Nombre = "Cohete Espacial", Precio = 60, RutaImagenCompleta = "rocket", RutaImagenMiniatura = "rocket", TiendaId = tienda2Id },
-                new RecompensaSimple { Id = 10, Nombre = "Robot Amistoso", Precio = 55, RutaImagenCompleta = "robot", RutaImagenMiniatura = "robot", TiendaId = tienda2Id }
+                new RecompensaSimple { Id = 6, Nombre = "Trofeo Brillante", Precio = 70, NombreImagenCompleta = "trophy", NombreImagenMiniatura = "trophy", TiendaId = tienda2Id },
+                new RecompensaSimple { Id = 7, Nombre = "Llama de Fuego", Precio = 40, NombreImagenCompleta = "fire", NombreImagenMiniatura = "fire", TiendaId = tienda2Id },
+                new RecompensaSimple { Id = 8, Nombre = "Corona Real", Precio = 90, NombreImagenCompleta = "crown", NombreImagenMiniatura = "crown", TiendaId = tienda2Id },
+                new RecompensaSimple { Id = 9, Nombre = "Cohete Espacial", Precio = 60, NombreImagenCompleta = "rocket", NombreImagenMiniatura = "rocket", TiendaId = tienda2Id },
+                new RecompensaSimple { Id = 10, Nombre = "Robot Amistoso", Precio = 55, NombreImagenCompleta = "robot", NombreImagenMiniatura = "robot", TiendaId = tienda2Id }
             );
 
 
@@ -228,41 +228,41 @@ namespace AccesoDatos.RepositoriosEF
 
             modelBuilder.Entity<Medalla>().HasData(
                 // Medallas de tu ejemplo original
-                new Medalla { Id = 1, Nombre = "Participación Perfecta", Descripcion = "Asistencia y participación en todas las clases del mes.", UrlImagenMiniatura = "medalla_participacion_perfecta.png", MonedasOtorgadas = 30, ProfesorId = profesor1Id },
-                new Medalla { Id = 2, Nombre = "Maestro de la Colaboración", Descripcion = "Ayuda destacada a compañeros en proyectos grupales.", UrlImagenMiniatura = "medalla_maestro_colaboracion.png", MonedasOtorgadas = 25, ProfesorId = profesor2Id },
-                new Medalla { Id = 3, Nombre = "Mente Curiosa", Descripcion = "Realización de preguntas perspicaces que enriquecen la clase.", UrlImagenMiniatura = "medalla_mente_curiosa.png", MonedasOtorgadas = 15, ProfesorId = profesor2Id },
+                new Medalla { Id = 1, Nombre = "Participación Perfecta", Descripcion = "Asistencia y participación en todas las clases del mes.", NombreImagenMiniatura = "medalla_participacion_perfecta.png", MonedasOtorgadas = 30, ProfesorId = profesor1Id },
+                new Medalla { Id = 2, Nombre = "Maestro de la Colaboración", Descripcion = "Ayuda destacada a compañeros en proyectos grupales.", NombreImagenMiniatura = "medalla_maestro_colaboracion.png", MonedasOtorgadas = 25, ProfesorId = profesor2Id },
+                new Medalla { Id = 3, Nombre = "Mente Curiosa", Descripcion = "Realización de preguntas perspicaces que enriquecen la clase.", NombreImagenMiniatura = "medalla_mente_curiosa.png", MonedasOtorgadas = 15, ProfesorId = profesor2Id },
 
                 // --- INICIO DE MEDALLAS ASOCIADAS A KUDOS ---
 
                 // Medalla por Kudo "Gracias por la Ayuda"
-                new Medalla { Id = 4, Nombre = "Compañerismo", Descripcion = "Se otorga por ser un pilar de apoyo para tus compañeros. Demuestra que estás siempre dispuesto a ofrecer tu ayuda cuando alguien la necesita.", UrlImagenMiniatura = "medalla_companerismo.png", MonedasOtorgadas = 20, ProfesorId = profesor1Id },
+                new Medalla { Id = 4, Nombre = "Compañerismo", Descripcion = "Se otorga por ser un pilar de apoyo para tus compañeros. Demuestra que estás siempre dispuesto a ofrecer tu ayuda cuando alguien la necesita.", NombreImagenMiniatura = "medalla_companerismo.png", MonedasOtorgadas = 20, ProfesorId = profesor1Id },
 
                 // Medalla por Kudo "Esa Pregunta Suma"
-                new Medalla { Id = 5, Nombre = "Curiosidad Insaciable", Descripcion = "Premia a las mentes que nunca dejan de preguntar. Se consigue al realizar preguntas que desafían al grupo y enriquecen el aprendizaje de todos.", UrlImagenMiniatura = "medalla_curiosidad_insaciable.png", MonedasOtorgadas = 15, ProfesorId = profesor2Id },
+                new Medalla { Id = 5, Nombre = "Curiosidad Insaciable", Descripcion = "Premia a las mentes que nunca dejan de preguntar. Se consigue al realizar preguntas que desafían al grupo y enriquecen el aprendizaje de todos.", NombreImagenMiniatura = "medalla_curiosidad_insaciable.png", MonedasOtorgadas = 15, ProfesorId = profesor2Id },
 
                 // Medalla por Kudo "Inspirador"
-                new Medalla { Id = 6, Nombre = "Faro del Grupo", Descripcion = "Reconoce a quienes inspiran con su ejemplo. Se obtiene al demostrar una actitud y un esfuerzo que motivan a todo el grupo a superarse.", UrlImagenMiniatura = "medalla_faro_del_grupo.png", MonedasOtorgadas = 25, ProfesorId = profesor1Id },
+                new Medalla { Id = 6, Nombre = "Faro del Grupo", Descripcion = "Reconoce a quienes inspiran con su ejemplo. Se obtiene al demostrar una actitud y un esfuerzo que motivan a todo el grupo a superarse.", NombreImagenMiniatura = "medalla_faro_del_grupo.png", MonedasOtorgadas = 25, ProfesorId = profesor1Id },
 
                 // Medalla por Kudo "Conectando Ideas"
-                new Medalla { Id = 7, Nombre = "Arquitecto de Ideas", Descripcion = "Para aquellos que no solo tienen buenas ideas, sino que construyen sobre las de los demás para crear algo aún mejor.", UrlImagenMiniatura = "medalla_arquitecto_ideas.png", MonedasOtorgadas = 20, ProfesorId = profesor2Id },
+                new Medalla { Id = 7, Nombre = "Arquitecto de Ideas", Descripcion = "Para aquellos que no solo tienen buenas ideas, sino que construyen sobre las de los demás para crear algo aún mejor.", NombreImagenMiniatura = "medalla_arquitecto_ideas.png", MonedasOtorgadas = 20, ProfesorId = profesor2Id },
 
                 // Medalla por Kudo "Líder de Equipo"
-                new Medalla { Id = 8, Nombre = "Capitán de Equipo", Descripcion = "Se otorga por demostrar liderazgo natural, guiando y organizando al equipo para alcanzar metas comunes de forma efectiva.", UrlImagenMiniatura = "medalla_capitan_equipo.png", MonedasOtorgadas = 25, ProfesorId = profesor1Id },
+                new Medalla { Id = 8, Nombre = "Capitán de Equipo", Descripcion = "Se otorga por demostrar liderazgo natural, guiando y organizando al equipo para alcanzar metas comunes de forma efectiva.", NombreImagenMiniatura = "medalla_capitan_equipo.png", MonedasOtorgadas = 25, ProfesorId = profesor1Id },
 
                 // Medalla por Kudo "Recurso Valioso"
-                new Medalla { Id = 9, Nombre = "Cazador de Tesoros", Descripcion = "Premia la iniciativa de buscar y compartir recursos valiosos (videos, artículos, herramientas) que benefician a toda la clase.", UrlImagenMiniatura = "medalla_cazador_tesoros.png", MonedasOtorgadas = 15, ProfesorId = profesor2Id },
+                new Medalla { Id = 9, Nombre = "Cazador de Tesoros", Descripcion = "Premia la iniciativa de buscar y compartir recursos valiosos (videos, artículos, herramientas) que benefician a toda la clase.", NombreImagenMiniatura = "medalla_cazador_tesoros.png", MonedasOtorgadas = 15, ProfesorId = profesor2Id },
 
                 // Medalla por Kudo "Codo a Codo"
-                new Medalla { Id = 10, Nombre = "Espíritu de Equipo", Descripcion = "Se consigue al fomentar activamente un ambiente de respeto e inclusión, asegurando que cada miembro del grupo se sienta valorado.", UrlImagenMiniatura = "medalla_espiritu_equipo.png", MonedasOtorgadas = 20, ProfesorId = profesor1Id },
+                new Medalla { Id = 10, Nombre = "Espíritu de Equipo", Descripcion = "Se consigue al fomentar activamente un ambiente de respeto e inclusión, asegurando que cada miembro del grupo se sienta valorado.", NombreImagenMiniatura = "medalla_espiritu_equipo.png", MonedasOtorgadas = 20, ProfesorId = profesor1Id },
 
                 // Medalla por Kudo "Crítica que Construye"
-                new Medalla { Id = 11, Nombre = "Pulidor de Diamantes", Descripcion = "Reconoce la habilidad de dar críticas constructivas que ayudan a los compañeros a mejorar su trabajo de forma positiva y amable.", UrlImagenMiniatura = "medalla_pulidor_diamantes.png", MonedasOtorgadas = 15, ProfesorId = profesor2Id },
+                new Medalla { Id = 11, Nombre = "Pulidor de Diamantes", Descripcion = "Reconoce la habilidad de dar críticas constructivas que ayudan a los compañeros a mejorar su trabajo de forma positiva y amable.", NombreImagenMiniatura = "medalla_pulidor_diamantes.png", MonedasOtorgadas = 15, ProfesorId = profesor2Id },
 
                 // Medalla por Kudo "Chispa Creativa"
-                new Medalla { Id = 12, Nombre = "Mente Innovadora", Descripcion = "Se otorga por aportar ideas creativas y soluciones originales que sacan al grupo de la rutina y abren nuevas posibilidades.", UrlImagenMiniatura = "medalla_mente_innovadora.png", MonedasOtorgadas = 20, ProfesorId = profesor1Id },
+                new Medalla { Id = 12, Nombre = "Mente Innovadora", Descripcion = "Se otorga por aportar ideas creativas y soluciones originales que sacan al grupo de la rutina y abren nuevas posibilidades.", NombreImagenMiniatura = "medalla_mente_innovadora.png", MonedasOtorgadas = 20, ProfesorId = profesor1Id },
 
                 // Medalla por Kudo "Einstein"
-                new Medalla { Id = 13, Nombre = "El Explicador", Descripcion = "Premia la increíble habilidad de tomar un tema complejo y explicarlo de una manera tan clara y sencilla que todos puedan entenderlo.", UrlImagenMiniatura = "medalla_el_explicador.png", MonedasOtorgadas = 25, ProfesorId = profesor2Id }
+                new Medalla { Id = 13, Nombre = "El Explicador", Descripcion = "Premia la increíble habilidad de tomar un tema complejo y explicarlo de una manera tan clara y sencilla que todos puedan entenderlo.", NombreImagenMiniatura = "medalla_el_explicador.png", MonedasOtorgadas = 25, ProfesorId = profesor2Id }
             );
         }
 
@@ -449,7 +449,7 @@ namespace AccesoDatos.RepositoriosEF
                         Tipo = tipoAtributo,
                         Nombre = tipoAtributo.ToString().Contains("Color") ? codigo : capitalizar(codigo),
                         CodigoUnico = codigo,
-                        RutaRecurso = $"{prefijo}{codigo}.png"
+                        NombreImagenRecurso = $"{prefijo}{codigo}.png"
                     });
                 }
             }
@@ -522,8 +522,8 @@ namespace AccesoDatos.RepositoriosEF
                     Id = proximoIdRecompensa++,
                     Nombre = $"Item: {atributo.Nombre}",
                     Precio = 0, // Precio 0 porque ya los posee
-                    RutaImagenCompleta = atributo.RutaRecurso,
-                    RutaImagenMiniatura = atributo.RutaRecurso,
+                    NombreImagenCompleta = atributo.NombreImagenRecurso,
+                    NombreImagenMiniatura = atributo.NombreImagenRecurso,
                     TiendaId = 1,
                     AtributoAvatarId = atributo.Id
                 });

@@ -12,8 +12,8 @@ namespace LogicaNegocio.Entidades
         [Required]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "El nombre Recompensa  debe tener entre 3 y 50 caracteres.")]
         public string Nombre { get; set; }
-        public string RutaImagenCompleta { get; set; }                                                                                                                                                                                  
-        public string RutaImagenMiniatura { get; set; }
+        public string NombreImagenCompleta { get; set; }                                                                                                                                                                                  
+        public string NombreImagenMiniatura { get; set; }
         public bool RequiereImagen { get; set; }
 
         public int Precio { get; set; }
@@ -26,9 +26,9 @@ namespace LogicaNegocio.Entidades
                 errores.Add(new Error("Error.Validation", "El nombre de la recompensa debe tener entre 3 y 50 caracteres."));
             if (Precio < 0)
                 errores.Add(new Error("Error.Validation", "El precio de la recompensa debe ser >= 0."));
-            if (string.IsNullOrWhiteSpace(RutaImagenCompleta))
+            if (string.IsNullOrWhiteSpace(NombreImagenCompleta))
                 errores.Add(new Error("Error.Validation", "Debe especificar la ruta de la imagen completa."));
-            if (string.IsNullOrWhiteSpace(RutaImagenMiniatura))
+            if (string.IsNullOrWhiteSpace(NombreImagenMiniatura))
                 errores.Add(new Error("Error.Validation", "Debe especificar la ruta de la miniatura."));
             if (errores.Any())
                 return Resultado.Falla(errores);

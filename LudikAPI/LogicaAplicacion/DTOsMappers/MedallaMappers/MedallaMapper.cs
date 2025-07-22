@@ -10,7 +10,7 @@ public class MedallaMapper
         return new MedallaDto
         {
             Id = medalla.Id,
-            UrlImagen = medalla.UrlImagenMiniatura,
+            UrlImagen = medalla.NombreImagenMiniatura,
             Nombre = medalla.Nombre,
             Descripcion = medalla.Descripcion,
             CantidadMedallasBrinda = medalla.MonedasOtorgadas,
@@ -24,7 +24,7 @@ public class MedallaMapper
         return new Medalla
         {
             Id = dto.Id,
-            UrlImagenMiniatura = dto.UrlImagen,
+            NombreImagenMiniatura = dto.UrlImagen,
             Nombre = dto.Nombre,
             Descripcion = dto.Descripcion,
             MonedasOtorgadas = dto.CantidadMedallasBrinda,

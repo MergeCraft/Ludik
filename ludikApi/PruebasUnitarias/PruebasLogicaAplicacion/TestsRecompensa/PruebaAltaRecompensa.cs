@@ -181,8 +181,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
             _repoRecMock.Verify(r => r.AddAsync(It.IsAny<LogicaNegocio.Entidades.Recompensa>()), Times.Once);
             Assert.Equal(dto.Nombre, capturada.Nombre);
             Assert.Equal(dto.Precio, capturada.Precio);
-            Assert.Equal(dto.RutaImagenCompleta, capturada.RutaImagenCompleta);
-            Assert.Equal(dto.RutaImagenMiniatura, capturada.RutaImagenMiniatura);
+            Assert.Equal(dto.RutaImagenCompleta, capturada.NombreImagenCompleta);
+            Assert.Equal(dto.RutaImagenMiniatura, capturada.NombreImagenMiniatura);
             Assert.Equal(_tienda.Id, capturada.TiendaId);
         }
     }

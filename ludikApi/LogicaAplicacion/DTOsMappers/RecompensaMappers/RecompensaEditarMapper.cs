@@ -13,8 +13,8 @@ namespace LogicaAplicacion.DTOsMappers.RecompensaMappers
         public static void Update(Recompensa entidad, RecompensaEditarDto dto)
         {
             entidad.Nombre = dto.Nombre;
-            entidad.RutaImagenCompleta = dto.RutaImagenCompleta ?? entidad.RutaImagenCompleta;
-            entidad.RutaImagenMiniatura = dto.RutaImagenMiniatura ?? entidad.RutaImagenMiniatura;
+            entidad.NombreImagenCompleta = dto.RutaImagenCompleta ?? entidad.NombreImagenCompleta;
+            entidad.NombreImagenMiniatura = dto.RutaImagenMiniatura ?? entidad.NombreImagenMiniatura;
             entidad.Precio = dto.Precio;
         }
     }

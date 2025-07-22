@@ -150,8 +150,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsRecompensa
                 Id = 15,
                 Nombre = "Original",
                 Precio = 5,
-                RutaImagenCompleta = "oldFull",
-                RutaImagenMiniatura = "oldThumb",
+                NombreImagenCompleta = "oldFull",
+                NombreImagenMiniatura = "oldThumb",
                 TiendaId = 2
             };
             _mockRepoRecompensas
@@ -180,8 +180,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsRecompensa
 
             // Verificamos que el mapper hizo su trabajo
             Assert.Equal("NuevoNombre", capturada.Nombre);
-            Assert.Equal("newFull", capturada.RutaImagenCompleta);
-            Assert.Equal("oldThumb", capturada.RutaImagenMiniatura);
+            Assert.Equal("newFull", capturada.NombreImagenCompleta);
+            Assert.Equal("oldThumb", capturada.NombreImagenMiniatura);
             Assert.Equal(50, capturada.Precio);
 
             _mockRepoRecompensas.Verify(r => r.UpdateAsync(It.IsAny<LogicaNegocio.Entidades.Recompensa>()), Times.Once);
