@@ -30,7 +30,17 @@ public class AsignarKudo: IAsignarKudo
         _repositorioUmbralesParaMedallas = repositorioUmbrales;
         _unitOfWork = unitOfWork;
     }
-
+    /// <summary>
+    /// Asynchronously assigns a kudo from one student to another and evaluates if the recipient qualifies for a medal.
+    /// </summary>
+    /// <remarks>This method involves multiple asynchronous operations, including retrieving student profiles
+    /// and kudo types, and saving changes to the database. It ensures that the kudo assignment adheres to business
+    /// rules and evaluates medal thresholds for the recipient.</remarks>
+    /// <param name="idEstudianteEmisor">The identifier of the student who is assigning the kudo.</param>
+    /// <param name="dto">The data transfer object containing details of the kudo assignment, including the recipient's profile ID and the
+    /// kudo type.</param>
+    /// <returns>A <see cref="Resultado"/> indicating the success or failure of the operation. If successful, the kudo is
+    /// assigned and any applicable medals are evaluated.</returns>
     public async Task<Resultado> EjecutarAsync(string idEstudianteEmisor, AsignarKudoDto dto)
     {
         var resultadoEstudianteEmisor = await _repositorioEstudiantes.GetByStringIdAsync(idEstudianteEmisor);
