@@ -57,8 +57,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PruebasAvatar
         [Fact]
         public async Task CaminoFeliz_RetornaAtributosDtoCorrectos()
         {
-            var attrA = new AtributoAvatar { Id = 10, Nombre = "Pelo", Tipo = TipoAtributo.Pelo, RutaRecurso = "r1", CodigoUnico = "c1" };
-            var attrB = new AtributoAvatar { Id = 20, Nombre = "Gafas", Tipo = TipoAtributo.Gafas, RutaRecurso = "r2", CodigoUnico = "c2" };
+            var attrA = new AtributoAvatar { Id = 10, Nombre = "Pelo", Tipo = TipoAtributo.Pelo, NombreImagenRecurso = "r1", CodigoUnico = "c1" };
+            var attrB = new AtributoAvatar { Id = 20, Nombre = "Gafas", Tipo = TipoAtributo.Gafas, NombreImagenRecurso = "r2", CodigoUnico = "c2" };
             var pa1 = new PersonalizacionAvatar { AtributoDesbloqueable = attrA };
             var pa2 = new PersonalizacionAvatar { AtributoDesbloqueable = attrB };
             var perfil = new LogicaNegocio.Entidades.PerfilEstudiante

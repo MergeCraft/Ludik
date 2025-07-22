@@ -31,7 +31,7 @@ public class AtributoAvatar : IEntity
     public TipoAtributo Tipo { get; set; }
 
     [Required]
-    public string RutaRecurso { get; set; }
+    public string NombreImagenRecurso { get; set; }
 
     // Código único para ser referenciado por el sistema de renderizado de avatares.
     // Ej: "hair_long_blonde", "glasses_aviator"

@@ -33,11 +33,13 @@ public class RestablecerContrasena: IRestablecerContrasena
     {
         try
         {
-            var usuario = await _repositorioUsuarios.GetUsuarioPorNombreAsync(dto.NombreUsuario);
+            var resultadoUsuario = await _repositorioUsuarios.GetUsuarioPorNombreAsync(dto.NombreUsuario);
+            if (resultadoUsuario.EsFallo)
+                return Resultado.Falla(resultadoUsuario.Errores);
+            
 
-            var estudiante = usuario as Estudiante;
-            if (estudiante == null)
-                return Resultado.Falla(Error.Validation);
+            var estudiante = resultadoUsuario.Valor as Estudiante;
+            
             //Debo de cargarle al estudiante las preguntas de seguridad que ha respondido al momento de registrarse.
             await _repositorioPreguntasSeguridad.GetByNombreUsuarioAsync(dto.NombreUsuario);
 

@@ -40,7 +40,7 @@ namespace AccesoDatos.RepositoriosEF
 
             await blobClient.UploadAsync(streamArchivo, new BlobHttpHeaders { ContentType = tipoContenido });
 
-            return Resultado<string>.Exitoso(blobClient.Uri.ToString());
+            return Resultado<string>.Exitoso(nombreArchivo);
         }
 
         public async Task<Resultado<string>> ObtenerArchivoSasUrlAsync(string nombreArchivo)

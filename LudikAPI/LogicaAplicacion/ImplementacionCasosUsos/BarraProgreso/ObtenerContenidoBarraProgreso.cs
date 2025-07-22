@@ -34,22 +34,19 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.BarraProgreso
 			if (perfilEstudiante.EstudianteId != idUsuarioAutenticado)
 				return Resultado<BarraProgresoDto>.Falla(Error.Forbidden);
 
-			if (perfilEstudiante.Grupo == null || perfilEstudiante.Grupo.TablaEquivalencia == null)
-				return Resultado<BarraProgresoDto>.Falla(Error.NotFound);
-
-			Entidades.TablaEquivalencia tablaEquivalencia = perfilEstudiante.Grupo.TablaEquivalencia;
-			int notaActualDelPerfil = tablaEquivalencia.MaximaCalificacionSegun(perfilEstudiante.MedallasObtenidas);
-			int notaMinimaDeTablaEquivalencia = tablaEquivalencia.ObtenerNotaMinima();
-			int notaMaximaDeTablaEquivalencia = tablaEquivalencia.ObtenerNotaMaxima();
-			List<Entidades.Medalla> medallasNecesariasParaSiguienteNota = tablaEquivalencia.ObtenerMedallasNecesariasParaSiguienteNota(notaActualDelPerfil);
-			BarraProgresoDto barraProgresoDto = new BarraProgresoDto
-			{
-				CalificacionActual = notaActualDelPerfil,
-				CalificacionMinima = notaMinimaDeTablaEquivalencia,
-				CalificacionMaxima = notaMaximaDeTablaEquivalencia,
-				MedallasNecesariasParaSiguienteNota = medallasNecesariasParaSiguienteNota.Select(m => MedallaBasicaMapper.toDto(m)).ToList()
-			};
-			return Resultado<BarraProgresoDto>.Exitoso(barraProgresoDto);
-		}
-	}
+            Entidades.TablaEquivalencia tablaEquivalencia = perfilEstudiante.Grupo.TablaEquivalencia;
+            int notaActualDelPerfil = tablaEquivalencia.MaximaCalificacionSegun(perfilEstudiante.Medallas);
+            int notaMinimaDeTablaEquivalencia = tablaEquivalencia.ObtenerNotaMinima();
+            int notaMaximaDeTablaEquivalencia = tablaEquivalencia.ObtenerNotaMaxima();
+            List<Entidades.Medalla> medallasNecesariasParaSiguienteNota = tablaEquivalencia.ObtenerMedallasNecesariasParaSiguienteNota(notaActualDelPerfil);
+            BarraProgresoDto barraProgresoDto = new BarraProgresoDto
+            {
+                CalificacionActual = notaActualDelPerfil,
+                CalificacionMinima = notaMinimaDeTablaEquivalencia,
+                CalificacionMaxima = notaMaximaDeTablaEquivalencia,
+                MedallasNecesariasParaSiguienteNota = medallasNecesariasParaSiguienteNota.Select(m => MedallaBasicaMapper.toDto(m)).ToList()
+            };
+            return Resultado<BarraProgresoDto>.Exitoso(barraProgresoDto);
+        }
+    }
 }

@@ -7,7 +7,9 @@ using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.RecompensaDTOs;
 using LogicaAplicacion.DTOsMappers.RecompensaMappers;
 using LogicaAplicacion.InterfacesCasosUsos.Estudiante;
-using LogicaNegocio.Entidades;
+using LogicaAplicacion.InterfacesCasosUsos.Grupo;
+using LogicaAplicacion.Servicios;
+using Entidades = LogicaNegocio.Entidades;
 using LogicaNegocio.Resultados;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
@@ -15,29 +17,58 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
     public class ObtenerRecompensasInventarioPerfil : IObtenerRecompensasInventarioPerfil
     {
         private readonly IRepositorioPerfilEstudianteGrupo _repositorioPerfilEstudiante;
+        private readonly IGeneradorUrlImagen _generadorUrlImagen;
 
-        public ObtenerRecompensasInventarioPerfil(IRepositorioPerfilEstudianteGrupo repositorioPerfilEstudiante)
+        public ObtenerRecompensasInventarioPerfil(IRepositorioPerfilEstudianteGrupo repositorioPerfilEstudiante,
+            IGeneradorUrlImagen generadorUrlImagen)
         {
             _repositorioPerfilEstudiante = repositorioPerfilEstudiante;
+            _generadorUrlImagen = generadorUrlImagen;
         }
-        public async Task<Resultado<List<RecompensaListadoDto>>> EjecutarAsync(int idPerfil,string idEstudiante)
+        public async Task<Resultado<List<RecompensaDto>>> EjecutarAsync(int idPerfil,string idEstudiante)
         {
             var resultadoPerfil = await _repositorioPerfilEstudiante.GetByIdAsync(idPerfil);
             if (resultadoPerfil.EsFallo)
-                return Resultado<List<RecompensaListadoDto>>.Falla(
+                return Resultado<List<RecompensaDto>>.Falla(
                     new Error("Error.NotFound", "No se encontró el perfil del estudiante especificado."));
 
-            var perfil = resultadoPerfil.Valor!;
+            Entidades.PerfilEstudiante perfil = resultadoPerfil.Valor!;
 
             if(perfil.EstudianteId != idEstudiante)
-                return Resultado<List<RecompensaListadoDto>>.Falla(
+                return Resultado<List<RecompensaDto>>.Falla(
                     new Error("Error.Forbidden", "No tienes permiso para acceder a este perfil."));
 
-            var dtos = perfil.InventarioRecompensas
+            List<RecompensaDto> dtos = perfil.InventarioRecompensas
                 .Select(ir => RecompensaListadoMapper.ToDto(ir.Recompensa))
                 .ToList();
+          
+            dtos = await AgregarUrlSasADtos(dtos);
 
-            return Resultado<List<RecompensaListadoDto>>.Exitoso(dtos);
+            return Resultado<List<RecompensaDto>>.Exitoso(dtos);
+        }
+
+        private async Task<List<RecompensaDto>> AgregarUrlSasADtos(List<RecompensaDto> dtos)
+        {
+            var tareasDeGeneracion = new List<Task<string?>>();
+            foreach (var dto in dtos)
+            {
+                // Es crucial mantener este orden para el paso de reasignación
+                tareasDeGeneracion.Add(_generadorUrlImagen.GenerarUrlLecturaAsync(dto.RutaImagenMiniatura));
+                tareasDeGeneracion.Add(_generadorUrlImagen.GenerarUrlLecturaAsync(dto.RutaImagenCompleta));
+            }
+
+            // Ejecutar TODAS las tareas en paralelo.
+            var urlsGeneradas = await Task.WhenAll(tareasDeGeneracion);
+
+            // Reasignar las URLs generadas a sus DTOs correspondientes
+            int i = 0;
+            foreach (var dto in dtos)
+            {
+                dto.RutaImagenMiniatura = urlsGeneradas[i++];
+                dto.RutaImagenCompleta = urlsGeneradas[i++];
+            }
+
+            return dtos;
         }
     }
 }

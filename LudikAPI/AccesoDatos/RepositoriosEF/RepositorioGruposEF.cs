@@ -70,7 +70,7 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(g => g.Alumnos)
 						.ThenInclude(a => a.HistorialRendimientoPeriodos)
                     .Include(g => g.Alumnos)
-                        .ThenInclude(al => al.PerfilMedallas)
+                        .ThenInclude(al => al.MedallasObtenidas)
                             .ThenInclude(pm => pm.Medalla)
                     .Include(g => g.TablaEquivalencia)
                         .ThenInclude(t => t.Equivalencias)
@@ -219,7 +219,7 @@ namespace AccesoDatos.RepositoriosEF
 
                 var grupos = await _db.Grupos
                     .Include(g => g.Alumnos)
-                        .ThenInclude(a => a.PerfilMedallas)
+                        .ThenInclude(a => a.MedallasObtenidas)
                             .ThenInclude(pm => pm.Medalla)
 
                     .Include(g => g.Alumnos)

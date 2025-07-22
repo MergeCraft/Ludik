@@ -8,6 +8,7 @@ using LogicaNegocio.Resultados;
 using Moq;
 using Xunit;
 using LogicaNegocio.InterfacesRepositorios;
+using MediatR;
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion.BrindarMedalla
 {
@@ -17,6 +18,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.BrindarMedalla
         private readonly Mock<IRepositorioMedallas> _mockMedallasRepo;
         private readonly Mock<IRepositorioProfesores> _mockProfesoresRepo;
         private readonly Mock<IRepositorioPerfilEstudianteMedalla> _mockPerfilMedallaRepo;
+        private readonly Mock<IMediator> _mockMediator;
         private readonly AsignarMedalla _casoUso;
 
         private const string ProfesorId = "prof-1";
@@ -29,14 +31,15 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.BrindarMedalla
             _mockMedallasRepo = new Mock<IRepositorioMedallas>();
             _mockProfesoresRepo = new Mock<IRepositorioProfesores>();
             _mockPerfilMedallaRepo = new Mock<IRepositorioPerfilEstudianteMedalla>();
+            _mockMediator = new Mock<IMediator>();
 
-            
+
             _casoUso = new AsignarMedalla(
                 _mockPerfilRepo.Object,
                 _mockMedallasRepo.Object,
                 _mockProfesoresRepo.Object,
                 _mockPerfilMedallaRepo.Object,
-                new List<IObserver<Entidad.PerfilEstudianteMedalla>>()
+                _mockMediator.Object
             );
         }
 

@@ -4,28 +4,30 @@ using InterfacesRepositorio;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using LogicaAplicacion.DTOsMappers.MedallaMappers;
-
+using LogicaAplicacion.Servicios;
 
 
 public class ObtenerPerfilConMedallas :IObtenerPerfilConMedallas
 {
     private readonly IRepositorioPerfilEstudianteGrupo _repoPerfilGrupo;
-    public ObtenerPerfilConMedallas(IRepositorioPerfilEstudianteGrupo repoPerfilGrupo)
+    private readonly IGeneradorUrlImagen _generadorUrlImagen;
+    public ObtenerPerfilConMedallas(IRepositorioPerfilEstudianteGrupo repoPerfilGrupo, IGeneradorUrlImagen generadorUrlImagen)
     {
         _repoPerfilGrupo = repoPerfilGrupo;
+        _generadorUrlImagen = generadorUrlImagen;
     }
 
     public async Task<Resultado<PerfilConMedallasDto>> EjecutarAsync(string estudianteId, int grupoId)
     {
-        // 1. Obtener perfil con medallas
+
         var resultadoPerfil = await _repoPerfilGrupo.GetByEstudianteYGrupoConMedallasAsync(estudianteId, grupoId);
         if (!resultadoPerfil.EsExitoso)
             return Resultado<PerfilConMedallasDto>.Falla(resultadoPerfil.Errores);
 
         var perfil = resultadoPerfil.Valor;
 
-        // 2. Mapear a DTO con agrupamiento
         var dto = PerfilMapper.ToDtoConMedallas(perfil);
+        dto.EnlaceAvatar = await _generadorUrlImagen.GenerarUrlLecturaAsync(dto.EnlaceAvatar);
 
         return Resultado<PerfilConMedallasDto>.Exitoso(dto);
     }

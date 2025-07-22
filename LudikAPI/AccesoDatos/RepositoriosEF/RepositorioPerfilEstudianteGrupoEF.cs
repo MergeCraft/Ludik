@@ -25,7 +25,7 @@ namespace AccesoDatos.RepositoriosEF
                 var perfiles = await _db.PerfilesEstudiantes
             .Include(p => p.BarraProgreso)
             .Include(p => p.Estudiante)
-            .Include(p => p.PerfilMedallas)
+            .Include(p => p.MedallasObtenidas)
                 .ThenInclude(pm => pm.Medalla)
             .Include(p => p.Grupo)
                 .ThenInclude(g => g.TablaEquivalencia)
@@ -96,13 +96,13 @@ namespace AccesoDatos.RepositoriosEF
                         .ThenInclude(g => g.SolicitudesPerfilMedalla)
                     .Include(p => p.InventarioRecompensas)
                         .ThenInclude(ir => ir.Recompensa)
-						.ThenInclude(r => ((PersonalizacionAvatar)r).AtributoDesbloqueable)
-					.Include(p => p.PerfilMedallas)
+                            .ThenInclude(r => (r as PersonalizacionAvatar).AtributoDesbloqueable)
+                    .Include(p => p.MedallasObtenidas)
                         .ThenInclude(pm => pm.Medalla)
                     .Include(p => p.PotenciadorActivo)
                     .Include(p => p.Estudiante)
                         .ThenInclude(e => e.Perfiles)
-                            .ThenInclude(pe => pe.PerfilMedallas)
+                            .ThenInclude(pe => pe.MedallasObtenidas)
                                 .ThenInclude(pm => pm.Medalla)
                     .Include(p => p.Estudiante)
                         .ThenInclude(e => e.Perfiles)
@@ -175,7 +175,7 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var perfil = await _db.PerfilesEstudiantes
-                    .Include(p => p.PerfilMedallas)
+                    .Include(p => p.MedallasObtenidas)
                         .ThenInclude(pm => pm.Medalla)
                     .Include(p => p.BarraProgreso)
                     .Include(p => p.Estudiante)   

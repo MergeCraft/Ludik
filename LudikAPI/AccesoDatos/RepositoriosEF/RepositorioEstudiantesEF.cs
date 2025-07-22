@@ -42,18 +42,7 @@ namespace AccesoDatos.RepositoriosEF
         }
 
 
-        public async Task<Resultado<IEnumerable<Estudiante>>> GetAll()
-        {
-            try
-            {
-                var estudiantes = await _db.Estudiantes.ToListAsync();
-                return Resultado<IEnumerable<Estudiante>>.Exitoso(estudiantes); 
-            }
-            catch (Exception e)
-            {
-                return Resultado<IEnumerable<Estudiante>>.Falla(Error.Unexpected);
-            }
-        }
+       
 
         public async Task<Resultado<Estudiante>> GetByIdAsync(int id)
         {
@@ -74,11 +63,14 @@ namespace AccesoDatos.RepositoriosEF
         {
             try
             {
-                var usuario = await _db.Users.FirstOrDefaultAsync(e => e.Id == id);
+                var estudiante = await _db.Estudiantes
+                    .Include(e => e.Perfiles)             
+                    .Include(e => e.Hitos)                
+                    .Include(e => e.PreguntasSeguridad)   
+                    .FirstOrDefaultAsync(e => e.Id == id);
 
-                if (usuario == null)
+                if (estudiante == null)
                     return Resultado<Estudiante>.Falla(Error.NotFound);
-                Estudiante estudiante = (Estudiante)usuario;
                 
  
                 return Resultado<Estudiante>.Exitoso(estudiante);
@@ -90,9 +82,17 @@ namespace AccesoDatos.RepositoriosEF
             }
         }
 
-        public Task<Resultado<IEnumerable<Estudiante>>> GetAllAsync()
+        public async Task<Resultado<IEnumerable<Estudiante>>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var estudiantes = await _db.Estudiantes.ToListAsync();
+                return Resultado<IEnumerable<Estudiante>>.Exitoso(estudiantes);
+            }
+            catch (Exception e)
+            {
+                return Resultado<IEnumerable<Estudiante>>.Falla(Error.Unexpected);
+            }
         }
 
 
@@ -137,7 +137,7 @@ namespace AccesoDatos.RepositoriosEF
                     .AsNoTracking()
                     .Where(e => e.Id == estudianteId)
                     .Include(e => e.Perfiles)
-                        .ThenInclude(p => p.PerfilMedallas)
+                        .ThenInclude(p => p.MedallasObtenidas)
                             .ThenInclude(pm => pm.Medalla)
                     // si persistes PotenciadorActivo, inclúyelo también:
                     .Include(e => e.Perfiles)

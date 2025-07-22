@@ -19,7 +19,7 @@ namespace AccesoDatos.RepositoriosEF
         }
 
 
-        //Aqui se definen las tablas de la base de datos
+        //Tablas que hay en la base de datos
         public DbSet<Profesor> Profesores { get; set; }
         public DbSet<Estudiante> Estudiantes { get; set; }
         public DbSet<Recompensa> Recompensas { get; set; }
@@ -45,6 +45,9 @@ namespace AccesoDatos.RepositoriosEF
         public DbSet<Avatar> Avatares { get; set; }
         public DbSet<AtributoAvatar> AtributosAvatar { get; set; }
         public DbSet<PerfilEstudianteRecompensa> PerfilEstudianteRecompensas { get; set; }
+        public DbSet<KudoOtorgado> KudosOtorgados { get; set; }
+        public DbSet<TipoKudo> TiposKudo { get; set; }
+        public DbSet<UmbralParaMedallaPorKudos> UmbralesParaMedallasPorKudos { get; set; }
         public DbSet<ProyectoAulaColaborativo> ProyectosAulaColaborativos { get; set; }
 
 

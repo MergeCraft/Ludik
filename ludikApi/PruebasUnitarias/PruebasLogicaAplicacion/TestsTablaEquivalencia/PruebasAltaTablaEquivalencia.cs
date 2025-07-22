@@ -111,8 +111,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaEquivalencia
 
             var medallas = new List<LogicaNegocio.Entidades.Medalla>
             {
-                new LogicaNegocio.Entidades.Medalla { Id = 1, Nombre = "M1", UrlImagenMiniatura = "url" },
-                new LogicaNegocio.Entidades.Medalla { Id = 2, Nombre = "M2", UrlImagenMiniatura = "url2" }
+                new LogicaNegocio.Entidades.Medalla { Id = 1, Nombre = "M1", NombreImagenMiniatura = "url" },
+                new LogicaNegocio.Entidades.Medalla { Id = 2, Nombre = "M2", NombreImagenMiniatura = "url2" }
             };
 
             _repoMedallasMock

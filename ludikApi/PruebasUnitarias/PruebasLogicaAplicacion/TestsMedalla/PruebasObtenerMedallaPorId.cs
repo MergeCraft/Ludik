@@ -2,6 +2,7 @@
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.MedallaDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Medallas;
+using LogicaAplicacion.Servicios;
 using LogicaNegocio.Entidades;
 using LogicaNegocio.Resultados;
 using Moq;
@@ -12,13 +13,14 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
     public class PruebasObtenerMedallaPorId
     {
         private readonly Mock<IRepositorioMedallas> _repoMock;
+        private readonly IGeneradorUrlImagen _generadorUrlImagenMock;
         private readonly ObtenerMedallaPorId _casoUso;
         private const int IdMedalla = 1;
 
         public PruebasObtenerMedallaPorId()
         {
             _repoMock = new Mock<IRepositorioMedallas>();
-            _casoUso = new ObtenerMedallaPorId(_repoMock.Object);
+            _casoUso = new ObtenerMedallaPorId(_repoMock.Object, _generadorUrlImagenMock);
         }
 
         [Fact]
@@ -46,7 +48,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
                 Id = IdMedalla,
                 Nombre = "Colaborador",
                 Descripcion = "Ayuda frecuentemente a sus compañeros",
-                UrlImagenMiniatura = "img/colaborador.png",
+                NombreImagenMiniatura = "img/colaborador.png",
                 MonedasOtorgadas = 50,
                 TieneAsignacionMutua = true
             };
@@ -65,7 +67,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
             Assert.Equal(medalla.Id, dto.Id);
             Assert.Equal(medalla.Nombre, dto.Nombre);
             Assert.Equal(medalla.Descripcion, dto.Descripcion);
-            Assert.Equal(medalla.UrlImagenMiniatura, dto.UrlImagen);
+            Assert.Equal(medalla.NombreImagenMiniatura, dto.UrlImagen);
             Assert.Equal(medalla.MonedasOtorgadas, dto.CantidadMedallasBrinda);
             Assert.Equal(medalla.TieneAsignacionMutua, dto.EsAsignacionMutua);
         }

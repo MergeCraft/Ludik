@@ -147,7 +147,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             Assert.NotNull(capturada);
             Assert.Equal(dto.Nombre, capturada.Nombre);
             Assert.Equal(dto.Descripcion, capturada.Descripcion);
-            Assert.Equal(dto.UrlImagen, capturada.UrlImagenMiniatura);
+            Assert.Equal(dto.UrlImagen, capturada.NombreImagenMiniatura);
             Assert.Equal(dto.CantidadMonedasBrinda, capturada.MonedasOtorgadas);
             Assert.Equal(dto.EsAsignacionMutua, capturada.TieneAsignacionMutua);
             Assert.Equal(ProfesorId, capturada.ProfesorId);

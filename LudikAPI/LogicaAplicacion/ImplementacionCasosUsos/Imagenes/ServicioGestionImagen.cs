@@ -78,8 +78,8 @@ public class ServicioGestionImagen: IServicioGestionImagen
             return Resultado<ImagenPerfilDto>.Falla(Error.Forbidden);
         }
 
-        var nombreCompleta = resultadoPerfil.Valor.RutaImagenCompleta;
-        var nombreMiniatura = resultadoPerfil.Valor.RutaImagenMiniatura;
+        var nombreCompleta = resultadoPerfil.Valor.NombreImagenCompleta;
+        var nombreMiniatura = resultadoPerfil.Valor.NombreImagenMiniatura;
 
 
         var resultadoUrlCompleta = await _repositorioArchivos.ObtenerArchivoSasUrlAsync(nombreCompleta);

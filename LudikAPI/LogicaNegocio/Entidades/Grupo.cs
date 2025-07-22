@@ -110,7 +110,7 @@ namespace LogicaNegocio.Entidades
                     NotaObtenida = perfil.CalcularNotaActual(),
                     Rangofecha = new RangoFechas(desde, hasta),
 
-                    RendimientoMedallas = perfil.MedallasObtenidas
+                    RendimientoMedallas = perfil.Medallas
                         .Select(m => new RendimientoPeriodoMedalla
                         {
                             MedallaId = m.Id,
@@ -122,7 +122,7 @@ namespace LogicaNegocio.Entidades
 
                 rendimientos.Add(rendimiento);
 
-                perfil.PerfilMedallas.Clear();
+                perfil.MedallasObtenidas.Clear();
             }
 
             return rendimientos;

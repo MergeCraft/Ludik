@@ -3,7 +3,6 @@
     public class PerfilConMedallasDto
     {
         public int Id { get; set; }
-        public int AvatarGrupoId { get; set; }
         public string? EnlaceAvatar { get; set; }
         public int MetaCalificacion { get; set; }
         public string EstudianteId { get; set; }

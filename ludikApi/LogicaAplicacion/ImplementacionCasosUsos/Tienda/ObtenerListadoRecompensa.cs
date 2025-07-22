@@ -23,20 +23,20 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Tienda
             _repositorioTiendas = repositorioTiendas;
         }
 
-        public async Task<Resultado<IEnumerable<RecompensaListadoDto>>> EjecutarAsync(string tiendaIdString)
+        public async Task<Resultado<IEnumerable<RecompensaDto>>> EjecutarAsync(string tiendaIdString)
         {
             if (!int.TryParse(tiendaIdString, out int tiendaId))
-                return Resultado<IEnumerable<RecompensaListadoDto>>.Falla(
+                return Resultado<IEnumerable<RecompensaDto>>.Falla(
                     new Error("Error.InvalidId", $"ID de tienda inválido: '{tiendaIdString}'"));
 
             var resultadoTienda = await _repositorioTiendas.GetByIdAsync(tiendaId);
             if (resultadoTienda.EsFallo)
-                return Resultado<IEnumerable<RecompensaListadoDto>>.Falla(
+                return Resultado<IEnumerable<RecompensaDto>>.Falla(
                     new Error("Error.NotFound", "No se encontró la tienda especificada."));
 
             var resultadoLista = await _repositorioRecompensas.GetByTiendaIdAsync(tiendaId);
             if (resultadoLista.EsFallo)
-                return Resultado<IEnumerable<RecompensaListadoDto>>.Falla(
+                return Resultado<IEnumerable<RecompensaDto>>.Falla(
                     new Error("Error.Unexpected", "Error al obtener recompensas: "));
 
             var entidades = resultadoLista.Valor!;
@@ -45,7 +45,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Tienda
                 .Select(r => RecompensaListadoMapper.ToDto(r))
                 .ToList();
 
-            return Resultado<IEnumerable<RecompensaListadoDto>>.Exitoso(dtos);
+            return Resultado<IEnumerable<RecompensaDto>>.Exitoso(dtos);
         }
     }
 }

@@ -4,7 +4,10 @@ using System.Threading.Tasks;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.MedallaDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Medallas;
+using LogicaAplicacion.ImplementacionServicios;
+using LogicaAplicacion.Servicios;
 using LogicaNegocio.Entidades;
+using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
 using Moq;
 using Xunit;
@@ -14,12 +17,13 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
     public class PruebasObtenerTodasLasMedallas
     {
         private readonly Mock<IRepositorioMedallas> _repoMock;
+        private readonly IGeneradorUrlImagen _generadorUrlImagen = new GeneradorUrlImagen(new Mock<IRepositorioAlmacenamientoArchivos>().Object);
         private readonly ObtenerTodasLasMedallas _casoUso;
 
         public PruebasObtenerTodasLasMedallas()
         {
             _repoMock = new Mock<IRepositorioMedallas>();
-            _casoUso = new ObtenerTodasLasMedallas(_repoMock.Object);
+            _casoUso = new ObtenerTodasLasMedallas(_repoMock.Object, _generadorUrlImagen);
         }
 
         [Fact]
@@ -50,7 +54,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
                     Id = 1,
                     Nombre = "Responsable",
                     Descripcion = "Cumple siempre con sus tareas",
-                    UrlImagenMiniatura = "img/responsable.png",
+                    NombreImagenMiniatura = "img/responsable.png",
                     MonedasOtorgadas = 20,
                     TieneAsignacionMutua = false
                 },
@@ -59,7 +63,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
                     Id = 2,
                     Nombre = "Colaborador",
                     Descripcion = "Ayuda a otros estudiantes",
-                    UrlImagenMiniatura = "img/colaborador.png",
+                    NombreImagenMiniatura = "img/colaborador.png",
                     MonedasOtorgadas = 30,
                     TieneAsignacionMutua = true
                 }

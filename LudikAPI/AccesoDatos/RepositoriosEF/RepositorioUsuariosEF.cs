@@ -1,15 +1,15 @@
-﻿using System;
+﻿using InterfacesRepositorio;
+using LogicaNegocio.Entidades;
+using LogicaNegocio.Excepciones;
+using LogicaNegocio.Resultados;
+using LogicaNegocio.ValueObjects;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LogicaNegocio.Entidades;
-
-using InterfacesRepositorio;
-using LogicaNegocio.Excepciones;
-using LogicaNegocio.Resultados;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF
 {
@@ -34,18 +34,18 @@ namespace AccesoDatos.RepositoriosEF
         }
 
 
-        public async Task<Usuario> GetUsuarioPorNombreAsync(string nombreUsuario)
+        public async Task<Resultado<Usuario>> GetUsuarioPorNombreAsync(string nombreUsuario)
         {
             if (string.IsNullOrWhiteSpace(nombreUsuario))
-                throw new ArgumentNullException(nameof(nombreUsuario));
+                return Resultado<Usuario>.Falla(Error.Validation);
 
             var usuario = await _db.Users
                 .SingleOrDefaultAsync(e => e.UserName == nombreUsuario);
 
             if (usuario != null)
-                return usuario;
+                return Resultado<Usuario>.Exitoso(usuario);
 
-            throw new UsuarioNoValidoException($"Usuario con '{nombreUsuario}' no encontrado.");
+            return Resultado<Usuario>.Falla(new Error( "Error.NotFound",$"Usuario con '{nombreUsuario}' no encontrado."));
         }
 
 
@@ -54,6 +54,20 @@ namespace AccesoDatos.RepositoriosEF
             if(usuario == null) 
                 throw new ArgumentNullException(nameof(usuario));
             return await _userManager.GetRolesAsync(usuario);
+        }
+
+        public async Task<Resultado<Usuario>> GetByStringIdAsync(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                return Resultado<Usuario>.Falla(Error.Validation);
+
+            var usuario = await _db.Users
+                .SingleOrDefaultAsync(u => u.Id == id);
+
+            if (usuario != null)
+                return Resultado<Usuario>.Exitoso(usuario);
+
+            return Resultado<Usuario>.Falla(new Error("Error.NotFound", $"Usuario con '{id}' no encontrado."));
         }
 
         public async Task<Resultado> AddAsync(Usuario usuarioNuevo)

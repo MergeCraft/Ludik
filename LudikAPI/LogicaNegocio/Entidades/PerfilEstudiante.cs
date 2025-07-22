@@ -4,11 +4,10 @@ using LogicaNegocio.InterfacesEntidades;
 using System.ComponentModel.DataAnnotations.Schema;
 using LogicaNegocio.Resultados;
 using LogicaNegocio.Entidades;
-using LogicaNegocio.Observer;
 
 namespace LogicaNegocio.Entidades
 {
-	public class PerfilEstudiante : Observable<PerfilEstudianteMedalla>, IEntity, IValidable
+	public class PerfilEstudiante : IEntity, IValidable
     {
         public int Id { get; set; }
 
@@ -22,12 +21,15 @@ namespace LogicaNegocio.Entidades
         public Estudiante Estudiante { get; set; }
 
         public int Monedas { get; set; }
-        public string RutaImagenCompleta { get; set; }
-        public string RutaImagenMiniatura { get; set; }
-        public List<PerfilEstudianteMedalla> PerfilMedallas { get; set; } = new();
+        public string NombreImagenCompleta { get; set; }
+        public string NombreImagenMiniatura { get; set; }
+        public List<PerfilEstudianteMedalla> MedallasObtenidas { get; set; }
+        public int KudosDisponiblesParaOtorgar { get; set; }
+        public List<KudoOtorgado> KudosOtorgados { get; private set; }
+        public List<KudoOtorgado> KudosRecibidos { get; private set; }
 
         [NotMapped]
-        public IEnumerable<Medalla> MedallasObtenidas => PerfilMedallas.Select(pm => pm.Medalla);
+        public IEnumerable<Medalla> Medallas => MedallasObtenidas.Select(pm => pm.Medalla);
 
         public List<RendimientoPeriodo> HistorialRendimientoPeriodos { get; set; }
 
@@ -35,9 +37,9 @@ namespace LogicaNegocio.Entidades
         [ForeignKey(nameof(GrupoId))]
         public Grupo Grupo { get; set; }
 
-        public List<PerfilEstudianteRecompensa> InventarioRecompensas { get; set; } = new();
+        public List<PerfilEstudianteRecompensa> InventarioRecompensas { get; set; }
 
-        public List<TablaClasificacion> TablasClasificacion { get; set; } = new();
+        public List<TablaClasificacion> TablasClasificacion { get; set; }
 
         [NotMapped]
         public IEnumerable<Recompensa> Inventario =>
@@ -48,6 +50,15 @@ namespace LogicaNegocio.Entidades
         public int? PotenciadorActivoId { get; set; }
 
         public Potenciador? PotenciadorActivo { get; set; }
+
+        public PerfilEstudiante()
+        {
+            this.MedallasObtenidas = new List<PerfilEstudianteMedalla>();
+            this.KudosOtorgados = new List<KudoOtorgado>();
+            this.KudosRecibidos = new List<KudoOtorgado>();
+            this.InventarioRecompensas = new List<PerfilEstudianteRecompensa>();
+            this.TablasClasificacion = new List<TablaClasificacion>();
+        }
 
         public void ActivarPotenciador(Potenciador p)
         {
@@ -72,7 +83,7 @@ namespace LogicaNegocio.Entidades
         {
             if (Grupo == null)
                 return 0;
-            return Grupo.CalcularNotaDeEstudiante(MedallasObtenidas);
+            return Grupo.CalcularNotaDeEstudiante(Medallas);
             
         }
 
@@ -94,8 +105,53 @@ namespace LogicaNegocio.Entidades
 
             return Resultado.Exitoso();
         }
-        public void NotifyMedallaAsignada(PerfilEstudianteMedalla asignacion)
-        => Notify(asignacion);
+
+        /// <summary>
+        /// Encapsula la lógica de negocio para otorgar un kudo.
+        /// Verifica si hay kudos disponibles y descuenta uno.
+        /// </summary>
+        /// <returns>Un resultado exitoso si se pudo otorgar, o de falla en caso contrario.</returns>
+        public Resultado<KudoOtorgado> OtorgarKudo(TipoKudo tipoKudo, PerfilEstudiante perfilReceptor)
+        {
+            if (KudosDisponiblesParaOtorgar <= 0)
+                return Resultado<KudoOtorgado>.Falla(new Error("Error.Validation", "No tienes Kudos disponibles esta semana. Recibirás más el próximo lunes."));
+            
+
+            KudosDisponiblesParaOtorgar--;
+            var kudoOtorgado = new KudoOtorgado(this, perfilReceptor, tipoKudo, DateTime.UtcNow);
+            
+            return Resultado<KudoOtorgado>.Exitoso(kudoOtorgado);
+        }
+        public Resultado RecibirKudoYEvaluarMedalla(KudoOtorgado kudo, UmbralParaMedallaPorKudos umbral)
+        {
+            KudosRecibidos.Add(kudo);
+
+            if (umbral == null)
+                return Resultado.Exitoso();
+
+            int kudosContabilizados = KudosRecibidos.Count(kr =>
+                kr.TipoKudoId == umbral.TipoKudoId &&
+                kr.PerfilEstudianteMedallaId == null);
+
+            if (kudosContabilizados >= umbral.CantidadKudos)
+            {
+                var nuevaAsignacionMedalla = new PerfilEstudianteMedalla(this, umbral.Medalla, DateTime.UtcNow);
+                MedallasObtenidas.Add(nuevaAsignacionMedalla);
+
+                // Marcamos los kudos que se usaron para ganar esta medalla para que no se vuelvan a contar.
+                var kudosParaMarcar = KudosRecibidos
+                    .Where(kr => kr.TipoKudoId == umbral.TipoKudoId && kr.PerfilEstudianteMedallaId == null)
+                    .Take(umbral.CantidadKudos);
+
+                foreach (var k in kudosParaMarcar)
+                {
+                    k.MarcarComoUsadoPara(nuevaAsignacionMedalla);
+                }
+            }
+
+            return Resultado.Exitoso();
+        }
+       
     }
 
 }
