@@ -48,3 +48,11 @@ export const definirMetaCalificacion = async ({ perfilEstudianteId, metaCalifica
     throw parseError(error, "No se pudo establecer la meta de calificación.");
   }
 };
+export const obtenerInventarioAvatar = async (idPerfilEstudiante) => {
+  try {
+    const response = await api.get(`/api/Avatar/${idPerfilEstudiante}/inventario-avatar`);
+    return response.data;
+  } catch (error) {
+    throw parseError(error, "No se pudo obtener el inventario de avatar.");
+  }
+};

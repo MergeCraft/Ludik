@@ -40,8 +40,6 @@ const GroupPage = () => {
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasTienda(group?.idTienda);
   const { data: perfil, isLoadingPerfil } = usePerfilGrupo(groupId, isProfesor);
 
-  console.log(medals);
-
   const studentsFiltrados = students?.filter((item) => item.nombreEstudiante.toLowerCase().includes(search.toLowerCase()));
 
   const handleOpenRewardCreateForm = () => {
@@ -167,7 +165,7 @@ const GroupPage = () => {
             </div>
           )
         ) : selectedView === "perfil" ? (
-          <GroupProfileView perfil={perfil} isLoading={isLoadingPerfil} />
+          <GroupProfileView perfil={perfil} isLoading={isLoadingPerfil} setModalContent={setModalContent} setShowModal={setShowModal} setModalTitle={setModalTitle} />
         ) : selectedView === "rankings" ? (
           <GroupRankingView setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
         ) : selectedView === "configs" ? (

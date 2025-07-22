@@ -21,7 +21,7 @@ public class ObtenerMedallaPorId : IObtenerMedallaPorId
 
 		if (resultadoRepo.EsFallo)
 			return Resultado<MedallaDto>.Falla(resultadoRepo.Errores);
-
+		//validar que solo el profesor que posee esa medalla pueda ver su informacion
 		var medalla = resultadoRepo.Valor;
 
 		var medallaDto = MedallaMapper.toDto(medalla);

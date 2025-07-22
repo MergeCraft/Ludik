@@ -29,6 +29,7 @@ public class ObtenerTodasLasMedallas : IObtenerTodasLasMedallas
         if (resultadoRepo.EsFallo)
             return Resultado<IEnumerable<MedallaDto>>.Falla(resultadoRepo.Errores);
         
+        //esto deberia volver todas las medallas del profesor logueado no todas en general 
         var medallasEntidades = resultadoRepo.Valor;
 
         var medallasDtos = medallasEntidades.Select(medalla => MedallaMapper.toDto(medalla));

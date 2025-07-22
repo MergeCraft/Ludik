@@ -27,6 +27,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion
                 return Resultado<IEnumerable<TablaClasificacionInfoDto>>.Falla(res.Errores);
 
             var tablas = res.Valor;
+            //solo deberia  obtener todas las tablas del profesor logueado
 
             foreach (var tabla in tablas)
             {

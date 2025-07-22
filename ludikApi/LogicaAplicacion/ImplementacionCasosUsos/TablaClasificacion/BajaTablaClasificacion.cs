@@ -20,6 +20,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion
 
         public async Task<Resultado> EjecutarAsync(int tablaId)
         {
+            //tiene que validar que el grupo de la tabla de clasificacion , su profesor Id es igual al profesor logueado
             var res = await _repo.RemoveAsync(tablaId);
             if (res.EsFallo)
                 return Resultado.Falla(res.Errores);
