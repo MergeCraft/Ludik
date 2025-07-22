@@ -29,7 +29,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Medallas
             {
                     return Resultado.Falla(new Error("Error.NotFound", $"No se encontró ninguna medalla con ID {id}."));
             }
-
+            //Falta validacion si la medalla pertenece al profesor 
             Medalla existente = resultadoObtener.Valor;
             MedallaEditarMapper.actualizarMedalla(existente, dto);
 

@@ -26,7 +26,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
 
             if (resultadoGrupo.EsFallo)
                 return Resultado<GrupoInformacionDto>.Falla(resultadoGrupo.Errores);
-
+            //falta validar que el profesor logueado es el mismo que el del grupo , solo un profesor duenio del grupo deberia ver los detalles de un grupo
             var grupo = resultadoGrupo.Valor!;
             var dto = GrupoInformacionMapper.ToDto(grupo);
 

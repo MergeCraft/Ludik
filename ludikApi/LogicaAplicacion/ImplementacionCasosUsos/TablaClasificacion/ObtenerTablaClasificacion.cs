@@ -28,6 +28,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion
 
             var tabla = res.Valor;
 
+            //solo deberia poder obtener la informacion de una tabla si el profesor id de el grupo de la tabla es igual al logueado
             if (tabla == null)
                 return Resultado<TablaClasificacionInfoDto>.Falla(
                     new Error("TablaClasificacion.NoEncontrada", "No existe la tabla especificada.")

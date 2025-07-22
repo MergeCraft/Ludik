@@ -22,7 +22,6 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
         }
         public async Task<Resultado<List<RecompensaListadoDto>>> EjecutarAsync(int idPerfil,string idEstudiante)
         {
-            // 1. Recuperar el perfil (con InventarioRecompensas ya incluido)
             var resultadoPerfil = await _repositorioPerfilEstudiante.GetByIdAsync(idPerfil);
             if (resultadoPerfil.EsFallo)
                 return Resultado<List<RecompensaListadoDto>>.Falla(
@@ -34,7 +33,6 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
                 return Resultado<List<RecompensaListadoDto>>.Falla(
                     new Error("Error.Forbidden", "No tienes permiso para acceder a este perfil."));
 
-            // 2. Mapear cada entidad de unión a su Recompensa correspondiente
             var dtos = perfil.InventarioRecompensas
                 .Select(ir => RecompensaListadoMapper.ToDto(ir.Recompensa))
                 .ToList();

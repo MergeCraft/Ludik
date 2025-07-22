@@ -38,17 +38,14 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla
             if (solicitud.Estado != EstadoSolicitud.Pendiente)
                 return Resultado.Falla(new Error("Error.Validation", "La solicitud ya fue procesada."));
 
-            // 2) Marco la solicitud como aceptada
             solicitud.Estado = EstadoSolicitud.Aceptada;
             var updSol = await _repositorio.UpdateAsync(solicitud);
             if (updSol.EsFallo)
                 return updSol;
 
-            // 3) Notifico a los observers de solicitud
             foreach (var obs in _observers)
                 obs.OnNext(solicitud);
 
-            // 4) Creo la asignación mínima de medalla
             var asignMin = new PerfilEstudianteMedalla
             {
                 PerfilEstudianteId = solicitud.PerfilEstudianteId,
@@ -58,7 +55,6 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla
             if (addRes.EsFallo)
                 return Resultado.Falla(new Error("Error.Validation", "No se pudo asignar la medalla."));
 
-            // 5) Recargo la asignación completa con sus relaciones
             var recRes = await _repositorioPerfilEstudianteMedalla
                 .GetByIdConPerfilYMedallaAsync(asignMin.Id);
             if (recRes.EsFallo || recRes.Valor == null)
@@ -66,7 +62,6 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla
 
             var asignacionCompleta = recRes.Valor;
 
-            // 6) Notifico a los observers de medalla
             foreach (var obs in _obsMedalla)
                 obs.OnNext(asignacionCompleta);
 
