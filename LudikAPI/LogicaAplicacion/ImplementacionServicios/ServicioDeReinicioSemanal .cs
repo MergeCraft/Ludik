@@ -40,7 +40,7 @@ public class ServicioDeReinicioSemanal : IServicioDeReinicioSemanal
         {
             foreach (var perfil in estudiante.Perfiles)
             {
-                perfil.CantidadKudosDisponibles = KudosSemanales;
+                perfil.KudosDisponiblesParaOtorgar = KudosSemanales;
                 estudiantesActualizados++;
             }
         }

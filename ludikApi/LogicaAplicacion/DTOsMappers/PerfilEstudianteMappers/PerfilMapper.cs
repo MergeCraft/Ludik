@@ -19,7 +19,7 @@ public static class PerfilMapper
             GrupoId = perfil.GrupoId,
             NombreGrupo = perfil.Grupo.Nombre,
             Medallas = MedallaCantidadMapper.AgruparMedallas(
-                perfil.PerfilMedallas.Select(pm => pm.Medalla).ToList()
+                perfil.MedallasObtenidas.Select(pm => pm.Medalla).ToList()
             )
         };
     }

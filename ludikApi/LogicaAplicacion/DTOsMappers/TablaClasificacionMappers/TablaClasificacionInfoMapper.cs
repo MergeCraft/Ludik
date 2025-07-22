@@ -25,7 +25,7 @@ namespace LogicaAplicacion.DTOsMappers.TablaClasificacionMappers
                     {
                         PerfilEstudianteId = p.Id,
                         NombreEstudiante = $"{p.Estudiante.NombreCompleto.Nombre} {p.Estudiante.NombreCompleto.Apellido}",
-                        CantidadMedallas = p.PerfilMedallas
+                        CantidadMedallas = p.MedallasObtenidas
                                                .Count(pm => pm.MedallaId == tabla.MedallaAsociadaId)
                     })
                     .ToList()

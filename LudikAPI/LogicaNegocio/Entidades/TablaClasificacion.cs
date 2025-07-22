@@ -35,13 +35,13 @@ namespace LogicaNegocio.Entidades
 
             foreach (var p in Participantes)
             {
-                if (p.PerfilMedallas == null)
-                    p.PerfilMedallas = new List<PerfilEstudianteMedalla>();
+                if (p.MedallasObtenidas == null)
+                    p.MedallasObtenidas = new List<PerfilEstudianteMedalla>();
             }
 
             Participantes = Participantes
                 .OrderByDescending(p =>
-                    p.PerfilMedallas.Count(pm => pm.MedallaId == MedallaAsociadaId)
+                    p.MedallasObtenidas.Count(pm => pm.MedallaId == MedallaAsociadaId)
                 )
                 .ToList();
         }

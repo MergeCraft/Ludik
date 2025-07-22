@@ -19,7 +19,7 @@ public class KudoOtorgado : IEntity
 
     // Si este kudo fue usado para obtener una medalla, guardamos el ID de esa asignación
     // Es nulable porque un kudo recién otorgado aún no ha sido utilizado
-    public int? PerfilEstudianteMedallaId { get; set; }
+    public int? PerfilEstudianteMedallaId { get; private set; }
     public PerfilEstudianteMedalla AsignacionMedalla { get; set; }
     private KudoOtorgado() { } 
 
@@ -29,5 +29,10 @@ public class KudoOtorgado : IEntity
         Receptor = receptor;
         TipoKudo = tipo;
         FechaOtorgamiento = fecha;
+    }
+    public void MarcarComoUsadoPara(PerfilEstudianteMedalla asignacion)
+    {
+        AsignacionMedalla = asignacion;
+        PerfilEstudianteMedallaId = asignacion.Id;
     }
 }

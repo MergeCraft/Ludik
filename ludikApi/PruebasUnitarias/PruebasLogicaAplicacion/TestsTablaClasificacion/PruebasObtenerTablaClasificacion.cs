@@ -71,7 +71,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaClasificacion
                         {
                             NombreCompleto = nombreAna
                         },
-                        PerfilMedallas = new List<PerfilEstudianteMedalla>
+                        MedallasObtenidas = new List<PerfilEstudianteMedalla>
                         {
                             new PerfilEstudianteMedalla { MedallaId = medalla.Id },
                             new PerfilEstudianteMedalla { MedallaId = medalla.Id }
@@ -83,7 +83,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaClasificacion
                         {
                             NombreCompleto = nombreLuis
                         },
-                        PerfilMedallas = new List<PerfilEstudianteMedalla>()
+                        MedallasObtenidas = new List<PerfilEstudianteMedalla>()
                     }
                 }
             };

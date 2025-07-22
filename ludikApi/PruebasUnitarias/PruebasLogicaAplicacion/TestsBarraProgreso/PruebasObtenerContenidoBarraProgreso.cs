@@ -76,7 +76,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsBarraProgreso
                 Id = PerfilId,
                 EstudianteId = UsuarioId,
                 Grupo = new LogicaNegocio.Entidades.Grupo { TablaEquivalencia = tabla },
-                PerfilMedallas = new List<PerfilEstudianteMedalla>
+                MedallasObtenidas = new List<PerfilEstudianteMedalla>
         {
             new PerfilEstudianteMedalla
             {

@@ -66,44 +66,28 @@ public class AsignarKudo: IAsignarKudo
         var resultadoOtorgar = perfilEstudianteEmisor.OtorgarKudo(resultadoTipoKudo.Valor, perfilEstudianteReceptor);
         if (resultadoOtorgar.EsFallo)
             return resultadoOtorgar;
-        perfilEstudianteReceptor.KudosRecibidos.Add(resultadoOtorgar.Valor);
-
-        try
-        {
-            await _unitOfWork.SaveChangesAsync();
-        }
-        catch (Exception ex)
-        {
-            return Resultado.Falla(Error.Unexpected); 
-        }
-
 
         //En caso de que se haya otorgado un kudo, se evalúa si el perfil receptor cumple con algún umbral para obtener una medalla.
         var resultadoUmbrales = await _repositorioUmbralesParaMedallas.GetAllByProfesorAndGrupoIdAsync(perfilEstudianteReceptor.GrupoId, perfilEstudianteReceptor.Grupo.ProfesorId);
-        if(resultadoUmbrales.EsFallo)
+        if (resultadoUmbrales.EsFallo)
             return Resultado.Falla(resultadoUmbrales.Errores);
         var umbrales = resultadoUmbrales.Valor;
 
-        return await EvaluarAsignarMedalla(perfilEstudianteReceptor, umbrales);
+        var resultadoRecepcion = perfilEstudianteReceptor.RecibirKudoYEvaluarMedalla(resultadoOtorgar.Valor, umbrales.FirstOrDefault(u => u.TipoKudoId == dto.Kudo.Id));
+        if (resultadoRecepcion.EsFallo)
+            return resultadoRecepcion;
 
-    }
-
-    public async Task<Resultado> EvaluarAsignarMedalla(Entidades.PerfilEstudiante perfilEstudiante, IEnumerable<UmbralParaMedallaPorKudos> umbrales)
-    {
-        if (perfilEstudiante == null || umbrales == null || !umbrales.Any())
-            return Resultado.Falla(Error.Validation);
-        foreach (var umbral in umbrales)
-        {
-            perfilEstudiante.EvaluarAsignarMedallaPorKudos(umbral);
-        }
         try
         {
             await _unitOfWork.SaveChangesAsync();
         }
         catch (Exception ex)
         {
-            return Resultado.Falla(Error.Unexpected);
+            return Resultado.Falla(new Error("Error.Unexpected", "Hubo un error: "+ ex.Message)); 
         }
+        
         return Resultado.Exitoso();
+
     }
+
 }

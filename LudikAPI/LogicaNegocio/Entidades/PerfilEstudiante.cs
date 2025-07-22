@@ -23,13 +23,13 @@ namespace LogicaNegocio.Entidades
         public int Monedas { get; set; }
         public string NombreImagenCompleta { get; set; }
         public string NombreImagenMiniatura { get; set; }
-        public List<PerfilEstudianteMedalla> PerfilMedallas { get; set; }
-        public int CantidadKudosDisponibles { get; set; }
+        public List<PerfilEstudianteMedalla> MedallasObtenidas { get; set; }
+        public int KudosDisponiblesParaOtorgar { get; set; }
         public List<KudoOtorgado> KudosOtorgados { get; private set; }
         public List<KudoOtorgado> KudosRecibidos { get; private set; }
 
         [NotMapped]
-        public IEnumerable<Medalla> MedallasObtenidas => PerfilMedallas.Select(pm => pm.Medalla);
+        public IEnumerable<Medalla> Medallas => MedallasObtenidas.Select(pm => pm.Medalla);
 
         public List<RendimientoPeriodo> HistorialRendimientoPeriodos { get; set; }
 
@@ -53,7 +53,7 @@ namespace LogicaNegocio.Entidades
 
         public PerfilEstudiante()
         {
-            this.PerfilMedallas = new List<PerfilEstudianteMedalla>();
+            this.MedallasObtenidas = new List<PerfilEstudianteMedalla>();
             this.KudosOtorgados = new List<KudoOtorgado>();
             this.KudosRecibidos = new List<KudoOtorgado>();
             this.InventarioRecompensas = new List<PerfilEstudianteRecompensa>();
@@ -83,7 +83,7 @@ namespace LogicaNegocio.Entidades
         {
             if (Grupo == null)
                 return 0;
-            return Grupo.CalcularNotaDeEstudiante(MedallasObtenidas);
+            return Grupo.CalcularNotaDeEstudiante(Medallas);
             
         }
 
@@ -113,41 +113,45 @@ namespace LogicaNegocio.Entidades
         /// <returns>Un resultado exitoso si se pudo otorgar, o de falla en caso contrario.</returns>
         public Resultado<KudoOtorgado> OtorgarKudo(TipoKudo tipoKudo, PerfilEstudiante perfilReceptor)
         {
-            if (CantidadKudosDisponibles <= 0)
+            if (KudosDisponiblesParaOtorgar <= 0)
                 return Resultado<KudoOtorgado>.Falla(new Error("Error.Validation", "No tienes Kudos disponibles esta semana. Recibirás más el próximo lunes."));
             
 
-            CantidadKudosDisponibles--;
+            KudosDisponiblesParaOtorgar--;
             var kudoOtorgado = new KudoOtorgado(this, perfilReceptor, tipoKudo, DateTime.UtcNow);
             
             return Resultado<KudoOtorgado>.Exitoso(kudoOtorgado);
         }
-
-        public void EvaluarAsignarMedallaPorKudos(UmbralParaMedallaPorKudos umbral)
+        public Resultado RecibirKudoYEvaluarMedalla(KudoOtorgado kudo, UmbralParaMedallaPorKudos umbral)
         {
-            // Obtener solo los kudos que no han sido usados para NINGUNA medalla.
-            var kudosDisponibles = this.KudosRecibidos
-                .Where(k => k.TipoKudoId == umbral.TipoKudoId && k.PerfilEstudianteMedallaId == null)
-                .ToList();
+            KudosRecibidos.Add(kudo);
 
-            if (kudosDisponibles.Count >= umbral.CantidadKudos)
+            if (umbral == null)
+                return Resultado.Exitoso();
+
+            int kudosContabilizados = KudosRecibidos.Count(kr =>
+                kr.TipoKudoId == umbral.TipoKudoId &&
+                kr.PerfilEstudianteMedallaId == null);
+
+            if (kudosContabilizados >= umbral.CantidadKudos)
             {
-                var nuevaAsignacionMedalla = new PerfilEstudianteMedalla
-                {
-                    PerfilEstudiante = this,
-                    Medalla = umbral.Medalla,
-                };
+                var nuevaAsignacionMedalla = new PerfilEstudianteMedalla(this, umbral.Medalla, DateTime.UtcNow);
+                MedallasObtenidas.Add(nuevaAsignacionMedalla);
 
-                var kudosAGastar = kudosDisponibles.Take(umbral.CantidadKudos).ToList();
-                foreach (var kudo in kudosAGastar)
+                // Marcamos los kudos que se usaron para ganar esta medalla para que no se vuelvan a contar.
+                var kudosParaMarcar = KudosRecibidos
+                    .Where(kr => kr.TipoKudoId == umbral.TipoKudoId && kr.PerfilEstudianteMedallaId == null)
+                    .Take(umbral.CantidadKudos);
+
+                foreach (var k in kudosParaMarcar)
                 {
-                    kudo.AsignacionMedalla = nuevaAsignacionMedalla; 
+                    k.MarcarComoUsadoPara(nuevaAsignacionMedalla);
                 }
-
-                this.PerfilMedallas.Add(nuevaAsignacionMedalla);
-
             }
+
+            return Resultado.Exitoso();
         }
+       
     }
 
 }

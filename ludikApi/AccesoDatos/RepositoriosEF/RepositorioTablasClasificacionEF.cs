@@ -44,7 +44,7 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(tc => tc.Participantes)
                         .ThenInclude(p => p.Estudiante)
                     .Include(tc => tc.Participantes)
-                        .ThenInclude(p => p.PerfilMedallas)
+                        .ThenInclude(p => p.MedallasObtenidas)
                     .ToListAsync();
 
                 return Resultado<IEnumerable<TablaClasificacion>>.Exitoso(tablas);
@@ -67,7 +67,7 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(tc => tc.Participantes)           // <-- aquí traes el M:N
                         .ThenInclude(p => p.Estudiante)       // para usar datos del estudiante
                     .Include(tc => tc.Participantes)
-                        .ThenInclude(p => p.PerfilMedallas)   // para contar medallas
+                        .ThenInclude(p => p.MedallasObtenidas)   // para contar medallas
                     .FirstOrDefaultAsync(tc => tc.Id == id);
 
                 if (tabla == null)

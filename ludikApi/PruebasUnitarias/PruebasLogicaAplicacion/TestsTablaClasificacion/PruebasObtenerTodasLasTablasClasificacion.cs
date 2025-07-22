@@ -74,8 +74,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaClasificacion
                 MedallaAsociada = medallaA,
                 Participantes = new List<LogicaNegocio.Entidades.PerfilEstudiante>
                 {
-                    new LogicaNegocio.Entidades.PerfilEstudiante { Id = 1, Estudiante = new LogicaNegocio.Entidades.Estudiante{NombreCompleto=nombre1}, PerfilMedallas = new List<PerfilEstudianteMedalla> { new PerfilEstudianteMedalla { MedallaId = medallaA.Id } } },
-                    new LogicaNegocio.Entidades.PerfilEstudiante { Id = 2, Estudiante = new LogicaNegocio.Entidades.Estudiante{NombreCompleto=nombre2}, PerfilMedallas = new List<PerfilEstudianteMedalla>() }
+                    new LogicaNegocio.Entidades.PerfilEstudiante { Id = 1, Estudiante = new LogicaNegocio.Entidades.Estudiante{NombreCompleto=nombre1}, MedallasObtenidas = new List<PerfilEstudianteMedalla> { new PerfilEstudianteMedalla { MedallaId = medallaA.Id } } },
+                    new LogicaNegocio.Entidades.PerfilEstudiante { Id = 2, Estudiante = new LogicaNegocio.Entidades.Estudiante{NombreCompleto=nombre2}, MedallasObtenidas = new List<PerfilEstudianteMedalla>() }
                 }
             };
             var tabla2 = new TablaClasificacion
@@ -86,8 +86,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaClasificacion
                 MedallaAsociada = medallaB,
                 Participantes = new List<LogicaNegocio.Entidades.PerfilEstudiante>
                 {
-                    new LogicaNegocio.Entidades.PerfilEstudiante { Id = 3, Estudiante = new LogicaNegocio.Entidades.Estudiante{NombreCompleto=nombre3}, PerfilMedallas = new List<PerfilEstudianteMedalla> { new PerfilEstudianteMedalla { MedallaId = medallaB.Id }, new PerfilEstudianteMedalla { MedallaId = medallaB.Id } } },
-                    new LogicaNegocio.Entidades.PerfilEstudiante { Id = 4, Estudiante = new LogicaNegocio.Entidades.Estudiante{NombreCompleto=nombre4}, PerfilMedallas = new List<PerfilEstudianteMedalla> { new PerfilEstudianteMedalla { MedallaId = medallaB.Id } } }
+                    new LogicaNegocio.Entidades.PerfilEstudiante { Id = 3, Estudiante = new LogicaNegocio.Entidades.Estudiante{NombreCompleto=nombre3}, MedallasObtenidas = new List<PerfilEstudianteMedalla> { new PerfilEstudianteMedalla { MedallaId = medallaB.Id }, new PerfilEstudianteMedalla { MedallaId = medallaB.Id } } },
+                    new LogicaNegocio.Entidades.PerfilEstudiante { Id = 4, Estudiante = new LogicaNegocio.Entidades.Estudiante{NombreCompleto=nombre4}, MedallasObtenidas = new List<PerfilEstudianteMedalla> { new PerfilEstudianteMedalla { MedallaId = medallaB.Id } } }
                 }
             };
            

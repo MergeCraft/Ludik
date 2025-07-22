@@ -44,7 +44,7 @@ namespace LogicaNegocio.Entidades
             if (Perfiles == null || !Perfiles.Any())
                 return 0;
 
-            return Perfiles.Sum(perfil => perfil.PerfilMedallas?.Count ?? 0);
+            return Perfiles.Sum(perfil => perfil.MedallasObtenidas?.Count ?? 0);
         }
 
         public Resultado<PerfilEstudiante> ObtenerPerfilEstudiantePor(int id)

@@ -35,7 +35,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.BarraProgreso
                 return Resultado<BarraProgresoDto>.Falla(Error.Forbidden);
 
             Entidades.TablaEquivalencia tablaEquivalencia = perfilEstudiante.Grupo.TablaEquivalencia;
-            int notaActualDelPerfil = tablaEquivalencia.MaximaCalificacionSegun(perfilEstudiante.MedallasObtenidas);
+            int notaActualDelPerfil = tablaEquivalencia.MaximaCalificacionSegun(perfilEstudiante.Medallas);
             int notaMinimaDeTablaEquivalencia = tablaEquivalencia.ObtenerNotaMinima();
             int notaMaximaDeTablaEquivalencia = tablaEquivalencia.ObtenerNotaMaxima();
             List<Entidades.Medalla> medallasNecesariasParaSiguienteNota = tablaEquivalencia.ObtenerMedallasNecesariasParaSiguienteNota(notaActualDelPerfil);

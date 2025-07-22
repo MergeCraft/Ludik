@@ -12,7 +12,7 @@ public class PerfilEstudianteMedallaConfiguracion : IEntityTypeConfiguration<Per
         builder.Property(pm => pm.Id).ValueGeneratedOnAdd();
 
         builder.HasOne(pm => pm.PerfilEstudiante)
-            .WithMany(pe => pe.PerfilMedallas)
+            .WithMany(pe => pe.MedallasObtenidas)
             .HasForeignKey(pm => pm.PerfilEstudianteId)
             .OnDelete(DeleteBehavior.Cascade);
 
