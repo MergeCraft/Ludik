@@ -9,7 +9,7 @@ using LogicaNegocio.Observer;
 
 namespace LogicaNegocio.Entidades
 {
-	public class Grupo : Observable<SolicitudPerfilMedalla>, IEntity, IValidable
+	public class Grupo: IEntity, IValidable
     {
         public int Id { get; set; }
         [Required]
@@ -130,13 +130,12 @@ namespace LogicaNegocio.Entidades
         public void AgregarSolicitudPerfilMedalla(SolicitudPerfilMedalla solicitud)
         {
             SolicitudesPerfilMedalla.Add(solicitud);
-            Notify(solicitud);
+
         }
         public int ContarMedallasTotales()
         {
-            return Alumnos.Sum(p => p.PerfilMedallas.Count);
+            return Alumnos.Sum(p => p.MedallasObtenidas.Count);
 
-            // return Alumnos.Sum(p => p.MedallasObtenidas.Count);
         }
     }
 

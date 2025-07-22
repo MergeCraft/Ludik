@@ -24,7 +24,7 @@ public static class PerfilEstudianteMapper
             GrupoId = perfil.GrupoId,
             NombreGrupo = perfil.Grupo.Nombre,
             CalificacionActual = calificacionActual,
-			Medallas = perfil.MedallasObtenidas.Select(MedallaMapper.toDto).ToList()
+			    Medallas = perfil.MedallasObtenidas.Select(m =>MedallaMapper.toDto(m.Medalla)).ToList()
 		};
     }
 }

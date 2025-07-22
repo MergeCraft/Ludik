@@ -169,7 +169,7 @@ namespace AccesoDatos.RepositoriosEF
             {
                 var entidad = await _db.PerfilEstudianteMedallas
                     .Include(pm => pm.PerfilEstudiante)
-                        .ThenInclude(pe => pe.PerfilMedallas)
+                        .ThenInclude(pe => pe.MedallasObtenidas)
                     .Include(pm => pm.PerfilEstudiante)
                         .ThenInclude(pe => pe.Estudiante)
                             .ThenInclude(est => est.Perfiles)

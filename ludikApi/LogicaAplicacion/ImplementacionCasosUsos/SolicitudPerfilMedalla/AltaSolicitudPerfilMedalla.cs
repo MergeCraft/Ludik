@@ -77,13 +77,10 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla
                 return addResultado;
 
             var grupo = perfil.Grupo; 
-            foreach (var obs in _observers)
-                grupo.Subscribe(obs);
+
 
             grupo.AgregarSolicitudPerfilMedalla(solicitud);
 
-            foreach (var obs in _observers)
-                grupo.Unsubscribe(obs);
 
             return Resultado.Exitoso();
         }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
-    public partial class inicialSistemaKudos : Migration
+    public partial class inicialConDatos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -599,7 +599,7 @@ namespace AccesoDatos.Migrations
                     Monedas = table.Column<int>(type: "int", nullable: false),
                     NombreImagenCompleta = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NombreImagenMiniatura = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CantidadKudosDisponibles = table.Column<int>(type: "int", nullable: false),
+                    KudosDisponiblesParaOtorgar = table.Column<int>(type: "int", nullable: false),
                     GrupoId = table.Column<int>(type: "int", nullable: false),
                     PotenciadorActivoId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -739,7 +739,8 @@ namespace AccesoDatos.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PerfilEstudianteId = table.Column<int>(type: "int", nullable: false),
-                    MedallaId = table.Column<int>(type: "int", nullable: false)
+                    MedallaId = table.Column<int>(type: "int", nullable: false),
+                    FechaObtencion = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1283,14 +1284,14 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.InsertData(
                 table: "PerfilesEstudiantes",
-                columns: new[] { "Id", "CantidadKudosDisponibles", "EstudianteId", "GrupoId", "MetaCalificacion", "Monedas", "NombreImagenCompleta", "NombreImagenMiniatura", "PotenciadorActivoId" },
+                columns: new[] { "Id", "EstudianteId", "GrupoId", "KudosDisponiblesParaOtorgar", "MetaCalificacion", "Monedas", "NombreImagenCompleta", "NombreImagenMiniatura", "PotenciadorActivoId" },
                 values: new object[,]
                 {
-                    { 1, 0, "a1445865-a24d-4543-a6c6-9443d048cdb1", 1, 8, 120, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
-                    { 2, 0, "b2445865-a24d-4543-a6c6-9443d048cdb2", 1, 9, 150, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
-                    { 3, 0, "c3445865-a24d-4543-a6c6-9443d048cdb3", 1, 7, 95, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
-                    { 4, 0, "d4445865-a24d-4543-a6c6-9443d048cdb4", 2, 10, 200, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
-                    { 5, 0, "e5445865-a24d-4543-a6c6-9443d048cdb5", 2, 8, 180, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null }
+                    { 1, "a1445865-a24d-4543-a6c6-9443d048cdb1", 1, 0, 8, 120, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 2, "b2445865-a24d-4543-a6c6-9443d048cdb2", 1, 0, 9, 150, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 3, "c3445865-a24d-4543-a6c6-9443d048cdb3", 1, 0, 7, 95, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 4, "d4445865-a24d-4543-a6c6-9443d048cdb4", 2, 0, 10, 200, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 5, "e5445865-a24d-4543-a6c6-9443d048cdb5", 2, 0, 8, 180, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null }
                 });
 
             migrationBuilder.InsertData(

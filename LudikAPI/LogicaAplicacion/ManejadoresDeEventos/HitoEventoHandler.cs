@@ -57,7 +57,7 @@ public class HitoEventoHandler : INotificationHandler<AsignacionMedallaCompletad
 
                 foreach (var perfil in estudiante.Perfiles)
                 {
-                    var otorgarResultado = hito.Recompensa.Otorgar(perfil, _repoRecompensas);
+                    var otorgarResultado = hito.Recompensa.Otorgar(perfil);
 
                     if (otorgarResultado.EsFallo)
                     {
