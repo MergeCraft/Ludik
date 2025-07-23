@@ -9,6 +9,6 @@ namespace LogicaAplicacion.InterfacesCasosUsos.TablaClasificacion
 {
     public interface IBajaTablaClasificacion
     {
-        Task<Resultado> EjecutarAsync(int tablaId);
+        Task<Resultado> EjecutarAsync(int tablaId,string profesorId);
     }
 }

@@ -52,15 +52,12 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
             var tareasDeGeneracion = new List<Task<string?>>();
             foreach (var dto in dtos)
             {
-                // Es crucial mantener este orden para el paso de reasignación
                 tareasDeGeneracion.Add(_generadorUrlImagen.GenerarUrlLecturaAsync(dto.RutaImagenMiniatura));
                 tareasDeGeneracion.Add(_generadorUrlImagen.GenerarUrlLecturaAsync(dto.RutaImagenCompleta));
             }
 
-            // Ejecutar TODAS las tareas en paralelo.
             var urlsGeneradas = await Task.WhenAll(tareasDeGeneracion);
 
-            // Reasignar las URLs generadas a sus DTOs correspondientes
             int i = 0;
             foreach (var dto in dtos)
             {

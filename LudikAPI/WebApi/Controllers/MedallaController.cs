@@ -46,7 +46,8 @@ namespace WebApi.Controllers
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Get()
         {
-            Resultado<IEnumerable<MedallaDto>> resultado = await _obtenerTodasLasMedallas.EjecutarAsync();
+            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Resultado<IEnumerable<MedallaDto>> resultado = await _obtenerTodasLasMedallas.EjecutarAsync(profesorId);
 
             if (resultado.EsFallo)
                 return this.ManejarFallo(resultado);
@@ -125,7 +126,8 @@ namespace WebApi.Controllers
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Put(int id, [FromBody] MedallaEditarDto medallaDto)
         {
-            Resultado resultado = await _modificarMedalla.EjecutarAsync(id, medallaDto);
+            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Resultado resultado = await _modificarMedalla.EjecutarAsync(id, medallaDto,profesorId);
             if (resultado.EsFallo)
                 return this.ManejarFallo(resultado);
             return NoContent();

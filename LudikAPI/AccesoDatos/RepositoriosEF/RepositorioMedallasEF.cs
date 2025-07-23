@@ -190,5 +190,20 @@ namespace AccesoDatos.RepositoriosEF
             
             
         }
+
+        public async Task<Resultado<IEnumerable<Medalla>>> GetByProfesorAsync(string profesorId)
+        {
+            try
+            {
+                var list = await _db.Medallas
+                    .Where(m => m.ProfesorId == profesorId)
+                    .ToListAsync();
+                return Resultado<IEnumerable<Medalla>>.Exitoso(list);
+            }
+            catch (Exception e)
+            {
+                return Resultado<IEnumerable<Medalla>>.Falla(new Error("Error.Uknown", e.Message));
+            }
+        }
     }
 }

@@ -129,7 +129,7 @@ namespace WebApi.Controllers
 			if (string.IsNullOrEmpty(profesorId))
 				return Unauthorized(new Error("Error.Unauthorized", "No se pudo identificar al profesor del token."));
 
-			var resultado = await _bajaTablaClasificacion.EjecutarAsync(tablaId);
+			var resultado = await _bajaTablaClasificacion.EjecutarAsync(tablaId,profesorId);
 			if (resultado.EsFallo)
 				return this.ManejarFallo(resultado);
 
