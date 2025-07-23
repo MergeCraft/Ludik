@@ -26,7 +26,6 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.TablaEquivalencia
 
         public async Task<Resultado> EjecutarAsync(TablaEquivalenciaDto tablaDto, string profesorId)
         {
-            //Obtener la tabla existente de la base de datos
             var resultadoTabla = await _repositorioTablasEquivalencia.GetByIdAsync(tablaDto.Id);
             if (resultadoTabla.EsFallo)
                 return Resultado.Falla(Error.NotFound);
@@ -35,9 +34,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.TablaEquivalencia
 
             if (tablaExistente.ProfesorId != profesorId)
                 return Resultado.Falla(Error.Forbidden); 
-            
 
-            //Construir la nueva lista de equivalencias a partir del DTO (lógica similar a la de Alta)
             var idsMedallasDto = tablaDto.Equivalencias
                 .SelectMany(e => e.MedallasNecesarias.Select(m => m.Id))
                 .Distinct().ToList();
@@ -55,7 +52,6 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.TablaEquivalencia
                     dto.MedallasNecesarias.Select(mDto => medallasMap[mDto.Id]).ToList()
                 )).ToList();
 
-            //Actualizar la entidad de Entidad con los nuevos datos
             tablaExistente.Actualizar(tablaDto.Nombre, nuevasEquivalencias);
 
             var resultadoValidacion = tablaExistente.esValido();
