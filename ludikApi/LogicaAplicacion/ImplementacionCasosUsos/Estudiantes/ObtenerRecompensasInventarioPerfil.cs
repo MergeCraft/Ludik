@@ -17,13 +17,14 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
     public class ObtenerRecompensasInventarioPerfil : IObtenerRecompensasInventarioPerfil
     {
         private readonly IRepositorioPerfilEstudianteGrupo _repositorioPerfilEstudiante;
-        private readonly IGeneradorUrlImagen _generadorUrlImagen;
+        private readonly IGeneradorUrlsParaColeccionesImagenes _generadorUrlsParaColecciones;
 
-        public ObtenerRecompensasInventarioPerfil(IRepositorioPerfilEstudianteGrupo repositorioPerfilEstudiante,
-            IGeneradorUrlImagen generadorUrlImagen)
+        public ObtenerRecompensasInventarioPerfil(
+            IRepositorioPerfilEstudianteGrupo repositorioPerfilEstudiante,
+            IGeneradorUrlsParaColeccionesImagenes generadorUrlsImagenes)
         {
             _repositorioPerfilEstudiante = repositorioPerfilEstudiante;
-            _generadorUrlImagen = generadorUrlImagen;
+            _generadorUrlsParaColecciones = generadorUrlsImagenes;
         }
         public async Task<Resultado<List<RecompensaDto>>> EjecutarAsync(int idPerfil,string idEstudiante)
         {
@@ -39,36 +40,16 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
                     new Error("Error.Forbidden", "No tienes permiso para acceder a este perfil."));
 
             List<RecompensaDto> dtos = perfil.InventarioRecompensas
-                .Select(ir => RecompensaListadoMapper.ToDto(ir.Recompensa))
+                .Select(ir => RecompensaMapper.ToDto(ir.Recompensa))
                 .ToList();
-          
-            dtos = await AgregarUrlSasADtos(dtos);
+
+            await _generadorUrlsParaColecciones.EjecutarProcesarUrlsAsync(dtos,
+                (dto => dto.EnlaceImagenMiniatura, (dto, url) => dto.EnlaceImagenMiniatura = url),
+                (dto => dto.EnlaceImagenCompleta, (dto, url) => dto.EnlaceImagenCompleta = url)
+            );
 
             return Resultado<List<RecompensaDto>>.Exitoso(dtos);
         }
 
-        private async Task<List<RecompensaDto>> AgregarUrlSasADtos(List<RecompensaDto> dtos)
-        {
-            var tareasDeGeneracion = new List<Task<string?>>();
-            foreach (var dto in dtos)
-            {
-                // Es crucial mantener este orden para el paso de reasignación
-                tareasDeGeneracion.Add(_generadorUrlImagen.GenerarUrlLecturaAsync(dto.RutaImagenMiniatura));
-                tareasDeGeneracion.Add(_generadorUrlImagen.GenerarUrlLecturaAsync(dto.RutaImagenCompleta));
-            }
-
-            // Ejecutar TODAS las tareas en paralelo.
-            var urlsGeneradas = await Task.WhenAll(tareasDeGeneracion);
-
-            // Reasignar las URLs generadas a sus DTOs correspondientes
-            int i = 0;
-            foreach (var dto in dtos)
-            {
-                dto.RutaImagenMiniatura = urlsGeneradas[i++];
-                dto.RutaImagenCompleta = urlsGeneradas[i++];
-            }
-
-            return dtos;
-        }
     }
 }

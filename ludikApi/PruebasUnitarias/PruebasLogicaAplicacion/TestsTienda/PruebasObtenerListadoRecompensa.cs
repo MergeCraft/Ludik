@@ -103,13 +103,13 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTienda
             Assert.Contains(lista, dto =>
                 dto.Nombre == "R1" &&
                 dto.Precio == 5 &&
-                dto.RutaImagenCompleta == "c1" &&
-                dto.RutaImagenMiniatura == "m1");
+                dto.EnlaceImagenCompleta == "c1" &&
+                dto.EnlaceImagenMiniatura == "m1");
             Assert.Contains(lista, dto =>
                 dto.Nombre == "R2" &&
                 dto.Precio == 10 &&
-                dto.RutaImagenCompleta == "c2" &&
-                dto.RutaImagenMiniatura == "m2");
+                dto.EnlaceImagenCompleta == "c2" &&
+                dto.EnlaceImagenMiniatura == "m2");
         }
     }
 }

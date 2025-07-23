@@ -7,6 +7,7 @@ using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.RecompensaDTOs;
 using LogicaAplicacion.DTOsMappers.RecompensaMappers;
 using LogicaAplicacion.InterfacesCasosUsos.Tienda;
+using LogicaAplicacion.Servicios;
 using LogicaNegocio.Resultados;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Tienda
@@ -15,12 +16,15 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Tienda
     {
         private readonly IRepositorioRecompensas _repositorioRecompensas;
         private readonly IRepositorioTiendas _repositorioTiendas;
+        private readonly IGeneradorUrlsParaColeccionesImagenes _generadorUrlsParaColecciones;
         public ObtenerListadoRecompensa(
             IRepositorioRecompensas repositorioRecompensas,
-            IRepositorioTiendas repositorioTiendas)
+            IRepositorioTiendas repositorioTiendas,
+            IGeneradorUrlsParaColeccionesImagenes generadorUrlsImagenes)
         {
             _repositorioRecompensas = repositorioRecompensas;
             _repositorioTiendas = repositorioTiendas;
+            _generadorUrlsParaColecciones = generadorUrlsImagenes;
         }
 
         public async Task<Resultado<IEnumerable<RecompensaDto>>> EjecutarAsync(string tiendaIdString)
@@ -41,11 +45,16 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Tienda
 
             var entidades = resultadoLista.Valor!;
 
-            var dtos = entidades
-                .Select(r => RecompensaListadoMapper.ToDto(r))
+            IEnumerable<RecompensaDto> dtos = entidades
+                .Select(r => RecompensaMapper.ToDto(r))
                 .ToList();
+
+            await _generadorUrlsParaColecciones.EjecutarProcesarUrlsAsync(dtos,
+                (dto => dto.EnlaceImagenMiniatura, (dto, url) => dto.EnlaceImagenMiniatura = url), (dto => dto.EnlaceImagenCompleta, (dto, url) => dto.EnlaceImagenCompleta = url)
+                );
 
             return Resultado<IEnumerable<RecompensaDto>>.Exitoso(dtos);
         }
+
     }
 }
