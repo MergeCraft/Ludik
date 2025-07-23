@@ -425,11 +425,12 @@ app.MapControllers();
 app.UseHangfireDashboard();
 
 // Programar el trabajo recurrente
-RecurringJob.AddOrUpdate<IServicioDeReinicioSemanal>(
+
+ RecurringJob.AddOrUpdate<IServicioDeReinicioSemanal>(
     "reinicio-semanal-kudos",
     servicio => servicio.ReiniciarKudosDeEstudiantesAsync(),
     "0 0 * * 1",
-    TimeZoneInfo.Local); 
+    TimeZoneInfo.Local);
 
 app.Run();
 
