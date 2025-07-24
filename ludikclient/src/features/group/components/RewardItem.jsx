@@ -22,11 +22,7 @@ const RewardItem = ({ reward, redeemed, perfilId }) => {
     <div className={styles.rewardCard}>
       <h4>{reward.nombre}</h4>
       <div className={styles.iconContainer}>
-        {reward.requiereImagen ? (
-          <img src={`http://127.0.0.1:10000/devstoreaccount1/imagenes-perfiles-dev/${reward.rutaImagenCompleta}`} alt={`Recompensa ${reward.nombre}`} />
-        ) : (
-          <FontAwesomeIcon icon={`fa-solid fa-${reward.rutaImagenCompleta}`} />
-        )}
+        {reward.requiereImagen ? <img src={`${reward.rutaImagenCompleta}`} alt={`Recompensa ${reward.nombre}`} /> : <FontAwesomeIcon icon={`fa-solid fa-${reward.rutaImagenCompleta}`} />}
       </div>
 
       {!redeemed && (

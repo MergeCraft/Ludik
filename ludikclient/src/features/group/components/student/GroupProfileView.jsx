@@ -121,7 +121,7 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
           <BarLoader />
         ) : (
           <div className={styles.recompensasGrid}>
-            {recompensas?.length > 0 ? recompensas.map((reward) => <RewardItem key={reward.nombre + reward.id} reward={reward} redeemed={true} />) : <p>No tienes recompensas aún.</p>}
+            {recompensas?.length > 0 ? recompensas.map((reward, index) => <RewardItem key={`${reward.id}-${index}`} reward={reward} redeemed={true} />) : <p>No tienes recompensas aún.</p>}
           </div>
         )}
       </section>

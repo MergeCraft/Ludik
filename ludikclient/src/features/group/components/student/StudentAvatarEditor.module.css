@@ -8,6 +8,7 @@
 }
 
 .avatarPreview {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,7 +16,32 @@
     border: 2px dashed var(--terciario);
     border-radius: 15px;
     min-height: 200px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
     color: var(--terciario);
+    z-index: 1000;
+}
+
+.avatarPreview svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    aspect-ratio: 1 / 1;
+}
+
+.confirmButton {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    justify-content: center;
+    padding: 12px;
+}
+
+.confirmButton svg {
+    width: 20px;
+    height: 20px;
+    color: var(--blanco-principal);
 }
 
 .tabs {
@@ -191,4 +217,28 @@
 
 .avatarItemCard:has(input[type="radio"]:checked) {
     border: 1px solid var(--terciario);
+}
+
+.avatarNoneOption,
+.colorNoneOption {
+    width: 60px;
+    height: 60px;
+    border: 2px dashed var(--terciario);
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--terciario);
+    font-size: 0.85rem;
+    font-weight: 600;
+    user-select: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.avatarItemCard input[type="radio"]:checked+.avatarNoneOption,
+.avatarItemCard input[type="radio"]:checked+.colorNoneOption {
+    border-color: var(--boton-principal);
+    background-color: var(--blanco-principal);
+    color: var(--boton-principal);
 }

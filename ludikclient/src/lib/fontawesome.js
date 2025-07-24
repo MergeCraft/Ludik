@@ -91,9 +91,11 @@ import {
   faShirt,
   faMask,
   faFaceKissBeam,
+  faCheck,
+  faFloppyDisk,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { faUser as farUser } from "@fortawesome/free-regular-svg-icons";
+import { faUser as farUser, faEye as farEye } from "@fortawesome/free-regular-svg-icons";
 
 library.add(
   faQrcode,
@@ -186,5 +188,8 @@ library.add(
   faGlasses,
   faShirt,
   faMask,
-  faFaceKissBeam
+  faFaceKissBeam,
+  farEye,
+  faCheck,
+  faFloppyDisk
 );

@@ -10,6 +10,7 @@ const iconosPorTipo = {
   Encuadre: "bullseye",
   Pelo: "user",
   Barba: "face-smile",
+  Ojos: "eye",
   Cejas: "eye",
   Sombrero: "graduation-cap",
   Gafas: "glasses",
@@ -48,14 +49,12 @@ const agruparPorTipoConColores = (items) => {
 const StudentAvatarEditor = ({ idPerfil }) => {
   const [selectedTab, setSelectedTab] = useState("posicion");
   const [selecciones, setSelecciones] = useState({});
+  const { data: inventario, isLoading, isError, error } = useInventarioAvatar(idPerfil);
 
   // Controles específicos de la pestaña 'posicion'
   const [voltear, setVoltear] = useState(false);
   const [rotacion, setRotacion] = useState(0);
   const [zoom, setZoom] = useState(100);
-
-  // Estado para nombre-seed del avatar
-  const [nombre, setNombre] = useState("avatar");
 
   // Tema de ropa para query string
   const [temaRopa, setTemaRopa] = useState("bat");
@@ -65,12 +64,8 @@ const StudentAvatarEditor = ({ idPerfil }) => {
   const [loadingAvatar, setLoadingAvatar] = useState(false);
 
   // Inventario con las opciones para avatar
-  const { data: inventario, isLoading, isError, error } = useInventarioAvatar(idPerfil);
 
-  if (isLoading) return <BarLoader />;
-  if (isError) return <p>Error: {error?.[0]}</p>;
-
-  const tiposAgrupados = agruparPorTipoConColores(inventario);
+  const tiposAgrupados = Array.isArray(inventario) ? agruparPorTipoConColores(inventario) : {};
 
   const tabs = [
     { key: "posicion", label: "Posición", icon: iconosPorTipo["posicion"] },
@@ -104,10 +99,12 @@ const StudentAvatarEditor = ({ idPerfil }) => {
     const probabilidadBarba = barba === "" ? "0" : "100";
 
     const gorroVal = selecciones.Sombrero || "";
-    const sombrero = `&top=${gorroVal}`;
+    const sombrero = gorroVal ? `&top=${gorroVal}` : "";
     const colorSombrero = gorroVal ? `&hatColor=${selecciones.ColorSombrero || ""}` : "";
-    const pelo = gorroVal !== "" ? "" : selecciones.Pelo ? `&top=${selecciones.Pelo}` : "";
-    const colorPelo = gorroVal !== "" ? "" : selecciones.ColorPelo ? `&hairColor=${selecciones.ColorPelo}` : "";
+
+    const peloVal = selecciones.Pelo || "";
+    const pelo = !gorroVal && peloVal ? `&top=${peloVal}` : "";
+    const colorPelo = !gorroVal && peloVal && selecciones.ColorPelo ? `&hairColor=${selecciones.ColorPelo}` : "";
 
     const gafasVal = selecciones.Gafas || "";
     const gafas = gafasVal ? `&accessories=${gafasVal}` : "";
@@ -118,7 +115,7 @@ const StudentAvatarEditor = ({ idPerfil }) => {
     const colorRopa = selecciones.ColorRopa ? `&clothesColor=${selecciones.ColorRopa}` : "";
     const tema = temaRopa ? `&clothingGraphic=${temaRopa}` : "";
 
-    return `https://api.dicebear.com/9.x/avataaars/svg?seed=${nombre}${colorFondo}${voltearStr}${rotacionStr}${zoomStr}${colorPiel}${cejas}${ojos}${boca}${colorGafas}${gafas}${barba}${colorBarba}${pelo}${colorPelo}${sombrero}${colorSombrero}&accessoriesProbability=${probabilidadGafas}${colorRopa}${ropa}${tema}&facialHairProbability=${probabilidadBarba}&radius=50`;
+    return `https://api.dicebear.com/9.x/avataaars/svg?seed=${colorFondo}${voltearStr}${rotacionStr}${zoomStr}${colorPiel}${cejas}${ojos}${boca}${colorGafas}${gafas}${barba}${colorBarba}${pelo}${colorPelo}${sombrero}${colorSombrero}&accessoriesProbability=${probabilidadGafas}${colorRopa}${ropa}${tema}&facialHairProbability=${probabilidadBarba}&radius=50`;
   };
 
   // useEffect para actualizar avatar cuando cambian selecciones o controles
@@ -135,7 +132,7 @@ const StudentAvatarEditor = ({ idPerfil }) => {
         setAvatarSvg(null);
         setLoadingAvatar(false);
       });
-  }, [selecciones, voltear, rotacion, zoom, temaRopa, nombre]);
+  }, [selecciones, voltear, rotacion, zoom, temaRopa]);
 
   // Lógica para mostrar/ocultar controles, ejemplo con color barba y color cabello
   const mostrarColorBarba = !!selecciones.Barba;
@@ -152,11 +149,11 @@ const StudentAvatarEditor = ({ idPerfil }) => {
           </label>
           <label>
             Ángulo: {rotacion}°
-            <input type="range" min="-180" max="180" className={styles.slider} value={rotacion} onChange={(e) => setRotacion(Number(e.target.value))} />
+            <input type="range" min="0" max="360" className={styles.slider} value={rotacion} onChange={(e) => setRotacion(Number(e.target.value))} />
           </label>
           <label>
             Zoom: {zoom - 100}%
-            <input type="range" min="0" max="200" className={styles.slider} value={zoom} onChange={(e) => setZoom(Number(e.target.value))} />
+            <input type="range" min="100" max="200" className={styles.slider} value={zoom} onChange={(e) => setZoom(Number(e.target.value))} />
           </label>
         </div>
       );
@@ -168,12 +165,28 @@ const StudentAvatarEditor = ({ idPerfil }) => {
     const itemsPrincipales = items.filter((item) => !item.tipo.startsWith("Color"));
     const itemsColor = items.filter((item) => item.tipo.startsWith("Color") || selectedTab === "Encuadre");
 
+    if (isLoading) return <BarLoader />;
+    if (isError) return <p>Error: {error?.[0]}</p>;
+
     return (
       <div className={styles.tabContentGrid}>
         {itemsPrincipales.length > 0 && (
           <>
             <h4 className={styles.subTitle}>Estilos</h4>
             <div className={styles.itemGrid}>
+              {/* Opción para "Ninguno" */}
+              <label className={styles.avatarItemCard}>
+                <input
+                  type="radio"
+                  name={`estilo-${selectedTab}`}
+                  value=""
+                  checked={selecciones[selectedTab] === ""}
+                  onChange={() => handleChange(selectedTab, "")}
+                  className={styles.radioInputHidden}
+                />
+                <div className={styles.avatarNoneOption}>Ninguno</div>
+              </label>
+
               {itemsPrincipales.map((item) => (
                 <label key={item.id} className={styles.avatarItemCard}>
                   <input
@@ -196,6 +209,19 @@ const StudentAvatarEditor = ({ idPerfil }) => {
           <>
             <h4 className={styles.subTitle}>Colores</h4>
             <div className={styles.itemGrid}>
+              {/* Opción para "Ninguno" */}
+              <label className={styles.avatarItemCard}>
+                <input
+                  type="radio"
+                  name={`color-${selectedTab}`}
+                  value=""
+                  checked={selecciones[selectedTab] === ""}
+                  onChange={() => handleChange(selectedTab, "")}
+                  className={styles.radioInputHidden}
+                />
+                <div className={styles.colorNoneOption}>Ninguno</div>
+              </label>
+
               {itemsColor.map((item) => (
                 <label key={item.id} className={styles.avatarItemCard}>
                   <input
@@ -225,6 +251,9 @@ const StudentAvatarEditor = ({ idPerfil }) => {
     <div className={styles.editorContainer}>
       <div className={styles.avatarPreview} id="avatar">
         {loadingAvatar ? <BarLoader /> : avatarSvg ? <div dangerouslySetInnerHTML={{ __html: avatarSvg }} /> : <span className={styles.avatarText}>[Avatar]</span>}
+        <button className={`button-secondary ${styles.confirmButton}`} title="Confirmar selección">
+          <FontAwesomeIcon icon="floppy-disk" />
+        </button>
       </div>
 
       <div className={styles.tabs}>

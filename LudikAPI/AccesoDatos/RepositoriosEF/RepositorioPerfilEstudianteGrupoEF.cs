@@ -94,7 +94,10 @@ namespace AccesoDatos.RepositoriosEF
                 var perfil = await _db.PerfilesEstudiantes
                     .Include(p => p.Grupo)
                         .ThenInclude(g => g.SolicitudesPerfilMedalla)
-                    .Include(p => p.InventarioRecompensas)
+					.Include(p => p.Grupo)
+						.ThenInclude(g => g.TablaEquivalencia)
+							.ThenInclude(te => te.Equivalencias)
+					.Include(p => p.InventarioRecompensas)
                         .ThenInclude(ir => ir.Recompensa)
                             .ThenInclude(r => (r as PersonalizacionAvatar).AtributoDesbloqueable)
                     .Include(p => p.MedallasObtenidas)
