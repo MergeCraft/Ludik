@@ -38,12 +38,13 @@ namespace WebApi.Controllers
         private readonly IAceptarSolicitudPerfilMedalla _aceptarSolicitudPerfilMedalla;
         private readonly IRechazarSolicitudPerfilMedalla _rechazarSolicitudPerfilMedalla;
         private readonly IAltaProyectoAulaColaborativo _altaPac;
+        private readonly IObtenerProyectoAulaColaborativo _obtenerProyectoAulaColaborativo;
         public ProfesorController(IAltaProfesor altaProfesor, 
             IObtenerGruposDeProfesor obtenerGruposDeProfesor, 
             IObtenerSolicitudesUnionDelGrupo obtenerSolicitudesUnionDelGrupo,
             IAceptarSolicitudUnion aceptarSolicitudUnion, 
             IRechazarSolicitudUnion rechazarSolicitudUnion,
-            ILoginUsuario loginUsuario,IReinicioLogrosDeUnGrupo reinicioLogrosDeUnGrupo,IReinicioLogrosDeTodosLosGrupos reinicioLogrosDeTodosLosGrupos,IObtenerSolicitudPerfilMedalla obtenerSolicitudPerfilMedalla,IAceptarSolicitudPerfilMedalla aceptarSolicitudPerfilMedalla,IRechazarSolicitudPerfilMedalla rechazarSolicitudPerfilMedalla,IAltaProyectoAulaColaborativo altaProyectoAulaColaborativo)
+            ILoginUsuario loginUsuario,IReinicioLogrosDeUnGrupo reinicioLogrosDeUnGrupo,IReinicioLogrosDeTodosLosGrupos reinicioLogrosDeTodosLosGrupos,IObtenerSolicitudPerfilMedalla obtenerSolicitudPerfilMedalla,IAceptarSolicitudPerfilMedalla aceptarSolicitudPerfilMedalla,IRechazarSolicitudPerfilMedalla rechazarSolicitudPerfilMedalla,IAltaProyectoAulaColaborativo altaProyectoAulaColaborativo,IObtenerProyectoAulaColaborativo obtenerProyectoAulaColaborativo)
         {
             _altaProfesor = altaProfesor;
             _obtenerGruposDeProfesor = obtenerGruposDeProfesor;
@@ -57,6 +58,7 @@ namespace WebApi.Controllers
             _aceptarSolicitudPerfilMedalla = aceptarSolicitudPerfilMedalla;
             _rechazarSolicitudPerfilMedalla = rechazarSolicitudPerfilMedalla;
             _altaPac = altaProyectoAulaColaborativo;
+            _obtenerProyectoAulaColaborativo = obtenerProyectoAulaColaborativo;
         }
         /// <summary>
         /// Este endpoint permite registrar un nuevo Profesor en el sistema.
@@ -536,6 +538,30 @@ namespace WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     new { Mensaje = "Ocurrió un error inesperado al crear el PAC. " + ex.Message });
             }
+        }
+        [HttpGet("pac")]
+        [Authorize(Policy = "EsProfesor")]
+        [ProducesResponseType(typeof(IEnumerable<ProyectoAulaColaborativoDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(List<Error>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ObtenerProyectoAulaColaborativo([FromQuery][Required] int grupoId)
+        {
+            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(profesorId))
+                return Unauthorized(new { Mensaje = "No se pudo identificar al usuario autenticado." });
+
+            var resultado = await _obtenerProyectoAulaColaborativo.EjecutarAsync(grupoId);
+            if (resultado.EsFallo)
+            {
+                if (resultado.Errores.Any(e => e.Codigo == Error.NotFound.Codigo))
+                    return NotFound(resultado.Errores.ToList());
+                return BadRequest(resultado.Errores.ToList());
+            }
+
+            return Ok(resultado.Valor);
         }
     }
 }

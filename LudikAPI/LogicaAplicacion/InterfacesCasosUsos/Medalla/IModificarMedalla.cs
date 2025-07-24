@@ -5,5 +5,5 @@ namespace LogicaAplicacion.InterfacesCasosUsos.Medalla;
 
 public interface IModificarMedalla
 {
-    Task<Resultado> EjecutarAsync(int id, MedallaEditarDto medallaEditarDto);
+    Task<Resultado> EjecutarAsync(int id, MedallaEditarDto medallaEditarDto,string profesorId);
 }

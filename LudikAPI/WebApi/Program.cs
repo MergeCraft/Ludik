@@ -306,6 +306,7 @@ builder.Services.AddScoped<IObtenerSolicitudPerfilMedalla, ObtenerSolicitudesPer
 builder.Services.AddScoped<IAceptarSolicitudPerfilMedalla, AceptarSolicitudPerfilMedalla>();
 builder.Services.AddScoped<IRechazarSolicitudPerfilMedalla, RechazarSolicitudPerfilMedalla>();
 builder.Services.AddScoped<IAltaProyectoAulaColaborativo, AltaProyectoAulaColaborativo>();
+builder.Services.AddScoped<IObtenerProyectoAulaColaborativo, ObtenerProyectoAulaColaborativo>();
 
 // -------------------------------
 //      Swagger y CORS

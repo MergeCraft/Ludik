@@ -40,8 +40,8 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
             var perfil = new Entidad.PerfilEstudiante
             {
                 EstudianteId = solicitud.EstudianteId,
-                NombreImagenCompleta = "Default",
-                NombreImagenMiniatura="Default"
+                NombreImagenCompleta = "ImagenAvatarPorDefecto",
+                NombreImagenMiniatura= "ImagenAvatarPorDefectoMiniatura"
             };
 
             var resultadoPerfil = await _repoPerfilEstudianteGrupo.AddAsync(perfil);

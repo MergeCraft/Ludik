@@ -25,9 +25,9 @@ public class ObtenerTodasLasMedallas : IObtenerTodasLasMedallas
     /// Un Resultado exitoso con la lista de MedallaDto, o un Resultado de fallo 
     /// si ocurrió un error en la capa de acceso a datos.
     /// </returns>
-    public async Task<Resultado<IEnumerable<MedallaDto>>> EjecutarAsync()
+    public async Task<Resultado<IEnumerable<MedallaDto>>> EjecutarAsync(string profesorId)
     {
-        var resultadoRepo = await _repositorioMedallas.GetAllAsync();
+        var resultadoRepo = await _repositorioMedallas.GetByProfesorAsync(profesorId);
 
         if (resultadoRepo.EsFallo)
             return Resultado<IEnumerable<MedallaDto>>.Falla(resultadoRepo.Errores);

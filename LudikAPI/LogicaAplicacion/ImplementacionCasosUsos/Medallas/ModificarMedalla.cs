@@ -17,7 +17,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Medallas
             _repositorioMedallas = repositorioMedallas;
         }
 
-        public async Task<Resultado> EjecutarAsync(int id, MedallaEditarDto dto)
+        public async Task<Resultado> EjecutarAsync(int id, MedallaEditarDto dto, string profesorId)
         {
             if (id <= 0)
                 return Resultado.Falla(new Error("Error.Validation", "El ID de la medalla debe ser un entero positivo."));
@@ -29,9 +29,11 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Medallas
             {
                     return Resultado.Falla(new Error("Error.NotFound", $"No se encontró ninguna medalla con ID {id}."));
             }
-            //Falta validacion si la medalla pertenece al profesor 
             Medalla existente = resultadoObtener.Valor;
             MedallaEditarMapper.actualizarMedalla(existente, dto);
+
+            if(existente.ProfesorId != profesorId)
+                return Resultado.Falla(new Error("Error.Forbidden", "No tienes permiso para modificar esta medalla."));
 
             Resultado resultadoValidacion = existente.esValido();
             if (resultadoValidacion.EsFallo)

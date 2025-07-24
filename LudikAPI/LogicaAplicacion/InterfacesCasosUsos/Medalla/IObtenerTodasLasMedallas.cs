@@ -5,5 +5,5 @@ namespace LogicaAplicacion.InterfacesCasosUsos.Medalla;
 
 public interface IObtenerTodasLasMedallas
 {
-    Task<Resultado<IEnumerable<MedallaDto>>> EjecutarAsync();
+    Task<Resultado<IEnumerable<MedallaDto>>> EjecutarAsync(string profesorId);
 }

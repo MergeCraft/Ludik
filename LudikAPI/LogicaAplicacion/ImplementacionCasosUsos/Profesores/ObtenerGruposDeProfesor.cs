@@ -26,7 +26,6 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
         {
             if (string.IsNullOrWhiteSpace(idProfesor))
             {
-                // Retorna un resultado de error si el ID es inválido.
                 return Resultado<List<GrupoDto>>.Falla(
                     new Error("Error.Validation", "El ID del profesor no puede ser nulo o vacío.")
                 );

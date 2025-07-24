@@ -25,7 +25,6 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
         {
             if (string.IsNullOrWhiteSpace(idEstudiante))
             {
-                // Retorna un resultado de error si el ID es inválido.
                 return Resultado<List<GrupoDto>>.Falla(
                     new Error("Estudiante.IdInvalido", "El ID del estudiante no puede ser nulo o vacío.")
                 );

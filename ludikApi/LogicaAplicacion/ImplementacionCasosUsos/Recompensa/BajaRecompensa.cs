@@ -26,8 +26,9 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Recompensa
                 return Resultado.Falla(new Error("Error.NotFound", "No se encontró la recompensa especificada."));
 
             var recompensa = resultadoRecuperar.Valor!;
-
-
+            
+            //deberia validar que la recompensa pertenezca a una tienda de un grupo del profesor , el profesor asi no podria borrar recompensas con ID que no esten en su grupo
+            
             var resultadoEliminar = await _repositorioRecompensas.RemoveAsync(recompensaId);
             if (resultadoEliminar.EsFallo)
                 return Resultado.Falla(new Error("Error.Unexpected", "No se pudo eliminar la recompensa. " ));
