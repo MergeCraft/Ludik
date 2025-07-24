@@ -17,27 +17,35 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.BarraProgreso
 	public class ObtenerContenidoBarraProgreso : IObtenerContenidoBarraProgreso
 	{
 		private readonly IRepositorioPerfilEstudianteGrupo _repositorioPerfilesEstudiantes;
+        private readonly IRepositorioGrupos _repositorioGrupos;
 
-		public ObtenerContenidoBarraProgreso(
-			IRepositorioPerfilEstudianteGrupo repositorioPerfilesEstudiantes)
+        public ObtenerContenidoBarraProgreso(
+			IRepositorioPerfilEstudianteGrupo repositorioPerfilesEstudiantes,
+            IRepositorioGrupos repositorioGrupos)
 		{
 			_repositorioPerfilesEstudiantes = repositorioPerfilesEstudiantes;
-		}
+            _repositorioGrupos = repositorioGrupos;
+        }
 		public async Task<Resultado<BarraProgresoDto>> EjecutarAsync(int perfilEstudianteId, string idUsuarioAutenticado)
 		{
 			var resultadoPerfil = await _repositorioPerfilesEstudiantes.GetByIdAsync(perfilEstudianteId);
-			if (resultadoPerfil == null || resultadoPerfil.EsFallo)
-				return Resultado<BarraProgresoDto>.Falla(Error.NotFound);
+			var resultadoTabla = await _repositorioGrupos.GetTablaEquivalenciaPorPerfilEstudianteAsync(perfilEstudianteId);
+            if (resultadoPerfil == null || resultadoPerfil.EsFallo)
+				return Resultado<BarraProgresoDto>.Falla(resultadoPerfil.Errores);
+            if (resultadoTabla == null || resultadoTabla.EsFallo)
+                return Resultado<BarraProgresoDto>.Falla(resultadoTabla.Errores);
 
-			Entidades.PerfilEstudiante perfilEstudiante = resultadoPerfil.Valor;
+            Entidades.TablaEquivalencia tablaEquivalencia = resultadoTabla.Valor;
+            Entidades.PerfilEstudiante perfilEstudiante = resultadoPerfil.Valor;
 
-			if (perfilEstudiante.EstudianteId != idUsuarioAutenticado)
-				return Resultado<BarraProgresoDto>.Falla(Error.Forbidden);
+            if (perfilEstudiante.EstudianteId != idUsuarioAutenticado)
+                return Resultado<BarraProgresoDto>.Falla(Error.Forbidden);
 
-            Entidades.TablaEquivalencia tablaEquivalencia = perfilEstudiante.Grupo.TablaEquivalencia;
+
             int notaActualDelPerfil = tablaEquivalencia.MaximaCalificacionSegun(perfilEstudiante.Medallas);
             int notaMinimaDeTablaEquivalencia = tablaEquivalencia.ObtenerNotaMinima();
             int notaMaximaDeTablaEquivalencia = tablaEquivalencia.ObtenerNotaMaxima();
+
             List<Entidades.Medalla> medallasNecesariasParaSiguienteNota = tablaEquivalencia.ObtenerMedallasNecesariasParaSiguienteNota(notaActualDelPerfil);
             BarraProgresoDto barraProgresoDto = new BarraProgresoDto
             {

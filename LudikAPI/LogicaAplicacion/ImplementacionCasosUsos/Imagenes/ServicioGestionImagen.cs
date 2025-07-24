@@ -86,7 +86,7 @@ public class ServicioGestionImagen: IServicioGestionImagen
         var resultadoUrlMiniatura = await _repositorioArchivos.ObtenerArchivoSasUrlAsync(nombreMiniatura);
 
         if (resultadoUrlCompleta.EsFallo || resultadoUrlMiniatura.EsFallo)
-            return Resultado<ImagenPerfilDto>.Falla(Error.NotFound);
+            return Resultado<ImagenPerfilDto>.Falla(new Error("Error.Unexpected", "Hubo un error al generar la url de la imagen del perfil."));
         
 
         var imagenPerfilDto = new ImagenPerfilDto

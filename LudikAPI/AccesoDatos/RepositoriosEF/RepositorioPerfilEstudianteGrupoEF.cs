@@ -93,24 +93,9 @@ namespace AccesoDatos.RepositoriosEF
             {
                 var perfil = await _db.PerfilesEstudiantes
                     .Include(p => p.Grupo)
-                        .ThenInclude(g => g.SolicitudesPerfilMedalla)
-                    .Include(p => p.InventarioRecompensas)
-                        .ThenInclude(ir => ir.Recompensa)
-                            .ThenInclude(r => (r as PersonalizacionAvatar).AtributoDesbloqueable)
                     .Include(p => p.MedallasObtenidas)
                         .ThenInclude(pm => pm.Medalla)
                     .Include(p => p.PotenciadorActivo)
-                    .Include(p => p.Estudiante)
-                        .ThenInclude(e => e.Perfiles)
-                            .ThenInclude(pe => pe.MedallasObtenidas)
-                                .ThenInclude(pm => pm.Medalla)
-                    .Include(p => p.Estudiante)
-                        .ThenInclude(e => e.Perfiles)
-                            .ThenInclude(pe => pe.PotenciadorActivo)
-                    .Include(p => p.Estudiante)
-                        .ThenInclude(e => e.Perfiles)
-                            .ThenInclude(pe => pe.InventarioRecompensas)
-                                .ThenInclude(ir => ir.Recompensa)
                     .FirstOrDefaultAsync(p => p.Id == id);
 
 				if (perfil == null)
@@ -170,7 +155,7 @@ namespace AccesoDatos.RepositoriosEF
 			throw new NotImplementedException();
 		}
 
-        public async Task<Resultado<PerfilEstudiante>> GetByEstudianteYGrupoConMedallasAsync(string estudianteId, int grupoId)
+        public async Task<Resultado<PerfilEstudiante>> GetPerfilEstudianteAsync(string estudianteId, int grupoId)
         {
             try
             {
@@ -178,14 +163,11 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(p => p.MedallasObtenidas)
                         .ThenInclude(pm => pm.Medalla)
                     .Include(p => p.BarraProgreso)
-                    .Include(p => p.Estudiante)   
-                    .Include(p => p.Grupo)        
                     .FirstOrDefaultAsync(p => p.EstudianteId == estudianteId && p.GrupoId == grupoId);
 
 				if (perfil == null)
 					return Resultado<PerfilEstudiante>.Falla(
-						new Error("Perfil.NotFound",
-								  $"No se encontró el perfil del estudiante '{estudianteId}' en el grupo {grupoId}."));
+						new Error("Error.NotFound", $"No se encontró el perfil del estudiante '{estudianteId}' en el grupo {grupoId}."));
 				return Resultado<PerfilEstudiante>.Exitoso(perfil);
 			}
 			catch (Exception ex)
@@ -194,10 +176,31 @@ namespace AccesoDatos.RepositoriosEF
 			}
 		}
 
-		public Task<Resultado<IEnumerable<Recompensa>>> ObtenerItemsAvatarAdquiridosAsync(int idPerfilEstudiante)
+		public async Task<Resultado<IEnumerable<PersonalizacionAvatar>>> ObtenerItemsAvatarAdquiridosAsync(int idPerfilEstudiante)
 		{
-			throw new NotImplementedException();
-		}
+            try
+            {
+                var perfilExiste = await _db.PerfilesEstudiantes.AnyAsync(p => p.Id == idPerfilEstudiante);
+                if (!perfilExiste)
+                    return Resultado<IEnumerable<PersonalizacionAvatar>>.Falla(Error.NotFound);
+                
+
+                var itemsDeAvatar = await _db.PerfilesEstudiantes
+                    .Where(p => p.Id == idPerfilEstudiante)
+                    .SelectMany(p => p.InventarioRecompensas) 
+                    .Select(per => per.Recompensa)         
+                    .OfType<PersonalizacionAvatar>()         
+                    .Include(pa => pa.AtributoDesbloqueable) 
+                    .ToListAsync();
+
+                return Resultado<IEnumerable<PersonalizacionAvatar>>.Exitoso(itemsDeAvatar);
+            }
+            catch (Exception e)
+            {
+ 
+                return Resultado<IEnumerable<PersonalizacionAvatar>>.Falla(new Error("Error.Unexpected", e.Message));
+            }
+        }
 		public async Task<Resultado> SaveCambiosAsync()
 		{
 			try
@@ -215,5 +218,70 @@ namespace AccesoDatos.RepositoriosEF
 				return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
 			}
 		}
-	}
+
+        public async Task<Resultado<PerfilEstudiante>> GetParaAsignacionMedallaAsync(int id)
+        {
+            try
+            {
+                var perfil = await _db.PerfilesEstudiantes
+                    .Include(p => p.PotenciadorActivo)
+                    .Include(p => p.Estudiante)     
+                    .FirstOrDefaultAsync(p => p.Id == id);
+
+                if (perfil == null)
+                {
+                    return Resultado<PerfilEstudiante>.Falla(Error.NotFound);
+                }
+                return Resultado<PerfilEstudiante>.Exitoso(perfil);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<PerfilEstudiante>.Falla(new Error("Error.Unexpected", ex.Message));
+            }
+        }
+
+        public async Task<Resultado<IEnumerable<int>>> GetIdsPorEstudianteAsync(string estudianteId)
+        {
+            var ids = await _db.PerfilesEstudiantes
+                .Where(p => p.EstudianteId == estudianteId)
+                .Select(p => p.Id)
+                .ToListAsync();
+            return Resultado<IEnumerable<int>>.Exitoso(ids);
+        }
+
+        public async Task<Resultado<List<PerfilEstudiante>>> GetPerfilesPorEstudianteAsync(string estudianteId)
+        {
+            try
+            {
+                // Cargamos los perfiles y solo el inventario, que es lo que se va a modificar
+                var perfiles = await _db.PerfilesEstudiantes
+                    .Where(p => p.EstudianteId == estudianteId)
+                    .Include(p => p.InventarioRecompensas) 
+                    .ToListAsync();
+
+                return Resultado<List<PerfilEstudiante>>.Exitoso(perfiles);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<List<PerfilEstudiante>>.Falla(new Error("Error.Unexpected", ex.Message));
+            }
+        }
+
+        public async Task<Resultado<IEnumerable<Recompensa>>> ObtenerRecompensasInventarioAsync(int idPerfilEstudiante)
+        {
+            try
+            {
+                var recompensas = await _db.PerfilEstudianteRecompensas
+                    .Where(per => per.PerfilEstudianteId == idPerfilEstudiante)
+                    .Select(per => per.Recompensa) 
+                    .ToListAsync();                
+
+                return Resultado<IEnumerable<Recompensa>>.Exitoso(recompensas);
+            }
+            catch (Exception e)
+            {
+                return Resultado<IEnumerable<Recompensa>>.Falla(new Error("Error.Unexpected", e.Message));
+            }
+        }
+    }
 }

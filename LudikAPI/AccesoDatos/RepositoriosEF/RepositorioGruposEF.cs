@@ -247,7 +247,31 @@ namespace AccesoDatos.RepositoriosEF
             }
         }
 
-		public Task unirseAGrupoAsync(int idAlumno, Grupo grupo)
+        public async Task<Resultado<TablaEquivalencia>> GetTablaEquivalenciaPorPerfilEstudianteAsync(int perfilEstudianteId)
+        {
+            try
+            {
+                var tablaEquivalencia = await _db.PerfilesEstudiantes
+                    .Where(p => p.Id == perfilEstudianteId)
+                    .Include(p => p.Grupo.TablaEquivalencia.Equivalencias)
+                    .ThenInclude(e => e.MedallasNecesarias)
+                    .Select(p => p.Grupo.TablaEquivalencia)
+                    .FirstOrDefaultAsync();
+
+                if (tablaEquivalencia == null)
+                {
+                    return Resultado<TablaEquivalencia>.Falla(Error.NotFound);
+                }
+
+                return Resultado<TablaEquivalencia>.Exitoso(tablaEquivalencia);
+            }
+            catch (Exception e)
+            {
+                return Resultado<TablaEquivalencia>.Falla(new Error("Error.Unexpected", e.Message));
+            }
+        }
+
+        public Task unirseAGrupoAsync(int idAlumno, Grupo grupo)
 		{
 			throw new NotImplementedException();
 		}
