@@ -31,7 +31,6 @@ namespace AccesoDatos.RepositoriosEF
                 .ThenInclude(g => g.TablaEquivalencia)
                     .ThenInclude(te => te.Equivalencias)
                         .ThenInclude(eq => eq.MedallasNecesarias)
-            // >>> Nuevo Include para los historiales de rendimiento
             .Include(p => p.HistorialRendimientoPeriodos)
                 .ThenInclude(rp => rp.RendimientoMedallas)
                     .ThenInclude(rpm => rpm.Medalla)
