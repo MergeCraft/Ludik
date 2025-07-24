@@ -188,5 +188,23 @@ namespace AccesoDatos.RepositoriosEF
                     .Falla(new Error("Error.Unexpected", ex.Message));
             }
         }
+
+        public async Task<Resultado<int>> ContarMedallasPorEstudianteAsync(string estudianteId)
+        {
+            try
+            {
+
+                int totalMedallas = await _db.PerfilEstudianteMedallas
+                    .CountAsync(pem => pem.PerfilEstudiante.EstudianteId == estudianteId);
+
+                return Resultado<int>.Exitoso(totalMedallas);
+            }
+            catch (Exception ex)
+            {
+
+                return Resultado<int>.Falla(
+                    new Error("Error.Unexpected", $"Ocurrió un error inesperado al contar las medallas del estudiante: {ex.Message}"));
+            }
+        }
     }
 }

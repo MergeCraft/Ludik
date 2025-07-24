@@ -86,7 +86,7 @@ namespace AccesoDatos.RepositoriosEF
         {
             try
             {
-                var estudiantes = await _db.Estudiantes.ToListAsync();
+                var estudiantes = await _db.Estudiantes.Include(e => e.Perfiles).ToListAsync();
                 return Resultado<IEnumerable<Estudiante>>.Exitoso(estudiantes);
             }
             catch (Exception e)

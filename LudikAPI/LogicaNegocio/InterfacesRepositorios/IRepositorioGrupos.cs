@@ -17,7 +17,7 @@ namespace InterfacesRepositorio
         Task rechazarSolicitudAsync(SolicitudUnion idSolictud);
 
         Task<Resultado<IEnumerable<Grupo>>> obtenerGruposPorProfesorAsync(string idProfesor);
-
+        Task<Resultado<TablaEquivalencia>> GetTablaEquivalenciaPorPerfilEstudianteAsync(int perfilEstudianteId);
         Task unirseAGrupoAsync(int idAlumno, Grupo grupo);
 
         Task<List<Estudiante>> obtenerAlumnosDelGrupoAsync(int idGrupo);

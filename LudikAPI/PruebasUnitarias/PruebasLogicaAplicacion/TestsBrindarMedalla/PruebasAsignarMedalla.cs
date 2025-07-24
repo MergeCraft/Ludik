@@ -19,6 +19,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.BrindarMedalla
         private readonly Mock<IRepositorioProfesores> _mockProfesoresRepo;
         private readonly Mock<IRepositorioPerfilEstudianteMedalla> _mockPerfilMedallaRepo;
         private readonly Mock<IMediator> _mockMediator;
+        private readonly Mock<IUnitOfWork> _mockUnitOfWork;
         private readonly AsignarMedalla _casoUso;
 
         private const string ProfesorId = "prof-1";
@@ -32,6 +33,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.BrindarMedalla
             _mockProfesoresRepo = new Mock<IRepositorioProfesores>();
             _mockPerfilMedallaRepo = new Mock<IRepositorioPerfilEstudianteMedalla>();
             _mockMediator = new Mock<IMediator>();
+            _mockUnitOfWork = new Mock<IUnitOfWork>();
 
 
             _casoUso = new AsignarMedalla(
@@ -39,7 +41,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.BrindarMedalla
                 _mockMedallasRepo.Object,
                 _mockProfesoresRepo.Object,
                 _mockPerfilMedallaRepo.Object,
-                _mockMediator.Object
+                _mockMediator.Object,
+                _mockUnitOfWork.Object
             );
         }
 

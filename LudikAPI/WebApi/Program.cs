@@ -239,6 +239,10 @@ builder.Services.AddScoped<IAltaRecompensa, AltaRecompensa>();
 builder.Services.AddScoped<IAltaTablaClasificacion, AltaTablaClasificacion>();
 builder.Services.AddScoped<IAsignarKudo, AsignarKudo>();
 builder.Services.AddScoped<IAltaUmbralParaMedallaPorKudos, AltaUmbralParaMedallaPorKudos >();
+builder.Services.AddScoped<IAceptarSolicitudPerfilMedalla, AceptarSolicitudPerfilMedalla>();
+builder.Services.AddScoped<IAltaSolicitudPerfilMedalla, AltaSolicitudPerfilMedalla>();
+builder.Services.AddScoped<IAltaProyectoAulaColaborativo, AltaProyectoAulaColaborativo>();
+builder.Services.AddScoped<IActualizarUmbralParaMedallaPorKudos, ActualizarUmbralParaMedallaPorKudos>();
 
 builder.Services.AddScoped<IBajaMedalla,BajaMedalla>();
 builder.Services.AddScoped<IBajaGrupo, BajaGrupo>();
@@ -252,6 +256,8 @@ builder.Services.AddScoped<IEditarGrupo, EditarGrupo>();
 builder.Services.AddScoped<IEditarTablaEquivalencia, EditarTablaEquivalencia>();
 builder.Services.AddScoped<IEstablecerMetaCalificacion, EstablecerMetaCalificacion>();
 builder.Services.AddScoped<IEditarRecompensa, EditarRecompensa>();
+builder.Services.AddScoped<IEliminarUmbralParaMedallaPorKudos, EliminarUmbralParaMedallaPorKudos>();
+
 
 builder.Services.AddScoped<IObtenerMedallaPorId,ObtenerMedallaPorId>();
 builder.Services.AddScoped<IObtenerTodasLasMedallas,ObtenerTodasLasMedallas>();
@@ -270,43 +276,37 @@ builder.Services.AddScoped<IObtenerContenidoBarraProgreso, ObtenerContenidoBarra
 builder.Services.AddScoped<IObtenerPreguntasDeSegurididadPorNombreUsuario,ObtenerPreguntasDeSeguridadPorNombreUsuario>();
 builder.Services.AddScoped<IObtenerPreguntasDeSeguridadDelSistema, ObtenerPreguntasDeSeguridadDelSistema>();
 builder.Services.AddScoped<IObtenerAtributosAvatarDisponiblesParaPerfil, ObtenerAtributosAvatarDisponiblesParaPerfil>();
+builder.Services.AddScoped<IObtenerPreguntasDeSegurididadPorNombreUsuario, ObtenerPreguntasDeSeguridadPorNombreUsuario>();
+builder.Services.AddScoped<IObtenerPreguntasDeSeguridadDelSistema, ObtenerPreguntasDeSeguridadDelSistema>();
+builder.Services.AddScoped<IObtenerSolicitudPerfilMedalla, ObtenerSolicitudesPerfilMedalla>();
+builder.Services.AddScoped<IObtenerUmbralesParaMedallasPorKudos, ObtenerUmbralesParaMedallasPorKudos>();
 
 builder.Services.AddScoped<IModificarMedalla,ModificarMedalla>();
 builder.Services.AddScoped<IModificarAvatar, ModificarAvatar>();
 builder.Services.AddScoped<IGeneradorEnlaceGrupo, GeneradorEnlaceGrupo>();
 builder.Services.AddScoped<IQuitarMedalla, QuitarMedalla>();
 
-builder.Services.AddScoped<IServicioGestionImagen, ServicioGestionImagen>();
-builder.Services.AddScoped<IServicioProcesamientoImagenes, ServicioImageSharp>();
-builder.Services.AddScoped<ISeedServicio, SeedServicio>();
-
 builder.Services.AddScoped<IRechazarSolicitudUnion, RechazarSolicitudUnion>();
 builder.Services.AddScoped<IReinicioLogrosDeUnGrupo, ReinicioLogrosDeUnGrupo>();
 builder.Services.AddScoped<IReinicioLogrosDeTodosLosGrupos, ReinicioLogrosDeTodosLosGrupos>();
 builder.Services.AddScoped<IRestablecerContrasena,RestablecerContrasena>();
+builder.Services.AddScoped<IRestablecerContrasena, RestablecerContrasena>();
+builder.Services.AddScoped<IRechazarSolicitudPerfilMedalla, RechazarSolicitudPerfilMedalla>();
 builder.Services.AddScoped<ILoginUsuario, LoginUsuario>();
 
-builder.Services.AddScoped<IObtenerUmbralesParaMedallasPorKudos, ObtenerUmbralesParaMedallasPorKudos>();
-builder.Services.AddScoped<IActualizarUmbralParaMedallaPorKudos, ActualizarUmbralParaMedallaPorKudos>();
-builder.Services.AddScoped<IEliminarUmbralParaMedallaPorKudos, EliminarUmbralParaMedallaPorKudos>();
 
 
 // Inyeccion de dependencias para servicios
+builder.Services.AddScoped<IServicioGestionImagen, ServicioGestionImagen>();
+builder.Services.AddScoped<IServicioProcesamientoImagenes, ServicioImageSharp>();
+builder.Services.AddScoped<ISeedServicio, SeedServicio>();
 builder.Services.AddScoped<IServicioDeReinicioSemanal, ServicioDeReinicioSemanal>();
 builder.Services.AddScoped<IGeneradorUrlImagen, GeneradorUrlImagen>();
+builder.Services.AddScoped<IGeneradorUrlsParaColeccionesImagenes, GeneradorUrlsParaColeccionesImagenes>();
 
 
 
 
-builder.Services.AddScoped<IObtenerPreguntasDeSegurididadPorNombreUsuario,ObtenerPreguntasDeSeguridadPorNombreUsuario>();
-builder.Services.AddScoped<IObtenerPreguntasDeSeguridadDelSistema, ObtenerPreguntasDeSeguridadDelSistema>();
-builder.Services.AddScoped<IRestablecerContrasena,RestablecerContrasena>();
-builder.Services.AddScoped<IAltaSolicitudPerfilMedalla, AltaSolicitudPerfilMedalla>();
-builder.Services.AddScoped<IObtenerSolicitudPerfilMedalla, ObtenerSolicitudesPerfilMedalla>();
-builder.Services.AddScoped<IAceptarSolicitudPerfilMedalla, AceptarSolicitudPerfilMedalla>();
-builder.Services.AddScoped<IRechazarSolicitudPerfilMedalla, RechazarSolicitudPerfilMedalla>();
-builder.Services.AddScoped<IAltaProyectoAulaColaborativo, AltaProyectoAulaColaborativo>();
-builder.Services.AddScoped<IObtenerProyectoAulaColaborativo, ObtenerProyectoAulaColaborativo>();
 
 // -------------------------------
 //      Swagger y CORS
@@ -425,11 +425,12 @@ app.MapControllers();
 app.UseHangfireDashboard();
 
 // Programar el trabajo recurrente
-RecurringJob.AddOrUpdate<IServicioDeReinicioSemanal>(
+
+ RecurringJob.AddOrUpdate<IServicioDeReinicioSemanal>(
     "reinicio-semanal-kudos",
     servicio => servicio.ReiniciarKudosDeEstudiantesAsync(),
     "0 0 * * 1",
-    TimeZoneInfo.Local); 
+    TimeZoneInfo.Local);
 
 app.Run();
 

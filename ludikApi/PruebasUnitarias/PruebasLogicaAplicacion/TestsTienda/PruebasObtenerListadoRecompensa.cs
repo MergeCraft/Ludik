@@ -1,14 +1,17 @@
-﻿using System;
+﻿using InterfacesRepositorio;
+using LogicaAplicacion.DTOs.RecompensaDTOs;
+using LogicaAplicacion.DTOsMappers.RecompensaMappers;
+using LogicaAplicacion.ImplementacionCasosUsos.Tienda;
+using LogicaAplicacion.ImplementacionServicios;
+using LogicaAplicacion.Servicios;
+using LogicaNegocio.Entidades;
+using LogicaNegocio.InterfacesRepositorios;
+using LogicaNegocio.Resultados;
+using Moq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using InterfacesRepositorio;
-using LogicaAplicacion.DTOs.RecompensaDTOs;
-using LogicaAplicacion.ImplementacionCasosUsos.Tienda;
-using LogicaAplicacion.DTOsMappers.RecompensaMappers;
-using LogicaNegocio.Entidades;
-using LogicaNegocio.Resultados;
-using Moq;
 using Xunit;
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTienda
@@ -17,6 +20,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTienda
     {
         private readonly Mock<IRepositorioRecompensas> _mockRepoRec;
         private readonly Mock<IRepositorioTiendas> _mockRepoTiendas;
+        private readonly IGeneradorUrlsParaColeccionesImagenes _generadorUrlsParaColecciones;
         private readonly ObtenerListadoRecompensa _useCase;
         private const string ProfesorId = "unused"; 
 
@@ -24,9 +28,13 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTienda
         {
             _mockRepoRec = new Mock<IRepositorioRecompensas>();
             _mockRepoTiendas = new Mock<IRepositorioTiendas>();
+            _generadorUrlsParaColecciones =
+                new GeneradorUrlsParaColeccionesImagenes(
+                    new GeneradorUrlImagen(new Mock<IRepositorioAlmacenamientoArchivos>().Object));
             _useCase = new ObtenerListadoRecompensa(
                 _mockRepoRec.Object,
-                _mockRepoTiendas.Object
+                _mockRepoTiendas.Object,
+                _generadorUrlsParaColecciones
             );
         }
 
@@ -103,13 +111,13 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTienda
             Assert.Contains(lista, dto =>
                 dto.Nombre == "R1" &&
                 dto.Precio == 5 &&
-                dto.RutaImagenCompleta == "c1" &&
-                dto.RutaImagenMiniatura == "m1");
+                dto.EnlaceImagenCompleta == "c1" &&
+                dto.EnlaceImagenMiniatura == "m1");
             Assert.Contains(lista, dto =>
                 dto.Nombre == "R2" &&
                 dto.Precio == 10 &&
-                dto.RutaImagenCompleta == "c2" &&
-                dto.RutaImagenMiniatura == "m2");
+                dto.EnlaceImagenCompleta == "c2" &&
+                dto.EnlaceImagenMiniatura == "m2");
         }
     }
 }

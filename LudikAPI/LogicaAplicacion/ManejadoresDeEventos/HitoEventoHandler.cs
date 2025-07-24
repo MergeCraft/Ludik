@@ -12,17 +12,20 @@ public class HitoEventoHandler : INotificationHandler<AsignacionMedallaCompletad
     private readonly IRepositorioPerfilEstudianteGrupo _repoPerfiles;
     private readonly ILogger<HitoEventoHandler> _logger;
     private readonly IRepositorioPerfilEstudianteRecompensa _repoRecompensas;
+    private readonly IUnitOfWork _unitOfWork;
 
     public HitoEventoHandler(
         IRepositorioHitos repoHitos,
         IRepositorioPerfilEstudianteGrupo repoPerfiles,
         ILogger<HitoEventoHandler> logger,
-        IRepositorioPerfilEstudianteRecompensa repoRecompensas)
+        IRepositorioPerfilEstudianteRecompensa repoRecompensas,
+        IUnitOfWork unitOfWork)
     {
         _repoHitos = repoHitos;
         _repoPerfiles = repoPerfiles;
         _logger = logger;
         _repoRecompensas = repoRecompensas;
+        _unitOfWork = unitOfWork;
     }
 
    
@@ -47,36 +50,24 @@ public class HitoEventoHandler : INotificationHandler<AsignacionMedallaCompletad
 
             foreach (var hito in hitosPendientes)
             {
+                var perfilesResultado = await _repoPerfiles.GetPerfilesPorEstudianteAsync(notification.Estudiante.Id);
+                if (perfilesResultado.EsFallo)
+                {
+                    _logger.LogError("No se pudieron obtener los perfiles para el estudiante {EstudianteId}", notification.Estudiante.Id);
+                    continue; 
+                }
+
+                foreach (var perfil in perfilesResultado.Valor)
+                {
+
+                    hito.Recompensa.Otorgar(perfil);
+                }
+
                 hito.Otorgado = true;
-                var updHito = await _repoHitos.UpdateAsync(hito);
-                if (updHito.EsFallo)
-                {
-                    _logger.LogError($"[HitoObserver] No se pudo marcar hito {hito.Id}: {updHito.EsFallo}");
-                    continue;
-                }
-
-                foreach (var perfil in estudiante.Perfiles)
-                {
-                    var otorgarResultado = hito.Recompensa.Otorgar(perfil);
-
-                    if (otorgarResultado.EsFallo)
-                    {
-                        _logger.LogError(
-                            $"[HitoObserver] Falló al otorgar recompensa {hito.Recompensa.Id} " + $"en perfil {perfil.Id}: {otorgarResultado.EsFallo}");
-                    }
-                    else
-                    {
-                        _logger.LogInformation(
-                            $"[HitoObserver] Recompensa {hito.Recompensa.Id} aplicada " + $"en perfil {perfil.Id}.");
-                    }
-
-                    var updPerfil = await _repoPerfiles.UpdateAsync(perfil);
-                    if (updPerfil.EsFallo)
-                    {
-                        _logger.LogError($"[HitoObserver] Error al actualizar perfil {perfil.Id}: {updPerfil.EsFallo}");
-                    }
-                }
+                await _repoHitos.UpdateAsync(hito); 
             }
+
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
         catch (Exception ex)
         {

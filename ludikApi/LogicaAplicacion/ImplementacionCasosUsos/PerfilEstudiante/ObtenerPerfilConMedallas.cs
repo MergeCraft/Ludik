@@ -20,7 +20,7 @@ public class ObtenerPerfilConMedallas :IObtenerPerfilConMedallas
     public async Task<Resultado<PerfilConMedallasDto>> EjecutarAsync(string estudianteId, int grupoId)
     {
 
-        var resultadoPerfil = await _repoPerfilGrupo.GetByEstudianteYGrupoConMedallasAsync(estudianteId, grupoId);
+        var resultadoPerfil = await _repoPerfilGrupo.GetPerfilEstudianteAsync(estudianteId, grupoId);
         if (!resultadoPerfil.EsExitoso)
             return Resultado<PerfilConMedallasDto>.Falla(resultadoPerfil.Errores);
 
