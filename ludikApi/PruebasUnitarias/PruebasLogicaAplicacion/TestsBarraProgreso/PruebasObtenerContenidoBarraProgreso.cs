@@ -16,6 +16,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsBarraProgreso
     public class PruebasObtenerContenidoBarraProgreso
     {
         private readonly Mock<IRepositorioPerfilEstudianteGrupo> _mockPerfilRepo;
+        private readonly Mock<IRepositorioGrupos> _mockGrupoRepo;
         private readonly ObtenerContenidoBarraProgreso _casoUso;
         private const int PerfilId = 42;
         private const string UsuarioId = "user-1";
@@ -23,7 +24,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsBarraProgreso
         public PruebasObtenerContenidoBarraProgreso()
         {
             _mockPerfilRepo = new Mock<IRepositorioPerfilEstudianteGrupo>();
-            _casoUso = new ObtenerContenidoBarraProgreso(_mockPerfilRepo.Object);
+            _mockGrupoRepo = new Mock<IRepositorioGrupos>();
+            _casoUso = new ObtenerContenidoBarraProgreso(_mockPerfilRepo.Object, _mockGrupoRepo.Object);
         }
 
         [Fact]
