@@ -10,7 +10,7 @@ namespace LogicaNegocio.Entidades
 
         public TimeSpan Duracion { get; set; }
 
-        public double Multiplicador { get; set; } = 2.0; 
+        public double Multiplicador { get; set; } 
 
         public bool EstaActivo =>
             DateTime.UtcNow >= FechaActivacion && DateTime.UtcNow <= FechaActivacion + Duracion;

@@ -10,9 +10,5 @@ public class TiendaConfiguracion : IEntityTypeConfiguration<Tienda>
     {
         builder.HasKey(ti => ti.Id);
 
-        builder.HasMany(ti => ti.Recompesas)
-            .WithOne(r => r.Tienda)
-            .HasForeignKey(r => r.TiendaId)
-            .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -43,7 +43,6 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var recompensa = await _db.Recompensas
-                    .Include(r => r.Tienda)
                     .FirstOrDefaultAsync(r => r.Id == id);
 
                 if (recompensa == null)
@@ -63,11 +62,13 @@ namespace AccesoDatos.RepositoriosEF
         {
             try
             {
-               
-                var lista = await _db.Recompensas
-                    .Where(r => r.TiendaId == tiendaId)
-                    .ToListAsync();
-                return Resultado<IEnumerable<Recompensa>>.Exitoso(lista);
+               /*
+                  var lista = await _db.Recompensas
+                      .Where(r => r.TiendaId == tiendaId)
+                      .ToListAsync();
+                  return Resultado<IEnumerable<Recompensa>>.Exitoso(lista);
+               */
+               return Resultado<IEnumerable<Recompensa>>.Falla(new Error("Error.Conflict", "No implementado. Se quito la tienda de recompensa."));
             }
             catch (Exception ex)
             {
@@ -81,7 +82,6 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var entidad = await _db.Recompensas
-                    .Include(r => r.Tienda) // incluir si luego usas navegación
                     .FirstOrDefaultAsync(r => r.Id == id);
 
                 if (entidad == null)

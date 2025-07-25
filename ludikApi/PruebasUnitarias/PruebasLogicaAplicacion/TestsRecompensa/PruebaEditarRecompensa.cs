@@ -73,8 +73,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsRecompensa
             {
                 Id = 7,
                 Nombre = "Original",
-                Precio = 100,
-                TiendaId = 1
+                Precio = 100
             };
             _mockRepoRecompensas
                 .Setup(r => r.GetByIdAsync(7))
@@ -107,8 +106,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsRecompensa
             {
                 Id = 9,
                 Nombre = "Original",
-                Precio = 20,
-                TiendaId = 1
+                Precio = 20
             };
             _mockRepoRecompensas
                 .Setup(r => r.GetByIdAsync(9))
@@ -151,8 +149,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsRecompensa
                 Nombre = "Original",
                 Precio = 5,
                 NombreImagenCompleta = "oldFull",
-                NombreImagenMiniatura = "oldThumb",
-                TiendaId = 2
+                NombreImagenMiniatura = "oldThumb"
             };
             _mockRepoRecompensas
                 .Setup(r => r.GetByIdAsync(15))

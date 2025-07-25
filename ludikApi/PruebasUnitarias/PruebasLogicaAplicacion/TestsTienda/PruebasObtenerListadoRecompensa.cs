@@ -91,8 +91,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTienda
             var tienda = new Tienda { Id = 20 };
             var recompensas = new[]
             {
-                new RecompensaSimple { Id = 1, Nombre="R1", Precio=5, NombreImagenCompleta="c1", NombreImagenMiniatura="m1", TiendaId=20 },
-                new RecompensaSimple { Id = 2, Nombre="R2", Precio=10, NombreImagenCompleta="c2", NombreImagenMiniatura="m2", TiendaId=20 }
+                new RecompensaSimple { Id = 1, Nombre="R1", Precio=5, NombreImagenCompleta="c1", NombreImagenMiniatura="m1" },
+                new RecompensaSimple { Id = 2, Nombre="R2", Precio=10, NombreImagenCompleta="c2", NombreImagenMiniatura="m2"}
             };
 
             _mockRepoTiendas

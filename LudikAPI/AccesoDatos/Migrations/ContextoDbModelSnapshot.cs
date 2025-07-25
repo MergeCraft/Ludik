@@ -1644,6 +1644,78 @@ namespace AccesoDatos.Migrations
                     b.HasIndex("RecompensaId");
 
                     b.ToTable("Hitos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CantMedallasRequeridas = 5,
+                            Otorgado = false,
+                            RecompensaId = 101
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CantMedallasRequeridas = 10,
+                            Otorgado = false,
+                            RecompensaId = 102
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CantMedallasRequeridas = 20,
+                            Otorgado = false,
+                            RecompensaId = 103
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CantMedallasRequeridas = 35,
+                            Otorgado = false,
+                            RecompensaId = 104
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CantMedallasRequeridas = 50,
+                            Otorgado = false,
+                            RecompensaId = 105
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CantMedallasRequeridas = 75,
+                            Otorgado = false,
+                            RecompensaId = 106
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CantMedallasRequeridas = 100,
+                            Otorgado = false,
+                            RecompensaId = 107
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CantMedallasRequeridas = 150,
+                            Otorgado = false,
+                            RecompensaId = 108
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CantMedallasRequeridas = 200,
+                            Otorgado = false,
+                            RecompensaId = 109
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CantMedallasRequeridas = 250,
+                            Otorgado = false,
+                            RecompensaId = 110
+                        });
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.KudoOtorgado", b =>
@@ -2293,11 +2365,9 @@ namespace AccesoDatos.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("NombreImagenCompleta")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NombreImagenMiniatura")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Precio")
@@ -2311,7 +2381,7 @@ namespace AccesoDatos.Migrations
                     b.Property<bool>("RequiereImagen")
                         .HasColumnType("bit");
 
-                    b.Property<int>("TiendaId")
+                    b.Property<int?>("TiendaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -2984,7 +3054,6 @@ namespace AccesoDatos.Migrations
                             NombreImagenMiniatura = "top-shortFlat.png",
                             Precio = 0,
                             RequiereImagen = true,
-                            TiendaId = 1,
                             AtributoAvatarId = 21
                         },
                         new
@@ -2995,7 +3064,6 @@ namespace AccesoDatos.Migrations
                             NombreImagenMiniatura = "eyebrows-default.png",
                             Precio = 0,
                             RequiereImagen = true,
-                            TiendaId = 1,
                             AtributoAvatarId = 37
                         },
                         new
@@ -3006,7 +3074,6 @@ namespace AccesoDatos.Migrations
                             NombreImagenMiniatura = "eyebrows-defaultNatural.png",
                             Precio = 0,
                             RequiereImagen = true,
-                            TiendaId = 1,
                             AtributoAvatarId = 38
                         },
                         new
@@ -3017,7 +3084,6 @@ namespace AccesoDatos.Migrations
                             NombreImagenMiniatura = "mouth-smile.png",
                             Precio = 0,
                             RequiereImagen = true,
-                            TiendaId = 1,
                             AtributoAvatarId = 68
                         },
                         new
@@ -3028,7 +3094,6 @@ namespace AccesoDatos.Migrations
                             NombreImagenMiniatura = "clothing-shirtVNeck.png",
                             Precio = 0,
                             RequiereImagen = true,
-                            TiendaId = 1,
                             AtributoAvatarId = 91
                         },
                         new
@@ -3039,7 +3104,6 @@ namespace AccesoDatos.Migrations
                             NombreImagenMiniatura = "accessories-sunglasses.png",
                             Precio = 0,
                             RequiereImagen = true,
-                            TiendaId = 1,
                             AtributoAvatarId = 81
                         },
                         new
@@ -3050,7 +3114,6 @@ namespace AccesoDatos.Migrations
                             NombreImagenMiniatura = "beard-beardLight.png",
                             Precio = 0,
                             RequiereImagen = true,
-                            TiendaId = 1,
                             AtributoAvatarId = 71
                         },
                         new
@@ -3061,7 +3124,6 @@ namespace AccesoDatos.Migrations
                             NombreImagenMiniatura = "skinColor-edb98a.png",
                             Precio = 0,
                             RequiereImagen = true,
-                            TiendaId = 1,
                             AtributoAvatarId = 95
                         },
                         new
@@ -3072,7 +3134,6 @@ namespace AccesoDatos.Migrations
                             NombreImagenMiniatura = "hairColor-a55728.png",
                             Precio = 0,
                             RequiereImagen = true,
-                            TiendaId = 1,
                             AtributoAvatarId = 102
                         },
                         new
@@ -3083,7 +3144,6 @@ namespace AccesoDatos.Migrations
                             NombreImagenMiniatura = "clothesColor-3c4f5c.png",
                             Precio = 0,
                             RequiereImagen = true,
-                            TiendaId = 1,
                             AtributoAvatarId = 119
                         },
                         new
@@ -3094,7 +3154,6 @@ namespace AccesoDatos.Migrations
                             NombreImagenMiniatura = "accessoriesColor-262e33.png",
                             Precio = 0,
                             RequiereImagen = true,
-                            TiendaId = 1,
                             AtributoAvatarId = 135
                         },
                         new
@@ -3105,7 +3164,6 @@ namespace AccesoDatos.Migrations
                             NombreImagenMiniatura = "beardColor-a55728.png",
                             Precio = 0,
                             RequiereImagen = true,
-                            TiendaId = 1,
                             AtributoAvatarId = 112
                         });
                 });
@@ -3124,6 +3182,108 @@ namespace AccesoDatos.Migrations
                         .HasColumnType("float");
 
                     b.HasDiscriminator().HasValue("Potenciador");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 101,
+                            Nombre = "Bono x1.5 (24h)",
+                            Precio = 0,
+                            RequiereImagen = false,
+                            Duracion = new TimeSpan(1, 0, 0, 0, 0),
+                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Multiplicador = 1.5
+                        },
+                        new
+                        {
+                            Id = 102,
+                            Nombre = "Bono x1.6 (24h)",
+                            Precio = 0,
+                            RequiereImagen = false,
+                            Duracion = new TimeSpan(1, 0, 0, 0, 0),
+                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Multiplicador = 1.6000000000000001
+                        },
+                        new
+                        {
+                            Id = 103,
+                            Nombre = "Bono x1.7 (48h)",
+                            Precio = 0,
+                            RequiereImagen = false,
+                            Duracion = new TimeSpan(2, 0, 0, 0, 0),
+                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Multiplicador = 1.7
+                        },
+                        new
+                        {
+                            Id = 104,
+                            Nombre = "Bono x1.8 (48h)",
+                            Precio = 0,
+                            RequiereImagen = false,
+                            Duracion = new TimeSpan(2, 0, 0, 0, 0),
+                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Multiplicador = 1.8
+                        },
+                        new
+                        {
+                            Id = 105,
+                            Nombre = "Bono x1.9 (72h)",
+                            Precio = 0,
+                            RequiereImagen = false,
+                            Duracion = new TimeSpan(3, 0, 0, 0, 0),
+                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Multiplicador = 1.8999999999999999
+                        },
+                        new
+                        {
+                            Id = 106,
+                            Nombre = "¡Doble Moneda! (72h)",
+                            Precio = 0,
+                            RequiereImagen = false,
+                            Duracion = new TimeSpan(3, 0, 0, 0, 0),
+                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Multiplicador = 2.0
+                        },
+                        new
+                        {
+                            Id = 107,
+                            Nombre = "Bono x2.1 (96h)",
+                            Precio = 0,
+                            RequiereImagen = false,
+                            Duracion = new TimeSpan(4, 0, 0, 0, 0),
+                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Multiplicador = 2.1000000000000001
+                        },
+                        new
+                        {
+                            Id = 108,
+                            Nombre = "Bono x2.2 (96h)",
+                            Precio = 0,
+                            RequiereImagen = false,
+                            Duracion = new TimeSpan(4, 0, 0, 0, 0),
+                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Multiplicador = 2.2000000000000002
+                        },
+                        new
+                        {
+                            Id = 109,
+                            Nombre = "Bono x2.3 (120h)",
+                            Precio = 0,
+                            RequiereImagen = false,
+                            Duracion = new TimeSpan(5, 0, 0, 0, 0),
+                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Multiplicador = 2.2999999999999998
+                        },
+                        new
+                        {
+                            Id = 110,
+                            Nombre = "¡Super Bono x2.5! (168h)",
+                            Precio = 0,
+                            RequiereImagen = false,
+                            Duracion = new TimeSpan(7, 0, 0, 0, 0),
+                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Multiplicador = 2.5
+                        });
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.RecompensaSimple", b =>
@@ -3140,8 +3300,7 @@ namespace AccesoDatos.Migrations
                             NombreImagenCompleta = "star",
                             NombreImagenMiniatura = "star",
                             Precio = 50,
-                            RequiereImagen = false,
-                            TiendaId = 1
+                            RequiereImagen = false
                         },
                         new
                         {
@@ -3150,8 +3309,7 @@ namespace AccesoDatos.Migrations
                             NombreImagenCompleta = "gift",
                             NombreImagenMiniatura = "gift",
                             Precio = 30,
-                            RequiereImagen = false,
-                            TiendaId = 1
+                            RequiereImagen = false
                         },
                         new
                         {
@@ -3160,8 +3318,7 @@ namespace AccesoDatos.Migrations
                             NombreImagenCompleta = "heart",
                             NombreImagenMiniatura = "heart",
                             Precio = 20,
-                            RequiereImagen = false,
-                            TiendaId = 1
+                            RequiereImagen = false
                         },
                         new
                         {
@@ -3170,8 +3327,7 @@ namespace AccesoDatos.Migrations
                             NombreImagenCompleta = "medal",
                             NombreImagenMiniatura = "medal",
                             Precio = 80,
-                            RequiereImagen = false,
-                            TiendaId = 1
+                            RequiereImagen = false
                         },
                         new
                         {
@@ -3180,8 +3336,7 @@ namespace AccesoDatos.Migrations
                             NombreImagenCompleta = "coins",
                             NombreImagenMiniatura = "coins",
                             Precio = 100,
-                            RequiereImagen = false,
-                            TiendaId = 1
+                            RequiereImagen = false
                         },
                         new
                         {
@@ -3190,8 +3345,7 @@ namespace AccesoDatos.Migrations
                             NombreImagenCompleta = "trophy",
                             NombreImagenMiniatura = "trophy",
                             Precio = 70,
-                            RequiereImagen = false,
-                            TiendaId = 2
+                            RequiereImagen = false
                         },
                         new
                         {
@@ -3200,8 +3354,7 @@ namespace AccesoDatos.Migrations
                             NombreImagenCompleta = "fire",
                             NombreImagenMiniatura = "fire",
                             Precio = 40,
-                            RequiereImagen = false,
-                            TiendaId = 2
+                            RequiereImagen = false
                         },
                         new
                         {
@@ -3210,8 +3363,7 @@ namespace AccesoDatos.Migrations
                             NombreImagenCompleta = "crown",
                             NombreImagenMiniatura = "crown",
                             Precio = 90,
-                            RequiereImagen = false,
-                            TiendaId = 2
+                            RequiereImagen = false
                         },
                         new
                         {
@@ -3220,8 +3372,7 @@ namespace AccesoDatos.Migrations
                             NombreImagenCompleta = "rocket",
                             NombreImagenMiniatura = "rocket",
                             Precio = 60,
-                            RequiereImagen = false,
-                            TiendaId = 2
+                            RequiereImagen = false
                         },
                         new
                         {
@@ -3230,8 +3381,7 @@ namespace AccesoDatos.Migrations
                             NombreImagenCompleta = "robot",
                             NombreImagenMiniatura = "robot",
                             Precio = 55,
-                            RequiereImagen = false,
-                            TiendaId = 2
+                            RequiereImagen = false
                         });
                 });
 
@@ -3623,13 +3773,9 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Recompensa", b =>
                 {
-                    b.HasOne("LogicaNegocio.Entidades.Tienda", "Tienda")
+                    b.HasOne("LogicaNegocio.Entidades.Tienda", null)
                         .WithMany("Recompesas")
-                        .HasForeignKey("TiendaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Tienda");
+                        .HasForeignKey("TiendaId");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.RendimientoPeriodo", b =>

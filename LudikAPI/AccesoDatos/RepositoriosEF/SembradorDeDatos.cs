@@ -104,7 +104,7 @@ namespace AccesoDatos.RepositoriosEF
             var medalla2Id = 2;
             var medalla3Id = 3;
             PrecargaDeMedallas(modelBuilder);
-            
+
 
             // 5. CREACIÓN DE TABLAS DE EQUIVALENCIA (sin las equivalencias dentro aún)
             var tablaEq1Id = 1;
@@ -172,17 +172,17 @@ namespace AccesoDatos.RepositoriosEF
             );
             modelBuilder.Entity<RecompensaSimple>().HasData(
                 // Para Tienda 1
-                new RecompensaSimple { Id = 1, Nombre = "Estrella Mágica", Precio = 50, NombreImagenCompleta = "star", NombreImagenMiniatura = "star", TiendaId = tienda1Id },
-                new RecompensaSimple { Id = 2, Nombre = "Regalo Sorpresa", Precio = 30, NombreImagenCompleta = "gift", NombreImagenMiniatura = "gift", TiendaId = tienda1Id },
-                new RecompensaSimple { Id = 3, Nombre = "Corazón Brillante", Precio = 20, NombreImagenCompleta = "heart", NombreImagenMiniatura = "heart", TiendaId = tienda1Id },
-                new RecompensaSimple { Id = 4, Nombre = "Medalla de Oro", Precio = 80, NombreImagenCompleta = "medal", NombreImagenMiniatura = "medal", TiendaId = tienda1Id },
-                new RecompensaSimple { Id = 5, Nombre = "Montón de Monedas", Precio = 100, NombreImagenCompleta = "coins", NombreImagenMiniatura = "coins", TiendaId = tienda1Id },
+                new RecompensaSimple { Id = 1, Nombre = "Estrella Mágica", Precio = 50, NombreImagenCompleta = "star", NombreImagenMiniatura = "star" },
+                new RecompensaSimple { Id = 2, Nombre = "Regalo Sorpresa", Precio = 30, NombreImagenCompleta = "gift", NombreImagenMiniatura = "gift" },
+                new RecompensaSimple { Id = 3, Nombre = "Corazón Brillante", Precio = 20, NombreImagenCompleta = "heart", NombreImagenMiniatura = "heart" },
+                new RecompensaSimple { Id = 4, Nombre = "Medalla de Oro", Precio = 80, NombreImagenCompleta = "medal", NombreImagenMiniatura = "medal" },
+                new RecompensaSimple { Id = 5, Nombre = "Montón de Monedas", Precio = 100, NombreImagenCompleta = "coins", NombreImagenMiniatura = "coins" },
                 // Para Tienda 2
-                new RecompensaSimple { Id = 6, Nombre = "Trofeo Brillante", Precio = 70, NombreImagenCompleta = "trophy", NombreImagenMiniatura = "trophy", TiendaId = tienda2Id },
-                new RecompensaSimple { Id = 7, Nombre = "Llama de Fuego", Precio = 40, NombreImagenCompleta = "fire", NombreImagenMiniatura = "fire", TiendaId = tienda2Id },
-                new RecompensaSimple { Id = 8, Nombre = "Corona Real", Precio = 90, NombreImagenCompleta = "crown", NombreImagenMiniatura = "crown", TiendaId = tienda2Id },
-                new RecompensaSimple { Id = 9, Nombre = "Cohete Espacial", Precio = 60, NombreImagenCompleta = "rocket", NombreImagenMiniatura = "rocket", TiendaId = tienda2Id },
-                new RecompensaSimple { Id = 10, Nombre = "Robot Amistoso", Precio = 55, NombreImagenCompleta = "robot", NombreImagenMiniatura = "robot", TiendaId = tienda2Id }
+                new RecompensaSimple { Id = 6, Nombre = "Trofeo Brillante", Precio = 70, NombreImagenCompleta = "trophy", NombreImagenMiniatura = "trophy" },
+                new RecompensaSimple { Id = 7, Nombre = "Llama de Fuego", Precio = 40, NombreImagenCompleta = "fire", NombreImagenMiniatura = "fire" },
+                new RecompensaSimple { Id = 8, Nombre = "Corona Real", Precio = 90, NombreImagenCompleta = "crown", NombreImagenMiniatura = "crown" },
+                new RecompensaSimple { Id = 9, Nombre = "Cohete Espacial", Precio = 60, NombreImagenCompleta = "rocket", NombreImagenMiniatura = "rocket" },
+                new RecompensaSimple { Id = 10, Nombre = "Robot Amistoso", Precio = 55, NombreImagenCompleta = "robot", NombreImagenMiniatura = "robot" }
             );
 
 
@@ -219,6 +219,10 @@ namespace AccesoDatos.RepositoriosEF
             // =================================
             PrecargarTiposDeKudos(modelBuilder);
 
+            // ==========================
+            // --- PRECARGA DE HITOS ---
+            // ==========================
+            PrecargarHitos(modelBuilder);
         }
 
         private static void PrecargaDeMedallas(ModelBuilder modelBuilder)
@@ -265,7 +269,40 @@ namespace AccesoDatos.RepositoriosEF
                 new Medalla { Id = 13, Nombre = "El Explicador", Descripcion = "Premia la increíble habilidad de tomar un tema complejo y explicarlo de una manera tan clara y sencilla que todos puedan entenderlo.", NombreImagenMiniatura = "medalla_el_explicador.png", MonedasOtorgadas = 25, ProfesorId = profesor2Id }
             );
         }
+        private static void PrecargarHitos(ModelBuilder modelBuilder)
+        {
+            // 1. CREAR LAS RECOMPENSAS (POTENCIADORES)
+            // Se ajusta el rango de multiplicadores y se utiliza TimeSpan para la duración.
+            var potenciadores = new List<Potenciador>
+            {
+                new Potenciador { Id = 101, Nombre = "Bono x1.5 (24h)", Multiplicador = 1.5, Duracion = TimeSpan.FromHours(24) },
+                new Potenciador { Id = 102, Nombre = "Bono x1.6 (24h)", Multiplicador = 1.6, Duracion = TimeSpan.FromHours(24) },
+                new Potenciador { Id = 103, Nombre = "Bono x1.7 (48h)", Multiplicador = 1.7, Duracion = TimeSpan.FromHours(48) },
+                new Potenciador { Id = 104, Nombre = "Bono x1.8 (48h)", Multiplicador = 1.8, Duracion = TimeSpan.FromHours(48) },
+                new Potenciador { Id = 105, Nombre = "Bono x1.9 (72h)", Multiplicador = 1.9, Duracion = TimeSpan.FromHours(72) },
+                new Potenciador { Id = 106, Nombre = "¡Doble Moneda! (72h)", Multiplicador = 2.0, Duracion = TimeSpan.FromHours(72) },
+                new Potenciador { Id = 107, Nombre = "Bono x2.1 (96h)", Multiplicador = 2.1, Duracion = TimeSpan.FromHours(96) },
+                new Potenciador { Id = 108, Nombre = "Bono x2.2 (96h)", Multiplicador = 2.2, Duracion = TimeSpan.FromHours(96) },
+                new Potenciador { Id = 109, Nombre = "Bono x2.3 (120h)", Multiplicador = 2.3, Duracion = TimeSpan.FromHours(120) },
+                new Potenciador { Id = 110, Nombre = "¡Super Bono x2.5! (168h)", Multiplicador = 2.5, Duracion = TimeSpan.FromHours(168) }
+            };
 
+            modelBuilder.Entity<Potenciador>().HasData(potenciadores);
+
+            // 2. CREAR LOS HITOS Y ASOCIARLOS A LAS RECOMPENSAS (esta parte no cambia)
+            modelBuilder.Entity<Hito>().HasData(
+                new Hito { Id = 1, CantMedallasRequeridas = 5, RecompensaId = 101 },
+                new Hito { Id = 2, CantMedallasRequeridas = 10, RecompensaId = 102 },
+                new Hito { Id = 3, CantMedallasRequeridas = 20, RecompensaId = 103 },
+                new Hito { Id = 4, CantMedallasRequeridas = 35, RecompensaId = 104 },
+                new Hito { Id = 5, CantMedallasRequeridas = 50, RecompensaId = 105 },
+                new Hito { Id = 6, CantMedallasRequeridas = 75, RecompensaId = 106 },
+                new Hito { Id = 7, CantMedallasRequeridas = 100, RecompensaId = 107 },
+                new Hito { Id = 8, CantMedallasRequeridas = 150, RecompensaId = 108 },
+                new Hito { Id = 9, CantMedallasRequeridas = 200, RecompensaId = 109 },
+                new Hito { Id = 10, CantMedallasRequeridas = 250, RecompensaId = 110 }
+            );
+        }
         private static void PrecargarTiposDeKudos(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TipoKudo>().HasData(
@@ -411,7 +448,7 @@ namespace AccesoDatos.RepositoriosEF
                 { TipoAtributo.Cejas, "eyebrows-" },
                 { TipoAtributo.Ojos, "eyes-" },
                 { TipoAtributo.Boca, "mouth-" },
-                { TipoAtributo.Barba, "beard-" }, 
+                { TipoAtributo.Barba, "beard-" },
                 { TipoAtributo.Gafas, "accessories-" },
                 { TipoAtributo.Ropa, "clothing-" },
                 { TipoAtributo.ColorPiel, "skinColor-" },
@@ -499,7 +536,7 @@ namespace AccesoDatos.RepositoriosEF
             var datosParaTablaDeUnion = atributosAsignados.Select(attr => new
             {
                 AvatarId = 1,
-                AtributoSeleccionadoId = attr.Id 
+                AtributoSeleccionadoId = attr.Id
             }).ToArray();
 
             // 3. Poblar la tabla de unión con los datos correctos.
@@ -524,18 +561,17 @@ namespace AccesoDatos.RepositoriosEF
                     Precio = 0, // Precio 0 porque ya los posee
                     NombreImagenCompleta = atributo.NombreImagenRecurso,
                     NombreImagenMiniatura = atributo.NombreImagenRecurso,
-                    TiendaId = 1,
                     AtributoAvatarId = atributo.Id
                 });
             }
 
             modelBuilder.Entity<PersonalizacionAvatar>().HasData(recompensasAvatar);
 
-            int nextSeedId = 1;              
+            int nextSeedId = 1;
             var inventarioInicial = recompensasAvatar
                 .Select(r => new PerfilEstudianteRecompensa
                 {
-                    Id = nextSeedId++,  
+                    Id = nextSeedId++,
                     PerfilEstudianteId = 1,
                     RecompensaId = r.Id
                 })
