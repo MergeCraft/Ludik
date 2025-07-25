@@ -39,6 +39,8 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.AsignarMedalla
         public async Task<Resultado> EjecutarAsync(string profesorId, int idPerfilEstudiante, int idMedalla)
         {
 
+
+
             var perteneceResultado = await _repositorioProfesores.PerteneceGrupoAsync(profesorId, idPerfilEstudiante);
             if (perteneceResultado.EsFallo || !perteneceResultado.Valor)
                 return Resultado.Falla(Error.Forbidden);
@@ -79,8 +81,8 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.AsignarMedalla
             var addResultado = await _repositorioPerfilEstudianteMedalla.AddAsync(nuevaAsignacion);
             if (addResultado.EsFallo)
                 return addResultado;
-            
 
+            await _unitOfWork.SaveChangesAsync();
 
             var evento = new AsignacionMedallaCompletadaEvento(
                 perfilEstudiante.Id,
@@ -89,8 +91,6 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.AsignarMedalla
             );
 
             await _mediator.Publish(evento);
-
-            await _unitOfWork.SaveChangesAsync();
 
             return Resultado.Exitoso();
         }

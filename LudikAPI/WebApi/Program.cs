@@ -65,7 +65,6 @@ using LogicaAplicacion.InterfacesCasosUsos.TablaClasificacion;
 using LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion;
 using LogicaAplicacion.InterfacesCasosUsos.BarraProgreso;
 using LogicaAplicacion.InterfacesCasosUsos.RecuperarContrasena;
-using LogicaNegocio.Observer;
 using LogicaAplicacion.InterfacesCasosUsos.SolicitudPerfilMedalla;
 using LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla;
 using LogicaAplicacion.InterfacesCasosUsos.ProyectoAulaColaborativo;

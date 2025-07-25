@@ -11,8 +11,6 @@ namespace LogicaNegocio.Entidades
 
         public Recompensa Recompensa { get; set; }
 
-        public bool Otorgado { get; set; }
-
         public bool Cumple(int totalMedallas) => totalMedallas >= CantMedallasRequeridas;
 
         public Resultado esValido()

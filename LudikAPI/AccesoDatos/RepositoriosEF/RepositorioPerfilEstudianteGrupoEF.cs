@@ -282,5 +282,6 @@ namespace AccesoDatos.RepositoriosEF
                 return Resultado<IEnumerable<Recompensa>>.Falla(new Error("Error.Unexpected", e.Message));
             }
         }
+        
     }
 }

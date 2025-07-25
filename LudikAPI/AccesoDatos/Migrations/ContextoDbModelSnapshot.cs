@@ -1633,9 +1633,6 @@ namespace AccesoDatos.Migrations
                     b.Property<int>("CantMedallasRequeridas")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Otorgado")
-                        .HasColumnType("bit");
-
                     b.Property<int>("RecompensaId")
                         .HasColumnType("int");
 

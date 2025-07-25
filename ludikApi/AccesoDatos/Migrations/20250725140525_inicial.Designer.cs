@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250724191358_inicial")]
+    [Migration("20250725140525_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -1635,9 +1635,6 @@ namespace AccesoDatos.Migrations
 
                     b.Property<int>("CantMedallasRequeridas")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Otorgado")
-                        .HasColumnType("bit");
 
                     b.Property<int>("RecompensaId")
                         .HasColumnType("int");

@@ -121,12 +121,12 @@ namespace AccesoDatos.RepositoriosEF
                 return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
             }
         }
-        public async Task<Resultado<bool>> PerteneceGrupoAsync(string profesorId, int grupoId)
+        public async Task<Resultado<bool>> PerteneceGrupoAsync(string profesorId, int perfilId)
         {
             try
             {
                 bool pertenece = await _db.Grupos
-                    .AnyAsync(g => g.Id == grupoId && g.ProfesorId == profesorId);
+                    .AnyAsync(g => g.ProfesorId == profesorId && g.Alumnos.Any(a => a.Id == perfilId));
                 return Resultado<bool>.Exitoso(pertenece);
             }
             catch (Exception ex)

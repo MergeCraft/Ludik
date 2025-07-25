@@ -206,5 +206,6 @@ namespace AccesoDatos.RepositoriosEF
                     new Error("Error.Unexpected", $"Ocurrió un error inesperado al contar las medallas del estudiante: {ex.Message}"));
             }
         }
+
     }
 }

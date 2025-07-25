@@ -12,6 +12,8 @@ public class HitoEventoHandler : INotificationHandler<AsignacionMedallaCompletad
     private readonly IRepositorioPerfilEstudianteGrupo _repoPerfiles;
     private readonly ILogger<HitoEventoHandler> _logger;
     private readonly IRepositorioPerfilEstudianteRecompensa _repoRecompensas;
+    private readonly IRepositorioPerfilEstudianteMedalla _repoPerfilEstudianteMedalla;
+    private readonly IRepositorioEstudiantes _repositorioEstudiantes;
     private readonly IUnitOfWork _unitOfWork;
 
     public HitoEventoHandler(
@@ -19,13 +21,16 @@ public class HitoEventoHandler : INotificationHandler<AsignacionMedallaCompletad
         IRepositorioPerfilEstudianteGrupo repoPerfiles,
         ILogger<HitoEventoHandler> logger,
         IRepositorioPerfilEstudianteRecompensa repoRecompensas,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,IRepositorioPerfilEstudianteMedalla repositorioPerfilEstudianteMedalla,IRepositorioEstudiantes repositorioEstudiantes)
     {
         _repoHitos = repoHitos;
         _repoPerfiles = repoPerfiles;
         _logger = logger;
         _repoRecompensas = repoRecompensas;
         _unitOfWork = unitOfWork;
+        _repoPerfilEstudianteMedalla = repositorioPerfilEstudianteMedalla;
+        _repositorioEstudiantes = repositorioEstudiantes;
+
     }
 
    
@@ -35,7 +40,10 @@ public class HitoEventoHandler : INotificationHandler<AsignacionMedallaCompletad
         try
         {
             var estudiante = notification.Estudiante;
-            int totalMedallas = estudiante.ContarCantidadMedallasTotales();
+            var totalMedallas = await _repoPerfilEstudianteMedalla.ContarMedallasPorEstudianteAsync(estudiante.Id);
+            int totalMedallasValor = totalMedallas.Valor;
+            var estudianteConHitos = await _repositorioEstudiantes.GetByIdConHitosAsync(estudiante.Id);
+            var estudianteConHitosValor = estudianteConHitos.Valor;
             var resultadoTodosHitos = await _repoHitos.GetAllAsync();
 
             if (resultadoTodosHitos.EsFallo)
@@ -45,11 +53,16 @@ public class HitoEventoHandler : INotificationHandler<AsignacionMedallaCompletad
             }
 
             var hitosPendientes = resultadoTodosHitos.Valor!
-                .Where(h => !h.Otorgado && h.Cumple(totalMedallas))
+                .Where(h => h.Cumple(totalMedallasValor))
                 .ToList();
 
             foreach (var hito in hitosPendientes)
             {
+                if(estudianteConHitosValor.Hitos.Any(h => h.Id == hito.Id))
+                {
+                    _logger.LogError("ya se encuentra ese hito cumplido por el estudiante", notification.Estudiante.Id);
+                    continue;
+                }
                 var perfilesResultado = await _repoPerfiles.GetPerfilesPorEstudianteAsync(notification.Estudiante.Id);
                 if (perfilesResultado.EsFallo)
                 {
@@ -62,9 +75,8 @@ public class HitoEventoHandler : INotificationHandler<AsignacionMedallaCompletad
 
                     hito.Recompensa.Otorgar(perfil);
                 }
-
-                hito.Otorgado = true;
-                await _repoHitos.UpdateAsync(hito); 
+                estudianteConHitosValor.Hitos.Add(hito);
+                await _repositorioEstudiantes.UpdateAsync(estudianteConHitosValor);
             }
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);

@@ -574,8 +574,7 @@ namespace AccesoDatos.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CantMedallasRequeridas = table.Column<int>(type: "int", nullable: false),
-                    RecompensaId = table.Column<int>(type: "int", nullable: false),
-                    Otorgado = table.Column<bool>(type: "bit", nullable: false)
+                    RecompensaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
