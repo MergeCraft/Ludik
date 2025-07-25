@@ -1,30 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LogicaNegocio.Entidades;
-using InterfacesRepositorio;
+﻿using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.ProfesorDTOs;
 using LogicaAplicacion.DTOs.UsuarioDTOs;
 using LogicaAplicacion.DTOsMappers.EstudianteMappers;
 using LogicaAplicacion.DTOsMappers.ProfesorMappers;
 using LogicaAplicacion.InterfacesCasosUsos.Profesor;
+using LogicaAplicacion.Servicios;
+using LogicaNegocio.Entidades;
 using LogicaNegocio.Excepciones;
 using LogicaNegocio.InterfacesEntidades;
 using LogicaNegocio.Resultados;
 using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
 {
     public class AltaProfesor : IAltaProfesor
     {
         private readonly UserManager<Usuario> _userManager;
+        private readonly IServicioCrearObjetosParaProfesor _servicioParaProfesor;
 
 
-        public AltaProfesor(UserManager<Usuario> userManager)
+        public AltaProfesor(
+            UserManager<Usuario> userManager, 
+            IServicioCrearObjetosParaProfesor servicioCrearObjetos)
         {
             _userManager = userManager;
+            _servicioParaProfesor = servicioCrearObjetos;
         }
 
         // Pre: el DTO no puede ser nulo.
@@ -69,7 +74,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
                 return Resultado.Falla(erroresIdentity);
             }
 
-
+           
             var rolAsignado = await _userManager.AddToRoleAsync(profesorNuevo, "Profesor");
             if (!rolAsignado.Succeeded)
             {
@@ -79,7 +84,21 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Profesores
                     .Select(e => new Error("Error.Unexpected", $"Error de configuración al asignar rol: {e.Description}"));
                 return Resultado.Falla(erroresRol);
             }
+            var medallas = _servicioParaProfesor.CrearMedallasPredeterminadas(profesorNuevo);
+            profesorNuevo.Medallas = medallas;
 
+            var tablasPredeterminadas = _servicioParaProfesor.CrearTablasEquivalenciaPredeterminadas(profesorNuevo, medallas);
+            profesorNuevo.TablasEquivalencia = tablasPredeterminadas;
+
+            var resultadoUpdate = await _userManager.UpdateAsync(profesorNuevo);
+            if (!resultadoUpdate.Succeeded)
+            {
+                // Si falla la actualización, eliminamos el usuario creado.
+                await _userManager.DeleteAsync(profesorNuevo);
+                var erroresUpdate = resultadoUpdate.Errors
+                    .Select(e => new Error("Error.Unexpected", $"Error al actualizar el profesor: {e.Description}"));
+                return Resultado.Falla(erroresUpdate);
+            }
 
             return Resultado.Exitoso();
         }

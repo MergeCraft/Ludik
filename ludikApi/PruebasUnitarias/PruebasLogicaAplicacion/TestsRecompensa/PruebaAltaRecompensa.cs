@@ -38,7 +38,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
         [Fact]
         public async Task EjecutarAsync_DtoNulo_RetornaFalloValidation()
         {
-            var resultado = await _casoUso.EjecutarAsync(null, TiendaId, ProfesorId);
+            var resultado = await _casoUso.EjecutarAsync(null, ProfesorId);
 
             Assert.True(resultado.EsFallo);
             Assert.Contains(resultado.Errores, e =>
@@ -56,7 +56,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
                 .ReturnsAsync(Resultado<Tienda>.Falla(new Error("X", "")));
 
             var dto = new RecompensaAltaDto { Nombre = "R", Precio = 1 };
-            var resultado = await _casoUso.EjecutarAsync(dto, TiendaId, ProfesorId);
+            var resultado = await _casoUso.EjecutarAsync(dto, ProfesorId);
 
             Assert.True(resultado.EsFallo);
             Assert.Contains(resultado.Errores, e =>
@@ -77,7 +77,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
                 }));
 
             var dto = new RecompensaAltaDto { Nombre = "R", Precio = 1 };
-            var resultado = await _casoUso.EjecutarAsync(dto, TiendaId, ProfesorId);
+            var resultado = await _casoUso.EjecutarAsync(dto, ProfesorId);
 
             Assert.True(resultado.EsFallo);
             Assert.Contains(resultado.Errores, e =>
@@ -105,7 +105,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
             var dto = new RecompensaAltaDto { Nombre = "R", Precio = 1 };
 
             // Act
-            var resultado = await _casoUso.EjecutarAsync(dto, TiendaId, ProfesorId);
+            var resultado = await _casoUso.EjecutarAsync(dto, ProfesorId);
 
             // Assert
             Assert.True(resultado.EsFallo);
@@ -129,14 +129,14 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
                 .ReturnsAsync(Resultado<IEnumerable<LogicaNegocio.Entidades.Recompensa>>.Exitoso(
                     new List<RecompensaSimple>
                     {
-                new RecompensaSimple { Nombre = "Test", TiendaId = _tienda.Id }
+                new RecompensaSimple { Nombre = "Test" }
                     }.AsEnumerable()
                 ));
 
             var dto = new RecompensaAltaDto { Nombre = "Test", Precio = 1 };
 
             // Act
-            var resultado = await _casoUso.EjecutarAsync(dto, TiendaId, ProfesorId);
+            var resultado = await _casoUso.EjecutarAsync(dto, ProfesorId);
 
             // Assert
             Assert.True(resultado.EsFallo);
@@ -174,7 +174,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
                 .ReturnsAsync(Resultado.Exitoso());
 
             // Act
-            var resultado = await _casoUso.EjecutarAsync(dto, TiendaId, ProfesorId);
+            var resultado = await _casoUso.EjecutarAsync(dto, ProfesorId);
 
             // Assert
             Assert.True(resultado.EsExitoso);
@@ -183,7 +183,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
             Assert.Equal(dto.Precio, capturada.Precio);
             Assert.Equal(dto.RutaImagenCompleta, capturada.NombreImagenCompleta);
             Assert.Equal(dto.RutaImagenMiniatura, capturada.NombreImagenMiniatura);
-            Assert.Equal(_tienda.Id, capturada.TiendaId);
         }
     }
 }

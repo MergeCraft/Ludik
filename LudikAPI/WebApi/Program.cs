@@ -279,6 +279,7 @@ builder.Services.AddScoped<IObtenerPreguntasDeSegurididadPorNombreUsuario, Obten
 builder.Services.AddScoped<IObtenerPreguntasDeSeguridadDelSistema, ObtenerPreguntasDeSeguridadDelSistema>();
 builder.Services.AddScoped<IObtenerSolicitudPerfilMedalla, ObtenerSolicitudesPerfilMedalla>();
 builder.Services.AddScoped<IObtenerUmbralesParaMedallasPorKudos, ObtenerUmbralesParaMedallasPorKudos>();
+builder.Services.AddScoped<IObtenerProyectoAulaColaborativo, ObtenerProyectoAulaColaborativo>();
 
 builder.Services.AddScoped<IObtenerProyectoAulaColaborativo, ObtenerProyectoAulaColaborativo>();
 
@@ -304,6 +305,7 @@ builder.Services.AddScoped<ISeedServicio, SeedServicio>();
 builder.Services.AddScoped<IServicioDeReinicioSemanal, ServicioDeReinicioSemanal>();
 builder.Services.AddScoped<IGeneradorUrlImagen, GeneradorUrlImagen>();
 builder.Services.AddScoped<IGeneradorUrlsParaColeccionesImagenes, GeneradorUrlsParaColeccionesImagenes>();
+builder.Services.AddScoped<IServicioCrearObjetosParaProfesor, ServicioCrearObjetosParaProfesor>();
 
 
 

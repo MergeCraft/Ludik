@@ -21,16 +21,14 @@ namespace LogicaAplicacion.DTOsMappers.RecompensaMappers
             };
         }
 
-        public static Recompensa fromDto(RecompensaAltaDto dto, Tienda tienda)
+        public static Recompensa fromDto(RecompensaAltaDto dto)
         {
             return new RecompensaSimple
             {
                 Nombre = dto.Nombre,
                 NombreImagenCompleta = dto.RutaImagenCompleta ?? "",
                 NombreImagenMiniatura = dto.RutaImagenMiniatura ?? "",
-                Precio = dto.Precio,
-                Tienda = tienda,
-                TiendaId = tienda.Id
+                Precio = dto.Precio
             };
         }
     }
