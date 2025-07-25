@@ -18,17 +18,21 @@ namespace LogicaAplicacion.ManejadoresDeEventos
         private readonly IRepositorioGrupos _repoGrupos;
         private readonly IRepositorioPerfilEstudianteRecompensa _repoRecompensa;
         private readonly ILogger<PacEventoHandler> _logger;
+        private readonly IUnitOfWork _unitOfWork;
+
 
         public PacEventoHandler(
             IRepositorioProyectoAulaColaborativo repoPac,
             IRepositorioGrupos repoGrupos,
             IRepositorioPerfilEstudianteRecompensa repoRecompensa,
-            ILogger<PacEventoHandler> logger)
+            ILogger<PacEventoHandler> logger,
+            IUnitOfWork unitOfWork)
         {
             _repoPac = repoPac;
             _repoGrupos = repoGrupos;
             _repoRecompensa = repoRecompensa;
             _logger = logger;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task Handle(AsignacionMedallaCompletadaEvento notification,
@@ -39,21 +43,27 @@ namespace LogicaAplicacion.ManejadoresDeEventos
                 var perfil = notification.Estudiante
                                    .Perfiles
                                    .FirstOrDefault(p => p.Id == notification.PerfilEstudianteId);
-                if (perfil == null) return;
+                if (perfil == null)
+                    return;
 
                 var grupoId = perfil.GrupoId;
 
                 var grupoRes = await _repoGrupos.GetByIdAsync(grupoId);
-                if (grupoRes.EsFallo) return;
+                if (grupoRes.EsFallo)
+                    return;
                 var grupo = grupoRes.Valor!;
 
                 int totalMedallas = grupo.ContarMedallasTotales();
 
                 var pacsRes = await _repoPac.GetByGrupoAsync(grupoId);
-                if (pacsRes.EsFallo) return;
+                if (pacsRes.EsFallo)
+                    return;
                 var pac = pacsRes.Valor!
-                                 .FirstOrDefault(pac => pac.Estado == EstadoPAC.Activo);
-                if (pac == null) return;
+                                 .FirstOrDefault(p => p.Estado == EstadoPAC.Activo);
+                if (pac == null)
+                    return;
+
+                bool estabaCompletado = pac.Estado == EstadoPAC.Completado;
 
                 pac.TotalContribuciones = Math.Min(
                     totalMedallas,
@@ -71,7 +81,7 @@ namespace LogicaAplicacion.ManejadoresDeEventos
                     return;
                 }
 
-                if (pac.Estado == EstadoPAC.Completado)
+                if (!estabaCompletado && pac.Estado == EstadoPAC.Completado)
                 {
                     foreach (var alumnoPerfil in grupo.Alumnos)
                     {
@@ -93,25 +103,10 @@ namespace LogicaAplicacion.ManejadoresDeEventos
                                 pac.RecompensaClase.Id,
                                 alumnoPerfil.Id);
 
-                            // Persisto la asignación de recompensa
-                            var addRec = await _repoRecompensa.AddAsync(
-                                new PerfilEstudianteRecompensa
-                                {
-                                    PerfilEstudianteId = alumnoPerfil.Id,
-                                    RecompensaId = pac.RecompensaClase.Id
-                                });
-
-                            if (addRec.EsFallo)
-                            {
-                                _logger.LogError(
-                                  "[PacEventoHandler] No se pudo registrar recompensa {RecompensaId} " +
-                                  "para perfil {PerfilId}: {Errores}",
-                                  pac.RecompensaClase.Id,
-                                  alumnoPerfil.Id,
-                                  addRec.Errores);
-                            }
+                         
                         }
                     }
+                    await _unitOfWork.SaveChangesAsync(cancellationToken);
                 }
             }
             catch (Exception ex)

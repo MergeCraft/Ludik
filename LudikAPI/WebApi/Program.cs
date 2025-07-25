@@ -280,6 +280,8 @@ builder.Services.AddScoped<IObtenerPreguntasDeSeguridadDelSistema, ObtenerPregun
 builder.Services.AddScoped<IObtenerSolicitudPerfilMedalla, ObtenerSolicitudesPerfilMedalla>();
 builder.Services.AddScoped<IObtenerUmbralesParaMedallasPorKudos, ObtenerUmbralesParaMedallasPorKudos>();
 
+builder.Services.AddScoped<IObtenerProyectoAulaColaborativo, ObtenerProyectoAulaColaborativo>();
+
 builder.Services.AddScoped<IModificarMedalla,ModificarMedalla>();
 builder.Services.AddScoped<IModificarAvatar, ModificarAvatar>();
 builder.Services.AddScoped<IGeneradorEnlaceGrupo, GeneradorEnlaceGrupo>();
