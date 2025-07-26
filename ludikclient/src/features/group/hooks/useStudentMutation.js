@@ -8,6 +8,7 @@ import {
   definirMetaCalificacion,
   obtenerInventarioAvatar,
   guardarAvatarPersonalizado,
+  asignarKudo,
 } from "../../../services/studentService";
 import { canjearRecompensa } from "../../../services/storeService";
 import { obtenerImagenPerfil } from "../../../services/imagesService";
@@ -99,6 +100,19 @@ export const useGuardarAvatar = (idPerfilEstudiante) => {
     mutationFn: ({ avatarDto, svgBlob }) => guardarAvatarPersonalizado(idPerfilEstudiante, avatarDto, svgBlob),
     onSuccess: () => {
       Toast.notificarExito("¡Avatar guardado correctamente!");
+    },
+    onError: manejarErrores,
+  });
+};
+
+export const useAsignarKudo = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ idPerfilEstudianteRecibe, idPerfilEstudianteEmisor, kudo }) => asignarKudo({ idPerfilEstudianteRecibe, idPerfilEstudianteEmisor, kudo }),
+    onSuccess: (_, { idPerfilEstudianteRecibe }) => {
+      Toast.notificarExito("¡Kudo asignado exitosamente!");
+      queryClient.invalidateQueries(["perfilGrupo", idPerfilEstudianteRecibe]);
     },
     onError: manejarErrores,
   });

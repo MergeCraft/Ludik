@@ -87,3 +87,16 @@ export const guardarAvatarPersonalizado = async (idPerfilEstudiante, avatarDto, 
     throw parseError(error, "No se pudo guardar el avatar.");
   }
 };
+
+export const asignarKudo = async ({ idPerfilEstudianteRecibe, idPerfilEstudianteEmisor, kudo }) => {
+  try {
+    const response = await api.post("/api/Kudo", {
+      idPerfilEstudianteRecibe,
+      idPerfilEstudianteEmisor,
+      kudo,
+    });
+    return response.data;
+  } catch (error) {
+    throw parseError(error, "No se pudo asignar el kudo.");
+  }
+};

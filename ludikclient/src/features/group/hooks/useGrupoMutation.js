@@ -1,5 +1,9 @@
+// hooks/useGrupo.js
+
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import * as Toast from "../../../lib/toastify";
+
+// === Servicios ===
 import {
   crearGrupo,
   editarGrupo,
@@ -14,20 +18,25 @@ import {
   rechazarSolicitud,
   asignarMedalla,
   eliminarMedalla,
+  crearPac,
+  obtenerPacsGrupo,
 } from "../../../services/groupService";
 
 import { obtenerRecompensasTienda } from "../../../services/storeService";
-
 import { obtenerRankings, crearRanking, eliminarRanking, obtenerRankingPorId } from "../../../services/rankingsService";
 
+// === Utilidades ===
 const manejarErrores = (error) => {
   const errores = Array.isArray(error) ? error : [error.message];
   errores.forEach((msg) => Toast.notificarError(msg));
 };
 
+// ─────────────────────────────────────────────
+// 🧩 GRUPOS
+// ─────────────────────────────────────────────
+
 export const useCrearGrupo = (onSuccessCallback) => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: crearGrupo,
     onSuccess: (data) => {
@@ -41,7 +50,6 @@ export const useCrearGrupo = (onSuccessCallback) => {
 
 export const useEditarGrupo = (onSuccessCallback) => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: editarGrupo,
     onSuccess: (data) => {
@@ -55,7 +63,6 @@ export const useEditarGrupo = (onSuccessCallback) => {
 
 export const useEliminarGrupo = (onSuccessCallback) => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: eliminarGrupo,
     onSuccess: (_, id) => {
@@ -82,7 +89,7 @@ export const useGruposPorRol = (rol) => {
   return useQuery({
     queryKey: ["grupos", rol],
     queryFn: () => obtenerGrupos(rol),
-    enabled: !!rol, // solo si el rol está definido
+    enabled: !!rol,
     onError: manejarErrores,
   });
 };
@@ -104,6 +111,10 @@ export const useAlumnosGrupo = (id) => {
     onError: manejarErrores,
   });
 };
+
+// ─────────────────────────────────────────────
+// 📩 SOLICITUDES DE UNIÓN
+// ─────────────────────────────────────────────
 
 export const useSolicitudesUnion = (id) => {
   return useQuery({
@@ -127,7 +138,6 @@ export const useSolicitarUnirseGrupo = (onSuccessCallback) => {
 
 export const useAceptarSolicitud = (onSuccessCallback) => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: aceptarSolicitud,
     onSuccess: (data) => {
@@ -141,7 +151,6 @@ export const useAceptarSolicitud = (onSuccessCallback) => {
 
 export const useRechazarSolicitud = (onSuccessCallback) => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: rechazarSolicitud,
     onSuccess: (data) => {
@@ -153,15 +162,17 @@ export const useRechazarSolicitud = (onSuccessCallback) => {
   });
 };
 
-//Asignacion de medallas
+// ─────────────────────────────────────────────
+// 🏅 MEDALLAS
+// ─────────────────────────────────────────────
+
 export const useAsignarMedalla = (onSuccessCallback) => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: asignarMedalla,
     onSuccess: (data) => {
       Toast.notificarExito("Medalla asignada exitosamente.");
-      queryClient.invalidateQueries(["alumnos"]); // podrías parametrizar por grupo si lo deseas
+      queryClient.invalidateQueries(["alumnos"]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
     onError: manejarErrores,
@@ -170,7 +181,6 @@ export const useAsignarMedalla = (onSuccessCallback) => {
 
 export const useEliminarMedalla = (onSuccessCallback) => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: eliminarMedalla,
     onSuccess: (data) => {
@@ -182,7 +192,9 @@ export const useEliminarMedalla = (onSuccessCallback) => {
   });
 };
 
-//Tienda
+// ─────────────────────────────────────────────
+// 🛍️ TIENDA
+// ─────────────────────────────────────────────
 
 export const useRecompensasTienda = (tiendaId) => {
   return useQuery({
@@ -193,7 +205,9 @@ export const useRecompensasTienda = (tiendaId) => {
   });
 };
 
-//Rankings
+// ─────────────────────────────────────────────
+// 📊 RANKINGS
+// ─────────────────────────────────────────────
 
 export const useRankings = () => {
   return useQuery({
@@ -205,7 +219,6 @@ export const useRankings = () => {
 
 export const useCrearRanking = (onSuccessCallback) => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: ({ grupoId, ranking }) => crearRanking(grupoId, ranking),
     onSuccess: (data) => {
@@ -238,4 +251,28 @@ export const useRankingPorId = (id) => {
   });
 };
 
-//configs
+// ─────────────────────────────────────────────
+// 🧱 PAC (Proyectos de Aula Colaborativos)
+// ─────────────────────────────────────────────
+
+export const useCrearPac = (onSuccessCallback) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: crearPac,
+    onSuccess: (data) => {
+      Toast.notificarExito("PAC creado correctamente.");
+      queryClient.invalidateQueries(["pacs"]);
+      if (onSuccessCallback) onSuccessCallback(data);
+    },
+    onError: manejarErrores,
+  });
+};
+
+export const usePacsGrupo = (grupoId) => {
+  return useQuery({
+    queryKey: ["pacs", grupoId],
+    queryFn: () => obtenerPacsGrupo(grupoId),
+    enabled: !!grupoId,
+    onError: manejarErrores,
+  });
+};

@@ -4,23 +4,24 @@ using LogicaAplicacion.DTOsMappers.MedallaMappers;
 
 public static class PerfilMapper
 {
-    public static PerfilConMedallasDto ToDtoConMedallas(PerfilEstudiante perfil)
-    {
-        if (perfil == null) return null;
+	public static PerfilConMedallasDto ToDtoConMedallas(PerfilEstudiante perfil)
+	{
+		if (perfil == null) return null;
 
-        return new PerfilConMedallasDto
-        {
-            Id = perfil.Id,
-            EnlaceAvatar = perfil.NombreImagenMiniatura,
-            MetaCalificacion = perfil.MetaCalificacion,
-            EstudianteId = perfil.EstudianteId,
-            NombreEstudiante = perfil.Estudiante.NombreCompleto.Nombre,
-            Monedas = perfil.Monedas,
-            GrupoId = perfil.GrupoId,
-            NombreGrupo = perfil.Grupo.Nombre,
-            Medallas = MedallaCantidadMapper.AgruparMedallas(
-                perfil.MedallasObtenidas.Select(pm => pm.Medalla).ToList()
-            )
-        };
-    }
+		return new PerfilConMedallasDto
+		{
+			Id = perfil.Id,
+			EnlaceAvatar = perfil.NombreImagenMiniatura,
+			MetaCalificacion = perfil.MetaCalificacion,
+			EstudianteId = perfil.EstudianteId,
+			NombreEstudiante = perfil.Estudiante?.NombreCompleto?.Nombre,
+			Monedas = perfil.Monedas,
+			GrupoId = perfil.GrupoId,
+			NombreGrupo = perfil.Grupo?.Nombre,
+			Medallas = MedallaCantidadMapper.AgruparMedallas(
+				perfil.MedallasObtenidas?.Select(pm => pm.Medalla).ToList()
+			)
+		};
+	}
+
 }

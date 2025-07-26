@@ -1,0 +1,21 @@
+.pacContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.newPacButton {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 15px;
+    padding: 20px;
+    width: 100%;
+    min-height: 500px;
+    box-sizing: border-box;
+    border: 1px solid var(--principal);
+    background-color: transparent;
+    color: var(--principal);
+    cursor: pointer;
+}

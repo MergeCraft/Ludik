@@ -13,9 +13,14 @@
 
 /* Sección principal */
 .heroSection {
+  display: flex;
+  justify-content: center;
+  /* centrar horizontal */
+  align-items: center;
+  /* centrar vertical */
+  text-align: center;
   flex: 1;
   padding: 3rem 2rem;
-  text-align: center;
   background-image: url("../../assets/portada.png");
   background-size: cover;
   background-position: center;
@@ -23,6 +28,8 @@
   position: relative;
   color: white;
   isolation: isolate;
+  min-height: 40vh;
+  /* si quieres más, usa height: 40vh; */
 }
 
 .heroSection::before {
@@ -73,46 +80,15 @@
   outline: none;
 }
 
-/* Features section */
-.featuresSection {
-  width: 100%;
-  background-color: var(--secundario);
-  padding: 3rem 2rem;
-}
-
-.featureContainer {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-}
-
-.featureCard {
-  background-color: var(--terciario);
-  padding: 1.5rem;
-  border-radius: 12px;
-  flex: 1;
-  min-width: 250px;
-  max-width: 300px;
-  opacity: 0;
-  animation: fadeUp 0.6s ease-out forwards;
-}
-
-.featureCard h3 {
-  margin-bottom: 0.5rem;
-}
-
-.featureCard p {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 /* Developers section */
 .devsSection {
   width: 100%;
   background-color: var(--terciario);
   padding: 3rem 2rem;
+}
+
+.devsSection h2 {
+  margin-bottom: 2rem;
 }
 
 .devsContainer {
@@ -134,7 +110,28 @@
   padding: 1.5rem;
   width: 220px;
   text-align: center;
-  animation: fadeUp 0.6s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.devCard.visible {
+  animation-name: fadeDown;
+  animation-duration: 0.6s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+
+/* Animación de fade con subida */
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(20px);
+  }
 }
 
 .devCard img {
@@ -228,6 +225,23 @@
 .featureImage img {
   width: 100%;
   max-width: 400px;
-  border-radius: 12px;
+  border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+@media screen and (max-width: 992px) {
+
+  .featureAlt {
+    flex-direction: column !important;
+  }
+
+  .menuComenzar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .heroSection {
+    height: 85vh;
+  }
+
 }

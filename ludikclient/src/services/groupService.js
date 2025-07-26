@@ -1,4 +1,10 @@
+// services/groupService.js
+
 import api from "../lib/axios";
+
+// ─────────────────────────────────────────────
+// 🧰 UTILIDAD PARA MANEJO DE ERRORES
+// ─────────────────────────────────────────────
 
 const parseError = (error, defaultMsg) => {
   const data = error?.response?.data;
@@ -10,6 +16,10 @@ const parseError = (error, defaultMsg) => {
   const mensaje = data?.mensaje || data?.message || data?.error;
   return [mensaje || defaultMsg];
 };
+
+// ─────────────────────────────────────────────
+// 🧩 GRUPOS
+// ─────────────────────────────────────────────
 
 export const crearGrupo = async (grupo) => {
   try {
@@ -52,11 +62,11 @@ export const reiniciarLogrosGrupo = async (grupoId) => {
 export const obtenerGrupos = async (rol) => {
   try {
     const endpoint = rol === "Profesor" ? "/api/profesor/mis-grupos" : "/api/estudiante/mis-grupos";
+
     const response = await api.get(endpoint);
     return response.data;
   } catch (error) {
-    console.log(error);
-    throw parseError(error, rol === "Profesor" ? "No se pudieron obtener los grupos del profesor." : "No se pudieron obtener los grupos del estudiante.");
+    throw parseError(error, "No se pudieron obtener los grupos.");
   }
 };
 
@@ -77,6 +87,10 @@ export const obtenerAlumnosGrupo = async (id) => {
     throw parseError(error, "Error al obtener los alumnos.");
   }
 };
+
+// ─────────────────────────────────────────────
+// 📩 SOLICITUDES DE UNIÓN
+// ─────────────────────────────────────────────
 
 export const obtenerSolicitudesUnion = async (id) => {
   try {
@@ -122,7 +136,9 @@ export const rechazarSolicitud = async (solicitudId) => {
   }
 };
 
-//Asignacion de medallas
+// ─────────────────────────────────────────────
+// 🏅 MEDALLAS
+// ─────────────────────────────────────────────
 
 export const asignarMedalla = async ({ perfilId, medallaId }) => {
   try {
@@ -131,6 +147,7 @@ export const asignarMedalla = async ({ perfilId, medallaId }) => {
   } catch (error) {
     const data = error?.response?.data;
     const errores = Array.isArray(data) ? data.map((e) => e.mensaje || e.message || e.error).filter(Boolean) : [data?.mensaje || data?.message || data?.error || "Error al asignar medalla"];
+
     throw errores;
   }
 };
@@ -141,9 +158,34 @@ export const eliminarMedalla = async ({ perfilId, medallaId }) => {
     return response.data;
   } catch (error) {
     const data = error?.response?.data;
-    const errores = Array.isArray(data)
-      ? data.map((e) => e.mensaje || e.message || e.error).filter(Boolean)
-      : [data?.mensaje || data?.message || data?.error || "Error al eliminar la medalla"];
+    const errores = Array.isArray(data) ? data.map((e) => e.mensaje || e.message || e.error).filter(Boolean) : [data?.mensaje || data?.message || data?.error || "Error al eliminar la medalla"];
+
     throw errores;
+  }
+};
+
+// ─────────────────────────────────────────────
+// 🧱 PAC (Proyectos de Aula Colaborativos)
+// ─────────────────────────────────────────────
+
+export const crearPac = async ({ grupoId, pacData }) => {
+  try {
+    const response = await api.post("/api/Profesor/pac", pacData, {
+      params: { grupoId },
+    });
+    return response.data;
+  } catch (error) {
+    throw parseError(error, "Error al crear el proyecto de aula.");
+  }
+};
+
+export const obtenerPacsGrupo = async (grupoId) => {
+  try {
+    const response = await api.get("/api/Profesor/pac", {
+      params: { grupoId },
+    });
+    return response.data; // Array de PACs
+  } catch (error) {
+    throw parseError(error, "Error al obtener los proyectos colaborativos.");
   }
 };

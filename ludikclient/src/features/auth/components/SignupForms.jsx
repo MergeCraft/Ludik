@@ -116,7 +116,7 @@ const SignupForm = () => {
           className={styles.formInner}
           style={{
             transform: isProfesor ? "translateX(-50%)" : "translateX(0)",
-            height: isProfesor ? "585px" : "515px",
+            height: isProfesor ? (window.innerWidth < 768 ? "595px" : "565px") : "515px",
           }}
         >
           {/* Formulario Profesor */}

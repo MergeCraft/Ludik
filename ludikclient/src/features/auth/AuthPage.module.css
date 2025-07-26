@@ -60,7 +60,7 @@
 .formulario.oculto {
   opacity: 0;
   pointer-events: none;
-  transform: scale(.5);
+  transform: scale(.3);
 }
 
 .campo {
@@ -227,7 +227,7 @@ input:checked+.slider .switchLabel.alumno {
 .paginacionPreguntas {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 10px;
 }
 
 .puntoWrap {

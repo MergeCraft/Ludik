@@ -4,13 +4,14 @@ import style from "./GroupPage.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BarLoader from "../generics/BarLoader.jsx";
 import { useSelector } from "react-redux";
-import { selectUserRole } from "../auth/hooks/userSlice";
+import { selectUserRole, selectUserId } from "../auth/hooks/userSlice";
 import BaseManagerPage from "../generics/BaseManagerPage";
 import StudentItem from "./components/StudentItem";
-import RewardItem from "./components/RewardItem.jsx";
+import RewardItem from "./components/store/RewardItem.jsx";
 import RewardCreateForm from "./components/teacher/RewardCreateForm.jsx";
 import GroupProfileView from "./components/student/GroupProfileView.jsx";
 import GroupConfigView from "./components/configs/GroupConfigView.jsx";
+import GroupPacView from "./components/pac/GroupPacView.jsx";
 import { useGrupo, useAlumnosGrupo, useRecompensasTienda } from "./hooks/useGrupoMutation";
 import { usePerfilGrupo } from "./hooks/useStudentMutation.js";
 
@@ -26,6 +27,8 @@ const GroupPage = () => {
 
   const role = useSelector(selectUserRole);
   const isProfesor = role === "Profesor";
+
+  const idPerfilLogueado = useSelector(selectUserId);
 
   const [search, setSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -54,7 +57,14 @@ const GroupPage = () => {
     setShowModal(true);
   };
 
-  const getLabelClass = (view) => (selectedView === view ? style.activeLabel : "");
+  const getLabelClass = (view) => {
+    const base = selectedView === view ? style.activeLabel : "";
+    const specific =
+      selectedView === view
+        ? style[`active${view.charAt(0).toUpperCase() + view.slice(1)}`] // genera `activeAlumnos`, `activeTienda`, etc.
+        : "";
+    return `${base} ${specific}`;
+  };
 
   const actions = (
     <div className={style.acciones}>
@@ -78,6 +88,11 @@ const GroupPage = () => {
       <label className={getLabelClass("rankings")}>
         <input type="radio" value="rankings" checked={selectedView === "rankings"} onChange={() => setSelectedView("rankings")} />
         <FontAwesomeIcon icon="fa-solid fa-ranking-star" size="xl" />
+      </label>
+
+      <label className={getLabelClass("pac")}>
+        <input type="radio" value="pac" checked={selectedView === "pac"} onChange={() => setSelectedView("pac")} />
+        <FontAwesomeIcon icon="fa-solid fa-handshake" size="xl" />
       </label>
 
       {isProfesor && (
@@ -160,7 +175,7 @@ const GroupPage = () => {
           ) : (
             <div className={style.studentsContainer}>
               {studentsFiltrados?.map((item) => (
-                <StudentItem key={item.id} student={item} medals={medals} />
+                <StudentItem key={item.id} perfilEmisorId={idPerfilLogueado} student={item} medals={medals} showProfesorOptions={isProfesor} />
               ))}
             </div>
           )
@@ -168,6 +183,8 @@ const GroupPage = () => {
           <GroupProfileView perfil={perfil} isLoading={isLoadingPerfil} setModalContent={setModalContent} setShowModal={setShowModal} setModalTitle={setModalTitle} />
         ) : selectedView === "rankings" ? (
           <GroupRankingView setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
+        ) : selectedView === "pac" ? (
+          <GroupPacView setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
         ) : selectedView === "configs" ? (
           <GroupConfigView id={groupId} group={group} setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} />
         ) : null}

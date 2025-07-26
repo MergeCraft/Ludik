@@ -113,6 +113,35 @@
     padding: 0;
 }
 
+/* Colores personalizados por ítem seleccionado */
+.activePerfil svg {
+    color: #168c1e;
+}
+
+.activeAlumnos svg {
+    color: #167a8c;
+}
+
+.activeTienda svg {
+    color: #c41e3a;
+    /* o el que desees */
+}
+
+.activeRankings svg {
+    color: #f0a500;
+}
+
+.activePac svg {
+    color: #8c1683;
+}
+
+.activeSolicitudes svg {
+    color: #c41e3a;
+}
+
+.activeConfigs svg {
+    color: #7d7d7d;
+}
 
 .addRewardButton {
     background-color: var(--secundario);

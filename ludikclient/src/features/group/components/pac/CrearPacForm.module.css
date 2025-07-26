@@ -1,0 +1,13 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.field, .label {
+    width: 100%;
+}
+
+.submitButton {
+    width: 100%;
+}

@@ -1,0 +1,50 @@
+import React from "react";
+import styles from "./GroupPacView.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PropTypes from "prop-types";
+
+import CrearPacForm from "./CrearPacForm";
+import PacItem from "./PacItem"; // Importá el componente PacItem que creamos
+
+// Hook para obtener PACs del grupo (debes implementarlo según tu backend y hooks)
+import { usePacsGrupo } from "../../hooks/useGrupoMutation";
+
+const GroupPacView = ({ setModalContent, setModalTitle, setShowModal, groupId, showTeacherOptions }) => {
+  const { data: pacs, isLoading, isError } = usePacsGrupo(groupId);
+
+  const handleOpenPacCreateForm = () => {
+    setModalContent(<CrearPacForm groupId={groupId} onClose={() => setShowModal(false)} />);
+    setModalTitle("Crear nuevo Proyecto Colaborativo");
+    setShowModal(true);
+  };
+
+  return (
+    <div className={styles.pacContainer}>
+      <h3>Proyectos de Aprendizaje Colaborativo</h3>
+
+      {showTeacherOptions && (
+        <button className={styles.newPacButton} onClick={handleOpenPacCreateForm}>
+          <FontAwesomeIcon icon="fa-solid fa-handshake" size="2xl" />
+          Crear Nuevo Proyecto
+        </button>
+      )}
+
+      <section className={styles.pacsList}>
+        {isLoading && <p>Cargando proyectos...</p>}
+        {isError && <p>Error al cargar los proyectos.</p>}
+        {!isLoading && !isError && pacs?.length === 0 && <p>No hay proyectos para este grupo.</p>}
+        {!isLoading && !isError && pacs?.map((pac) => <PacItem key={pac.id} pac={pac} />)}
+      </section>
+    </div>
+  );
+};
+
+GroupPacView.propTypes = {
+  setModalContent: PropTypes.func.isRequired,
+  setModalTitle: PropTypes.func.isRequired,
+  setShowModal: PropTypes.func.isRequired,
+  groupId: PropTypes.number.isRequired,
+  showTeacherOptions: PropTypes.bool,
+};
+
+export default GroupPacView;

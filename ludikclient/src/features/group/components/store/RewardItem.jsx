@@ -2,9 +2,9 @@ import React from "react";
 import styles from "./RewardItem.module.css";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-import { selectUserRole } from "../../auth/hooks/userSlice";
+import { selectUserRole } from "../../../auth/hooks/userSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useClaimReward } from "../hooks/useStudentMutation";
+import { useClaimReward } from "../../hooks/useStudentMutation";
 
 const RewardItem = ({ reward, redeemed, perfilId }) => {
   const role = useSelector(selectUserRole);

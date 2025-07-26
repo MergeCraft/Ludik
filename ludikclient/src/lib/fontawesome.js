@@ -93,6 +93,7 @@ import {
   faFaceKissBeam,
   faCheck,
   faFloppyDisk,
+  faHandshake,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { faUser as farUser, faEye as farEye } from "@fortawesome/free-regular-svg-icons";
@@ -191,5 +192,6 @@ library.add(
   faFaceKissBeam,
   farEye,
   faCheck,
-  faFloppyDisk
+  faFloppyDisk,
+  faHandshake
 );

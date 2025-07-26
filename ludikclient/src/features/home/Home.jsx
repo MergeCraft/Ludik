@@ -6,27 +6,30 @@ import styles from "./Home.module.css";
 import SistemadeMedallas from "../../assets/SistemadeMedallas.png";
 import SeguimientoVisual from "../../assets/SeguimientoVisual.png";
 import HerramientaDocente from "../../assets/HerramientaDocente.png";
+import imagenDevs from "../../assets/genericGroupImage.png";
 
 const developers = [
-  { name: "Ana López", role: "Frontend", photo: "/devs/ana.jpg" },
-  { name: "Carlos Pérez", role: "Backend", photo: "/devs/carlos.jpg" },
-  { name: "María Gómez", role: "UX/UI", photo: "/devs/maria.jpg" },
+  { name: "Renato Ríos", role: "Backend", photo: imagenDevs },
+  { name: "Manuel Martinez", role: "Backend", photo: imagenDevs },
+  { name: "Lucas Giusiano", role: "Frontend y UX/UI", photo: imagenDevs },
 ];
 
 function Home() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const elements = document.querySelectorAll(`.${styles.featureAlt}`);
+    const elements = document.querySelectorAll(`.${styles.featureAlt}, .${styles.devCard}`);
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add(styles.visible);
+          } else {
+            entry.target.classList.remove(styles.visible); // 👈 Se quita la clase al salir
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.4 }
     );
 
     elements.forEach((el) => observer.observe(el));

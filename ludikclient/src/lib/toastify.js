@@ -1,62 +1,44 @@
 import { toast } from "react-toastify";
 
+// Estilo común para todos los toasts
+const estiloToastComun = {
+  boxShadow: "0 3px 0 3px var(--blanco-secundario)",
+  borderRadius: "10px",
+  width: "100%",
+  maxWidth: window.innerWidth < 768 ? "90%" : "600px",
+  marginTop: "10px",
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+};
+
+// Detectar si es móvil o escritorio
+const obtenerPosicionToast = () => {
+  return window.innerWidth < 768 ? "top-center" : "top-right";
+};
+
+// Funciones reutilizables
 export const notificarExito = (msg) =>
   toast.success(msg, {
-    position: "top-right",
-    style: {
-      boxShadow: "0 3px 0 3px var(--blanco-secundario)",
-      borderRadius: "10px",
-      width: "100%", // <- que use el 100% del contenedor
-      maxWidth: "600px", // opcional, así no se vuelve extremadamente grande
-      marginTop: "10px",
-      whiteSpace: "nowrap", // opcional si deseas que aparezcan en una línea
-      overflow: "hidden",
-      textOverflow: "ellipsis",
-    },
+    position: obtenerPosicionToast(),
+    style: estiloToastComun,
   });
 
 export const notificarError = (msg) =>
   toast.error(msg, {
-    position: "top-right",
+    position: obtenerPosicionToast(),
     autoClose: 2500,
-    style: {
-      boxShadow: "0 3px 0 3px var(--blanco-secundario)",
-      borderRadius: "10px",
-      width: "100%",
-      maxWidth: "600px",
-      marginTop: "10px",
-      whiteSpace: "nowrap",
-      overflow: "hidden",
-      textOverflow: "ellipsis",
-    },
+    style: estiloToastComun,
   });
 
 export const notificarInfo = (msg) =>
   toast.info(msg, {
-    position: "top-right",
-    style: {
-      boxShadow: "0 3px 0 3px var(--blanco-secundario)",
-      borderRadius: "10px",
-      width: "100%",
-      maxWidth: "600px",
-      marginTop: "10px",
-      whiteSpace: "nowrap",
-      overflow: "hidden",
-      textOverflow: "ellipsis",
-    },
+    position: obtenerPosicionToast(),
+    style: estiloToastComun,
   });
 
 export const notificarWarning = (msg) =>
   toast.warning(msg, {
-    position: "top-right",
-    style: {
-      boxShadow: "0 3px 0 3px var(--blanco-secundario)",
-      borderRadius: "10px",
-      width: "100%",
-      maxWidth: "600px",
-      marginTop: "10px",
-      whiteSpace: "nowrap",
-      overflow: "hidden",
-      textOverflow: "ellipsis",
-    },
+    position: obtenerPosicionToast(),
+    style: estiloToastComun,
   });
