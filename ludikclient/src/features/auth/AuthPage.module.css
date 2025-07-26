@@ -77,22 +77,6 @@
   margin: 0;
 }
 
-.input {
-  background-color: var(--blanco-principal);
-  border: none;
-  border-radius: 10px;
-  padding: 0.8rem;
-  font-size: 1rem;
-  color: var(--terciario);
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.input:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px var(--boton-principal);
-}
-
 .recordar {
   display: flex;
   align-items: center;

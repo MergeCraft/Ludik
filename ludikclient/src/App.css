@@ -16,6 +16,7 @@
   --principal: #131f24;
   --secundario: #23353c;
   --terciario: #375662;
+  --verde-acento: #5fbf82;
 }
 
 * {
@@ -139,6 +140,22 @@ body {
   outline: none;
 }
 
+input,
+select, textarea {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--blanco-secundario);
+  color: black;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--boton-principal);
+}
+
 .fade-in {
   animation: fadeIn 0.8s ease forwards;
 }
@@ -165,11 +182,6 @@ body {
 
 .delay-5 {
   animation-delay: 1s;
-}
-
-input:focus {
-  outline: none;
-  box-shadow: none;
 }
 
 @keyframes fadeUp {
@@ -246,5 +258,6 @@ input:focus {
 
 /* Accesibilidad opcional */
 .switch input:focus+.slider {
-  box-shadow: 0 0 1px var(--secundario);
+  background-color: var(--terciario);
+
 }

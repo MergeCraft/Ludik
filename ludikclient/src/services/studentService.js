@@ -56,3 +56,34 @@ export const obtenerInventarioAvatar = async (idPerfilEstudiante) => {
     throw parseError(error, "No se pudo obtener el inventario de avatar.");
   }
 };
+
+export const generarAvatar = async (idPerfilEstudiante, query) => {
+  try {
+    const response = await api.get(`/api/Avatar/${idPerfilEstudiante}/generar?${query}`);
+    return response.data;
+  } catch (error) {
+    throw parseError(error, "No se pudo generar el avatar.");
+  }
+};
+
+export const guardarAvatarPersonalizado = async (idPerfilEstudiante, avatarDto, svgBlob) => {
+  try {
+    const formData = new FormData();
+    formData.append("ColorFondo", avatarDto.ColorFondo || "#FFFFFF");
+    formData.append("Voltear", avatarDto.Voltear ? "true" : "false");
+    formData.append("Rotacion", avatarDto.Rotacion.toString());
+    formData.append("Zoom", avatarDto.Zoom.toString());
+    avatarDto.AtributosIds.forEach((id) => formData.append("AtributosIds", id.toString()));
+
+    formData.append("imagen", svgBlob, "avatar.svg");
+
+    await api.put(`/api/Avatar/${idPerfilEstudiante}/personalizar`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  } catch (error) {
+    console.error("Error en guardarAvatarPersonalizado:", error.response?.data || error.message || error);
+    throw parseError(error, "No se pudo guardar el avatar.");
+  }
+};

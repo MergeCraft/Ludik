@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./StudentAvatarEditor.module.css";
 import BarLoader from "../../../generics/BarLoader";
-import { useInventarioAvatar } from "../../hooks/useStudentMutation";
+import { useInventarioAvatar, useGuardarAvatar } from "../../hooks/useStudentMutation";
 
 const iconosPorTipo = {
   posicion: "arrow-right-arrow-left",
@@ -63,8 +63,36 @@ const StudentAvatarEditor = ({ idPerfil }) => {
   const [avatarSvg, setAvatarSvg] = useState(null);
   const [loadingAvatar, setLoadingAvatar] = useState(false);
 
-  // Inventario con las opciones para avatar
+  // Hook para guardar avatar
+  const guardarAvatarMutation = useGuardarAvatar(idPerfil);
 
+  const handleGuardarAvatar = async () => {
+    if (!avatarSvg) return;
+
+    // Extraer los IDs seleccionados
+    const atributosSeleccionados = Object.entries(selecciones)
+      .filter(([_, codigo]) => !!codigo)
+      .map(([tipo]) => {
+        const item = inventario.find((i) => i.tipo === tipo && i.codigoUnico === selecciones[tipo]);
+        return item?.id;
+      })
+      .filter(Boolean);
+
+    const avatarDto = {
+      ColorFondo: selecciones.ColorFondo || "",
+      Voltear: voltear,
+      Rotacion: rotacion,
+      Zoom: zoom,
+      AtributosIds: atributosSeleccionados,
+    };
+
+    // Convertir el SVG (string) a Blob para enviarlo como archivo
+    const svgBlob = new Blob([avatarSvg], { type: "image/svg+xml" });
+
+    guardarAvatarMutation.mutate({ avatarDto, svgBlob });
+  };
+
+  // Inventario con las opciones para avatar
   const tiposAgrupados = Array.isArray(inventario) ? agruparPorTipoConColores(inventario) : {};
 
   const tabs = [
@@ -251,7 +279,7 @@ const StudentAvatarEditor = ({ idPerfil }) => {
     <div className={styles.editorContainer}>
       <div className={styles.avatarPreview} id="avatar">
         {loadingAvatar ? <BarLoader /> : avatarSvg ? <div dangerouslySetInnerHTML={{ __html: avatarSvg }} /> : <span className={styles.avatarText}>[Avatar]</span>}
-        <button className={`button-secondary ${styles.confirmButton}`} title="Confirmar selección">
+        <button className={`button-secondary ${styles.confirmButton}`} title="Confirmar selección" onClick={handleGuardarAvatar} disabled={guardarAvatarMutation.isLoading}>
           <FontAwesomeIcon icon="floppy-disk" />
         </button>
       </div>

@@ -52,6 +52,8 @@
   /* CAMBIADO: oculto a la izquierda */
   transition: transform 0.3s ease;
   z-index: 999;
+  box-sizing: content-box;
+
 }
 
 .sidebarMenu.show {
@@ -131,6 +133,9 @@
 
 .cerrarSesion {
   position: absolute;
-  bottom: 60px;
-  width: 250px;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  padding: 0 15px;
+  /* mismo padding lateral que el sidebarMenu */
 }

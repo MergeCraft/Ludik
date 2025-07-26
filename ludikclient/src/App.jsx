@@ -41,13 +41,17 @@ function App() {
                 <Route index element={<Home />} />
 
                 {/* Rutas protegidas */}
-                <Route element={<PrivateRoute allowedRoles={["Profesor"]} />}></Route>
+                <Route element={<PrivateRoute allowedRoles={["Profesor"]} />}>
+                  <Route path="medals" element={<MedalManagerPage />} />
+                  <Route path="profile" element={<ProfilePage />} />
+                  <Route path="equivalenceTable" element={<EquivalenceTablePage />} />
+                </Route>
 
-                <Route path="groups" element={<GroupsPage />} />
-                <Route path="medals" element={<MedalManagerPage />} />
-                <Route path="profile" element={<ProfilePage />} />
-                <Route path="equivalenceTable" element={<EquivalenceTablePage />} />
-                <Route path="/grupo/:id" element={<GroupPage />} />
+                <Route element={<PrivateRoute allowedRoles={["Profesor", "Estudiante"]} />}>
+                  <Route path="groups" element={<GroupsPage />} />
+                  <Route path="/grupo/:id" element={<GroupPage />} />
+                </Route>
+                
               </Route>
             </Routes>
           </Router>

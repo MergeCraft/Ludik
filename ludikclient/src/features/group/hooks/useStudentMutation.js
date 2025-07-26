@@ -1,7 +1,14 @@
 // hooks/useStudentMutation.js
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import * as Toast from "../../../lib/toastify";
-import { obtenerPerfilGrupo, obtenerRecompensasPerfil, obtenerBarraProgresoPerfil, definirMetaCalificacion, obtenerInventarioAvatar } from "../../../services/studentService";
+import {
+  obtenerPerfilGrupo,
+  obtenerRecompensasPerfil,
+  obtenerBarraProgresoPerfil,
+  definirMetaCalificacion,
+  obtenerInventarioAvatar,
+  guardarAvatarPersonalizado,
+} from "../../../services/studentService";
 import { canjearRecompensa } from "../../../services/storeService";
 import { obtenerImagenPerfil } from "../../../services/imagesService";
 
@@ -84,5 +91,15 @@ export const useInventarioAvatar = (idPerfilEstudiante, enabled = true) => {
     queryKey: ["inventario-avatar", idPerfilEstudiante],
     queryFn: () => obtenerInventarioAvatar(idPerfilEstudiante),
     enabled: !!idPerfilEstudiante && enabled,
+  });
+};
+
+export const useGuardarAvatar = (idPerfilEstudiante) => {
+  return useMutation({
+    mutationFn: ({ avatarDto, svgBlob }) => guardarAvatarPersonalizado(idPerfilEstudiante, avatarDto, svgBlob),
+    onSuccess: () => {
+      Toast.notificarExito("¡Avatar guardado correctamente!");
+    },
+    onError: manejarErrores,
   });
 };

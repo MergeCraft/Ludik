@@ -1,7 +1,8 @@
-// src/lib/axios.js
 import axios from "axios";
 import { url } from "../app/url";
-import { store } from "../app/store"; // importás el store directamente
+import { store } from "../app/store";
+import { logout } from "../features/auth/hooks/userSlice";
+import { notificarWarning } from "../lib/toastify"; // ajustá la ruta según corresponda
 
 const api = axios.create({
   baseURL: url,
@@ -10,16 +11,28 @@ const api = axios.create({
   },
 });
 
-// Interceptor para agregar el token desde Redux
 api.interceptors.request.use((config) => {
-  const state = store.getState(); // accedés al estado global
+  const state = store.getState();
   const token = state.userData.token;
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
-
   return config;
 });
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      store.dispatch(logout());
+
+      notificarWarning("Sesión expirada, por favor inicia sesión nuevamente.");
+
+      window.location.href = "/login";
+    }
+    return Promise.reject(error);
+  }
+);
 
 export default api;

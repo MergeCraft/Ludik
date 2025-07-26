@@ -50,7 +50,7 @@ label {
   font-size: 14px;
 }
 
-input,
+/* input,
 select {
   padding: 12px;
   border-radius: 8px;
@@ -59,7 +59,7 @@ select {
   color: #75757A;
   font-size: 14px;
   margin-top: 5px;
-}
+} */
 
 .selectWrapper {
   position: relative;
