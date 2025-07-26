@@ -18,8 +18,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsEstudiante
     {
         private readonly Mock<IRepositorioPerfilEstudianteGrupo> _mockPerfilRepo;
 
-        private readonly IGeneradorUrlImagen _generadorUrlImagen =
-            new GeneradorUrlImagen(new Mock<IRepositorioAlmacenamientoArchivos>().Object);
+        private readonly IGeneradorUrlsParaColeccionesImagenes _generadorUrlsImagenes =
+            new GeneradorUrlsParaColeccionesImagenes(new GeneradorUrlImagen(new Mock<IRepositorioAlmacenamientoArchivos>().Object));
         private readonly ObtenerRecompensasInventarioPerfil _casoUso;
 
         private const int PerfilId = 101;
@@ -28,7 +28,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsEstudiante
         public PruebasObtenerRecompensasInventarioPerfil()
         {
             _mockPerfilRepo = new Mock<IRepositorioPerfilEstudianteGrupo>();
-            _casoUso = new ObtenerRecompensasInventarioPerfil(_mockPerfilRepo.Object, _generadorUrlImagen);
+            _casoUso = new ObtenerRecompensasInventarioPerfil(_mockPerfilRepo.Object, _generadorUrlsImagenes);
         }
 
         [Fact]

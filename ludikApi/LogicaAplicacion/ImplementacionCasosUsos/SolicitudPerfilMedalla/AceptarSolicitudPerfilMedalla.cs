@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using InterfacesRepositorio;
+using LogicaAplicacion.Eventos;
 using LogicaAplicacion.InterfacesCasosUsos.SolicitudPerfilMedalla;
 using LogicaNegocio.Entidades;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
 using LogicaNegocio.ValueObject;
+using MediatR;
 using Entidades = LogicaNegocio.Entidades;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla
@@ -17,15 +19,14 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla
     {
         private readonly IRepositorioSolicitudPerfilMedalla _repositorio;
         private readonly IRepositorioPerfilEstudianteMedalla _repositorioPerfilEstudianteMedalla;
-        private readonly List<IObserver<Entidades.SolicitudPerfilMedalla>> _observers;
-        private readonly IEnumerable<IObserver<PerfilEstudianteMedalla>> _obsMedalla;
+        private readonly IMediator _mediator;
 
-        public AceptarSolicitudPerfilMedalla(IRepositorioSolicitudPerfilMedalla repositorio,IRepositorioPerfilEstudianteMedalla repositorioPerfilEstudianteMedalla, IEnumerable<IObserver<Entidades.SolicitudPerfilMedalla>> observers, IEnumerable<IObserver<PerfilEstudianteMedalla>> obsMedalla)
+        public AceptarSolicitudPerfilMedalla(IRepositorioSolicitudPerfilMedalla repositorio,IRepositorioPerfilEstudianteMedalla repositorioPerfilEstudianteMedalla,IMediator mediator)
         {
             _repositorio = repositorio;
             _repositorioPerfilEstudianteMedalla = repositorioPerfilEstudianteMedalla;
-            _observers = observers.ToList();
-            _obsMedalla = obsMedalla.ToList();
+            _mediator = mediator;
+
         }
 
         public async Task<Resultado> EjecutarAsync(int idSolicitudPerfil)
@@ -43,9 +44,6 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla
             if (updSol.EsFallo)
                 return updSol;
 
-            foreach (var obs in _observers)
-                obs.OnNext(solicitud);
-
             var asignMin = new PerfilEstudianteMedalla
             {
                 PerfilEstudianteId = solicitud.PerfilEstudianteId,
@@ -62,8 +60,11 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla
 
             var asignacionCompleta = recRes.Valor;
 
-            foreach (var obs in _obsMedalla)
-                obs.OnNext(asignacionCompleta);
+            var evento = new AsignacionMedallaCompletadaEvento(
+                asignacionCompleta.PerfilEstudianteId,
+                asignacionCompleta.MedallaId,
+                asignacionCompleta.PerfilEstudiante.Estudiante);
+            await _mediator.Publish(evento);
 
             return Resultado.Exitoso();
         }

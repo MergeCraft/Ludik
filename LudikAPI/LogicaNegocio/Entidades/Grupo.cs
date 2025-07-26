@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using LogicaNegocio.Resultados;
 using LogicaNegocio.ValueObject;
-using LogicaNegocio.Observer;
 
 namespace LogicaNegocio.Entidades
 {

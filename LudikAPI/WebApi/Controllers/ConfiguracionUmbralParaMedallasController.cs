@@ -11,7 +11,6 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Policy = "EsProfesor")]
     public class ConfiguracionUmbralParaMedallasController : ControllerBase
     {
         private readonly IAltaUmbralParaMedallaPorKudos _altaUmbral;
@@ -35,6 +34,7 @@ namespace WebApi.Controllers
         /// </summary>
         /// <param name="dto">Datos del nuevo umbral.</param>
         [HttpPost]
+        [Authorize(Policy = "EsProfesor")]
         [ProducesResponseType(typeof(UmbralParaMedallaPorKudos), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -57,7 +57,9 @@ namespace WebApi.Controllers
         /// <param name="grupoId">El ID del grupo a consultar.</param>
         /// <returns>Una lista de configuraciones de umbral con detalles.</returns>
         [HttpGet]
+        [Authorize(Policy = "EsProfesorOEstudiante")]
         [ProducesResponseType(typeof(IEnumerable<UmbralParaMedallaDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -78,6 +80,7 @@ namespace WebApi.Controllers
         /// <param name="id">El ID del umbral a actualizar.</param>
         /// <param name="dto">Los datos para la actualización.</param>
         [HttpPut]
+        [Authorize(Policy = "EsProfesor")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -96,7 +99,9 @@ namespace WebApi.Controllers
         /// </summary>
         /// <param name="id">El ID del umbral a eliminar.</param>
         [HttpDelete("{id}")]
+        [Authorize(Policy = "EsProfesor")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

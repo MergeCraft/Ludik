@@ -86,7 +86,7 @@ namespace AccesoDatos.RepositoriosEF
         {
             try
             {
-                var estudiantes = await _db.Estudiantes.ToListAsync();
+                var estudiantes = await _db.Estudiantes.Include(e => e.Perfiles).ToListAsync();
                 return Resultado<IEnumerable<Estudiante>>.Exitoso(estudiantes);
             }
             catch (Exception e)
@@ -106,9 +106,18 @@ namespace AccesoDatos.RepositoriosEF
             throw new NotImplementedException();
         }
 
-        public Task<Resultado> UpdateAsync(Estudiante unObjeto)
+        public async Task<Resultado> UpdateAsync(Estudiante unObjeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Estudiantes.Update(unObjeto);
+
+                return Resultado.Exitoso();
+            }
+            catch (Exception ex)
+            {
+                return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
+            }
         }
 
         public List<Medalla> getMedallasAlumno(int idAlumno, int idGrupo)
@@ -160,6 +169,26 @@ namespace AccesoDatos.RepositoriosEF
         public Task<Estudiante> GetByIdAsyncString(string id)
         {
             throw new NotImplementedException();
+        }
+        public async Task<Resultado<Estudiante>> GetByIdConHitosAsync(string id)
+        {
+            try
+            {
+                var estudiante = await _db.Estudiantes
+                    .Include(e => e.Hitos)          
+                    .Include(e => e.Perfiles)       
+                                                    
+                    .FirstOrDefaultAsync(e => e.Id == id);
+
+                if (estudiante == null)
+                    return Resultado<Estudiante>.Falla(Error.NotFound);
+
+                return Resultado<Estudiante>.Exitoso(estudiante);
+            }
+            catch (Exception e)
+            {
+                return Resultado<Estudiante>.Falla(new Error("Unexpected", e.Message));
+            }
         }
     }
 }

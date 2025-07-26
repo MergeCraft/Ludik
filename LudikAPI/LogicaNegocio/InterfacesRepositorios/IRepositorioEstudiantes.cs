@@ -15,7 +15,11 @@ namespace InterfacesRepositorio
 		Task<Resultado<Estudiante>> GetByPerfilIdAsync(int perfilId);
 
 		Task<Resultado<Estudiante>> GetByStringIdAsync(string id);
-		
+
+		Task<Resultado<Estudiante>> GetByIdConHitosAsync(string id);
+
+
+
 
 
     }

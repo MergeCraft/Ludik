@@ -12,17 +12,25 @@ public class HitoEventoHandler : INotificationHandler<AsignacionMedallaCompletad
     private readonly IRepositorioPerfilEstudianteGrupo _repoPerfiles;
     private readonly ILogger<HitoEventoHandler> _logger;
     private readonly IRepositorioPerfilEstudianteRecompensa _repoRecompensas;
+    private readonly IRepositorioPerfilEstudianteMedalla _repoPerfilEstudianteMedalla;
+    private readonly IRepositorioEstudiantes _repositorioEstudiantes;
+    private readonly IUnitOfWork _unitOfWork;
 
     public HitoEventoHandler(
         IRepositorioHitos repoHitos,
         IRepositorioPerfilEstudianteGrupo repoPerfiles,
         ILogger<HitoEventoHandler> logger,
-        IRepositorioPerfilEstudianteRecompensa repoRecompensas)
+        IRepositorioPerfilEstudianteRecompensa repoRecompensas,
+        IUnitOfWork unitOfWork,IRepositorioPerfilEstudianteMedalla repositorioPerfilEstudianteMedalla,IRepositorioEstudiantes repositorioEstudiantes)
     {
         _repoHitos = repoHitos;
         _repoPerfiles = repoPerfiles;
         _logger = logger;
         _repoRecompensas = repoRecompensas;
+        _unitOfWork = unitOfWork;
+        _repoPerfilEstudianteMedalla = repositorioPerfilEstudianteMedalla;
+        _repositorioEstudiantes = repositorioEstudiantes;
+
     }
 
    
@@ -32,7 +40,10 @@ public class HitoEventoHandler : INotificationHandler<AsignacionMedallaCompletad
         try
         {
             var estudiante = notification.Estudiante;
-            int totalMedallas = estudiante.ContarCantidadMedallasTotales();
+            var totalMedallas = await _repoPerfilEstudianteMedalla.ContarMedallasPorEstudianteAsync(estudiante.Id);
+            int totalMedallasValor = totalMedallas.Valor;
+            var estudianteConHitos = await _repositorioEstudiantes.GetByIdConHitosAsync(estudiante.Id);
+            var estudianteConHitosValor = estudianteConHitos.Valor;
             var resultadoTodosHitos = await _repoHitos.GetAllAsync();
 
             if (resultadoTodosHitos.EsFallo)
@@ -42,41 +53,33 @@ public class HitoEventoHandler : INotificationHandler<AsignacionMedallaCompletad
             }
 
             var hitosPendientes = resultadoTodosHitos.Valor!
-                .Where(h => !h.Otorgado && h.Cumple(totalMedallas))
+                .Where(h => h.Cumple(totalMedallasValor))
                 .ToList();
 
             foreach (var hito in hitosPendientes)
             {
-                hito.Otorgado = true;
-                var updHito = await _repoHitos.UpdateAsync(hito);
-                if (updHito.EsFallo)
+                if(estudianteConHitosValor.Hitos.Any(h => h.Id == hito.Id))
                 {
-                    _logger.LogError($"[HitoObserver] No se pudo marcar hito {hito.Id}: {updHito.EsFallo}");
+                    _logger.LogError("ya se encuentra ese hito cumplido por el estudiante", notification.Estudiante.Id);
                     continue;
                 }
-
-                foreach (var perfil in estudiante.Perfiles)
+                var perfilesResultado = await _repoPerfiles.GetPerfilesPorEstudianteAsync(notification.Estudiante.Id);
+                if (perfilesResultado.EsFallo)
                 {
-                    var otorgarResultado = hito.Recompensa.Otorgar(perfil);
-
-                    if (otorgarResultado.EsFallo)
-                    {
-                        _logger.LogError(
-                            $"[HitoObserver] Falló al otorgar recompensa {hito.Recompensa.Id} " + $"en perfil {perfil.Id}: {otorgarResultado.EsFallo}");
-                    }
-                    else
-                    {
-                        _logger.LogInformation(
-                            $"[HitoObserver] Recompensa {hito.Recompensa.Id} aplicada " + $"en perfil {perfil.Id}.");
-                    }
-
-                    var updPerfil = await _repoPerfiles.UpdateAsync(perfil);
-                    if (updPerfil.EsFallo)
-                    {
-                        _logger.LogError($"[HitoObserver] Error al actualizar perfil {perfil.Id}: {updPerfil.EsFallo}");
-                    }
+                    _logger.LogError("No se pudieron obtener los perfiles para el estudiante {EstudianteId}", notification.Estudiante.Id);
+                    continue; 
                 }
+
+                foreach (var perfil in perfilesResultado.Valor)
+                {
+
+                    hito.Recompensa.Otorgar(perfil);
+                }
+                estudianteConHitosValor.Hitos.Add(hito);
+                await _repositorioEstudiantes.UpdateAsync(estudianteConHitosValor);
             }
+
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
         catch (Exception ex)
         {

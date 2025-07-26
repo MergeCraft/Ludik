@@ -5,6 +5,7 @@ using LogicaNegocio.Entidades;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.ProfesorDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Profesores;
+using LogicaAplicacion.Servicios;
 using LogicaNegocio.ValueObjects;
 using LogicaNegocio.Excepciones;
 using Microsoft.AspNetCore.Identity;
@@ -14,6 +15,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
     public class PruebasAltaProfesor
     {
         private readonly Mock<UserManager<Usuario>> _userManagerMock;
+        private readonly Mock<IServicioCrearObjetosParaProfesor> _servicioCrearObjetosMock;
 
         public PruebasAltaProfesor()
         {
@@ -21,13 +23,14 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
             _userManagerMock = new Mock<UserManager<Usuario>>(
                 storeMock.Object, null, null, null, null, null, null, null, null
             );
+            _servicioCrearObjetosMock = new Mock<IServicioCrearObjetosParaProfesor>();
         }
 
         [Fact]
         public async Task EjecutarAsync_DtoNulo_DevuelveResultadoFallido()
         {
             // Arrange
-            var service = new AltaProfesor(_userManagerMock.Object);
+            var service = new AltaProfesor(_userManagerMock.Object, _servicioCrearObjetosMock.Object);
             ProfesorAltaDto dto = null!;
 
             // Act
@@ -118,7 +121,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
             _userManagerMock.Setup(x => x.AddToRoleAsync(It.IsAny<Usuario>(), "Profesor"))
                 .ReturnsAsync(IdentityResult.Success);
 
-            var service = new AltaProfesor(_userManagerMock.Object);
+            var service = new AltaProfesor(_userManagerMock.Object, _servicioCrearObjetosMock.Object);
 
             // Act
             var resultado = await service.EjecutarAsync(dto);
@@ -148,7 +151,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
             _userManagerMock.Setup(x => x.CreateAsync(It.IsAny<Usuario>(), dto.Contrasenia))
                 .ReturnsAsync(IdentityResult.Failed(new IdentityError { Description = "La contraseña es muy débil." }));
 
-            var service = new AltaProfesor(_userManagerMock.Object);
+            var service = new AltaProfesor(_userManagerMock.Object, _servicioCrearObjetosMock.Object);
 
             // Act
             var resultado = await service.EjecutarAsync(dto);
@@ -182,7 +185,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
             _userManagerMock.Setup(x => x.DeleteAsync(It.IsAny<Usuario>()))
                 .ReturnsAsync(IdentityResult.Success);
 
-            var service = new AltaProfesor(_userManagerMock.Object);
+            var service = new AltaProfesor(_userManagerMock.Object, _servicioCrearObjetosMock.Object);
 
             // Act
             var resultado = await service.EjecutarAsync(dto);

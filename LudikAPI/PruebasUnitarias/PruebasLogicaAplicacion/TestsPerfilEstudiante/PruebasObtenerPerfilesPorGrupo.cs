@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using LogicaNegocio.Entidades;
-using InterfacesRepositorio;
+﻿using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.PerfilEstudianteDTO;
 using LogicaAplicacion.ImplementacionCasosUsos.PerfilEstudiante;
+using LogicaAplicacion.ImplementacionServicios;
+using LogicaAplicacion.Servicios;
+using LogicaNegocio.Entidades;
+using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
 using Moq;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 using Entidad = LogicaNegocio.Entidades;
 
@@ -15,10 +18,12 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
     public class PruebasObtenerPerfilesPorGrupo
     {
         private readonly Mock<IRepositorioPerfilEstudianteGrupo> _repoPerfilMock;
+        private readonly IGeneradorUrlsParaColeccionesImagenes _generadorUrlsParaColecciones;
 
         public PruebasObtenerPerfilesPorGrupo()
         {
             _repoPerfilMock = new Mock<IRepositorioPerfilEstudianteGrupo>();
+            _generadorUrlsParaColecciones = new GeneradorUrlsParaColeccionesImagenes(new GeneradorUrlImagen(new Mock<IRepositorioAlmacenamientoArchivos>().Object));
         }
 
         //[Fact]
@@ -92,7 +97,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
                 .Setup(r => r.ObtenerPorGrupoIdAsync(grupoId))
                 .ReturnsAsync(Resultado<List<Entidad.PerfilEstudiante>>.Exitoso(perfilesVacios));
 
-            var casoUso = new ObtenerPerfilesPorGrupo(_repoPerfilMock.Object);
+            var casoUso = new ObtenerPerfilesPorGrupo(_repoPerfilMock.Object, _generadorUrlsParaColecciones);
 
             // Act
             var resultado = await casoUso.EjecutarAsync(grupoId);
@@ -117,7 +122,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
                 .Setup(r => r.ObtenerPorGrupoIdAsync(grupoId))
                 .ReturnsAsync(Resultado<List<Entidad.PerfilEstudiante>>.Falla(erroresRepo));
 
-            var casoUso = new ObtenerPerfilesPorGrupo(_repoPerfilMock.Object);
+            var casoUso = new ObtenerPerfilesPorGrupo(_repoPerfilMock.Object, _generadorUrlsParaColecciones);
 
             // Act
             var resultado = await casoUso.EjecutarAsync(grupoId);

@@ -7,6 +7,9 @@ using LogicaAplicacion.DTOs.AtributoAvatarDTOs;
 using LogicaNegocio.Entidades;
 using LogicaNegocio.Resultados;
 using LogicaAplicacion.ImplementacionCasosUsos.Avatar;
+using LogicaAplicacion.ImplementacionServicios;
+using LogicaAplicacion.Servicios;
+using LogicaNegocio.InterfacesRepositorios;
 using Moq;
 using Xunit;
 
@@ -15,6 +18,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PruebasAvatar
     public class PruebasObtenerAtributosAvatarDisponiblesParaPerfil
     {
         private readonly Mock<IRepositorioPerfilEstudianteGrupo> _mockPerfilRepo;
+        private readonly IGeneradorUrlsParaColeccionesImagenes _generadorUrlsParaColecciones;
         private readonly ObtenerAtributosAvatarDisponiblesParaPerfil _casoUso;
 
         private const int PerfilId = 5;
@@ -23,7 +27,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PruebasAvatar
         public PruebasObtenerAtributosAvatarDisponiblesParaPerfil()
         {
             _mockPerfilRepo = new Mock<IRepositorioPerfilEstudianteGrupo>();
-            _casoUso = new ObtenerAtributosAvatarDisponiblesParaPerfil(_mockPerfilRepo.Object);
+            _generadorUrlsParaColecciones = new GeneradorUrlsParaColeccionesImagenes(new GeneradorUrlImagen(new Mock<IRepositorioAlmacenamientoArchivos>().Object));
+            _casoUso = new ObtenerAtributosAvatarDisponiblesParaPerfil(_mockPerfilRepo.Object, _generadorUrlsParaColecciones);
         }
 
         [Fact]

@@ -17,7 +17,7 @@ public class AtributoAvatarMapper
             Id = atributo.Id,
             Nombre = atributo.Nombre,
             Tipo = atributo.Tipo.ToString(), // Convierte el enum a string para el DTO
-            RutaRecurso = atributo.NombreImagenRecurso,
+            EnlaceImagen = atributo.NombreImagenRecurso,
             CodigoUnico = atributo.CodigoUnico
         };
     }

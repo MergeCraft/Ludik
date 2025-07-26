@@ -18,7 +18,6 @@ namespace LogicaNegocio.Entidades
         {
             if (respuestasIngresadas == null || this.PreguntasSeguridad == null) return false;
 
-            // Comprueba que se haya enviado el mismo número de respuestas que las almacenadas.
             if (respuestasIngresadas.Count != this.PreguntasSeguridad.Count) return false;
 
             foreach (var respuestaIngresada in respuestasIngresadas)
@@ -27,7 +26,6 @@ namespace LogicaNegocio.Entidades
 
                 if (preguntaAlmacenada == null) return false;
 
-                // verificar la respuesta ingresada contra la respuesta hasheada almacenada.
                 var resultadoVerificacion = hasher.VerifyHashedPassword(this, preguntaAlmacenada.Respuesta, respuestaIngresada.Respuesta);
 
                 if (resultadoVerificacion == PasswordVerificationResult.Failed)
@@ -35,7 +33,6 @@ namespace LogicaNegocio.Entidades
                 
             }
 
-            // Si todas las respuestas coinciden, la validación es exitosa
             return true;
         }
 

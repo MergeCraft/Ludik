@@ -22,7 +22,8 @@ public class AltaUmbralParaMedallaPorKudos: IAltaUmbralParaMedallaPorKudos
     private readonly IUnitOfWork _unitOfWork;
 
 
-    public AltaUmbralParaMedallaPorKudos(IRepositorioUmbralesParaMedallasPorKudos repositorioUmbralesParaMedallasPorKudos,
+    public AltaUmbralParaMedallaPorKudos(
+        IRepositorioUmbralesParaMedallasPorKudos repositorioUmbralesParaMedallasPorKudos,
         IRepositorioTiposKudo repositorioTiposKudo,
         IRepositorioMedallas repositorioMedallas,
         IRepositorioGrupos repositorioGrupos,

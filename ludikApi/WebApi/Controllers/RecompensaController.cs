@@ -36,18 +36,18 @@ namespace WebApi.Controllers
     /// 401 Unauthorized: Si quien lo intenta hacer no es una persona autorizada (alguien que no sea un profesor).
     /// 500 Internal Server Error: Si ocurre un error inesperado durante el procesamiento.
     /// </returns>
-        [HttpPost("alta/{tiendaId}")]
+        [HttpPost("alta")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> AltaRecompensa([FromBody] RecompensaAltaDto recompensaRequest,string tiendaId)
+        public async Task<IActionResult> AltaRecompensa([FromBody] RecompensaAltaDto recompensaRequest)
         {
 
             var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(profesorId))
                 return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
 
-            var resultado = await _altaRecompensa.EjecutarAsync(recompensaRequest, tiendaId,profesorId);
+            var resultado = await _altaRecompensa.EjecutarAsync(recompensaRequest,profesorId);
 
             if (resultado.EsFallo)
                 return this.ManejarFallo(resultado);

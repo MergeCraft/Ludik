@@ -84,6 +84,8 @@ namespace AccesoDatos.RepositoriosEF
             }
         }
 
+
+
         public async Task<Resultado> RemoveAsync(int id)
         {
             throw new NotImplementedException();
@@ -117,6 +119,35 @@ namespace AccesoDatos.RepositoriosEF
             catch (Exception ex)
             {
                 return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
+            }
+        }
+        public async Task<Resultado<bool>> PerteneceGrupoAsync(string profesorId, int perfilId)
+        {
+            try
+            {
+                bool pertenece = await _db.Grupos
+                    .AnyAsync(g => g.ProfesorId == profesorId && g.Alumnos.Any(a => a.Id == perfilId));
+                return Resultado<bool>.Exitoso(pertenece);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<bool>.Falla(new Error("Error.Unexpected", ex.Message));
+            }
+        }
+
+        public async Task<Resultado<bool>> PoseeMedallaAsync(string profesorId, int medallaId)
+        {
+            try
+            {
+                bool posee = await _db.Profesores
+                    .Where(p => p.Id == profesorId)
+                    .SelectMany(p => p.Medallas)
+                    .AnyAsync(m => m.Id == medallaId);
+                return Resultado<bool>.Exitoso(posee);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<bool>.Falla(new Error("Error.Unexpected", ex.Message));
             }
         }
     }
