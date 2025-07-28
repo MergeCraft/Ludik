@@ -13,7 +13,6 @@ namespace WebApi.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	[Authorize(Policy = "EsProfesor")]
 	public class TablaClasificacionController : ControllerBase
 	{
 		private readonly IAltaTablaClasificacion _altaTablaClasificacion;
@@ -37,14 +36,15 @@ namespace WebApi.Controllers
 		/// <response code="400">Validaciones de negocio fallaron.</response>
 		/// <response code="401">Usuario no autenticado.</response>
 		/// <response code="403">El usuario no es profesor o no es dueño del grupo.</response>
+		[Authorize(Policy = "EsProfesor")]
 		[HttpPost]
 		[ProducesResponseType(StatusCodes.Status201Created)]
 		[ProducesResponseType(typeof(IEnumerable<Error>), StatusCodes.Status400BadRequest)]
 		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
 		[ProducesResponseType(StatusCodes.Status403Forbidden)]
 		public async Task<IActionResult> CrearTablaClasificacion(
-	[FromQuery] int grupoId,
-	[FromBody] TablaClasificacionAltaDto dto)
+		[FromQuery] int grupoId,
+		[FromBody] TablaClasificacionAltaDto dto)
 		{
 			var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 			if (string.IsNullOrEmpty(profesorId))
@@ -69,6 +69,7 @@ namespace WebApi.Controllers
 		/// <response code="401">Usuario no autenticado.</response>
 		/// <response code="403">El usuario no tiene rol de Profesor o no puede acceder a esta tabla.</response>
 		[HttpGet("{tablaId}")]
+		[Authorize(Policy = "EsProfesorOEstudiante")]
 		[ProducesResponseType(typeof(TablaClasificacionInfoDto), StatusCodes.Status200OK)]
 		[ProducesResponseType(typeof(IEnumerable<Error>), StatusCodes.Status400BadRequest)]
 		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -93,6 +94,7 @@ namespace WebApi.Controllers
 		/// <summary>
 		/// Obtiene todas las tablas de clasificación (cada una con sus participantes ordenados).
 		/// </summary>
+		[Authorize(Policy = "EsProfesorOEstudiante")]
 		[HttpGet]
 		[ProducesResponseType(typeof(IEnumerable<TablaClasificacionInfoDto>), StatusCodes.Status200OK)]
 		[ProducesResponseType(typeof(IEnumerable<Error>), StatusCodes.Status400BadRequest)]
@@ -119,6 +121,7 @@ namespace WebApi.Controllers
 		/// <response code="401">Usuario no autenticado.</response>
 		/// <response code="403">Usuario no autorizado.</response>
 		[HttpDelete("{tablaId}")]
+		[Authorize(Policy = "EsProfesor")]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		[ProducesResponseType(typeof(IEnumerable<Error>), StatusCodes.Status400BadRequest)]
 		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -129,7 +132,7 @@ namespace WebApi.Controllers
 			if (string.IsNullOrEmpty(profesorId))
 				return Unauthorized(new Error("Error.Unauthorized", "No se pudo identificar al profesor del token."));
 
-			var resultado = await _bajaTablaClasificacion.EjecutarAsync(tablaId,profesorId);
+			var resultado = await _bajaTablaClasificacion.EjecutarAsync(tablaId, profesorId);
 			if (resultado.EsFallo)
 				return this.ManejarFallo(resultado);
 

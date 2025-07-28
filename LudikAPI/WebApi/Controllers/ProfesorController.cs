@@ -540,7 +540,7 @@ namespace WebApi.Controllers
             }
         }
         [HttpGet("pac")]
-        [Authorize(Policy = "EsProfesor")]
+        [Authorize(Policy = "EsProfesorOEstudiante")]
         [ProducesResponseType(typeof(IEnumerable<ProyectoAulaColaborativoDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

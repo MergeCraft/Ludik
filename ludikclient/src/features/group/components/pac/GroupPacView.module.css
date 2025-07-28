@@ -12,10 +12,17 @@
     border-radius: 15px;
     padding: 20px;
     width: 100%;
-    min-height: 500px;
+    min-height: 200px;
     box-sizing: border-box;
     border: 1px solid var(--principal);
     background-color: transparent;
     color: var(--principal);
     cursor: pointer;
+}
+
+.pacsList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
 }

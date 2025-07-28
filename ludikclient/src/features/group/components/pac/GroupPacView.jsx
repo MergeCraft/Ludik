@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
 import CrearPacForm from "./CrearPacForm";
-import PacItem from "./PacItem"; // Importá el componente PacItem que creamos
+import PacItem from "./PacItem";
+import BarLoader from "../../../generics/BarLoader";
 
 // Hook para obtener PACs del grupo (debes implementarlo según tu backend y hooks)
 import { usePacsGrupo } from "../../hooks/useGrupoMutation";
@@ -30,8 +31,7 @@ const GroupPacView = ({ setModalContent, setModalTitle, setShowModal, groupId, s
       )}
 
       <section className={styles.pacsList}>
-        {isLoading && <p>Cargando proyectos...</p>}
-        {isError && <p>Error al cargar los proyectos.</p>}
+        {isLoading && <BarLoader />}
         {!isLoading && !isError && pacs?.length === 0 && <p>No hay proyectos para este grupo.</p>}
         {!isLoading && !isError && pacs?.map((pac) => <PacItem key={pac.id} pac={pac} />)}
       </section>

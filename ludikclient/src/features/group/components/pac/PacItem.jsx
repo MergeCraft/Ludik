@@ -1,24 +1,47 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styles from "./PacItem.module.css";
-
-const visualizarNivel = (nivel) => {
-  return ["Básico", "Medio", "Avanzado"][nivel] || "Desconocido";
-};
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const estadoLabel = (estado) => {
   return ["Pendiente", "En curso", "Finalizado"][estado] || "Desconocido";
 };
 
 const PacItem = ({ pac }) => {
+  const totalNiveles = pac.visual + 1;
+  const medallasPorNivel = pac.cantidadMedallasNecesarias / totalNiveles;
+
+  pac.totalContribuciones = 11;
+
   return (
     <div className={styles.card}>
-      <h3 className={styles.title}>{pac.nombre}</h3>
-      <p><strong>Nivel visual:</strong> {visualizarNivel(pac.visual)}</p>
-      <p><strong>Medallas necesarias:</strong> {pac.cantidadMedallasNecesarias}</p>
-      <p><strong>Total contribuciones:</strong> {pac.totalContribuciones}</p>
-      <p><strong>ID recompensa:</strong> {pac.recompensaClaseId}</p>
-      <p><strong>Estado:</strong> {estadoLabel(pac.estado)}</p>
+      <h3>Recompensa: {pac.nombre}</h3>
+      <div className={styles.progressBarContainer}>
+        <p>Progreso</p>
+        <div className={styles.progressBar}>
+          {Array.from({ length: totalNiveles }).map((_, index) => {
+            const umbral = medallasPorNivel * (index + 1);
+            const alcanzado = pac.totalContribuciones >= umbral;
+
+            return (
+              <label key={`nivel-${index}`} className={`${styles.label} ${alcanzado ? styles.alcanzado : styles.noAlcanzado}`}>
+                <span className={`${styles.circle} ${alcanzado ? styles.circleAlcanzado : styles.circleNoAlcanzado}`}>
+                  {alcanzado ? <FontAwesomeIcon icon="fa-solid fa-star" className={styles.icono} /> : Math.round(umbral)}
+                </span>
+              </label>
+            );
+          })}
+        </div>
+      </div>
+      <p>
+        <strong>Medallas necesarias:</strong> {pac.cantidadMedallasNecesarias}
+      </p>
+      <p>
+        <strong>Total contribuciones:</strong> {pac.totalContribuciones}
+      </p>
+      <p>
+        <strong>Estado:</strong> {estadoLabel(pac.estado)}
+      </p>
     </div>
   );
 };

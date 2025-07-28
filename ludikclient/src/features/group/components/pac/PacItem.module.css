@@ -1,13 +1,9 @@
 .card {
     border: 1px solid var(--terciario);
-    border-radius: 12px;
-    padding: 1rem;
+    border-radius: 15px;
+    padding: 15px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease;
-}
-
-.card:hover {
-    transform: scale(1.01);
+    width: 100%;
 }
 
 .title {
@@ -18,4 +14,80 @@
 
 p {
     margin: 0.3rem 0;
+}
+
+.progressBarContainer p {
+    margin-bottom: 10px;
+}
+
+.progressBar {
+    display: flex;
+    justify-content: center;
+}
+
+.progressBar label {
+    position: relative;
+    padding: 15px;
+    flex-grow: 1;
+    cursor: default;
+    transition: 0.3s;
+}
+
+.circle {
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: var(--blanco-principal);
+    font-size: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.circleAlcanzado {
+    background-color: var(--meta-alumno);
+    border: 1px solid var(--secundario-boton-secundario);
+}
+
+.circleNoAlcanzado {
+    background-color: var(--terciario);
+}
+
+.progressBar label:first-child {
+    border-radius: 20px 0 0 20px;
+}
+
+.progressBar label:first-child::before {
+    display: none;
+}
+
+.progressBar label:last-child {
+    border-radius: 0 20px 20px 0;
+}
+
+.progressBar input {
+    display: none;
+}
+
+.alcanzado {
+    background-color: var(--meta-alumno);
+}
+
+.noAlcanzado {
+    background-color: var(--blanco-principal);
+}
+
+.label .icono {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    color: var(--monedas);
+    pointer-events: none;
 }

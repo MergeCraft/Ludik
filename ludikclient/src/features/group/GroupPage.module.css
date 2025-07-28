@@ -53,6 +53,8 @@
     justify-content: space-around;
     gap: 10px;
     margin-bottom: 10px;
+    border: 1px solid var(--terciario);
+    border-radius: 15px;
 }
 
 .resumen div {
