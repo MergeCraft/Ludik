@@ -18,8 +18,8 @@ namespace WebApi.Controllers
 		private readonly IAltaTablaClasificacion _altaTablaClasificacion;
 		private readonly IObtenerTablaClasificacion _obtenerTablaClasificacion;
 		private readonly IObtenerTodasLasTablasClasificacion _obtenerTodasLasTablasClasificacion;
-		private readonly IBajaTablaClasificacion _bajaTablaClasificacion;
 		private readonly IObtenerTodasLasTablasClasificacionGrupo _obtenerTodasLasTablasClasificacionGrupo;
+		private readonly IBajaTablaClasificacion _bajaTablaClasificacion;
         public TablaClasificacionController(IAltaTablaClasificacion altaTablaClasificacion, IObtenerTablaClasificacion obtenerTablaClasificacion, IObtenerTodasLasTablasClasificacion obtenerTodasLasTablasClasificacion, IBajaTablaClasificacion bajaTablaClasificacion,IObtenerTodasLasTablasClasificacionGrupo obtenerTodasLasTablasClasificacionGrupo)
 		{
 			_altaTablaClasificacion = altaTablaClasificacion;
@@ -78,19 +78,15 @@ namespace WebApi.Controllers
 		[ProducesResponseType(StatusCodes.Status403Forbidden)]
 		public async Task<IActionResult> ObtenerTablaClasificacion(int tablaId)
 		{
-			// 1) Verificamos que venga un profesor autenticado
 			var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 			if (string.IsNullOrEmpty(profesorId))
 				return Unauthorized(new Error("Error.Unauthorized", "No se pudo identificar al profesor del token."));
 
-			// 2) Ejecutamos el caso de uso
 			var resultado = await _obtenerTablaClasificacion.EjecutarAsync(tablaId);
 
-			// 3) Si falla (tabla no existe o permiso denegado), devolvemos el error
 			if (resultado.EsFallo)
 				return this.ManejarFallo(resultado);
 
-			// 4) Si todo OK, devolvemos 200 con el DTO
 			return Ok(resultado.Valor);
 		}
 		/// <summary>
@@ -126,12 +122,12 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> ObtenerTodasLasTablasClasificacionGrupo([FromRoute] int grupoId)
         {
-            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (string.IsNullOrEmpty(profesorId))
-                return Unauthorized(new Error("Error.Unauthorized", "No se pudo identificar al profesor."));
+            var usuarioId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(usuarioId))
+                return Unauthorized(new Error("Error.Unauthorized", "No tiene la autorización para esto."));
 
             var resultado = await _obtenerTodasLasTablasClasificacionGrupo
-                .EjecutarAsync(grupoId, profesorId);
+                .EjecutarAsync(grupoId, usuarioId);
 
             if (resultado.EsFallo)
                 return this.ManejarFallo(resultado);

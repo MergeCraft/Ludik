@@ -30,14 +30,8 @@ namespace LogicaNegocio.Entidades
 
         public void OrdenarParticipantesPorMedallaAsociada()
         {
-            if (Participantes == null)
+            if (Participantes == null || !Participantes.Any())
                 return;
-
-            foreach (var p in Participantes)
-            {
-                if (p.MedallasObtenidas == null)
-                    p.MedallasObtenidas = new List<PerfilEstudianteMedalla>();
-            }
 
             Participantes = Participantes
                 .OrderByDescending(p =>

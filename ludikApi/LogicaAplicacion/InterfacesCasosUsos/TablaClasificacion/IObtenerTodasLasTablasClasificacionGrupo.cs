@@ -10,7 +10,7 @@ namespace LogicaAplicacion.InterfacesCasosUsos.TablaClasificacion
 {
     public interface IObtenerTodasLasTablasClasificacionGrupo
     {
-        Task<Resultado<IEnumerable<TablaClasificacionInfoDto>>> EjecutarAsync(int grupoId, string profesorId);
+        Task<Resultado<IEnumerable<TablaClasificacionInfoDto>>> EjecutarAsync(int grupoId, string usuarioId);
 
     }
 }
