@@ -19,10 +19,12 @@ namespace WebApi.Controllers
     {
         private readonly IObtenerPerfilConMedallas _uc;
         private readonly IEstablecerMetaCalificacion _establecerMetaCalificacion;
-        public PerfilEstudianteController(IObtenerPerfilConMedallas uc, IEstablecerMetaCalificacion establecerMetaCalificacion)
+        private readonly IObtenerPerfilesPorGrupoSinLogueado _ucSinLogueado;
+        public PerfilEstudianteController(IObtenerPerfilConMedallas uc, IEstablecerMetaCalificacion establecerMetaCalificacion, IObtenerPerfilesPorGrupoSinLogueado ucSinLogueado)
         {
             _uc = uc;
             _establecerMetaCalificacion = establecerMetaCalificacion;
+            _ucSinLogueado = ucSinLogueado;
         }
 
         /// <summary>
@@ -79,6 +81,26 @@ namespace WebApi.Controllers
             return resultado.EsExitoso
                 ? Ok(new { message = "Meta de calificación establecida correctamente." })
                 : this.ManejarFallo(resultado);
+        }
+        /// <summary>
+        /// Obtiene los perfiles de los compañeros de grupo, excluyendo el propio del estudiante logueado.
+        /// </summary>
+        [HttpGet("grupo/{grupoId}/companeros")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<PerfilEstudianteInformacionDto>))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetCompanerosPorGrupo(int grupoId)
+        {
+            var estudianteId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(estudianteId))
+                return Unauthorized(new Error("Error.Unauthorized", "No se pudo identificar al estudiante."));
+
+            var resultado = await _ucSinLogueado.EjecutarAsync(grupoId, estudianteId);
+
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
+
+            return Ok(resultado.Valor);
         }
 
     }

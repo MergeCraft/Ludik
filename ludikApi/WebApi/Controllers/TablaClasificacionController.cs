@@ -19,14 +19,16 @@ namespace WebApi.Controllers
 		private readonly IObtenerTablaClasificacion _obtenerTablaClasificacion;
 		private readonly IObtenerTodasLasTablasClasificacion _obtenerTodasLasTablasClasificacion;
 		private readonly IBajaTablaClasificacion _bajaTablaClasificacion;
-		public TablaClasificacionController(IAltaTablaClasificacion altaTablaClasificacion, IObtenerTablaClasificacion obtenerTablaClasificacion, IObtenerTodasLasTablasClasificacion obtenerTodasLasTablasClasificacion, IBajaTablaClasificacion bajaTablaClasificacion)
+		private readonly IObtenerTodasLasTablasClasificacionGrupo _obtenerTodasLasTablasClasificacionGrupo;
+        public TablaClasificacionController(IAltaTablaClasificacion altaTablaClasificacion, IObtenerTablaClasificacion obtenerTablaClasificacion, IObtenerTodasLasTablasClasificacion obtenerTodasLasTablasClasificacion, IBajaTablaClasificacion bajaTablaClasificacion,IObtenerTodasLasTablasClasificacionGrupo obtenerTodasLasTablasClasificacionGrupo)
 		{
 			_altaTablaClasificacion = altaTablaClasificacion;
 			_obtenerTablaClasificacion = obtenerTablaClasificacion;
 			_obtenerTodasLasTablasClasificacion = obtenerTodasLasTablasClasificacion;
 			_bajaTablaClasificacion = bajaTablaClasificacion;
+            _obtenerTodasLasTablasClasificacionGrupo = obtenerTodasLasTablasClasificacionGrupo;
 
-		}
+        }
 		/// <summary>
 		/// Crea una nueva tabla de clasificación dentro de un grupo.
 		/// </summary>
@@ -112,15 +114,39 @@ namespace WebApi.Controllers
 
 			return Ok(resultado.Valor);
 		}
-		/// <summary>
-		/// Elimina una tabla de clasificación por su ID.
-		/// </summary>
-		/// <param name="tablaId">ID de la tabla a eliminar.</param>
-		/// <response code="204">Eliminación exitosa.</response>
-		/// <response code="400">Falló la operación.</response>
-		/// <response code="401">Usuario no autenticado.</response>
-		/// <response code="403">Usuario no autorizado.</response>
-		[HttpDelete("{tablaId}")]
+        /// <summary>
+        /// Obtiene todas las tablas de clasificación de un grupo concreto
+        /// (cada una con sus participantes ordenados).
+        /// </summary>
+        [Authorize(Policy = "EsProfesorOEstudiante")]
+        [HttpGet("grupo/{grupoId:int}")]
+        [ProducesResponseType(typeof(IEnumerable<TablaClasificacionInfoDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<Error>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<IActionResult> ObtenerTodasLasTablasClasificacionGrupo([FromRoute] int grupoId)
+        {
+            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(profesorId))
+                return Unauthorized(new Error("Error.Unauthorized", "No se pudo identificar al profesor."));
+
+            var resultado = await _obtenerTodasLasTablasClasificacionGrupo
+                .EjecutarAsync(grupoId, profesorId);
+
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
+
+            return Ok(resultado.Valor);
+        }
+        /// <summary>
+        /// Elimina una tabla de clasificación por su ID.
+        /// </summary>
+        /// <param name="tablaId">ID de la tabla a eliminar.</param>
+        /// <response code="204">Eliminación exitosa.</response>
+        /// <response code="400">Falló la operación.</response>
+        /// <response code="401">Usuario no autenticado.</response>
+        /// <response code="403">Usuario no autorizado.</response>
+        [HttpDelete("{tablaId}")]
 		[Authorize(Policy = "EsProfesor")]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		[ProducesResponseType(typeof(IEnumerable<Error>), StatusCodes.Status400BadRequest)]

@@ -69,6 +69,7 @@ using LogicaAplicacion.InterfacesCasosUsos.SolicitudPerfilMedalla;
 using LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla;
 using LogicaAplicacion.InterfacesCasosUsos.ProyectoAulaColaborativo;
 using LogicaAplicacion.ImplementacionCasosUsos.ProyectoAulaColaborativo;
+using LogicaAplicacion.InterfacesCasosUsos.Usuario;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -280,8 +281,13 @@ builder.Services.AddScoped<IObtenerPreguntasDeSeguridadDelSistema, ObtenerPregun
 builder.Services.AddScoped<IObtenerSolicitudPerfilMedalla, ObtenerSolicitudesPerfilMedalla>();
 builder.Services.AddScoped<IObtenerUmbralesParaMedallasPorKudos, ObtenerUmbralesParaMedallasPorKudos>();
 builder.Services.AddScoped<IObtenerProyectoAulaColaborativo, ObtenerProyectoAulaColaborativo>();
-
+builder.Services.AddScoped<IObtenerTodasLasTablasClasificacionGrupo, ObtenerTodasLasTablasClasificacionGrupo>();
 builder.Services.AddScoped<IObtenerProyectoAulaColaborativo, ObtenerProyectoAulaColaborativo>();
+builder.Services.AddScoped<IObtenerPerfilUsuarioLogueado, ObtenerPerfilUsuarioLogueado>();
+builder.Services.AddScoped<IObtenerPerfilesPorGrupoSinLogueado, ObtenerPerfilesPorGrupoSinLogueado>();
+
+
+
 
 builder.Services.AddScoped<IModificarMedalla,ModificarMedalla>();
 builder.Services.AddScoped<IModificarAvatar, ModificarAvatar>();

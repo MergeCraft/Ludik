@@ -57,6 +57,30 @@ namespace AccesoDatos.RepositoriosEF
             }
         }
 
+        public async Task<Resultado<IEnumerable<TablaClasificacion>>> GetAllByAsync(int grupoId)
+        {
+            try
+            {
+                var tablas = await _db.TablasClasificacion
+                    .Where(p => p.GrupoId == grupoId)
+                    .AsNoTracking()
+                    .Include(tc => tc.MedallaAsociada)
+                    .Include(tc => tc.Participantes)
+                        .ThenInclude(p => p.Estudiante)
+                    .Include(tc => tc.Participantes)
+                        .ThenInclude(p => p.MedallasObtenidas)
+                    .ToListAsync();
+
+                return Resultado<IEnumerable<TablaClasificacion>>.Exitoso(tablas);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<IEnumerable<TablaClasificacion>>.Falla(
+                    new Error("Error.DB", ex.Message)
+                );
+            }
+        }
+
         public async Task<Resultado<TablaClasificacion>> GetByIdAsync(int id)
         {
             try

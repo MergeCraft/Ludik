@@ -7,15 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ImplementacionCasosUsos\Usuarios\**" />
-    <Compile Remove="InterfacesCasosUsos\Usuario\**" />
-    <EmbeddedResource Remove="ImplementacionCasosUsos\Usuarios\**" />
-    <EmbeddedResource Remove="InterfacesCasosUsos\Usuario\**" />
-    <None Remove="ImplementacionCasosUsos\Usuarios\**" />
-    <None Remove="InterfacesCasosUsos\Usuario\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\LogicaNegocio\LogicaNegocio.csproj" />
   </ItemGroup>
 
