@@ -51,10 +51,10 @@ namespace LogicaNegocio.Resultados
         /// </summary>
         public static readonly Error Unauthorized = new("Error.Unauthorized", "No esta autorizado para realizar esta operación.");
 
-        /// <summary>
-        /// Representa un error genérico o inesperado.
-        /// </summary>
-        public static readonly Error Unexpected = new("Error.Unexpected", "Ocurrió un error inesperado.");
+		/// <summary>
+		/// Representa un error genérico o inesperado.
+		/// </summary>
+		public static readonly Error Unexpected = new("Error.Unexpected", "Ocurrió un error inesperado.");
 
         /// <summary>
         /// Representa un error debido a un conflicto con el estado actual del recurso.

@@ -42,6 +42,7 @@ export const eliminarTablaEquivalencia = async (id) => {
 
 export const actualizarTablaEquivalencia = async (id, data) => {
   try {
+    console.log("Actualizando tabla de equivalencia con ID:", id, "y datos:", data);
     const response = await api.put(`/api/TablaEquivalencia/${id}`, data);
     return response.data;
   } catch (error) {

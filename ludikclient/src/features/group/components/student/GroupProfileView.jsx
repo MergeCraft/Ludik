@@ -45,9 +45,6 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
       <section>
         <h3>Nombre</h3>
         <p>{perfil.nombreEstudiante}</p>
-        <button className={styles.editIconContainer}>
-          <FontAwesomeIcon icon="fa fa-pen-to-square" />
-        </button>
       </section>
 
       <section>
@@ -142,12 +139,12 @@ GroupProfileView.propTypes = {
     nombreGrupo: PropTypes.string.isRequired,
     medallas: PropTypes.arrayOf(
       PropTypes.shape({
-        medallaId: PropTypes.number.isRequired,
+        id: PropTypes.number.isRequired,
         nombre: PropTypes.string.isRequired,
-        icono: PropTypes.string.isRequired,
+        urlImagen: PropTypes.string,
         descripcion: PropTypes.string.isRequired,
-        monedasOtorgadas: PropTypes.number.isRequired,
-        cantidad: PropTypes.number.isRequired,
+        cantidadMedallasBrinda: PropTypes.number.isRequired,
+        esAsignacionMutua: PropTypes.bool,
       })
     ).isRequired,
   }).isRequired,

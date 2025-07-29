@@ -8,40 +8,45 @@ const estadoLabel = (estado) => {
 };
 
 const PacItem = ({ pac }) => {
-  const totalNiveles = pac.visual + 1;
-  const medallasPorNivel = pac.cantidadMedallasNecesarias / totalNiveles;
+  const totalNiveles = pac.cantidadMedallasNecesarias;
 
-  pac.totalContribuciones = 11;
+  // Determina cuál es el último tramo alcanzado
+  const ultimoAlcanzadoIndex = Math.min(pac.totalContribuciones, pac.cantidadMedallasNecesarias) - 1;
 
   return (
     <div className={styles.card}>
-      <h3>Recompensa: {pac.nombre}</h3>
+      <h3 className={styles.title}>
+        <strong>Recompensa</strong> {pac.nombre}
+      </h3>
+
       <div className={styles.progressBarContainer}>
         <p>Progreso</p>
         <div className={styles.progressBar}>
           {Array.from({ length: totalNiveles }).map((_, index) => {
-            const umbral = medallasPorNivel * (index + 1);
-            const alcanzado = pac.totalContribuciones >= umbral;
+            const alcanzado = pac.totalContribuciones > index;
+            const esUltimoAlcanzado = index === ultimoAlcanzadoIndex;
 
             return (
               <label key={`nivel-${index}`} className={`${styles.label} ${alcanzado ? styles.alcanzado : styles.noAlcanzado}`}>
-                <span className={`${styles.circle} ${alcanzado ? styles.circleAlcanzado : styles.circleNoAlcanzado}`}>
-                  {alcanzado ? <FontAwesomeIcon icon="fa-solid fa-star" className={styles.icono} /> : Math.round(umbral)}
-                </span>
+                {esUltimoAlcanzado && (
+                  <span className={`${styles.circle}`}>
+                    <FontAwesomeIcon icon="fa-solid fa-star" className={styles.icono} />
+                  </span>
+                )}
               </label>
             );
           })}
         </div>
       </div>
-      <p>
-        <strong>Medallas necesarias:</strong> {pac.cantidadMedallasNecesarias}
-      </p>
-      <p>
-        <strong>Total contribuciones:</strong> {pac.totalContribuciones}
-      </p>
-      <p>
-        <strong>Estado:</strong> {estadoLabel(pac.estado)}
-      </p>
+
+      <div className={styles.infoProgressBar}>
+        <p>
+          <strong>Contribuciones</strong> {pac.totalContribuciones}
+        </p>
+        <p>
+          <strong>Medallas Necesarias</strong> {pac.cantidadMedallasNecesarias}
+        </p>
+      </div>
     </div>
   );
 };

@@ -77,7 +77,7 @@ const GroupPage = () => {
 
       <label className={getLabelClass("alumnos")}>
         <input type="radio" value="alumnos" checked={selectedView === "alumnos"} onChange={() => setSelectedView("alumnos")} />
-        <FontAwesomeIcon icon="fa-solid fa-users" size="xl" />
+        <FontAwesomeIcon icon="fa-solid fa-people-group" size="xl" />
       </label>
 
       <label className={getLabelClass("tienda")}>

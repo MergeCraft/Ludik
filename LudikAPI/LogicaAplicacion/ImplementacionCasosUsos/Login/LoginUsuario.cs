@@ -30,12 +30,12 @@ public class LoginUsuario: ILoginUsuario
 
         if (result.IsLockedOut)
         {
-            return Resultado<LoginRespuestaDto>.Falla(new Error("Error.Unauthorized", "Cuenta bloqueada. Intente más tarde."));
+            return Resultado<LoginRespuestaDto>.Falla(new Error("Error.Validation", "Cuenta bloqueada. Intente más tarde."));
         }
 
         if (!result.Succeeded)
         {
-            return Resultado<LoginRespuestaDto>.Falla(new Error("Error.Unauthorized", "Nombre de usuario o contraseña incorrectos."));
+            return Resultado<LoginRespuestaDto>.Falla(new Error("Error.Validation", "Nombre de usuario o contraseña incorrectos."));
         }
 
         var usuario = await _userManager.FindByNameAsync(loginDto.NombreUsuario);

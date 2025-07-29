@@ -21,8 +21,6 @@ const GroupPacView = ({ setModalContent, setModalTitle, setShowModal, groupId, s
 
   return (
     <div className={styles.pacContainer}>
-      <h3>Proyectos de Aprendizaje Colaborativo</h3>
-
       {showTeacherOptions && (
         <button className={styles.newPacButton} onClick={handleOpenPacCreateForm}>
           <FontAwesomeIcon icon="fa-solid fa-handshake" size="2xl" />

@@ -122,6 +122,17 @@
   width: 100%;
 }
 
+.verContrasena {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(45%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--terciario);
+}
+
 /* SWITCH de selección profesor/alumno */
 
 .switchContainer {

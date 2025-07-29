@@ -20,6 +20,7 @@ import MedalManagerPage from "./features/medals/MedalManagerPage.jsx";
 import EquivalenceTablePage from "./features/equivalence-table/EquivalenceTablePage.jsx";
 
 import PrivateRoute from "./features/routing/PrivateRoute";
+import NotFoundPage from "./features/routing/NotFoundPage";
 
 // Crear cliente de React Query
 const queryClient = new QueryClient();
@@ -43,15 +44,17 @@ function App() {
                 {/* Rutas protegidas */}
                 <Route element={<PrivateRoute allowedRoles={["Profesor"]} />}>
                   <Route path="medals" element={<MedalManagerPage />} />
-                  <Route path="profile" element={<ProfilePage />} />
                   <Route path="equivalenceTable" element={<EquivalenceTablePage />} />
                 </Route>
 
                 <Route element={<PrivateRoute allowedRoles={["Profesor", "Estudiante"]} />}>
+                  <Route path="profile" element={<ProfilePage />} />
                   <Route path="groups" element={<GroupsPage />} />
-                  <Route path="/grupo/:id" element={<GroupPage />} />
+                  <Route path="grupo/:id" element={<GroupPage />} />
                 </Route>
-                
+
+                {/* Ruta catch-all para páginas no encontradas */}
+                <Route path="*" element={<NotFoundPage />} />
               </Route>
             </Routes>
           </Router>

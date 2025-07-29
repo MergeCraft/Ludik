@@ -1,14 +1,27 @@
 import PropTypes from "prop-types";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectUserRole } from "../auth/hooks/userSlice";
+import { selectUserRole, selectLoggedOutManually } from "../auth/hooks/userSlice";
 
 const PrivateRoute = ({ allowedRoles }) => {
   const userRole = useSelector(selectUserRole);
+  const loggedOutManually = useSelector(selectLoggedOutManually);
   const location = useLocation();
 
   if (!userRole) {
-    return <Navigate to="/login" state={{ from: location, message: "Debes iniciar sesión para acceder." }} replace />;
+    // Si el logout fue manual, NO mostrar mensaje
+    const shouldShowMessage = !loggedOutManually;
+
+    return (
+      <Navigate
+        to="/login"
+        state={{
+          from: location,
+          ...(shouldShowMessage && { message: "Debes iniciar sesión para acceder." }),
+        }}
+        replace
+      />
+    );
   }
 
   if (!allowedRoles.includes(userRole)) {

@@ -8,6 +8,8 @@ import styles from "./StudentItem.module.css";
 import { useAsignarMedalla, useEliminarMedalla } from "../hooks/useGrupoMutation";
 import { useAsignarKudo } from "../hooks/useStudentMutation";
 
+import MedalActionMenu from "./MedalActionMenu.jsx";
+
 const StudentItem = ({ perfilEmisorId, student, medals, showProfesorOptions }) => {
   const [selectedMedal, setSelectedMedal] = useState("");
   const [medalAsignationOption, setMedalAsignationOption] = useState(true);
@@ -73,36 +75,48 @@ const StudentItem = ({ perfilEmisorId, student, medals, showProfesorOptions }) =
         <div className={styles.actionsContainer}>
           {showProfesorOptions ? (
             <>
-              <button className={styles.opcionBorrado} onClick={() => setMedalAsignationOption((prev) => !prev)}>
-                <FontAwesomeIcon icon="fa-solid fa-arrow-right-arrow-left" size="l" />
-              </button>
-
               <div className={styles.asignarMedalla}>
-                <p>{medalAsignationOption ? "Asignación de medallas" : "Eliminar medallas"}</p>
+                {/* Menú para asignar medallas */}
+                <div className={styles.menuSection}>
+                  <MedalActionMenu
+                    items={medals}
+                    isAssign={true}
+                    isLoading={isMedalLoading}
+                    onConfirm={(medallaId, cantidad) => {
+                      setIsMedalLoading(true);
+                      for (let i = 0; i < cantidad; i++) {
+                        asignar(
+                          { perfilId: student.id, medallaId },
+                          {
+                            onSuccess: () => setIsMedalLoading(false),
+                            onError: () => setIsMedalLoading(false),
+                          }
+                        );
+                      }
+                    }}
+                  />
+                </div>
 
-                <select
-                  className={`button ${styles.medallas}`}
-                  name="medallas"
-                  value={selectedMedal}
-                  onChange={(e) => {
-                    setSelectedMedal(e.target.value);
-                    handleMedalChange(e);
-                  }}
-                  disabled={!medalAsignationOption && (!Array.isArray(student.medallas) || student.medallas.length === 0)}
-                >
-                  {isMedalLoading ? (
-                    <option value="">{medalAsignationOption ? "Asignando Medalla..." : "Eliminando Medalla..."}</option>
-                  ) : (
-                    <>
-                      <option value="">{medalAsignationOption ? "Asigna Medalla" : Array.isArray(student.medallas) && student.medallas.length > 0 ? "Elimina medalla" : "Alumno sin medallas"}</option>
-                      {(medalAsignationOption ? medals : student.medallas || []).map((medalla) => (
-                        <option key={medalla.id} value={medalla.id}>
-                          {medalla.nombre}
-                        </option>
-                      ))}
-                    </>
-                  )}
-                </select>
+                {/* Menú para eliminar medallas */}
+                <div className={styles.menuSection}>
+                  <MedalActionMenu
+                    items={student.medallas || []}
+                    isAssign={false}
+                    isLoading={isMedalLoading}
+                    onConfirm={(medallaId, cantidad) => {
+                      setIsMedalLoading(true);
+                      for (let i = 0; i < cantidad; i++) {
+                        eliminar(
+                          { perfilId: student.id, medallaId },
+                          {
+                            onSuccess: () => setIsMedalLoading(false),
+                            onError: () => setIsMedalLoading(false),
+                          }
+                        );
+                      }
+                    }}
+                  />
+                </div>
               </div>
             </>
           ) : (

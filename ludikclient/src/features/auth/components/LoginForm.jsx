@@ -1,8 +1,11 @@
 // components/LoginForm.js
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useLogin } from "../hooks/useAuthMutation.js";
+import { logoutReset } from "../hooks/userSlice.js";
 import * as Toast from "../../../lib/toastify.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "../AuthPage.module.css";
 
 const LoginForm = () => {
@@ -10,10 +13,12 @@ const LoginForm = () => {
   const location = useLocation();
   const { mutateAsync: login } = useLogin();
   const message = location.state?.message;
+  const dispatch = useDispatch();
 
   const [recordar, setRecordar] = useState(false);
   const [usuario, setUsuario] = useState("");
   const [contrasena, setContrasena] = useState("");
+  const [verContrasena, setVerContrasena] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
@@ -37,6 +42,10 @@ const LoginForm = () => {
     }
   }, [message]);
 
+  useEffect(() => {
+    dispatch(logoutReset());
+  }, []);
+
   return (
     <form className={styles.formulario} onSubmit={handleSubmit}>
       {/* campos de usuario y contraseña */}
@@ -47,11 +56,14 @@ const LoginForm = () => {
         <input type="text" id="usuario" name="usuario" className={styles.input} value={usuario} onChange={handleChange} />
       </div>
 
-      <div className={styles.campo}>
+      <div className={styles.campo} style={{ position: "relative" }}>
         <label htmlFor="contrasena" className={styles.etiqueta}>
           Contraseña
         </label>
-        <input type="password" id="contrasena" name="contrasena" className={styles.input} value={contrasena} onChange={handleChange} />
+        <input type={verContrasena ? "text" : "password"} id="contrasena" name="contrasena" className={styles.input} value={contrasena} onChange={handleChange} />
+        <button type="button" onClick={() => setVerContrasena((prev) => !prev)} className={styles.verContrasena} aria-label={verContrasena ? "Ocultar contraseña" : "Mostrar contraseña"}>
+          <FontAwesomeIcon icon={verContrasena ? "eye-slash" : "eye"} size="lg" />
+        </button>
       </div>
 
       <div className={styles.recordar}>

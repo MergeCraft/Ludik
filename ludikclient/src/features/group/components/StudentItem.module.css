@@ -43,31 +43,21 @@ p {
 .actionsContainer {
     display: flex;
     gap: 10px;
-    width: 40%;
+    width: 50%;
 
+}
+
+.menuSection {
+    flex-grow: 1;
 }
 
 .asignarMedalla {
+    display: flex;
+    gap: 10px;
     border-radius: 15px;
     border: 1px solid var(--secundario);
     padding: 10px;
-    width: 100%;
     box-sizing: border-box;
-}
-
-.asignarMedalla p {
-    font-size: x-small;
-    margin-bottom: 5px;
-}
-
-.opcionBorrado {
-    color: var(--blanco-principal);
-    justify-content: center;
-    padding: 0 10px;
-    border: 1px solid var(--secundario);
-    background-color: var(--principal);
-    border-radius: 15px;
-    cursor: pointer;
 }
 
 .medallas {
@@ -103,6 +93,8 @@ p {
 
     .asignarMedalla {
         flex-grow: 1;
+        flex-direction: column;
+
     }
 
     .actionsContainer {

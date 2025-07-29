@@ -5,7 +5,7 @@ const estiloToastComun = {
   boxShadow: "0 3px 0 3px var(--blanco-secundario)",
   borderRadius: "10px",
   width: "100%",
-  maxWidth: window.innerWidth < 768 ? "90%" : "600px",
+  maxWidth: window.innerWidth < 768 ? "80%" : "600px",
   marginTop: "10px",
   whiteSpace: "nowrap",
   overflow: "hidden",

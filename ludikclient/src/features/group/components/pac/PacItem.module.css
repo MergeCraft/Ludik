@@ -1,23 +1,51 @@
 .card {
-    border: 1px solid var(--terciario);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--principal);
     border-radius: 15px;
     padding: 15px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
 }
 
 .title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+    border: 1px solid var(--terciario);
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+    padding-top: 3px;
+    border-radius: 15px;
 }
 
-p {
-    margin: 0.3rem 0;
+.title strong {
+    font-size: small;
 }
 
 .progressBarContainer p {
     margin-bottom: 10px;
+    text-align: center;
+}
+
+.infoProgressBar {
+    display: flex;
+    gap: 5px;
+    font-size: small;
+    justify-content: space-evenly;
+}
+
+.infoProgressBar p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid var(--terciario);
+    border-radius: 10px;
+    padding: 10px 15px;
+}
+
+.infoProgressBar strong {
+    margin-bottom: 5px;
 }
 
 .progressBar {
@@ -27,9 +55,8 @@ p {
 
 .progressBar label {
     position: relative;
-    padding: 15px;
+    padding: 15px 0;
     flex-grow: 1;
-    cursor: default;
     transition: 0.3s;
 }
 
@@ -47,15 +74,8 @@ p {
     align-items: center;
     justify-content: center;
     z-index: 10;
-}
-
-.circleAlcanzado {
     background-color: var(--meta-alumno);
     border: 1px solid var(--secundario-boton-secundario);
-}
-
-.circleNoAlcanzado {
-    background-color: var(--terciario);
 }
 
 .progressBar label:first-child {
@@ -90,4 +110,22 @@ p {
     font-size: 14px;
     color: var(--monedas);
     pointer-events: none;
+}
+
+@media screen and (max-width: 992px) {
+    .progressBar label:first-child {
+        border-radius: 20px 0 0 20px;
+    }
+
+    .progressBar label:last-child {
+        border-radius: 0 20px 20px 0;
+    }
+
+    .infoProgressBar {
+        justify-content: space-between;
+    }
+
+    .infoProgressBar p {
+        flex-grow: 1;
+    }
 }

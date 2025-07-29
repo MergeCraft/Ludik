@@ -16,27 +16,74 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
   const { data: medallas, isLoading } = useMedallasProfesor();
 
   // Precargar datos si viene una tabla
+  // Si no hay medallas, inicializamos con una equivalencia por defecto
   useEffect(() => {
     if (table) {
+      // Carga al editar tabla existente (igual que antes)
+      const equivalenciasConHeredadas = table.equivalencias.map((eq, index) => {
+        const medallasActuales = eq.medallasNecesarias || [];
+
+        const medallasPrevias = new Set();
+        for (let i = 0; i < index; i++) {
+          (table.equivalencias[i]?.medallasNecesarias || []).forEach((m) => medallasPrevias.add(m.id));
+        }
+
+        const medallasMarcadas = medallasActuales.map((m) => ({
+          ...m,
+          esHeredada: medallasPrevias.has(m.id),
+        }));
+
+        return {
+          nota: eq.nota,
+          medallasNecesarias: medallasMarcadas,
+        };
+      });
+
       setEquivalencia({
         nombre: table.nombre,
-        equivalencias: table.equivalencias.map((eq) => ({
-          nota: eq.nota,
-          medallasNecesarias: eq.medallasNecesarias || [],
-        })),
+        equivalencias: equivalenciasConHeredadas,
+      });
+    } else if (medallas && medallas.length > 0) {
+      // Caso creación nueva tabla: inicializamos con una equivalencia por defecto con nota 1 y la primera medalla asignada
+      setEquivalencia({
+        nombre: "",
+        equivalencias: [
+          {
+            nota: 1,
+            medallasNecesarias: [{ ...medallas[0], esHeredada: false }],
+          },
+        ],
+      });
+    } else {
+      // Si no hay medallas cargadas aún, dejamos vacío
+      setEquivalencia({
+        nombre: "",
+        equivalencias: [],
       });
     }
-  }, [table]);
+  }, [table, medallas]);
 
+  // Agregar una nueva equivalencia con la última nota +1 y medallas heredadas
+  // Si no hay medallas, el botón se deshabilita
   const handleAddEquivalencia = () => {
     setEquivalencia((prev) => {
       const medallasAcumuladasIds = new Set();
       prev.equivalencias.forEach((equ) => equ.medallasNecesarias.forEach((med) => medallasAcumuladasIds.add(med.id)));
-      const medallasAcumuladas = medallas ? medallas.filter((m) => medallasAcumuladasIds.has(m.id)) : [];
+
+      const medallasAcumuladas = medallas ? medallas.filter((m) => medallasAcumuladasIds.has(m.id)).map((m) => ({ ...m, esHeredada: true })) : [];
+
+      // Obtener la última nota o 0 si no hay equivalencias
+      const ultimaNota = prev.equivalencias.length > 0 ? prev.equivalencias[prev.equivalencias.length - 1].nota : 0;
 
       return {
         ...prev,
-        equivalencias: [...prev.equivalencias, { nota: 0, medallasNecesarias: medallasAcumuladas }],
+        equivalencias: [
+          ...prev.equivalencias,
+          {
+            nota: ultimaNota + 1, // nota +1 respecto a la anterior
+            medallasNecesarias: medallasAcumuladas,
+          },
+        ],
       };
     });
   };
@@ -62,6 +109,8 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
     });
   };
 
+  // Agregar una medalla a una equivalencia específica
+  // Si la medalla ya existe, no se agrega
   const handleAddMedalla = (equIndex, medallaId) => {
     if (!medallaId) return;
     const medalla = medallas.find((m) => m.id === medallaId);
@@ -70,33 +119,41 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
     setEquivalencia((prev) => {
       const newEquivalencias = [...prev.equivalencias];
       const currentMedallas = newEquivalencias[equIndex].medallasNecesarias;
+
       if (currentMedallas.some((m) => m.id === medalla.id)) return prev;
 
-      const updatedMedallas = [...currentMedallas, medalla];
-      const tempEquivalencias = [...newEquivalencias];
-      tempEquivalencias[equIndex].medallasNecesarias = updatedMedallas;
+      // Agregamos con esHeredada = false
+      const nuevaMedalla = { ...medalla, esHeredada: false };
+      const updatedMedallas = [...currentMedallas, nuevaMedalla];
+      newEquivalencias[equIndex].medallasNecesarias = updatedMedallas;
 
-      for (let i = equIndex + 1; i < tempEquivalencias.length; i++) {
-        const currentMedIds = new Set(tempEquivalencias[equIndex].medallasNecesarias.map((m) => m.id));
-        const nextMedIds = new Set(tempEquivalencias[i].medallasNecesarias.map((m) => m.id));
-        const unionMedIds = new Set([...nextMedIds, ...currentMedIds]);
-        tempEquivalencias[i].medallasNecesarias = medallas ? medallas.filter((m) => unionMedIds.has(m.id)) : [];
+      // Propagamos como heredada hacia abajo
+      for (let i = equIndex + 1; i < newEquivalencias.length; i++) {
+        const yaExiste = newEquivalencias[i].medallasNecesarias.some((m) => m.id === medalla.id);
+        if (!yaExiste) {
+          newEquivalencias[i].medallasNecesarias.push({ ...medalla, esHeredada: true });
+        }
       }
 
-      return { ...prev, equivalencias: tempEquivalencias };
+      return { ...prev, equivalencias: newEquivalencias };
     });
   };
 
+  // Eliminar una medalla específica de una equivalencia
+  // Si la medalla no es heredada, se elimina de todas las equivalencias siguientes
   const handleRemoveMedalla = (equIndex, medIndex) => {
     setEquivalencia((prev) => {
       const newEquivalencias = [...prev.equivalencias];
       const currentMedallas = [...newEquivalencias[equIndex].medallasNecesarias];
       const medallaEliminada = currentMedallas[medIndex];
-      if (!medallaEliminada) return prev;
 
+      if (!medallaEliminada || medallaEliminada.esHeredada) return prev;
+
+      // Eliminar
       currentMedallas.splice(medIndex, 1);
       newEquivalencias[equIndex].medallasNecesarias = currentMedallas;
 
+      // Eliminar de las siguientes equivalencias si también no es heredada
       for (let i = equIndex + 1; i < newEquivalencias.length; i++) {
         newEquivalencias[i].medallasNecesarias = newEquivalencias[i].medallasNecesarias.filter((m) => m.id !== medallaEliminada.id);
       }
@@ -105,6 +162,20 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
     });
   };
 
+  // Eliminar una equivalencia completa
+  const handleRemoveEquivalencia = (index) => {
+    setEquivalencia((prev) => {
+      const nuevasEquivalencias = [...prev.equivalencias];
+      nuevasEquivalencias.splice(index, 1);
+
+      return {
+        ...prev,
+        equivalencias: nuevasEquivalencias,
+      };
+    });
+  };
+
+  // Manejo de cambios en los inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEquivalencia((prev) => ({
@@ -113,14 +184,16 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
     }));
   };
 
+  // Guardar cambios o crear nueva tabla
   const handleSave = async (e) => {
     e.preventDefault();
 
     try {
       const idTabla = table?.id ?? 0;
 
+      // Preparar datos para guardar
       const equivalenciaToSave = {
-        id: idTabla, // asegurate que esté el mismo ID que va en la ruta
+        id: idTabla,
         nombre: equivalencia.nombre,
         equivalencias: equivalencia.equivalencias.map((item, index) => ({
           id: table?.equivalencias?.[index]?.id ?? 0,
@@ -128,7 +201,7 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
           medallasNecesarias: item.medallasNecesarias.map((medalla) => ({
             id: medalla.id,
             nombre: medalla.nombre,
-            urlImagen: medalla.urlImagen,
+            urlImagen: medalla.urlImagen || "",
             descripcion: medalla.descripcion ?? "",
             cantidadMedallasBrinda: medalla.cantidadMedallasBrinda ?? 0,
             esAsignacionMutua: medalla.esAsignacionMutua ?? false,
@@ -136,8 +209,8 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
         })),
       };
 
+      // Llamar al hook de mutación
       if (table && table.id) {
-        // asegurate de que el ID esté en ambos lugares
         await editarTablaEquivalencia({
           id: idTabla,
           data: equivalenciaToSave,
@@ -146,6 +219,7 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
         await crearTablaEquivalencia(equivalenciaToSave);
       }
 
+      // Notificar éxito y cerrar modal
       if (onSave) onSave(equivalenciaToSave);
       onClose();
     } catch (error) {
@@ -165,6 +239,9 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
       <div className={styles.equivalencias}>
         {equivalencia.equivalencias.map((item, i) => (
           <div key={i} className={styles.equivalencia}>
+            <button type="button" className={styles.eliminarEquivalencia} onClick={() => handleRemoveEquivalencia(i)} title="Eliminar equivalencia">
+              <FontAwesomeIcon icon="fa-solid fa-xmark" />
+            </button>
             <div className={styles.nota}>
               <label>Valor (nota)</label>
               <input type="number" min="1" value={item.nota} onChange={(e) => handleEquivalenciaChange(i, "nota", e.target.value)} placeholder="Ej: 5" required />
@@ -194,16 +271,11 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
                   <div key={j} className={styles.medalla}>
                     <h4>{medalla.nombre}</h4>
                     <img src={medalla.urlImagen} alt={medalla.nombre} />
-                    <div className={styles.extraInfo}>
-                      <p>{medalla.descripcion}</p>
-                      <p>
-                        <FontAwesomeIcon icon="fa-solid fa-coins" />
-                        {medalla.cantidadMedallasBrinda}
-                      </p>
-                      <button type="button" className={styles.eliminarMedalla} onClick={() => handleRemoveMedalla(i, j)}>
+                    {!medalla.esHeredada && (
+                      <button type="button" className={`${styles.eliminarMedalla} button-tertiary`} onClick={() => handleRemoveMedalla(i, j)} title="Eliminar medalla">
                         <FontAwesomeIcon icon="fa-solid fa-trash" />
                       </button>
-                    </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -213,7 +285,7 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
       </div>
 
       <div className={styles.acciones}>
-        <button type="button" className="button" onClick={handleAddEquivalencia}>
+        <button type="button" className="button" onClick={handleAddEquivalencia} disabled={isLoading || !medallas || medallas.length === 0}>
           Agregar Equivalencia
         </button>
 
