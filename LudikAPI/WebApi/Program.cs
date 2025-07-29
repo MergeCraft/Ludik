@@ -284,7 +284,9 @@ builder.Services.AddScoped<IObtenerProyectoAulaColaborativo, ObtenerProyectoAula
 builder.Services.AddScoped<IObtenerTodasLasTablasClasificacionGrupo, ObtenerTodasLasTablasClasificacionGrupo>();
 builder.Services.AddScoped<IObtenerProyectoAulaColaborativo, ObtenerProyectoAulaColaborativo>();
 builder.Services.AddScoped<IObtenerPerfilUsuarioLogueado, ObtenerPerfilUsuarioLogueado>();
-builder.Services.AddScoped<IObtenerPerfilesPorGrupoSinLogueado, ObtenerPerfilesPorGrupoSinLogueado>();
+builder.Services.AddScoped<IObtenerPerfilesPorGrupoSinLogueado, ObtenerPerfilesDeGrupoSinIncluirUsuarioLogueado>();
+builder.Services.AddScoped<IObtenerKudos, ObtenerKudos>();
+
 
 
 

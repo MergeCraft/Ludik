@@ -18,7 +18,6 @@
     <Folder Include="ImplementacionCasosUsos\Imagenes\Estrategias\" />
     <Folder Include="ImplementacionCasosUsos\Login\" />
     <Folder Include="ImplementacionCasosUsos\RecuperarContrasena\" />
-    <Folder Include="InterfacesCasosUsos\Kudo\" />
     <Folder Include="InterfacesCasosUsos\RecuperarContrasena\" />
     <Folder Include="InterfacesCasosUsos\ServicioPrecargaArchivos\" />
   </ItemGroup>

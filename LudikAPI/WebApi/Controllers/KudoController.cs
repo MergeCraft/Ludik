@@ -13,15 +13,18 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Policy = "EsEstudiante")]
+    [Authorize(Policy = "EsProfesorOEstudiante")]
     public class KudoController : ControllerBase
     {
 
         private readonly IAsignarKudo _asignarKudo;
+        private readonly IObtenerKudos _obtenerKudos;
 
-        public KudoController(IAsignarKudo asignarKudo)
+        public KudoController(
+            IAsignarKudo asignarKudo, IObtenerKudos obtenerKudos)
         {
             _asignarKudo = asignarKudo;
+            _obtenerKudos = obtenerKudos;
         }
 
         /// <summary>
@@ -46,5 +49,25 @@ namespace WebApi.Controllers
 
             
         }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ObtenerKudos()
+        {
+            var usuarioId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(usuarioId))
+                return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
+
+            Resultado<IEnumerable<TipoKudoDto>> resultado = await _obtenerKudos.EjecutarAsync();
+
+            return resultado.EsExitoso ? Ok(resultado.Valor) : this.ManejarFallo(resultado);
+
+
+        }
+
     }
 }

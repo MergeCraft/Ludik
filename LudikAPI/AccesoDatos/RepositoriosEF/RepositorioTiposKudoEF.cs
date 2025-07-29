@@ -1,6 +1,7 @@
 ﻿using LogicaNegocio.Entidades;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccesoDatos.RepositoriosEF;
 
@@ -46,8 +47,17 @@ public class RepositorioTiposKudoEF: IRepositorioTiposKudo
         }
     }
 
-    public Task<Resultado<IEnumerable<TipoKudo>>> GetAllAsync()
+    public async Task<Resultado<IEnumerable<TipoKudo>>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        try
+        {
+            var tiposKudo = await _db.TiposKudo.AsNoTracking().ToListAsync();
+
+            return Resultado<IEnumerable<TipoKudo>>.Exitoso(tiposKudo);
+        }
+        catch (Exception e)
+        {
+            return Resultado<IEnumerable<TipoKudo>>.Falla(Error.Unexpected);
+        }
     }
 }

@@ -11,12 +11,12 @@ using LogicaNegocio.Resultados;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.PerfilEstudiante
 {
-    public class ObtenerPerfilesPorGrupoSinLogueado:IObtenerPerfilesPorGrupoSinLogueado
+    public class ObtenerPerfilesDeGrupoSinIncluirUsuarioLogueado:IObtenerPerfilesPorGrupoSinLogueado
     {
         private readonly IRepositorioPerfilEstudianteGrupo _repositorioPerfil;
         private readonly IGeneradorUrlsParaColeccionesImagenes _generadorUrlsParaColecciones;
 
-        public ObtenerPerfilesPorGrupoSinLogueado(
+        public ObtenerPerfilesDeGrupoSinIncluirUsuarioLogueado(
             IRepositorioPerfilEstudianteGrupo repositorioPerfil,
             IGeneradorUrlsParaColeccionesImagenes generadorUrlsParaColecciones)
         {

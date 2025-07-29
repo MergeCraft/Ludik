@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
-    public partial class inicial : Migration
+    public partial class inicialConDatos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -96,7 +96,8 @@ namespace AccesoDatos.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NombreImagenMiniatura = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1180,19 +1181,19 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.InsertData(
                 table: "TiposKudo",
-                columns: new[] { "Id", "Descripcion", "Nombre" },
+                columns: new[] { "Id", "Descripcion", "Nombre", "NombreImagenMiniatura" },
                 values: new object[,]
                 {
-                    { 1, "Considera dar este kudo cuando un compañero te dedica tiempo para explicarte algo que no entendías o te ayuda a completar una tarea.", "Gracias por la Ayuda" },
-                    { 2, "Considera dar este kudo cuando la pregunta de un compañero aclara una duda para todo el grupo o genera un debate que enriquece la clase.", "Esa Pregunta Suma" },
-                    { 3, "Considera dar este kudo cuando el esfuerzo, la perseverancia o la actitud positiva de un compañero te motiven a superarte.", "Inspirador" },
-                    { 4, "Considera dar este kudo cuando un compañero toma tu idea o la de alguien más y la mejora, aportando un punto de vista que hace el trabajo más fuerte.", "Conectando Ideas" },
-                    { 5, "Considera dar este kudo cuando un compañero organiza el trabajo en equipo, se asegura de que todos participen o guía al grupo para cumplir el objetivo.", "Líder de Equipo" },
-                    { 6, "Considera dar este kudo cuando un compañero comparte un enlace, video, apunte o cualquier material que te resultó muy útil para estudiar o hacer una tarea.", "Bibliotecario" },
-                    { 7, "Considera dar este kudo cuando notes que un compañero se esfuerza por integrar a otros, asegurándose de que nadie se quede atrás y todos se sientan parte del equipo.", "Codo a Codo" },
-                    { 8, "Considera dar este kudo cuando un compañero te da una sugerencia para mejorar tu trabajo de forma respetuosa y con la intención real de ayudar.", "Crítica que Construye" },
-                    { 9, "Considera dar este kudo cuando un compañero propone una solución original a un problema o una idea innovadora para un proyecto que sorprende al grupo.", "Chispa Creativa" },
-                    { 10, "Considera dar este kudo cuando la explicación de un compañero sobre un tema muy difícil hace que, finalmente, lo entiendas con total claridad.", "Einstein" }
+                    { 1, "Considera dar este kudo cuando un compañero te dedica tiempo para explicarte algo que no entendías o te ayuda a completar una tarea.", "Gracias por la Ayuda", "kudo_ayuda.png" },
+                    { 2, "Considera dar este kudo cuando la pregunta de un compañero aclara una duda para todo el grupo o genera un debate que enriquece la clase.", "Esa Pregunta Suma", "kudo_pregunta.png" },
+                    { 3, "Considera dar este kudo cuando el esfuerzo, la perseverancia o la actitud positiva de un compañero te motiven a superarte.", "Inspirador", "kudo_inspirador.png" },
+                    { 4, "Considera dar este kudo cuando un compañero toma tu idea o la de alguien más y la mejora, aportando un punto de vista que hace el trabajo más fuerte.", "Conectando Ideas", "kudo_conectando_ideas.png" },
+                    { 5, "Considera dar este kudo cuando un compañero organiza el trabajo en equipo, se asegura de que todos participen o guía al grupo para cumplir el objetivo.", "Líder de Equipo", "kudo_lider_equipo.png" },
+                    { 6, "Considera dar este kudo cuando un compañero comparte un enlace, video, apunte o cualquier material que te resultó muy útil para estudiar o hacer una tarea.", "Bibliotecario", "kudo_bibliotecario.png" },
+                    { 7, "Considera dar este kudo cuando notes que un compañero se esfuerza por integrar a otros, asegurándose de que nadie se quede atrás y todos se sientan parte del equipo.", "Codo a Codo", "kudo_codo_a_codo.png" },
+                    { 8, "Considera dar este kudo cuando un compañero te da una sugerencia para mejorar tu trabajo de forma respetuosa y con la intención real de ayudar.", "Crítica que Construye", "kudo_critica_constructiva.png" },
+                    { 9, "Considera dar este kudo cuando un compañero propone una solución original a un problema o una idea innovadora para un proyecto que sorprende al grupo.", "Chispa Creativa", "kudo_chispa_creativa.png" },
+                    { 10, "Considera dar este kudo cuando la explicación de un compañero sobre un tema muy difícil hace que, finalmente, lo entiendas con total claridad.", "Einstein", "kudo_einstein.png" }
                 });
 
             migrationBuilder.InsertData(
