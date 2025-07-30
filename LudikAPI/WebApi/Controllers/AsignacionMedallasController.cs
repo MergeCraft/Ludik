@@ -27,22 +27,22 @@ namespace WebApi.Controllers
         /// Asigna una medalla existente a un perfil de estudiante.
         /// </summary>
         /// <param name="idPerfilEstudiante">El ID del perfil del estudiante que recibirá la medalla.</param>
-        /// <param name="request">DTO que contiene el ID de la medalla a asignar.</param>
+        /// <param name="idMedalla">El ID de la medalla a asignar.</param>
         /// <returns>Un resultado de la operación.</returns>
-        [HttpPost("perfil-estudiante/{idPerfilEstudiante}/medalla/{idMedalla}")]
+        [HttpPost("perfil-estudiante/{idPerfilEstudiante}/medalla/{idMedalla}/cantidad/{cantidadMedallasOtorgar}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> AsignarMedalla([FromRoute] int idPerfilEstudiante, [FromRoute]  int idMedalla)
+        public async Task<IActionResult> AsignarMedalla([FromRoute] int idPerfilEstudiante, [FromRoute]  int idMedalla, [FromRoute] int cantidadMedallasOtorgar)
         {
 
             var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(profesorId))
                 return Unauthorized();
             
-            var resultado = await _asignarMedalla.EjecutarAsync(profesorId, idPerfilEstudiante, idMedalla);
+            var resultado = await _asignarMedalla.EjecutarAsync(profesorId, idPerfilEstudiante, idMedalla, cantidadMedallasOtorgar);
 
             if (resultado.EsFallo)
                 return this.ManejarFallo(resultado);

@@ -18,28 +18,26 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.AsignarMedalla
         private readonly IRepositorioPerfilEstudianteGrupo _repositorioPerfilEstudiantes;
         private readonly IRepositorioMedallas _repositorioMedallas;
         private readonly IRepositorioProfesores _repositorioProfesores;
-        private readonly IRepositorioPerfilEstudianteMedalla _repositorioPerfilEstudianteMedalla;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMediator _mediator;
         public AsignarMedalla(
             IRepositorioPerfilEstudianteGrupo repositorioPerfilEstudiante,
             IRepositorioMedallas repositorioMedalla,
             IRepositorioProfesores repositorioProfesor,
-            IRepositorioPerfilEstudianteMedalla repositorioPerfilEstudianteMedalla,
             IMediator mediator,
             IUnitOfWork unitOfWork)
         {
             _repositorioPerfilEstudiantes = repositorioPerfilEstudiante;
             _repositorioMedallas = repositorioMedalla;
             _repositorioProfesores = repositorioProfesor;
-            _repositorioPerfilEstudianteMedalla = repositorioPerfilEstudianteMedalla;
             _mediator = mediator;
             _unitOfWork = unitOfWork;
         }
-        public async Task<Resultado> EjecutarAsync(string profesorId, int idPerfilEstudiante, int idMedalla)
+        public async Task<Resultado> EjecutarAsync(string profesorId, int idPerfilEstudiante, int idMedalla,
+            int cantidadAOtorgar)
         {
-
-
+            if(cantidadAOtorgar < 1)
+                return Resultado.Falla(new Error("Error.Validation", "La cantidad de medallas a otorgar debe ser mayor a 0."));
 
             var perteneceResultado = await _repositorioProfesores.PerteneceGrupoAsync(profesorId, idPerfilEstudiante);
             if (perteneceResultado.EsFallo || !perteneceResultado.Valor)
@@ -65,22 +63,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.AsignarMedalla
             var perfilEstudiante = perfilResultado.Valor;
 
 
-            double factor = perfilEstudiante.ObtenerMultiplicadorMonedas();
-            int monedasGanadas = (int)(medalla.MonedasOtorgadas * factor);
-            perfilEstudiante.Monedas += monedasGanadas;
-
-
-            var nuevaAsignacion = new PerfilEstudianteMedalla
-            {
-                PerfilEstudianteId = perfilEstudiante.Id,
-                MedallaId = medalla.Id,
-                FechaObtencion = System.DateTime.UtcNow
-            };
-
-
-            var addResultado = await _repositorioPerfilEstudianteMedalla.AddAsync(nuevaAsignacion);
-            if (addResultado.EsFallo)
-                return addResultado;
+            perfilEstudiante.RecibirMedallas(medalla, cantidadAOtorgar);
 
             await _unitOfWork.SaveChangesAsync();
 

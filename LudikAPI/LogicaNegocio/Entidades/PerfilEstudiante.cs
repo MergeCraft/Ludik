@@ -60,6 +60,25 @@ namespace LogicaNegocio.Entidades
             this.TablasClasificacion = new List<TablaClasificacion>();
         }
 
+        public void RecibirMedallas(Medalla medalla, int cantidad)
+        {
+            double factorMultiplicador = this.ObtenerMultiplicadorMonedas();
+            int monedasGanadas = (int)(medalla.MonedasOtorgadas * factorMultiplicador * cantidad);
+            this.Monedas += monedasGanadas;
+
+            for (int i = 0; i < cantidad; i++)
+            {
+                var nuevaAsignacion = new PerfilEstudianteMedalla
+                {
+                    PerfilEstudianteId = this.Id,
+                    MedallaId = medalla.Id,
+                    FechaObtencion = System.DateTime.UtcNow
+                    // No es necesario asignar los objetos de navegación completos, 
+                    // EF Core manejará las relaciones a través de las FK.
+                };
+                this.MedallasObtenidas.Add(nuevaAsignacion);
+            }
+        }
         public void ActivarPotenciador(Potenciador p)
         {
             p.FechaActivacion = DateTime.UtcNow;
