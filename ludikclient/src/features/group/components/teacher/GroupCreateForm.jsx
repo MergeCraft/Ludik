@@ -50,8 +50,8 @@ export const GroupCreateModal = ({ onClose, idGrupo, grupoInicial }) => {
     ];
 
     for (const [campo, valor] of campos) {
-      if (valor.trim().length <= 3) {
-        Toast.notificarWarning(`El ${campo} debe tener más de 3 caracteres.`);
+      if (valor.trim().length <= 1) {
+        Toast.notificarWarning(`El ${campo} debe tener más de 1 carácter.`);
         return false;
       }
     }
@@ -91,12 +91,12 @@ export const GroupCreateModal = ({ onClose, idGrupo, grupoInicial }) => {
     <form className={styles.modalForm} onSubmit={handleSubmit}>
       <label>
         Nombre del grupo
-        <input type="text" name="nombre" placeholder="Ej: Liceo 12 - 2° A" value={grupo.nombre} onChange={handleChange} />
+        <input type="text" name="nombre" placeholder="Ej: 2° A" value={grupo.nombre} onChange={handleChange} />
       </label>
 
       <label>
         Institución
-        <input type="text" name="institucion" placeholder="Ej: Montevideo" value={grupo.institucion} onChange={handleChange} />
+        <input type="text" name="institucion" placeholder="Ej: Liceo 12" value={grupo.institucion} onChange={handleChange} />
       </label>
 
       <label>
@@ -123,7 +123,7 @@ export const GroupCreateModal = ({ onClose, idGrupo, grupoInicial }) => {
       </label>
 
       <button type="submit" className={`${styles.btnSubmit} button-secondary`}>
-        {grupoInicial ? "Guardar cambios" : "Crear grupo"}
+        {grupoInicial ? "Guardar cambios" : "Crear asignatura"}
       </button>
     </form>
   );

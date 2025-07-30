@@ -52,11 +52,18 @@
   border-radius: 10px;
   border: 2px solid var(--secundario);
   /* Espaciado alrededor del pulgar */
+  transition: .3s;
 }
 
 /* Opcional: efecto hover en el pulgar */
 *::-webkit-scrollbar-thumb:hover {
   background-color: var(--principal);
+}
+
+*::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 body, html {

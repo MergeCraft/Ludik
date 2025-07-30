@@ -97,7 +97,7 @@ export const useInventarioAvatar = (idPerfilEstudiante, enabled = true) => {
 
 export const useGuardarAvatar = (idPerfilEstudiante) => {
   return useMutation({
-    mutationFn: ({ avatarDto, svgBlob }) => guardarAvatarPersonalizado(idPerfilEstudiante, avatarDto, svgBlob),
+    mutationFn: ({ avatarDto, jpegBlob }) => guardarAvatarPersonalizado(idPerfilEstudiante, avatarDto, jpegBlob),
     onSuccess: () => {
       Toast.notificarExito("¡Avatar guardado correctamente!");
     },

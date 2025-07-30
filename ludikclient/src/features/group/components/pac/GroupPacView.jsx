@@ -21,16 +21,17 @@ const GroupPacView = ({ setModalContent, setModalTitle, setShowModal, groupId, s
 
   return (
     <div className={styles.pacContainer}>
+      <h4>Desafío grupal</h4>
       {showTeacherOptions && (
         <button className={styles.newPacButton} onClick={handleOpenPacCreateForm}>
           <FontAwesomeIcon icon="fa-solid fa-handshake" size="2xl" />
-          Crear Nuevo Proyecto
+          Crear Nuevo Desafío
         </button>
       )}
 
       <section className={styles.pacsList}>
         {isLoading && <BarLoader />}
-        {!isLoading && !isError && pacs?.length === 0 && <p>No hay proyectos para este grupo.</p>}
+        {!isLoading && !isError && pacs?.length === 0 && <p>No hay desafíos para este grupo.</p>}
         {!isLoading && !isError && pacs?.map((pac) => <PacItem key={pac.id} pac={pac} />)}
       </section>
     </div>

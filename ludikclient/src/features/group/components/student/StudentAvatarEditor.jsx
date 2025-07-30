@@ -57,7 +57,7 @@ const StudentAvatarEditor = ({ idPerfil }) => {
   const [zoom, setZoom] = useState(100);
 
   // Tema de ropa para query string
-  const [temaRopa, setTemaRopa] = useState("bat");
+  const [temaRopa, setTemaRopa] = useState("");
 
   // Estado para el SVG avatar cargado y loader
   const [avatarSvg, setAvatarSvg] = useState(null);
@@ -69,27 +69,57 @@ const StudentAvatarEditor = ({ idPerfil }) => {
   const handleGuardarAvatar = async () => {
     if (!avatarSvg) return;
 
-    // Extraer los IDs seleccionados
-    const atributosSeleccionados = Object.entries(selecciones)
-      .filter(([_, codigo]) => !!codigo)
-      .map(([tipo]) => {
-        const item = inventario.find((i) => i.tipo === tipo && i.codigoUnico === selecciones[tipo]);
-        return item?.id;
-      })
-      .filter(Boolean);
+    const svgImage = new Image();
+    const svgBlob = new Blob([avatarSvg], { type: "image/svg+xml" });
+    const url = URL.createObjectURL(svgBlob);
 
-    const avatarDto = {
-      ColorFondo: selecciones.ColorFondo || "",
-      Voltear: voltear,
-      Rotacion: rotacion,
-      Zoom: zoom,
-      AtributosIds: atributosSeleccionados,
+    svgImage.onload = async () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = svgImage.width || 512;
+      canvas.height = svgImage.height || 512;
+      const ctx = canvas.getContext("2d");
+
+      // Rellenar con fondo blanco (porque JPEG no admite transparencia)
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Dibujar el SVG sobre el fondo blanco
+      ctx.drawImage(svgImage, 0, 0);
+
+      // Convertir canvas a blob JPEG en calidad máxima
+      canvas.toBlob(
+        async (jpegBlob) => {
+          if (!jpegBlob) return;
+
+          const atributosSeleccionados = Object.entries(selecciones)
+            .filter(([_, codigo]) => !!codigo)
+            .map(([tipo]) => {
+              const item = inventario.find((i) => i.tipo === tipo && i.codigoUnico === selecciones[tipo]);
+              return item?.id;
+            })
+            .filter(Boolean);
+
+          const avatarDto = {
+            ColorFondo: selecciones.ColorFondo || "",
+            Voltear: voltear,
+            Rotacion: rotacion,
+            Zoom: zoom,
+            AtributosIds: atributosSeleccionados,
+          };
+
+          guardarAvatarMutation.mutate({ avatarDto, jpegBlob });
+          URL.revokeObjectURL(url);
+        },
+        "image/jpeg",
+        1.0 // Calidad máxima
+      );
     };
 
-    // Convertir el SVG (string) a Blob para enviarlo como archivo
-    const svgBlob = new Blob([avatarSvg], { type: "image/svg+xml" });
+    svgImage.onerror = () => {
+      console.error("No se pudo cargar el SVG para convertir a JPEG.");
+    };
 
-    guardarAvatarMutation.mutate({ avatarDto, svgBlob });
+    svgImage.src = url;
   };
 
   // Inventario con las opciones para avatar
@@ -127,12 +157,12 @@ const StudentAvatarEditor = ({ idPerfil }) => {
     const probabilidadBarba = barba === "" ? "0" : "100";
 
     const gorroVal = selecciones.Sombrero || "";
-    const sombrero = gorroVal ? `&top=${gorroVal}` : "";
-    const colorSombrero = gorroVal ? `&hatColor=${selecciones.ColorSombrero || ""}` : "";
+    const sombrero = `&top=${gorroVal}`;
+    const colorSombrero = `&hatColor=${selecciones.ColorSombrero || ""}`;
 
-    const peloVal = selecciones.Pelo || "";
-    const pelo = !gorroVal && peloVal ? `&top=${peloVal}` : "";
-    const colorPelo = !gorroVal && peloVal && selecciones.ColorPelo ? `&hairColor=${selecciones.ColorPelo}` : "";
+    // Aquí la lógica condicionada igual que en el ejemplo imperativo:
+    const pelo = gorroVal !== "" ? "" : `&top=${selecciones.Pelo || ""}`;
+    const colorPelo = gorroVal !== "" ? "" : `&hairColor=${selecciones.ColorPelo || ""}`;
 
     const gafasVal = selecciones.Gafas || "";
     const gafas = gafasVal ? `&accessories=${gafasVal}` : "";
@@ -143,7 +173,7 @@ const StudentAvatarEditor = ({ idPerfil }) => {
     const colorRopa = selecciones.ColorRopa ? `&clothesColor=${selecciones.ColorRopa}` : "";
     const tema = temaRopa ? `&clothingGraphic=${temaRopa}` : "";
 
-    return `https://api.dicebear.com/9.x/avataaars/svg?seed=${colorFondo}${voltearStr}${rotacionStr}${zoomStr}${colorPiel}${cejas}${ojos}${boca}${colorGafas}${gafas}${barba}${colorBarba}${pelo}${colorPelo}${sombrero}${colorSombrero}&accessoriesProbability=${probabilidadGafas}${colorRopa}${ropa}${tema}&facialHairProbability=${probabilidadBarba}&radius=50`;
+    return `https://api.dicebear.com/9.x/avataaars/svg?${colorFondo}${voltearStr}${rotacionStr}${zoomStr}${colorPiel}${cejas}${ojos}${boca}${colorGafas}${gafas}${barba}${colorBarba}${pelo}${colorPelo}${sombrero}${colorSombrero}&accessoriesProbability=${probabilidadGafas}${colorRopa}${ropa}${tema}&facialHairProbability=${probabilidadBarba}&radius=50`;
   };
 
   // useEffect para actualizar avatar cuando cambian selecciones o controles
@@ -256,8 +286,8 @@ const StudentAvatarEditor = ({ idPerfil }) => {
                     type="radio"
                     name={`color-${selectedTab}`}
                     value={item.codigoUnico}
-                    checked={selecciones[selectedTab] === item.codigoUnico}
-                    onChange={() => handleChange(selectedTab, item.codigoUnico)}
+                    checked={selecciones["Color" + selectedTab] === item.codigoUnico}
+                    onChange={() => handleChange("Color" + selectedTab, item.codigoUnico)}
                     className={styles.radioInputHidden}
                   />
                   <div className={styles.colorBox} style={{ backgroundColor: item.nombre.toLowerCase() }} title={item.nombre} />

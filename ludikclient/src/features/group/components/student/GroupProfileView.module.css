@@ -4,13 +4,6 @@
     gap: 5px;
 }
 
-.container section img {
-    max-width: 200px;
-    aspect-ratio: 1 / 1;
-    border-radius: 15px;
-    object-fit: cover;
-}
-
 .container section {
     position: relative;
     background-color: var(--principal);
@@ -25,13 +18,20 @@
     font-size: small;
 }
 
+.avatar {
+    max-width: 200px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 .resumen {
     display: flex;
     justify-content: space-around;
     gap: 10px;
 }
 
-.resumen div, .resumen+div {
+.resumen div, .progressBarContainer, .metaContainer {
     padding: 10px;
     border: 1px solid var(--terciario);
     border-radius: 15px;
@@ -69,7 +69,12 @@
     margin-top: 10px;
 }
 
-.progressBarContainer p {
+.progressBarManager {
+    display: flex;
+    gap: 10px;
+}
+
+.progressBarContainer p, .metaContainer p {
     margin-bottom: 10px;
 }
 
@@ -80,9 +85,8 @@
 
 .progressBar label {
     position: relative;
-    padding: 15px;
+    padding: 15px 0;
     flex-grow: 1;
-    cursor: pointer;
     transition: .3s;
 }
 
@@ -96,15 +100,6 @@
     height: 60%;
     /* tamaño vertical del "borde" */
     background-color: var(--secundario);
-}
-
-.progressBar label:hover {
-    box-shadow: 0 0 0 1px var(--meta-alumno);
-    z-index: 200;
-}
-
-.progressBar label:hover::before {
-    opacity: 0;
 }
 
 .progressBar label:first-child {
@@ -145,6 +140,17 @@
 
 .progressBar label:has(input[type="radio"]:checked) {
     background-color: var(--secundario);
+}
+
+.metaContainer {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+}
+
+.metaContainer input {
+    margin: 0;
+    padding: 6px 12px;
 }
 
 .medallasGrid {

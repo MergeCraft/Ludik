@@ -60,6 +60,12 @@ const MedalActionMenu = ({ items, isAssign, onConfirm, isLoading }) => {
       Toast.notificarWarning("Por favor, ingrese una cantidad mayor a cero antes de confirmar.");
       return;
     }
+
+    if (!isAssign) {
+      const confirmado = window.confirm(`¿Estás seguro de que deseas eliminar ${amount} medalla(s)? Esta acción no se puede deshacer.`);
+      if (!confirmado) return;
+    }
+
     onConfirm(medallaId, amount);
     setAmounts((prev) => ({ ...prev, [medallaId]: "" }));
   };

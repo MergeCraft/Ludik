@@ -94,7 +94,10 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(p => p.Grupo)
                     .Include(p => p.MedallasObtenidas)
                         .ThenInclude(pm => pm.Medalla)
-                    .Include(p => p.PotenciadorActivo)
+					.Include(p => p.Grupo) //No eliminar estos includes, solucionan el problema que se daba en la seleccion de la meta del estudiante
+						.ThenInclude(g => g.TablaEquivalencia) //No eliminar estos includes, solucionan el problema que se daba en la seleccion de la meta del estudiante
+							.ThenInclude(te => te.Equivalencias) //No eliminar estos includes, solucionan el problema que se daba en la seleccion de la meta del estudiante
+					.Include(p => p.PotenciadorActivo)
                     .FirstOrDefaultAsync(p => p.Id == id);
 
 				if (perfil == null)

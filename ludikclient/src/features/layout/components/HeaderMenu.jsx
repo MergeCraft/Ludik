@@ -49,7 +49,7 @@ const HeaderMenu = () => {
             </li>
 
             <li onClick={() => goTo("/groups")} className={isActive("/groups") ? styles.activeGroups : ""}>
-              <FontAwesomeIcon icon="fa-solid fa-users" size="lg" /> Grupos
+              <FontAwesomeIcon icon="fa-solid fa-users" size="lg" /> Asignaturas
             </li>
 
             {isProfesor && (
@@ -64,9 +64,9 @@ const HeaderMenu = () => {
               </>
             )}
 
-            <li onClick={() => goTo("/configuraciones")} className={isActive("/configuraciones") ? styles.activeConfiguraciones : ""}>
+            {/* <li onClick={() => goTo("/configuraciones")} className={isActive("/configuraciones") ? styles.activeConfiguraciones : ""}>
               <FontAwesomeIcon icon="fa-solid fa-cogs" size="lg" /> Configuraciones
-            </li>
+            </li> */}
           </div>
           <div className={styles.cerrarSesion}>
             <li onClick={handleLogout}>

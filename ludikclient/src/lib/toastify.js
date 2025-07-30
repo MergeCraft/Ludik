@@ -27,7 +27,6 @@ export const notificarExito = (msg) =>
 export const notificarError = (msg) =>
   toast.error(msg, {
     position: obtenerPosicionToast(),
-    autoClose: 2500,
     style: estiloToastComun,
   });
 

@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styles from "./GroupConfigView.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as Toast from "../../../../lib/toastify";
 import { useEliminarGrupo, useReiniciarLogrosGrupo } from "../../hooks/useGrupoMutation";
 import GroupCreateForm from "../teacher/GroupCreateForm";
 
@@ -26,6 +28,11 @@ const GroupConfigView = ({ id, group, setModalContent, setModalTitle, setShowMod
     setShowModal(true);
   };
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(urlCompleta);
+    Toast.notificarExito("Enlace copiado!");
+  };
+
   return (
     <div className={styles.configsContainer}>
       <div className={styles.propsContainer}>
@@ -43,11 +50,14 @@ const GroupConfigView = ({ id, group, setModalContent, setModalTitle, setShowMod
           <label>
             <strong>Fecha de creación</strong> {new Date(fCreacion).toLocaleDateString()}
           </label>
-          <label>
+          <label className={styles.linkContainer}>
             <strong>Enlace de invitación</strong>
-            <a href={urlCompleta} target="_blank" rel="noopener noreferrer">
+            <a className={styles.link} href={urlCompleta} target="_blank" rel="noopener noreferrer">
               {urlCompleta}
             </a>
+            <button aria-label="Copiar link" onClick={handleCopy} className={styles.copyBtn}>
+              <FontAwesomeIcon icon="fa-solid fa-copy" />
+            </button>
           </label>
         </div>
       </div>

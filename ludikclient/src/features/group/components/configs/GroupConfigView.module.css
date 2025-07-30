@@ -39,6 +39,32 @@
 
 }
 
+.linkContainer {
+    position: relative;
+}
+
+.link {
+    color: rgb(0, 132, 255);
+    text-decoration: none;
+}
+
+.copyBtn {
+    position: absolute;
+    top: 25%;
+    right: 10px;
+    background: none;
+    border: none;
+    color: var(--blanco-principal);
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: var(--terciario);
+    }
+}
+
 .actions {
     display: flex;
     flex-direction: row;

@@ -69,24 +69,37 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
             <p>Meta personal</p>
           </div>
         </div>
-        <div className={styles.progressBarContainer}>
-          <p>Progreso hacia la próxima calificación</p>
-          {!isLoadingBarra && barraProgreso && (
-            <div className={styles.progressBar}>
-              {Array.from({ length: barraProgreso.calificacionMaxima }, (_, index) => {
-                const numero = index + barraProgreso.calificacionMinima;
-                const alcanzado = numero <= barraProgreso.calificacionActual;
-                const esMeta = numero === perfil.metaCalificacion;
 
-                return (
-                  <label key={`progreso-${numero}`} htmlFor={`progreso-${numero}`} className={`${styles.label} ${alcanzado ? styles.alcanzado : styles.noAlcanzado}`}>
-                    <input type="radio" id={`progreso-${numero}`} name="progreso" checked={esMeta} onChange={() => setMeta(numero)} />
-                    {esMeta && <FontAwesomeIcon icon="fa fa-bullseye" className={styles.icono} />}
-                  </label>
-                );
-              })}
-            </div>
-          )}
+        <div className={styles.progressBarManager}>
+          <div className={styles.progressBarContainer}>
+            <p>Progreso hacia la próxima calificación</p>
+            {!isLoadingBarra && barraProgreso && (
+              <div className={styles.progressBar}>
+                {Array.from({ length: barraProgreso.calificacionMaxima }, (_, index) => {
+                  const numero = index + barraProgreso.calificacionMinima;
+                  const alcanzado = numero <= barraProgreso.calificacionActual;
+                  const esMeta = numero === perfil.metaCalificacion;
+
+                  return (
+                    <label key={`progreso-${numero}`} htmlFor={`progreso-${numero}`} className={`${styles.label} ${alcanzado ? styles.alcanzado : styles.noAlcanzado}`}>
+                      {esMeta && <FontAwesomeIcon icon="fa fa-bullseye" className={styles.icono} />}
+                    </label>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+          <div className={styles.metaContainer}>
+            <p>Meta de calificación</p>
+            <input
+              type="number"
+              value={perfil.metaCalificacion}
+              onChange={(e) => setMeta(Number(e.target.value))}
+              className={styles.metaInput}
+              min={barraProgreso?.calificacionMinima || 0}
+              max={barraProgreso?.calificacionMaxima || 100}
+            />
+          </div>
         </div>
       </section>
 

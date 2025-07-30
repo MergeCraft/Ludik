@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import styles from "./RewardCreateForm.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useCrearRecompensa } from "../../hooks/useGrupoMutation";
 
 const iconOptions = [
   { label: "Estrella", value: "star" },
@@ -66,6 +67,10 @@ const RewardCreateForm = () => {
 
   const [showIconPicker, setShowIconPicker] = useState(false);
 
+  const crearRecompensaMutation = useCrearRecompensa(() => {
+    setRecompensa({ id: 0, nombre: "", imagen: "", precio: 0 });
+  });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setRecompensa((prev) => ({
@@ -81,6 +86,21 @@ const RewardCreateForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!recompensa.nombre.trim() || !recompensa.imagen || recompensa.precio < 0) {
+      return; // validación simple
+    }
+
+    // Para la imagen, construimos las rutas a partir del icono seleccionado:
+    const rutaImagenCompleta = `/icons/rewards/${recompensa.imagen}.svg`;
+    const rutaImagenMiniatura = `/icons/rewards/mini/${recompensa.imagen}.svg`;
+
+    crearRecompensaMutation.mutate({
+      nombre: recompensa.nombre,
+      rutaImagenCompleta,
+      rutaImagenMiniatura,
+      precio: recompensa.precio,
+    });
   };
 
   return (

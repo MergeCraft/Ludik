@@ -121,7 +121,7 @@ const StudentItem = ({ perfilEmisorId, student, medals, showProfesorOptions }) =
             </>
           ) : (
             <div className={styles.asignarMedalla}>
-              <p>{kudoAsignationOption ? "Asignación de Kudos" : "Eliminar Kudos"}</p>
+              <p>{kudoAsignationOption ? "Brindar reconocimiento" : "Eliminar Kudos"}</p>
               <select
                 className={`button ${styles.medallas}`}
                 name="kudos"
@@ -132,10 +132,10 @@ const StudentItem = ({ perfilEmisorId, student, medals, showProfesorOptions }) =
                 }}
               >
                 {isKudoLoading ? (
-                  <option value="">Asignando Kudo...</option>
+                  <option value="">Reconociendo...</option>
                 ) : (
                   <>
-                    <option value="">Asigna Kudo</option>
+                    <option value="">Reconocimientos</option>
                     <option value="">No hay tales kudos bro, ai te bes rey</option>
                   </>
                 )}

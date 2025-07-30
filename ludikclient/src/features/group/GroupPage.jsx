@@ -8,7 +8,7 @@ import { selectUserRole, selectUserId } from "../auth/hooks/userSlice";
 import BaseManagerPage from "../generics/BaseManagerPage";
 import StudentItem from "./components/StudentItem";
 import RewardItem from "./components/store/RewardItem.jsx";
-import RewardCreateForm from "./components/teacher/RewardCreateForm.jsx";
+import RewardCreateForm from "./components/store/RewardCreateForm.jsx";
 import GroupProfileView from "./components/student/GroupProfileView.jsx";
 import GroupConfigView from "./components/configs/GroupConfigView.jsx";
 import GroupPacView from "./components/pac/GroupPacView.jsx";
@@ -118,9 +118,11 @@ const GroupPage = () => {
         <h3>
           <FontAwesomeIcon icon="fa-solid fa-book-bookmark" /> {group.materia.toUpperCase()}
         </h3>
-        <h3>
-          <FontAwesomeIcon icon="fa-solid fa-school" /> {group.institucion.toUpperCase()} - {group.nombre.toUpperCase()}
-        </h3>
+        {isProfesor && (
+          <h3>
+            <FontAwesomeIcon icon="fa-solid fa-school" /> {group.institucion.toUpperCase()} - {group.nombre.toUpperCase()}
+          </h3>
+        )}
       </div>
 
       <div className={style.itemsContainer}>

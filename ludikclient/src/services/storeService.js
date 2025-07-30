@@ -12,6 +12,20 @@ const parseError = (error, defaultMsg) => {
   return [mensaje || defaultMsg];
 };
 
+export const crearRecompensa = async ({ nombre, rutaImagenCompleta, rutaImagenMiniatura, precio }) => {
+  try {
+    const response = await api.post("/api/Recompensa/alta", {
+      nombre,
+      rutaImagenCompleta,
+      rutaImagenMiniatura,
+      precio,
+    });
+    return response.data;
+  } catch (error) {
+    throw parseError(error, "Error al crear la recompensa.");
+  }
+};
+
 export const obtenerRecompensasTienda = async (tiendaId) => {
   try {
     const response = await api.get(`/api/Tienda/${tiendaId}/recompensas`);
