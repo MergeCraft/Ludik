@@ -26,7 +26,7 @@ public class ObtenerKudos: IObtenerKudos
         if (resultadoRepo.EsFallo)
             return Resultado<IEnumerable<TipoKudoDto>>.Falla(resultadoRepo.Errores);
         
-        var kudosDto = resultadoRepo.Valor.Select(kudo => KudoMapper.toDto(kudo));
+        var kudosDto = resultadoRepo.Valor.Select(kudo => KudoMapper.toDto(kudo)).ToList();
         await _generadorUrlsParaColecciones.EjecutarProcesarUrlsAsync(kudosDto,
             (dto => dto.EnlaceImagenMiniatura, (dto, url) => dto.EnlaceImagenMiniatura = url));
 

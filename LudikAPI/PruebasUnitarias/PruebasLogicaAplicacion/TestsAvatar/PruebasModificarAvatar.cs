@@ -14,7 +14,7 @@ using LogicaAplicacion.DTOs.ImagenDto;
 using LogicaAplicacion.InterfacesCasosUsos.Imagenes;
 using LogicaNegocio.InterfacesRepositorios;
 
-namespace PruebasUnitarias.PruebasLogicaAplicacion.PruebasAvatar
+namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsAvatar
 {
     public class PruebasModificarAvatar
     {
