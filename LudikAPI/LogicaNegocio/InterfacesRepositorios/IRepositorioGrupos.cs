@@ -30,6 +30,8 @@ namespace InterfacesRepositorio
         Task<List<Grupo>> ObtenerGruposPorEstudianteId(string idEstudiante);
         Task<List<Grupo>> ObtenerGruposPorProfesorId(string idProfesor);
 
+        Task<Resultado<List<Grupo>>> ObtenerGruposPorIdsYProfesor(List<int> gruposIds, string profesorId);
+
     }
 
 }

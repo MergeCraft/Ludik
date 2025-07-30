@@ -20,6 +20,22 @@ namespace LogicaNegocio.Entidades
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// Agrega una recompensa a la tienda, evitando duplicados.
+        /// </summary>
+        /// <param name="recompensa">La recompensa a agregar.</param>
+        /// <returns>Resultado que indica éxito o fallo si la recompensa ya existe.</returns>
+        public Resultado AgregarRecompensa(Recompensa recompensa)
+        {
+
+            if (Recompesas.Any(r => r.Id == recompensa.Id))
+                return Resultado.Falla(new Error("Error.Conflict", $"La recompensa '{recompensa.Nombre}' ya existe en esta tienda."));
+            
+            Recompesas.Add(recompensa);
+            return Resultado.Exitoso();
+        }
+
     }
 
 }

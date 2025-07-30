@@ -19,12 +19,17 @@ namespace WebApi.Controllers
         private readonly IAltaRecompensa _altaRecompensa;
         private readonly IEditarRecompensa _editarRecompensa;
         private readonly IBajaRecompensa _bajaRecompensa;
+        private readonly IAsignarRecompensaTiendas _asignarRecompensa;
 
-        public RecompensaController(IAltaRecompensa altaRecompensa,IEditarRecompensa editarRecompensa,IBajaRecompensa bajaRecompensa)
+        public RecompensaController(IAltaRecompensa altaRecompensa,
+            IEditarRecompensa editarRecompensa,
+            IBajaRecompensa bajaRecompensa,
+            IAsignarRecompensaTiendas asignarRecompensaTiendas)
         {
             _altaRecompensa = altaRecompensa;
             _editarRecompensa = editarRecompensa;
             _bajaRecompensa = bajaRecompensa;
+            _asignarRecompensa = asignarRecompensaTiendas;
         }
     
     /// <summary>
@@ -108,6 +113,37 @@ namespace WebApi.Controllers
                 return this.ManejarFallo(resultado);
 
             return Ok("Recompensa eliminada correctamente.");
+        }
+        /// <summary>
+        /// Asigna una recompensa existente a las tiendas de uno o más grupos del profesor.
+        /// </summary>
+        /// <param name="dto">DTO que contiene el Id de la recompensa y la lista de Ids de los grupos.</param>
+        /// <returns>
+        /// 200 OK: Si la asignación se completó.
+        /// 400 Bad Request: Si los datos de entrada son inválidos o si alguna regla de negocio no se cumple (ej. recompensa ya asignada).
+        /// 401 Unauthorized: Si el usuario no está autenticado.
+        /// 403 Forbidden: Si el usuario no es un profesor.
+        /// 404 Not Found: Si la recompensa o alguno de los grupos no se encuentra.
+        /// </returns>
+        [HttpPost("asignar-a-grupos")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> AsignarRecompensaTiendasGrupos([FromBody] RecompensaYGruposDto dto)
+        {
+            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(profesorId))
+                return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
+
+            var resultado = await _asignarRecompensa.EjecutarAsync(dto, profesorId);
+
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
+            
+
+            return Ok("Recompensa asignada correctamente a las tiendas de los grupos seleccionados.");
         }
     }
 }

@@ -336,7 +336,24 @@ namespace AccesoDatos.RepositoriosEF
 			return gruposDelProfesor;
 		}
 
+        public async Task<Resultado<List<Grupo>>> ObtenerGruposPorIdsYProfesor(List<int> idsGrupos, string profesorId)
+        {
+            try
+            {
+         
+                var grupos = await _db.Grupos
+                    .Include(g => g.Tienda)
+                    .ThenInclude(t => t.Recompesas)
+                    .Where(g => idsGrupos.Contains(g.Id) && g.ProfesorId == profesorId)
+                    .ToListAsync();
 
+                return Resultado<List<Grupo>>.Exitoso(grupos);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<List<Grupo>>.Falla(new Error("Error.Unexpected", ex.Message));
+            }
+        }
     }
 
 }

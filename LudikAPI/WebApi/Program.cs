@@ -243,6 +243,7 @@ builder.Services.AddScoped<IAceptarSolicitudPerfilMedalla, AceptarSolicitudPerfi
 builder.Services.AddScoped<IAltaSolicitudPerfilMedalla, AltaSolicitudPerfilMedalla>();
 builder.Services.AddScoped<IAltaProyectoAulaColaborativo, AltaProyectoAulaColaborativo>();
 builder.Services.AddScoped<IActualizarUmbralParaMedallaPorKudos, ActualizarUmbralParaMedallaPorKudos>();
+builder.Services.AddScoped<IAsignarRecompensaTiendas, AsignarRecompensaTiendas>();
 
 builder.Services.AddScoped<IBajaMedalla,BajaMedalla>();
 builder.Services.AddScoped<IBajaGrupo, BajaGrupo>();
