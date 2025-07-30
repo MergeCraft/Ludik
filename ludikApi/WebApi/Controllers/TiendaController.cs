@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using LogicaNegocio.Resultados;
 using WebApi.Helpers;
 
 namespace WebApi.Controllers
@@ -30,8 +32,12 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> ObtenerRecompensas([FromRoute] string tiendaId)
+        public async Task<IActionResult> ObtenerRecompensas([FromRoute] int tiendaId)
         {
+            var usuarioId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(usuarioId))
+                return Unauthorized(new Error("Error.Unauthorized", "No tienes permisos para realizar esta acción."));
+
             var resultado = await _obtenerListadoRecompensa.EjecutarAsync(tiendaId);
             if (resultado.EsFallo)
                 return this.ManejarFallo(resultado);

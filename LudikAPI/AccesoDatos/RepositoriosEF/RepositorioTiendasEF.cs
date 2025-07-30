@@ -33,7 +33,7 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var tienda = await _db.Tiendas
-                    .Include(t => t.Grupo)            
+                    .Include(t => t.Recompesas)            
                     .FirstOrDefaultAsync(t => t.Id == id);
                 if (tienda == null)
                     return Resultado<Tienda>.Falla(new Error("Error.NotFound", $"No se encontró la tienda con Id {id}."));

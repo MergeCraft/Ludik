@@ -14,38 +14,26 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Tienda
 {
     public class ObtenerListadoRecompensa:IObtenerListadoRecompensa
     {
-        private readonly IRepositorioRecompensas _repositorioRecompensas;
         private readonly IRepositorioTiendas _repositorioTiendas;
         private readonly IGeneradorUrlsParaColeccionesImagenes _generadorUrlsParaColecciones;
         public ObtenerListadoRecompensa(
-            IRepositorioRecompensas repositorioRecompensas,
             IRepositorioTiendas repositorioTiendas,
             IGeneradorUrlsParaColeccionesImagenes generadorUrlsImagenes)
         {
-            _repositorioRecompensas = repositorioRecompensas;
             _repositorioTiendas = repositorioTiendas;
             _generadorUrlsParaColecciones = generadorUrlsImagenes;
         }
 
-        public async Task<Resultado<IEnumerable<RecompensaDto>>> EjecutarAsync(string tiendaIdString)
+        public async Task<Resultado<IEnumerable<RecompensaDto>>> EjecutarAsync(int tiendaId)
         {
-            if (!int.TryParse(tiendaIdString, out int tiendaId))
-                return Resultado<IEnumerable<RecompensaDto>>.Falla(
-                    new Error("Error.InvalidId", $"ID de tienda inválido: '{tiendaIdString}'"));
 
             var resultadoTienda = await _repositorioTiendas.GetByIdAsync(tiendaId);
             if (resultadoTienda.EsFallo)
-                return Resultado<IEnumerable<RecompensaDto>>.Falla(
-                    new Error("Error.NotFound", "No se encontró la tienda especificada."));
+                return Resultado<IEnumerable<RecompensaDto>>.Falla(resultadoTienda.Errores);
 
-            var resultadoLista = await _repositorioRecompensas.GetByTiendaIdAsync(tiendaId);
-            if (resultadoLista.EsFallo)
-                return Resultado<IEnumerable<RecompensaDto>>.Falla(
-                    new Error("Error.Unexpected", "Error al obtener recompensas: "));
+            var recompensas = resultadoTienda.Valor.Recompesas;
 
-            var entidades = resultadoLista.Valor!;
-
-            IEnumerable<RecompensaDto> dtos = entidades
+            IEnumerable<RecompensaDto> dtos = recompensas
                 .Select(r => RecompensaMapper.ToDto(r))
                 .ToList();
 
