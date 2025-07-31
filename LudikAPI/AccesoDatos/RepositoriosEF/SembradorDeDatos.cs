@@ -468,13 +468,15 @@ namespace AccesoDatos.RepositoriosEF
                 { TipoAtributo.ColorGafas, "accessoriesColor-" }
             };
 
-            var datos = new Dictionary<TipoAtributo, string[]> { { TipoAtributo.Pelo, new[] { "bigHair", "bob", "bun", "curly", "curvy", "dreads", "dreads01", "dreads02", "frida", "frizzle", "fro", "froBand", "hat", "hijab", "longButNotTooLong", "miaWallace", "shaggy", "shaggyMullet", "shavedSides", "shortCurly", "shortFlat", "shortRound", "shortWaved", "sides", "straight01", "straight02", "straightAndStrand", "theCaesar", "theCaesarAndSidePart", "turban", "winterHat1", "winterHat02", "winterHat03", "winterHat04" } },
-                { TipoAtributo.Cejas, new[] { "angry", "angryNatural", "default", "defaultNatural", "flatNatural", "frownNatural", "raisedExcited", "raisedExcitedNatural", "sadConcerned", "sadConcernedNatural", "unibrowNatural", "upDown", "upDownNatural" } },
-                { TipoAtributo.Ojos, new[] { "closed", "cry", "default", "eyeRoll", "happy", "hearts", "side", "squint", "surprised", "wink", "winkWacky", "xDizzy" } },
-                { TipoAtributo.Boca, new[] { "concerned", "default", "disbelief", "eating", "grimace", "sad", "screamOpen", "serious", "smile", "tongue", "twinkle" } },
-                { TipoAtributo.Barba, new[] { "beardLight", "beardMajestic", "beardMedium", "moustacheFancy", "moustacheMagnum" } },
-                { TipoAtributo.Gafas, new[] { "eyepatch", "kurt", "prescription01", "prescription02", "round", "sunglasses", "wayfarers" } },
-                { TipoAtributo.Ropa, new[] { "blazerAndShirt", "blazerAndSweater", "collarAndSweater", "graphicShirt", "hoodie", "overall", "shirtCrewNeck", "shirtScoopNeck", "shirtVNeck" } },
+            var datos = new Dictionary<TipoAtributo, string[]>
+            {
+                { TipoAtributo.Pelo, new[] { "curly", "curvy", "dreads", "dreads01", "dreads02", "frida", "frizzle", "fro", "froBand", "longButNotTooLong" } },
+                { TipoAtributo.Cejas, new[] { "angryNatural", "defaultNatural", "flatNatural", "frownNatural", "raisedExcitedNatural", "sadConcernedNatural", "unibrowNatural", "upDownNatural" } },
+                { TipoAtributo.Ojos, new[] { "closed", "cry", "default", "happy", "hearts", "side", "squint", "surprised", "wink", "winkWacky", "xDizzy" } },
+                { TipoAtributo.Boca, new[] { "concerned", "default", "disbelief", "eating", "grimace", "sad", "screamOpen" } },
+                { TipoAtributo.Barba, new string[] { } },
+                { TipoAtributo.Gafas, new[] { "eyepatch", "kurt", "none", "prescription01", "prescription02", "round", "sunglasses", "wayfarers" } },
+                { TipoAtributo.Ropa, new[] { "blazerAndShirt", "blazerAndSweater", "collarAndSweater", "hoodie", "overall", "shirtCrewNeck", "shirtScoopNeck", "shirtVNeck" } },
                 { TipoAtributo.ColorPiel, new[] { "614335", "ae5d29", "d08b5b", "edb98a", "f8d25c", "fd9841", "ffdbb4" } },
                 { TipoAtributo.ColorPelo, new[] { "2c1b18", "4a312c", "724133", "a55728", "b58143", "c93305", "d6b370", "e8e1e1", "ecdcbf", "f59797" } },
                 { TipoAtributo.ColorBarba, new[] { "2c1b18", "4a312c", "724133", "a55728", "b58143", "c93305", "d6b370", "e8e1e1", "ecdcbf", "f59797" } },
@@ -508,16 +510,15 @@ namespace AccesoDatos.RepositoriosEF
         // --- MÉTODO PARA ASIGNAR ATRIBUTOS POR DEFECTO ---
         private static List<AtributoAvatar> AsignarAvatarPorDefecto(ModelBuilder modelBuilder, List<AtributoAvatar> atributos)
         {
-            // Objeto auxiliar con los códigos únicos de los atributos por defecto
             var avatarPorDefecto = new
             {
-                Pelo = "shortFlat",
-                Ojos = "default",
-                Cejas = "defaultNatural",
-                Boca = "smile",
-                Ropa = "shirtVNeck",
-                Gafas = "sunglasses",
-                Barba = "beardLight",
+                Pelo = "curly",             
+                Ojos = "default",           
+                Cejas = "defaultNatural",   
+                Boca = "default",           
+                Ropa = "shirtVNeck",        
+                Gafas = "sunglasses",       
+                Barba = "",                 
                 ColorPiel = "edb98a",
                 ColorPelo = "a55728",
                 ColorRopa = "3c4f5c",
@@ -534,8 +535,6 @@ namespace AccesoDatos.RepositoriosEF
                 atributos.First(a => a.Tipo == TipoAtributo.Boca && a.CodigoUnico == avatarPorDefecto.Boca),
                 atributos.First(a => a.Tipo == TipoAtributo.Ropa && a.CodigoUnico == avatarPorDefecto.Ropa),
                 atributos.First(a => a.Tipo == TipoAtributo.Gafas && a.CodigoUnico == avatarPorDefecto.Gafas),
-                atributos.First(a => a.Tipo == TipoAtributo.Barba && a.CodigoUnico == avatarPorDefecto.Barba),
-
                 atributos.First(a => a.Tipo == TipoAtributo.ColorPiel && a.CodigoUnico == avatarPorDefecto.ColorPiel),
                 atributos.First(a => a.Tipo == TipoAtributo.ColorPelo && a.CodigoUnico == avatarPorDefecto.ColorPelo),
                 atributos.First(a => a.Tipo == TipoAtributo.ColorRopa && a.CodigoUnico == avatarPorDefecto.ColorRopa),
