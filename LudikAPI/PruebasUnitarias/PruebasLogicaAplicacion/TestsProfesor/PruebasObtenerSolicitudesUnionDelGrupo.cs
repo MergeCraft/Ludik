@@ -113,7 +113,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
 
             _repoSolicitudesMock
                 .Setup(r => r.ObtenerSolicitudesPendientesPorGrupoAsync(grupoId))
-                .ReturnsAsync(new List<SolicitudUnion>()); // sin solicitudes pendientes
+                .ReturnsAsync(new List<LogicaNegocio.Entidades.SolicitudUnion>()); // sin solicitudes pendientes
 
             var casoUso = new ObtenerSolicitudesUnionDelGrupo(
                 _repoGruposMock.Object,
@@ -138,14 +138,14 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
             string profesorId = "profY";
             var fecha1 = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-1));
             var fecha2 = DateOnly.FromDateTime(DateTime.UtcNow);
-            var solicitud1 = new SolicitudUnion
+            var solicitud1 = new LogicaNegocio.Entidades.SolicitudUnion
             {
                 EstudianteId = "est1",
                 Fecha = fecha1,
                 Estado = EstadoSolicitud.Pendiente,
                 GrupoId = grupoId
             };
-            var solicitud2 = new SolicitudUnion
+            var solicitud2 = new LogicaNegocio.Entidades.SolicitudUnion
             {
                 EstudianteId = "est2",
                 Fecha = fecha2,
@@ -169,7 +169,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
 
             _repoSolicitudesMock
                 .Setup(r => r.ObtenerSolicitudesPendientesPorGrupoAsync(grupoId))
-                .ReturnsAsync(new List<SolicitudUnion> { solicitud1, solicitud2 });
+                .ReturnsAsync(new List<LogicaNegocio.Entidades.SolicitudUnion> { solicitud1, solicitud2 });
 
             var casoUso = new ObtenerSolicitudesUnionDelGrupo(
                 _repoGruposMock.Object,

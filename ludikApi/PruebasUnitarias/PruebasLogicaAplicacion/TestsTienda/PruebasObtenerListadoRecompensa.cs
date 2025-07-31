@@ -20,17 +20,26 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTienda
     {
         private readonly Mock<IRepositorioRecompensas> _mockRepoRec;
         private readonly Mock<IRepositorioTiendas> _mockRepoTiendas;
+        private readonly Mock<IRepositorioAlmacenamientoArchivos> _mockRepoArchivos;
         private readonly IGeneradorUrlsParaColeccionesImagenes _generadorUrlsParaColecciones;
         private readonly ObtenerListadoRecompensa _useCase;
-        private const string ProfesorId = "unused"; 
 
         public PruebasObtenerListadoRecompensa()
         {
             _mockRepoRec = new Mock<IRepositorioRecompensas>();
             _mockRepoTiendas = new Mock<IRepositorioTiendas>();
+            _mockRepoArchivos = new Mock<IRepositorioAlmacenamientoArchivos>();
+
+            // Mock de ObtenerArchivoSasUrlAsync
+            _mockRepoArchivos
+                .Setup(r => r.ObtenerArchivoSasUrlAsync(It.IsAny<string>()))
+                .ReturnsAsync((string nombreArchivo) =>
+                    Resultado<string>.Exitoso($"url-fake/{nombreArchivo}"));
+
             _generadorUrlsParaColecciones =
                 new GeneradorUrlsParaColeccionesImagenes(
-                    new GeneradorUrlImagen(new Mock<IRepositorioAlmacenamientoArchivos>().Object));
+                    new GeneradorUrlImagen(_mockRepoArchivos.Object));
+
             _useCase = new ObtenerListadoRecompensa(
                 _mockRepoRec.Object,
                 _mockRepoTiendas.Object,
@@ -91,13 +100,14 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTienda
             var tienda = new Tienda { Id = 20 };
             var recompensas = new[]
             {
-                new RecompensaSimple { Id = 1, Nombre="R1", Precio=5, NombreImagenCompleta="c1", NombreImagenMiniatura="m1" },
-                new RecompensaSimple { Id = 2, Nombre="R2", Precio=10, NombreImagenCompleta="c2", NombreImagenMiniatura="m2"}
+                new RecompensaSimple { Id = 1, Nombre = "R1", Precio = 5, NombreImagenCompleta = "c1", NombreImagenMiniatura = "m1" },
+                new RecompensaSimple { Id = 2, Nombre = "R2", Precio = 10, NombreImagenCompleta = "c2", NombreImagenMiniatura = "m2" }
             };
 
             _mockRepoTiendas
                 .Setup(r => r.GetByIdAsync(20))
                 .ReturnsAsync(Resultado<Tienda>.Exitoso(tienda));
+
             _mockRepoRec
                 .Setup(r => r.GetByTiendaIdAsync(20))
                 .ReturnsAsync(Resultado<IEnumerable<LogicaNegocio.Entidades.Recompensa>>.Exitoso(recompensas));
@@ -111,13 +121,14 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTienda
             Assert.Contains(lista, dto =>
                 dto.Nombre == "R1" &&
                 dto.Precio == 5 &&
-                dto.EnlaceImagenCompleta == "c1" &&
-                dto.EnlaceImagenMiniatura == "m1");
+                dto.EnlaceImagenCompleta == "url-fake/c1" &&
+                dto.EnlaceImagenMiniatura == "url-fake/m1");
+
             Assert.Contains(lista, dto =>
                 dto.Nombre == "R2" &&
                 dto.Precio == 10 &&
-                dto.EnlaceImagenCompleta == "c2" &&
-                dto.EnlaceImagenMiniatura == "m2");
+                dto.EnlaceImagenCompleta == "url-fake/c2" &&
+                dto.EnlaceImagenMiniatura == "url-fake/m2");
         }
     }
 }

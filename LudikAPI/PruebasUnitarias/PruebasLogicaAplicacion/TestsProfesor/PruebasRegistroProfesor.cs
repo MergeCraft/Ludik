@@ -9,6 +9,7 @@ using LogicaAplicacion.Servicios;
 using LogicaNegocio.ValueObjects;
 using LogicaNegocio.Excepciones;
 using Microsoft.AspNetCore.Identity;
+using LogicaNegocio.Resultados;
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
 {
@@ -42,62 +43,41 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
             Assert.Contains(resultado.Errores, e => e.Mensaje.Contains("no pueden ser nulos"));
         }
 
-        //[Fact]
-        //public async Task EjecutarAsync_NombreUsuarioExiste_DevuelveResultadoFallido()
-        //{
-        //    // Arrange
-        //    var dto = new ProfesorAltaDto
-        //    {
-        //        Correo = "pepito@Entidad.com",
-        //        NombreUsuario = "pepito123",
-        //        Nombre = "Pepito",
-        //        Apellido = "González",
-        //        Contrasenia = "Abc12345!"
-        //    };
+        [Fact]
+        public async Task EjecutarAsync_NombreUsuarioExiste_DevuelveResultadoFallido()
+        {
+            // Arrange
+            var dto = new ProfesorAltaDto
+            {
+                Correo = "pepito@Entidad.com",
+                NombreUsuario = "pepito123",
+                Nombre = "Pepito",
+                Apellido = "González",
+                Contrasenia = "Abc12345!"
+            };
 
-        //    _userManagerMock.Setup(x => x.FindByNameAsync("pepito123"))
-        //        .ReturnsAsync(new Usuario()); // Usuario ya existe
+            // Simulamos que ya existe un usuario con ese username
+            _userManagerMock
+                .Setup(x => x.FindByNameAsync("pepito123"))
+                .ReturnsAsync(new Usuario());
 
-        //    var service = new AltaProfesor(_userManagerMock.Object);
+            // IMPORTANTE: le pasamos también el mock de servicioCrearObjetos, aunque no se use aquí
+            var service = new AltaProfesor(
+                _userManagerMock.Object,
+                _servicioCrearObjetosMock.Object);
 
-        //    // Act
-        //    var resultado = await service.EjecutarAsync(dto);
+            // Act
+            var resultado = await service.EjecutarAsync(dto);
 
-        //    // Assert
-        //    Assert.False(resultado.EsExitoso);
-        //    Assert.Contains(resultado.Errores, e => e.Codigo == "Conflict");
-        //    Assert.Contains(resultado.Errores, e => e.Mensaje.Contains("El nombre de usuario ya está en uso."));
-        //}
+            // Assert
+            Assert.False(resultado.EsExitoso);
+            Assert.Contains(resultado.Errores, e => e.Codigo == Error.Conflict.Codigo);
+            Assert.Contains(resultado.Errores, e => e.Mensaje.Contains("ya está en uso"));
 
-        //[Fact]
-        //public async Task EjecutarAsync_EmailExiste_DevuelveResultadoFallido()
-        //{
-        //    // Arrange
-        //    var dto = new ProfesorAltaDto
-        //    {
-        //        Correo = "pepito@Entidad.com",
-        //        NombreUsuario = "pepito123",
-        //        Nombre = "Pepito",
-        //        Apellido = "González",
-        //        Contrasenia = "Abc12345!"
-        //    };
-
-        //    _userManagerMock.Setup(x => x.FindByNameAsync("pepito123"))
-        //        .ReturnsAsync((Usuario)null!);
-        //    _userManagerMock.Setup(x => x.FindByEmailAsync("pepito@Entidad.com"))
-        //        .ReturnsAsync(new Usuario()); // Email ya registrado
-
-        //    var service = new AltaProfesor(_userManagerMock.Object);
-
-        //    // Act
-        //    var resultado = await service.EjecutarAsync(dto);
-
-        //    // Assert
-        //    Assert.False(resultado.EsExitoso);
-        //    Assert.Contains(resultado.Errores, e => e.Codigo == "Conflict");
-        //    Assert.Contains(resultado.Errores, e =>
-        //    e.Mensaje.Contains("correo electrónico ya está en uso", StringComparison.OrdinalIgnoreCase));
-        //}
+            // Verificamos que NO se intentó crear usuario ni asignar rol
+            _userManagerMock.Verify(x => x.CreateAsync(It.IsAny<Usuario>(), It.IsAny<string>()), Times.Never);
+            _userManagerMock.Verify(x => x.AddToRoleAsync(It.IsAny<Usuario>(), It.IsAny<string>()), Times.Never);
+        }
 
         [Fact]
         public async Task EjecutarAsync_DatosValidos_CreaUsuarioYAsignaRol()
@@ -121,7 +101,24 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
             _userManagerMock.Setup(x => x.AddToRoleAsync(It.IsAny<Usuario>(), "Profesor"))
                 .ReturnsAsync(IdentityResult.Success);
 
-            var service = new AltaProfesor(_userManagerMock.Object, _servicioCrearObjetosMock.Object);
+            // **Aquí los setups correctos con Profesor, no Usuario**
+            _servicioCrearObjetosMock
+                .Setup(s => s.CrearMedallasPredeterminadas(It.IsAny<LogicaNegocio.Entidades.Profesor>()))
+                .Returns(new List<LogicaNegocio.Entidades.Medalla>());  // devuelve lista vacía
+
+            _servicioCrearObjetosMock
+                .Setup(s => s.CrearTablasEquivalenciaPredeterminadas(
+                    It.IsAny<LogicaNegocio.Entidades.Profesor>(),
+                    It.IsAny<List<LogicaNegocio.Entidades.Medalla>>()))
+                .Returns(new List<TablaEquivalencia>());  // idem
+
+            _userManagerMock
+                .Setup(x => x.UpdateAsync(It.IsAny<Usuario>()))
+                .ReturnsAsync(IdentityResult.Success);
+
+            var service = new AltaProfesor(
+                _userManagerMock.Object,
+                _servicioCrearObjetosMock.Object);
 
             // Act
             var resultado = await service.EjecutarAsync(dto);
@@ -130,6 +127,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Profesor
             Assert.True(resultado.EsExitoso);
             _userManagerMock.Verify(x => x.CreateAsync(It.IsAny<Usuario>(), "Secret#123"), Times.Once);
             _userManagerMock.Verify(x => x.AddToRoleAsync(It.IsAny<Usuario>(), "Profesor"), Times.Once);
+            _userManagerMock.Verify(x => x.UpdateAsync(It.IsAny<Usuario>()), Times.Once);
         }
         [Fact]
         public async Task EjecutarAsync_CreacionUsuarioFalla_DevuelveErroresDeIdentity()

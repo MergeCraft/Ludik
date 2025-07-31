@@ -1,134 +1,202 @@
-﻿using LogicaNegocio.Entidades;
-using InterfacesRepositorio;
-using LogicaAplicacion.DTOs.UsuarioDTOs;
-using LogicaNegocio.Excepciones;
-using LogicaNegocio.ValueObjects;
+﻿using LogicaAplicacion.DTOs.UsuarioDTOs;
+using LogicaAplicacion.ImplementacionCasosUsos.Login;
+using LogicaAplicacion.InterfacesCasosUsos.Jwt;
+using LogicaNegocio.Entidades;
+using Microsoft.AspNetCore.Identity;
 using Moq;
-using Xunit;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion
 {
     public class PruebasLogin
     {
-        //private readonly Mock<IRepositorioUsuarios> _repoMock;
-        //private readonly Login _service;
+        private readonly Mock<UserManager<Usuario>> _mockUserManager;
+        private readonly Mock<SignInManager<Usuario>> _mockSignInManager;
+        private readonly Mock<IManejadorJwt> _mockManejadorJwt;
+        private readonly LoginUsuario _service;
 
-        //public PruebasLogin()
-        //{
-        //    _repoMock = new Mock<IRepositorioUsuarios>();
-        //    _service = new Login(_repoMock.Object);
-        //}
+        public PruebasLogin()
+        {
+            _mockUserManager = MockUserManager();
+            _mockSignInManager = MockSignInManager(_mockUserManager.Object);
+            _mockManejadorJwt = new Mock<IManejadorJwt>();
 
-        //[Fact]
-        //public async Task Ejecutar_UsuarioExistenteYContraseniaValida_DevuelveDto()
-        //{
-        //    // Arrange
-        //    var plainPwd = "4732mmsi.";
-        //    var usuario = new Profesor
-        //    {
-        //        Id = "1",
-        //        UserName = "pedro25"
-        //    };
+            _service = new LoginUsuario(
+                _mockUserManager.Object,
+                _mockSignInManager.Object,
+                _mockManejadorJwt.Object);
+        }
 
-        //    _repoMock.Setup(r => r.GetUsuarioPorNombreAsync("pedro25"))
-        //        .ReturnsAsync(usuario);
+        [Fact]
+        public async Task EjecutarAsync_LoginExitoso_RetornaDtoConToken()
+        {
+            // Arrange
+            var loginDto = new LoginSolicitudDto
+            {
+                NombreUsuario = "usuario1",
+                Contrasenia = "clave123"
+            };
+            var usuario = new Usuario
+            {
+                Id = "id1",
+                UserName = "usuario1"
+            };
 
-        //    _repoMock.Setup(r => r.VerificarContrasenaAsync(usuario, plainPwd))
-        //        .ReturnsAsync(true);
+            _mockSignInManager
+                .Setup(s => s.PasswordSignInAsync(loginDto.NombreUsuario, loginDto.Contrasenia, false, true))
+                .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.Success);
 
-        //    _repoMock.Setup(r => r.GetRolesAsync(usuario))
-        //        .ReturnsAsync(new List<string> { "Profesor" });
+            _mockUserManager
+                .Setup(u => u.FindByNameAsync(loginDto.NombreUsuario))
+                .ReturnsAsync(usuario);
 
-        //    // Act
-        //    var result = await _service.Ejecutar("pedro25", plainPwd);
+            _mockUserManager
+                .Setup(u => u.GetRolesAsync(usuario))
+                .ReturnsAsync(new List<string> { "Profesor" });
 
-        //    // Assert
-        //    Assert.NotNull(result);
-        //    Assert.Equal("pedro25", result.NombreUsuario);
-        //    Assert.Equal("1", result.Id);
-        //    Assert.Equal("Profesor", result.Rol);
-        //}
+            _mockManejadorJwt
+                .Setup(j => j.GenerarToken(usuario.Id, usuario.UserName, "Profesor"))
+                .Returns("token-fake");
 
-        //[Fact]
-        //public async Task Ejecutar_UsuarioNoExiste_LanzaUsuarioNoValidoException()
-        //{
-        //    // Arrange
-        //    _repoMock.Setup(r => r.GetUsuarioPorNombreAsync("invitado"))
-        //        .ReturnsAsync((Usuario)null!);
+            // Act
+            var resultado = await _service.EjecutarAsync(loginDto);
 
-        //    // Act & Assert
-        //    await Assert.ThrowsAsync<UsuarioNoValidoException>(
-        //        () => _service.Ejecutar("invitado", "cualquier"));
-        //}
+            // Assert
+            Assert.True(resultado.EsExitoso);
+            Assert.NotNull(resultado.Valor);
+            Assert.Equal("usuario1", resultado.Valor.NombreUsuario);
+            Assert.Equal("id1", resultado.Valor.Id);
+            Assert.Equal("Profesor", resultado.Valor.Rol);
+            Assert.Equal("token-fake", resultado.Valor.Token);
+        }
 
-        //[Fact]
-        //public async Task Ejecutar_ContraseniaIncorrecta_LanzaContraseniaNoValidaException()
-        //{
-        //    // Arrange
-        //    var usuario = new Profesor
-        //    {
-        //        Id = "2",
-        //        UserName = "julioprofe"
-        //    };
+        [Fact]
+        public async Task EjecutarAsync_LoginFallido_RetornaFalla()
+        {
+            // Arrange
+            var loginDto = new LoginSolicitudDto
+            {
+                NombreUsuario = "usuario1",
+                Contrasenia = "clave123"
+            };
 
-        //    _repoMock.Setup(r => r.GetUsuarioPorNombreAsync("julioprofe"))
-        //        .ReturnsAsync(usuario);
+            _mockSignInManager
+                .Setup(s => s.PasswordSignInAsync(loginDto.NombreUsuario, loginDto.Contrasenia, false, true))
+                .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.Failed);
 
-        //    _repoMock.Setup(r => r.VerificarContrasenaAsync(usuario, "incorrecta"))
-        //        .ReturnsAsync(false);
+            // Act
+            var resultado = await _service.EjecutarAsync(loginDto);
 
-        //    // Act & Assert
-        //    await Assert.ThrowsAsync<ContraseniaNoValidaException>(
-        //        () => _service.Ejecutar("julioprofe", "incorrecta"));
-        //}
+            // Assert
+            Assert.True(resultado.EsFallo);
+            Assert.Contains(resultado.Errores, e => e.Codigo == "Error.Validation");
+        }
 
-        //[Fact]
-        //public async Task Ejecutar_UsuarioSinRol_LanzaExcepcion()
-        //{
-        //    // Arrange
-        //    var usuario = new Estudiante
-        //    {
-        //        Id = "3",
-        //        UserName = "sinrol"
-        //    };
+        [Fact]
+        public async Task EjecutarAsync_CuentaBloqueada_RetornaFallaLockout()
+        {
+            // Arrange
+            var loginDto = new LoginSolicitudDto
+            {
+                NombreUsuario = "usuario1",
+                Contrasenia = "clave123"
+            };
 
-        //    _repoMock.Setup(r => r.GetUsuarioPorNombreAsync("sinrol"))
-        //        .ReturnsAsync(usuario);
+            _mockSignInManager
+                .Setup(s => s.PasswordSignInAsync(loginDto.NombreUsuario, loginDto.Contrasenia, false, true))
+                .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.LockedOut);
 
-        //    _repoMock.Setup(r => r.VerificarContrasenaAsync(usuario, "pass123"))
-        //        .ReturnsAsync(true);
+            // Act
+            var resultado = await _service.EjecutarAsync(loginDto);
 
-        //    _repoMock.Setup(r => r.GetRolesAsync(usuario))
-        //        .ReturnsAsync(new List<string>()); // sin roles
+            // Assert
+            Assert.True(resultado.EsFallo);
+            Assert.Contains(resultado.Errores, e => e.Codigo == "Error.Validation" && e.Mensaje.Contains("Cuenta bloqueada"));
+        }
 
-        //    // Act & Assert
-        //    var ex = await Assert.ThrowsAsync<Exception>(
-        //        () => _service.Ejecutar("sinrol", "pass123"));
+        [Fact]
+        public async Task EjecutarAsync_UsuarioNoEncontrado_RetornaFalla()
+        {
+            // Arrange
+            var loginDto = new LoginSolicitudDto
+            {
+                NombreUsuario = "usuario1",
+                Contrasenia = "clave123"
+            };
 
-        //    Assert.Equal("El usuario no tiene un rol asignado.", ex.Message);
-        //}
+            _mockSignInManager
+                .Setup(s => s.PasswordSignInAsync(loginDto.NombreUsuario, loginDto.Contrasenia, false, true))
+                .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.Success);
 
-        //[Fact]
-        //public async Task Ejecutar_ContraseniaNula_LanzaArgumentNullException()
-        //{
-        //    // Arrange
-        //    var usuario = new Estudiante
-        //    {
-        //        Id = "4",
-        //        UserName = "test"
-        //    };
+            _mockUserManager
+                .Setup(u => u.FindByNameAsync(loginDto.NombreUsuario))
+                .ReturnsAsync((Usuario?)null);
 
-        //    _repoMock.Setup(r => r.GetUsuarioPorNombreAsync("test"))
-        //        .ReturnsAsync(usuario);
+            // Act
+            var resultado = await _service.EjecutarAsync(loginDto);
 
-        //    // No hace falta configurar VerificarContrasenaAsync porque lanzará antes
+            // Assert
+            Assert.True(resultado.EsFallo);
+            Assert.Contains(resultado.Errores, e => e.Codigo == "Error.NotFound");
+        }
 
-        //    // Act & Assert
-        //    await Assert.ThrowsAsync<ArgumentNullException>(
-        //        () => _service.Ejecutar("test", null!));
-        //}
+        [Fact]
+        public async Task EjecutarAsync_UsuarioSinRol_RetornaDtoConRolNull()
+        {
+            // Arrange
+            var loginDto = new LoginSolicitudDto
+            {
+                NombreUsuario = "usuario1",
+                Contrasenia = "clave123"
+            };
+
+            var usuario = new Usuario
+            {
+                Id = "id1",
+                UserName = "usuario1"
+            };
+
+            _mockSignInManager
+                .Setup(s => s.PasswordSignInAsync(loginDto.NombreUsuario, loginDto.Contrasenia, false, true))
+                .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.Success);
+
+            _mockUserManager
+                .Setup(u => u.FindByNameAsync(loginDto.NombreUsuario))
+                .ReturnsAsync(usuario);
+
+            _mockUserManager
+                .Setup(u => u.GetRolesAsync(usuario))
+                .ReturnsAsync(new List<string>()); // sin roles
+
+            _mockManejadorJwt
+                .Setup(j => j.GenerarToken(usuario.Id, usuario.UserName, null))
+                .Returns("token-fake");
+
+            // Act
+            var resultado = await _service.EjecutarAsync(loginDto);
+
+            // Assert
+            Assert.True(resultado.EsExitoso);
+            Assert.Null(resultado.Valor!.Rol);
+            Assert.Equal("token-fake", resultado.Valor.Token);
+        }
+
+
+        // Helpers para mockear UserManager y SignInManager
+        private static Mock<UserManager<Usuario>> MockUserManager()
+        {
+            var store = new Mock<IUserStore<Usuario>>();
+            return new Mock<UserManager<Usuario>>(store.Object, null, null, null, null, null, null, null, null);
+        }
+
+        private static Mock<SignInManager<Usuario>> MockSignInManager(UserManager<Usuario> userManager)
+        {
+            var contextAccessor = new Mock<Microsoft.AspNetCore.Http.IHttpContextAccessor>();
+            var userPrincipalFactory = new Mock<IUserClaimsPrincipalFactory<Usuario>>();
+            return new Mock<SignInManager<Usuario>>(userManager,
+                contextAccessor.Object, userPrincipalFactory.Object, null, null, null, null);
+        }
     }
 }
