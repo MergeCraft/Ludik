@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
-    public partial class inicialConDatos : Migration
+    public partial class inicilConNuevaTabla : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -654,6 +654,33 @@ namespace AccesoDatos.Migrations
                         principalTable: "Recompensas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RecompensasDeProfesores",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProfesorId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RecompensaId = table.Column<int>(type: "int", nullable: false),
+                    FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RecompensasDeProfesores", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RecompensasDeProfesores_Profesores_ProfesorId",
+                        column: x => x.ProfesorId,
+                        principalTable: "Profesores",
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RecompensasDeProfesores_Recompensas_RecompensaId",
+                        column: x => x.RecompensaId,
+                        principalTable: "Recompensas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -1602,6 +1629,16 @@ namespace AccesoDatos.Migrations
                 column: "TiendaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RecompensasDeProfesores_ProfesorId",
+                table: "RecompensasDeProfesores",
+                column: "ProfesorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RecompensasDeProfesores_RecompensaId",
+                table: "RecompensasDeProfesores",
+                column: "RecompensaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RendimientoPeriodoMedallas_MedallaId",
                 table: "RendimientoPeriodoMedallas",
                 column: "MedallaId");
@@ -1755,6 +1792,9 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.DropTable(
                 name: "ReclamacionesUsuario");
+
+            migrationBuilder.DropTable(
+                name: "RecompensasDeProfesores");
 
             migrationBuilder.DropTable(
                 name: "RendimientoPeriodoMedallas");

@@ -2296,6 +2296,33 @@ namespace AccesoDatos.Migrations
                         });
                 });
 
+            modelBuilder.Entity("LogicaNegocio.Entidades.ProfesorRecompensa", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ProfesorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("RecompensaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfesorId");
+
+                    b.HasIndex("RecompensaId");
+
+                    b.ToTable("RecompensasDeProfesores");
+                });
+
             modelBuilder.Entity("LogicaNegocio.Entidades.ProyectoAulaColaborativo", b =>
                 {
                     b.Property<int>("Id")
@@ -3753,6 +3780,25 @@ namespace AccesoDatos.Migrations
                     b.Navigation("PreguntaDeSeguridad");
                 });
 
+            modelBuilder.Entity("LogicaNegocio.Entidades.ProfesorRecompensa", b =>
+                {
+                    b.HasOne("LogicaNegocio.Entidades.Profesor", "Profesor")
+                        .WithMany("RecompensasCreadas")
+                        .HasForeignKey("ProfesorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LogicaNegocio.Entidades.Recompensa", "Recompensa")
+                        .WithMany()
+                        .HasForeignKey("RecompensaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Profesor");
+
+                    b.Navigation("Recompensa");
+                });
+
             modelBuilder.Entity("LogicaNegocio.Entidades.ProyectoAulaColaborativo", b =>
                 {
                     b.HasOne("LogicaNegocio.Entidades.Grupo", "Grupo")
@@ -4172,6 +4218,8 @@ namespace AccesoDatos.Migrations
                     b.Navigation("Grupos");
 
                     b.Navigation("Medallas");
+
+                    b.Navigation("RecompensasCreadas");
 
                     b.Navigation("TablasEquivalencia");
                 });

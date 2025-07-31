@@ -69,6 +69,7 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(p => p.Medallas)
                     .Include(p => p.TablasEquivalencia)
                     .Include(p => p.Grupos)
+                    .Include(p => p.RecompensasCreadas )
                     .FirstOrDefaultAsync(p => p.Id == id);
 
                 if (profesor == null)

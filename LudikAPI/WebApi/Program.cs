@@ -203,6 +203,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IRepositorioUmbralesParaMedallasPorKudos, RepositorioUmbralesParaMedallasesPorKudosEF>();
 builder.Services.AddScoped<IRepositorioSolicitudPerfilMedalla, RepositorioSolicitudPerfilMedallaEF>();
 builder.Services.AddScoped<IRepositorioProyectoAulaColaborativo, RepositorioProyectoAulaColaborativoEF>();
+builder.Services.AddScoped<IRepositorioRecompensasDeProfesores, RepositorioRecompensasDeProfesoresEF>();
 
 
 builder.Services.AddAzureClients(clientBuilder =>
@@ -287,8 +288,7 @@ builder.Services.AddScoped<IObtenerProyectoAulaColaborativo, ObtenerProyectoAula
 builder.Services.AddScoped<IObtenerPerfilUsuarioLogueado, ObtenerPerfilUsuarioLogueado>();
 builder.Services.AddScoped<IObtenerPerfilesPorGrupoSinLogueado, ObtenerPerfilesDeGrupoSinIncluirUsuarioLogueado>();
 builder.Services.AddScoped<IObtenerKudos, ObtenerKudos>();
-
-
+builder.Services.AddScoped<IObtenerRecompensasDelProfesor, ObtenerRecompensasDelProfesor>();
 
 
 

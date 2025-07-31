@@ -32,7 +32,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTienda
                 new GeneradorUrlsParaColeccionesImagenes(
                     new GeneradorUrlImagen(new Mock<IRepositorioAlmacenamientoArchivos>().Object));
             _useCase = new ObtenerListadoRecompensa(
-                _mockRepoRec.Object,
                 _mockRepoTiendas.Object,
                 _generadorUrlsParaColecciones
             );
@@ -41,7 +40,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTienda
         [Fact]
         public async Task IdNoEntero_RetornaInvalidId()
         {
-            var resultado = await _useCase.EjecutarAsync("abc");
+            var resultado = await _useCase.EjecutarAsync(10);
 
             Assert.True(resultado.EsFallo);
             Assert.Contains(resultado.Errores, e =>
@@ -58,7 +57,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTienda
                 .Setup(r => r.GetByIdAsync(5))
                 .ReturnsAsync(Resultado<Tienda>.Falla(new Error("X", "")));
 
-            var resultado = await _useCase.EjecutarAsync("5");
+            var resultado = await _useCase.EjecutarAsync(5);
 
             Assert.True(resultado.EsFallo);
             Assert.Contains(resultado.Errores, e =>
@@ -77,7 +76,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTienda
                 .Setup(r => r.GetByTiendaIdAsync(10))
                 .ReturnsAsync(Resultado<IEnumerable<LogicaNegocio.Entidades.Recompensa>>.Falla(new Error("X", "")));
 
-            var resultado = await _useCase.EjecutarAsync("10");
+            var resultado = await _useCase.EjecutarAsync(10);
 
             Assert.True(resultado.EsFallo);
             Assert.Contains(resultado.Errores, e =>
@@ -102,7 +101,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTienda
                 .Setup(r => r.GetByTiendaIdAsync(20))
                 .ReturnsAsync(Resultado<IEnumerable<LogicaNegocio.Entidades.Recompensa>>.Exitoso(recompensas));
 
-            var resultado = await _useCase.EjecutarAsync("20");
+            var resultado = await _useCase.EjecutarAsync(20);
 
             Assert.True(resultado.EsExitoso);
             var lista = resultado.Valor!.ToList();

@@ -13,25 +13,39 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Recompensa
 {
     public class AltaRecompensa:IAltaRecompensa
     {
-        private readonly IRepositorioRecompensas _repositorioRecompensas;
-        private readonly IRepositorioTiendas _repositorioTiendas;
-        public AltaRecompensa(IRepositorioRecompensas repositorioRecompensas, IRepositorioTiendas repositorioTiendas)
+        private readonly IRepositorioProfesores _repositorioProfesores;
+
+        public AltaRecompensa(IRepositorioProfesores repositorioProfesores)
         {
-            _repositorioRecompensas = repositorioRecompensas;
-            _repositorioTiendas = repositorioTiendas;
+            _repositorioProfesores = repositorioProfesores;
         }
+
         public async Task<Resultado> EjecutarAsync(RecompensaAltaDto recompensaDto, string profesorId)
         {
+
             if (recompensaDto == null)
                 return Resultado.Falla(new Error("Error.Validation", "No hay información para poder dar de alta la recompensa."));
+            
 
             var recompensa = RecompensaAltaMapper.fromDto(recompensaDto);
             var resultadoValidacion = recompensa.esValido();
+
             if (resultadoValidacion.EsFallo)
                 return resultadoValidacion;
 
-            await _repositorioRecompensas.AddAsync(recompensa);
-            return Resultado.Exitoso();
+            var resultadoProfesor = await _repositorioProfesores.GetByStringIdAsync(profesorId);
+
+            if (resultadoProfesor.EsFallo)
+                return Resultado.Falla(Error.NotFound);
+            
+            var profesor = resultadoProfesor.Valor;
+            var resultadoAsignarRecompensa = profesor.CrearRecompensa(recompensa);
+
+            if (resultadoAsignarRecompensa.EsFallo)
+                return Resultado.Falla(resultadoAsignarRecompensa.Errores);
+            
+            
+            return await _repositorioProfesores.UpdateAsync(profesor);
         }
     }
 }

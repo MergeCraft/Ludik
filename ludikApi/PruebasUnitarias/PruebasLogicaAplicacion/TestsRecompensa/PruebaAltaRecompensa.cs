@@ -16,6 +16,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
     {
         private readonly Mock<IRepositorioRecompensas> _repoRecMock;
         private readonly Mock<IRepositorioTiendas> _repoTiendaMock;
+        private readonly Mock<IRepositorioProfesores> _repoProfesorMock;
         private readonly AltaRecompensa _casoUso;
         private const string TiendaId = "tienda-1";
         private const string ProfesorId = "prof-1";
@@ -25,7 +26,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
         {
             _repoRecMock = new Mock<IRepositorioRecompensas>();
             _repoTiendaMock = new Mock<IRepositorioTiendas>();
-            _casoUso = new AltaRecompensa(_repoRecMock.Object, _repoTiendaMock.Object);
+            _casoUso = new AltaRecompensa(_repoProfesorMock.Object);
 
             // Preparamos una tienda válida para los tests felices
             _tienda = new Tienda

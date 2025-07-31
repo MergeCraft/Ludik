@@ -16,7 +16,7 @@ public class ProfesorConfiguracion : IEntityTypeConfiguration<Profesor>
             .HasForeignKey<Profesor>(p => p.Id)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // Un Profesor es dueño de sus Medallas, Grupos y Tablas de Equivalencia.
+        // Un Profesor es dueño de sus Medallas, Grupos, Recompensas y Tablas de Equivalencia.
         // Si el Profesor se elimina, todo esto se debe eliminar también.
 
         // Profesor -> Medalla (Uno a Muchos, Cascada)
@@ -33,6 +33,12 @@ public class ProfesorConfiguracion : IEntityTypeConfiguration<Profesor>
 
         // Profesor -> Grupo (Uno a Muchos, Cascada)
         builder.HasMany(prof => prof.Grupos)
+            .WithOne(g => g.Profesor)
+            .HasForeignKey(g => g.ProfesorId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Profesor -> Recompensas (Uno a Muchos, Cascada)
+        builder.HasMany(prof => prof.RecompensasCreadas)
             .WithOne(g => g.Profesor)
             .HasForeignKey(g => g.ProfesorId)
             .OnDelete(DeleteBehavior.Cascade);
