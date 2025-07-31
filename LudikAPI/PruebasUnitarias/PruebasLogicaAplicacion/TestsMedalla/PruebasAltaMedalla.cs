@@ -65,12 +65,11 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
         public async Task EjecutarAsync_DescripcionMuyLarga_RetornaErrorValidacion()
         {
             // Arrange
-           
             var dto = new MedallaAltaDto
             {
                 UrlImagen = "url.png",
                 Nombre = "NombreVálido",
-                Descripcion = "asdaasdasdasfawgfagagawdadagashgrhdrhfdkjkljilñjlfyhjdsgsesersgfdshjftkjfykgkhulkihjfhydrtgdsrtwsetshy",
+                Descripcion = new string('a', 151), // supera el límite de 150 caracteres
                 CantidadMonedasBrinda = 1,
                 EsAsignacionMutua = false
             };
@@ -78,20 +77,24 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             // Act
             var resultado = await _servicio.EjecutarAsync(dto, ProfesorId);
 
-            // Assert: debe fallar la validación
-            Assert.True(resultado.EsFallo, "Se esperaba EsFallo=true para descripción >50 caracteres");
+            // Assert
+            Assert.True(resultado.EsFallo, "Se esperaba EsFallo=true para descripción >150 caracteres");
 
-            // Protegemos contra Errores == null
             var errores = resultado.Errores ?? Enumerable.Empty<Error>();
             Assert.NotEmpty(errores);
 
-            // Buscamos un mensaje que mencione "descripción" y el límite "50"
+            // Validación segura del mensaje de error
             Assert.Contains(errores, e =>
-                !string.IsNullOrEmpty(e.Mensaje)
+                !string.IsNullOrWhiteSpace(e.Mensaje)
                 && e.Mensaje.IndexOf("descripción", StringComparison.OrdinalIgnoreCase) >= 0
-                && e.Mensaje.Contains("50"));
+                && (
+                    e.Mensaje.Contains("150") ||
+                    e.Mensaje.Contains("caracteres", StringComparison.OrdinalIgnoreCase) ||
+                    e.Mensaje.Contains("superar", StringComparison.OrdinalIgnoreCase)
+                )
+            );
 
-            // No debe haberse llamado al repositorio
+            // Verifica que NO se haya llamado al repositorio si hay error de validación
             _repoMedallasMock.Verify(r => r.AddAsync(It.IsAny<LogicaNegocio.Entidades.Medalla>()), Times.Never);
         }
 

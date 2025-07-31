@@ -9,219 +9,234 @@ using LogicaAplicacion.ImplementacionCasosUsos.Medallas;
 using LogicaNegocio.Resultados;
 using Entidad = LogicaNegocio.Entidades;
 
-
 namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
 {
     public class PruebasModificarMedalla
     {
-        //private readonly Mock<IRepositorioMedallas> _repoMedallasMock;
-        //private readonly ModificarMedalla _servicio;
+        private readonly Mock<IRepositorioMedallas> _repoMedallasMock;
+        private readonly ModificarMedalla _servicio;
 
-        //public PruebasModificarMedalla()
-        //{
-        //    _repoMedallasMock = new Mock<IRepositorioMedallas>();
-        //    _servicio = new ModificarMedalla(_repoMedallasMock.Object);
-        //}
+        private const string ProfesorCorrecto = "prof1";
+        private const string ProfesorIncorrecto = "otro";
 
-        //[Fact]
-        //public async Task EjecutarAsync_IdInvalido_RetornaErrorValidacion()
-        //{
-        //    // Arrange
-        //    int idInvalido = 0;
-        //    var dto = new MedallaEditarDto
-        //    {
-        //        Nombre = "NombreValido",
-        //        Descripcion = "Desc",
-        //        UrlImagen = "url",
-        //        CantidadMonedasBrinda = 1,
-        //        EsAsignacionMutua = false
-        //    };
+        public PruebasModificarMedalla()
+        {
+            _repoMedallasMock = new Mock<IRepositorioMedallas>();
+            _servicio = new ModificarMedalla(_repoMedallasMock.Object);
+        }
 
-        //    // Act
-        //    var resultado = await _servicio.EjecutarAsync(idInvalido, dto);
+        [Fact]
+        public async Task EjecutarAsync_IdInvalido_RetornaErrorValidacion()
+        {
+            int idInvalido = 0;
+            var dto = new MedallaEditarDto
+            {
+                Nombre = "NombreValido",
+                Descripcion = "Desc",
+                UrlImagen = "url",
+                CantidadMonedasBrinda = 1,
+                EsAsignacionMutua = false
+            };
 
-        //    // Assert
-        //    Assert.True(resultado.EsFallo);
-        //    // Verificamos que en alguno de los errores aparezca el mensaje de validación de ID inválido
-        //    Assert.True(resultado.Errores.Any(e => e.Mensaje.Contains("ID de la medalla debe ser un entero positivo")));
-        //    _repoMedallasMock.Verify(r => r.GetByIdAsync(It.IsAny<int>()), Times.Never);
-        //}
+            var resultado = await _servicio.EjecutarAsync(idInvalido, dto, ProfesorCorrecto);
 
-        //[Fact]
-        //public async Task EjecutarAsync_DtoNulo_RetornaErrorValidacion()
-        //{
-        //    // Arrange
-        //    int idValido = 5;
+            Assert.True(resultado.EsFallo);
+            Assert.True(resultado.Errores.Any(e => e.Mensaje.Contains("entero positivo")));
+            _repoMedallasMock.Verify(r => r.GetByIdAsync(It.IsAny<int>()), Times.Never);
+        }
 
-        //    // Act
-        //    var resultado = await _servicio.EjecutarAsync(idValido, null);
+        [Fact]
+        public async Task EjecutarAsync_DtoNulo_RetornaErrorValidacion()
+        {
+            var resultado = await _servicio.EjecutarAsync(1, null, ProfesorCorrecto);
 
-        //    // Assert
-        //    Assert.True(resultado.EsFallo);
-        //    Assert.True(resultado.Errores.Any(e => e.Mensaje.Contains("datos para editar la medalla no pueden ser nulos")));
-        //    _repoMedallasMock.Verify(r => r.GetByIdAsync(It.IsAny<int>()), Times.Never);
-        //}
+            Assert.True(resultado.EsFallo);
+            Assert.True(resultado.Errores.Any(e => e.Mensaje.Contains("no pueden ser nulos")));
+            _repoMedallasMock.Verify(r => r.GetByIdAsync(It.IsAny<int>()), Times.Never);
+        }
 
-        //[Fact]
-        //public async Task EjecutarAsync_MedallaNoExiste_RetornaErrorNotFound()
-        //{
-        //    // Arrange
-        //    int id = 10;
-        //    // Simular que GetByIdAsync devuelve Falla por no encontrado
-        //    _repoMedallasMock
-        //        .Setup(r => r.GetByIdAsync(id))
-        //        .ReturnsAsync(Resultado<Entidad.Medalla>.Falla(Error.NotFound));
+        [Fact]
+        public async Task EjecutarAsync_MedallaNoExiste_RetornaErrorNotFound()
+        {
+            int id = 10;
+            _repoMedallasMock
+                .Setup(r => r.GetByIdAsync(id))
+                .ReturnsAsync(Resultado<Entidad.Medalla>.Falla(Error.NotFound));
 
-        //    var dto = new MedallaEditarDto
-        //    {
-        //        Nombre = "NombreValido",
-        //        Descripcion = "Desc",
-        //        UrlImagen = "url",
-        //        CantidadMonedasBrinda = 2,
-        //        EsAsignacionMutua = true
-        //    };
+            var dto = new MedallaEditarDto
+            {
+                Nombre = "NombreValido",
+                Descripcion = "Desc",
+                UrlImagen = "url",
+                CantidadMonedasBrinda = 2,
+                EsAsignacionMutua = true
+            };
 
-        //    // Act
-        //    var resultado = await _servicio.EjecutarAsync(id, dto);
+            var resultado = await _servicio.EjecutarAsync(id, dto, ProfesorCorrecto);
 
-        //    // Assert
-        //    Assert.True(resultado.EsFallo);
-        //    // Verificamos mensaje de not found con ID
-        //    Assert.True(resultado.Errores.Any(e => e.Mensaje.Contains($"No se encontró ninguna medalla con ID {id}")));
-        //    _repoMedallasMock.Verify(r => r.GetByIdAsync(id), Times.Once);
-        //    _repoMedallasMock.Verify(r => r.UpdateAsync(It.IsAny<Entidad.Medalla>()), Times.Never);
-        //}
+            Assert.True(resultado.EsFallo);
+            Assert.True(resultado.Errores.Any(e => e.Mensaje.Contains($"ID {id}")));
+            _repoMedallasMock.Verify(r => r.GetByIdAsync(id), Times.Once);
+            _repoMedallasMock.Verify(r => r.UpdateAsync(It.IsAny<Entidad.Medalla>()), Times.Never);
+        }
 
-        //[Fact]
-        //public async Task EjecutarAsync_ValidacionFalla_NoLlamaUpdate()
-        //{
-        //    // Arrange
-        //    int id = 20;
-        //    // Entidad existente válida inicialmente
-        //    var entidad = new Entidad.Medalla
-        //    {
-        //        Id = id,
-        //        NombreImagenMiniatura = "vieja",
-        //        Nombre = "NombreValido",
-        //        Descripcion = "Desc",
-        //        MonedasOtorgadas = 5,
-        //        TieneAsignacionMutua = false
-        //    };
-        //    _repoMedallasMock
-        //        .Setup(r => r.GetByIdAsync(id))
-        //        .ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(entidad));
+        [Fact]
+        public async Task EjecutarAsync_ProfesorNoAutorizado_RetornaForbidden()
+        {
+            int id = 12;
+            var entidad = new Entidad.Medalla
+            {
+                Id = id,
+                Nombre = "NombreValido",
+                Descripcion = "Desc",
+                NombreImagenMiniatura = "icono",
+                MonedasOtorgadas = 5,
+                TieneAsignacionMutua = false,
+                ProfesorId = ProfesorCorrecto
+            };
 
-        //    // DTO con nombre muy corto para provocar fallo en esValido()
-        //    var dto = new MedallaEditarDto
-        //    {
-        //        Nombre = "abc", // <5 caracteres según esValido()
-        //        Descripcion = "DescNueva",
-        //        UrlImagen = "urlNueva",
-        //        CantidadMonedasBrinda = 3,
-        //        EsAsignacionMutua = true
-        //    };
+            _repoMedallasMock
+                .Setup(r => r.GetByIdAsync(id))
+                .ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(entidad));
 
-        //    // Act
-        //    var resultado = await _servicio.EjecutarAsync(id, dto);
+            var dto = new MedallaEditarDto
+            {
+                Nombre = "NombreNuevo",
+                Descripcion = "Descripcion",
+                UrlImagen = "nuevaUrl",
+                CantidadMonedasBrinda = 3,
+                EsAsignacionMutua = false
+            };
 
-        //    // Assert
-        //    Assert.True(resultado.EsFallo);
-        //    // Verificamos mensaje de validación de longitud de nombre
-        //    Assert.True(resultado.Errores.Any(e => e.Mensaje.Contains("al menos 5 caracteres")));
-        //    _repoMedallasMock.Verify(r => r.UpdateAsync(It.IsAny<Entidad.Medalla>()), Times.Never);
-        //}
+            var resultado = await _servicio.EjecutarAsync(id, dto, ProfesorIncorrecto);
 
-        //[Fact]
-        //public async Task EjecutarAsync_Valido_LlamaUpdateYRetornaExitoso()
-        //{
-        //    // Arrange
-        //    int id = 30;
-        //    var entidadOriginal = new Entidad.Medalla
-        //    {
-        //        Id = id,
-        //        NombreImagenMiniatura = "viejaIcono",
-        //        Nombre = "NombreValido",
-        //        Descripcion = "DescOriginal",
-        //        MonedasOtorgadas = 5,
-        //        TieneAsignacionMutua = false
-        //    };
-        //    _repoMedallasMock
-        //        .Setup(r => r.GetByIdAsync(id))
-        //        .ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(entidadOriginal));
+            Assert.True(resultado.EsFallo);
+            Assert.Contains("No tienes permiso", resultado.Errores.First().Mensaje);
+            _repoMedallasMock.Verify(r => r.UpdateAsync(It.IsAny<Entidad.Medalla>()), Times.Never);
+        }
 
-        //    _repoMedallasMock
-        //        .Setup(r => r.UpdateAsync(It.IsAny<Entidad.Medalla>()))
-        //        .ReturnsAsync(Resultado.Exitoso());
+        [Fact]
+        public async Task EjecutarAsync_ValidacionFalla_NoLlamaUpdate()
+        {
+            // Arrange
+            int id = 20;
+            var entidad = new Entidad.Medalla
+            {
+                Id = id,
+                NombreImagenMiniatura = "vieja",
+                Nombre = "NombreValido",
+                Descripcion = "Desc",
+                MonedasOtorgadas = 5,
+                TieneAsignacionMutua = false,
+                ProfesorId = "prof1"   // Asegurarse que esté asignado
+            };
 
-        //    var dto = new MedallaEditarDto
-        //    {
-        //        Nombre = "NombreNuevo",
-        //        Descripcion = "DescNueva",
-        //        UrlImagen = "urlNueva",
-        //        CantidadMonedasBrinda = 10,
-        //        EsAsignacionMutua = true
-        //    };
+            _repoMedallasMock
+                .Setup(r => r.GetByIdAsync(id))
+                .ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(entidad));
 
-        //    // Act
-        //    var resultado = await _servicio.EjecutarAsync(id, dto);
+            var dto = new MedallaEditarDto
+            {
+                Nombre = "ab", // menos de 3 caracteres para provocar fallo en validación
+                Descripcion = "DescNueva",
+                UrlImagen = "urlNueva",
+                CantidadMonedasBrinda = 3,
+                EsAsignacionMutua = true
+            };
 
-        //    // Assert
-        //    Assert.False(resultado.EsFallo);
-        //    _repoMedallasMock.Verify(r => r.GetByIdAsync(id), Times.Once);
-        //    _repoMedallasMock.Verify(r => r.UpdateAsync(It.Is<Entidad.Medalla>(m =>
-        //        m.Id == id &&
-        //        m.Nombre == "NombreNuevo" &&
-        //        m.Descripcion == "DescNueva" &&
-        //        m.NombreImagenMiniatura == "urlNueva" &&
-        //        m.MonedasOtorgadas == 10 &&
-        //        m.TieneAsignacionMutua == true
-        //    )), Times.Once);
-        //}
+            // Act
+            var resultado = await _servicio.EjecutarAsync(id, dto, "prof1");
 
-        //[Fact]
-        //public async Task EjecutarAsync_UpdateFail_PropagaErrorMensaje()
-        //{
-        //    // Arrange
-        //    int id = 40;
-        //    var entidad = new Entidad.Medalla
-        //    {
-        //        Id = id,
-        //        NombreImagenMiniatura = "viejaIcono",
-        //        Nombre = "NombreValido",
-        //        Descripcion = "DescOriginal",
-        //        MonedasOtorgadas = 5,
-        //        TieneAsignacionMutua = false
-        //    };
-        //    _repoMedallasMock
-        //        .Setup(r => r.GetByIdAsync(id))
-        //        .ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(entidad));
+            // Assert
+            Assert.True(resultado.EsFallo);
+            Assert.NotNull(resultado.Errores);
+            Assert.NotEmpty(resultado.Errores);
+            Assert.Contains(resultado.Errores, e => e.Mensaje.Contains("al menos 3 caracteres"));
+            _repoMedallasMock.Verify(r => r.UpdateAsync(It.IsAny<Entidad.Medalla>()), Times.Never);
+        }
 
-        //    var mensajeErrorRepo = "Fallo en actualización BD";
-        //    var errorRepo = new Error("Repositorio.Medalla.Update.DbError", mensajeErrorRepo);
-        //    _repoMedallasMock
-        //        .Setup(r => r.UpdateAsync(It.IsAny<Entidad.Medalla>()))
-        //        .ReturnsAsync(Resultado.Falla(errorRepo));
+        [Fact]
+        public async Task EjecutarAsync_Valido_LlamaUpdateYRetornaExitoso()
+        {
+            int id = 30;
+            var entidad = new Entidad.Medalla
+            {
+                Id = id,
+                Nombre = "NombreViejo",
+                Descripcion = "Desc",
+                NombreImagenMiniatura = "viejaUrl",
+                MonedasOtorgadas = 5,
+                TieneAsignacionMutua = false,
+                ProfesorId = ProfesorCorrecto
+            };
 
-        //    var dto = new MedallaEditarDto
-        //    {
-        //        Nombre = "NombreNuevo",
-        //        Descripcion = "DescNueva",
-        //        UrlImagen = "urlNueva",
-        //        CantidadMonedasBrinda = 8,
-        //        EsAsignacionMutua = false
-        //    };
+            _repoMedallasMock
+                .Setup(r => r.GetByIdAsync(id))
+                .ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(entidad));
 
-        //    // Act
-        //    var resultado = await _servicio.EjecutarAsync(id, dto);
+            _repoMedallasMock
+                .Setup(r => r.UpdateAsync(It.IsAny<Entidad.Medalla>()))
+                .ReturnsAsync(Resultado.Exitoso());
 
-        //    // Assert
-        //    Assert.True(resultado.EsFallo);
-        //    // Verificamos que el mensaje del error de repositorio se propaga en resultado.Errores
-        //    Assert.True(resultado.Errores.Any(e => e.Mensaje.Contains(mensajeErrorRepo)));
-        //    _repoMedallasMock.Verify(r => r.UpdateAsync(It.Is<Entidad.Medalla>(m =>
-        //        m.Id == id &&
-        //        m.Nombre == "NombreNuevo"
-        //    )), Times.Once);
-        //}
+            var dto = new MedallaEditarDto
+            {
+                Nombre = "NombreNuevo",
+                Descripcion = "NuevaDesc",
+                UrlImagen = "nuevaUrl",
+                CantidadMonedasBrinda = 10,
+                EsAsignacionMutua = true
+            };
+
+            var resultado = await _servicio.EjecutarAsync(id, dto, ProfesorCorrecto);
+
+            Assert.False(resultado.EsFallo);
+            _repoMedallasMock.Verify(r => r.UpdateAsync(It.Is<Entidad.Medalla>(m =>
+                m.Id == id &&
+                m.Nombre == dto.Nombre &&
+                m.Descripcion == dto.Descripcion &&
+                m.NombreImagenMiniatura == dto.UrlImagen &&
+                m.MonedasOtorgadas == dto.CantidadMonedasBrinda &&
+                m.TieneAsignacionMutua == dto.EsAsignacionMutua
+            )), Times.Once);
+        }
+
+        [Fact]
+        public async Task EjecutarAsync_UpdateFalla_PropagaError()
+        {
+            int id = 40;
+            var entidad = new Entidad.Medalla
+            {
+                Id = id,
+                Nombre = "NombreViejo",
+                Descripcion = "Desc",
+                NombreImagenMiniatura = "viejaUrl",
+                MonedasOtorgadas = 5,
+                TieneAsignacionMutua = false,
+                ProfesorId = ProfesorCorrecto
+            };
+
+            _repoMedallasMock
+                .Setup(r => r.GetByIdAsync(id))
+                .ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(entidad));
+
+            var mensajeError = "Error al actualizar";
+            _repoMedallasMock
+                .Setup(r => r.UpdateAsync(It.IsAny<Entidad.Medalla>()))
+                .ReturnsAsync(Resultado.Falla(new Error("Repo.Update", mensajeError)));
+
+            var dto = new MedallaEditarDto
+            {
+                Nombre = "NombreNuevo",
+                Descripcion = "NuevaDesc",
+                UrlImagen = "nuevaUrl",
+                CantidadMonedasBrinda = 8,
+                EsAsignacionMutua = true
+            };
+
+            var resultado = await _servicio.EjecutarAsync(id, dto, ProfesorCorrecto);
+
+            Assert.True(resultado.EsFallo);
+            Assert.True(resultado.Errores.Any(e => e.Mensaje.Contains(mensajeError)));
+        }
     }
 }
