@@ -92,10 +92,21 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PruebasPerfilEstudiante
             var eq1 = new Equivalencia { Nota = 1 };
             var eq2 = new Equivalencia { Nota = 2 };
             var tabla = new TablaEquivalencia { Equivalencias = new List<Equivalencia> { eq1, eq2 } };
-            var perfil = new LogicaNegocio.Entidades.PerfilEstudiante { Id = dto.PerfilEstudianteId, EstudianteId = "user-1", Grupo = new LogicaNegocio.Entidades.Grupo { TablaEquivalencia = tabla }, MetaCalificacion = 0 };
+            var perfil = new LogicaNegocio.Entidades.PerfilEstudiante
+            {
+                Id = dto.PerfilEstudianteId,
+                EstudianteId = "user-1",
+                Grupo = new LogicaNegocio.Entidades.Grupo { TablaEquivalencia = tabla },
+                MetaCalificacion = 0
+            };
             _mockPerfilRepo
                 .Setup(r => r.GetByIdAsync(dto.PerfilEstudianteId))
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.PerfilEstudiante>.Exitoso(perfil));
+
+            // Mockear UpdateAsync para que no falle
+            _mockPerfilRepo
+                .Setup(r => r.UpdateAsync(It.IsAny<LogicaNegocio.Entidades.PerfilEstudiante>()))
+                .ReturnsAsync(Resultado.Exitoso());
 
             var res = await _casoUso.EjecutarAsync(dto, "user-1");
 

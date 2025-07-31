@@ -13,14 +13,21 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
     public class PruebasObtenerMedallaPorId
     {
         private readonly Mock<IRepositorioMedallas> _repoMock;
-        private readonly IGeneradorUrlImagen _generadorUrlImagenMock;
+        private readonly Mock<IGeneradorUrlImagen> _generadorUrlImagenMock;
         private readonly ObtenerMedallaPorId _casoUso;
         private const int IdMedalla = 1;
 
         public PruebasObtenerMedallaPorId()
         {
             _repoMock = new Mock<IRepositorioMedallas>();
-            _casoUso = new ObtenerMedallaPorId(_repoMock.Object, _generadorUrlImagenMock);
+            _generadorUrlImagenMock = new Mock<IGeneradorUrlImagen>();
+
+            // Setup básico para que devuelva la misma url que recibe
+            _generadorUrlImagenMock
+                .Setup(g => g.GenerarUrlLecturaAsync(It.IsAny<string>()))
+                .ReturnsAsync((string url) => url);
+
+            _casoUso = new ObtenerMedallaPorId(_repoMock.Object, _generadorUrlImagenMock.Object);
         }
 
         [Fact]
