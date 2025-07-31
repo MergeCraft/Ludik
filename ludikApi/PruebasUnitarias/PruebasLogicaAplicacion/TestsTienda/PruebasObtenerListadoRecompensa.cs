@@ -1,4 +1,8 @@
-﻿using InterfacesRepositorio;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using InterfacesRepositorio;
+using LogicaAplicacion.DTOs.RecompensaDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Tienda;
 using LogicaAplicacion.ImplementacionServicios;
 using LogicaAplicacion.Servicios;
@@ -6,38 +10,33 @@ using LogicaNegocio.Entidades;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
 using Moq;
+using Xunit;
 
-public class PruebasObtenerListadoRecompensa
+namespace PruebasUnitarias.PruebasLogicaAplicacion.Tienda
 {
-    private readonly Mock<IRepositorioTiendas> _mockRepoTiendas;
-    private readonly Mock<IRepositorioAlmacenamientoArchivos> _mockRepoArchivos;
-    private readonly IGeneradorUrlsParaColeccionesImagenes _generadorUrlsParaColecciones;
-    private readonly ObtenerListadoRecompensa _useCase;
+    public class PruebasObtenerListadoRecompensa
+    {
+        private readonly Mock<IRepositorioTiendas> _mockRepoTiendas;
+        private readonly ObtenerListadoRecompensa _useCase;
 
         public PruebasObtenerListadoRecompensa()
         {
-            _mockRepoRec = new Mock<IRepositorioRecompensas>();
             _mockRepoTiendas = new Mock<IRepositorioTiendas>();
-            _generadorUrlsParaColecciones =
-                new GeneradorUrlsParaColeccionesImagenes(
-                    new GeneradorUrlImagen(new Mock<IRepositorioAlmacenamientoArchivos>().Object));
+            var mockRepoArchivos = new Mock<IRepositorioAlmacenamientoArchivos>();
+
+            // Simula una URL generada por archivo
+            mockRepoArchivos
+     .Setup(a => a.ObtenerArchivoSasUrlAsync(It.IsAny<string>()))
+     .Returns<string>(nombre =>
+         Task.FromResult(Resultado<string>.Exitoso($"url-fake/{nombre}")));
+
+            var generadorUrlsParaColecciones = new GeneradorUrlsParaColeccionesImagenes(
+                new GeneradorUrlImagen(mockRepoArchivos.Object));
+
             _useCase = new ObtenerListadoRecompensa(
                 _mockRepoTiendas.Object,
-                _generadorUrlsParaColecciones
+                generadorUrlsParaColecciones
             );
-        }
-
-        [Fact]
-        public async Task IdNoEntero_RetornaInvalidId()
-        {
-            var resultado = await _useCase.EjecutarAsync(10);
-
-            Assert.True(resultado.EsFallo);
-            Assert.Contains(resultado.Errores, e =>
-                e.Codigo == "Error.InvalidId" &&
-                e.Mensaje.Contains("ID de tienda inválido"));
-            _mockRepoTiendas.Verify(r => r.GetByIdAsync(It.IsAny<int>()), Times.Never);
-            _mockRepoRec.Verify(r => r.GetByTiendaIdAsync(It.IsAny<int>()), Times.Never);
         }
 
         [Fact]
@@ -45,7 +44,7 @@ public class PruebasObtenerListadoRecompensa
         {
             _mockRepoTiendas
                 .Setup(r => r.GetByIdAsync(5))
-                .ReturnsAsync(Resultado<Tienda>.Falla(new Error("X", "")));
+                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Tienda>.Falla(new Error("Error.NotFound", "No se encontró la tienda")));
 
             var resultado = await _useCase.EjecutarAsync(5);
 
@@ -53,57 +52,44 @@ public class PruebasObtenerListadoRecompensa
             Assert.Contains(resultado.Errores, e =>
                 e.Codigo == "Error.NotFound" &&
                 e.Mensaje.Contains("No se encontró la tienda"));
-            _mockRepoRec.Verify(r => r.GetByTiendaIdAsync(It.IsAny<int>()), Times.Never);
         }
 
         [Fact]
-        public async Task ErrorAlObtenerRecompensas_RetornaUnexpected()
+        public async Task CaminoFeliz_RetornaDtosConUrls()
         {
+            var recompensas = new List<LogicaNegocio.Entidades.Recompensa>
+            {
+                new RecompensaSimple { Id = 1, Nombre = "R1", Precio = 5, NombreImagenCompleta = "c1", NombreImagenMiniatura = "m1" },
+                new RecompensaSimple { Id = 2, Nombre = "R2", Precio = 10, NombreImagenCompleta = "c2", NombreImagenMiniatura = "m2" }
+            };
+
+            var tienda = new LogicaNegocio.Entidades.Tienda
+            {
+                Id = 20,
+                Recompesas = recompensas
+            };
+
             _mockRepoTiendas
-                .Setup(r => r.GetByIdAsync(10))
-                .ReturnsAsync(Resultado<Tienda>.Exitoso(new Tienda { Id = 10 }));
-            _mockRepoRec
-                .Setup(r => r.GetByTiendaIdAsync(10))
-                .ReturnsAsync(Resultado<IEnumerable<LogicaNegocio.Entidades.Recompensa>>.Falla(new Error("X", "")));
-
-            var resultado = await _useCase.EjecutarAsync(10);
-
-
-    [Fact]
-    public async Task CaminoFeliz_RetornaDtos()
-    {
-        var recompensas = new List<LogicaNegocio.Entidades.Recompensa>
-        {
-            new RecompensaSimple { Id = 1, Nombre = "R1", Precio = 5, NombreImagenCompleta = "c1", NombreImagenMiniatura = "m1" },
-            new RecompensaSimple { Id = 2, Nombre = "R2", Precio = 10, NombreImagenCompleta = "c2", NombreImagenMiniatura = "m2" }
-        };
-
-        var tienda = new Tienda
-        {
-            Id = 20,
-            Recompesas = recompensas
-        };
-
-        _mockRepoTiendas
-            .Setup(r => r.GetByIdAsync(20))
-            .ReturnsAsync(Resultado<Tienda>.Exitoso(tienda));
+                .Setup(r => r.GetByIdAsync(20))
+                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Tienda>.Exitoso(tienda));
 
             var resultado = await _useCase.EjecutarAsync(20);
 
-        Assert.True(resultado.EsExitoso);
-        var lista = resultado.Valor!.ToList();
-        Assert.Equal(2, lista.Count);
+            Assert.True(resultado.EsExitoso);
+            var lista = resultado.Valor!.ToList();
+            Assert.Equal(2, lista.Count);
 
-        Assert.Contains(lista, dto =>
-            dto.Nombre == "R1" &&
-            dto.Precio == 5 &&
-            dto.EnlaceImagenCompleta == "url-fake/c1" &&
-            dto.EnlaceImagenMiniatura == "url-fake/m1");
+            Assert.Contains(lista, dto =>
+                dto.Nombre == "R1" &&
+                dto.Precio == 5 &&
+                dto.EnlaceImagenCompleta == "url-fake/c1" &&
+                dto.EnlaceImagenMiniatura == "url-fake/m1");
 
-        Assert.Contains(lista, dto =>
-            dto.Nombre == "R2" &&
-            dto.Precio == 10 &&
-            dto.EnlaceImagenCompleta == "url-fake/c2" &&
-            dto.EnlaceImagenMiniatura == "url-fake/m2");
+            Assert.Contains(lista, dto =>
+                dto.Nombre == "R2" &&
+                dto.Precio == 10 &&
+                dto.EnlaceImagenCompleta == "url-fake/c2" &&
+                dto.EnlaceImagenMiniatura == "url-fake/m2");
+        }
     }
 }

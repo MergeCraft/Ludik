@@ -74,7 +74,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
                 Materia = "Matemáticas",
                 FCreacion = fechaCreacion,
                 EnlaceUnion = enlace,
-                Tienda = new Tienda { Id = 99 }
+                Tienda = new LogicaNegocio.Entidades.Tienda { Id = 99 }
             };
 
             _repoGruposMock
@@ -131,7 +131,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
                 Materia = null,
                 FCreacion = fechaCreacion,
                 EnlaceUnion = null,
-                Tienda = new Tienda { Id = 0 }
+                Tienda = new LogicaNegocio.Entidades.Tienda { Id = 0 }
             };
 
             _repoGruposMock
