@@ -85,6 +85,23 @@ namespace AccesoDatos.RepositoriosEF
             }
         }
 
+        public async Task<Resultado<Profesor>> ObtenerRecompensasPorProfesorIdAsync(string profesorId)
+        {
+            try
+            {
+                Profesor profesor = await _db.Profesores
+                    .Include(p => p.RecompensasCreadas)
+                    .ThenInclude(rp => rp.Recompensa)
+                    .FirstOrDefaultAsync(p => p.Id == profesorId);
+
+                return Resultado<Profesor>.Exitoso(profesor);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<Profesor>.Falla(new Error("Error.Unexpected", $"Error inesperado al obtener el profesor: {ex.Message}"));
+            }
+        }
+
 
 
         public async Task<Resultado> RemoveAsync(int id)

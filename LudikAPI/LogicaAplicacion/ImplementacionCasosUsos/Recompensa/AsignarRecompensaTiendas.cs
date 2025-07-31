@@ -1,6 +1,7 @@
 ﻿using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.RecompensaDTOs;
 using LogicaAplicacion.InterfacesCasosUsos.Recompensa;
+using LogicaNegocio.Entidades;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
 
@@ -10,20 +11,32 @@ public class AsignarRecompensaTiendas: IAsignarRecompensaTiendas
 {
     private readonly IRepositorioRecompensas _repositorioRecompensas;
     private readonly IRepositorioGrupos _repositorioGrupos;
+    private readonly IRepositorioProfesores _repositorioProfesores;
     private readonly IUnitOfWork _unitOfWork;
 
     public AsignarRecompensaTiendas(
         IRepositorioRecompensas repositorioRecompensas,
         IRepositorioGrupos repositorioGrupos,
+        IRepositorioProfesores repositorioProfesores,
         IUnitOfWork unitOfWork)
     {
         _repositorioRecompensas = repositorioRecompensas;
         _repositorioGrupos = repositorioGrupos;
+        _repositorioProfesores = repositorioProfesores;
         _unitOfWork = unitOfWork;
     }
 
     public async Task<Resultado> EjecutarAsync(RecompensaYGruposDto recompensaYGrupos, string profesorId)
     {
+
+        var resultadoProfesor = await _repositorioProfesores.ObtenerRecompensasPorProfesorIdAsync(profesorId);
+        if (resultadoProfesor.EsFallo)
+            return Resultado.Falla(resultadoProfesor.Errores);
+
+        Profesor profesor = resultadoProfesor.Valor;
+        if(!profesor.TieneRecompensa(recompensaYGrupos.RecompensaId))
+            return Resultado.Falla(new Error("Error.Validation", "La recompensa que desea asignar no te pertenece."));
+
         var resultadoRecompensa = await _repositorioRecompensas.GetByIdAsync(recompensaYGrupos.RecompensaId);
         if (resultadoRecompensa.EsFallo)
             return Resultado.Falla(resultadoRecompensa.Errores);

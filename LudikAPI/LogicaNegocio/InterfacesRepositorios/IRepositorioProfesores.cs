@@ -10,6 +10,7 @@ namespace InterfacesRepositorio
         Task<Resultado<Profesor>> GetByStringIdAsync(string id);
         Task<Resultado<bool>> PerteneceGrupoAsync(string profesorId, int grupoId);
         Task<Resultado<bool>> PoseeMedallaAsync(string profesorId, int medallaId);
+        Task<Resultado<Profesor>> ObtenerRecompensasPorProfesorIdAsync(string profesorId);
     }
 
 }

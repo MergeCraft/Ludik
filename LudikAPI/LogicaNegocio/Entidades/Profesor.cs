@@ -50,6 +50,17 @@ namespace LogicaNegocio.Entidades
 
             return Resultado.Exitoso();
         }
+
+        public bool TieneRecompensa(int recompensaId)
+        {
+            foreach (var recompensaProfesor in RecompensasCreadas)
+            {
+                if (recompensaProfesor.Recompensa.Id == recompensaId)
+                    return true;
+            }
+
+            return false;
+        }
     }
 
 }
