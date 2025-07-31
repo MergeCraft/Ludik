@@ -131,6 +131,15 @@
   color: #7d7d7d;
 }
 
+.activeRecompensas {
+  background-color: var(--secundario);
+  box-shadow: 0 0 1px 1px var(--terciario);
+}
+
+.activeRecompensas svg {
+  color: #c41e3a;
+}
+
 .cerrarSesion {
   position: absolute;
   bottom: 50px;

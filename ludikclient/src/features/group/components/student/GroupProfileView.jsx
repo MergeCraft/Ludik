@@ -1,5 +1,5 @@
 // GroupProfileView.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import BarLoader from "../../../generics/BarLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,6 +16,12 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
   const { data: barraProgreso, isLoading: isLoadingBarra } = useBarraProgresoPerfil(perfil?.id);
 
   const { mutate: setMeta } = useDefinirMetaCalificacion(perfil?.id);
+
+  const [metaTemporal, setMetaTemporal] = useState(perfil.metaCalificacion);
+
+  useEffect(() => {
+    setMetaTemporal(perfil.metaCalificacion);
+  }, [perfil.metaCalificacion]);
 
   const avatarUrl = imagenPerfil?.urlCompleta;
 
@@ -91,14 +97,19 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
           </div>
           <div className={styles.metaContainer}>
             <p>Meta de calificación</p>
-            <input
-              type="number"
-              value={perfil.metaCalificacion}
-              onChange={(e) => setMeta(Number(e.target.value))}
-              className={styles.metaInput}
-              min={barraProgreso?.calificacionMinima || 0}
-              max={barraProgreso?.calificacionMaxima || 100}
-            />
+            <div className={styles.accionesSeleccionMeta}>
+              <input
+                type="number"
+                value={metaTemporal}
+                onChange={(e) => setMetaTemporal(Number(e.target.value))}
+                className={styles.metaInput}
+                min={barraProgreso?.calificacionMinima || 0}
+                max={barraProgreso?.calificacionMaxima || 100}
+              />
+              <button className="button-secondary" onClick={() => setMeta(metaTemporal)} title="Guardar nueva meta">
+                <FontAwesomeIcon icon="fa fa-check" />
+              </button>
+            </div>
           </div>
         </div>
       </section>

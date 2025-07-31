@@ -18,6 +18,7 @@ import GroupPage from "./features/group/GroupPage.jsx";
 import ProfilePage from "./features/profile/ProfilePage.jsx";
 import MedalManagerPage from "./features/medals/MedalManagerPage.jsx";
 import EquivalenceTablePage from "./features/equivalence-table/EquivalenceTablePage.jsx";
+import RewardsPage from "./features/rewards/RewardsPage.jsx";
 
 import PrivateRoute from "./features/routing/PrivateRoute";
 import NotFoundPage from "./features/routing/NotFoundPage";
@@ -51,6 +52,7 @@ function App() {
                   <Route path="profile" element={<ProfilePage />} />
                   <Route path="groups" element={<GroupsPage />} />
                   <Route path="grupo/:id" element={<GroupPage />} />
+                  <Route path="rewards" element={<RewardsPage />} />
                 </Route>
 
                 {/* Ruta catch-all para páginas no encontradas */}

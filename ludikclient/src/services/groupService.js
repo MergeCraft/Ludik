@@ -189,3 +189,45 @@ export const obtenerPacsGrupo = async (grupoId) => {
     throw parseError(error, "Error al obtener los proyectos colaborativos.");
   }
 };
+
+// ─────────────────────────────────────────────
+// 🧱 Umbrales para las medallas obtenias por kudos
+// ─────────────────────────────────────────────
+
+export const obtenerUmbralesMedallas = async (grupoId) => {
+  try {
+    const response = await api.get("/api/ConfiguracionUmbralParaMedallas", {
+      params: { grupoId },
+    });
+    return response.data;
+  } catch (error) {
+    throw parseError(error, "Error al obtener los umbrales de medallas.");
+  }
+};
+
+export const crearUmbralMedalla = async (umbral) => {
+  try {
+    const response = await api.post("/api/ConfiguracionUmbralParaMedallas", umbral);
+    return response.data;
+  } catch (error) {
+    throw parseError(error, "Error al crear el umbral.");
+  }
+};
+
+export const editarUmbralMedalla = async (umbral) => {
+  try {
+    const response = await api.put("/api/ConfiguracionUmbralParaMedallas", umbral);
+    return response.data;
+  } catch (error) {
+    throw parseError(error, "Error al editar el umbral.");
+  }
+};
+
+export const eliminarUmbralMedalla = async (id) => {
+  try {
+    const response = await api.delete(`/api/ConfiguracionUmbralParaMedallas/${id}`);
+    return response.data;
+  } catch (error) {
+    throw parseError(error, "Error al eliminar el umbral.");
+  }
+};

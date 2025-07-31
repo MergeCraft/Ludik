@@ -1,0 +1,22 @@
+.thresholdsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-auto-rows: auto;
+    gap: 10px;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.thresholdsContainer p {
+    text-align: center;
+}
+
+.addThresholdButton {
+    background-color: var(--secundario);
+    border: 2px solid var(--principal);
+    border-radius: 15px;
+    width: 100%;
+    height: 100%;
+    color: var(--principal);
+    cursor: pointer;
+}

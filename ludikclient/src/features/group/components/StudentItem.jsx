@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import genericProfileImage from "../../../assets/genericStudentAvatar.png";
+import genericProfileImage from "../../../assets/genericStudentAvatar2.png";
 import styles from "./StudentItem.module.css";
 
 import { useAsignarMedalla, useEliminarMedalla } from "../hooks/useGrupoMutation";
@@ -10,7 +10,7 @@ import { useAsignarKudo } from "../hooks/useStudentMutation";
 
 import MedalActionMenu from "./MedalActionMenu.jsx";
 
-const StudentItem = ({ perfilEmisorId, student, medals, showProfesorOptions }) => {
+const StudentItem = ({ perfilEmisorId, student, medals, kudos, isLoadingKudos, showProfesorOptions }) => {
   const [selectedMedal, setSelectedMedal] = useState("");
   const [medalAsignationOption, setMedalAsignationOption] = useState(true);
   const [selectedKudo, setSelectedKudo] = useState("");
@@ -130,13 +130,20 @@ const StudentItem = ({ perfilEmisorId, student, medals, showProfesorOptions }) =
                   setSelectedKudo(e.target.value);
                   handleKudoChange(e);
                 }}
+                disabled={isKudoLoading}
               >
                 {isKudoLoading ? (
-                  <option value="">Reconociendo...</option>
+                  <option value="">Cargando reconocimientos...</option>
+                ) : kudos?.length === 0 ? (
+                  <option value="">No hay reconocimientos disponibles</option>
                 ) : (
                   <>
                     <option value="">Reconocimientos</option>
-                    <option value="">No hay tales kudos bro, ai te bes rey</option>
+                    {kudos?.map((kudo) => (
+                      <option key={kudo.id} value={kudo.id}>
+                        {kudo.nombre}
+                      </option>
+                    ))}
                   </>
                 )}
               </select>
@@ -175,6 +182,14 @@ StudentItem.propTypes = {
       })
     ).isRequired,
   }).isRequired,
+  kudos: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      nombre: PropTypes.string.isRequired,
+      enlaceImagenMiniatura: PropTypes.string,
+    })
+  ).isRequired,
+  isLoadingKudos: PropTypes.bool.isRequired,
   medals: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

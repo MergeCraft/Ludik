@@ -153,6 +153,22 @@
     padding: 6px 12px;
 }
 
+.accionesSeleccionMeta {
+    display: flex;
+    gap: 10px;
+}
+
+.accionesSeleccionMeta * {
+    width: 50%;
+}
+
+.accionesSeleccionMeta button {
+    display: flex;
+    padding: 6px 10px;
+    justify-content: center;
+    align-items: center;
+}
+
 .medallasGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -215,4 +231,10 @@
     .resumen div p {
         font-size: small;
     }
+
+    .accionesSeleccionMeta * {
+        width: auto;
+    }
+
+
 }

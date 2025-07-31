@@ -1,5 +1,4 @@
 // hooks/useGrupo.js
-
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import * as Toast from "../../../lib/toastify";
 
@@ -13,15 +12,19 @@ import {
   obtenerGrupo,
   obtenerAlumnosGrupo,
   obtenerSolicitudesUnion,
+  eliminarMedalla,
+  asignarMedalla,
   solicitarUnirseGrupo,
   aceptarSolicitud,
   rechazarSolicitud,
-  asignarMedalla,
-  eliminarMedalla,
   crearPac,
   obtenerPacsGrupo,
+  obtenerUmbralesMedallas,
+  crearUmbralMedalla,
+  editarUmbralMedalla,
+  eliminarUmbralMedalla
 } from "../../../services/groupService";
-
+import { obtenerTiposKudo } from "../../../services/medalService";
 import { obtenerRecompensasTienda, crearRecompensa } from "../../../services/storeService";
 import { obtenerRankings, crearRanking, eliminarRanking, obtenerRankingPorId } from "../../../services/rankingsService";
 
@@ -286,6 +289,71 @@ export const usePacsGrupo = (grupoId) => {
     queryKey: ["pacs", grupoId],
     queryFn: () => obtenerPacsGrupo(grupoId),
     enabled: !!grupoId,
+    onError: manejarErrores,
+  });
+};
+
+// ─────────────────────────────────────────────
+// 🧱 Umbrales para las medallas obtenias por kudos
+// ─────────────────────────────────────────────
+
+export const useUmbralesMedallas = (grupoId) => {
+  return useQuery({
+    queryKey: ["umbralesMedallas", grupoId],
+    queryFn: () => obtenerUmbralesMedallas(grupoId),
+    enabled: !!grupoId,
+    onError: manejarErrores,
+  });
+};
+
+export const useCrearUmbralMedalla = (onSuccessCallback) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: crearUmbralMedalla,
+    onSuccess: (data) => {
+      Toast.notificarExito("Umbral creado correctamente.");
+      queryClient.invalidateQueries(["umbralesMedallas", data.grupoId]);
+      if (onSuccessCallback) onSuccessCallback(data);
+    },
+    onError: manejarErrores,
+  });
+};
+
+export const useEditarUmbralMedalla = (onSuccessCallback) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: editarUmbralMedalla,
+    onSuccess: (data) => {
+      Toast.notificarExito("Umbral editado correctamente.");
+      queryClient.invalidateQueries(["umbralesMedallas", data.grupoId]);
+      if (onSuccessCallback) onSuccessCallback(data);
+    },
+    onError: manejarErrores,
+  });
+};
+
+export const useEliminarUmbralMedalla = (onSuccessCallback) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: eliminarUmbralMedalla,
+    onSuccess: (data, id) => {
+      Toast.notificarExito("Umbral eliminado correctamente.");
+      queryClient.invalidateQueries(["umbralesMedallas"]); // invalida cache
+      if (onSuccessCallback) onSuccessCallback(id);
+    },
+    onError: manejarErrores,
+  });
+};
+
+// ─────────────────────────────────────────────
+// 🧱 Kudos
+// ─────────────────────────────────────────────
+
+export const useTiposKudo = () => {
+  return useQuery({
+    queryKey: ["tiposKudo"],
+    queryFn: obtenerTiposKudo,
+    enabled: true,
     onError: manejarErrores,
   });
 };

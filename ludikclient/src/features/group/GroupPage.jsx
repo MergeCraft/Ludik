@@ -12,7 +12,8 @@ import RewardCreateForm from "./components/store/RewardCreateForm.jsx";
 import GroupProfileView from "./components/student/GroupProfileView.jsx";
 import GroupConfigView from "./components/configs/GroupConfigView.jsx";
 import GroupPacView from "./components/pac/GroupPacView.jsx";
-import { useGrupo, useAlumnosGrupo, useRecompensasTienda } from "./hooks/useGrupoMutation";
+import MedalThresholdView from "./components/medalThreshold/MedalThresholdView.jsx";
+import { useGrupo, useAlumnosGrupo, useRecompensasTienda, useTiposKudo } from "./hooks/useGrupoMutation";
 import { usePerfilGrupo } from "./hooks/useStudentMutation.js";
 
 import { useMedallasProfesor } from "../medals/hooks/useMedalMutation";
@@ -37,9 +38,12 @@ const GroupPage = () => {
 
   const [selectedView, setSelectedView] = useState("alumnos"); // alumnos | tienda | solicitudes
 
+  // Cargar datos del grupo, alumnos, medallas y recompensas
+  // Usar hooks personalizados para obtener los datos necesarios
   const { data: group, isLoading: isLoadingGroup } = useGrupo(groupId);
   const { data: students, isLoading: isLoadingStudents } = useAlumnosGrupo(groupId);
   const { data: medals, isLoading: isLoadingMedals } = useMedallasProfesor(isProfesor);
+  const { data: tiposKudo, isLoading :isLoadingKudos } = useTiposKudo();
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasTienda(group?.idTienda);
   const { data: perfil, isLoadingPerfil } = usePerfilGrupo(groupId, isProfesor);
 
@@ -93,6 +97,11 @@ const GroupPage = () => {
       <label className={getLabelClass("pac")}>
         <input type="radio" value="pac" checked={selectedView === "pac"} onChange={() => setSelectedView("pac")} />
         <FontAwesomeIcon icon="fa-solid fa-handshake" size="xl" />
+      </label>
+
+      <label className={getLabelClass("threshold")}>
+        <input type="radio" value="threshold" checked={selectedView === "threshold"} onChange={() => setSelectedView("threshold")} />
+        <FontAwesomeIcon icon="fa-solid fa-chart-bar" size="xl" />
       </label>
 
       {isProfesor && (
@@ -177,7 +186,7 @@ const GroupPage = () => {
           ) : (
             <div className={style.studentsContainer}>
               {studentsFiltrados?.map((item) => (
-                <StudentItem key={item.id} perfilEmisorId={idPerfilLogueado} student={item} medals={medals} showProfesorOptions={isProfesor} />
+                <StudentItem key={item.id} perfilEmisorId={idPerfilLogueado} student={item} medals={medals} kudos={tiposKudo} isLoadingKudos={isLoadingKudos} showProfesorOptions={isProfesor} />
               ))}
             </div>
           )
@@ -187,6 +196,8 @@ const GroupPage = () => {
           <GroupRankingView setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
         ) : selectedView === "pac" ? (
           <GroupPacView setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
+        ) : selectedView === "threshold" ? (
+          <MedalThresholdView setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
         ) : selectedView === "configs" ? (
           <GroupConfigView id={groupId} group={group} setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} />
         ) : null}

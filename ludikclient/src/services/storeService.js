@@ -29,7 +29,6 @@ export const crearRecompensa = async ({ nombre, rutaImagenCompleta, rutaImagenMi
 export const obtenerRecompensasTienda = async (tiendaId) => {
   try {
     const response = await api.get(`/api/Tienda/${tiendaId}/recompensas`);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     throw parseError(error, "Error al obtener las recompensas de la tienda.");

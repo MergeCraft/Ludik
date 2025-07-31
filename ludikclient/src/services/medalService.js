@@ -55,3 +55,13 @@ export const eliminarMedalla = async (id) => {
     throw parseError(error, "Error al eliminar la medalla.");
   }
 };
+
+
+export const obtenerTiposKudo = async () => {
+  try {
+    const response = await api.get("/api/Kudo");
+    return response.data;
+  } catch (error) {
+    throw parseError(error, "No se pudieron obtener los tipos de kudo.");
+  }
+};
