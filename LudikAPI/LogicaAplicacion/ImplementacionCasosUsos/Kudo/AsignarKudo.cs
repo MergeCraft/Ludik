@@ -30,6 +30,11 @@ public class AsignarKudo: IAsignarKudo
         _repositorioUmbralesParaMedallas = repositorioUmbrales;
         _unitOfWork = unitOfWork;
     }
+
+    public AsignarKudo(IRepositorioPerfilEstudianteGrupo object1, IRepositorioEstudiantes object2, IRepositorioTiposKudo object3, IRepositorioUmbralesParaMedallasPorKudos object4, IUnitOfWork object5)
+    {
+    }
+
     /// <summary>
     /// Asynchronously assigns a kudo from one student to another and evaluates if the recipient qualifies for a medal.
     /// </summary>

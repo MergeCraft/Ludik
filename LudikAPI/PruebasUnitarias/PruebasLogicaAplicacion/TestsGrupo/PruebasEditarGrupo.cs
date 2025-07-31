@@ -197,7 +197,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
                 Institucion = "X",
                 Materia = "Y",
                 TablaEquivalencia = new TablaEquivalencia(),
-                Tienda = new Tienda()
+                Tienda = new LogicaNegocio.Entidades.Tienda()
             };
 
             _repoGruposMock.Setup(r => r.GetByIdAsync(grupoId))
