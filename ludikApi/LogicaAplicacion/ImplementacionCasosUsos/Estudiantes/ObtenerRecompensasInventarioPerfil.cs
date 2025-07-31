@@ -49,8 +49,8 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
                 .ToList();
 
             await _generadorUrlsParaColecciones.EjecutarProcesarUrlsAsync(dtos,
-                (dto => dto.EnlaceImagenMiniatura, (dto, url) => dto.EnlaceImagenMiniatura = url),
-                (dto => dto.EnlaceImagenCompleta, (dto, url) => dto.EnlaceImagenCompleta = url)
+                (dto => dto.NombreImagenMiniatura, (dto, url) => dto.EnlaceImagenMiniatura = url),
+                (dto => dto.NombreImagenCompleta, (dto, url) => dto.EnlaceImagenCompleta = url)
             );
 
             return Resultado<List<RecompensaDto>>.Exitoso(dtos);

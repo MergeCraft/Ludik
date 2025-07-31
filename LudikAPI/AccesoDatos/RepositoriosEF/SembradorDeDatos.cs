@@ -528,13 +528,14 @@ namespace AccesoDatos.RepositoriosEF
             // 1. Encontrar y recolectar los objetos AtributoAvatar por defecto en una lista fuertemente tipada.
             var atributosAsignados = new List<AtributoAvatar>
             {
-                atributos.First(a => a.CodigoUnico == avatarPorDefecto.Pelo),
-                atributos.First(a => a.CodigoUnico == avatarPorDefecto.Ojos),
-                atributos.First(a => a.CodigoUnico == avatarPorDefecto.Cejas),
-                atributos.First(a => a.CodigoUnico == avatarPorDefecto.Boca),
-                atributos.First(a => a.CodigoUnico == avatarPorDefecto.Ropa),
-                atributos.First(a => a.CodigoUnico == avatarPorDefecto.Gafas),
-                atributos.First(a => a.CodigoUnico == avatarPorDefecto.Barba),
+                atributos.First(a => a.Tipo == TipoAtributo.Pelo && a.CodigoUnico == avatarPorDefecto.Pelo),
+                atributos.First(a => a.Tipo == TipoAtributo.Ojos && a.CodigoUnico == avatarPorDefecto.Ojos),
+                atributos.First(a => a.Tipo == TipoAtributo.Cejas && a.CodigoUnico == avatarPorDefecto.Cejas),
+                atributos.First(a => a.Tipo == TipoAtributo.Boca && a.CodigoUnico == avatarPorDefecto.Boca),
+                atributos.First(a => a.Tipo == TipoAtributo.Ropa && a.CodigoUnico == avatarPorDefecto.Ropa),
+                atributos.First(a => a.Tipo == TipoAtributo.Gafas && a.CodigoUnico == avatarPorDefecto.Gafas),
+                atributos.First(a => a.Tipo == TipoAtributo.Barba && a.CodigoUnico == avatarPorDefecto.Barba),
+
                 atributos.First(a => a.Tipo == TipoAtributo.ColorPiel && a.CodigoUnico == avatarPorDefecto.ColorPiel),
                 atributos.First(a => a.Tipo == TipoAtributo.ColorPelo && a.CodigoUnico == avatarPorDefecto.ColorPelo),
                 atributos.First(a => a.Tipo == TipoAtributo.ColorRopa && a.CodigoUnico == avatarPorDefecto.ColorRopa),
