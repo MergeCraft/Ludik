@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
-    public partial class inicialConDatos : Migration
+    public partial class inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -1105,7 +1105,9 @@ namespace AccesoDatos.Migrations
                 values: new object[,]
                 {
                     { 1, "MAT1A25", new DateTime(2026, 4, 15, 10, 30, 0, 0, DateTimeKind.Utc), "https://www.ludik.app/unirse/MAT1A25" },
-                    { 2, "HISTU25", new DateTime(2026, 4, 15, 10, 30, 0, 0, DateTimeKind.Utc), "https://www.ludik.app/unirse/HISTU25" }
+                    { 2, "HISTU25", new DateTime(2026, 4, 15, 10, 30, 0, 0, DateTimeKind.Utc), "https://www.ludik.app/unirse/HISTU25" },
+                    { 3, "MAT2B", new DateTime(2026, 4, 15, 10, 30, 0, 0, DateTimeKind.Utc), "https://www.ludik.app/unirse/FIS2B25" },
+                    { 4, "MATCIENA", new DateTime(2026, 4, 15, 10, 30, 0, 0, DateTimeKind.Utc), "https://www.ludik.app/unirse/QUIgen25" }
                 });
 
             migrationBuilder.InsertData(
@@ -1192,10 +1194,40 @@ namespace AccesoDatos.Migrations
                     { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, "b0c8b6a8-8e6b-4e6a-9e1e-2e0b166a9c76", "cecilia@gmail.com", true, null, false, null, "CECILIA@GMAIL.COM", "CECILIA", "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==", null, false, "STATIC_SECURITY_STAMP_1", false, "cecilia", "Rodríguez", "Carlos" },
                     { "9e445865-a24d-4543-a6c6-9443d048cdb0", 0, "a1d3b5e7-9f2d-4b8c-8a1e-3f0e2d5b4a6b", "laura.fernandez@ludik.edu.uy", true, null, false, null, "LAURA.FERNANDEZ@LUDIK.EDU.UY", "LAURA.FERNANDEZ", "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==", null, false, "STATIC_SECURITY_STAMP_2", false, "laura", "Fernández", "Laura" },
                     { "a1445865-a24d-4543-a6c6-9443d048cdb1", 0, "c4b6e8a0-1d3f-4e9a-9c8e-5d2a4f6b8c0d", null, false, null, false, null, null, "SANTIAGO", "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==", null, false, "STATIC_SECURITY_STAMP_3", false, "santiago", "Pérez", "Santiago" },
+                    { "aB445865-a24d-4543-a6c6-9443d048cdcC", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c1b", null, false, null, false, null, null, "ALEJANDRO", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_29", false, "alejandro", "Pereyra", "Alejandro" },
                     { "b2445865-a24d-4543-a6c6-9443d048cdb2", 0, "d5c7f9b1-2e4g-5f0b-a0d9-6e3b5g7c9d1e", null, false, null, false, null, null, "VALENTINA", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_4", false, "valentina", "Gómez", "Valentina" },
+                    { "bC445865-a24d-4543-a6c6-9443d048cdcD", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c1c", null, false, null, false, null, null, "CAROLINA", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_30", false, "carolina", "Cabrera", "Carolina" },
                     { "c3445865-a24d-4543-a6c6-9443d048cdb3", 0, "e6d80ac2-3f5h-6g1c-b1e0-7f4c6h8d0e2f", null, false, null, false, null, null, "MATIAS", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_5", false, "matias", "González", "Matías" },
+                    { "cD445865-a24d-4543-a6c6-9443d048cdcE", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c1d", null, false, null, false, null, null, "BRUNO", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_31", false, "bruno", "Castillo", "Bruno" },
                     { "d4445865-a24d-4543-a6c6-9443d048cdb4", 0, "f7e91bd3-4g6i-7h2d-c2f1-8g5d7i9e1f3g", null, false, null, false, null, null, "CAMILA", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_6", false, "camila", "Martínez", "Camila" },
-                    { "e5445865-a24d-4543-a6c6-9443d048cdb5", 0, "g8f02ce4-5h7j-8i3e-d3g2-9h6e8j0f2g4h", null, false, null, false, null, null, "LUCAS", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_7", false, "lucas", "Silva", "Lucas" }
+                    { "dE445865-a24d-4543-a6c6-9443d048cdcF", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c1e", null, false, null, false, null, null, "GABRIELA", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_32", false, "gabriela", "Paz", "Gabriela" },
+                    { "e5445865-a24d-4543-a6c6-9443d048cdb5", 0, "g8f02ce4-5h7j-8i3e-d3g2-9h6e8j0f2g4h", null, false, null, false, null, null, "LUCAS", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_7", false, "lucas", "Silva", "Lucas" },
+                    { "eF445865-a24d-4543-a6c6-9443d048cdd0", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c1f", null, false, null, false, null, null, "LEANDRO", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_33", false, "leandro", "Molina", "Leandro" },
+                    { "f0445865-a24d-4543-a6c6-9443d048cdd1", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c20", null, false, null, false, null, null, "ANDREA", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_34", false, "andrea", "Vega", "Andrea" },
+                    { "f6445865-a24d-4543-a6c6-9443d048cdb6", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c06", null, false, null, false, null, null, "SOFIA", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_8", false, "sofia", "Rodríguez", "Sofía" },
+                    { "g1445865-a24d-4543-a6c6-9443d048cdd2", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c21", null, false, null, false, null, null, "GUILLERMO", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_35", false, "guillermo", "Rojas", "Guillermo" },
+                    { "g7445865-a24d-4543-a6c6-9443d048cdb7", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c07", null, false, null, false, null, null, "JUAN", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_9", false, "juan", "García", "Juan" },
+                    { "h2445865-a24d-4543-a6c6-9443d048cdd3", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c22", null, false, null, false, null, null, "JIMENA", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_36", false, "jimena", "Ortiz", "Jimena" },
+                    { "h8445865-a24d-4543-a6c6-9443d048cdb8", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c08", null, false, null, false, null, null, "LUCIA", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_10", false, "lucia", "Sánchez", "Lucía" },
+                    { "i3445865-a24d-4543-a6c6-9443d048cdd4", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c23", null, false, null, false, null, null, "MATEO", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_37", false, "mateo", "Benítez", "Mateo" },
+                    { "i9445865-a24d-4543-a6c6-9443d048cdb9", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c09", null, false, null, false, null, null, "DIEGO", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_11", false, "diego", "López", "Diego" },
+                    { "jA445865-a24d-4543-a6c6-9443d048cdbA", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0a", null, false, null, false, null, null, "MARTINA", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_12", false, "martina", "Díaz", "Martina" },
+                    { "kB445865-a24d-4543-a6c6-9443d048cdbB", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0b", null, false, null, false, null, null, "AGUSTIN", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_13", false, "agustin", "Torres", "Agustín" },
+                    { "lC445865-a24d-4543-a6c6-9443d048cdbC", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0c", null, false, null, false, null, null, "MARIA", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_14", false, "maria", "Romero", "María" },
+                    { "mD445865-a24d-4543-a6c6-9443d048cdbD", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0d", null, false, null, false, null, null, "NICOLAS", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_15", false, "nicolas", "Álvarez", "Nicolás" },
+                    { "nE445865-a24d-4543-a6c6-9443d048cdbE", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0e", null, false, null, false, null, null, "PAULA", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_16", false, "paula", "Ruiz", "Paula" },
+                    { "oF445865-a24d-4543-a6c6-9443d048cdbF", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0f", null, false, null, false, null, null, "FEDERICO", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_17", false, "federico", "Vázquez", "Federico" },
+                    { "p0445865-a24d-4543-a6c6-9443d048cdc0", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c10", null, false, null, false, null, null, "FLORENCIA", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_18", false, "florencia", "Sosa", "Florencia" },
+                    { "q1445865-a24d-4543-a6c6-9443d048cdc1", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c11", null, false, null, false, null, null, "SEBASTIAN", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_19", false, "sebastian", "Castro", "Sebastián" },
+                    { "r2445865-a24d-4543-a6c6-9443d048cdc2", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c12", null, false, null, false, null, null, "VICTORIA", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_20", false, "victoria", "Giménez", "Victoria" },
+                    { "s3445865-a24d-4543-a6c6-9443d048cdc3", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c13", null, false, null, false, null, null, "JOAQUIN", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_21", false, "joaquin", "Acosta", "Joaquín" },
+                    { "t4445865-a24d-4543-a6c6-9443d048cdc4", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c14", null, false, null, false, null, null, "JULIETA", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_22", false, "julieta", "Ramos", "Julieta" },
+                    { "u5445865-a24d-4543-a6c6-9443d048cdc5", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c15", null, false, null, false, null, null, "MANUEL", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_23", false, "manuel", "Herrera", "Manuel" },
+                    { "v6445865-a24d-4543-a6c6-9443d048cdc6", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c16", null, false, null, false, null, null, "ANA", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_24", false, "ana", "Medina", "Ana" },
+                    { "w7445865-a24d-4543-a6c6-9443d048cdc7", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c17", null, false, null, false, null, null, "FACUNDO", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_25", false, "facundo", "Morales", "Facundo" },
+                    { "x8445865-a24d-4543-a6c6-9443d048cdc8", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c18", null, false, null, false, null, null, "DANIELA", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_26", false, "daniela", "Núñez", "Daniela" },
+                    { "y9445865-a24d-4543-a6c6-9443d048cdcA", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c19", null, false, null, false, null, null, "IGNACIO", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_27", false, "ignacio", "Flores", "Ignacio" },
+                    { "zA445865-a24d-4543-a6c6-9443d048cdcB", 0, "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c1a", null, false, null, false, null, null, "ROMINA", "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", null, false, "STATIC_SECURITY_STAMP_28", false, "romina", "Ríos", "Romina" }
                 });
 
             migrationBuilder.InsertData(
@@ -1204,10 +1236,40 @@ namespace AccesoDatos.Migrations
                 values: new object[]
                 {
                     "a1445865-a24d-4543-a6c6-9443d048cdb1",
+                    "aB445865-a24d-4543-a6c6-9443d048cdcC",
                     "b2445865-a24d-4543-a6c6-9443d048cdb2",
+                    "bC445865-a24d-4543-a6c6-9443d048cdcD",
                     "c3445865-a24d-4543-a6c6-9443d048cdb3",
+                    "cD445865-a24d-4543-a6c6-9443d048cdcE",
                     "d4445865-a24d-4543-a6c6-9443d048cdb4",
-                    "e5445865-a24d-4543-a6c6-9443d048cdb5"
+                    "dE445865-a24d-4543-a6c6-9443d048cdcF",
+                    "e5445865-a24d-4543-a6c6-9443d048cdb5",
+                    "eF445865-a24d-4543-a6c6-9443d048cdd0",
+                    "f0445865-a24d-4543-a6c6-9443d048cdd1",
+                    "f6445865-a24d-4543-a6c6-9443d048cdb6",
+                    "g1445865-a24d-4543-a6c6-9443d048cdd2",
+                    "g7445865-a24d-4543-a6c6-9443d048cdb7",
+                    "h2445865-a24d-4543-a6c6-9443d048cdd3",
+                    "h8445865-a24d-4543-a6c6-9443d048cdb8",
+                    "i3445865-a24d-4543-a6c6-9443d048cdd4",
+                    "i9445865-a24d-4543-a6c6-9443d048cdb9",
+                    "jA445865-a24d-4543-a6c6-9443d048cdbA",
+                    "kB445865-a24d-4543-a6c6-9443d048cdbB",
+                    "lC445865-a24d-4543-a6c6-9443d048cdbC",
+                    "mD445865-a24d-4543-a6c6-9443d048cdbD",
+                    "nE445865-a24d-4543-a6c6-9443d048cdbE",
+                    "oF445865-a24d-4543-a6c6-9443d048cdbF",
+                    "p0445865-a24d-4543-a6c6-9443d048cdc0",
+                    "q1445865-a24d-4543-a6c6-9443d048cdc1",
+                    "r2445865-a24d-4543-a6c6-9443d048cdc2",
+                    "s3445865-a24d-4543-a6c6-9443d048cdc3",
+                    "t4445865-a24d-4543-a6c6-9443d048cdc4",
+                    "u5445865-a24d-4543-a6c6-9443d048cdc5",
+                    "v6445865-a24d-4543-a6c6-9443d048cdc6",
+                    "w7445865-a24d-4543-a6c6-9443d048cdc7",
+                    "x8445865-a24d-4543-a6c6-9443d048cdc8",
+                    "y9445865-a24d-4543-a6c6-9443d048cdcA",
+                    "zA445865-a24d-4543-a6c6-9443d048cdcB"
                 });
 
             migrationBuilder.InsertData(
@@ -1248,10 +1310,10 @@ namespace AccesoDatos.Migrations
                     { 15, 52, "Item: ShirtVNeck", "clothing-shirtVNeck.png", "clothing-shirtVNeck.png", 0, "PersonalizacionAvatar", true, null },
                     { 16, 43, "Item: Sunglasses", "accessories-sunglasses.png", "accessories-sunglasses.png", 0, "PersonalizacionAvatar", true, null },
                     { 17, 56, "Item: edb98a", "skinColor-edb98a.png", "skinColor-edb98a.png", 0, "PersonalizacionAvatar", true, null },
-                    { 18, 61, "Item: 4a312c", "hairColor-4a312c.png", "hairColor-4a312c.png", 0, "PersonalizacionAvatar", true, null },
+                    { 18, 60, "Item: 2c1b18", "hairColor-2c1b18.png", "hairColor-2c1b18.png", 0, "PersonalizacionAvatar", true, null },
                     { 19, 80, "Item: 3c4f5c", "clothesColor-3c4f5c.png", "clothesColor-3c4f5c.png", 0, "PersonalizacionAvatar", true, null },
                     { 20, 98, "Item: 25557c", "accessoriesColor-25557c.png", "accessoriesColor-25557c.png", 0, "PersonalizacionAvatar", true, null },
-                    { 21, 71, "Item: 4a312c", "beardColor-4a312c.png", "beardColor-4a312c.png", 0, "PersonalizacionAvatar", true, null }
+                    { 21, 70, "Item: 2c1b18", "beardColor-2c1b18.png", "beardColor-2c1b18.png", 0, "PersonalizacionAvatar", true, null }
                 });
 
             migrationBuilder.InsertData(
@@ -1262,10 +1324,40 @@ namespace AccesoDatos.Migrations
                     { "2c5e174e-3b0e-446f-86af-483d56fd7210", "8e445865-a24d-4543-a6c6-9443d048cdb9" },
                     { "2c5e174e-3b0e-446f-86af-483d56fd7210", "9e445865-a24d-4543-a6c6-9443d048cdb0" },
                     { "3d5e174e-3b0e-446f-86af-483d56fd7211", "a1445865-a24d-4543-a6c6-9443d048cdb1" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "aB445865-a24d-4543-a6c6-9443d048cdcC" },
                     { "3d5e174e-3b0e-446f-86af-483d56fd7211", "b2445865-a24d-4543-a6c6-9443d048cdb2" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "bC445865-a24d-4543-a6c6-9443d048cdcD" },
                     { "3d5e174e-3b0e-446f-86af-483d56fd7211", "c3445865-a24d-4543-a6c6-9443d048cdb3" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "cD445865-a24d-4543-a6c6-9443d048cdcE" },
                     { "3d5e174e-3b0e-446f-86af-483d56fd7211", "d4445865-a24d-4543-a6c6-9443d048cdb4" },
-                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "e5445865-a24d-4543-a6c6-9443d048cdb5" }
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "dE445865-a24d-4543-a6c6-9443d048cdcF" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "e5445865-a24d-4543-a6c6-9443d048cdb5" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "eF445865-a24d-4543-a6c6-9443d048cdd0" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "f0445865-a24d-4543-a6c6-9443d048cdd1" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "f6445865-a24d-4543-a6c6-9443d048cdb6" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "g1445865-a24d-4543-a6c6-9443d048cdd2" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "g7445865-a24d-4543-a6c6-9443d048cdb7" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "h2445865-a24d-4543-a6c6-9443d048cdd3" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "h8445865-a24d-4543-a6c6-9443d048cdb8" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "i3445865-a24d-4543-a6c6-9443d048cdd4" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "i9445865-a24d-4543-a6c6-9443d048cdb9" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "jA445865-a24d-4543-a6c6-9443d048cdbA" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "kB445865-a24d-4543-a6c6-9443d048cdbB" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "lC445865-a24d-4543-a6c6-9443d048cdbC" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "mD445865-a24d-4543-a6c6-9443d048cdbD" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "nE445865-a24d-4543-a6c6-9443d048cdbE" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "oF445865-a24d-4543-a6c6-9443d048cdbF" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "p0445865-a24d-4543-a6c6-9443d048cdc0" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "q1445865-a24d-4543-a6c6-9443d048cdc1" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "r2445865-a24d-4543-a6c6-9443d048cdc2" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "s3445865-a24d-4543-a6c6-9443d048cdc3" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "t4445865-a24d-4543-a6c6-9443d048cdc4" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "u5445865-a24d-4543-a6c6-9443d048cdc5" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "v6445865-a24d-4543-a6c6-9443d048cdc6" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "w7445865-a24d-4543-a6c6-9443d048cdc7" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "x8445865-a24d-4543-a6c6-9443d048cdc8" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "y9445865-a24d-4543-a6c6-9443d048cdcA" },
+                    { "3d5e174e-3b0e-446f-86af-483d56fd7211", "zA445865-a24d-4543-a6c6-9443d048cdcB" }
                 });
 
             migrationBuilder.InsertData(
@@ -1274,16 +1366,16 @@ namespace AccesoDatos.Migrations
                 values: new object[,]
                 {
                     { 1, "Asistencia y participación en todas las clases del mes.", 30, "Participación Perfecta", "medalla_participacion_perfecta.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
-                    { 2, "Ayuda destacada a compañeros en proyectos grupales.", 25, "Maestro de la Colaboración", "medalla_maestro_colaboracion.png", "9e445865-a24d-4543-a6c6-9443d048cdb0", false },
-                    { 3, "Realización de preguntas perspicaces que enriquecen la clase.", 15, "Mente Curiosa", "medalla_mente_curiosa.png", "9e445865-a24d-4543-a6c6-9443d048cdb0", false },
+                    { 2, "Ayuda destacada a compañeros en proyectos grupales.", 25, "Maestro de la Colaboración", "medalla_maestro_colaboracion.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
+                    { 3, "Realización de preguntas perspicaces que enriquecen la clase.", 15, "Mente Curiosa", "medalla_mente_curiosa.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
                     { 4, "Se otorga por ser un pilar de apoyo para tus compañeros. Demuestra que estás siempre dispuesto a ofrecer tu ayuda cuando alguien la necesita.", 20, "Compañerismo", "medalla_companerismo.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
-                    { 5, "Premia a las mentes que nunca dejan de preguntar. Se consigue al realizar preguntas que desafían al grupo y enriquecen el aprendizaje de todos.", 15, "Curiosidad Insaciable", "medalla_curiosidad_insaciable.png", "9e445865-a24d-4543-a6c6-9443d048cdb0", false },
+                    { 5, "Premia a las mentes que nunca dejan de preguntar. Se consigue al realizar preguntas que desafían al grupo y enriquecen el aprendizaje de todos.", 15, "Curiosidad Insaciable", "medalla_curiosidad_insaciable.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
                     { 6, "Reconoce a quienes inspiran con su ejemplo. Se obtiene al demostrar una actitud y un esfuerzo que motivan a todo el grupo a superarse.", 25, "Faro del Grupo", "medalla_faro_del_grupo.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
-                    { 7, "Para aquellos que no solo tienen buenas ideas, sino que construyen sobre las de los demás para crear algo aún mejor.", 20, "Arquitecto de Ideas", "medalla_arquitecto_ideas.png", "9e445865-a24d-4543-a6c6-9443d048cdb0", false },
+                    { 7, "Para aquellos que no solo tienen buenas ideas, sino que construyen sobre las de los demás para crear algo aún mejor.", 20, "Arquitecto de Ideas", "medalla_arquitecto_ideas.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
                     { 8, "Se otorga por demostrar liderazgo natural, guiando y organizando al equipo para alcanzar metas comunes de forma efectiva.", 25, "Capitán de Equipo", "medalla_capitan_equipo.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
-                    { 9, "Premia la iniciativa de buscar y compartir recursos valiosos (videos, artículos, herramientas) que benefician a toda la clase.", 15, "Cazador de Tesoros", "medalla_cazador_tesoros.png", "9e445865-a24d-4543-a6c6-9443d048cdb0", false },
+                    { 9, "Premia la iniciativa de buscar y compartir recursos valiosos (videos, artículos, herramientas) que benefician a toda la clase.", 15, "Cazador de Tesoros", "medalla_cazador_tesoros.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
                     { 10, "Se consigue al fomentar activamente un ambiente de respeto e inclusión, asegurando que cada miembro del grupo se sienta valorado.", 20, "Espíritu de Equipo", "medalla_espiritu_equipo.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
-                    { 11, "Reconoce la habilidad de dar críticas constructivas que ayudan a los compañeros a mejorar su trabajo de forma positiva y amable.", 15, "Pulidor de Diamantes", "medalla_pulidor_diamantes.png", "9e445865-a24d-4543-a6c6-9443d048cdb0", false },
+                    { 11, "Reconoce la habilidad de dar críticas constructivas que ayudan a los compañeros a mejorar su trabajo de forma positiva y amable.", 15, "Pulidor de Diamantes", "medalla_pulidor_diamantes.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
                     { 12, "Se otorga por aportar ideas creativas y soluciones originales que sacan al grupo de la rutina y abren nuevas posibilidades.", 20, "Mente Innovadora", "medalla_mente_innovadora.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
                     { 13, "Premia la increíble habilidad de tomar un tema complejo y explicarlo de una manera tan clara y sencilla que todos puedan entenderlo.", 25, "El Explicador", "medalla_el_explicador.png", "9e445865-a24d-4543-a6c6-9443d048cdb0", false }
                 });
@@ -1315,7 +1407,15 @@ namespace AccesoDatos.Migrations
                 {
                     { 1, 1, 1 },
                     { 2, 2, 1 },
-                    { 3, 1, 2 }
+                    { 3, 3, 1 },
+                    { 4, 4, 1 },
+                    { 5, 5, 1 },
+                    { 6, 6, 1 },
+                    { 7, 7, 1 },
+                    { 8, 8, 1 },
+                    { 9, 9, 1 },
+                    { 10, 10, 1 },
+                    { 11, 1, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -1324,7 +1424,9 @@ namespace AccesoDatos.Migrations
                 values: new object[,]
                 {
                     { 1, 1, new DateTime(2025, 6, 19, 10, 30, 0, 0, DateTimeKind.Utc), null, "Liceo N°5", "Matemática", "Matemática 1A - 2025", "8e445865-a24d-4543-a6c6-9443d048cdb9", 1 },
-                    { 2, 2, new DateTime(2025, 6, 19, 10, 30, 0, 0, DateTimeKind.Utc), null, "Liceo N°5", "Historia", "Historia Universal - 2025", "9e445865-a24d-4543-a6c6-9443d048cdb0", 2 }
+                    { 2, 2, new DateTime(2025, 6, 19, 10, 30, 0, 0, DateTimeKind.Utc), null, "Liceo N°5", "Historia", "Historia Universal - 2025", "9e445865-a24d-4543-a6c6-9443d048cdb0", 2 },
+                    { 3, 3, new DateTime(2025, 6, 19, 10, 30, 0, 0, DateTimeKind.Utc), null, "Liceo N°6", "Matemática", "Matemática 2B - 2025", "8e445865-a24d-4543-a6c6-9443d048cdb9", 1 },
+                    { 4, 4, new DateTime(2025, 6, 19, 10, 30, 0, 0, DateTimeKind.Utc), null, "Liceo N°6", "Matemática", "Matemática Cientifico A - 2025", "8e445865-a24d-4543-a6c6-9443d048cdb9", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -1334,8 +1436,60 @@ namespace AccesoDatos.Migrations
                 {
                     { 1, 1 },
                     { 2, 1 },
-                    { 2, 2 },
-                    { 3, 3 }
+                    { 2, 4 },
+                    { 3, 13 },
+                    { 4, 1 },
+                    { 4, 4 },
+                    { 4, 6 },
+                    { 5, 1 },
+                    { 5, 4 },
+                    { 5, 6 },
+                    { 5, 8 },
+                    { 6, 1 },
+                    { 6, 4 },
+                    { 6, 6 },
+                    { 6, 8 },
+                    { 6, 10 },
+                    { 7, 1 },
+                    { 7, 4 },
+                    { 7, 6 },
+                    { 7, 8 },
+                    { 7, 10 },
+                    { 7, 12 },
+                    { 8, 1 },
+                    { 8, 2 },
+                    { 8, 4 },
+                    { 8, 6 },
+                    { 8, 8 },
+                    { 8, 10 },
+                    { 8, 12 },
+                    { 9, 1 },
+                    { 9, 2 },
+                    { 9, 3 },
+                    { 9, 4 },
+                    { 9, 6 },
+                    { 9, 8 },
+                    { 9, 10 },
+                    { 9, 12 },
+                    { 10, 1 },
+                    { 10, 2 },
+                    { 10, 3 },
+                    { 10, 4 },
+                    { 10, 5 },
+                    { 10, 6 },
+                    { 10, 8 },
+                    { 10, 10 },
+                    { 10, 12 },
+                    { 11, 1 },
+                    { 11, 2 },
+                    { 11, 3 },
+                    { 11, 4 },
+                    { 11, 5 },
+                    { 11, 6 },
+                    { 11, 7 },
+                    { 11, 8 },
+                    { 11, 10 },
+                    { 11, 12 }
                 });
 
             migrationBuilder.InsertData(
@@ -1347,7 +1501,37 @@ namespace AccesoDatos.Migrations
                     { 2, "b2445865-a24d-4543-a6c6-9443d048cdb2", 1, 0, 9, 150, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
                     { 3, "c3445865-a24d-4543-a6c6-9443d048cdb3", 1, 0, 7, 95, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
                     { 4, "d4445865-a24d-4543-a6c6-9443d048cdb4", 2, 0, 10, 200, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
-                    { 5, "e5445865-a24d-4543-a6c6-9443d048cdb5", 2, 0, 8, 180, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null }
+                    { 5, "e5445865-a24d-4543-a6c6-9443d048cdb5", 2, 0, 8, 180, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 6, "f6445865-a24d-4543-a6c6-9443d048cdb6", 1, 0, 7, 110, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 7, "g7445865-a24d-4543-a6c6-9443d048cdb7", 1, 0, 9, 210, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 8, "h8445865-a24d-4543-a6c6-9443d048cdb8", 1, 0, 6, 80, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 9, "i9445865-a24d-4543-a6c6-9443d048cdb9", 1, 0, 10, 300, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 10, "jA445865-a24d-4543-a6c6-9443d048cdbA", 1, 0, 8, 125, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 11, "kB445865-a24d-4543-a6c6-9443d048cdbB", 1, 0, 8, 145, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 12, "lC445865-a24d-4543-a6c6-9443d048cdbC", 1, 0, 9, 160, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 13, "mD445865-a24d-4543-a6c6-9443d048cdbD", 1, 0, 6, 70, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 14, "nE445865-a24d-4543-a6c6-9443d048cdbE", 1, 0, 9, 190, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 15, "oF445865-a24d-4543-a6c6-9443d048cdbF", 1, 0, 10, 250, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 16, "p0445865-a24d-4543-a6c6-9443d048cdc0", 1, 0, 8, 130, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 17, "q1445865-a24d-4543-a6c6-9443d048cdc1", 1, 0, 7, 115, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 18, "r2445865-a24d-4543-a6c6-9443d048cdc2", 1, 0, 7, 90, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 19, "s3445865-a24d-4543-a6c6-9443d048cdc3", 1, 0, 9, 220, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 20, "t4445865-a24d-4543-a6c6-9443d048cdc4", 1, 0, 8, 170, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 21, "u5445865-a24d-4543-a6c6-9443d048cdc5", 1, 0, 8, 155, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 22, "v6445865-a24d-4543-a6c6-9443d048cdc6", 1, 0, 7, 105, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 23, "w7445865-a24d-4543-a6c6-9443d048cdc7", 3, 0, 7, 100, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 24, "x8445865-a24d-4543-a6c6-9443d048cdc8", 3, 0, 8, 120, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 25, "y9445865-a24d-4543-a6c6-9443d048cdcA", 3, 0, 10, 250, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 26, "zA445865-a24d-4543-a6c6-9443d048cdcB", 3, 0, 8, 130, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 27, "aB445865-a24d-4543-a6c6-9443d048cdcC", 3, 0, 6, 90, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 28, "bC445865-a24d-4543-a6c6-9443d048cdcD", 3, 0, 9, 160, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 29, "cD445865-a24d-4543-a6c6-9443d048cdcE", 3, 0, 9, 175, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 30, "dE445865-a24d-4543-a6c6-9443d048cdcF", 3, 0, 8, 140, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 31, "eF445865-a24d-4543-a6c6-9443d048cdd0", 4, 0, 7, 110, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 32, "f0445865-a24d-4543-a6c6-9443d048cdd1", 4, 0, 9, 200, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 33, "g1445865-a24d-4543-a6c6-9443d048cdd2", 4, 0, 8, 150, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 34, "h2445865-a24d-4543-a6c6-9443d048cdd3", 4, 0, 9, 180, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null },
+                    { 35, "i3445865-a24d-4543-a6c6-9443d048cdd4", 4, 0, 10, 220, "default/avatar_full.jpg", "default/avatar_thumb.jpg", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1368,7 +1552,37 @@ namespace AccesoDatos.Migrations
                     { 2, "a7ffc4", 2, 0, false, 0 },
                     { 3, "ffafb9", 3, 0, false, 0 },
                     { 4, "ffffb1", 4, 0, false, 0 },
-                    { 5, "e6e6e6", 5, 0, false, 0 }
+                    { 5, "e6e6e6", 5, 0, false, 0 },
+                    { 6, "f8d7da", 6, 0, false, 0 },
+                    { 7, "d4edda", 7, 0, false, 0 },
+                    { 8, "fff3cd", 8, 0, false, 0 },
+                    { 9, "d1ecf1", 9, 0, false, 0 },
+                    { 10, "e2d9f3", 10, 0, false, 0 },
+                    { 11, "fce3d4", 11, 0, false, 0 },
+                    { 12, "c3e6cb", 12, 0, false, 0 },
+                    { 13, "f5c6cb", 13, 0, false, 0 },
+                    { 14, "bee5eb", 14, 0, false, 0 },
+                    { 15, "ffeeba", 15, 0, false, 0 },
+                    { 16, "d6d8f5", 16, 0, false, 0 },
+                    { 17, "fde2e2", 17, 0, false, 0 },
+                    { 18, "d1e7dd", 18, 0, false, 0 },
+                    { 19, "cce7ff", 19, 0, false, 0 },
+                    { 20, "fbf8cc", 20, 0, false, 0 },
+                    { 21, "f1e0ff", 21, 0, false, 0 },
+                    { 22, "e0f7fa", 22, 0, false, 0 },
+                    { 23, "ffe0e0", 23, 0, false, 0 },
+                    { 24, "e0ffe0", 24, 0, false, 0 },
+                    { 25, "e0e0ff", 25, 0, false, 0 },
+                    { 26, "fff0e0", 26, 0, false, 0 },
+                    { 27, "f0fff0", 27, 0, false, 0 },
+                    { 28, "f0f0ff", 28, 0, false, 0 },
+                    { 29, "e0fff8", 29, 0, false, 0 },
+                    { 30, "f8e0ff", 30, 0, false, 0 },
+                    { 31, "eaf5ff", 31, 0, false, 0 },
+                    { 32, "fff5e6", 32, 0, false, 0 },
+                    { 33, "f2f2f2", 33, 0, false, 0 },
+                    { 34, "e6f7ff", 34, 0, false, 0 },
+                    { 35, "fae6ff", 35, 0, false, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -1401,8 +1615,8 @@ namespace AccesoDatos.Migrations
                     { 43, 1 },
                     { 52, 1 },
                     { 56, 1 },
-                    { 61, 1 },
-                    { 71, 1 },
+                    { 60, 1 },
+                    { 70, 1 },
                     { 80, 1 },
                     { 98, 1 }
                 });
