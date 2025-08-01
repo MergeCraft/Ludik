@@ -75,7 +75,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             AvatarId = 1,
-                            AtributoSeleccionadoId = 63
+                            AtributoSeleccionadoId = 61
                         },
                         new
                         {
@@ -85,12 +85,12 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             AvatarId = 1,
-                            AtributoSeleccionadoId = 96
+                            AtributoSeleccionadoId = 98
                         },
                         new
                         {
                             AvatarId = 1,
-                            AtributoSeleccionadoId = 73
+                            AtributoSeleccionadoId = 71
                         });
                 });
 
@@ -1079,7 +1079,7 @@ namespace AccesoDatos.Migrations
                             PerfilEstudianteId = 1,
                             Rotacion = 0,
                             Voltear = false,
-                            Zoom = 100
+                            Zoom = 0
                         },
                         new
                         {
@@ -1088,7 +1088,7 @@ namespace AccesoDatos.Migrations
                             PerfilEstudianteId = 2,
                             Rotacion = 0,
                             Voltear = false,
-                            Zoom = 100
+                            Zoom = 0
                         },
                         new
                         {
@@ -1097,7 +1097,7 @@ namespace AccesoDatos.Migrations
                             PerfilEstudianteId = 3,
                             Rotacion = 0,
                             Voltear = false,
-                            Zoom = 100
+                            Zoom = 0
                         },
                         new
                         {
@@ -1106,7 +1106,7 @@ namespace AccesoDatos.Migrations
                             PerfilEstudianteId = 4,
                             Rotacion = 0,
                             Voltear = false,
-                            Zoom = 100
+                            Zoom = 0
                         },
                         new
                         {
@@ -1115,7 +1115,7 @@ namespace AccesoDatos.Migrations
                             PerfilEstudianteId = 5,
                             Rotacion = 0,
                             Voltear = false,
-                            Zoom = 100
+                            Zoom = 0
                         });
                 });
 
@@ -2263,13 +2263,13 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 1,
-                            Nombre = "Calificaciones Estándar (C. Rodríguez)",
+                            Nombre = "Calificaciones Estándar",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
                         {
                             Id = 2,
-                            Nombre = "Evaluación Continua (L. Fernández)",
+                            Nombre = "Evaluación Continua",
                             ProfesorId = "9e445865-a24d-4543-a6c6-9443d048cdb0"
                         });
                 });
@@ -2824,12 +2824,12 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 18,
-                            Nombre = "Item: a55728",
-                            NombreImagenCompleta = "hairColor-a55728.png",
-                            NombreImagenMiniatura = "hairColor-a55728.png",
+                            Nombre = "Item: 4a312c",
+                            NombreImagenCompleta = "hairColor-4a312c.png",
+                            NombreImagenMiniatura = "hairColor-4a312c.png",
                             Precio = 0,
                             RequiereImagen = true,
-                            AtributoAvatarId = 63
+                            AtributoAvatarId = 61
                         },
                         new
                         {
@@ -2844,22 +2844,22 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 20,
-                            Nombre = "Item: 262e33",
-                            NombreImagenCompleta = "accessoriesColor-262e33.png",
-                            NombreImagenMiniatura = "accessoriesColor-262e33.png",
+                            Nombre = "Item: 25557c",
+                            NombreImagenCompleta = "accessoriesColor-25557c.png",
+                            NombreImagenMiniatura = "accessoriesColor-25557c.png",
                             Precio = 0,
                             RequiereImagen = true,
-                            AtributoAvatarId = 96
+                            AtributoAvatarId = 98
                         },
                         new
                         {
                             Id = 21,
-                            Nombre = "Item: a55728",
-                            NombreImagenCompleta = "beardColor-a55728.png",
-                            NombreImagenMiniatura = "beardColor-a55728.png",
+                            Nombre = "Item: 4a312c",
+                            NombreImagenCompleta = "beardColor-4a312c.png",
+                            NombreImagenMiniatura = "beardColor-4a312c.png",
                             Precio = 0,
                             RequiereImagen = true,
-                            AtributoAvatarId = 73
+                            AtributoAvatarId = 71
                         });
                 });
 

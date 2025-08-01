@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
-    public partial class inicial : Migration
+    public partial class inicialConDatos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -1248,10 +1248,10 @@ namespace AccesoDatos.Migrations
                     { 15, 52, "Item: ShirtVNeck", "clothing-shirtVNeck.png", "clothing-shirtVNeck.png", 0, "PersonalizacionAvatar", true, null },
                     { 16, 43, "Item: Sunglasses", "accessories-sunglasses.png", "accessories-sunglasses.png", 0, "PersonalizacionAvatar", true, null },
                     { 17, 56, "Item: edb98a", "skinColor-edb98a.png", "skinColor-edb98a.png", 0, "PersonalizacionAvatar", true, null },
-                    { 18, 63, "Item: a55728", "hairColor-a55728.png", "hairColor-a55728.png", 0, "PersonalizacionAvatar", true, null },
+                    { 18, 61, "Item: 4a312c", "hairColor-4a312c.png", "hairColor-4a312c.png", 0, "PersonalizacionAvatar", true, null },
                     { 19, 80, "Item: 3c4f5c", "clothesColor-3c4f5c.png", "clothesColor-3c4f5c.png", 0, "PersonalizacionAvatar", true, null },
-                    { 20, 96, "Item: 262e33", "accessoriesColor-262e33.png", "accessoriesColor-262e33.png", 0, "PersonalizacionAvatar", true, null },
-                    { 21, 73, "Item: a55728", "beardColor-a55728.png", "beardColor-a55728.png", 0, "PersonalizacionAvatar", true, null }
+                    { 20, 98, "Item: 25557c", "accessoriesColor-25557c.png", "accessoriesColor-25557c.png", 0, "PersonalizacionAvatar", true, null },
+                    { 21, 71, "Item: 4a312c", "beardColor-4a312c.png", "beardColor-4a312c.png", 0, "PersonalizacionAvatar", true, null }
                 });
 
             migrationBuilder.InsertData(
@@ -1304,8 +1304,8 @@ namespace AccesoDatos.Migrations
                 columns: new[] { "Id", "Nombre", "ProfesorId" },
                 values: new object[,]
                 {
-                    { 1, "Calificaciones Estándar (C. Rodríguez)", "8e445865-a24d-4543-a6c6-9443d048cdb9" },
-                    { 2, "Evaluación Continua (L. Fernández)", "9e445865-a24d-4543-a6c6-9443d048cdb0" }
+                    { 1, "Calificaciones Estándar", "8e445865-a24d-4543-a6c6-9443d048cdb9" },
+                    { 2, "Evaluación Continua", "9e445865-a24d-4543-a6c6-9443d048cdb0" }
                 });
 
             migrationBuilder.InsertData(
@@ -1364,11 +1364,11 @@ namespace AccesoDatos.Migrations
                 columns: new[] { "Id", "ColorFondo", "PerfilEstudianteId", "Rotacion", "Voltear", "Zoom" },
                 values: new object[,]
                 {
-                    { 1, "b1e2ff", 1, 0, false, 100 },
-                    { 2, "a7ffc4", 2, 0, false, 100 },
-                    { 3, "ffafb9", 3, 0, false, 100 },
-                    { 4, "ffffb1", 4, 0, false, 100 },
-                    { 5, "e6e6e6", 5, 0, false, 100 }
+                    { 1, "b1e2ff", 1, 0, false, 0 },
+                    { 2, "a7ffc4", 2, 0, false, 0 },
+                    { 3, "ffafb9", 3, 0, false, 0 },
+                    { 4, "ffffb1", 4, 0, false, 0 },
+                    { 5, "e6e6e6", 5, 0, false, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -1401,10 +1401,10 @@ namespace AccesoDatos.Migrations
                     { 43, 1 },
                     { 52, 1 },
                     { 56, 1 },
-                    { 63, 1 },
-                    { 73, 1 },
+                    { 61, 1 },
+                    { 71, 1 },
                     { 80, 1 },
-                    { 96, 1 }
+                    { 98, 1 }
                 });
 
             migrationBuilder.CreateIndex(

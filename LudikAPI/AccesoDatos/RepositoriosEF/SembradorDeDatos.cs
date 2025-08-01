@@ -12,12 +12,27 @@ namespace AccesoDatos.RepositoriosEF
 {
     public static class SembradorDeDatos
     {
+
+        // IDs compartidos a nivel de clase para evitar pasarlos como parámetros constantemente
+        private const string RolProfesorId = "2c5e174e-3b0e-446f-86af-483d56fd7210";
+        private const string RolEstudianteId = "3d5e174e-3b0e-446f-86af-483d56fd7211";
+        private const string Profesor1Id = "8e445865-a24d-4543-a6c6-9443d048cdb9";
+        private const string Profesor2Id = "9e445865-a24d-4543-a6c6-9443d048cdb0";
+        private const string Estudiante1Id = "a1445865-a24d-4543-a6c6-9443d048cdb1";
+        private const string Estudiante2Id = "b2445865-a24d-4543-a6c6-9443d048cdb2";
+        private const string Estudiante3Id = "c3445865-a24d-4543-a6c6-9443d048cdb3";
+        private const string Estudiante4Id = "d4445865-a24d-4543-a6c6-9443d048cdb4";
+        private const string Estudiante5Id = "e5445865-a24d-4543-a6c6-9443d048cdb5";
+
+        /// <summary>
+        /// Método principal que orquesta toda la siembra de datos.
+        /// </summary>
         public static void Semilla(this ModelBuilder modelBuilder)
         {
-            // =================================================================
+            // =====================================================
             // --- INICIO DE LA PRECARGA DE DATOS (DATA SEEDING) ---
-            // =================================================================
-
+            // =====================================================
+            /*
             // 1. DEFINICIÓN DE ROLES
             var rolProfesorId = "2c5e174e-3b0e-446f-86af-483d56fd7210";
             var rolEstudianteId = "3d5e174e-3b0e-446f-86af-483d56fd7211";
@@ -110,8 +125,8 @@ namespace AccesoDatos.RepositoriosEF
             var tablaEq1Id = 1;
             var tablaEq2Id = 2;
             modelBuilder.Entity<TablaEquivalencia>().HasData(
-                new TablaEquivalencia { Id = tablaEq1Id, Nombre = "Calificaciones Estándar (C. Rodríguez)", ProfesorId = profesor1Id },
-                new TablaEquivalencia { Id = tablaEq2Id, Nombre = "Evaluación Continua (L. Fernández)", ProfesorId = profesor2Id }
+                new TablaEquivalencia { Id = tablaEq1Id, Nombre = "Calificaciones Estándar", ProfesorId = profesor1Id },
+                new TablaEquivalencia { Id = tablaEq2Id, Nombre = "Evaluación Continua", ProfesorId = profesor2Id }
             );
 
             // 6. CREACIÓN DE EQUIVALENCIAS (asociadas a una Tabla)
@@ -196,6 +211,28 @@ namespace AccesoDatos.RepositoriosEF
                 new Avatar { Id = 4, PerfilEstudianteId = 4, ColorFondo = "ffffb1", Voltear = false, Rotacion = 0, Zoom = 100 },
                 new Avatar { Id = 5, PerfilEstudianteId = 5, ColorFondo = "e6e6e6", Voltear = false, Rotacion = 0, Zoom = 100 }
             );
+            */
+
+            // --- Roles y Usuarios ---
+            PrecargarRoles(modelBuilder);
+            PrecargarProfesores(modelBuilder);
+            PrecargarEstudiantes(modelBuilder);
+            PrecargarNombresDeUsuarios(modelBuilder);
+            AsignarRolesAUsuarios(modelBuilder);
+
+            // --- Gamificación y Grupos ---
+            var medallas = PrecargaDeMedallas(modelBuilder);
+            var tablasEquivalencia = PrecargarTablasDeEquivalencia(modelBuilder);
+            var equivalencias = PrecargarEquivalencias(modelBuilder, tablasEquivalencia);
+            VincularEquivalenciasYMedallas(modelBuilder, equivalencias, medallas);
+            var enlaces = PrecargarEnlacesDeUnion(modelBuilder);
+            var grupos = PrecargarGrupos(modelBuilder, tablasEquivalencia, enlaces);
+            var perfiles = PrecargarPerfilesDeEstudiante(modelBuilder, grupos);
+            PrecargarTiendasYRecompensasSimples(modelBuilder, grupos);
+
+            // --- Avatares ---
+            var avatares = PrecargarAvatares(modelBuilder, perfiles);
+            
 
             // ====================================================
             // --- INICIO DE LA PRECARGA DE ATRIBUTOS DE AVATAR ---
@@ -224,13 +261,200 @@ namespace AccesoDatos.RepositoriosEF
             // ==========================
             PrecargarHitos(modelBuilder);
         }
+        private static void PrecargarRoles(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole { Id = RolProfesorId, Name = "Profesor", NormalizedName = "PROFESOR" },
+                new IdentityRole { Id = RolEstudianteId, Name = "Estudiante", NormalizedName = "ESTUDIANTE" }
+            );
+        }
 
-        private static void PrecargaDeMedallas(ModelBuilder modelBuilder)
+        private static void PrecargarProfesores(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Profesor>().HasData(
+                new Profesor
+                {
+                    Id = Profesor1Id,
+                    UserName = "cecilia",
+                    NormalizedUserName = "CECILIA",
+                    Email = "cecilia@gmail.com",
+                    NormalizedEmail = "CECILIA@GMAIL.COM",
+                    EmailConfirmed = true,
+                    PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==", //Cecilia1.
+                    SecurityStamp = "STATIC_SECURITY_STAMP_1",
+                    ConcurrencyStamp = "b0c8b6a8-8e6b-4e6a-9e1e-2e0b166a9c76"
+                },
+                new Profesor
+                {
+                    Id = Profesor2Id,
+                    UserName = "laura",
+                    NormalizedUserName = "LAURA.FERNANDEZ",
+                    Email = "laura.fernandez@ludik.edu.uy",
+                    NormalizedEmail = "LAURA.FERNANDEZ@LUDIK.EDU.UY",
+                    EmailConfirmed = true,
+                    PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
+                    SecurityStamp = "STATIC_SECURITY_STAMP_2",
+                    ConcurrencyStamp = "a1d3b5e7-9f2d-4b8c-8a1e-3f0e2d5b4a6b"
+                }
+            );
+        }
+
+        private static void PrecargarEstudiantes(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Estudiante>().HasData(
+                new Estudiante { Id = Estudiante1Id, UserName = "santiago", NormalizedUserName = "SANTIAGO", PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==", SecurityStamp = "STATIC_SECURITY_STAMP_3", ConcurrencyStamp = "c4b6e8a0-1d3f-4e9a-9c8e-5d2a4f6b8c0d" },
+                new Estudiante { Id = Estudiante2Id, UserName = "valentina", NormalizedUserName = "VALENTINA", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_4", ConcurrencyStamp = "d5c7f9b1-2e4g-5f0b-a0d9-6e3b5g7c9d1e" },
+                new Estudiante { Id = Estudiante3Id, UserName = "matias", NormalizedUserName = "MATIAS", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_5", ConcurrencyStamp = "e6d80ac2-3f5h-6g1c-b1e0-7f4c6h8d0e2f" },
+                new Estudiante { Id = Estudiante4Id, UserName = "camila", NormalizedUserName = "CAMILA", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_6", ConcurrencyStamp = "f7e91bd3-4g6i-7h2d-c2f1-8g5d7i9e1f3g" },
+                new Estudiante { Id = Estudiante5Id, UserName = "lucas", NormalizedUserName = "LUCAS", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_7", ConcurrencyStamp = "g8f02ce4-5h7j-8i3e-d3g2-9h6e8j0f2g4h" }
+            );
+        }
+
+        private static void PrecargarNombresDeUsuarios(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Usuario>().OwnsOne(u => u.NombreCompleto).HasData(
+                // Profesores
+                new { UsuarioId = Profesor1Id, Nombre = "Carlos", Apellido = "Rodríguez" },
+                new { UsuarioId = Profesor2Id, Nombre = "Laura", Apellido = "Fernández" },
+                // Estudiantes
+                new { UsuarioId = Estudiante1Id, Nombre = "Santiago", Apellido = "Pérez" },
+                new { UsuarioId = Estudiante2Id, Nombre = "Valentina", Apellido = "Gómez" },
+                new { UsuarioId = Estudiante3Id, Nombre = "Matías", Apellido = "González" },
+                new { UsuarioId = Estudiante4Id, Nombre = "Camila", Apellido = "Martínez" },
+                new { UsuarioId = Estudiante5Id, Nombre = "Lucas", Apellido = "Silva" }
+            );
+        }
+
+        private static void AsignarRolesAUsuarios(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string> { UserId = Profesor1Id, RoleId = RolProfesorId },
+                new IdentityUserRole<string> { UserId = Profesor2Id, RoleId = RolProfesorId },
+                new IdentityUserRole<string> { UserId = Estudiante1Id, RoleId = RolEstudianteId },
+                new IdentityUserRole<string> { UserId = Estudiante2Id, RoleId = RolEstudianteId },
+                new IdentityUserRole<string> { UserId = Estudiante3Id, RoleId = RolEstudianteId },
+                new IdentityUserRole<string> { UserId = Estudiante4Id, RoleId = RolEstudianteId },
+                new IdentityUserRole<string> { UserId = Estudiante5Id, RoleId = RolEstudianteId }
+            );
+        }
+
+        private static IEnumerable<TablaEquivalencia> PrecargarTablasDeEquivalencia(ModelBuilder modelBuilder)
+        {
+            var tablas = new List<TablaEquivalencia>
+            {
+                new() { Id = 1, Nombre = "Calificaciones Estándar", ProfesorId = Profesor1Id },
+                new() { Id = 2, Nombre = "Evaluación Continua", ProfesorId = Profesor2Id }
+            };
+            modelBuilder.Entity<TablaEquivalencia>().HasData(tablas);
+            return tablas;
+        }
+
+        private static IEnumerable<Equivalencia> PrecargarEquivalencias(ModelBuilder modelBuilder, IEnumerable<TablaEquivalencia> tablas)
+        {
+            var equivalencias = new List<Equivalencia>
+            {
+                new() { Id = 1, Nota = 1, TablaEquivalenciaId = tablas.First(t => t.Id == 1).Id },
+                new() { Id = 2, Nota = 2, TablaEquivalenciaId = tablas.First(t => t.Id == 1).Id },
+                new() { Id = 3, Nota = 1, TablaEquivalenciaId = tablas.First(t => t.Id == 2).Id }
+            };
+            modelBuilder.Entity<Equivalencia>().HasData(equivalencias);
+            return equivalencias;
+        }
+
+        private static void VincularEquivalenciasYMedallas(ModelBuilder modelBuilder, IEnumerable<Equivalencia> equivalencias, IEnumerable<Medalla> medallas)
+        {
+            modelBuilder.Entity("EquivalenciaMedallas").HasData(
+                new { EquivalenciaId = 1, MedallaId = 1 },
+                new { EquivalenciaId = 2, MedallaId = 1 },
+                new { EquivalenciaId = 2, MedallaId = 2 },
+                new { EquivalenciaId = 3, MedallaId = 3 }
+            );
+        }
+
+        private static IEnumerable<EnlaceUnion> PrecargarEnlacesDeUnion(ModelBuilder modelBuilder)
+        {
+            var fechaCreacion = new DateTime(2025, 6, 19, 10, 30, 0, DateTimeKind.Utc);
+            var enlaces = new List<EnlaceUnion>
+            {
+                new() { Id = 1, CodigoUnico = "MAT1A25", UrlCompleta = "https://www.ludik.app/unirse/MAT1A25", Expiracion = fechaCreacion.AddDays(300) },
+                new() { Id = 2, CodigoUnico = "HISTU25", UrlCompleta = "https://www.ludik.app/unirse/HISTU25", Expiracion = fechaCreacion.AddDays(300) }
+            };
+            modelBuilder.Entity<EnlaceUnion>().HasData(enlaces);
+            return enlaces;
+        }
+
+        private static IEnumerable<Grupo> PrecargarGrupos(ModelBuilder modelBuilder, IEnumerable<TablaEquivalencia> tablas, IEnumerable<EnlaceUnion> enlaces)
+        {
+            var fechaCreacion = new DateTime(2025, 6, 19, 10, 30, 0, DateTimeKind.Utc);
+            var grupos = new List<Grupo>
+            {
+                new() { Id = 1, Nombre = "Matemática 1A - 2025", Institucion = "Liceo N°5", Materia = "Matemática", FCreacion = fechaCreacion, ProfesorId = Profesor1Id, TablaEquivalenciaId = 1, EnlaceUnionId = 1 },
+                new() { Id = 2, Nombre = "Historia Universal - 2025", Institucion = "Liceo N°5", Materia = "Historia", FCreacion = fechaCreacion, ProfesorId = Profesor2Id, TablaEquivalenciaId = 2, EnlaceUnionId = 2 }
+            };
+            modelBuilder.Entity<Grupo>().HasData(grupos);
+            return grupos;
+        }
+
+        private static IEnumerable<PerfilEstudiante> PrecargarPerfilesDeEstudiante(ModelBuilder modelBuilder, IEnumerable<Grupo> grupos)
+        {
+            var perfiles = new List<PerfilEstudiante>
+            {
+                new PerfilEstudiante { Id = 1, Monedas = 120, MetaCalificacion = 8, EstudianteId = Estudiante1Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
+                new PerfilEstudiante { Id = 2, Monedas = 150, MetaCalificacion = 9, EstudianteId = Estudiante2Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
+                new PerfilEstudiante { Id = 3, Monedas = 95, MetaCalificacion = 7, EstudianteId = Estudiante3Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
+                new PerfilEstudiante { Id = 4, Monedas = 200, MetaCalificacion = 10, EstudianteId = Estudiante4Id, GrupoId = 2, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
+                new PerfilEstudiante { Id = 5, Monedas = 180, MetaCalificacion = 8, EstudianteId = Estudiante5Id, GrupoId = 2, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" }
+            };
+            modelBuilder.Entity<PerfilEstudiante>().HasData(perfiles);
+            return perfiles;
+        }
+
+        private static void PrecargarTiendasYRecompensasSimples(ModelBuilder modelBuilder, IEnumerable<Grupo> grupos)
+        {
+            var tiendas = new List<object>
+            {
+                new { Id = 1, GrupoId = 1 },
+                new { Id = 2, GrupoId = 2 }
+            };
+            modelBuilder.Entity<Tienda>().HasData(tiendas);
+
+            modelBuilder.Entity<RecompensaSimple>().HasData(
+                // Tienda 1
+                new RecompensaSimple { Id = 1, Nombre = "Estrella Mágica", Precio = 50, NombreImagenCompleta = "star", NombreImagenMiniatura = "star" },
+                new RecompensaSimple { Id = 2, Nombre = "Regalo Sorpresa", Precio = 30, NombreImagenCompleta = "gift", NombreImagenMiniatura = "gift" },
+                new RecompensaSimple { Id = 3, Nombre = "Corazón Brillante", Precio = 20, NombreImagenCompleta = "heart", NombreImagenMiniatura = "heart" },
+                new RecompensaSimple { Id = 4, Nombre = "Medalla de Oro", Precio = 80, NombreImagenCompleta = "medal", NombreImagenMiniatura = "medal" },
+                new RecompensaSimple { Id = 5, Nombre = "Montón de Monedas", Precio = 100, NombreImagenCompleta = "coins", NombreImagenMiniatura = "coins" },
+                // Tienda 2
+                new RecompensaSimple { Id = 6, Nombre = "Trofeo Brillante", Precio = 70, NombreImagenCompleta = "trophy", NombreImagenMiniatura = "trophy" },
+                new RecompensaSimple { Id = 7, Nombre = "Llama de Fuego", Precio = 40, NombreImagenCompleta = "fire", NombreImagenMiniatura = "fire" },
+                new RecompensaSimple { Id = 8, Nombre = "Corona Real", Precio = 90, NombreImagenCompleta = "crown", NombreImagenMiniatura = "crown" },
+                new RecompensaSimple { Id = 9, Nombre = "Cohete Espacial", Precio = 60, NombreImagenCompleta = "rocket", NombreImagenMiniatura = "rocket" },
+                new RecompensaSimple { Id = 10, Nombre = "Robot Amistoso", Precio = 55, NombreImagenCompleta = "robot", NombreImagenMiniatura = "robot" }
+            );
+        }
+
+        private static IEnumerable<Avatar> PrecargarAvatares(ModelBuilder modelBuilder, IEnumerable<PerfilEstudiante> perfiles)
+        {
+            var avatares = new List<Avatar>
+            {
+                new() { Id = 1, PerfilEstudianteId = 1, ColorFondo = "b1e2ff" },
+                new() { Id = 2, PerfilEstudianteId = 2, ColorFondo = "a7ffc4" },
+                new() { Id = 3, PerfilEstudianteId = 3, ColorFondo = "ffafb9" },
+                new() { Id = 4, PerfilEstudianteId = 4, ColorFondo = "ffffb1" },
+                new() { Id = 5, PerfilEstudianteId = 5, ColorFondo = "e6e6e6" }
+            };
+            modelBuilder.Entity<Avatar>().HasData(avatares);
+            return avatares;
+        }
+
+
+        private static IEnumerable<Medalla> PrecargaDeMedallas(ModelBuilder modelBuilder)
         {
             var profesor1Id = "8e445865-a24d-4543-a6c6-9443d048cdb9";
             var profesor2Id = "9e445865-a24d-4543-a6c6-9443d048cdb0";
-
-            modelBuilder.Entity<Medalla>().HasData(
+            var medallas = new List<Medalla>
+            {
                 // Medallas de tu ejemplo original
                 new Medalla { Id = 1, Nombre = "Participación Perfecta", Descripcion = "Asistencia y participación en todas las clases del mes.", NombreImagenMiniatura = "medalla_participacion_perfecta.png", MonedasOtorgadas = 30, ProfesorId = profesor1Id },
                 new Medalla { Id = 2, Nombre = "Maestro de la Colaboración", Descripcion = "Ayuda destacada a compañeros en proyectos grupales.", NombreImagenMiniatura = "medalla_maestro_colaboracion.png", MonedasOtorgadas = 25, ProfesorId = profesor2Id },
@@ -267,7 +491,9 @@ namespace AccesoDatos.RepositoriosEF
 
                 // Medalla por Kudo "Einstein"
                 new Medalla { Id = 13, Nombre = "El Explicador", Descripcion = "Premia la increíble habilidad de tomar un tema complejo y explicarlo de una manera tan clara y sencilla que todos puedan entenderlo.", NombreImagenMiniatura = "medalla_el_explicador.png", MonedasOtorgadas = 25, ProfesorId = profesor2Id }
-            );
+            };
+            modelBuilder.Entity<Medalla>().HasData(medallas);
+            return medallas;
         }
         private static void PrecargarHitos(ModelBuilder modelBuilder)
         {
@@ -518,12 +744,12 @@ namespace AccesoDatos.RepositoriosEF
                 Boca = "default",           
                 Ropa = "shirtVNeck",        
                 Gafas = "sunglasses",       
-                Barba = "",                 
+                Barba = "",        
                 ColorPiel = "edb98a",
-                ColorPelo = "a55728",
+                ColorPelo = "4a312c",             
                 ColorRopa = "3c4f5c",
-                ColorGafas = "262e33",
-                ColorBarba = "a55728"
+                ColorGafas = "25557c",           
+                ColorBarba = "4a312c"
             };
 
             // 1. Encontrar y recolectar los objetos AtributoAvatar por defecto en una lista fuertemente tipada.
