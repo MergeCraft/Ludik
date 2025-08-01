@@ -49,33 +49,55 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
                 .Setup(u => u.SaveChangesAsync(It.IsAny<CancellationToken>()))
                 .ReturnsAsync(1);
 
-            // Default: LogicaNegocio.Entidades.Estudiante emisor con un perfil válido
-            var estudianteEmisor = new LogicaNegocio.Entidades.Estudiante { Id = EmisorId };
-            estudianteEmisor.Perfiles = new List<LogicaNegocio.Entidades.PerfilEstudiante>
+            // Default: Estudiante emisor con un perfil válido y kudos disponibles
+            var perfilEmisor = new LogicaNegocio.Entidades.PerfilEstudiante
             {
-                new LogicaNegocio.Entidades.PerfilEstudiante { Id = PerfilEmisorId, Grupo = new LogicaNegocio.Entidades.Grupo { Id = 1, ProfesorId = "prof-1" } }
+                Id = PerfilEmisorId,
+                Grupo = new LogicaNegocio.Entidades.Grupo { Id = 1, ProfesorId = "prof-1" },
+                KudosDisponiblesParaOtorgar = 5    // ← aquí le damos kudos
+            };
+            var estudianteEmisor = new LogicaNegocio.Entidades.Estudiante
+            {
+                Id = EmisorId,
+                Perfiles = new List<LogicaNegocio.Entidades.PerfilEstudiante> { perfilEmisor }
             };
             _mockEstudiantesRepo
                 .Setup(r => r.GetByStringIdAsync(EmisorId))
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Estudiante>.Exitoso(estudianteEmisor));
 
-            // Default: LogicaNegocio.Entidades.PerfilEstudiante receptor existe
-            var perfilReceptor = new LogicaNegocio.Entidades.PerfilEstudiante { Id = PerfilReceptorId, Grupo = new LogicaNegocio.Entidades.Grupo { Id = 1, ProfesorId = "prof-1" } };
+            // Default: Perfil receptor existe
+            var perfilReceptor = new LogicaNegocio.Entidades.PerfilEstudiante
+            {
+                Id = PerfilReceptorId,
+                Grupo = new LogicaNegocio.Entidades.Grupo { Id = 1, ProfesorId = "prof-1" }
+            };
             _mockPerfilRepo
                 .Setup(r => r.GetByIdAsync(PerfilReceptorId))
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.PerfilEstudiante>.Exitoso(perfilReceptor));
 
-            // Default: LogicaNegocio.Entidades.TipoKudo existe
-            var tipoKudo = new LogicaNegocio.Entidades.TipoKudo { Id = 5, Nombre = "Amistad", Descripcion = "Promueve la amistad", NombreImagenMiniatura = "amistad.png" };
+            // Default: TipoKudo existe
+            var tipoKudo = new TipoKudo
+            {
+                Id = 5,
+                Nombre = "Amistad",
+                Descripcion = "Promueve la amistad",
+                NombreImagenMiniatura = "amistad.png"
+            };
             _mockTiposKudoRepo
                 .Setup(r => r.GetByIdAsync(tipoKudo.Id))
-                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.TipoKudo>.Exitoso(tipoKudo));
+                .ReturnsAsync(Resultado<TipoKudo>.Exitoso(tipoKudo));
 
-            // Default: LogicaNegocio.Entidades.UmbralParaMedallaPorKudos
-            var umbral = new LogicaNegocio.Entidades.UmbralParaMedallaPorKudos { Id = 1, TipoKudoId = tipoKudo.Id, CantidadKudos = 1, Medalla = new LogicaNegocio.Entidades.Medalla { Id = 2 } };
+            // Default: Umbral para medalla
+            var umbral = new UmbralParaMedallaPorKudos
+            {
+                Id = 1,
+                TipoKudoId = tipoKudo.Id,
+                CantidadKudos = 1,
+                Medalla = new LogicaNegocio.Entidades.Medalla { Id = 2 }
+            };
             _mockUmbralesRepo
                 .Setup(r => r.GetAllByProfesorAndGrupoIdAsync(It.IsAny<int>(), It.IsAny<string>()))
-                .ReturnsAsync(Resultado<IEnumerable<LogicaNegocio.Entidades.UmbralParaMedallaPorKudos>>.Exitoso(new[] { umbral }));
+                .ReturnsAsync(Resultado<IEnumerable<UmbralParaMedallaPorKudos>>.Exitoso(new[] { umbral }));
         }
 
         [Fact]
@@ -101,13 +123,18 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
         [Fact]
         public async Task PerfilEmisorNoExiste_RetornaErrorDominio()
         {
-            // Dominio: LogicaNegocio.Entidades.Estudiante sin perfiles
+            // Dominio: Estudiante sin perfiles
             var estudianteEmisor = new LogicaNegocio.Entidades.Estudiante { Id = EmisorId, Perfiles = new List<LogicaNegocio.Entidades.PerfilEstudiante>() };
             _mockEstudiantesRepo
                 .Setup(r => r.GetByStringIdAsync(EmisorId))
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Estudiante>.Exitoso(estudianteEmisor));
 
-            var dto = new AsignarKudoDto { IdPerfilEstudianteEmisor = PerfilEmisorId, IdPerfilEstudianteRecibe = PerfilReceptorId, Kudo = new TipoKudoDto { Id = 5 } };
+            var dto = new AsignarKudoDto
+            {
+                IdPerfilEstudianteEmisor = PerfilEmisorId,
+                IdPerfilEstudianteRecibe = PerfilReceptorId,
+                Kudo = new TipoKudoDto { Id = 5 }
+            };
             var res = await _casoUso.EjecutarAsync(EmisorId, dto);
 
             Assert.True(res.EsFallo);
@@ -117,24 +144,17 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
         [Fact]
         public async Task TipoKudoNoExiste_RetornaErrorRepoTipos()
         {
-            // Dominio emisor válido
-            var estudianteEmisor = new LogicaNegocio.Entidades.Estudiante
-            {
-                Id = EmisorId,
-                Perfiles = new List<LogicaNegocio.Entidades.PerfilEstudiante>
-                {
-                    new LogicaNegocio.Entidades.PerfilEstudiante { Id = PerfilEmisorId, Grupo = new LogicaNegocio.Entidades.Grupo { Id = 1, ProfesorId = "prof-1" } }
-                }
-            };
-            _mockEstudiantesRepo
-                .Setup(r => r.GetByStringIdAsync(EmisorId))
-                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Estudiante>.Exitoso(estudianteEmisor));
-
+            // Forzamos falla al obtener tipo de kudo
             _mockTiposKudoRepo
                 .Setup(r => r.GetByIdAsync(5))
-                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.TipoKudo>.Falla(new Error("Error.NotFound", "Tipo de kudo no encontrado")));
+                .ReturnsAsync(Resultado<TipoKudo>.Falla(new Error("Error.NotFound", "Tipo de kudo no encontrado")));
 
-            var dto = new AsignarKudoDto { IdPerfilEstudianteEmisor = PerfilEmisorId, IdPerfilEstudianteRecibe = PerfilReceptorId, Kudo = new TipoKudoDto { Id = 5 } };
+            var dto = new AsignarKudoDto
+            {
+                IdPerfilEstudianteEmisor = PerfilEmisorId,
+                IdPerfilEstudianteRecibe = PerfilReceptorId,
+                Kudo = new TipoKudoDto { Id = 5 }
+            };
             var res = await _casoUso.EjecutarAsync(EmisorId, dto);
 
             Assert.True(res.EsFallo);
@@ -144,23 +164,16 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
         [Fact]
         public async Task ErrorAlEvaluarUmbrales_RetornaEseError()
         {
-            var estudianteEmisor = new LogicaNegocio.Entidades.Estudiante
-            {
-                Id = EmisorId,
-                Perfiles = new List<LogicaNegocio.Entidades.PerfilEstudiante>
-                {
-                    new LogicaNegocio.Entidades.PerfilEstudiante { Id = PerfilEmisorId, Grupo = new LogicaNegocio.Entidades.Grupo { Id = 1, ProfesorId = "prof-1" } }
-                }
-            };
-            _mockEstudiantesRepo
-                .Setup(r => r.GetByStringIdAsync(EmisorId))
-                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Estudiante>.Exitoso(estudianteEmisor));
-
             _mockUmbralesRepo
                 .Setup(r => r.GetAllByProfesorAndGrupoIdAsync(It.IsAny<int>(), It.IsAny<string>()))
-                .ReturnsAsync(Resultado<IEnumerable<LogicaNegocio.Entidades.UmbralParaMedallaPorKudos>>.Falla(new Error("Error.Validation", "Umbral inválido")));
+                .ReturnsAsync(Resultado<IEnumerable<UmbralParaMedallaPorKudos>>.Falla(new Error("Error.Validation", "Umbral inválido")));
 
-            var dto = new AsignarKudoDto { IdPerfilEstudianteEmisor = PerfilEmisorId, IdPerfilEstudianteRecibe = PerfilReceptorId, Kudo = new TipoKudoDto { Id = 5 } };
+            var dto = new AsignarKudoDto
+            {
+                IdPerfilEstudianteEmisor = PerfilEmisorId,
+                IdPerfilEstudianteRecibe = PerfilReceptorId,
+                Kudo = new TipoKudoDto { Id = 5 }
+            };
             var res = await _casoUso.EjecutarAsync(EmisorId, dto);
 
             Assert.True(res.EsFallo);
@@ -170,28 +183,21 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
         [Fact]
         public async Task ErrorSaveChanges_RetornaUnexpected()
         {
-            var estudianteEmisor = new LogicaNegocio.Entidades.Estudiante
-            {
-                Id = EmisorId,
-                Perfiles = new List<LogicaNegocio.Entidades.PerfilEstudiante>
-                {
-                    new LogicaNegocio.Entidades.PerfilEstudiante { Id = PerfilEmisorId, Grupo = new LogicaNegocio.Entidades.Grupo { Id = 1, ProfesorId = "prof-1" } }
-                }
-            };
-            _mockEstudiantesRepo
-                .Setup(r => r.GetByStringIdAsync(EmisorId))
-                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Estudiante>.Exitoso(estudianteEmisor));
-
-            // Forzar umbrales vacíos para llegar a SaveChanges
+            // Forzar umbrales vacíos y excepción en SaveChanges
             _mockUmbralesRepo
                 .Setup(r => r.GetAllByProfesorAndGrupoIdAsync(It.IsAny<int>(), It.IsAny<string>()))
-                .ReturnsAsync(Resultado<IEnumerable<LogicaNegocio.Entidades.UmbralParaMedallaPorKudos>>.Exitoso(Array.Empty<LogicaNegocio.Entidades.UmbralParaMedallaPorKudos>()));
+                .ReturnsAsync(Resultado<IEnumerable<UmbralParaMedallaPorKudos>>.Exitoso(Array.Empty<UmbralParaMedallaPorKudos>()));
 
             _mockUnitOfWork
                 .Setup(u => u.SaveChangesAsync(It.IsAny<CancellationToken>()))
                 .ThrowsAsync(new Exception("fail"));
 
-            var dto = new AsignarKudoDto { IdPerfilEstudianteEmisor = PerfilEmisorId, IdPerfilEstudianteRecibe = PerfilReceptorId, Kudo = new TipoKudoDto { Id = 5 } };
+            var dto = new AsignarKudoDto
+            {
+                IdPerfilEstudianteEmisor = PerfilEmisorId,
+                IdPerfilEstudianteRecibe = PerfilReceptorId,
+                Kudo = new TipoKudoDto { Id = 5 }
+            };
             var res = await _casoUso.EjecutarAsync(EmisorId, dto);
 
             Assert.True(res.EsFallo);
@@ -201,24 +207,17 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
         [Fact]
         public async Task CaminoFeliz_RetornaExitoso()
         {
-            var estudianteEmisor = new LogicaNegocio.Entidades.Estudiante
-            {
-                Id = EmisorId,
-                Perfiles = new List<LogicaNegocio.Entidades.PerfilEstudiante>
-                {
-                    new LogicaNegocio.Entidades.PerfilEstudiante { Id = PerfilEmisorId, Grupo = new LogicaNegocio.Entidades.Grupo { Id = 1, ProfesorId = "prof-1" } }
-                }
-            };
-            _mockEstudiantesRepo
-                .Setup(r => r.GetByStringIdAsync(EmisorId))
-                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Estudiante>.Exitoso(estudianteEmisor));
-
-            // Umbrales vacíos para que RecibirKudoYEvaluarMedalla use umbral null
+            // Forzar umbrales vacíos (para que RecibirKudoYEvaluarMedalla use null)
             _mockUmbralesRepo
                 .Setup(r => r.GetAllByProfesorAndGrupoIdAsync(It.IsAny<int>(), It.IsAny<string>()))
-                .ReturnsAsync(Resultado<IEnumerable<LogicaNegocio.Entidades.UmbralParaMedallaPorKudos>>.Exitoso(Array.Empty<LogicaNegocio.Entidades.UmbralParaMedallaPorKudos>()));
+                .ReturnsAsync(Resultado<IEnumerable<UmbralParaMedallaPorKudos>>.Exitoso(Array.Empty<UmbralParaMedallaPorKudos>()));
 
-            var dto = new AsignarKudoDto { IdPerfilEstudianteEmisor = PerfilEmisorId, IdPerfilEstudianteRecibe = PerfilReceptorId, Kudo = new TipoKudoDto { Id = 5 } };
+            var dto = new AsignarKudoDto
+            {
+                IdPerfilEstudianteEmisor = PerfilEmisorId,
+                IdPerfilEstudianteRecibe = PerfilReceptorId,
+                Kudo = new TipoKudoDto { Id = 5 }
+            };
             var res = await _casoUso.EjecutarAsync(EmisorId, dto);
 
             Assert.True(res.EsExitoso);
