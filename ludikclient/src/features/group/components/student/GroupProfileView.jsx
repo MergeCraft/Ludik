@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import BarLoader from "../../../generics/BarLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecompensasPerfil, useImagenPerfil, useBarraProgresoPerfil, useDefinirMetaCalificacion } from "../../hooks/useStudentMutation";
-import RewardItem from "../store/RewardItem";
+import RewardItem from "../../../rewards/components/RewardItem";
 import MedalCard from "../../../medals/components/MedalCard";
 import StudentAvatarEditor from "./StudentAvatarEditor";
 

@@ -1,25 +1,23 @@
 import React from "react";
 import styles from "./RewardItem.module.css";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
-import { selectUserRole } from "../../../auth/hooks/userSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useClaimReward } from "../../hooks/useStudentMutation";
+import { useClaimReward } from "../../group/hooks/useStudentMutation";
 
-const RewardItem = ({ reward, redeemed, perfilId }) => {
-  const role = useSelector(selectUserRole);
-  const isProfesor = role === "Profesor";
-
-  const { mutate: claimReward, isLoading: isClaiming } = useClaimReward(perfilId, reward.id, isProfesor);
+const RewardItem = ({ reward, redeemed, perfilId, showProfesorOptions, onEdit }) => {
+  const { mutate: claimReward, isLoading: isClaiming } = useClaimReward(perfilId, reward.id, showProfesorOptions);
 
   const handleClaimReward = () => {
-    if (isProfesor || !perfilId) return;
-
+    if (showProfesorOptions || !perfilId) return;
     claimReward(perfilId, reward.id);
   };
 
+  const handleEditClick = () => {
+    if (onEdit) onEdit(reward);
+  };
+
   return (
-    <div className={styles.rewardCard}>
+    <div className={`${styles.rewardCard} ${showProfesorOptions ? styles.gestor : ""}`}>
       <h4>{reward.nombre}</h4>
       <div className={styles.iconContainer}>
         {reward.requiereImagen ? <img src={`${reward.rutaImagenCompleta}`} alt={`Recompensa ${reward.nombre}`} /> : <FontAwesomeIcon icon={`fa-solid fa-${reward.rutaImagenCompleta}`} />}
@@ -31,12 +29,12 @@ const RewardItem = ({ reward, redeemed, perfilId }) => {
             <FontAwesomeIcon icon="fa-solid fa-coins" />
             {reward.precio}
           </p>
-          {isProfesor ? (
-            <button className={styles.editarRecompensa}>
+          {showProfesorOptions ? (
+            <button className={styles.editarRecompensa} onClick={handleEditClick} type="button" aria-label={`Editar recompensa ${reward.nombre}`}>
               <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
             </button>
           ) : (
-            <button className={styles.canjearRecompensa} onClick={handleClaimReward} disabled={isClaiming}>
+            <button className={styles.canjearRecompensa} onClick={handleClaimReward} disabled={isClaiming} type="button" aria-label={`Canjear recompensa ${reward.nombre}`}>
               <FontAwesomeIcon icon="fa-solid fa-cart-shopping" />
             </button>
           )}
@@ -53,10 +51,16 @@ RewardItem.propTypes = {
     rutaImagenCompleta: PropTypes.string.isRequired,
     rutaImagenMiniatura: PropTypes.string.isRequired,
     precio: PropTypes.number.isRequired,
-    requiereImagen: PropTypes.bool.isRequired, // nuevo campo
+    requiereImagen: PropTypes.bool.isRequired,
   }).isRequired,
   redeemed: PropTypes.bool.isRequired,
   perfilId: PropTypes.number.isRequired,
+  showProfesorOptions: PropTypes.bool.isRequired,
+  onEdit: PropTypes.func,
+};
+
+RewardItem.defaultProps = {
+  onEdit: null,
 };
 
 export default RewardItem;

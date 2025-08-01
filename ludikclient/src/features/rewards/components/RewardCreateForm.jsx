@@ -1,8 +1,9 @@
-// RewardCreateForm.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import styles from "./RewardCreateForm.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useCrearRecompensa } from "../../hooks/useGrupoMutation";
+import { useCrearRecompensa, useEditarRecompensa, useEliminarRecompensa } from "../hooks/useRewardMutation";
+import * as Toast from "../../../lib/toastify.js";
 
 const iconOptions = [
   { label: "Estrella", value: "star" },
@@ -13,8 +14,6 @@ const iconOptions = [
   { label: "Trofeo", value: "trophy" },
   { label: "Fuego", value: "fire" },
   { label: "Banderín", value: "flag" },
-
-  // Nuevos íconos agregados según tu librería
   { label: "Corona", value: "crown" },
   { label: "Caja", value: "box" },
   { label: "Dado", value: "dice" },
@@ -57,7 +56,13 @@ const iconOptions = [
   { label: "Pastel", value: "cake-candles" },
 ];
 
-const RewardCreateForm = () => {
+const extractIconName = (ruta) => {
+  if (!ruta) return "";
+  const match = ruta.match(/\/([^/]+)\.svg$/);
+  return match ? match[1] : "";
+};
+
+const RewardCreateForm = ({ reward, onClose }) => {
   const [recompensa, setRecompensa] = useState({
     id: 0,
     nombre: "",
@@ -67,8 +72,32 @@ const RewardCreateForm = () => {
 
   const [showIconPicker, setShowIconPicker] = useState(false);
 
+  useEffect(() => {
+    if (reward) {
+      const iconName = extractIconName(reward.rutaImagenCompleta);
+
+      setRecompensa({
+        id: reward.id,
+        nombre: reward.nombre,
+        imagen: iconName,
+        precio: reward.precio,
+      });
+    }
+  }, [reward]);
+
   const crearRecompensaMutation = useCrearRecompensa(() => {
     setRecompensa({ id: 0, nombre: "", imagen: "", precio: 0 });
+    onClose?.();
+  });
+
+  const editarRecompensaMutation = useEditarRecompensa(() => {
+    setRecompensa({ id: 0, nombre: "", imagen: "", precio: 0 });
+    onClose?.();
+  });
+
+  const eliminarRecompensaMutation = useEliminarRecompensa(() => {
+    setRecompensa({ id: 0, nombre: "", imagen: "", precio: 0 });
+    onClose?.();
   });
 
   const handleChange = (e) => {
@@ -87,20 +116,45 @@ const RewardCreateForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!recompensa.nombre.trim() || !recompensa.imagen || recompensa.precio < 0) {
-      return; // validación simple
+    if (!recompensa.nombre.trim()) {
+      Toast.notificarError("El nombre de la recompensa no puede estar vacío.");
+      return;
     }
 
-    // Para la imagen, construimos las rutas a partir del icono seleccionado:
-    const rutaImagenCompleta = `/icons/rewards/${recompensa.imagen}.svg`;
-    const rutaImagenMiniatura = `/icons/rewards/mini/${recompensa.imagen}.svg`;
+    if (!recompensa.imagen) {
+      Toast.notificarError("Debes seleccionar un ícono representativo.");
+      return;
+    }
 
-    crearRecompensaMutation.mutate({
+    if (recompensa.precio < 0) {
+      Toast.notificarError("El precio no puede ser negativo.");
+      return;
+    }
+
+    const rutaImagenCompleta = recompensa.imagen;
+    const rutaImagenMiniatura = recompensa.imagen;
+
+    const payload = {
       nombre: recompensa.nombre,
       rutaImagenCompleta,
       rutaImagenMiniatura,
       precio: recompensa.precio,
-    });
+    };
+
+    if (recompensa.id && recompensa.id !== 0) {
+      // Editar
+      editarRecompensaMutation.mutate({ recompensaId: recompensa.id, data: payload });
+    } else {
+      // Crear
+      crearRecompensaMutation.mutate(payload);
+    }
+  };
+
+  const handleDelete = () => {
+    if (!recompensa.id) return;
+    if (window.confirm("¿Estás seguro que deseas eliminar esta recompensa?")) {
+      eliminarRecompensaMutation.mutate(recompensa.id);
+    }
   };
 
   return (
@@ -133,16 +187,26 @@ const RewardCreateForm = () => {
 
       <div className={styles.acciones}>
         <button type="submit" className={`${styles.btnSubmit} button-secondary`}>
-          Crear recompensa
+          {recompensa.id ? "Guardar cambios" : "Crear recompensa"}
         </button>
         {recompensa.id !== 0 && (
-          <button className={`${styles.btnDelete} button-tertiary`}>
+          <button type="button" className={`${styles.btnDelete} button-tertiary`} onClick={handleDelete} aria-label={`Eliminar recompensa ${recompensa.nombre}`}>
             <FontAwesomeIcon icon="fa-solid fa-trash" />
           </button>
         )}
       </div>
     </form>
   );
+};
+
+RewardCreateForm.propTypes = {
+  reward: PropTypes.shape({
+    id: PropTypes.number,
+    nombre: PropTypes.string,
+    rutaImagenCompleta: PropTypes.string,
+    precio: PropTypes.number,
+  }),
+  onClose: PropTypes.func,
 };
 
 export default RewardCreateForm;

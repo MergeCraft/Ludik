@@ -1,0 +1,11 @@
+.rewardsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    width: 100%;
+}
+
+.rewardsGrid>* {
+    justify-self: center;
+    width: 100%;
+}

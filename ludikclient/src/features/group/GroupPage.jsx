@@ -7,12 +7,12 @@ import { useSelector } from "react-redux";
 import { selectUserRole, selectUserId } from "../auth/hooks/userSlice";
 import BaseManagerPage from "../generics/BaseManagerPage";
 import StudentItem from "./components/StudentItem";
-import RewardItem from "./components/store/RewardItem.jsx";
-import RewardCreateForm from "./components/store/RewardCreateForm.jsx";
 import GroupProfileView from "./components/student/GroupProfileView.jsx";
 import GroupConfigView from "./components/configs/GroupConfigView.jsx";
 import GroupPacView from "./components/pac/GroupPacView.jsx";
 import MedalThresholdView from "./components/medalThreshold/MedalThresholdView.jsx";
+import StoreGroupView from "./components/store/StoreGroupView"; // ajusta la ruta si es necesario
+
 import { useGrupo, useAlumnosGrupo, useRecompensasTienda, useTiposKudo } from "./hooks/useGrupoMutation";
 import { usePerfilGrupo } from "./hooks/useStudentMutation.js";
 
@@ -43,17 +43,11 @@ const GroupPage = () => {
   const { data: group, isLoading: isLoadingGroup } = useGrupo(groupId);
   const { data: students, isLoading: isLoadingStudents } = useAlumnosGrupo(groupId);
   const { data: medals, isLoading: isLoadingMedals } = useMedallasProfesor(isProfesor);
-  const { data: tiposKudo, isLoading :isLoadingKudos } = useTiposKudo();
+  const { data: tiposKudo, isLoading: isLoadingKudos } = useTiposKudo();
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasTienda(group?.idTienda);
   const { data: perfil, isLoadingPerfil } = usePerfilGrupo(groupId, isProfesor);
 
   const studentsFiltrados = students?.filter((item) => item.nombreEstudiante.toLowerCase().includes(search.toLowerCase()));
-
-  const handleOpenRewardCreateForm = () => {
-    setModalContent(<RewardCreateForm groupId={groupId} />);
-    setModalTitle("Crear nueva recompensa");
-    setShowModal(true);
-  };
 
   const handleOpenApplicationRequests = () => {
     setModalContent(<ApplicationRequests groupId={groupId} link={group.urlCompleta} />);
@@ -165,21 +159,16 @@ const GroupPage = () => {
           ))}
 
         {selectedView === "tienda" ? (
-          isLoadingRecompensas ? (
-            <BarLoader />
-          ) : (
-            <div className={style.storeContent}>
-              {isProfesor && (
-                <button className={style.addRewardButton} onClick={handleOpenRewardCreateForm}>
-                  <FontAwesomeIcon icon="fa-solid fa-plus" size="2xl" />
-                </button>
-              )}
-
-              {recompensas?.map((reward) => (
-                <RewardItem key={reward.id + reward.nombre} reward={reward} redeemed={false} perfilId={perfil?.id} />
-              ))}
-            </div>
-          )
+          <StoreGroupView
+            recompensas={recompensas}
+            isLoading={isLoadingRecompensas}
+            isProfesor={isProfesor}
+            perfil={perfil}
+            setShowModal={setShowModal}
+            setModalContent={setModalContent}
+            setModalTitle={setModalTitle}
+            grupoId={groupId}
+          />
         ) : selectedView === "alumnos" ? (
           isLoadingStudents || isLoadingMedals ? (
             <BarLoader />

@@ -22,10 +22,10 @@ import {
   obtenerUmbralesMedallas,
   crearUmbralMedalla,
   editarUmbralMedalla,
-  eliminarUmbralMedalla
+  eliminarUmbralMedalla,
 } from "../../../services/groupService";
 import { obtenerTiposKudo } from "../../../services/medalService";
-import { obtenerRecompensasTienda, crearRecompensa } from "../../../services/storeService";
+import { obtenerRecompensasTienda } from "../../../services/storeService";
 import { obtenerRankings, crearRanking, eliminarRanking, obtenerRankingPorId } from "../../../services/rankingsService";
 
 // === Utilidades ===
@@ -204,19 +204,6 @@ export const useRecompensasTienda = (tiendaId) => {
     queryKey: ["recompensas", tiendaId],
     queryFn: () => obtenerRecompensasTienda(tiendaId),
     enabled: !!tiendaId,
-    onError: manejarErrores,
-  });
-};
-
-export const useCrearRecompensa = (onSuccessCallback) => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: crearRecompensa,
-    onSuccess: (data) => {
-      Toast.notificarExito("Recompensa creada correctamente.");
-      queryClient.invalidateQueries(["recompensas"]); // Ajusta la key según cómo cargues recompensas
-      if (onSuccessCallback) onSuccessCallback(data);
-    },
     onError: manejarErrores,
   });
 };

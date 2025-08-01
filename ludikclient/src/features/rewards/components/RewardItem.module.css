@@ -21,6 +21,10 @@
 
 }
 
+.gestor {
+    background-color: var(--secundario);
+}
+
 .iconContainer {
     border-radius: 15px;
     text-align: center;
@@ -54,8 +58,8 @@
 .editarRecompensa {
     height: 35px;
     width: 100%;
-    border: 1px solid var(--principal);
-    border-top: none;
+    box-shadow: 0 0 0 1px var(--principal);
+    border: none;
     background-color: var(--secundario);
     border-radius: 0 0 15px 15px;
     color: var(--blanco-principal);

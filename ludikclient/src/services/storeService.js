@@ -22,6 +22,7 @@ export const crearRecompensa = async ({ nombre, rutaImagenCompleta, rutaImagenMi
     });
     return response.data;
   } catch (error) {
+    console.log(error);
     throw parseError(error, "Error al crear la recompensa.");
   }
 };
@@ -49,5 +50,47 @@ export const canjearRecompensa = async ({ perfilId, recompensaId }) => {
     return response.data;
   } catch (error) {
     throw parseError(error, "No se pudo canjear la recompensa.");
+  }
+};
+
+export const obtenerRecompensasProfesor = async () => {
+  try {
+    const response = await api.get("/api/Recompensa/obtener-recompensas-profesor");
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw parseError(error, "No se pudieron obtener las recompensas del profesor.");
+  }
+};
+
+export const editarRecompensa = async ({ recompensaId, data }) => {
+  try {
+    const response = await api.put(`/api/Recompensa/${recompensaId}`, data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw parseError(error, "Error al editar la recompensa.");
+  }
+};
+
+export const eliminarRecompensa = async (recompensaId) => {
+  try {
+    const response = await api.delete(`/api/Recompensa/${recompensaId}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw parseError(error, "Error al eliminar la recompensa.");
+  }
+};
+
+export const asignarRecompensaAGrupos = async ({ recompensaId, gruposIds }) => {
+  try {
+    const response = await api.post("/api/Recompensa/asignar-a-grupos", {
+      recompensaId,
+      gruposIds,
+    });
+    return response.data;
+  } catch (error) {
+    throw parseError(error, "Error al asignar la recompensa a los grupos.");
   }
 };

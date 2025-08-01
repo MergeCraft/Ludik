@@ -1,0 +1,20 @@
+.storeContent {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 15px;
+    justify-items: center;
+}
+
+.storeContent>* {
+    width: 100%;
+    justify-self: center;
+}
+
+.addRewardButton {
+    background-color: var(--secundario);
+    border: 2px solid var(--principal);
+    border-radius: 15px;
+    width: 130px;
+    color: var(--principal);
+    cursor: pointer;
+}
