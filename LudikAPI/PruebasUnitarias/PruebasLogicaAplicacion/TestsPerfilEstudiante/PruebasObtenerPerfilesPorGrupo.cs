@@ -1,136 +1,142 @@
-﻿using InterfacesRepositorio;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.PerfilEstudianteDTO;
 using LogicaAplicacion.ImplementacionCasosUsos.PerfilEstudiante;
-using LogicaAplicacion.ImplementacionServicios;
 using LogicaAplicacion.Servicios;
 using LogicaNegocio.Entidades;
-using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
+using LogicaNegocio.ValueObjects;
 using Moq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Xunit;
-using Entidad = LogicaNegocio.Entidades;
-
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
 {
     public class PruebasObtenerPerfilesPorGrupo
     {
-        private readonly Mock<IRepositorioPerfilEstudianteGrupo> _repoPerfilMock;
-        private readonly IGeneradorUrlsParaColeccionesImagenes _generadorUrlsParaColecciones;
+        private readonly Mock<IRepositorioPerfilEstudianteGrupo> _mockRepo;
+        private readonly Mock<IGeneradorUrlsParaColeccionesImagenes> _mockUrlGen;
+        private readonly ObtenerPerfilesPorGrupo _casoUso;
 
         public PruebasObtenerPerfilesPorGrupo()
         {
-            _repoPerfilMock = new Mock<IRepositorioPerfilEstudianteGrupo>();
-            _generadorUrlsParaColecciones = new GeneradorUrlsParaColeccionesImagenes(new GeneradorUrlImagen(new Mock<IRepositorioAlmacenamientoArchivos>().Object));
+            _mockRepo = new Mock<IRepositorioPerfilEstudianteGrupo>();
+            _mockUrlGen = new Mock<IGeneradorUrlsParaColeccionesImagenes>();
+            _casoUso = new ObtenerPerfilesPorGrupo(_mockRepo.Object, _mockUrlGen.Object);
         }
 
-        //[Fact]
-        //public async Task EjecutarAsync_PerfilesEncontrados_RetornaDtosMapeados()
-        //{
-        //    // Arrange
-        //    int grupoId = 42;
-        //    var perfiles = new List<Entidad.PerfilEstudiante>
-        //    {
-        //        new Entidad.PerfilEstudiante
-        //        {
-        //            Id = 1,
-        //            MetaCalificacion = 5,
-        //            EstudianteId = "e1",
-        //            Monedas = 100,
-        //            GrupoId = grupoId
-        //        },
-        //        new Entidad.PerfilEstudiante
-        //        {
-        //            Id = 2,
-        //            MetaCalificacion = 8,
-        //            EstudianteId = "e2",
-        //            Monedas = 200,
-        //            GrupoId = grupoId
-        //        }
-        //    };
+        [Fact]
+        public async Task EjecutarAsync_RepositorioFalla_RetornaFalloYSinProcesarUrls()
+        {
+            var error = new Error("ERR.TEST", "Fallo simulado");
+            _mockRepo
+                .Setup(r => r.ObtenerPorGrupoIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(Resultado<List<LogicaNegocio.Entidades.PerfilEstudiante>>.Falla(error));
 
-        //    // Aquí: asegurarnos de usar PerfilEstudiante y Resultado<List<PerfilEstudiante>>
-        //    _repoPerfilMock
-        //        .Setup(r => r.ObtenerPorGrupoIdAsync(grupoId))
-        //        .ReturnsAsync(Resultado<List<Entidad.PerfilEstudiante>>.Exitoso(perfiles));
+            var resultado = await _casoUso.EjecutarAsync(123);
 
-        //    var casoUso = new ObtenerPerfilesPorGrupo(_repoPerfilMock.Object);
-
-        //    // Act
-        //    var resultado = await casoUso.EjecutarAsync(grupoId);
-
-        //    // Assert
-        //    Assert.True(resultado.EsExitoso);
-        //    Assert.NotNull(resultado.Valor);
-        //    Assert.Equal(2, resultado.Valor.Count);
-
-        //    // Verificar mapeo de cada propiedad en el DTO
-        //    var dto1 = resultado.Valor[0];
-        //    Assert.Equal(1, dto1.Id);
-        //    Assert.Equal(10, dto1.AvatarGrupoId);
-        //    Assert.Equal("http://avatar1", dto1.EnlaceAvatarCompleto);
-        //    Assert.Equal(5, dto1.MetaCalificacion);
-        //    Assert.Equal("e1", dto1.EstudianteId);
-        //    Assert.Equal(100, dto1.Monedas);
-        //    Assert.Equal(grupoId, dto1.GrupoId);
-
-        //    var dto2 = resultado.Valor[1];
-        //    Assert.Equal(2, dto2.Id);
-        //    Assert.Equal(20, dto2.AvatarGrupoId);
-        //    Assert.Equal("http://avatar2", dto2.EnlaceAvatarCompleto);
-        //    Assert.Equal(8, dto2.MetaCalificacion);
-        //    Assert.Equal("e2", dto2.EstudianteId);
-        //    Assert.Equal(200, dto2.Monedas);
-        //    Assert.Equal(grupoId, dto2.GrupoId);
-        //}
+            Assert.True(resultado.EsFallo);
+            Assert.Contains(error, resultado.Errores);
+            _mockUrlGen.Verify(
+                g => g.EjecutarProcesarUrlsAsync<PerfilEstudianteInformacionDto>(
+                    It.IsAny<IEnumerable<PerfilEstudianteInformacionDto>>(),
+                    It.IsAny<(Func<PerfilEstudianteInformacionDto, string>, Action<PerfilEstudianteInformacionDto, string>)[]>()),
+                Times.Never);
+        }
 
         [Fact]
-        public async Task EjecutarAsync_ListaVacia_RetornaListaVacia()
+        public async Task EjecutarAsync_RepositorioRetornaPerfiles_MapeaYProcesaUrls()
         {
-            // Arrange
-            int grupoId = 100;
-            var perfilesVacios = new List<Entidad.PerfilEstudiante>();
+            // 1) Construyo una TablaEquivalencia que siempre entregue nota 85:
+            var tabla = new TablaEquivalencia
+            {
+                Equivalencias = new List<Equivalencia>
+                {
+                    // Una única equivalencia de nota=85 y sin requisitos
+                    new Equivalencia(85, new List<LogicaNegocio.Entidades.Medalla>())
+                }
+            };
 
-            _repoPerfilMock
-                .Setup(r => r.ObtenerPorGrupoIdAsync(grupoId))
-                .ReturnsAsync(Resultado<List<Entidad.PerfilEstudiante>>.Exitoso(perfilesVacios));
+            // 2) Creo el Grupo real usando esa tabla
+            var grupoReal = new LogicaNegocio.Entidades.Grupo
+            {
+                Id = 7,
+                Nombre = "Grupo Test",
+                TablaEquivalencia = tabla
+            };
 
-            var casoUso = new ObtenerPerfilesPorGrupo(_repoPerfilMock.Object, _generadorUrlsParaColecciones);
+            // 3) Creo el VO NombreCompleto
+            var nombreRes = NombreCompleto.Crear("Juan", "Pérez");
+            Assert.True(nombreRes.EsExitoso, "NombreCompleto inválido en test");
+            var nombreVO = nombreRes.Valor;
+
+            // 4) Creo el PerfilEstudiante apuntando a mi grupoReal
+            var perfil = new LogicaNegocio.Entidades.PerfilEstudiante
+            {
+                Id = 42,
+                NombreImagenMiniatura = "avatar-mini.png",
+                NombreImagenCompleta = "avatar-full.png",
+                MetaCalificacion = 100,
+                EstudianteId = "est-001",
+                Estudiante = new LogicaNegocio.Entidades.Estudiante { NombreCompleto = nombreVO },
+                Monedas = 50,
+                GrupoId = grupoReal.Id,
+                Grupo = grupoReal,
+                MedallasObtenidas = new List<PerfilEstudianteMedalla>
+                {
+                    new PerfilEstudianteMedalla {
+                        Medalla = new LogicaNegocio.Entidades.Medalla {
+                            Id                    = 10,
+                            Nombre                = "Super Medalla",
+                            Descripcion           = "Descripción test",
+                            NombreImagenMiniatura = "medalla-mini.png",
+                            MonedasOtorgadas      = 5,
+                            TieneAsignacionMutua  = false
+                        }
+                    }
+                }
+            };
+
+            _mockRepo
+                .Setup(r => r.ObtenerPorGrupoIdAsync(grupoReal.Id))
+                .ReturnsAsync(Resultado<List<LogicaNegocio.Entidades.PerfilEstudiante>>.Exitoso(new[] { perfil }.ToList()));
+
+            // 5) Capturo los DTOs que se pasen al generador de URLs
+            List<PerfilEstudianteInformacionDto> dtosProcesados = null;
+            _mockUrlGen
+                .Setup(g => g.EjecutarProcesarUrlsAsync(
+                    It.IsAny<IEnumerable<PerfilEstudianteInformacionDto>>(),
+                    It.IsAny<(Func<PerfilEstudianteInformacionDto, string>, Action<PerfilEstudianteInformacionDto, string>)[]>()))
+                .Callback<IEnumerable<PerfilEstudianteInformacionDto>, (Func<PerfilEstudianteInformacionDto, string>, Action<PerfilEstudianteInformacionDto, string>)[]>(
+                    (dtos, _) => dtosProcesados = dtos.ToList()
+                )
+                .Returns(Task.CompletedTask);
 
             // Act
-            var resultado = await casoUso.EjecutarAsync(grupoId);
+            var resultado = await _casoUso.EjecutarAsync(grupoReal.Id);
 
             // Assert
             Assert.True(resultado.EsExitoso);
-            Assert.NotNull(resultado.Valor);
-            Assert.Empty(resultado.Valor);
-        }
+            Assert.Single(resultado.Valor);
 
-        [Fact]
-        public async Task EjecutarAsync_ErrorEnRepositorio_RetornaFalloConMismoMensaje()
-        {
-            // Arrange
-            int grupoId = 5;
-            var erroresRepo = new List<Error>
-            {
-                new Error("RepoError", "Fallo al obtener perfiles del grupo")
-            };
+            var dto = resultado.Valor![0];
+            Assert.Equal(42, dto.Id);
+            Assert.Equal("est-001", dto.EstudianteId);
+            Assert.Equal(50, dto.Monedas);
+            Assert.Equal(85, dto.CalificacionActual);                    // ahora sale de tu propia TablaEquivalencia
+            Assert.Single(dto.Medallas);
+            Assert.Equal("avatar-mini.png", dto.EnlaceAvatarMiniatura);
 
-            _repoPerfilMock
-                .Setup(r => r.ObtenerPorGrupoIdAsync(grupoId))
-                .ReturnsAsync(Resultado<List<Entidad.PerfilEstudiante>>.Falla(erroresRepo));
+            // Verifico la llamada al generador de URLs
+            _mockUrlGen.Verify(
+                g => g.EjecutarProcesarUrlsAsync(
+                    It.IsAny<IEnumerable<PerfilEstudianteInformacionDto>>(),
+                    It.IsAny<(Func<PerfilEstudianteInformacionDto, string>, Action<PerfilEstudianteInformacionDto, string>)[]>()),
+                Times.Once);
 
-            var casoUso = new ObtenerPerfilesPorGrupo(_repoPerfilMock.Object, _generadorUrlsParaColecciones);
-
-            // Act
-            var resultado = await casoUso.EjecutarAsync(grupoId);
-
-            // Assert
-            Assert.True(resultado.EsFallo);
-            Assert.NotNull(resultado.Errores);
-            Assert.Contains(resultado.Errores, e => e.Mensaje.Contains("Fallo al obtener perfiles del grupo"));
+            // Y que el listado procesado coincide con el del resultado
+            Assert.Equal(resultado.Valor, dtosProcesados);
         }
     }
 }

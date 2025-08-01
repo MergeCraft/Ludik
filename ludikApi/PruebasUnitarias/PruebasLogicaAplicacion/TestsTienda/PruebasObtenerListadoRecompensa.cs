@@ -58,10 +58,10 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Tienda
         public async Task CaminoFeliz_RetornaDtosConUrls()
         {
             var recompensas = new List<LogicaNegocio.Entidades.Recompensa>
-            {
-                new RecompensaSimple { Id = 1, Nombre = "R1", Precio = 5, NombreImagenCompleta = "c1", NombreImagenMiniatura = "m1" },
-                new RecompensaSimple { Id = 2, Nombre = "R2", Precio = 10, NombreImagenCompleta = "c2", NombreImagenMiniatura = "m2" }
-            };
+    {
+        new RecompensaSimple { Id = 1, Nombre = "R1", Precio = 5, NombreImagenCompleta = "c1", NombreImagenMiniatura = "m1" },
+        new RecompensaSimple { Id = 2, Nombre = "R2", Precio = 10, NombreImagenCompleta = "c2", NombreImagenMiniatura = "m2" }
+    };
 
             var tienda = new LogicaNegocio.Entidades.Tienda
             {
@@ -73,7 +73,21 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Tienda
                 .Setup(r => r.GetByIdAsync(20))
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Tienda>.Exitoso(tienda));
 
-            var resultado = await _useCase.EjecutarAsync(20);
+            var mockRepoArchivos = new Mock<IRepositorioAlmacenamientoArchivos>();
+            mockRepoArchivos
+                .Setup(a => a.ObtenerArchivoSasUrlAsync(It.IsAny<string>()))
+                .Returns<string>(nombre => Task.FromResult(Resultado<string>.Exitoso($"url-fake/{nombre}")));
+
+            var generadorUrlsParaColecciones = new GeneradorUrlsParaColeccionesImagenes(
+                new GeneradorUrlImagen(mockRepoArchivos.Object)
+            );
+
+            var useCase = new ObtenerListadoRecompensa(
+                _mockRepoTiendas.Object,
+                generadorUrlsParaColecciones
+            );
+
+            var resultado = await useCase.EjecutarAsync(20);
 
             Assert.True(resultado.EsExitoso);
             var lista = resultado.Valor!.ToList();
