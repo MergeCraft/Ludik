@@ -10,6 +10,6 @@ namespace LogicaAplicacion.DTOs.MedallaDTOs
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public string UrlImagen { get; set; }
+        public string NombreIcono { get; set; }
     }
 }

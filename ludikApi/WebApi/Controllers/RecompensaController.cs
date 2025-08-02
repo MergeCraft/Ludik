@@ -48,7 +48,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> AltaRecompensa([FromBody] RecompensaAltaDto recompensaRequest)
+        public async Task<IActionResult> AltaRecompensa([FromBody] RecompensaSimpleAltaDto recompensaRequest)
         {
 
             var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);

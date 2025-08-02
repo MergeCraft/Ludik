@@ -44,7 +44,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             // Arrange
             var dto = new MedallaAltaDto
             {
-                UrlImagen = "url.png",
+                NombreIcono = "url.png",
                 Nombre = nombreInvalido,
                 Descripcion = "Descripción válida",
                 CantidadMonedasBrinda = 1,
@@ -67,7 +67,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             // Arrange
             var dto = new MedallaAltaDto
             {
-                UrlImagen = "url.png",
+                NombreIcono = "url.png",
                 Nombre = "NombreVálido",
                 Descripcion = new string('a', 151), // supera el límite de 150 caracteres
                 CantidadMonedasBrinda = 1,
@@ -104,7 +104,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             // Arrange
             var dto = new MedallaAltaDto
             {
-                UrlImagen = "url.png",
+                NombreIcono = "url.png",
                 Nombre = "NombreVálido",
                 Descripcion = "Descripción válida",
                 CantidadMonedasBrinda = -5,
@@ -128,7 +128,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             // Arrange
             var dto = new MedallaAltaDto
             {
-                UrlImagen = "icono.png",
+                NombreIcono = "icono.png",
                 Nombre = "NombreVálido",
                 Descripcion = "Descripción válida",
                 CantidadMonedasBrinda = 10,
@@ -150,7 +150,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             Assert.NotNull(capturada);
             Assert.Equal(dto.Nombre, capturada.Nombre);
             Assert.Equal(dto.Descripcion, capturada.Descripcion);
-            Assert.Equal(dto.UrlImagen, capturada.NombreImagenMiniatura);
+            Assert.Equal(dto.NombreIcono, capturada.NombreIcono);
             Assert.Equal(dto.CantidadMonedasBrinda, capturada.MonedasOtorgadas);
             Assert.Equal(dto.EsAsignacionMutua, capturada.TieneAsignacionMutua);
             Assert.Equal(ProfesorId, capturada.ProfesorId);
@@ -162,7 +162,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             // Arrange
             var dto = new MedallaAltaDto
             {
-                UrlImagen = "icono.png",
+                NombreIcono = "icono.png",
                 Nombre = "NombreVálido",
                 Descripcion = "Descripción válida",
                 CantidadMonedasBrinda = 3,

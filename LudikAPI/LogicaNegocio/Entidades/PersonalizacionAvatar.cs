@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using LogicaNegocio.EntidadesAuxiliares;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LogicaNegocio.Entidades;
 
@@ -13,7 +14,7 @@ public class PersonalizacionAvatar: Recompensa
 
     public PersonalizacionAvatar()
     {
-        RequiereImagen = true; // Por defecto, las personalizaciones de avatar requieren imagen
+        Representacion = new RepresentacionImagen();
     }
 
     public override Resultado Otorgar(PerfilEstudiante perfil)

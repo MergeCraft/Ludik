@@ -40,7 +40,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaEquivalencia
                         Nota = 1,
                         MedallasNecesarias = new List<MedallaBasicaDto>
                         {
-                            new MedallaBasicaDto { Id = 1, Nombre = "M1", UrlImagen = "url" }
+                            new MedallaBasicaDto { Id = 1, Nombre = "M1", NombreIcono = "url" }
                         }
                     }
                 }
@@ -102,8 +102,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaEquivalencia
                         Nota = 1,
                         MedallasNecesarias = new List<MedallaBasicaDto>
                         {
-                            new MedallaBasicaDto { Id = 1, Nombre = "M1", UrlImagen = "url" },
-                            new MedallaBasicaDto { Id = 2, Nombre = "M2", UrlImagen = "url2" }
+                            new MedallaBasicaDto { Id = 1, Nombre = "M1", NombreIcono = "url" },
+                            new MedallaBasicaDto { Id = 2, Nombre = "M2", NombreIcono = "url2" }
                         }
                     }
                 }
@@ -111,8 +111,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaEquivalencia
 
             var medallas = new List<LogicaNegocio.Entidades.Medalla>
             {
-                new LogicaNegocio.Entidades.Medalla { Id = 1, Nombre = "M1", NombreImagenMiniatura = "url" },
-                new LogicaNegocio.Entidades.Medalla { Id = 2, Nombre = "M2", NombreImagenMiniatura = "url2" }
+                new LogicaNegocio.Entidades.Medalla { Id = 1, Nombre = "M1", NombreIcono = "url" },
+                new LogicaNegocio.Entidades.Medalla { Id = 2, Nombre = "M2", NombreIcono = "url2" }
             };
 
             _repoMedallasMock

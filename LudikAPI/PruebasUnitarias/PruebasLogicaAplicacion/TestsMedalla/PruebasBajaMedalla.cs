@@ -96,7 +96,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Id = id,
                 Nombre = "NombreValido",
                 Descripcion = "Desc",
-                NombreImagenMiniatura = "url",
+                NombreIcono = "url",
                 MonedasOtorgadas = 2,
                 TieneAsignacionMutua = false,
                 ProfesorId = ProfesorId
@@ -124,7 +124,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Id = id,
                 Nombre = "NombreValido",
                 Descripcion = "Desc",
-                NombreImagenMiniatura = "url",
+                NombreIcono = "url",
                 MonedasOtorgadas = 3,
                 TieneAsignacionMutua = true,
                 ProfesorId = ProfesorId

@@ -44,7 +44,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
             {
                 Id = 99,
                 Nombre = "Super Medalla",
-                NombreImagenMiniatura = "http://img/test.png",
+                NombreIcono = "http://img/test.png",
                 Descripcion = "Descripción test",
                 MonedasOtorgadas = 10,
                 TieneAsignacionMutua = false
@@ -109,7 +109,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
             var dtoMedalla = dto.Medallas[0];
             Assert.Equal(99, dtoMedalla.Id);
             Assert.Equal("Super Medalla", dtoMedalla.Nombre);
-            Assert.Equal("http://img/test.png", dtoMedalla.UrlImagen);
+            Assert.Equal("http://img/test.png", dtoMedalla.NombreIcono);
             Assert.Equal("Descripción test", dtoMedalla.Descripcion);
             Assert.Equal(10, dtoMedalla.CantidadMedallasBrinda);
             Assert.False(dtoMedalla.EsAsignacionMutua);

@@ -36,11 +36,11 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
         [Fact]
         public async Task EjecutarAsync_ProfesorNoExiste_RetornaNotFound()
         {
-            var dtoValido = new RecompensaAltaDto
+            var dtoValido = new RecompensaSimpleAltaDto
             {
                 Nombre = "RecompensaValida",
                 Precio = 10,
-                RutaImagenCompleta = "imgCompleta",
+                RepresentacionVisual = "imgCompleta",
                 RutaImagenMiniatura = "imgMini"
             };
 
@@ -72,11 +72,11 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
                 .Setup(r => r.GetByStringIdAsync(ProfesorId))
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Profesor>.Exitoso(profesorConRecompensa));
 
-            var dto = new RecompensaAltaDto
+            var dto = new RecompensaSimpleAltaDto
             {
                 Nombre = "Duplicada",
                 Precio = 1,
-                RutaImagenCompleta = "u1",
+                RepresentacionVisual = "u1",
                 RutaImagenMiniatura = "u2"
             };
 
@@ -105,11 +105,11 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
                 .Setup(r => r.UpdateAsync(It.IsAny<LogicaNegocio.Entidades.Profesor>()))
                 .ReturnsAsync(Resultado.Exitoso());
 
-            var dto = new RecompensaAltaDto
+            var dto = new RecompensaSimpleAltaDto
             {
                 Nombre = "Nueva",
                 Precio = 5,
-                RutaImagenCompleta = "urlCompleta",
+                RepresentacionVisual = "urlCompleta",
                 RutaImagenMiniatura = "urlMini"
             };
 
@@ -126,7 +126,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
             Assert.NotNull(pr.Recompensa);
             Assert.Equal(dto.Nombre, pr.Recompensa.Nombre);
             Assert.Equal(dto.Precio, pr.Recompensa.Precio);
-            Assert.Equal(dto.RutaImagenCompleta, pr.Recompensa.NombreImagenCompleta);
+            Assert.Equal(dto.RepresentacionVisual, pr.Recompensa.NombreImagenCompleta);
             Assert.Equal(dto.RutaImagenMiniatura, pr.Recompensa.NombreImagenMiniatura);
 
             // Verificamos que persistió el profesor modificado

@@ -11,16 +11,15 @@ namespace LogicaAplicacion.DTOsMappers.MedallaMappers
     public class MedallaAltaMapper
     {
 
-        public static MedallaAltaDto toDto(string urlImagen, string nombre, string descripcion,
-            int cantidadMedallasBrinda, bool esAsignacionMutua)
+        public static MedallaAltaDto toDto(Medalla medalla)
         {
             return new MedallaAltaDto
             {
-                UrlImagen = urlImagen,
-                Nombre = nombre,
-                Descripcion = descripcion,
-                CantidadMonedasBrinda = cantidadMedallasBrinda,
-                EsAsignacionMutua = esAsignacionMutua
+                NombreIcono = medalla.NombreIcono,
+                Nombre = medalla.Nombre,
+                Descripcion = medalla.Descripcion,
+                CantidadMonedasBrinda = medalla.MonedasOtorgadas,
+                EsAsignacionMutua = medalla.TieneAsignacionMutua
             };
         }
 
@@ -28,7 +27,7 @@ namespace LogicaAplicacion.DTOsMappers.MedallaMappers
         {
 
             return new Medalla{
-                NombreImagenMiniatura = dto.UrlImagen,
+                NombreIcono = dto.NombreIcono,
                 Nombre = dto.Nombre,
                 Descripcion = dto.Descripcion,
                 MonedasOtorgadas = dto.CantidadMonedasBrinda,

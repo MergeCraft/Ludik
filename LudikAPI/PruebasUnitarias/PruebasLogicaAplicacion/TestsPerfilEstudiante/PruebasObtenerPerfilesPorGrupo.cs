@@ -90,7 +90,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
                             Id                    = 10,
                             Nombre                = "Super Medalla",
                             Descripcion           = "Descripción test",
-                            NombreImagenMiniatura = "medalla-mini.png",
+                            NombreIcono = "medalla-mini.png",
                             MonedasOtorgadas      = 5,
                             TieneAsignacionMutua  = false
                         }

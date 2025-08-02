@@ -19,7 +19,7 @@ public class ObtenerRecompensasDelProfesor: IObtenerRecompensasDelProfesor
         if (resultado.EsFallo)
             return Resultado<IEnumerable<RecompensaDto>>.Falla(resultado.Errores);
 
-        var recompensasDto = resultado.Valor.Select(pr => RecompensaMapper.ToDto(pr.Recompensa));
+        var recompensasDto = resultado.Valor.Select(pr => RecompensaSimpleMapper.ToDto(pr.Recompensa));
         return Resultado<IEnumerable<RecompensaDto>>.Exitoso(recompensasDto);
     }
 }

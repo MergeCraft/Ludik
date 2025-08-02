@@ -11,12 +11,10 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Medallas;
 public class ObtenerTodasLasMedallas : IObtenerTodasLasMedallas
 {
     private readonly IRepositorioMedallas _repositorioMedallas;
-    private readonly IGeneradorUrlImagen _generadorUrlImagen;
-    public ObtenerTodasLasMedallas(IRepositorioMedallas repositorioMedallas, 
-        IGeneradorUrlImagen generadorUrlImagen)
+
+    public ObtenerTodasLasMedallas(IRepositorioMedallas repositorioMedallas)
     {
         _repositorioMedallas = repositorioMedallas;
-        _generadorUrlImagen = generadorUrlImagen;
     }
     /// <summary>
     /// Obtiene todas las medallas.
@@ -34,26 +32,9 @@ public class ObtenerTodasLasMedallas : IObtenerTodasLasMedallas
         
         IEnumerable<Medalla> medallas = resultadoRepo.Valor;
 
-        IEnumerable<MedallaDto> medallasDtos = await GenerarUrlsDeLecturaParaImagenes(medallas);
+        IEnumerable<MedallaDto> medallasDtos = medallas.Select( medalla =>  MedallaMapper.toDto(medalla));
 
         return Resultado<IEnumerable<MedallaDto>>.Exitoso(medallasDtos);
     }
 
-    private async Task<IEnumerable<MedallaDto>> GenerarUrlsDeLecturaParaImagenes(IEnumerable<Medalla> medallas)
-    {
-        var tareasGeneracionUrl = medallas.Select(medalla =>
-            _generadorUrlImagen.GenerarUrlLecturaAsync(medalla.NombreImagenMiniatura)
-        ).ToList();
-
-        // Task.WhenAll espera a que todas las tareas en la lista se completen.
-        string[] urlsGeneradas = await Task.WhenAll(tareasGeneracionUrl);
-
-        var medallasDtos = medallas.Select((medalla, index) =>
-        {
-            var dto = MedallaMapper.toDto(medalla);
-            dto.UrlImagen = urlsGeneradas[index];
-            return dto;
-        });
-        return medallasDtos;
-    }
 }

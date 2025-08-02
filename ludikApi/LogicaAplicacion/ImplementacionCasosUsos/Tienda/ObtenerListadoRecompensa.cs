@@ -15,33 +15,28 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Tienda
     public class ObtenerListadoRecompensa:IObtenerListadoRecompensa
     {
         private readonly IRepositorioTiendas _repositorioTiendas;
-        private readonly IGeneradorUrlsParaColeccionesImagenes _generadorUrlsParaColecciones;
+        private readonly IRecompensaEnricher _recompensaEnricher;
+
         public ObtenerListadoRecompensa(
             IRepositorioTiendas repositorioTiendas,
-            IGeneradorUrlsParaColeccionesImagenes generadorUrlsImagenes)
+            IRecompensaEnricher recompensaEnricher)
         {
             _repositorioTiendas = repositorioTiendas;
-            _generadorUrlsParaColecciones = generadorUrlsImagenes;
+            _recompensaEnricher = recompensaEnricher;
         }
 
-        public async Task<Resultado<IEnumerable<RecompensaDto>>> EjecutarAsync(int tiendaId)
+        public async Task<Resultado<IEnumerable<RecompensaClienteDto>>> EjecutarAsync(int tiendaId)
         {
 
             var resultadoTienda = await _repositorioTiendas.GetByIdAsync(tiendaId);
             if (resultadoTienda.EsFallo)
-                return Resultado<IEnumerable<RecompensaDto>>.Falla(resultadoTienda.Errores);
+                return Resultado<IEnumerable<RecompensaClienteDto>>.Falla(resultadoTienda.Errores);
 
             var recompensas = resultadoTienda.Valor.Recompesas;
 
-            IEnumerable<RecompensaDto> dtos = recompensas
-                .Select(r => RecompensaMapper.ToDto(r))
-                .ToList();
+            var dtos = await _recompensaEnricher.EnrichAsync(recompensas);
 
-            await _generadorUrlsParaColecciones.EjecutarProcesarUrlsAsync(dtos,
-                (dto => dto.EnlaceImagenMiniatura, (dto, url) => dto.EnlaceImagenMiniatura = url), (dto => dto.EnlaceImagenCompleta, (dto, url) => dto.EnlaceImagenCompleta = url)
-                );
-
-            return Resultado<IEnumerable<RecompensaDto>>.Exitoso(dtos);
+            return Resultado<IEnumerable<RecompensaClienteDto>>.Exitoso(dtos);
         }
 
     }

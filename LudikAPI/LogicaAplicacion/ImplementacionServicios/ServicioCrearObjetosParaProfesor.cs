@@ -13,7 +13,7 @@ public class ServicioCrearObjetosParaProfesor: IServicioCrearObjetosParaProfesor
             {
                 Nombre = "Participación Perfecta",
                 Descripcion = "Asistencia y participación en todas las clases del mes.",
-                NombreImagenMiniatura = "medalla_participacion_perfecta.png",
+                NombreIcono = "medalla_participacion_perfecta.png",
                 MonedasOtorgadas = 30,
                 Creador = nuevoProfesor
             },
@@ -21,7 +21,7 @@ public class ServicioCrearObjetosParaProfesor: IServicioCrearObjetosParaProfesor
             {
                 Nombre = "Maestro de la Colaboración",
                 Descripcion = "Ayuda destacada a compañeros en proyectos grupales.",
-                NombreImagenMiniatura = "medalla_maestro_colaboracion.png",
+                NombreIcono = "medalla_maestro_colaboracion.png",
                 MonedasOtorgadas = 25,
                 Creador = nuevoProfesor
             },
@@ -29,7 +29,7 @@ public class ServicioCrearObjetosParaProfesor: IServicioCrearObjetosParaProfesor
             {
                 Nombre = "Mente Curiosa",
                 Descripcion = "Realización de preguntas perspicaces que enriquecen la clase.",
-                NombreImagenMiniatura = "medalla_mente_curiosa.png",
+                NombreIcono = "medalla_mente_curiosa.png",
                 MonedasOtorgadas = 15,
                 Creador = nuevoProfesor
             },
@@ -42,7 +42,7 @@ public class ServicioCrearObjetosParaProfesor: IServicioCrearObjetosParaProfesor
                 Nombre = "Compañerismo",
                 Descripcion =
                     "Se otorga por ser un pilar de apoyo para tus compañeros. Demuestra que estás siempre dispuesto a ofrecer tu ayuda cuando alguien la necesita.",
-                NombreImagenMiniatura = "medalla_companerismo.png",
+                NombreIcono = "medalla_companerismo.png",
                 MonedasOtorgadas = 20,
                 Creador = nuevoProfesor
             },
@@ -53,7 +53,7 @@ public class ServicioCrearObjetosParaProfesor: IServicioCrearObjetosParaProfesor
                 Nombre = "Curiosidad Insaciable",
                 Descripcion =
                     "Premia a las mentes que nunca dejan de preguntar. Se consigue al realizar preguntas que desafían al grupo y enriquecen el aprendizaje de todos.",
-                NombreImagenMiniatura = "medalla_curiosidad_insaciable.png",
+                NombreIcono = "medalla_curiosidad_insaciable.png",
                 MonedasOtorgadas = 15,
                 Creador = nuevoProfesor
             },
@@ -64,7 +64,7 @@ public class ServicioCrearObjetosParaProfesor: IServicioCrearObjetosParaProfesor
                 Nombre = "Faro del Grupo",
                 Descripcion =
                     "Reconoce a quienes inspiran con su ejemplo. Se obtiene al demostrar una actitud y un esfuerzo que motivan a todo el grupo a superarse.",
-                NombreImagenMiniatura = "medalla_faro_del_grupo.png",
+                NombreIcono = "medalla_faro_del_grupo.png",
                 MonedasOtorgadas = 25,
                 Creador = nuevoProfesor
             },
@@ -75,7 +75,7 @@ public class ServicioCrearObjetosParaProfesor: IServicioCrearObjetosParaProfesor
                 Nombre = "Arquitecto de Ideas",
                 Descripcion =
                     "Para aquellos que no solo tienen buenas ideas, sino que construyen sobre las de los demás para crear algo aún mejor.",
-                NombreImagenMiniatura = "medalla_arquitecto_ideas.png",
+                NombreIcono = "medalla_arquitecto_ideas.png",
                 MonedasOtorgadas = 20,
                 Creador = nuevoProfesor
             },
@@ -86,7 +86,7 @@ public class ServicioCrearObjetosParaProfesor: IServicioCrearObjetosParaProfesor
                 Nombre = "Capitán de Equipo",
                 Descripcion =
                     "Se otorga por demostrar liderazgo natural, guiando y organizando al equipo para alcanzar metas comunes de forma efectiva.",
-                NombreImagenMiniatura = "medalla_capitan_equipo.png",
+                NombreIcono = "medalla_capitan_equipo.png",
                 MonedasOtorgadas = 25,
                 Creador = nuevoProfesor
             },
@@ -97,7 +97,7 @@ public class ServicioCrearObjetosParaProfesor: IServicioCrearObjetosParaProfesor
                 Nombre = "Cazador de Tesoros",
                 Descripcion =
                     "Premia la iniciativa de buscar y compartir recursos valiosos (videos, artículos, herramientas) que benefician a toda la clase.",
-                NombreImagenMiniatura = "medalla_cazador_tesoros.png",
+                NombreIcono = "medalla_cazador_tesoros.png",
                 MonedasOtorgadas = 15,
                 Creador = nuevoProfesor
             },
@@ -108,7 +108,7 @@ public class ServicioCrearObjetosParaProfesor: IServicioCrearObjetosParaProfesor
                 Nombre = "Espíritu de Equipo",
                 Descripcion =
                     "Se consigue al fomentar activamente un ambiente de respeto e inclusión, asegurando que cada miembro del grupo se sienta valorado.",
-                NombreImagenMiniatura = "medalla_espiritu_equipo.png",
+                NombreIcono = "medalla_espiritu_equipo.png",
                 MonedasOtorgadas = 20,
                 Creador = nuevoProfesor
             },
@@ -119,7 +119,7 @@ public class ServicioCrearObjetosParaProfesor: IServicioCrearObjetosParaProfesor
                 Nombre = "Pulidor de Diamantes",
                 Descripcion =
                     "Reconoce la habilidad de dar críticas constructivas que ayudan a los compañeros a mejorar su trabajo de forma positiva y amable.",
-                NombreImagenMiniatura = "medalla_pulidor_diamantes.png",
+                NombreIcono = "medalla_pulidor_diamantes.png",
                 MonedasOtorgadas = 15,
                 Creador = nuevoProfesor
             },
@@ -130,7 +130,7 @@ public class ServicioCrearObjetosParaProfesor: IServicioCrearObjetosParaProfesor
                 Nombre = "Mente Innovadora",
                 Descripcion =
                     "Se otorga por aportar ideas creativas y soluciones originales que sacan al grupo de la rutina y abren nuevas posibilidades.",
-                NombreImagenMiniatura = "medalla_mente_innovadora.png",
+                NombreIcono = "medalla_mente_innovadora.png",
                 MonedasOtorgadas = 20,
                 Creador = nuevoProfesor
             },
@@ -141,7 +141,7 @@ public class ServicioCrearObjetosParaProfesor: IServicioCrearObjetosParaProfesor
                 Nombre = "El Explicador",
                 Descripcion =
                     "Premia la increíble habilidad de tomar un tema complejo y explicarlo de una manera tan clara y sencilla que todos puedan entenderlo.",
-                NombreImagenMiniatura = "medalla_el_explicador.png",
+                NombreIcono = "medalla_el_explicador.png",
                 MonedasOtorgadas = 25,
                 Creador = nuevoProfesor
             }

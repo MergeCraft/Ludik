@@ -57,7 +57,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
                     Id = 1,
                     Nombre = "Responsable",
                     Descripcion = "Cumple siempre con sus tareas",
-                    NombreImagenMiniatura = "img/responsable.png",
+                    NombreIcono = "img/responsable.png",
                     MonedasOtorgadas = 20,
                     TieneAsignacionMutua = false
                 },
@@ -66,7 +66,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
                     Id = 2,
                     Nombre = "Colaborador",
                     Descripcion = "Ayuda a otros estudiantes",
-                    NombreImagenMiniatura = "img/colaborador.png",
+                    NombreIcono = "img/colaborador.png",
                     MonedasOtorgadas = 30,
                     TieneAsignacionMutua = true
                 }

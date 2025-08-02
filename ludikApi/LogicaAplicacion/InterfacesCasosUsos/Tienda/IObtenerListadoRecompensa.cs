@@ -10,6 +10,6 @@ namespace LogicaAplicacion.InterfacesCasosUsos.Tienda
 {
     public interface IObtenerListadoRecompensa
     {
-        Task<Resultado<IEnumerable<RecompensaDto>>> EjecutarAsync(int tiendaId);
+        Task<Resultado<IEnumerable<RecompensaClienteDto>>> EjecutarAsync(int tiendaId);
     }
 }

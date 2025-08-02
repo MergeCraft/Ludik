@@ -11,6 +11,6 @@ namespace LogicaAplicacion.InterfacesCasosUsos.Recompensa
 {
     public interface IAltaRecompensa
     {
-        Task<Resultado> EjecutarAsync(RecompensaAltaDto recompensaRequestDto, string profesorId);
+        Task<Resultado> EjecutarAsync(RecompensaSimpleAltaDto recompensaRequestDto, string profesorId);
     }
 }

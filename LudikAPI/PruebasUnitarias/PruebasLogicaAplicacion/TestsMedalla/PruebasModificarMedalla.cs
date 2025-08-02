@@ -33,7 +33,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             {
                 Nombre = "NombreValido",
                 Descripcion = "Desc",
-                UrlImagen = "url",
+                NombreIcono = "url",
                 CantidadMonedasBrinda = 1,
                 EsAsignacionMutua = false
             };
@@ -67,7 +67,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             {
                 Nombre = "NombreValido",
                 Descripcion = "Desc",
-                UrlImagen = "url",
+                NombreIcono = "url",
                 CantidadMonedasBrinda = 2,
                 EsAsignacionMutua = true
             };
@@ -89,7 +89,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Id = id,
                 Nombre = "NombreValido",
                 Descripcion = "Desc",
-                NombreImagenMiniatura = "icono",
+                NombreIcono = "icono",
                 MonedasOtorgadas = 5,
                 TieneAsignacionMutua = false,
                 ProfesorId = ProfesorCorrecto
@@ -103,7 +103,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             {
                 Nombre = "NombreNuevo",
                 Descripcion = "Descripcion",
-                UrlImagen = "nuevaUrl",
+                NombreIcono = "nuevaUrl",
                 CantidadMonedasBrinda = 3,
                 EsAsignacionMutua = false
             };
@@ -123,7 +123,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             var entidad = new Entidad.Medalla
             {
                 Id = id,
-                NombreImagenMiniatura = "vieja",
+                NombreIcono = "vieja",
                 Nombre = "NombreValido",
                 Descripcion = "Desc",
                 MonedasOtorgadas = 5,
@@ -139,7 +139,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             {
                 Nombre = "ab", // menos de 3 caracteres para provocar fallo en validación
                 Descripcion = "DescNueva",
-                UrlImagen = "urlNueva",
+                NombreIcono = "urlNueva",
                 CantidadMonedasBrinda = 3,
                 EsAsignacionMutua = true
             };
@@ -164,7 +164,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Id = id,
                 Nombre = "NombreViejo",
                 Descripcion = "Desc",
-                NombreImagenMiniatura = "viejaUrl",
+                NombreIcono = "viejaUrl",
                 MonedasOtorgadas = 5,
                 TieneAsignacionMutua = false,
                 ProfesorId = ProfesorCorrecto
@@ -182,7 +182,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             {
                 Nombre = "NombreNuevo",
                 Descripcion = "NuevaDesc",
-                UrlImagen = "nuevaUrl",
+                NombreIcono = "nuevaUrl",
                 CantidadMonedasBrinda = 10,
                 EsAsignacionMutua = true
             };
@@ -194,7 +194,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 m.Id == id &&
                 m.Nombre == dto.Nombre &&
                 m.Descripcion == dto.Descripcion &&
-                m.NombreImagenMiniatura == dto.UrlImagen &&
+                m.NombreIcono == dto.NombreIcono &&
                 m.MonedasOtorgadas == dto.CantidadMonedasBrinda &&
                 m.TieneAsignacionMutua == dto.EsAsignacionMutua
             )), Times.Once);
@@ -209,7 +209,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Id = id,
                 Nombre = "NombreViejo",
                 Descripcion = "Desc",
-                NombreImagenMiniatura = "viejaUrl",
+                NombreIcono = "viejaUrl",
                 MonedasOtorgadas = 5,
                 TieneAsignacionMutua = false,
                 ProfesorId = ProfesorCorrecto
@@ -228,7 +228,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             {
                 Nombre = "NombreNuevo",
                 Descripcion = "NuevaDesc",
-                UrlImagen = "nuevaUrl",
+                NombreIcono = "nuevaUrl",
                 CantidadMonedasBrinda = 8,
                 EsAsignacionMutua = true
             };

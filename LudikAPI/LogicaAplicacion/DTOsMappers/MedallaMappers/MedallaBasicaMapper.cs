@@ -15,7 +15,7 @@ namespace LogicaAplicacion.DTOsMappers.MedallaMappers
             return new MedallaBasicaDto
             {
                 Id = medalla.Id,
-                UrlImagen = medalla.NombreImagenMiniatura,
+                NombreIcono = medalla.NombreIcono,
                 Nombre = medalla.Nombre,
             };
         }
@@ -26,7 +26,7 @@ namespace LogicaAplicacion.DTOsMappers.MedallaMappers
             return new Medalla
             {
                 Id = dto.Id,
-                NombreImagenMiniatura = dto.UrlImagen,
+                NombreIcono = dto.NombreIcono,
                 Nombre = dto.Nombre,
             };
 

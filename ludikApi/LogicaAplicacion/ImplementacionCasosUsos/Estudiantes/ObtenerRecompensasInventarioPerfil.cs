@@ -11,49 +11,43 @@ using LogicaAplicacion.InterfacesCasosUsos.Grupo;
 using LogicaAplicacion.Servicios;
 using Entidades = LogicaNegocio.Entidades;
 using LogicaNegocio.Resultados;
+using LogicaNegocio.ValueObject;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
 {
     public class ObtenerRecompensasInventarioPerfil : IObtenerRecompensasInventarioPerfil
     {
         private readonly IRepositorioPerfilEstudianteGrupo _repositorioPerfilEstudiante;
-        private readonly IGeneradorUrlsParaColeccionesImagenes _generadorUrlsParaColecciones;
+        private readonly IRecompensaEnricher _recompensaEnricher;
 
         public ObtenerRecompensasInventarioPerfil(
             IRepositorioPerfilEstudianteGrupo repositorioPerfilEstudiante,
-            IGeneradorUrlsParaColeccionesImagenes generadorUrlsImagenes)
+            IRecompensaEnricher recompensaEnricher)
         {
             _repositorioPerfilEstudiante = repositorioPerfilEstudiante;
-            _generadorUrlsParaColecciones = generadorUrlsImagenes;
+            _recompensaEnricher = recompensaEnricher;
         }
-        public async Task<Resultado<List<RecompensaDto>>> EjecutarAsync(int idPerfil,string idEstudiante)
+        public async Task<Resultado<List<RecompensaClienteDto>>> EjecutarAsync(int idPerfil, string idEstudiante)
         {
             var resultadoPerfil = await _repositorioPerfilEstudiante.GetByIdAsync(idPerfil);
             var resultadoRecompensas = await _repositorioPerfilEstudiante.ObtenerRecompensasInventarioAsync(idPerfil);
 
             if (resultadoPerfil.EsFallo)
-                return Resultado<List<RecompensaDto>>.Falla(resultadoPerfil.Errores);
+                return Resultado<List<RecompensaClienteDto>>.Falla(resultadoPerfil.Errores);
             if(resultadoRecompensas.EsFallo)
-                return Resultado<List<RecompensaDto>>.Falla(resultadoRecompensas.Errores);
+                return Resultado<List<RecompensaClienteDto>>.Falla(resultadoRecompensas.Errores);
 
 
             Entidades.PerfilEstudiante perfil = resultadoPerfil.Valor;
             IEnumerable<Entidades.Recompensa> recompensas = resultadoRecompensas.Valor;
 
             if (perfil.EstudianteId != idEstudiante)
-                return Resultado<List<RecompensaDto>>.Falla(
+                return Resultado<List<RecompensaClienteDto>>.Falla(
                     new Error("Error.Forbidden", "No tienes permiso para acceder a este perfil."));
 
-            List<RecompensaDto> dtos = recompensas
-                .Select(r => RecompensaMapper.ToDto(r))
-                .ToList();
+            var dtos = await _recompensaEnricher.EnrichAsync(recompensas);
 
-            await _generadorUrlsParaColecciones.EjecutarProcesarUrlsAsync(dtos,
-                (dto => dto.NombreImagenMiniatura, (dto, url) => dto.EnlaceImagenMiniatura = url),
-                (dto => dto.NombreImagenCompleta, (dto, url) => dto.EnlaceImagenCompleta = url)
-            );
-
-            return Resultado<List<RecompensaDto>>.Exitoso(dtos);
+            return Resultado<List<RecompensaClienteDto>>.Exitoso(dtos);
         }
 
     }

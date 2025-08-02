@@ -55,7 +55,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
                 Id = IdMedalla,
                 Nombre = "Colaborador",
                 Descripcion = "Ayuda frecuentemente a sus compañeros",
-                NombreImagenMiniatura = "img/colaborador.png",
+                NombreIcono = "img/colaborador.png",
                 MonedasOtorgadas = 50,
                 TieneAsignacionMutua = true
             };
@@ -74,7 +74,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
             Assert.Equal(medalla.Id, dto.Id);
             Assert.Equal(medalla.Nombre, dto.Nombre);
             Assert.Equal(medalla.Descripcion, dto.Descripcion);
-            Assert.Equal(medalla.NombreImagenMiniatura, dto.UrlImagen);
+            Assert.Equal(medalla.NombreIcono, dto.NombreIcono);
             Assert.Equal(medalla.MonedasOtorgadas, dto.CantidadMedallasBrinda);
             Assert.Equal(medalla.TieneAsignacionMutua, dto.EsAsignacionMutua);
         }

@@ -78,7 +78,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsPerfilEstudiante
                 Nombre = "Excelencia",
                 Descripcion = "Excelente rendimiento",
                 MonedasOtorgadas = 10,
-                NombreImagenMiniatura = "excel.png"
+                NombreIcono = "excel.png"
             };
             var medalla2 = new LogicaNegocio.Entidades.Medalla
             {
@@ -86,7 +86,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsPerfilEstudiante
                 Nombre = "Participación",
                 Descripcion = "Participa activamente",
                 MonedasOtorgadas = 5,
-                NombreImagenMiniatura = "part.png"
+                NombreIcono = "part.png"
             };
 
             var perfil = new LogicaNegocio.Entidades.PerfilEstudiante

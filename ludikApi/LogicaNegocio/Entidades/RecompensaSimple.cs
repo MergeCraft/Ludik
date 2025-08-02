@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LogicaNegocio.EntidadesAuxiliares;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
 
@@ -18,6 +19,11 @@ namespace LogicaNegocio.Entidades
             };
             perfil.InventarioRecompensas.Add(pr);
             return Resultado.Exitoso();
+        }
+
+        public RecompensaSimple()
+        {
+            Representacion = new RepresentacionIcono();
         }
     }
 }

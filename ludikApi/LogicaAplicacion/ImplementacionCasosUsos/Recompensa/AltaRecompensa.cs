@@ -20,14 +20,14 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Recompensa
             _repositorioProfesores = repositorioProfesores;
         }
 
-        public async Task<Resultado> EjecutarAsync(RecompensaAltaDto recompensaDto, string profesorId)
+        public async Task<Resultado> EjecutarAsync(RecompensaSimpleAltaDto recompensaDto, string profesorId)
         {
 
             if (recompensaDto == null)
                 return Resultado.Falla(new Error("Error.Validation", "No hay información para poder dar de alta la recompensa."));
             
 
-            var recompensa = RecompensaAltaMapper.fromDto(recompensaDto);
+            var recompensa = RecompensaSimpleAltaMapper.FromDto(recompensaDto);
             var resultadoValidacion = recompensa.esValido();
 
             if (resultadoValidacion.EsFallo)
