@@ -1,19 +1,18 @@
 import api from "../lib/axios";
-
-const parseError = (error, defaultMsg) => {
-  const data = error?.response?.data;
-  if (Array.isArray(data)) {
-    return data.map((e) => e.mensaje || e.message || e.error).filter(Boolean);
-  }
-  const mensaje = data?.mensaje || data?.message || data?.error;
-  return [mensaje || defaultMsg];
-};
+import { parseBackendErrors, handleApiError } from "../lib/apiUtils";
 
 export const obtenerPerfilUsuario = async () => {
   try {
     const response = await api.get("/api/Usuario/me");
-    return response.data;
+    const data = response.data;
+
+    if (!data.esExitoso) {
+      const mensajes = parseBackendErrors(data.errores, "Error al obtener datos del usuario.");
+      throw mensajes;
+    }
+
+    return data.valor;
   } catch (error) {
-    throw parseError(error, "Error al obtener datos del usuario.");
+    handleApiError(error, "Error al obtener datos del usuario.");
   }
 };

@@ -1,21 +1,7 @@
 // services/groupService.js
 
 import api from "../lib/axios";
-
-// ─────────────────────────────────────────────
-// 🧰 UTILIDAD PARA MANEJO DE ERRORES
-// ─────────────────────────────────────────────
-
-const parseError = (error, defaultMsg) => {
-  const data = error?.response?.data;
-
-  if (Array.isArray(data)) {
-    return data.map((e) => e.mensaje || e.message || e.error).filter(Boolean);
-  }
-
-  const mensaje = data?.mensaje || data?.message || data?.error;
-  return [mensaje || defaultMsg];
-};
+import { handleApiError } from "../lib/apiUtils";
 
 // ─────────────────────────────────────────────
 // 🧩 GRUPOS
@@ -26,7 +12,7 @@ export const crearGrupo = async (grupo) => {
     const response = await api.post("/api/grupo/alta", grupo);
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al crear el grupo.");
+    handleApiError(error, "Error al crear el grupo.");
   }
 };
 
@@ -35,7 +21,7 @@ export const editarGrupo = async (grupo) => {
     const response = await api.put(`/api/Grupo/editar/${grupo.id}`, grupo);
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al editar el grupo.");
+    handleApiError(error, "Error al editar el grupo.");
   }
 };
 
@@ -44,7 +30,7 @@ export const eliminarGrupo = async (id) => {
     const response = await api.delete(`/api/Grupo/eliminar/${id}`);
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al eliminar el grupo.");
+    handleApiError(error, "Error al eliminar el grupo.");
   }
 };
 
@@ -55,18 +41,17 @@ export const reiniciarLogrosGrupo = async (grupoId) => {
     });
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al reiniciar los logros del grupo.");
+    handleApiError(error, "Error al reiniciar los logros del grupo.");
   }
 };
 
 export const obtenerGrupos = async (rol) => {
   try {
     const endpoint = rol === "Profesor" ? "/api/profesor/mis-grupos" : "/api/estudiante/mis-grupos";
-
     const response = await api.get(endpoint);
     return response.data;
   } catch (error) {
-    throw parseError(error, "No se pudieron obtener los grupos.");
+    handleApiError(error, "No se pudieron obtener los grupos.");
   }
 };
 
@@ -75,7 +60,7 @@ export const obtenerGrupo = async (id) => {
     const response = await api.get(`/api/Grupo/info/${id}`);
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al obtener el grupo.");
+    handleApiError(error, "Error al obtener el grupo.");
   }
 };
 
@@ -84,7 +69,16 @@ export const obtenerAlumnosGrupo = async (id) => {
     const response = await api.get(`/api/Grupo/${id}/perfiles`);
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al obtener los alumnos.");
+    handleApiError(error, "Error al obtener los alumnos.");
+  }
+};
+
+export const obtenerAlumnosGrupoParaEstudiante = async (id) => {
+  try {
+    const response = await api.get(`/api/PerfilEstudiante/grupo/${id}/companeros`);
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "Error al obtener los alumnos.");
   }
 };
 
@@ -99,7 +93,7 @@ export const obtenerSolicitudesUnion = async (id) => {
     });
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al obtener las solicitudes de unión.");
+    handleApiError(error, "Error al obtener las solicitudes de unión.");
   }
 };
 
@@ -110,7 +104,7 @@ export const solicitarUnirseGrupo = async (codigo) => {
     });
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al solicitar unirte al grupo.");
+    handleApiError(error, "Error al solicitar unirte al grupo.");
   }
 };
 
@@ -121,7 +115,7 @@ export const aceptarSolicitud = async (solicitudId) => {
     });
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al aceptar la solicitud.");
+    handleApiError(error, "Error al aceptar la solicitud.");
   }
 };
 
@@ -132,7 +126,7 @@ export const rechazarSolicitud = async (solicitudId) => {
     });
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al rechazar la solicitud.");
+    handleApiError(error, "Error al rechazar la solicitud.");
   }
 };
 
@@ -140,15 +134,12 @@ export const rechazarSolicitud = async (solicitudId) => {
 // 🏅 MEDALLAS
 // ─────────────────────────────────────────────
 
-export const asignarMedalla = async ({ perfilId, medallaId }) => {
+export const asignarMedalla = async ({ perfilId, medallaId, cantidad }) => {
   try {
-    const response = await api.post(`/api/AsignacionMedallas/perfil-estudiante/${perfilId}/medalla/${medallaId}`);
+    const response = await api.post(`/api/AsignacionMedallas/perfil-estudiante/${perfilId}/medalla/${medallaId}/cantidad/${cantidad}`);
     return response.data;
   } catch (error) {
-    const data = error?.response?.data;
-    const errores = Array.isArray(data) ? data.map((e) => e.mensaje || e.message || e.error).filter(Boolean) : [data?.mensaje || data?.message || data?.error || "Error al asignar medalla"];
-
-    throw errores;
+    handleApiError(error, "Error al asignar medalla.");
   }
 };
 
@@ -157,10 +148,7 @@ export const eliminarMedalla = async ({ perfilId, medallaId }) => {
     const response = await api.delete(`/api/AsignacionMedallas/perfil-estudiante/${perfilId}/medalla/${medallaId}`);
     return response.data;
   } catch (error) {
-    const data = error?.response?.data;
-    const errores = Array.isArray(data) ? data.map((e) => e.mensaje || e.message || e.error).filter(Boolean) : [data?.mensaje || data?.message || data?.error || "Error al eliminar la medalla"];
-
-    throw errores;
+    handleApiError(error, "Error al eliminar la medalla.");
   }
 };
 
@@ -175,7 +163,7 @@ export const crearPac = async ({ grupoId, pacData }) => {
     });
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al crear el proyecto de aula.");
+    handleApiError(error, "Error al crear el proyecto de aula.");
   }
 };
 
@@ -184,14 +172,14 @@ export const obtenerPacsGrupo = async (grupoId) => {
     const response = await api.get("/api/Profesor/pac", {
       params: { grupoId },
     });
-    return response.data; // Array de PACs
+    return response.data;
   } catch (error) {
-    throw parseError(error, "Error al obtener los proyectos colaborativos.");
+    handleApiError(error, "Error al obtener los proyectos colaborativos.");
   }
 };
 
 // ─────────────────────────────────────────────
-// 🧱 Umbrales para las medallas obtenias por kudos
+// 🧱 UMBRALES PARA MEDALLAS
 // ─────────────────────────────────────────────
 
 export const obtenerUmbralesMedallas = async (grupoId) => {
@@ -201,7 +189,7 @@ export const obtenerUmbralesMedallas = async (grupoId) => {
     });
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al obtener los umbrales de medallas.");
+    handleApiError(error, "Error al obtener los umbrales de medallas.");
   }
 };
 
@@ -210,7 +198,7 @@ export const crearUmbralMedalla = async (umbral) => {
     const response = await api.post("/api/ConfiguracionUmbralParaMedallas", umbral);
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al crear el umbral.");
+    handleApiError(error, "Error al crear el umbral.");
   }
 };
 
@@ -219,7 +207,7 @@ export const editarUmbralMedalla = async (umbral) => {
     const response = await api.put("/api/ConfiguracionUmbralParaMedallas", umbral);
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al editar el umbral.");
+    handleApiError(error, "Error al editar el umbral.");
   }
 };
 
@@ -228,6 +216,6 @@ export const eliminarUmbralMedalla = async (id) => {
     const response = await api.delete(`/api/ConfiguracionUmbralParaMedallas/${id}`);
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al eliminar el umbral.");
+    handleApiError(error, "Error al eliminar el umbral.");
   }
 };

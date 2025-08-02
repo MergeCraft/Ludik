@@ -6,16 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import RewardItem from "../../../rewards/components/RewardItem.jsx";
 import RewardAsignationForm from "./RewardAsignationForm.jsx";
 
-const StoreGroupView = ({
-  recompensas,
-  isLoading,
-  isProfesor,
-  perfil,
-  grupoId,
-  setShowModal,
-  setModalContent,
-  setModalTitle,
-}) => {
+const StoreGroupView = ({ recompensas, isLoading, isProfesor, perfil, grupoId, setShowModal, setModalContent, setModalTitle }) => {
   const handleAsignNewReward = () => {
     setModalTitle("Asignar recompensa a grupos");
     setModalContent(
@@ -32,17 +23,17 @@ const StoreGroupView = ({
 
   return (
     <div className={style.storeContent}>
-      {isProfesor && (
-        <button className={style.addRewardButton} onClick={handleAsignNewReward}>
-          <FontAwesomeIcon icon="plus" size="2xl" />
-        </button>
-      )}
+      <div>
+        {isProfesor && (
+          <button className={style.addRewardButton} onClick={handleAsignNewReward}>
+            <FontAwesomeIcon icon="plus" size="2xl" />
+          </button>
+        )}
 
-      {recompensas?.length > 0 ? (
-        recompensas.map((reward) => <RewardItem key={reward.id + reward.nombre} reward={reward} redeemed={false} perfilId={perfil?.id} />)
-      ) : (
-        <p>No hay recompensas disponibles.</p>
-      )}
+        {recompensas?.length > 0 &&
+          recompensas.map((reward) => <RewardItem key={reward.id + reward.nombre} reward={reward} redeemed={false} perfilId={perfil?.id} showProfesorOptions={isProfesor} storeView={true} />)}
+      </div>
+      <div className={style.mensaje}>{recompensas?.length == 0 && <p>No hay recompensas disponibles.</p>}</div>
     </div>
   );
 };

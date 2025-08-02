@@ -5,42 +5,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import genericProfileImage from "../../../assets/genericStudentAvatar2.png";
 import styles from "./StudentItem.module.css";
 
-import { useAsignarMedalla, useEliminarMedalla } from "../hooks/useGrupoMutation";
+import MedalActionMenu from "./MedalActionMenu.jsx";
 import { useAsignarKudo } from "../hooks/useStudentMutation";
 
-import MedalActionMenu from "./MedalActionMenu.jsx";
-
 const StudentItem = ({ perfilEmisorId, student, medals, kudos, isLoadingKudos, showProfesorOptions }) => {
-  const [selectedMedal, setSelectedMedal] = useState("");
-  const [medalAsignationOption, setMedalAsignationOption] = useState(true);
   const [selectedKudo, setSelectedKudo] = useState("");
-  const [kudoAsignationOption, setKudoAsignationOption] = useState(true);
-
-  const { mutate: asignar } = useAsignarMedalla();
-  const { mutate: eliminar } = useEliminarMedalla();
-  const { mutate: asignarKudo } = useAsignarKudo();
-
   const [isMedalLoading, setIsMedalLoading] = useState(false);
   const [isKudoLoading, setIsKudoLoading] = useState(false);
 
-  const handleMedalChange = (e) => {
-    const medallaId = Number(e.target.value);
-    if (!medallaId) return;
-
-    setIsMedalLoading(true);
-    const mutationFn = medalAsignationOption ? asignar : eliminar;
-
-    mutationFn(
-      { perfilId: student.id, medallaId },
-      {
-        onSuccess: () => {
-          setSelectedMedal("");
-          setIsMedalLoading(false);
-        },
-        onError: () => setIsMedalLoading(false),
-      }
-    );
-  };
+  const { mutate: asignarKudo } = useAsignarKudo();
 
   const handleKudoChange = (e) => {
     const kudoId = Number(e.target.value);
@@ -74,54 +47,19 @@ const StudentItem = ({ perfilEmisorId, student, medals, kudos, isLoadingKudos, s
         <p className={styles.nombreEstudiante}>{student.nombreEstudiante}</p>
         <div className={styles.actionsContainer}>
           {showProfesorOptions ? (
-            <>
-              <div className={styles.asignarMedalla}>
-                {/* Menú para asignar medallas */}
-                <div className={styles.menuSection}>
-                  <MedalActionMenu
-                    items={medals}
-                    isAssign={true}
-                    isLoading={isMedalLoading}
-                    onConfirm={(medallaId, cantidad) => {
-                      setIsMedalLoading(true);
-                      for (let i = 0; i < cantidad; i++) {
-                        asignar(
-                          { perfilId: student.id, medallaId },
-                          {
-                            onSuccess: () => setIsMedalLoading(false),
-                            onError: () => setIsMedalLoading(false),
-                          }
-                        );
-                      }
-                    }}
-                  />
-                </div>
-
-                {/* Menú para eliminar medallas */}
-                <div className={styles.menuSection}>
-                  <MedalActionMenu
-                    items={student.medallas || []}
-                    isAssign={false}
-                    isLoading={isMedalLoading}
-                    onConfirm={(medallaId, cantidad) => {
-                      setIsMedalLoading(true);
-                      for (let i = 0; i < cantidad; i++) {
-                        eliminar(
-                          { perfilId: student.id, medallaId },
-                          {
-                            onSuccess: () => setIsMedalLoading(false),
-                            onError: () => setIsMedalLoading(false),
-                          }
-                        );
-                      }
-                    }}
-                  />
-                </div>
+            <div className={styles.asignarMedalla}>
+              {/* Pasamos medals y medallas del estudiante a MedalActionMenu */}
+              <div className={styles.menuSection}>
+                <MedalActionMenu items={medals} isAssign={true} isLoading={isMedalLoading} onLoadingChange={setIsMedalLoading} perfilId={student.id} />
               </div>
-            </>
+
+              <div className={styles.menuSection}>
+                <MedalActionMenu items={student.medallas || []} isAssign={false} isLoading={isMedalLoading} onLoadingChange={setIsMedalLoading} perfilId={student.id} />
+              </div>
+            </div>
           ) : (
             <div className={styles.asignarMedalla}>
-              <p>{kudoAsignationOption ? "Brindar reconocimiento" : "Eliminar Kudos"}</p>
+              <p>Brindar reconocimiento</p>
               <select
                 className={`button ${styles.medallas}`}
                 name="kudos"
@@ -130,9 +68,9 @@ const StudentItem = ({ perfilEmisorId, student, medals, kudos, isLoadingKudos, s
                   setSelectedKudo(e.target.value);
                   handleKudoChange(e);
                 }}
-                disabled={isKudoLoading}
+                disabled={isLoadingKudos || isKudoLoading}
               >
-                {isKudoLoading ? (
+                {isLoadingKudos ? (
                   <option value="">Cargando reconocimientos...</option>
                 ) : kudos?.length === 0 ? (
                   <option value="">No hay reconocimientos disponibles</option>

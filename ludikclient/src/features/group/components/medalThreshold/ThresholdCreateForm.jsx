@@ -10,7 +10,6 @@ const ThresholdCreateForm = ({ grupoId, medallas, tiposKudo, onClose, initialVal
   const [tipoKudoId, setTipoKudoId] = useState("");
   const [cantidadKudos, setCantidadKudos] = useState("");
 
-  // Si recibo initialValues, cargo los valores al montar/actualizar el componente
   useEffect(() => {
     if (initialValues) {
       setMedallaId(initialValues.medallaId);
@@ -39,19 +38,17 @@ const ThresholdCreateForm = ({ grupoId, medallas, tiposKudo, onClose, initialVal
     const cantidad = Number(cantidadKudos);
     if (!cantidad || cantidad < 1) return notificarError("Ingresa una cantidad válida de kudos.");
 
-    // Buscar datos de medalla seleccionada
     const medallaSeleccionada = medallas.find((m) => m.id === Number(medallaId));
     if (!medallaSeleccionada) return notificarError("Medalla seleccionada inválida.");
 
-    // Buscar datos de tipo kudo seleccionado
     const tipoKudoSeleccionado = tiposKudo.find((k) => k.id === Number(tipoKudoId));
     if (!tipoKudoSeleccionado) return notificarError("Tipo de kudo seleccionado inválido.");
 
     const data = {
-      id: initialValues?.id || 0, // si es edición, usar id, sino 0 o no enviar (según API)
+      id: initialValues?.id || 0,
       medallaId: medallaSeleccionada.id,
       medallaNombre: medallaSeleccionada.nombre,
-      rutaIconoMedalla: medallaSeleccionada.rutaIconoMedalla || "", // O el campo que corresponda
+      rutaIconoMedalla: medallaSeleccionada.rutaIconoMedalla || "",
       tipoKudoId: tipoKudoSeleccionado.id,
       tipoKudoNombre: tipoKudoSeleccionado.nombre,
       cantidadKudos: cantidad,
@@ -60,7 +57,6 @@ const ThresholdCreateForm = ({ grupoId, medallas, tiposKudo, onClose, initialVal
     if (initialValues && initialValues.id) {
       editarUmbral(data);
     } else {
-      // En creación quizá no necesitas id ni nombres (según API)
       const crearData = {
         medallaId: medallaSeleccionada.id,
         tipoKudoId: tipoKudoSeleccionado.id,
@@ -120,13 +116,7 @@ const ThresholdCreateForm = ({ grupoId, medallas, tiposKudo, onClose, initialVal
           {isLoading ? "Guardando..." : initialValues ? "Guardar cambios" : "Crear umbral"}
         </button>
         {initialValues && (
-          <button
-            type="button" // importante que no sea "submit"
-            className="button-tertiary"
-            onClick={handleDelete} // aquí llamas a la función para eliminar
-            disabled={isLoading}
-            title="Eliminar umbral"
-          >
+          <button type="button" className="button-tertiary" onClick={handleDelete} disabled={isLoading} title="Eliminar umbral">
             <FontAwesomeIcon icon="fa-solid fa-trash" size="lg" />
           </button>
         )}

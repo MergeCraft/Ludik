@@ -1,12 +1,25 @@
+// components/MedalActionMenu.jsx
 import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./MedalActionMenu.module.css";
-import * as Toast from "../../../lib/toastify.js"; // <-- Importá tu toast aquí
+import * as Toast from "../../../lib/toastify.js";
 
-const MedalActionMenu = ({ items, isAssign, onConfirm, isLoading }) => {
+import { useAsignarMedalla, useEliminarMedalla } from "../hooks/useGrupoMutation";
+
+const MedalActionMenu = ({ items, isAssign, onLoadingChange, isLoading: externalLoading = false, perfilId }) => {
   const [expanded, setExpanded] = useState(false);
   const [amounts, setAmounts] = useState({});
+
+  const { mutate: asignar, isLoading: loadingAsignar } = useAsignarMedalla();
+  const { mutate: eliminar, isLoading: loadingEliminar } = useEliminarMedalla();
+
   const wrapperRef = useRef(null);
+
+  const isLoading = externalLoading || loadingAsignar || loadingEliminar;
+
+  useEffect(() => {
+    onLoadingChange && onLoadingChange(isLoading);
+  }, [isLoading, onLoadingChange]);
 
   const handleAmountChange = (id, value, max) => {
     if (value === "") {
@@ -39,21 +52,12 @@ const MedalActionMenu = ({ items, isAssign, onConfirm, isLoading }) => {
   useEffect(() => {
     if (expanded) {
       const initialAmounts = {};
-      if (isAssign) {
-        items.forEach((m) => {
-          initialAmounts[m.id] = "";
-        });
-      } else {
-        // Agrupar medallas repetidas para eliminar
-        const grouped = {};
-        items.forEach((m) => {
-          if (!grouped[m.id]) grouped[m.id] = true;
-          initialAmounts[m.id] = "";
-        });
-      }
+      items.forEach((m) => {
+        initialAmounts[m.id] = "";
+      });
       setAmounts(initialAmounts);
     }
-  }, [expanded, items, isAssign]);
+  }, [expanded, items]);
 
   const handleConfirmClick = (medallaId, amount) => {
     if (!amount || amount <= 0) {
@@ -66,13 +70,26 @@ const MedalActionMenu = ({ items, isAssign, onConfirm, isLoading }) => {
       if (!confirmado) return;
     }
 
-    onConfirm(medallaId, amount);
+    const mutationFn = isAssign ? asignar : eliminar;
+
+    mutationFn(
+      { perfilId, medallaId, cantidad: amount },
+      {
+        onSuccess: () => {
+          setExpanded(false);
+        },
+        onError: () => {
+          setExpanded(false);
+        },
+      }
+    );
+
     setAmounts((prev) => ({ ...prev, [medallaId]: "" }));
   };
 
-  // Agrupar medallas para eliminar (si hay duplicados)
+  // Agrupar medallas repetidas para eliminar (si no es asignación)
   const getGroupedItems = () => {
-    if (isAssign) return items.map((m) => ({ ...m }));
+    if (isAssign) return items;
 
     const countMap = {};
     items.forEach((m) => {
@@ -150,8 +167,9 @@ const MedalActionMenu = ({ items, isAssign, onConfirm, isLoading }) => {
 MedalActionMenu.propTypes = {
   items: PropTypes.array.isRequired,
   isAssign: PropTypes.bool.isRequired,
-  onConfirm: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
+  onLoadingChange: PropTypes.func,
+  isLoading: PropTypes.bool,
+  perfilId: PropTypes.number.isRequired,
 };
 
 export default MedalActionMenu;

@@ -4,7 +4,7 @@ import style from "./GroupPage.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BarLoader from "../generics/BarLoader.jsx";
 import { useSelector } from "react-redux";
-import { selectUserRole, selectUserId } from "../auth/hooks/userSlice";
+import { selectUserRole } from "../auth/hooks/userSlice";
 import BaseManagerPage from "../generics/BaseManagerPage";
 import StudentItem from "./components/StudentItem";
 import GroupProfileView from "./components/student/GroupProfileView.jsx";
@@ -13,7 +13,7 @@ import GroupPacView from "./components/pac/GroupPacView.jsx";
 import MedalThresholdView from "./components/medalThreshold/MedalThresholdView.jsx";
 import StoreGroupView from "./components/store/StoreGroupView"; // ajusta la ruta si es necesario
 
-import { useGrupo, useAlumnosGrupo, useRecompensasTienda, useTiposKudo } from "./hooks/useGrupoMutation";
+import { useGrupo, useAlumnosGrupo, useAlumnosGrupoParaEstudiante, useRecompensasTienda, useTiposKudo } from "./hooks/useGrupoMutation";
 import { usePerfilGrupo } from "./hooks/useStudentMutation.js";
 
 import { useMedallasProfesor } from "../medals/hooks/useMedalMutation";
@@ -29,8 +29,6 @@ const GroupPage = () => {
   const role = useSelector(selectUserRole);
   const isProfesor = role === "Profesor";
 
-  const idPerfilLogueado = useSelector(selectUserId);
-
   const [search, setSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(null);
@@ -41,7 +39,7 @@ const GroupPage = () => {
   // Cargar datos del grupo, alumnos, medallas y recompensas
   // Usar hooks personalizados para obtener los datos necesarios
   const { data: group, isLoading: isLoadingGroup } = useGrupo(groupId);
-  const { data: students, isLoading: isLoadingStudents } = useAlumnosGrupo(groupId);
+  const { data: students, isLoading: isLoadingStudents } = isProfesor ? useAlumnosGrupo(groupId) : useAlumnosGrupoParaEstudiante(groupId);
   const { data: medals, isLoading: isLoadingMedals } = useMedallasProfesor(isProfesor);
   const { data: tiposKudo, isLoading: isLoadingKudos } = useTiposKudo();
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasTienda(group?.idTienda);
@@ -175,7 +173,7 @@ const GroupPage = () => {
           ) : (
             <div className={style.studentsContainer}>
               {studentsFiltrados?.map((item) => (
-                <StudentItem key={item.id} perfilEmisorId={idPerfilLogueado} student={item} medals={medals} kudos={tiposKudo} isLoadingKudos={isLoadingKudos} showProfesorOptions={isProfesor} />
+                <StudentItem key={item.id} perfilEmisorId={perfil?.id} student={item} medals={medals} kudos={tiposKudo} isLoadingKudos={isLoadingKudos} showProfesorOptions={isProfesor} />
               ))}
             </div>
           )

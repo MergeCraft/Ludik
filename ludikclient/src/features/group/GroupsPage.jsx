@@ -41,7 +41,7 @@ const GroupsPage = () => {
 
   const actions = (
     <button className="button-secondary" onClick={() => handleOpenModal(isProfesor ? "crear" : "unir")}>
-      {isProfesor ? "Crear asignatura" : "Unirse a una asignatura"}
+      {isProfesor ? "Crear grupo" : "Unirse a una asignatura"}
     </button>
   );
 
@@ -50,10 +50,10 @@ const GroupsPage = () => {
   return (
     <BaseManagerPage
       actions={actions}
-      modalTitle={modalTipo === "crear" ? "Crea una nueva asignatura" : "Únete a una asignatura"}
+      modalTitle={modalTipo === "crear" ? "Crea una nuevo grupo" : "Únete a una asignatura"}
       modalContent={modalContent}
       items={items}
-      searchPlaceholder="asignatura"
+      searchPlaceholder={isProfesor ? "grupo" : "asignatura"}
       showModal={showModal}
       setShowModal={setShowModal}
       searchValue={search}

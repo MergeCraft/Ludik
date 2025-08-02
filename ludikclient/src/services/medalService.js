@@ -1,22 +1,13 @@
+// services/medallaService.js
 import api from "../lib/axios";
-
-const parseError = (error, defaultMsg) => {
-  const data = error?.response?.data;
-
-  if (Array.isArray(data)) {
-    return data.map((e) => e.mensaje || e.message || e.error).filter(Boolean);
-  }
-
-  const mensaje = data?.mensaje || data?.message || data?.error;
-  return [mensaje || defaultMsg];
-};
+import { handleApiError } from "../lib/apiUtils";
 
 export const crearMedalla = async (medalla) => {
   try {
     const response = await api.post("/api/medalla/alta", medalla);
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al crear la medalla.");
+    handleApiError(error, "Error al crear la medalla.");
   }
 };
 
@@ -25,7 +16,7 @@ export const obtenerMedallasProfesor = async () => {
     const response = await api.get("/api/Medalla");
     return response.data;
   } catch (error) {
-    throw parseError(error, "No se pudieron obtener las medallas del profesor.");
+    handleApiError(error, "No se pudieron obtener las medallas del profesor.");
   }
 };
 
@@ -34,7 +25,7 @@ export const obtenerMedallaPorId = async (id) => {
     const response = await api.get(`/api/Medalla/${id}`);
     return response.data;
   } catch (error) {
-    throw parseError(error, "No se pudo obtener la medalla.");
+    handleApiError(error, "No se pudo obtener la medalla.");
   }
 };
 
@@ -43,7 +34,7 @@ export const editarMedalla = async ({ id, ...data }) => {
     const response = await api.put(`/api/medalla/${id}`, data);
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al editar la medalla.");
+    handleApiError(error, "Error al editar la medalla.");
   }
 };
 
@@ -52,16 +43,15 @@ export const eliminarMedalla = async (id) => {
     const response = await api.delete(`/api/Medalla/${id}`);
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al eliminar la medalla.");
+    handleApiError(error, "Error al eliminar la medalla.");
   }
 };
-
 
 export const obtenerTiposKudo = async () => {
   try {
     const response = await api.get("/api/Kudo");
     return response.data;
   } catch (error) {
-    throw parseError(error, "No se pudieron obtener los tipos de kudo.");
+    handleApiError(error, "No se pudieron obtener los tipos de kudo.");
   }
 };

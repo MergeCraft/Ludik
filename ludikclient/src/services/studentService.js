@@ -1,21 +1,13 @@
-//services/studentService.js
+// services/studentService.js
 import api from "../lib/axios";
-
-const parseError = (error, defaultMsg) => {
-  const data = error?.response?.data;
-  if (Array.isArray(data)) {
-    return data.map((e) => e.mensaje || e.message || e.error).filter(Boolean);
-  }
-  const mensaje = data?.mensaje || data?.message || data?.error;
-  return [mensaje || defaultMsg];
-};
+import { handleApiError } from "../lib/apiUtils";
 
 export const obtenerPerfilGrupo = async (grupoId) => {
   try {
     const response = await api.get(`/api/PerfilEstudiante/mi-perfil/grupo/${grupoId}/medallas`);
     return response.data;
   } catch (error) {
-    throw parseError(error, "No se pudo obtener el perfil del grupo.");
+    handleApiError(error, "No se pudo obtener el perfil del grupo.");
   }
 };
 
@@ -24,7 +16,7 @@ export const obtenerRecompensasPerfil = async (perfilId) => {
     const response = await api.get(`/api/Estudiante/perfiles/${perfilId}/recompensas`);
     return response.data;
   } catch (error) {
-    throw parseError(error, "No se pudo obtener el inventario de recompensas.");
+    handleApiError(error, "No se pudo obtener el inventario de recompensas.");
   }
 };
 
@@ -33,7 +25,7 @@ export const obtenerBarraProgresoPerfil = async (perfilId) => {
     const response = await api.get(`/api/BarraProgreso/${perfilId}`);
     return response.data;
   } catch (error) {
-    throw parseError(error, "No se pudo obtener la barra de progreso del estudiante.");
+    handleApiError(error, "No se pudo obtener la barra de progreso del estudiante.");
   }
 };
 
@@ -45,15 +37,16 @@ export const definirMetaCalificacion = async ({ perfilEstudianteId, metaCalifica
     });
     return response.data;
   } catch (error) {
-    throw parseError(error, "No se pudo establecer la meta de calificación.");
+    handleApiError(error, "No se pudo establecer la meta de calificación.");
   }
 };
+
 export const obtenerInventarioAvatar = async (idPerfilEstudiante) => {
   try {
     const response = await api.get(`/api/Avatar/${idPerfilEstudiante}/inventario-avatar`);
     return response.data;
   } catch (error) {
-    throw parseError(error, "No se pudo obtener el inventario de avatar.");
+    handleApiError(error, "No se pudo obtener el inventario de avatar.");
   }
 };
 
@@ -62,7 +55,7 @@ export const generarAvatar = async (idPerfilEstudiante, query) => {
     const response = await api.get(`/api/Avatar/${idPerfilEstudiante}/generar?${query}`);
     return response.data;
   } catch (error) {
-    throw parseError(error, "No se pudo generar el avatar.");
+    handleApiError(error, "No se pudo generar el avatar.");
   }
 };
 
@@ -74,7 +67,6 @@ export const guardarAvatarPersonalizado = async (idPerfilEstudiante, avatarDto, 
     formData.append("Rotacion", avatarDto.Rotacion.toString());
     formData.append("Zoom", avatarDto.Zoom.toString());
     avatarDto.AtributosIds.forEach((id) => formData.append("AtributosIds", id.toString()));
-
     formData.append("imagen", svgBlob, "avatar.svg");
 
     await api.put(`/api/Avatar/${idPerfilEstudiante}/personalizar`, formData, {
@@ -83,8 +75,7 @@ export const guardarAvatarPersonalizado = async (idPerfilEstudiante, avatarDto, 
       },
     });
   } catch (error) {
-    console.error("Error en guardarAvatarPersonalizado:", error.response?.data || error.message || error);
-    throw parseError(error, "No se pudo guardar el avatar.");
+    handleApiError(error, "No se pudo guardar el avatar.");
   }
 };
 
@@ -97,6 +88,6 @@ export const asignarKudo = async ({ idPerfilEstudianteRecibe, idPerfilEstudiante
     });
     return response.data;
   } catch (error) {
-    throw parseError(error, "No se pudo asignar el kudo.");
+    handleApiError(error, "No se pudo asignar el kudo.");
   }
 };

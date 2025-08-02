@@ -1,17 +1,31 @@
-.container {
+.containerForm {
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: 100%;
 }
 
-.label {
-    display: block;
-    margin-bottom: 8px;
+.groupAsignationOption {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
     font-weight: 600;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 0 0 1px var(--terciario);
+
 }
 
-.select {
+.groupAsignationOption input {
+    display: none
+}
+
+.groupAsignationOption:has(input:checked) {
+    background-color: var(--terciario);
+}
+
+.containerForm .select {
     width: 100%;
     margin-bottom: 15px;
     padding: 6px 10px;
@@ -20,11 +34,11 @@
     font-size: 1rem;
 }
 
-.fieldset {
+.containerForm .fieldset {
     margin-bottom: 15px;
     border: 1px solid #ccc;
     padding: 10px 15px;
-    border-radius: 4px;
+    border-radius: 10px;
 }
 
 .checkboxContainer {
@@ -46,7 +60,7 @@
     justify-content: space-between;
     align-items: center;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 5px 10px;
     margin-bottom: 5px;
 }

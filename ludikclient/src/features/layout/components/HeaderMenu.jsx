@@ -49,7 +49,7 @@ const HeaderMenu = () => {
             </li>
 
             <li onClick={() => goTo("/groups")} className={isActive("/groups") ? styles.activeGroups : ""}>
-              <FontAwesomeIcon icon="fa-solid fa-users" size="lg" /> Asignaturas
+              <FontAwesomeIcon icon="fa-solid fa-users" size="lg" /> {isProfesor ? "Grupos" : "Asignaturas"}
             </li>
 
             {isProfesor && (

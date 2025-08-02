@@ -30,33 +30,34 @@ const MedalThresholdView = ({ setModalContent, setModalTitle, setShowModal, grou
   };
 
   return (
-    <div className={styles.thresholdsContainer}>
-      {showTeacherOptions && (
-        <button className={styles.addThresholdButton} onClick={handleOpenThresholdCreateForm}>
-          <FontAwesomeIcon icon="fa-solid fa-plus" size="2xl" />
-        </button>
-      )}
+    <>
+      <div className={styles.thresholdsContainer}>
+        {showTeacherOptions && (
+          <button className={styles.addThresholdButton} onClick={handleOpenThresholdCreateForm}>
+            <FontAwesomeIcon icon="fa-solid fa-plus" size="2xl" />
+          </button>
+        )}
 
-      {thresholds?.length === 0 ? (
-        <p className={styles.emptyMessage}>No hay umbrales definidos aún.</p>
-      ) : (
-        <>
-          {thresholds?.map((threshold) => (
-            <ThresholdItem
-              key={threshold.id}
-              threshold={threshold}
-              setModalContent={setModalContent}
-              setModalTitle={setModalTitle}
-              setShowModal={setShowModal}
-              medallas={medallas}
-              tiposKudo={tiposKudo}
-              groupId={groupId}
-              showTeacherOptions={showTeacherOptions}
-            />
-          ))}
-        </>
-      )}
-    </div>
+        {thresholds?.length !== 0 && (
+          <>
+            {thresholds?.map((threshold) => (
+              <ThresholdItem
+                key={threshold.id}
+                threshold={threshold}
+                setModalContent={setModalContent}
+                setModalTitle={setModalTitle}
+                setShowModal={setShowModal}
+                medallas={medallas}
+                tiposKudo={tiposKudo}
+                groupId={groupId}
+                showTeacherOptions={showTeacherOptions}
+              />
+            ))}
+          </>
+        )}
+      </div>
+      {thresholds?.length === 0 && <p className={styles.emptyMessage}>No hay umbrales definidos aún.</p>}
+    </>
   );
 };
 

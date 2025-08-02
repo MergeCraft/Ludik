@@ -1,6 +1,7 @@
 // hooks/useGrupo.js
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import * as Toast from "../../../lib/toastify";
+import { manejarVisualizacionDeErrores } from "../../../lib/apiUtils";
 
 // === Servicios ===
 import {
@@ -11,6 +12,7 @@ import {
   obtenerGrupos,
   obtenerGrupo,
   obtenerAlumnosGrupo,
+  obtenerAlumnosGrupoParaEstudiante,
   obtenerSolicitudesUnion,
   eliminarMedalla,
   asignarMedalla,
@@ -28,12 +30,6 @@ import { obtenerTiposKudo } from "../../../services/medalService";
 import { obtenerRecompensasTienda } from "../../../services/storeService";
 import { obtenerRankings, crearRanking, eliminarRanking, obtenerRankingPorId } from "../../../services/rankingsService";
 
-// === Utilidades ===
-const manejarErrores = (error) => {
-  const errores = Array.isArray(error) ? error : [error.message];
-  errores.forEach((msg) => Toast.notificarError(msg));
-};
-
 // ─────────────────────────────────────────────
 // 🧩 GRUPOS
 // ─────────────────────────────────────────────
@@ -47,7 +43,7 @@ export const useCrearGrupo = (onSuccessCallback) => {
       queryClient.invalidateQueries(["grupos"]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -60,7 +56,7 @@ export const useEditarGrupo = (onSuccessCallback) => {
       queryClient.invalidateQueries(["grupo", data.id]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -73,7 +69,7 @@ export const useEliminarGrupo = (onSuccessCallback) => {
       queryClient.invalidateQueries(["grupos"]);
       if (onSuccessCallback) onSuccessCallback(id);
     },
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -84,7 +80,7 @@ export const useReiniciarLogrosGrupo = (onSuccessCallback) => {
       Toast.notificarExito("Logros reiniciados correctamente.");
       if (onSuccessCallback) onSuccessCallback();
     },
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -93,7 +89,7 @@ export const useGruposPorRol = (rol) => {
     queryKey: ["grupos", rol],
     queryFn: () => obtenerGrupos(rol),
     enabled: !!rol,
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -102,7 +98,7 @@ export const useGrupo = (id) => {
     queryKey: ["grupo", id],
     queryFn: () => obtenerGrupo(id),
     enabled: !!id,
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -111,7 +107,16 @@ export const useAlumnosGrupo = (id) => {
     queryKey: ["alumnos", id],
     queryFn: () => obtenerAlumnosGrupo(id),
     enabled: !!id,
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
+  });
+};
+
+export const useAlumnosGrupoParaEstudiante = (id) => {
+  return useQuery({
+    queryKey: ["alumnosEstudiante", id],
+    queryFn: () => obtenerAlumnosGrupoParaEstudiante(id),
+    enabled: !!id,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -124,7 +129,7 @@ export const useSolicitudesUnion = (id) => {
     queryKey: ["solicitudesUnion", id],
     queryFn: () => obtenerSolicitudesUnion(id),
     enabled: !!id,
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -135,7 +140,7 @@ export const useSolicitarUnirseGrupo = (onSuccessCallback) => {
       Toast.notificarExito("Solicitud de unión creada.");
       if (onSuccessCallback) onSuccessCallback(data);
     },
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -148,7 +153,7 @@ export const useAceptarSolicitud = (onSuccessCallback) => {
       queryClient.invalidateQueries(["solicitudesUnion"]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -161,7 +166,7 @@ export const useRechazarSolicitud = (onSuccessCallback) => {
       queryClient.invalidateQueries(["solicitudesUnion"]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -178,7 +183,7 @@ export const useAsignarMedalla = (onSuccessCallback) => {
       queryClient.invalidateQueries(["alumnos"]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -191,7 +196,7 @@ export const useEliminarMedalla = (onSuccessCallback) => {
       queryClient.invalidateQueries(["alumnos"]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -204,7 +209,7 @@ export const useRecompensasTienda = (tiendaId) => {
     queryKey: ["recompensas", tiendaId],
     queryFn: () => obtenerRecompensasTienda(tiendaId),
     enabled: !!tiendaId,
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -216,7 +221,7 @@ export const useRankings = () => {
   return useQuery({
     queryKey: ["rankings"],
     queryFn: obtenerRankings,
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -229,7 +234,7 @@ export const useCrearRanking = (onSuccessCallback) => {
       queryClient.invalidateQueries(["rankings"]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -241,7 +246,7 @@ export const useEliminarRanking = () => {
       Toast.notificarExito("Ranking eliminado correctamente.");
       queryClient.invalidateQueries(["rankings"]);
     },
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -250,7 +255,7 @@ export const useRankingPorId = (id) => {
     queryKey: ["ranking", id],
     queryFn: () => obtenerRankingPorId(id),
     enabled: !!id,
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -267,7 +272,7 @@ export const useCrearPac = (onSuccessCallback) => {
       queryClient.invalidateQueries(["pacs"]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -276,12 +281,12 @@ export const usePacsGrupo = (grupoId) => {
     queryKey: ["pacs", grupoId],
     queryFn: () => obtenerPacsGrupo(grupoId),
     enabled: !!grupoId,
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
 // ─────────────────────────────────────────────
-// 🧱 Umbrales para las medallas obtenias por kudos
+// 🧱 Umbrales para las medallas obtenidas por kudos
 // ─────────────────────────────────────────────
 
 export const useUmbralesMedallas = (grupoId) => {
@@ -289,7 +294,7 @@ export const useUmbralesMedallas = (grupoId) => {
     queryKey: ["umbralesMedallas", grupoId],
     queryFn: () => obtenerUmbralesMedallas(grupoId),
     enabled: !!grupoId,
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -302,7 +307,7 @@ export const useCrearUmbralMedalla = (onSuccessCallback) => {
       queryClient.invalidateQueries(["umbralesMedallas", data.grupoId]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -315,7 +320,7 @@ export const useEditarUmbralMedalla = (onSuccessCallback) => {
       queryClient.invalidateQueries(["umbralesMedallas", data.grupoId]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -325,10 +330,10 @@ export const useEliminarUmbralMedalla = (onSuccessCallback) => {
     mutationFn: eliminarUmbralMedalla,
     onSuccess: (data, id) => {
       Toast.notificarExito("Umbral eliminado correctamente.");
-      queryClient.invalidateQueries(["umbralesMedallas"]); // invalida cache
+      queryClient.invalidateQueries(["umbralesMedallas"]);
       if (onSuccessCallback) onSuccessCallback(id);
     },
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -341,6 +346,6 @@ export const useTiposKudo = () => {
     queryKey: ["tiposKudo"],
     queryFn: obtenerTiposKudo,
     enabled: true,
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };

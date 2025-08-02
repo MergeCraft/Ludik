@@ -11,8 +11,6 @@ const ProfilePage = () => {
   const isProfesor = role === "Profesor";
   const { data: usuario, isLoading, error } = usePerfilUsuario();
 
-  console.log(usuario);
-
   if (isLoading) return <BarLoader />;
   if (error) return <p>Error al cargar datos.</p>;
 
@@ -36,14 +34,6 @@ const ProfilePage = () => {
             {/* <FontAwesomeIcon icon="fa-solid fa-pen-to-square" size="lg" className={styles.editIcon} /> */}
           </div>
         )}
-
-        <div className={styles.userBox}>
-          <div className={styles.userBoxContent}>
-            <p className={styles.userText}>{usuario.roles[0]}</p>
-            <span className={styles.userLabel}>ROL</span>
-          </div>
-          {/* <FontAwesomeIcon icon="fa-solid fa-pen-to-square" size="lg" className={styles.editIcon} /> */}
-        </div>
 
         <div className={styles.userBox}>
           <div className={styles.userBoxContent}>

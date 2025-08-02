@@ -22,7 +22,7 @@ const GroupUnionLinkModal = ({ onClose }) => {
   };
 
   return (
-    <form className={styles.modalForm} onSubmit={handleSubmit}>
+    <form className={styles.modalFormLink} onSubmit={handleSubmit}>
       <label>
         Código del Grupo
         <input type="text" name="codigo" value={codigo} onChange={(e) => setCodigo(e.target.value)} disabled={isLoading} placeholder="Ingrese el código del grupo" />

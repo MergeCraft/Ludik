@@ -1,11 +1,11 @@
-.modalForm {
+.modalFormLink {
     display: flex;
     flex-direction: column;
     gap: 15px;
     width: 100%;
 }
 
-label {
+.modalFormLink label {
     display: flex;
     flex-direction: column;
     font-size: 14px;

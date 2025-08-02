@@ -1,16 +1,6 @@
 // services/storeService.js
 import api from "../lib/axios";
-
-const parseError = (error, defaultMsg) => {
-  const data = error?.response?.data;
-
-  if (Array.isArray(data)) {
-    return data.map((e) => e.mensaje || e.message || e.error).filter(Boolean);
-  }
-
-  const mensaje = data?.mensaje || data?.message || data?.error;
-  return [mensaje || defaultMsg];
-};
+import { handleApiError } from "../lib/apiUtils";
 
 export const crearRecompensa = async ({ nombre, rutaImagenCompleta, rutaImagenMiniatura, precio }) => {
   try {
@@ -22,8 +12,7 @@ export const crearRecompensa = async ({ nombre, rutaImagenCompleta, rutaImagenMi
     });
     return response.data;
   } catch (error) {
-    console.log(error);
-    throw parseError(error, "Error al crear la recompensa.");
+    handleApiError(error, "Error al crear la recompensa.");
   }
 };
 
@@ -32,7 +21,7 @@ export const obtenerRecompensasTienda = async (tiendaId) => {
     const response = await api.get(`/api/Tienda/${tiendaId}/recompensas`);
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al obtener las recompensas de la tienda.");
+    handleApiError(error, "Error al obtener las recompensas de la tienda.");
   }
 };
 
@@ -49,17 +38,16 @@ export const canjearRecompensa = async ({ perfilId, recompensaId }) => {
 
     return response.data;
   } catch (error) {
-    throw parseError(error, "No se pudo canjear la recompensa.");
+    handleApiError(error, "No se pudo canjear la recompensa.");
   }
 };
 
 export const obtenerRecompensasProfesor = async () => {
   try {
     const response = await api.get("/api/Recompensa/obtener-recompensas-profesor");
-    console.log(response.data);
     return response.data;
   } catch (error) {
-    throw parseError(error, "No se pudieron obtener las recompensas del profesor.");
+    handleApiError(error, "No se pudieron obtener las recompensas del profesor.");
   }
 };
 
@@ -68,8 +56,7 @@ export const editarRecompensa = async ({ recompensaId, data }) => {
     const response = await api.put(`/api/Recompensa/${recompensaId}`, data);
     return response.data;
   } catch (error) {
-    console.log(error);
-    throw parseError(error, "Error al editar la recompensa.");
+    handleApiError(error, "Error al editar la recompensa.");
   }
 };
 
@@ -78,8 +65,7 @@ export const eliminarRecompensa = async (recompensaId) => {
     const response = await api.delete(`/api/Recompensa/${recompensaId}`);
     return response.data;
   } catch (error) {
-    console.log(error);
-    throw parseError(error, "Error al eliminar la recompensa.");
+    handleApiError(error, "Error al eliminar la recompensa.");
   }
 };
 
@@ -91,6 +77,6 @@ export const asignarRecompensaAGrupos = async ({ recompensaId, gruposIds }) => {
     });
     return response.data;
   } catch (error) {
-    throw parseError(error, "Error al asignar la recompensa a los grupos.");
+    handleApiError(error, "Error al asignar la recompensa a los grupos.");
   }
 };

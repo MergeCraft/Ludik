@@ -1,11 +1,8 @@
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import * as Toast from "../../../lib/toastify";
-import { crearTablaEquivalencia, obtenerTablaEquivalencia, eliminarTablaEquivalencia, actualizarTablaEquivalencia, obtenerTablasEquivalencia } from "../../../services/equivalenceTableService";
+import { manejarVisualizacionDeErrores } from "../../../lib/apiUtils";
 
-const handleErrores = (error) => {
-  const mensajes = Array.isArray(error) ? error : [error.message];
-  mensajes.forEach((msg) => Toast.notificarError(msg));
-};
+import { crearTablaEquivalencia, obtenerTablaEquivalencia, eliminarTablaEquivalencia, actualizarTablaEquivalencia, obtenerTablasEquivalencia } from "../../../services/equivalenceTableService";
 
 export const useCrearTablaEquivalencia = (onSuccessCallback) => {
   const queryClient = useQueryClient();
@@ -17,7 +14,7 @@ export const useCrearTablaEquivalencia = (onSuccessCallback) => {
       queryClient.invalidateQueries(["tablasEquivalencia"]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
-    onError: handleErrores,
+    onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });
 };
 
@@ -31,7 +28,7 @@ export const useEditarTablaEquivalencia = (onSuccessCallback) => {
       queryClient.invalidateQueries(["tablasEquivalencia"]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
-    onError: handleErrores,
+    onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });
 };
 
@@ -46,7 +43,7 @@ export const useEliminarTablaEquivalencia = (options) => {
       if (options?.onSuccess) options.onSuccess(data);
     },
     onError: (error) => {
-      handleErrores(error);
+      manejarVisualizacionDeErrores(error, Toast.notificarError);
       if (options?.onError) options.onError(error);
     },
   });
@@ -57,7 +54,7 @@ export const useObtenerTablaEquivalencia = (id) => {
     queryKey: ["tablaEquivalencia", id],
     queryFn: () => obtenerTablaEquivalencia(id),
     enabled: !!id,
-    onError: handleErrores,
+    onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });
 };
 
@@ -65,6 +62,6 @@ export const useTablasEquivalencia = () => {
   return useQuery({
     queryKey: ["tablasEquivalencia"],
     queryFn: obtenerTablasEquivalencia,
-    onError: handleErrores,
+    onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });
 };

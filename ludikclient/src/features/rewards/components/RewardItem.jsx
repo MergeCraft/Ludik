@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useClaimReward } from "../../group/hooks/useStudentMutation";
 
-const RewardItem = ({ reward, redeemed, perfilId, showProfesorOptions, onEdit }) => {
+
+const RewardItem = ({ reward, redeemed, perfilId, showProfesorOptions, storeView, onEdit }) => {
   const { mutate: claimReward, isLoading: isClaiming } = useClaimReward(perfilId, reward.id, showProfesorOptions);
 
   const handleClaimReward = () => {
@@ -17,10 +18,14 @@ const RewardItem = ({ reward, redeemed, perfilId, showProfesorOptions, onEdit })
   };
 
   return (
-    <div className={`${styles.rewardCard} ${showProfesorOptions ? styles.gestor : ""}`}>
+    <div className={`${styles.rewardCard} ${storeView && styles.storeViewCard}`}>
       <h4>{reward.nombre}</h4>
       <div className={styles.iconContainer}>
-        {reward.requiereImagen ? <img src={`${reward.rutaImagenCompleta}`} alt={`Recompensa ${reward.nombre}`} /> : <FontAwesomeIcon icon={`fa-solid fa-${reward.rutaImagenCompleta}`} />}
+        {reward.requiereImagen ? (
+          <img src={`${reward.rutaImagenCompleta}`} alt={`Recompensa ${reward.nombre}`} />
+        ) : (
+          <FontAwesomeIcon icon={`fa-solid fa-${reward.rutaImagenCompleta ? reward.rutaImagenCompleta : "trophy"}`} />
+        )}
       </div>
 
       {!redeemed && (
@@ -30,7 +35,7 @@ const RewardItem = ({ reward, redeemed, perfilId, showProfesorOptions, onEdit })
             {reward.precio}
           </p>
           {showProfesorOptions ? (
-            <button className={styles.editarRecompensa} onClick={handleEditClick} type="button" aria-label={`Editar recompensa ${reward.nombre}`}>
+            <button className={`${styles.editarRecompensa} ${storeView && styles.storeViewButton}`} onClick={handleEditClick} type="button" aria-label={`Editar recompensa ${reward.nombre}`}>
               <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
             </button>
           ) : (
@@ -56,6 +61,7 @@ RewardItem.propTypes = {
   redeemed: PropTypes.bool.isRequired,
   perfilId: PropTypes.number.isRequired,
   showProfesorOptions: PropTypes.bool.isRequired,
+  storeView: PropTypes.bool.isRequired,
   onEdit: PropTypes.func,
 };
 

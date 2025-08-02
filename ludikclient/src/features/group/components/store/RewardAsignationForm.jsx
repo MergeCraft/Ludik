@@ -4,12 +4,11 @@ import * as Toast from "../../../../lib/toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import styles from "./RewardAsignationForm.module.css";
+import { BarLoader } from "react-spinners";
 
-const RewardAsignationForm = ({ grupoId, gruposProfesor, onClose }) => {
+const RewardAsignationForm = ({ grupoId, gruposProfesor, isLoadingGroups, onClose }) => {
   const [recompensaId, setRecompensaId] = useState("");
-  const [gruposSeleccionados, setGruposSeleccionados] = useState([grupoId]);
-
-  console.log(grupoId);
+  const [gruposSeleccionados, setGruposSeleccionados] = useState(grupoId ? [grupoId] : []);
 
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasProfesor();
 
@@ -42,7 +41,7 @@ const RewardAsignationForm = ({ grupoId, gruposProfesor, onClose }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerForm}>
       <label htmlFor="selectRecompensa" className={styles.label}>
         Selecciona una recompensa:
       </label>
@@ -64,15 +63,22 @@ const RewardAsignationForm = ({ grupoId, gruposProfesor, onClose }) => {
       {!grupoId && (
         <>
           <fieldset className={styles.fieldset}>
-            <legend>Selecciona los grupos a asignar:</legend>
-            {(!gruposProfesor || gruposProfesor.length === 0) && <p>No tienes grupos disponibles.</p>}
-            {gruposProfesor?.map((grupo) => (
-              <div key={grupo.id} className={styles.checkboxContainer}>
-                <label>
-                  <input type="checkbox" checked={gruposSeleccionados.includes(grupo.id)} onChange={() => toggleGrupoSeleccionado(grupo.id)} /> {grupo.nombre}
-                </label>
-              </div>
-            ))}
+            {isLoadingGroups ? (
+              <BarLoader />
+            ) : (
+              <>
+                <legend>Selecciona los grupos a asignar</legend>
+                {(!gruposProfesor || gruposProfesor.length === 0) && <p>No tienes grupos disponibles.</p>}
+                {gruposProfesor?.map((grupo) => (
+                  <div key={grupo.id} className={styles.checkboxContainer}>
+                    <label className={styles.groupAsignationOption}>
+                      <p>{grupo.nombre}</p>
+                      <input type="checkbox" checked={gruposSeleccionados.includes(grupo.id)} onChange={() => toggleGrupoSeleccionado(grupo.id)} />
+                    </label>
+                  </div>
+                ))}
+              </>
+            )}
           </fieldset>
 
           <div className={styles.selectedGroups}>
@@ -108,7 +114,7 @@ RewardAsignationForm.propTypes = {
   gruposProfesor: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.number, nombre: PropTypes.string })).isRequired,
   onClose: PropTypes.func.isRequired,
   asignarRecompensa: PropTypes.func.isRequired,
-  isLoadingAsignacion: PropTypes.bool,
+  isLoadingGroups: PropTypes.bool,
 };
 
 export default RewardAsignationForm;

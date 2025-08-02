@@ -63,7 +63,7 @@ export const useAsignarRecompensaAGrupos = (onSuccess) => {
     mutationFn: asignarRecompensaAGrupos,
     onSuccess: (data) => {
       Toast.notificarExito("Recompensa asignada correctamente.");
-      queryClient.invalidateQueries(["recompensas"]); // invalidar cache recompensas si es necesario
+      queryClient.invalidateQueries(["recompensas"]);
       if (onSuccess) onSuccess(data);
     },
     onError: manejarErrores,

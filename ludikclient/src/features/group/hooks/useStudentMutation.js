@@ -1,6 +1,8 @@
 // hooks/useStudentMutation.js
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import * as Toast from "../../../lib/toastify";
+import { manejarVisualizacionDeErrores } from "../../../lib/apiUtils";
+
 import {
   obtenerPerfilGrupo,
   obtenerRecompensasPerfil,
@@ -13,17 +15,12 @@ import {
 import { canjearRecompensa } from "../../../services/storeService";
 import { obtenerImagenPerfil } from "../../../services/imagesService";
 
-const manejarErrores = (error) => {
-  const errores = Array.isArray(error) ? error : [error.message];
-  errores.forEach((msg) => Toast.notificarError(msg));
-};
-
 export const usePerfilGrupo = (grupoId, isProfesor) => {
   return useQuery({
     queryKey: ["perfilGrupo", grupoId],
     queryFn: () => obtenerPerfilGrupo(grupoId),
     enabled: !isProfesor,
-    onError: manejarErrores,
+    onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });
 };
 
@@ -32,7 +29,7 @@ export const useRecompensasPerfil = (perfilId) => {
     queryKey: ["recompensasPerfil", perfilId],
     queryFn: () => obtenerRecompensasPerfil(perfilId),
     enabled: !!perfilId,
-    onError: manejarErrores,
+    onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });
 };
 
@@ -47,7 +44,7 @@ export const useClaimReward = (perfilId, recompensaId, isProfesor) => {
       Toast.notificarExito("¡Recompensa canjeada exitosamente!");
       queryClient.invalidateQueries(["perfilGrupo", perfilId]);
     },
-    onError: manejarErrores,
+    onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });
 };
 
@@ -56,10 +53,10 @@ export const useImagenPerfil = (perfilId) => {
     queryKey: ["imagenPerfil", perfilId],
     queryFn: () => obtenerImagenPerfil(perfilId),
     enabled: !!perfilId,
-    onError: manejarErrores,
+    onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
     retry: (failureCount, error) => {
       if (error?.response?.status === 404) return false;
-      return failureCount < 1; // si querés limitar otros errores
+      return failureCount < 1;
     },
   });
 };
@@ -69,7 +66,7 @@ export const useBarraProgresoPerfil = (perfilId) => {
     queryKey: ["barraProgresoPerfil", perfilId],
     queryFn: () => obtenerBarraProgresoPerfil(perfilId),
     enabled: !!perfilId,
-    onError: manejarErrores,
+    onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });
 };
 
@@ -83,7 +80,7 @@ export const useDefinirMetaCalificacion = (perfilId) => {
       queryClient.invalidateQueries(["perfilGrupo", perfilId]);
       queryClient.invalidateQueries(["barraProgresoPerfil", perfilId]);
     },
-    onError: manejarErrores,
+    onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });
 };
 
@@ -101,7 +98,7 @@ export const useGuardarAvatar = (idPerfilEstudiante) => {
     onSuccess: () => {
       Toast.notificarExito("¡Avatar guardado correctamente!");
     },
-    onError: manejarErrores,
+    onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });
 };
 
@@ -114,6 +111,6 @@ export const useAsignarKudo = () => {
       Toast.notificarExito("¡Kudo asignado exitosamente!");
       queryClient.invalidateQueries(["perfilGrupo", idPerfilEstudianteRecibe]);
     },
-    onError: manejarErrores,
+    onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });
 };

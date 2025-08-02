@@ -76,6 +76,7 @@
 .acciones label {
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-grow: 1;
     min-width: 40px;
     font-size: 90%;

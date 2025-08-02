@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { iniciarSesion, registrarse, obtenerPreguntasSeguridad, obtenerPreguntasPorUsuario, restablecerContrasena } from "../../../services/authService";
 import { useDispatch } from "react-redux";
 import * as Toast from "../../../lib/toastify";
+import { manejarVisualizacionDeErrores } from "../../../lib/apiUtils";
 
 export const useLogin = () => {
   const dispatch = useDispatch();
@@ -14,9 +15,7 @@ export const useLogin = () => {
       navigate("/groups");
       Toast.notificarExito(`¡Bienvenid@ ${user.nombreUsuario}!`);
     },
-    onError: (error) => {
-      Toast.notificarError(error.message || "Error al iniciar sesión");
-    },
+    onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });
 };
 
@@ -31,9 +30,7 @@ export const useRegistro = () => {
       Toast.notificarExito("Registro exitoso");
       Toast.notificarExito(`¡Bienvenid@ ${user.nombreUsuario}!`);
     },
-    onError: (error) => {
-      Toast.notificarError(error.message || "Error al registrar");
-    },
+    onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });
 };
 
@@ -42,6 +39,7 @@ export const usePreguntasSeguridad = () => {
     queryKey: ["preguntasSeguridad"],
     queryFn: obtenerPreguntasSeguridad,
     staleTime: 1000 * 60 * 10, // 10 minutos
+    // No hay error handler porque quizás quieras un fallback visual aparte
   });
 };
 
@@ -53,9 +51,7 @@ export const usePreguntasPorUsuario = () => {
         Toast.notificarWarning("Este usuario no tiene preguntas de seguridad registradas.");
       }
     },
-    onError: (error) => {
-      Toast.notificarError(error.message || "No se pudieron obtener las preguntas.");
-    },
+    onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });
 };
 
@@ -67,8 +63,6 @@ export const useRestablecerContrasena = () => {
       Toast.notificarExito("Contraseña restablecida con éxito. Inicia sesión.");
       navigate("/login");
     },
-    onError: (error) => {
-      Toast.notificarError(error.message || "No se pudo restablecer la contraseña.");
-    },
+    onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });
 };
