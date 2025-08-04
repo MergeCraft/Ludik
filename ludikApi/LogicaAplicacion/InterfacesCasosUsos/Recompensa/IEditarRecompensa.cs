@@ -10,6 +10,6 @@ namespace LogicaAplicacion.InterfacesCasosUsos.Recompensa
 {
     public interface IEditarRecompensa
     {
-        Task<Resultado> EjecutarAsync(string recompensaId, RecompensaEditarDto dto, string profesorId);
+        Task<Resultado> EjecutarAsync(string recompensaId, RecompensaSimpleEditarDto dto, string profesorId);
     }
 }

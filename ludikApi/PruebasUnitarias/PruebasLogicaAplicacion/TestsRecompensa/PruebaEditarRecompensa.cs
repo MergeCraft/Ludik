@@ -1,11 +1,12 @@
-﻿using System.Threading.Tasks;
-using InterfacesRepositorio;
+﻿using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.RecompensaDTOs;
-using LogicaAplicacion.ImplementacionCasosUsos.Recompensa;
 using LogicaAplicacion.DTOsMappers.RecompensaMappers;
+using LogicaAplicacion.ImplementacionCasosUsos.Recompensa;
 using LogicaNegocio.Entidades;
+using LogicaNegocio.EntidadesAuxiliares;
 using LogicaNegocio.Resultados;
 using Moq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsRecompensa
@@ -27,7 +28,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsRecompensa
         public async Task EjecutarAsync_IdNoEntero_RetornaFalloInvalidId()
         {
             // Arrange
-            var dto = new RecompensaEditarDto { Nombre = "X", Precio = 10 };
+            var dto = new RecompensaSimpleEditarDto { Nombre = "X", Precio = 10, NombreIcono = "icon" };
 
             // Act
             var resultado = await _useCase.EjecutarAsync("no-int", dto, "prof-1");
@@ -49,7 +50,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsRecompensa
             _mockRepoRecompensas
                 .Setup(r => r.GetByIdAsync(5))
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Recompensa>.Falla(new Error("X", "")));
-            var dto = new RecompensaEditarDto { Nombre = "X", Precio = 10 };
+            var dto = new RecompensaSimpleEditarDto { Nombre = "X", Precio = 10, NombreIcono = "icon" };
 
             // Act
             var resultado = await _useCase.EjecutarAsync("5", dto, "prof-1");
@@ -67,33 +68,29 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsRecompensa
         [Fact]
         public async Task EjecutarAsync_DominioInvalido_RetornaFalloValidation()
         {
-            // Arrange
-            // Recompensa inicial con valores válidos
             var recompensa = new RecompensaSimple
             {
                 Id = 7,
                 Nombre = "Original",
                 Precio = 100
             };
+            ((RepresentacionIcono)recompensa.Representacion).NombreIcono = "original-icon";
+
             _mockRepoRecompensas
                 .Setup(r => r.GetByIdAsync(7))
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Recompensa>.Exitoso(recompensa));
 
-            // DTO con precio inválido para forzar falla en esValido()
-            var dto = new RecompensaEditarDto
+
+            var dto = new RecompensaSimpleEditarDto
             {
                 Nombre = "Edited",
-                RutaImagenCompleta = null,
-                RutaImagenMiniatura = null,
-                Precio = -50
+                NombreIcono = "edited-icon",
+                Precio = -50 // Precio inválido para forzar el fallo
             };
 
-            // Act
             var resultado = await _useCase.EjecutarAsync("7", dto, "prof-1");
 
-            // Assert
             Assert.True(resultado.EsFallo);
-            // Asumimos que la validación de dominio reporta Error.Validation
             Assert.Contains(resultado.Errores, e => e.Codigo == "Error.Validation");
             _mockRepoRecompensas.Verify(r => r.UpdateAsync(It.IsAny<LogicaNegocio.Entidades.Recompensa>()), Times.Never);
         }
@@ -102,23 +99,14 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsRecompensa
         public async Task EjecutarAsync_ErrorAlActualizar_RetornaFalloUnexpected()
         {
             // Arrange
-            var recompensa = new RecompensaSimple
-            {
-                Id = 9,
-                Nombre = "Original",
-                Precio = 20
-            };
+            var recompensa = new RecompensaSimple { Id = 9, Nombre = "Original", Precio = 20 };
+            ((RepresentacionIcono)recompensa.Representacion).NombreIcono = "original-icon";
+
             _mockRepoRecompensas
                 .Setup(r => r.GetByIdAsync(9))
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Recompensa>.Exitoso(recompensa));
 
-            var dto = new RecompensaEditarDto
-            {
-                Nombre = "Edited",
-                RutaImagenCompleta = "newFull",
-                RutaImagenMiniatura = "newThumb",
-                Precio = 30
-            };
+            var dto = new RecompensaSimpleEditarDto { Nombre = "Edited", Precio = 30, NombreIcono = "edited-icon" };
 
             // validación de dominio pasa
             // simulamos falla en UpdateAsync
@@ -142,46 +130,45 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsRecompensa
         [Fact]
         public async Task EjecutarAsync_CaminoFeliz_RetornaExitoso()
         {
-            // Arrange
-            var recompensa = new RecompensaSimple
-            {
-                Id = 15,
-                Nombre = "Original",
-                Precio = 5,
-                NombreImagenCompleta = "oldFull",
-                NombreImagenMiniatura = "oldThumb"
-            };
+            // ARRANGE
+            var recompensa = new RecompensaSimple { Id = 15, Nombre = "Original", Precio = 5 };
+            ((RepresentacionIcono)recompensa.Representacion).NombreIcono = "original-icon";
+
             _mockRepoRecompensas
                 .Setup(r => r.GetByIdAsync(15))
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Recompensa>.Exitoso(recompensa));
 
-            var dto = new RecompensaEditarDto
+            // CAMBIO: El DTO de edición tiene los nuevos valores, incluyendo NombreIcono
+            var dto = new RecompensaSimpleEditarDto
             {
                 Nombre = "NuevoNombre",
-                RutaImagenCompleta = "newFull",
-                RutaImagenMiniatura = null, // conserva oldThumb
-                Precio = 50
+                Precio = 50,
+                NombreIcono = "nuevo-icon"
             };
 
-            LogicaNegocio.Entidades.Recompensa capturada = null!;
+            LogicaNegocio.Entidades.Recompensa recompensaCapturada = null;
             _mockRepoRecompensas
                 .Setup(r => r.UpdateAsync(It.IsAny<LogicaNegocio.Entidades.Recompensa>()))
-                .Callback<LogicaNegocio.Entidades.Recompensa>(r => capturada = r)
+                .Callback<LogicaNegocio.Entidades.Recompensa>(r => recompensaCapturada = r) // Capturamos el objeto actualizado
                 .ReturnsAsync(Resultado.Exitoso());
 
-            // Act
+            // ACT
             var resultado = await _useCase.EjecutarAsync("15", dto, "prof-1");
 
-            // Assert
+            // ASSERT
             Assert.True(resultado.EsExitoso);
 
-            // Verificamos que el mapper hizo su trabajo
-            Assert.Equal("NuevoNombre", capturada.Nombre);
-            Assert.Equal("newFull", capturada.NombreImagenCompleta);
-            Assert.Equal("oldThumb", capturada.NombreImagenMiniatura);
-            Assert.Equal(50, capturada.Precio);
-
+            // Verificamos que se llamó a UpdateAsync una vez
             _mockRepoRecompensas.Verify(r => r.UpdateAsync(It.IsAny<LogicaNegocio.Entidades.Recompensa>()), Times.Once);
+
+            // Verificamos que los datos en el objeto capturado son los correctos
+            Assert.NotNull(recompensaCapturada);
+            Assert.Equal(dto.Nombre, recompensaCapturada.Nombre);
+            Assert.Equal(dto.Precio, recompensaCapturada.Precio);
+
+            // CAMBIO: Verificamos la propiedad anidada de forma segura
+            var representacion = Assert.IsType<RepresentacionIcono>(recompensaCapturada.Representacion);
+            Assert.Equal(dto.NombreIcono, representacion.NombreIcono);
         }
     }
 }

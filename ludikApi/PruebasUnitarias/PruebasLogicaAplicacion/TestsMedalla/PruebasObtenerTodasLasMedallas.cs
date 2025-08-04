@@ -30,7 +30,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
                 .Setup(g => g.GenerarUrlLecturaAsync(It.IsAny<string>()))
                 .ReturnsAsync((string url) => url);
 
-            _casoUso = new ObtenerTodasLasMedallas(_repoMock.Object, _generadorUrlImagenMock.Object);
+            _casoUso = new ObtenerTodasLasMedallas(_repoMock.Object);
         }
 
         [Fact]

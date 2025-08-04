@@ -7,6 +7,7 @@ using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.RecompensaDTOs;
 using LogicaAplicacion.DTOsMappers.RecompensaMappers;
 using LogicaAplicacion.InterfacesCasosUsos.Recompensa;
+using LogicaNegocio.Entidades;
 using LogicaNegocio.Resultados;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.Recompensa
@@ -20,7 +21,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Recompensa
             _repositorioRecompensas = repositorioRecompensas;
             _repositorioTiendas = repositorioTiendas;
         }
-        public async Task<Resultado> EjecutarAsync(string recompensaIdString, RecompensaEditarDto dto, string profesorId)
+        public async Task<Resultado> EjecutarAsync(string recompensaIdString, RecompensaSimpleEditarDto dto, string profesorId)
         {
             if (!int.TryParse(recompensaIdString, out int recompensaId))
                 return Resultado.Falla(new Error("Error.InvalidId", $"ID de recompensa inválido: '{recompensaIdString}'."));
@@ -28,7 +29,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Recompensa
             var resultadoRecuperar = await _repositorioRecompensas.GetByIdAsync(recompensaId);
             if (resultadoRecuperar.EsFallo)
                 return Resultado.Falla(new Error("Error.NotFound", "No se encontró la recompensa especificada."));
-            var recompensa = resultadoRecuperar.Valor!;
+            RecompensaSimple recompensa = (RecompensaSimple)resultadoRecuperar.Valor;
 
             RecompensaEditarMapper.Update(recompensa, dto);
 

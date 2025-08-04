@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using InterfacesRepositorio;
+﻿using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.RecompensaDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Estudiantes;
 using LogicaAplicacion.Servicios;
 using LogicaNegocio.Entidades;
+using LogicaNegocio.EntidadesAuxiliares;
 using LogicaNegocio.Resultados;
 using Moq;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsEstudiante
@@ -15,7 +16,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsEstudiante
     public class PruebasObtenerRecompensasInventarioPerfil
     {
         private readonly Mock<IRepositorioPerfilEstudianteGrupo> _mockPerfilRepo;
-        private readonly Mock<IGeneradorUrlsParaColeccionesImagenes> _mockUrlGen;
+        private readonly Mock<IRecompensaEnricher> _mockRecompensaEnricher;
+        private readonly Mock<IRepositorioTiendas> _mockRepoTiendas;
         private readonly ObtenerRecompensasInventarioPerfil _casoUso;
 
         private const int PerfilId = 101;
@@ -24,8 +26,9 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsEstudiante
         public PruebasObtenerRecompensasInventarioPerfil()
         {
             _mockPerfilRepo = new Mock<IRepositorioPerfilEstudianteGrupo>();
-            _mockUrlGen = new Mock<IGeneradorUrlsParaColeccionesImagenes>();
-            _casoUso = new ObtenerRecompensasInventarioPerfil(_mockPerfilRepo.Object, _mockUrlGen.Object);
+            _mockRecompensaEnricher = new Mock<IRecompensaEnricher>();
+            _mockRepoTiendas = new Mock<IRepositorioTiendas>();
+            _casoUso = new ObtenerRecompensasInventarioPerfil(_mockPerfilRepo.Object, _mockRecompensaEnricher.Object);
         }
 
         [Fact]
@@ -91,59 +94,47 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsEstudiante
         [Fact]
         public async Task CaminoFeliz_RetornaListadoDeRecompensas()
         {
-            // Arrange: perfil válido y dos recompensas en el inventario
-            var r1 = new LogicaNegocio.Entidades.RecompensaSimple
+            // ARRANGE
+            var recompensaIcono = new RecompensaSimple { Id = 1, Nombre = "Icono Genial", Precio = 5 };
+            ((RepresentacionIcono)recompensaIcono.Representacion).NombreIcono = "fa-icon";
+
+            var recompensaImagen = new PersonalizacionAvatar { Id = 2, Nombre = "Avatar Increíble", Precio = 10 };
+            ((RepresentacionImagen)recompensaImagen.Representacion).NombreImagenCompleta = "completa.png";
+            ((RepresentacionImagen)recompensaImagen.Representacion).NombreImagenMiniatura = "mini.png";
+
+            var recompensasDeDominio = new List<LogicaNegocio.Entidades.Recompensa> { recompensaIcono, recompensaImagen };
+            var tienda = new LogicaNegocio.Entidades.Tienda { Id = 20, Recompesas = recompensasDeDominio };
+
+            _mockRepoTiendas
+                .Setup(r => r.GetByIdAsync(20))
+                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Tienda>.Exitoso(tienda));
+
+            // Preparamos la respuesta que ESPERAMOS del enricher
+            var dtosEsperados = new List<RecompensaClienteDto>
             {
-                Id = 1,
-                Nombre = "Espada mágica",
-                NombreImagenCompleta = "url1",
-                NombreImagenMiniatura = "mini1",
-                Precio = 100,
-                RequiereImagen = true
+                new RecompensaClienteDto { Id = 1, Nombre = "Icono Genial", Datos = new RespuestaIconoDto("fa-icon") },
+                new RecompensaClienteDto { Id = 2, Nombre = "Avatar Increíble", Datos = new RespuestaImagenDto("url-fake/mini.png", "url-fake/completa.png") }
             };
-            var r2 = new LogicaNegocio.Entidades.RecompensaSimple
-            {
-                Id = 2,
-                Nombre = "Escudo legendario",
-                NombreImagenCompleta = "url2",
-                NombreImagenMiniatura = "mini2",
-                Precio = 150,
-                RequiereImagen = false
-            };
-            var perfil = new LogicaNegocio.Entidades.PerfilEstudiante { Id = PerfilId, EstudianteId = EstudianteId };
 
-            _mockPerfilRepo
-                .Setup(r => r.GetByIdAsync(PerfilId))
-                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.PerfilEstudiante>.Exitoso(perfil));
-            _mockPerfilRepo
-                .Setup(r => r.ObtenerRecompensasInventarioAsync(PerfilId))
-                .ReturnsAsync(Resultado<IEnumerable<LogicaNegocio.Entidades.Recompensa>>.Exitoso(
-                    new LogicaNegocio.Entidades.Recompensa[] { r1, r2 }));
+            // Configuramos el mock del enricher para que devuelva nuestra lista esperada
+            _mockRecompensaEnricher
+                .Setup(e => e.EnrichAsync(recompensasDeDominio))
+                .ReturnsAsync(dtosEsperados);
 
-            // Mock: el método recibe un List<RecompensaDto> y un array de tuplas
-            _mockUrlGen
-                .Setup(g => g.EjecutarProcesarUrlsAsync<RecompensaDto>(
-                    It.IsAny<List<RecompensaDto>>(),
-                    It.IsAny<(System.Func<RecompensaDto, string>, System.Action<RecompensaDto, string>)[]>()))
-                .Returns(Task.CompletedTask);
-
-            // Act
+            // ACT
             var resultado = await _casoUso.EjecutarAsync(PerfilId, EstudianteId);
 
-            // Assert
+            // ASSERT
             Assert.True(resultado.EsExitoso);
+            var listaResultado = resultado.Valor!.ToList();
 
-            var listaDtos = resultado.Valor;
-            Assert.Equal(2, listaDtos.Count);
-            Assert.Contains(listaDtos, dto =>
-                dto.Nombre == "Espada mágica" && dto.Precio == 100 && dto.RequiereImagen);
-            Assert.Contains(listaDtos, dto =>
-                dto.Nombre == "Escudo legendario" && dto.Precio == 150 && !dto.RequiereImagen);
+            // 4. Verificamos que el resultado del caso de uso es exactamente lo que devolvió el mock.
+            Assert.Equal(2, listaResultado.Count);
+            Assert.Equal(dtosEsperados, listaResultado);
 
-            _mockUrlGen.Verify(g => g.EjecutarProcesarUrlsAsync<RecompensaDto>(
-                It.Is<List<RecompensaDto>>(l => l.Count == 2),
-                It.Is<(System.Func<RecompensaDto, string>, System.Action<RecompensaDto, string>)[]>(arr => arr.Length == 2)
-            ), Times.Once);
+            // 5. (Opcional pero recomendado) Verificamos que los mocks fueron llamados.
+            _mockRepoTiendas.Verify(r => r.GetByIdAsync(20), Times.Once);
+            _mockRecompensaEnricher.Verify(e => e.EnrichAsync(recompensasDeDominio), Times.Once);
         }
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
-    public partial class inicial : Migration
+    public partial class inicialConDatos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -307,7 +307,7 @@ namespace AccesoDatos.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    NombreImagenMiniatura = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NombreIcono = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MonedasOtorgadas = table.Column<int>(type: "int", nullable: false),
                     TieneAsignacionMutua = table.Column<bool>(type: "bit", nullable: false),
                     ProfesorId = table.Column<string>(type: "nvarchar(450)", nullable: false)
@@ -540,9 +540,6 @@ namespace AccesoDatos.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    NombreImagenCompleta = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NombreImagenMiniatura = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RequiereImagen = table.Column<bool>(type: "bit", nullable: false),
                     Precio = table.Column<int>(type: "int", nullable: false),
                     RecompensaTipo = table.Column<string>(type: "nvarchar(21)", maxLength: 21, nullable: false),
                     TiendaId = table.Column<int>(type: "int", nullable: true),
@@ -1128,36 +1125,36 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.InsertData(
                 table: "Recompensas",
-                columns: new[] { "Id", "Nombre", "NombreImagenCompleta", "NombreImagenMiniatura", "Precio", "RecompensaTipo", "RequiereImagen", "TiendaId" },
+                columns: new[] { "Id", "Nombre", "Precio", "RecompensaTipo", "TiendaId" },
                 values: new object[,]
                 {
-                    { 1, "Estrella Mágica", "star", "star", 50, "Simple", false, null },
-                    { 2, "Regalo Sorpresa", "gift", "gift", 30, "Simple", false, null },
-                    { 3, "Corazón Brillante", "heart", "heart", 20, "Simple", false, null },
-                    { 4, "Medalla de Oro", "medal", "medal", 80, "Simple", false, null },
-                    { 5, "Montón de Monedas", "coins", "coins", 100, "Simple", false, null },
-                    { 6, "Trofeo Brillante", "trophy", "trophy", 70, "Simple", false, null },
-                    { 7, "Llama de Fuego", "fire", "fire", 40, "Simple", false, null },
-                    { 8, "Corona Real", "crown", "crown", 90, "Simple", false, null },
-                    { 9, "Cohete Espacial", "rocket", "rocket", 60, "Simple", false, null },
-                    { 10, "Robot Amistoso", "robot", "robot", 55, "Simple", false, null }
+                    { 1, "Estrella Mágica", 50, "Simple", null },
+                    { 2, "Regalo Sorpresa", 30, "Simple", null },
+                    { 3, "Corazón Brillante", 20, "Simple", null },
+                    { 4, "Medalla de Oro", 80, "Simple", null },
+                    { 5, "Montón de Monedas", 100, "Simple", null },
+                    { 6, "Trofeo Brillante", 70, "Simple", null },
+                    { 7, "Llama de Fuego", 40, "Simple", null },
+                    { 8, "Corona Real", 90, "Simple", null },
+                    { 9, "Cohete Espacial", 60, "Simple", null },
+                    { 10, "Robot Amistoso", 55, "Simple", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Recompensas",
-                columns: new[] { "Id", "Duracion", "FechaActivacion", "Multiplicador", "Nombre", "NombreImagenCompleta", "NombreImagenMiniatura", "Precio", "RecompensaTipo", "RequiereImagen", "TiendaId" },
+                columns: new[] { "Id", "Duracion", "FechaActivacion", "Multiplicador", "Nombre", "Precio", "RecompensaTipo", "TiendaId" },
                 values: new object[,]
                 {
-                    { 101, new TimeSpan(1, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.5, "Bono x1.5 (24h)", null, null, 0, "Potenciador", false, null },
-                    { 102, new TimeSpan(1, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.6000000000000001, "Bono x1.6 (24h)", null, null, 0, "Potenciador", false, null },
-                    { 103, new TimeSpan(2, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.7, "Bono x1.7 (48h)", null, null, 0, "Potenciador", false, null },
-                    { 104, new TimeSpan(2, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.8, "Bono x1.8 (48h)", null, null, 0, "Potenciador", false, null },
-                    { 105, new TimeSpan(3, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.8999999999999999, "Bono x1.9 (72h)", null, null, 0, "Potenciador", false, null },
-                    { 106, new TimeSpan(3, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.0, "¡Doble Moneda! (72h)", null, null, 0, "Potenciador", false, null },
-                    { 107, new TimeSpan(4, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.1000000000000001, "Bono x2.1 (96h)", null, null, 0, "Potenciador", false, null },
-                    { 108, new TimeSpan(4, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.2000000000000002, "Bono x2.2 (96h)", null, null, 0, "Potenciador", false, null },
-                    { 109, new TimeSpan(5, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.2999999999999998, "Bono x2.3 (120h)", null, null, 0, "Potenciador", false, null },
-                    { 110, new TimeSpan(7, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.5, "¡Super Bono x2.5! (168h)", null, null, 0, "Potenciador", false, null }
+                    { 101, new TimeSpan(1, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.5, "Bono x1.5 (24h)", 0, "Potenciador", null },
+                    { 102, new TimeSpan(1, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.6000000000000001, "Bono x1.6 (24h)", 0, "Potenciador", null },
+                    { 103, new TimeSpan(2, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.7, "Bono x1.7 (48h)", 0, "Potenciador", null },
+                    { 104, new TimeSpan(2, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.8, "Bono x1.8 (48h)", 0, "Potenciador", null },
+                    { 105, new TimeSpan(3, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.8999999999999999, "Bono x1.9 (72h)", 0, "Potenciador", null },
+                    { 106, new TimeSpan(3, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.0, "¡Doble Moneda! (72h)", 0, "Potenciador", null },
+                    { 107, new TimeSpan(4, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.1000000000000001, "Bono x2.1 (96h)", 0, "Potenciador", null },
+                    { 108, new TimeSpan(4, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.2000000000000002, "Bono x2.2 (96h)", 0, "Potenciador", null },
+                    { 109, new TimeSpan(5, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.2999999999999998, "Bono x2.3 (120h)", 0, "Potenciador", null },
+                    { 110, new TimeSpan(7, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.5, "¡Super Bono x2.5! (168h)", 0, "Potenciador", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1300,20 +1297,20 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.InsertData(
                 table: "Recompensas",
-                columns: new[] { "Id", "AtributoAvatarId", "Nombre", "NombreImagenCompleta", "NombreImagenMiniatura", "Precio", "RecompensaTipo", "RequiereImagen", "TiendaId" },
+                columns: new[] { "Id", "AtributoAvatarId", "Nombre", "Precio", "RecompensaTipo", "TiendaId" },
                 values: new object[,]
                 {
-                    { 11, 1, "Item: Curly", "top-curly.png", "top-curly.png", 0, "PersonalizacionAvatar", true, null },
-                    { 12, 21, "Item: Default", "eyes-default.png", "eyes-default.png", 0, "PersonalizacionAvatar", true, null },
-                    { 13, 12, "Item: DefaultNatural", "eyebrows-defaultNatural.png", "eyebrows-defaultNatural.png", 0, "PersonalizacionAvatar", true, null },
-                    { 14, 31, "Item: Default", "mouth-default.png", "mouth-default.png", 0, "PersonalizacionAvatar", true, null },
-                    { 15, 52, "Item: ShirtVNeck", "clothing-shirtVNeck.png", "clothing-shirtVNeck.png", 0, "PersonalizacionAvatar", true, null },
-                    { 16, 43, "Item: Sunglasses", "accessories-sunglasses.png", "accessories-sunglasses.png", 0, "PersonalizacionAvatar", true, null },
-                    { 17, 56, "Item: edb98a", "skinColor-edb98a.png", "skinColor-edb98a.png", 0, "PersonalizacionAvatar", true, null },
-                    { 18, 60, "Item: 2c1b18", "hairColor-2c1b18.png", "hairColor-2c1b18.png", 0, "PersonalizacionAvatar", true, null },
-                    { 19, 80, "Item: 3c4f5c", "clothesColor-3c4f5c.png", "clothesColor-3c4f5c.png", 0, "PersonalizacionAvatar", true, null },
-                    { 20, 98, "Item: 25557c", "accessoriesColor-25557c.png", "accessoriesColor-25557c.png", 0, "PersonalizacionAvatar", true, null },
-                    { 21, 70, "Item: 2c1b18", "beardColor-2c1b18.png", "beardColor-2c1b18.png", 0, "PersonalizacionAvatar", true, null }
+                    { 11, 1, "Curly", 0, "PersonalizacionAvatar", null },
+                    { 12, 21, "Default", 0, "PersonalizacionAvatar", null },
+                    { 13, 12, "DefaultNatural", 0, "PersonalizacionAvatar", null },
+                    { 14, 31, "Default", 0, "PersonalizacionAvatar", null },
+                    { 15, 52, "ShirtVNeck", 0, "PersonalizacionAvatar", null },
+                    { 16, 43, "Sunglasses", 0, "PersonalizacionAvatar", null },
+                    { 17, 56, "edb98a", 0, "PersonalizacionAvatar", null },
+                    { 18, 60, "2c1b18", 0, "PersonalizacionAvatar", null },
+                    { 19, 80, "3c4f5c", 0, "PersonalizacionAvatar", null },
+                    { 20, 98, "25557c", 0, "PersonalizacionAvatar", null },
+                    { 21, 70, "2c1b18", 0, "PersonalizacionAvatar", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1362,7 +1359,7 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.InsertData(
                 table: "Medallas",
-                columns: new[] { "Id", "Descripcion", "MonedasOtorgadas", "Nombre", "NombreImagenMiniatura", "ProfesorId", "TieneAsignacionMutua" },
+                columns: new[] { "Id", "Descripcion", "MonedasOtorgadas", "Nombre", "NombreIcono", "ProfesorId", "TieneAsignacionMutua" },
                 values: new object[,]
                 {
                     { 1, "Asistencia y participación en todas las clases del mes.", 30, "Participación Perfecta", "medalla_participacion_perfecta.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },

@@ -7,10 +7,10 @@ using LogicaNegocio.InterfacesEntidades;
 
 namespace LogicaAplicacion.DTOs.RecompensaDTOs
 {
-    public class RecompensaEditarDto
+    public class RecompensaSimpleEditarDto
     {
         public string Nombre { get; set; }
-        public IRepresentacionVisual Representacion { get; set; }
+        public string NombreIcono { get; set; }
         public int Precio { get; set; }
     }
 }
