@@ -540,9 +540,10 @@ namespace AccesoDatos.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Representacion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Precio = table.Column<int>(type: "int", nullable: false),
-                    RecompensaTipo = table.Column<string>(type: "nvarchar(21)", maxLength: 21, nullable: false),
                     TiendaId = table.Column<int>(type: "int", nullable: true),
+                    TipoRecompensa = table.Column<string>(type: "nvarchar(34)", maxLength: 34, nullable: false),
                     AtributoAvatarId = table.Column<int>(type: "int", nullable: true),
                     FechaActivacion = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Duracion = table.Column<TimeSpan>(type: "time", nullable: true),
@@ -1125,36 +1126,36 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.InsertData(
                 table: "Recompensas",
-                columns: new[] { "Id", "Nombre", "Precio", "RecompensaTipo", "TiendaId" },
+                columns: new[] { "Id", "Nombre", "Precio", "Representacion", "TiendaId", "TipoRecompensa" },
                 values: new object[,]
                 {
-                    { 1, "Estrella Mágica", 50, "Simple", null },
-                    { 2, "Regalo Sorpresa", 30, "Simple", null },
-                    { 3, "Corazón Brillante", 20, "Simple", null },
-                    { 4, "Medalla de Oro", 80, "Simple", null },
-                    { 5, "Montón de Monedas", 100, "Simple", null },
-                    { 6, "Trofeo Brillante", 70, "Simple", null },
-                    { 7, "Llama de Fuego", 40, "Simple", null },
-                    { 8, "Corona Real", 90, "Simple", null },
-                    { 9, "Cohete Espacial", 60, "Simple", null },
-                    { 10, "Robot Amistoso", 55, "Simple", null }
+                    { 1, "Estrella Mágica", 50, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"star\"}", null, "Recompensa_Simple" },
+                    { 2, "Regalo Sorpresa", 30, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"gift\"}", null, "Recompensa_Simple" },
+                    { 3, "Corazón Brillante", 20, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"heart\"}", null, "Recompensa_Simple" },
+                    { 4, "Medalla de Oro", 80, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"medal\"}", null, "Recompensa_Simple" },
+                    { 5, "Montón de Monedas", 100, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"coins\"}", null, "Recompensa_Simple" },
+                    { 6, "Trofeo Brillante", 70, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"trophy\"}", null, "Recompensa_Simple" },
+                    { 7, "Llama de Fuego", 40, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"fire\"}", null, "Recompensa_Simple" },
+                    { 8, "Corona Real", 90, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"crown\"}", null, "Recompensa_Simple" },
+                    { 9, "Cohete Espacial", 60, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"rocket\"}", null, "Recompensa_Simple" },
+                    { 10, "Robot Amistoso", 55, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"robot\"}", null, "Recompensa_Simple" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Recompensas",
-                columns: new[] { "Id", "Duracion", "FechaActivacion", "Multiplicador", "Nombre", "Precio", "RecompensaTipo", "TiendaId" },
+                columns: new[] { "Id", "Duracion", "FechaActivacion", "Multiplicador", "Nombre", "Precio", "Representacion", "TiendaId", "TipoRecompensa" },
                 values: new object[,]
                 {
-                    { 101, new TimeSpan(1, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.5, "Bono x1.5 (24h)", 0, "Potenciador", null },
-                    { 102, new TimeSpan(1, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.6000000000000001, "Bono x1.6 (24h)", 0, "Potenciador", null },
-                    { 103, new TimeSpan(2, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.7, "Bono x1.7 (48h)", 0, "Potenciador", null },
-                    { 104, new TimeSpan(2, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.8, "Bono x1.8 (48h)", 0, "Potenciador", null },
-                    { 105, new TimeSpan(3, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.8999999999999999, "Bono x1.9 (72h)", 0, "Potenciador", null },
-                    { 106, new TimeSpan(3, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.0, "¡Doble Moneda! (72h)", 0, "Potenciador", null },
-                    { 107, new TimeSpan(4, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.1000000000000001, "Bono x2.1 (96h)", 0, "Potenciador", null },
-                    { 108, new TimeSpan(4, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.2000000000000002, "Bono x2.2 (96h)", 0, "Potenciador", null },
-                    { 109, new TimeSpan(5, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.2999999999999998, "Bono x2.3 (120h)", 0, "Potenciador", null },
-                    { 110, new TimeSpan(7, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.5, "¡Super Bono x2.5! (168h)", 0, "Potenciador", null }
+                    { 101, new TimeSpan(1, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.5, "Bono x1.5 (24h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 102, new TimeSpan(1, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.6000000000000001, "Bono x1.6 (24h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 103, new TimeSpan(2, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.7, "Bono x1.7 (48h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 104, new TimeSpan(2, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.8, "Bono x1.8 (48h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 105, new TimeSpan(3, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.8999999999999999, "Bono x1.9 (72h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 106, new TimeSpan(3, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.0, "¡Doble Moneda! (72h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 107, new TimeSpan(4, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.1000000000000001, "Bono x2.1 (96h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 108, new TimeSpan(4, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.2000000000000002, "Bono x2.2 (96h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 109, new TimeSpan(5, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.2999999999999998, "Bono x2.3 (120h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 110, new TimeSpan(7, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.5, "¡Super Bono x2.5! (168h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" }
                 });
 
             migrationBuilder.InsertData(
@@ -1297,20 +1298,20 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.InsertData(
                 table: "Recompensas",
-                columns: new[] { "Id", "AtributoAvatarId", "Nombre", "Precio", "RecompensaTipo", "TiendaId" },
+                columns: new[] { "Id", "AtributoAvatarId", "Nombre", "Precio", "Representacion", "TiendaId", "TipoRecompensa" },
                 values: new object[,]
                 {
-                    { 11, 1, "Curly", 0, "PersonalizacionAvatar", null },
-                    { 12, 21, "Default", 0, "PersonalizacionAvatar", null },
-                    { 13, 12, "DefaultNatural", 0, "PersonalizacionAvatar", null },
-                    { 14, 31, "Default", 0, "PersonalizacionAvatar", null },
-                    { 15, 52, "ShirtVNeck", 0, "PersonalizacionAvatar", null },
-                    { 16, 43, "Sunglasses", 0, "PersonalizacionAvatar", null },
-                    { 17, 56, "edb98a", 0, "PersonalizacionAvatar", null },
-                    { 18, 60, "2c1b18", 0, "PersonalizacionAvatar", null },
-                    { 19, 80, "3c4f5c", 0, "PersonalizacionAvatar", null },
-                    { 20, 98, "25557c", 0, "PersonalizacionAvatar", null },
-                    { 21, 70, "2c1b18", 0, "PersonalizacionAvatar", null }
+                    { 11, 1, "Curly", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"top-curly.png\",\"NombreImagenMiniatura\":\"top-curly.png\"}", null, "Recompensa_Avatar" },
+                    { 12, 21, "Default", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"eyes-default.png\",\"NombreImagenMiniatura\":\"eyes-default.png\"}", null, "Recompensa_Avatar" },
+                    { 13, 12, "DefaultNatural", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"eyebrows-defaultNatural.png\",\"NombreImagenMiniatura\":\"eyebrows-defaultNatural.png\"}", null, "Recompensa_Avatar" },
+                    { 14, 31, "Default", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"mouth-default.png\",\"NombreImagenMiniatura\":\"mouth-default.png\"}", null, "Recompensa_Avatar" },
+                    { 15, 52, "ShirtVNeck", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"clothing-shirtVNeck.png\",\"NombreImagenMiniatura\":\"clothing-shirtVNeck.png\"}", null, "Recompensa_Avatar" },
+                    { 16, 43, "Sunglasses", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"accessories-sunglasses.png\",\"NombreImagenMiniatura\":\"accessories-sunglasses.png\"}", null, "Recompensa_Avatar" },
+                    { 17, 56, "edb98a", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"skinColor-edb98a.png\",\"NombreImagenMiniatura\":\"skinColor-edb98a.png\"}", null, "Recompensa_Avatar" },
+                    { 18, 60, "2c1b18", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"hairColor-2c1b18.png\",\"NombreImagenMiniatura\":\"hairColor-2c1b18.png\"}", null, "Recompensa_Avatar" },
+                    { 19, 80, "3c4f5c", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"clothesColor-3c4f5c.png\",\"NombreImagenMiniatura\":\"clothesColor-3c4f5c.png\"}", null, "Recompensa_Avatar" },
+                    { 20, 98, "25557c", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"accessoriesColor-25557c.png\",\"NombreImagenMiniatura\":\"accessoriesColor-25557c.png\"}", null, "Recompensa_Avatar" },
+                    { 21, 70, "2c1b18", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"beardColor-2c1b18.png\",\"NombreImagenMiniatura\":\"beardColor-2c1b18.png\"}", null, "Recompensa_Avatar" }
                 });
 
             migrationBuilder.InsertData(

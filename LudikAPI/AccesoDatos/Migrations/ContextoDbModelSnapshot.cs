@@ -3002,13 +3002,17 @@ namespace AccesoDatos.Migrations
                     b.Property<int>("Precio")
                         .HasColumnType("int");
 
-                    b.Property<string>("RecompensaTipo")
+                    b.Property<string>("Representacion")
                         .IsRequired()
-                        .HasMaxLength(21)
-                        .HasColumnType("nvarchar(21)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("TiendaId")
                         .HasColumnType("int");
+
+                    b.Property<string>("TipoRecompensa")
+                        .IsRequired()
+                        .HasMaxLength(34)
+                        .HasColumnType("nvarchar(34)");
 
                     b.HasKey("Id");
 
@@ -3018,7 +3022,7 @@ namespace AccesoDatos.Migrations
 
                     b.ToTable("Recompensas");
 
-                    b.HasDiscriminator<string>("RecompensaTipo").HasValue("Recompensa");
+                    b.HasDiscriminator<string>("TipoRecompensa").HasValue("Recompensa");
 
                     b.UseTphMappingStrategy();
                 });
@@ -3833,7 +3837,7 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("AtributoAvatarId");
 
-                    b.HasDiscriminator().HasValue("PersonalizacionAvatar");
+                    b.HasDiscriminator().HasValue("Recompensa_Avatar");
 
                     b.HasData(
                         new
@@ -3841,6 +3845,7 @@ namespace AccesoDatos.Migrations
                             Id = 11,
                             Nombre = "Curly",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"top-curly.png\",\"NombreImagenMiniatura\":\"top-curly.png\"}",
                             AtributoAvatarId = 1
                         },
                         new
@@ -3848,6 +3853,7 @@ namespace AccesoDatos.Migrations
                             Id = 12,
                             Nombre = "Default",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"eyes-default.png\",\"NombreImagenMiniatura\":\"eyes-default.png\"}",
                             AtributoAvatarId = 21
                         },
                         new
@@ -3855,6 +3861,7 @@ namespace AccesoDatos.Migrations
                             Id = 13,
                             Nombre = "DefaultNatural",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"eyebrows-defaultNatural.png\",\"NombreImagenMiniatura\":\"eyebrows-defaultNatural.png\"}",
                             AtributoAvatarId = 12
                         },
                         new
@@ -3862,6 +3869,7 @@ namespace AccesoDatos.Migrations
                             Id = 14,
                             Nombre = "Default",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"mouth-default.png\",\"NombreImagenMiniatura\":\"mouth-default.png\"}",
                             AtributoAvatarId = 31
                         },
                         new
@@ -3869,6 +3877,7 @@ namespace AccesoDatos.Migrations
                             Id = 15,
                             Nombre = "ShirtVNeck",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"clothing-shirtVNeck.png\",\"NombreImagenMiniatura\":\"clothing-shirtVNeck.png\"}",
                             AtributoAvatarId = 52
                         },
                         new
@@ -3876,6 +3885,7 @@ namespace AccesoDatos.Migrations
                             Id = 16,
                             Nombre = "Sunglasses",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"accessories-sunglasses.png\",\"NombreImagenMiniatura\":\"accessories-sunglasses.png\"}",
                             AtributoAvatarId = 43
                         },
                         new
@@ -3883,6 +3893,7 @@ namespace AccesoDatos.Migrations
                             Id = 17,
                             Nombre = "edb98a",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"skinColor-edb98a.png\",\"NombreImagenMiniatura\":\"skinColor-edb98a.png\"}",
                             AtributoAvatarId = 56
                         },
                         new
@@ -3890,6 +3901,7 @@ namespace AccesoDatos.Migrations
                             Id = 18,
                             Nombre = "2c1b18",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"hairColor-2c1b18.png\",\"NombreImagenMiniatura\":\"hairColor-2c1b18.png\"}",
                             AtributoAvatarId = 60
                         },
                         new
@@ -3897,6 +3909,7 @@ namespace AccesoDatos.Migrations
                             Id = 19,
                             Nombre = "3c4f5c",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"clothesColor-3c4f5c.png\",\"NombreImagenMiniatura\":\"clothesColor-3c4f5c.png\"}",
                             AtributoAvatarId = 80
                         },
                         new
@@ -3904,6 +3917,7 @@ namespace AccesoDatos.Migrations
                             Id = 20,
                             Nombre = "25557c",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"accessoriesColor-25557c.png\",\"NombreImagenMiniatura\":\"accessoriesColor-25557c.png\"}",
                             AtributoAvatarId = 98
                         },
                         new
@@ -3911,6 +3925,7 @@ namespace AccesoDatos.Migrations
                             Id = 21,
                             Nombre = "2c1b18",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"beardColor-2c1b18.png\",\"NombreImagenMiniatura\":\"beardColor-2c1b18.png\"}",
                             AtributoAvatarId = 70
                         });
                 });
@@ -3928,7 +3943,7 @@ namespace AccesoDatos.Migrations
                     b.Property<double>("Multiplicador")
                         .HasColumnType("float");
 
-                    b.HasDiscriminator().HasValue("Potenciador");
+                    b.HasDiscriminator().HasValue("Recompensa_Potenciador");
 
                     b.HasData(
                         new
@@ -3936,6 +3951,7 @@ namespace AccesoDatos.Migrations
                             Id = 101,
                             Nombre = "Bono x1.5 (24h)",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(1, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 1.5
@@ -3945,6 +3961,7 @@ namespace AccesoDatos.Migrations
                             Id = 102,
                             Nombre = "Bono x1.6 (24h)",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(1, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 1.6000000000000001
@@ -3954,6 +3971,7 @@ namespace AccesoDatos.Migrations
                             Id = 103,
                             Nombre = "Bono x1.7 (48h)",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(2, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 1.7
@@ -3963,6 +3981,7 @@ namespace AccesoDatos.Migrations
                             Id = 104,
                             Nombre = "Bono x1.8 (48h)",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(2, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 1.8
@@ -3972,6 +3991,7 @@ namespace AccesoDatos.Migrations
                             Id = 105,
                             Nombre = "Bono x1.9 (72h)",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(3, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 1.8999999999999999
@@ -3981,6 +4001,7 @@ namespace AccesoDatos.Migrations
                             Id = 106,
                             Nombre = "¡Doble Moneda! (72h)",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(3, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 2.0
@@ -3990,6 +4011,7 @@ namespace AccesoDatos.Migrations
                             Id = 107,
                             Nombre = "Bono x2.1 (96h)",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(4, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 2.1000000000000001
@@ -3999,6 +4021,7 @@ namespace AccesoDatos.Migrations
                             Id = 108,
                             Nombre = "Bono x2.2 (96h)",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(4, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 2.2000000000000002
@@ -4008,6 +4031,7 @@ namespace AccesoDatos.Migrations
                             Id = 109,
                             Nombre = "Bono x2.3 (120h)",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(5, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 2.2999999999999998
@@ -4017,6 +4041,7 @@ namespace AccesoDatos.Migrations
                             Id = 110,
                             Nombre = "¡Super Bono x2.5! (168h)",
                             Precio = 0,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(7, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 2.5
@@ -4027,68 +4052,78 @@ namespace AccesoDatos.Migrations
                 {
                     b.HasBaseType("LogicaNegocio.Entidades.Recompensa");
 
-                    b.HasDiscriminator().HasValue("Simple");
+                    b.HasDiscriminator().HasValue("Recompensa_Simple");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             Nombre = "Estrella Mágica",
-                            Precio = 50
+                            Precio = 50,
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"star\"}"
                         },
                         new
                         {
                             Id = 2,
                             Nombre = "Regalo Sorpresa",
-                            Precio = 30
+                            Precio = 30,
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"gift\"}"
                         },
                         new
                         {
                             Id = 3,
                             Nombre = "Corazón Brillante",
-                            Precio = 20
+                            Precio = 20,
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"heart\"}"
                         },
                         new
                         {
                             Id = 4,
                             Nombre = "Medalla de Oro",
-                            Precio = 80
+                            Precio = 80,
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"medal\"}"
                         },
                         new
                         {
                             Id = 5,
                             Nombre = "Montón de Monedas",
-                            Precio = 100
+                            Precio = 100,
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"coins\"}"
                         },
                         new
                         {
                             Id = 6,
                             Nombre = "Trofeo Brillante",
-                            Precio = 70
+                            Precio = 70,
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"trophy\"}"
                         },
                         new
                         {
                             Id = 7,
                             Nombre = "Llama de Fuego",
-                            Precio = 40
+                            Precio = 40,
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"fire\"}"
                         },
                         new
                         {
                             Id = 8,
                             Nombre = "Corona Real",
-                            Precio = 90
+                            Precio = 90,
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"crown\"}"
                         },
                         new
                         {
                             Id = 9,
                             Nombre = "Cohete Espacial",
-                            Precio = 60
+                            Precio = 60,
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"rocket\"}"
                         },
                         new
                         {
                             Id = 10,
                             Nombre = "Robot Amistoso",
-                            Precio = 55
+                            Precio = 55,
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"robot\"}"
                         });
                 });
 

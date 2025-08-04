@@ -3,10 +3,10 @@ using LogicaNegocio.ValueObject;
 
 namespace LogicaNegocio.EntidadesAuxiliares;
 
-public class RepresentacionIcono: IRepresentacionVisual
+public class RepresentacionIcono: RepresentacionVisualBase
 {
     public string NombreIcono { get; set; }
-    public InformacionVisual GetInformacionVisual()
+    public override InformacionVisual GetInformacionVisual()
     {
        var datos = new DatosIcono(
             NombreIcono: NombreIcono

@@ -1,14 +1,16 @@
-﻿using System;
+﻿using AccesoDatos.RepositoriosEF.Configuraciones;
+using LogicaNegocio.Entidades;
+using LogicaNegocio.EntidadesAuxiliares;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AccesoDatos.RepositoriosEF.Configuraciones;
-using LogicaNegocio.Entidades;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace AccesoDatos.RepositoriosEF
 {
@@ -60,7 +62,8 @@ namespace AccesoDatos.RepositoriosEF
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ContextoDb).Assembly);
 
             // Llamada al método de extensión para las tablas de Identity
-            modelBuilder.ConfigurarTablasIdentity(); 
+            modelBuilder.ConfigurarTablasIdentity();
+                
 
             // ----PLANTAR DATOS-----
             modelBuilder.Semilla();
