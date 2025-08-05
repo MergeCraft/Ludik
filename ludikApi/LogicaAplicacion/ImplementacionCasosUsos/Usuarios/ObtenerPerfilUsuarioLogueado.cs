@@ -40,7 +40,9 @@ public class ObtenerPerfilUsuarioLogueado : IObtenerPerfilUsuarioLogueado
         {
             Id = usuario.Id,
             UserName = usuario.UserName,
-            Roles = roles
+            Roles = roles,
+            Nombre = usuario.NombreCompleto?.Nombre,
+            Apellido = usuario.NombreCompleto?.Apellido
         };
 
         if (roles.Contains("Estudiante"))
@@ -62,8 +64,9 @@ public class ObtenerPerfilUsuarioLogueado : IObtenerPerfilUsuarioLogueado
             {
                 Id = baseDto.Id,
                 UserName = baseDto.UserName,
-                Roles = baseDto.Roles,
-                RespuestasSeguridad = respuestas
+                RespuestasSeguridad = respuestas,
+                Nombre = baseDto.Nombre,
+                Apellido = baseDto.Apellido
             };
             return Resultado<object>.Exitoso(dto);
         }
@@ -78,8 +81,9 @@ public class ObtenerPerfilUsuarioLogueado : IObtenerPerfilUsuarioLogueado
             {
                 Id = baseDto.Id,
                 UserName = baseDto.UserName,
-                Roles = baseDto.Roles,
-                Correo = rProf.Valor.Email
+                Correo = rProf.Valor.Email,
+                Nombre = baseDto.Nombre,
+                Apellido = baseDto.Apellido
             };
             return Resultado<object>.Exitoso(dto);
         }

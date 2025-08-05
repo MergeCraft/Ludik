@@ -10,8 +10,8 @@
         public int Monedas { get; set; }
         public int GrupoId { get; set; }
         public string NombreGrupo { get; set; }
-
-
         public List<MedallaAgrupadaDto> Medallas { get; set; }
+        public double? MultiplicadorPotenciador { get; set; }
+        public TimeSpan? TiempoRestantePotenciador { get; set; }
     }
 }
