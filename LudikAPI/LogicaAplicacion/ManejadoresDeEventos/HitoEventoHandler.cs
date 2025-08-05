@@ -1,5 +1,6 @@
 ﻿using InterfacesRepositorio;
 using LogicaAplicacion.Eventos;
+using LogicaNegocio.Entidades;
 using LogicaNegocio.InterfacesRepositorios;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -58,23 +59,31 @@ public class HitoEventoHandler : INotificationHandler<AsignacionMedallaCompletad
 
             foreach (var hito in hitosPendientes)
             {
-                if(estudianteConHitosValor.Hitos.Any(h => h.Id == hito.Id))
-                {
-                    _logger.LogError("ya se encuentra ese hito cumplido por el estudiante", notification.Estudiante.Id);
-                    continue;
-                }
-                var perfilesResultado = await _repoPerfiles.GetPerfilesPorEstudianteAsync(notification.Estudiante.Id);
+                // Obtener todos los perfiles de este estudiante
+                var perfilesResultado = await _repoPerfiles
+                    .GetPerfilesPorEstudianteAsync(notification.Estudiante.Id);
                 if (perfilesResultado.EsFallo)
                 {
-                    _logger.LogError("No se pudieron obtener los perfiles para el estudiante {EstudianteId}", notification.Estudiante.Id);
-                    continue; 
+                    _logger.LogError("No se pudieron obtener perfiles para EstudianteId {Id}",
+                                     notification.Estudiante.Id);
+                    continue;
                 }
 
+                // Activar y marcar para persistencia
                 foreach (var perfil in perfilesResultado.Valor)
                 {
-
-                    hito.Recompensa.Otorgar(perfil);
+                    if (hito.Recompensa is Potenciador pot)
+                    {
+                        perfil.ActivarPotenciador(pot);
+                        await _repoPerfiles.UpdateAsync(perfil);
+                    }
+                    else
+                    {
+                        _logger.LogWarning("La recompensa del hito {HitoId} no es un Potenciador.", hito.Id);
+                    }
                 }
+
+                // Marcar el hito como obtenido y guardar en el estudiante
                 estudianteConHitosValor.Hitos.Add(hito);
                 await _repositorioEstudiantes.UpdateAsync(estudianteConHitosValor);
             }

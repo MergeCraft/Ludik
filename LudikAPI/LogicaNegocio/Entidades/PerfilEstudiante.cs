@@ -47,9 +47,8 @@ namespace LogicaNegocio.Entidades
 
         public BarraProgreso BarraProgreso { get; set; }
 
-        public int? PotenciadorActivoId { get; set; }
 
-        public Potenciador? PotenciadorActivo { get; set; }
+        public PerfilEstudiantePotenciador? PotenciadorActivo { get; set; }
 
         public PerfilEstudiante()
         {
@@ -79,20 +78,29 @@ namespace LogicaNegocio.Entidades
                 this.MedallasObtenidas.Add(nuevaAsignacion);
             }
         }
-        public void ActivarPotenciador(Potenciador p)
+        public void ActivarPotenciador(Potenciador plantilla)
         {
-            p.FechaActivacion = DateTime.UtcNow;
-            PotenciadorActivo = p;
-            PotenciadorActivoId = p.Id;
+            if (PotenciadorActivo == null)
+                PotenciadorActivo = new PerfilEstudiantePotenciador
+                {
+                    PerfilEstudiante = this,
+                    PerfilEstudianteId = this.Id
+                };
+
+            // Siempre copias snapshot de la plantilla:
+            PotenciadorActivo.Potenciador = plantilla;
+            PotenciadorActivo.FechaActivacion = DateTime.UtcNow;
+            
+            
         }
         public void LimpiarPotenciadorExpirado()
         {
-            if (PotenciadorActivo != null && !PotenciadorActivo.EstaActivo)
+            if (PotenciadorActivo != null && !PotenciadorActivo.Potenciador.EstaActivo)
                 PotenciadorActivo = null;
         }
         public double ObtenerMultiplicadorMonedas()
         {
-            return PotenciadorActivo?.Multiplicador ?? 1.0;
+            return PotenciadorActivo?.Potenciador.Multiplicador ?? 1.0;
         }
         public Resultado esValido()
         {

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250804171123_inicial")]
+    [Migration("20250805181954_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -2246,14 +2246,9 @@ namespace AccesoDatos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PotenciadorActivoId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("EstudianteId");
-
-                    b.HasIndex("PotenciadorActivoId");
 
                     b.HasIndex("GrupoId", "EstudianteId")
                         .IsUnique()
@@ -2673,6 +2668,30 @@ namespace AccesoDatos.Migrations
                     b.HasIndex("PerfilEstudianteId");
 
                     b.ToTable("PerfilEstudianteMedallas");
+                });
+
+            modelBuilder.Entity("LogicaNegocio.Entidades.PerfilEstudiantePotenciador", b =>
+                {
+                    b.Property<int>("PerfilEstudianteId")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("Duracion")
+                        .HasColumnType("time");
+
+                    b.Property<DateTime>("FechaActivacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("Multiplicador")
+                        .HasColumnType("float");
+
+                    b.Property<int>("PotenciadorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PerfilEstudianteId");
+
+                    b.HasIndex("PotenciadorId");
+
+                    b.ToTable("PerfilEstudiantePotenciadores");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.PerfilEstudianteRecompensa", b =>
@@ -4848,16 +4867,9 @@ namespace AccesoDatos.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("LogicaNegocio.Entidades.Potenciador", "PotenciadorActivo")
-                        .WithMany()
-                        .HasForeignKey("PotenciadorActivoId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.Navigation("Estudiante");
 
                     b.Navigation("Grupo");
-
-                    b.Navigation("PotenciadorActivo");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.PerfilEstudianteMedalla", b =>
@@ -4877,6 +4889,25 @@ namespace AccesoDatos.Migrations
                     b.Navigation("Medalla");
 
                     b.Navigation("PerfilEstudiante");
+                });
+
+            modelBuilder.Entity("LogicaNegocio.Entidades.PerfilEstudiantePotenciador", b =>
+                {
+                    b.HasOne("LogicaNegocio.Entidades.PerfilEstudiante", "PerfilEstudiante")
+                        .WithOne("PotenciadorActivo")
+                        .HasForeignKey("LogicaNegocio.Entidades.PerfilEstudiantePotenciador", "PerfilEstudianteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LogicaNegocio.Entidades.Potenciador", "Potenciador")
+                        .WithMany()
+                        .HasForeignKey("PotenciadorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("PerfilEstudiante");
+
+                    b.Navigation("Potenciador");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.PerfilEstudianteRecompensa", b =>
@@ -5506,6 +5537,8 @@ namespace AccesoDatos.Migrations
                     b.Navigation("KudosRecibidos");
 
                     b.Navigation("MedallasObtenidas");
+
+                    b.Navigation("PotenciadorActivo");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.RendimientoPeriodo", b =>

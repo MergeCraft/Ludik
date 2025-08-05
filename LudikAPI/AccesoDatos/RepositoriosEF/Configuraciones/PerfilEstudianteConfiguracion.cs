@@ -33,9 +33,11 @@ public class PerfilEstudianteConfiguracion : IEntityTypeConfiguration<PerfilEstu
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(p => p.PotenciadorActivo)
-           .WithMany()                       // ningún back‑ref en Potenciador
-           .HasForeignKey(p => p.PotenciadorActivoId)
-           .OnDelete(DeleteBehavior.Restrict);
+       .WithOne(pa => pa.PerfilEstudiante)
+       .HasForeignKey<PerfilEstudiantePotenciador>(
+           pa => pa.PerfilEstudianteId
+       )
+       .OnDelete(DeleteBehavior.Cascade);
 
         // Índice compuesto para evitar duplicados de (GrupoId, EstudianteId)
         builder.HasIndex(pe => new { pe.GrupoId, pe.EstudianteId })

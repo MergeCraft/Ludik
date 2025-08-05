@@ -19,16 +19,18 @@ public static class PerfilMapper
             GrupoId = perfil.GrupoId,
             NombreGrupo = perfil.Grupo?.Nombre,
             Medallas = MedallaCantidadMapper
-                                   .AgruparMedallas(perfil.MedallasObtenidas?
-                                                         .Select(pm => pm.Medalla)
-                                                         .ToList())
+                                     .AgruparMedallas(perfil.MedallasObtenidas?
+                                                           .Select(pm => pm.Medalla)
+                                                           .ToList())
         };
 
-        var p = perfil.PotenciadorActivo;
-        if (p != null)//&& p.EstaActivo
+        // Ahora perfil.PotenciadorActivo es PerfilEstudiantePotenciador
+        var activo = perfil.PotenciadorActivo;
+        
+        if (activo != null && activo.EstaActivo)
         {
-            dto.MultiplicadorPotenciador = p.Multiplicador;
-            var fin = p.FechaActivacion + p.Duracion;
+            dto.MultiplicadorPotenciador = activo.Multiplicador;
+            var fin = activo.FechaActivacion + activo.Duracion;
             dto.TiempoRestantePotenciador = fin - DateTime.UtcNow;
         }
         else

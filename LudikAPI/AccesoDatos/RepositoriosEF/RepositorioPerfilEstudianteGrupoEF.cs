@@ -162,25 +162,28 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var perfil = await _db.PerfilesEstudiantes
-                    .Include(p => p.Estudiante.NombreCompleto)
+                    .Include(p => p.Estudiante)
+                        .ThenInclude(e => e.NombreCompleto)
                     .Include(p => p.MedallasObtenidas)
                         .ThenInclude(pm => pm.Medalla)
                     .Include(p => p.BarraProgreso)
                     .Include(p => p.PotenciadorActivo)
+                        .ThenInclude(pe => pe.Potenciador)
                     .FirstOrDefaultAsync(p => p.EstudianteId == estudianteId && p.GrupoId == grupoId);
 
-				if (perfil == null)
-					return Resultado<PerfilEstudiante>.Falla(
-						new Error("Error.NotFound", $"No se encontró el perfil del estudiante '{estudianteId}' en el grupo {grupoId}."));
-				return Resultado<PerfilEstudiante>.Exitoso(perfil);
-			}
-			catch (Exception ex)
-			{
-				return Resultado<PerfilEstudiante>.Falla(new Error("Error.Unexpected", ex.Message));
-			}
-		}
+                if (perfil == null)
+                    return Resultado<PerfilEstudiante>.Falla(
+                        new Error("Error.NotFound", $"No se encontró el perfil del estudiante '{estudianteId}' en el grupo {grupoId}."));
 
-		public async Task<Resultado<IEnumerable<PersonalizacionAvatar>>> ObtenerItemsAvatarAdquiridosAsync(int idPerfilEstudiante)
+                return Resultado<PerfilEstudiante>.Exitoso(perfil);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<PerfilEstudiante>.Falla(new Error("Error.Unexpected", ex.Message));
+            }
+        }
+
+        public async Task<Resultado<IEnumerable<PersonalizacionAvatar>>> ObtenerItemsAvatarAdquiridosAsync(int idPerfilEstudiante)
 		{
             try
             {
