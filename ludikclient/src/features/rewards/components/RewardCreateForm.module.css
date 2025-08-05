@@ -1,3 +1,9 @@
+.modalForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .btnSubmit {
     flex-grow: 1;
 }
@@ -9,12 +15,14 @@
     gap: 15px;
 }
 
-.modalForm label {
-    margin-bottom: 7px;
+.iconButtonContainer {
+    display: flex;
+    flex-direction: column;
 }
 
 .iconSelectButton {
     margin-top: 5px;
+    width: 100%;
 }
 
 .iconGrid {

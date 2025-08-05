@@ -12,6 +12,10 @@
 }
 
 .addThresholdButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: var(--secundario);
     border: 2px solid var(--principal);
     border-radius: 15px;
@@ -19,6 +23,7 @@
     height: 100%;
     color: var(--principal);
     cursor: pointer;
+    padding: 10px;
 }
 
 .emptyMessage {

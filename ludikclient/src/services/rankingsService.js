@@ -2,9 +2,9 @@
 import api from "../lib/axios";
 import { handleApiError } from "../lib/apiUtils";
 
-export const obtenerRankings = async () => {
+export const obtenerRankings = async (grupoId) => {
   try {
-    const response = await api.get("/api/TablaClasificacion");
+    const response = await api.get(`/api/TablaClasificacion/grupo/${grupoId}`);
     return response.data;
   } catch (error) {
     handleApiError(error, "Error al obtener los rankings.");

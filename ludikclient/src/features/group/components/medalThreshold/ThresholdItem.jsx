@@ -3,9 +3,16 @@ import PropTypes from "prop-types";
 import styles from "./ThresholdItem.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ThresholdCreateForm from "./ThresholdCreateForm";
+import DefaultMedalImage1 from "../../../../assets/DefaultMedal.png";
+import DefaultMedalImage2 from "../../../../assets/DefaultMedal2.png";
+import DefaultMedalImage3 from "../../../../assets/DefaultMedal3.png";
 
 const ThresholdItem = ({ threshold, setModalContent, setModalTitle, setShowModal, groupId, medallas, tiposKudo, showTeacherOptions }) => {
   const { cantidadKudos, medallaNombre, rutaIconoMedalla, tipoKudoNombre } = threshold;
+
+  console.log(rutaIconoMedalla);
+
+  const defaultMedalImages = [DefaultMedalImage1, DefaultMedalImage2, DefaultMedalImage3];
 
   const handleEditClick = () => {
     setModalTitle("Editar Umbral");
@@ -15,7 +22,7 @@ const ThresholdItem = ({ threshold, setModalContent, setModalTitle, setShowModal
 
   return (
     <div className={styles.thresholdCard}>
-      <img src={rutaIconoMedalla} alt={`Medalla: ${medallaNombre}`} className={styles.medalIcon} />
+      <img src={defaultMedalImages[Math.floor(Math.random() * defaultMedalImages.length)]} alt={`Medalla: ${medallaNombre}`} className={styles.medalIcon} />
       <div className={styles.info}>
         <h4>{medallaNombre}</h4>
         <p className={styles.info}>

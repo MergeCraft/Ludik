@@ -9,6 +9,8 @@ import GroupCreateForm from "../teacher/GroupCreateForm";
 const GroupConfigView = ({ id, group, setModalContent, setModalTitle, setShowModal }) => {
   const { nombre, materia, institucion, fCreacion, urlCompleta } = group;
 
+  const codigo = new URL(urlCompleta).searchParams.get("codigo");
+
   const eliminarGrupo = useEliminarGrupo();
   const reiniciarLogros = useReiniciarLogrosGrupo();
 
@@ -29,7 +31,7 @@ const GroupConfigView = ({ id, group, setModalContent, setModalTitle, setShowMod
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(urlCompleta);
+    navigator.clipboard.writeText(codigo);
     Toast.notificarExito("Enlace copiado!");
   };
 
@@ -52,9 +54,7 @@ const GroupConfigView = ({ id, group, setModalContent, setModalTitle, setShowMod
           </label>
           <label className={styles.linkContainer}>
             <strong>Enlace de invitación</strong>
-            <a className={styles.link} href={urlCompleta} target="_blank" rel="noopener noreferrer">
-              {urlCompleta}
-            </a>
+            <p className={styles.link}>{codigo}</p>
             <button aria-label="Copiar link" onClick={handleCopy} className={styles.copyBtn}>
               <FontAwesomeIcon icon="fa-solid fa-copy" />
             </button>

@@ -30,6 +30,7 @@ const GroupRankingView = ({ setModalContent, setModalTitle, setShowModal, groupI
       {showTeacherOptions && (
         <button className={styles.agregarRanking} onClick={abrirModalCrearRanking}>
           <FontAwesomeIcon icon="fa-solid fa-plus" size="xl" />
+          Crear nueva tabla de clasificacion
         </button>
       )}
 

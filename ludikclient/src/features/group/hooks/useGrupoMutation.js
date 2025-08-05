@@ -108,6 +108,11 @@ export const useAlumnosGrupo = (id) => {
     queryFn: () => obtenerAlumnosGrupo(id),
     enabled: !!id,
     onError: manejarVisualizacionDeErrores,
+    retry: (failureCount, error) => {
+      // Si la API devolvió un 400, no reintentes
+      if (error?.response?.status === 400) return false;
+      return failureCount < 1; // Reintenta otras veces si no es 400
+    },
   });
 };
 
@@ -217,10 +222,10 @@ export const useRecompensasTienda = (tiendaId) => {
 // 📊 RANKINGS
 // ─────────────────────────────────────────────
 
-export const useRankings = () => {
+export const useRankings = (grupoId) => {
   return useQuery({
     queryKey: ["rankings"],
-    queryFn: obtenerRankings,
+    queryFn: obtenerRankings(grupoId),
     onError: manejarVisualizacionDeErrores,
   });
 };

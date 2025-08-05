@@ -6,74 +6,124 @@ import * as Toast from "../../../lib/toastify.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCrearMedalla, useEditarMedalla, useObtenerMedallaPorId, useEliminarMedalla } from "../hooks/useMedalMutation.js";
 
+const iconOptions = [
+  { label: "Estrella", value: "star" },
+  { label: "Regalo", value: "gift" },
+  { label: "Corazón", value: "heart" },
+  { label: "Medalla", value: "medal" },
+  { label: "Monedas", value: "coins" },
+  { label: "Trofeo", value: "trophy" },
+  { label: "Fuego", value: "fire" },
+  { label: "Banderín", value: "flag" },
+  { label: "Corona", value: "crown" },
+  { label: "Caja", value: "box" },
+  { label: "Dado", value: "dice" },
+  { label: "Varita mágica", value: "wand-magic-sparkles" },
+  { label: "Pincel", value: "paint-brush" },
+  { label: "Paleta de colores", value: "palette" },
+  { label: "Lápiz", value: "pencil" },
+  { label: "Pluma", value: "pen-nib" },
+  { label: "Bombilla", value: "lightbulb" },
+  { label: "Fútbol", value: "futbol" },
+  { label: "Baloncesto", value: "basketball" },
+  { label: "Vóley", value: "volleyball" },
+  { label: "Corriendo", value: "running" },
+  { label: "Bicicleta", value: "bicycle" },
+  { label: "Libro", value: "book" },
+  { label: "Birrete", value: "graduation-cap" },
+  { label: "Pizarra", value: "chalkboard" },
+  { label: "Cerebro", value: "brain" },
+  { label: "Lupa", value: "magnifying-glass" },
+  { label: "Cara sonriente", value: "face-smile" },
+  { label: "Cara riendo", value: "face-laugh-beam" },
+  { label: "Cara con estrellas", value: "face-grin-stars" },
+  { label: "Pulgar arriba", value: "thumbs-up" },
+  { label: "Aplauso", value: "hands-clapping" },
+  { label: "Gema", value: "gem" },
+  { label: "Diamante", value: "diamond" },
+  { label: "Billete", value: "money-bill" },
+  { label: "Billetera", value: "wallet" },
+  { label: "Robot", value: "robot" },
+  { label: "Cohete", value: "rocket" },
+  { label: "Martillo", value: "hammer" },
+  { label: "Fantasma", value: "ghost" },
+  { label: "Dragón", value: "dragon" },
+  { label: "Helado", value: "ice-cream" },
+  { label: "Porción de pizza", value: "pizza-slice" },
+  { label: "Mapa", value: "map" },
+  { label: "Brújula", value: "compass" },
+  { label: "Binoculares", value: "binoculars" },
+  { label: "Avión", value: "plane" },
+  { label: "Pastel", value: "cake-candles" },
+];
+
+const extractIconName = (ruta) => {
+  if (!ruta) return "";
+  const match = ruta.match(/\/([^/]+)\.svg$/);
+  return match ? match[1] : ruta;
+};
+
 const MedalCreateForm = ({ onClose, medalId }) => {
   const [medalla, setMedalla] = useState({
-    urlImagen: "",
     nombre: "",
     descripcion: "",
     cantidadMonedasBrinda: "",
     esAsignacionMutua: false,
+    nombreIcono: "", // Cambiado a nombreIcono para el icon picker
   });
 
-  // Carga de medalla si estamos editando
+  // Carga medalla si editamos
   const { data, isFetching } = useObtenerMedallaPorId(medalId);
 
   // Mutaciones
-  const crear = useCrearMedalla(() => {
-    onClose?.();
-  });
-
-  const editar = useEditarMedalla(() => {
-    onClose?.();
-  });
-
-  // Hook para eliminar
-  const eliminar = useEliminarMedalla({
-    onSuccess: () => {
-      onClose?.();
-    },
-  });
+  const crear = useCrearMedalla(() => onClose?.());
+  const editar = useEditarMedalla(() => onClose?.());
+  const eliminar = useEliminarMedalla({ onSuccess: () => onClose?.() });
 
   useEffect(() => {
     if (medalId && data) {
       setMedalla({
-        urlImagen: data.urlImagen ?? "",
         nombre: data.nombre ?? "",
         descripcion: data.descripcion ?? "",
         cantidadMonedasBrinda: String(data.cantidadMedallasBrinda ?? "0"),
         esAsignacionMutua: data.esAsignacionMutua ?? false,
+        nombreIcono: extractIconName(data.urlImagen) ?? "", // extraigo el icono guardado
       });
     }
   }, [medalId, data]);
 
+  const [showIconPicker, setShowIconPicker] = useState(false);
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    const val = type === "checkbox" ? checked : value;
     setMedalla((prev) => ({
       ...prev,
-      [name]: val,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
+  const handleIconSelect = (icon) => {
+    setMedalla((prev) => ({ ...prev, nombreIcono: icon }));
+    setShowIconPicker(false);
+  };
+
   const validar = () => {
-    const campos = [
-      ["Nombre de la medalla", medalla.nombre],
-      ["Descripción", medalla.descripcion],
-      ["URL de imagen", medalla.urlImagen],
-    ];
-
-    for (const [campo, valor] of campos) {
-      if (!valor || valor.trim().length < 3) {
-        Toast.notificarWarning(`El campo "${campo}" debe tener al menos 3 caracteres.`);
-        return false;
-      }
-    }
-
-    if (!medalla.cantidadMonedasBrinda || isNaN(medalla.cantidadMonedasBrinda)) {
-      Toast.notificarWarning("Cantidad de monedas debe ser un número válido.");
+    if (!medalla.nombre || medalla.nombre.trim().length < 3) {
+      Toast.notificarWarning("El nombre debe tener al menos 3 caracteres.");
       return false;
     }
-
+    if (!medalla.descripcion || medalla.descripcion.trim().length < 10) {
+      Toast.notificarWarning("La descripción debe tener al menos 10 caracteres.");
+      return false;
+    }
+    if (!medalla.nombreIcono) {
+      Toast.notificarWarning("Debes seleccionar un ícono.");
+      return false;
+    }
+    if (isNaN(medalla.cantidadMonedasBrinda) || medalla.cantidadMonedasBrinda < 0) {
+      Toast.notificarWarning("La cantidad de monedas debe ser un número válido y positivo.");
+      return false;
+    }
     return true;
   };
 
@@ -83,8 +133,11 @@ const MedalCreateForm = ({ onClose, medalId }) => {
     if (!validar()) return;
 
     const payload = {
-      ...medalla,
+      nombre: medalla.nombre,
+      descripcion: medalla.descripcion,
       cantidadMonedasBrinda: Number(medalla.cantidadMonedasBrinda),
+      esAsignacionMutua: medalla.esAsignacionMutua,
+      nombreIcono: medalla.nombreIcono, // guardamos solo el nombre del icono
     };
 
     try {
@@ -116,22 +169,41 @@ const MedalCreateForm = ({ onClose, medalId }) => {
         <>
           <label>
             Nombre
-            <input type="text" name="nombre" value={medalla.nombre} onChange={handleChange} placeholder="Ej: Estrella de participación" disabled={isLoading} />
+            <input type="text" name="nombre" value={medalla.nombre} onChange={handleChange} placeholder="Ej: Estrella de participación" disabled={isLoading} required />
           </label>
 
           <label>
             Descripción
-            <input type="text" name="descripcion" value={medalla.descripcion} onChange={handleChange} placeholder="Ej: Se otorga por participar activamente" disabled={isLoading} />
+            <input type="text" name="descripcion" value={medalla.descripcion} onChange={handleChange} placeholder="Ej: Se otorga por participar activamente" disabled={isLoading} required />
           </label>
 
-          <label>
-            URL de imagen
-            <input type="text" name="urlImagen" value={medalla.urlImagen} onChange={handleChange} placeholder="https://..." disabled={isLoading} />
+          <label className={styles.iconButtonContainer}>
+            Ícono representativo
+            <button type="button" className={`button ${styles.iconSelectButton}`} onClick={() => setShowIconPicker((prev) => !prev)} disabled={isLoading}>
+              {medalla.nombreIcono ? <FontAwesomeIcon icon={`fa-solid fa-${medalla.nombreIcono}`} size="xl" /> : "Seleccionar ícono"}
+            </button>
+            {showIconPicker && (
+              <div className={styles.iconGrid}>
+                {iconOptions.map((icon) => (
+                  <button
+                    key={icon.value}
+                    type="button"
+                    className={`${styles.iconOption} ${medalla.nombreIcono === icon.value ? styles.iconSelected : ""}`}
+                    onClick={() => handleIconSelect(icon.value)}
+                    disabled={isLoading}
+                    aria-pressed={medalla.nombreIcono === icon.value}
+                    title={icon.label}
+                  >
+                    <FontAwesomeIcon icon={`fa-solid fa-${icon.value}`} size="xl" />
+                  </button>
+                ))}
+              </div>
+            )}
           </label>
 
           <label>
             Monedas otorgadas
-            <input type="number" name="cantidadMonedasBrinda" value={medalla.cantidadMonedasBrinda} onChange={handleChange} placeholder="Ej: 50" disabled={isLoading} />
+            <input type="number" name="cantidadMonedasBrinda" value={medalla.cantidadMonedasBrinda} onChange={handleChange} placeholder="Ej: 50" disabled={isLoading} required min={0} />
           </label>
 
           <div className={styles.asignacionMutua}>
@@ -150,7 +222,7 @@ const MedalCreateForm = ({ onClose, medalId }) => {
             </button>
 
             {medalId && (
-              <button type="button" disabled={isLoading} onClick={handleDelete} className={`button-tertiary ${styles.btnDelete}`}>
+              <button type="button" disabled={isLoading} onClick={handleDelete} className={`button-tertiary ${styles.btnDelete}`} aria-label={`Eliminar medalla ${medalla.nombre}`}>
                 <FontAwesomeIcon icon="fa-solid fa-trash" />
               </button>
             )}

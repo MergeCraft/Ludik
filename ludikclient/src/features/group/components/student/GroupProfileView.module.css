@@ -138,6 +138,17 @@
     pointer-events: none;
 }
 
+.label p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    color: var(--terciario);
+    pointer-events: none;
+
+}
+
 .progressBar label:has(input[type="radio"]:checked) {
     background-color: var(--secundario);
 }
@@ -207,6 +218,10 @@
 .recompensasGrid>* {
     border: 2px solid var(--secundario);
     padding-bottom: 10px;
+}
+
+.noRewardsMessage {
+    border: none;
 }
 
 .editIconContainer {
