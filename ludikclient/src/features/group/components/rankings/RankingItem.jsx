@@ -19,7 +19,7 @@ const RankingItem = ({ tabla, showTeacherOptions, onView }) => {
     <div className={styles.rankingCard} onClick={() => onView(tabla.id)}>
       <h3>{tabla.nombre}</h3>
       <ul className={styles.participantes}>
-        {tabla.participantes.map((p, i) => (
+        {tabla.participantes.slice(0, 3).map((p, i) => (
           <li key={p.perfilEstudianteId} className={styles.participante}>
             <span className={styles.posicion}>#{i + 1}</span>
             <span className={styles.nombre}>{p.nombreEstudiante}</span>

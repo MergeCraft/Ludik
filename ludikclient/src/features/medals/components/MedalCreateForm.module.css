@@ -89,3 +89,67 @@ select {
     color: white;
     margin: 0.5rem 0;
 }
+
+/* --- Estilos nuevos para el selector de íconos --- */
+
+.iconButtonContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.iconSelectButton {
+    margin-top: 5px;
+    width: 100%;
+    height: 40px;
+    /* Match con btnSubmit height */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.iconGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+    max-height: 120px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+    padding: 10px;
+    border: 1px solid var(--secundario);
+    border-radius: 15px;
+    background-color: #1e2a30;
+    /* un poco más oscuro que modal para buen contraste */
+}
+
+.iconGrid::-webkit-scrollbar {
+    display: none;
+}
+
+.iconOption {
+    background-color: var(--secundario);
+    color: var(--blanco-principal);
+    border: 2px solid transparent;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border 0.3s, background-color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconOption:hover {
+    background-color: var(--principal);
+    border: 1px solid var(--secundario);
+}
+
+.iconSelected {
+    background-color: var(--principal);
+    border: 1px solid var(--secundario);
+}

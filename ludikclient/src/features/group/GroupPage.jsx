@@ -170,6 +170,19 @@ const GroupPage = () => {
         ) : selectedView === "alumnos" ? (
           isLoadingStudents || isLoadingMedals ? (
             <BarLoader />
+          ) : students?.length === 0 || students === undefined ? (
+            <div className={style.noStudentsMessage}>
+              <p>
+                {isProfesor ? (
+                  <>
+                    El grupo aún no tiene alumnos. Dirígete a la sección de <strong onClick={() => setSelectedView("configs")}> configuración </strong> o
+                    <strong onClick={handleOpenApplicationRequests}> solicitudes </strong> para compartir el código de unión con tus estudiantes.
+                  </>
+                ) : (
+                  "Aún no hay mas compañeros en este grupo"
+                )}
+              </p>
+            </div>
           ) : (
             <div className={style.studentsContainer}>
               {studentsFiltrados?.map((item) => (

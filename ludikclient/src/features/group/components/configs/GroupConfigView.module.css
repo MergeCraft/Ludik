@@ -29,6 +29,8 @@
 }
 
 .propsContainer label {
+    display: flex;
+    flex-direction: column;
     text-align: center;
     background-color: var(--principal);
     width: 100%;
@@ -41,6 +43,15 @@
 
 .linkContainer {
     position: relative;
+}
+
+.linkContainer p {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .link {

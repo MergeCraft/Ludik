@@ -164,7 +164,7 @@ const RewardCreateForm = ({ reward, onClose }) => {
         <input type="text" name="nombre" placeholder="Ej: Alfajor" value={recompensa.nombre} onChange={handleChange} required />
       </label>
 
-      <label>
+      <label className={styles.iconButtonContainer}>
         Ícono representativo
         <button type="button" className={`button ${styles.iconSelectButton}`} onClick={() => setShowIconPicker((prev) => !prev)}>
           {recompensa.imagen ? <FontAwesomeIcon icon={`fa-solid fa-${recompensa.imagen}`} size="xl" /> : "Seleccionar ícono"}

@@ -70,7 +70,7 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
           </div>
           <div>
             <p>
-              <FontAwesomeIcon icon="fa fa-bullseye" /> {perfil.metaCalificacion}
+              <FontAwesomeIcon icon="fa fa-bullseye" /> {perfil?.metaCalificacion}
             </p>
             <p>Meta personal</p>
           </div>
@@ -81,14 +81,14 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
             <p>Progreso hacia la próxima calificación</p>
             {!isLoadingBarra && barraProgreso && (
               <div className={styles.progressBar}>
-                {Array.from({ length: barraProgreso.calificacionMaxima }, (_, index) => {
-                  const numero = index + barraProgreso.calificacionMinima;
-                  const alcanzado = numero <= barraProgreso.calificacionActual;
-                  const esMeta = numero === perfil.metaCalificacion;
+                {Array.from({ length: barraProgreso?.calificacionMaxima }, (_, index) => {
+                  const numero = index + barraProgreso?.calificacionMinima;
+                  const alcanzado = numero <= barraProgreso?.calificacionActual;
+                  const esMeta = numero === perfil?.metaCalificacion;
 
                   return (
                     <label key={`progreso-${numero}`} htmlFor={`progreso-${numero}`} className={`${styles.label} ${alcanzado ? styles.alcanzado : styles.noAlcanzado}`}>
-                      {esMeta && <FontAwesomeIcon icon="fa fa-bullseye" className={styles.icono} />}
+                      {esMeta ? <FontAwesomeIcon icon="fa fa-bullseye" className={styles.icono} /> : <p>{index + 1}</p>}
                     </label>
                   );
                 })}
@@ -125,7 +125,7 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
                 key={medalla.medallaId + medalla.nombre}
                 nombre={medalla.nombre}
                 descripcion={medalla.descripcion}
-                urlImagen={medalla.urlImagen || "https://cdn-icons-png.flaticon.com/512/2583/2583341.png"} // reemplazalo si no tenés imagen
+                urlImagen={medalla.urlImagen} // reemplazalo si no tenés imagen
                 cantidadMedallasBrinda={medalla.cantidad}
                 esAsignacionMutua={false}
                 onEdit={() => {}}
@@ -142,7 +142,11 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
           <BarLoader />
         ) : (
           <div className={styles.recompensasGrid}>
-            {recompensas?.length > 0 ? recompensas.map((reward, index) => <RewardItem key={`${reward.id}-${index}`} reward={reward} redeemed={true} />) : <p>No tienes recompensas aún.</p>}
+            {recompensas?.length > 0 ? (
+              recompensas.map((reward, index) => <RewardItem key={`${reward.id}-${index}`} reward={reward} redeemed={true} />)
+            ) : (
+              <p className={styles.noRewardsMessage}>No tienes recompensas aún.</p>
+            )}
           </div>
         )}
       </section>

@@ -7,7 +7,9 @@
 
 .newPacButton {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
     border-radius: 15px;
     padding: 20px;

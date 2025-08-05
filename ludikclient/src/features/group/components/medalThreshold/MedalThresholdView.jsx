@@ -35,6 +35,7 @@ const MedalThresholdView = ({ setModalContent, setModalTitle, setShowModal, grou
         {showTeacherOptions && (
           <button className={styles.addThresholdButton} onClick={handleOpenThresholdCreateForm}>
             <FontAwesomeIcon icon="fa-solid fa-plus" size="2xl" />
+            Crear nuevo umbral de obtención
           </button>
         )}
 
