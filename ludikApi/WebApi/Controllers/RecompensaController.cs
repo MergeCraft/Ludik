@@ -80,7 +80,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> EditarRecompensa([FromRoute] string recompensaId,
-            [FromBody] RecompensaEditarDto dto)
+            [FromBody] RecompensaSimpleEditarDto dto)
         {
             var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(profesorId))

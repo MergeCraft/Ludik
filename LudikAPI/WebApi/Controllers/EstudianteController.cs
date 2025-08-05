@@ -187,7 +187,7 @@ namespace WebApi.Controllers
 		/// </returns>
 		[HttpGet("perfiles/{perfilId}/recompensas")]
 		[Authorize(Policy = "EsEstudiante")]
-		[ProducesResponseType(typeof(List<RecompensaDto>), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(List<RecompensaClienteDto>), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status500InternalServerError)]

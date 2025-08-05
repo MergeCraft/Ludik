@@ -1,11 +1,12 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using InterfacesRepositorio;
+﻿using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.RecompensaDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Recompensa;
 using LogicaNegocio.Entidades;
+using LogicaNegocio.EntidadesAuxiliares;
 using LogicaNegocio.Resultados;
 using Moq;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
@@ -40,8 +41,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
             {
                 Nombre = "RecompensaValida",
                 Precio = 10,
-                RepresentacionVisual = "imgCompleta",
-                RutaImagenMiniatura = "imgMini"
+                NombreIcono = "icon-valido"
             };
 
             _repoProfesoresMock
@@ -59,14 +59,16 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
         {
             // Creamos un profesor real y le agregamos primero una recompensa con Id=0
             var profesorConRecompensa = new LogicaNegocio.Entidades.Profesor { Id = ProfesorId };
-            profesorConRecompensa.CrearRecompensa(new RecompensaSimple
+            var recompensaExistente = new RecompensaSimple
             {
-                Id = 0,  // el mapper fromDto también dejará Id=0
+                Id = 0,
                 Nombre = "Duplicada",
-                NombreImagenCompleta = "x",
-                NombreImagenMiniatura = "y",
                 Precio = 1
-            });
+            };
+            // Asignamos el icono a su objeto de representación interno
+            ((RepresentacionIcono)recompensaExistente.Representacion).NombreIcono = "icon-existente";
+
+            profesorConRecompensa.CrearRecompensa(recompensaExistente);
 
             _repoProfesoresMock
                 .Setup(r => r.GetByStringIdAsync(ProfesorId))
@@ -74,10 +76,9 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
 
             var dto = new RecompensaSimpleAltaDto
             {
-                Nombre = "Duplicada",
+                Nombre = "Duplicada", // Mismo nombre para forzar el error
                 Precio = 1,
-                RepresentacionVisual = "u1",
-                RutaImagenMiniatura = "u2"
+                NombreIcono = "icon-nuevo"
             };
 
             var resultado = await _casoUso.EjecutarAsync(dto, ProfesorId);
@@ -109,8 +110,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
             {
                 Nombre = "Nueva",
                 Precio = 5,
-                RepresentacionVisual = "urlCompleta",
-                RutaImagenMiniatura = "urlMini"
+                NombreIcono = "rocket",
             };
 
             var resultado = await _casoUso.EjecutarAsync(dto, ProfesorId);
@@ -121,16 +121,16 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Recompensa
             var creadas = profesorVacio.RecompensasCreadas.ToList();
             Assert.Single(creadas);
 
-            var pr = creadas[0];
+            var recompensaCreada = profesorVacio.RecompensasCreadas.First().Recompensa;
             // La recompensa asociada
-            Assert.NotNull(pr.Recompensa);
-            Assert.Equal(dto.Nombre, pr.Recompensa.Nombre);
-            Assert.Equal(dto.Precio, pr.Recompensa.Precio);
-            Assert.Equal(dto.RepresentacionVisual, pr.Recompensa.NombreImagenCompleta);
-            Assert.Equal(dto.RutaImagenMiniatura, pr.Recompensa.NombreImagenMiniatura);
+            Assert.NotNull(recompensaCreada);
+            Assert.Equal(dto.Nombre, recompensaCreada.Nombre);
+            Assert.Equal(dto.Precio, recompensaCreada.Precio);
+            
+            var representacion = Assert.IsType<RepresentacionIcono>(recompensaCreada.Representacion);
+            Assert.Equal(dto.NombreIcono, representacion.NombreIcono);
 
-            // Verificamos que persistió el profesor modificado
-            _repoProfesoresMock.Verify(r => r.UpdateAsync(profesorVacio), Times.Once);
+            _repoProfesoresMock.Verify(r => r.UpdateAsync(profesorVacio), Times.Once); 
         }
     }
 }

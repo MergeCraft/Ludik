@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using InterfacesRepositorio;
+﻿using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.RecompensaDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Tienda;
 using LogicaAplicacion.ImplementacionServicios;
 using LogicaAplicacion.Servicios;
 using LogicaNegocio.Entidades;
+using LogicaNegocio.EntidadesAuxiliares;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
 using Moq;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion.Tienda
@@ -17,6 +18,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Tienda
     public class PruebasObtenerListadoRecompensa
     {
         private readonly Mock<IRepositorioTiendas> _mockRepoTiendas;
+        private readonly Mock<IRecompensaEnricher> _mockRecompensaEnricher;
         private readonly ObtenerListadoRecompensa _useCase;
 
         public PruebasObtenerListadoRecompensa()
@@ -26,16 +28,16 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Tienda
 
             // Simula una URL generada por archivo
             mockRepoArchivos
-     .Setup(a => a.ObtenerArchivoSasUrlAsync(It.IsAny<string>()))
-     .Returns<string>(nombre =>
-         Task.FromResult(Resultado<string>.Exitoso($"url-fake/{nombre}")));
+             .Setup(a => a.ObtenerArchivoSasUrlAsync(It.IsAny<string>()))
+             .Returns<string>(nombre =>
+            Task.FromResult(Resultado<string>.Exitoso($"url-fake/{nombre}")));
 
             var generadorUrlsParaColecciones = new GeneradorUrlsParaColeccionesImagenes(
                 new GeneradorUrlImagen(mockRepoArchivos.Object));
 
             _useCase = new ObtenerListadoRecompensa(
                 _mockRepoTiendas.Object,
-                generadorUrlsParaColecciones
+                _mockRecompensaEnricher.Object
             );
         }
 
@@ -57,53 +59,62 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Tienda
         [Fact]
         public async Task CaminoFeliz_RetornaDtosConUrls()
         {
-            var recompensas = new List<LogicaNegocio.Entidades.Recompensa>
-    {
-        new RecompensaSimple { Id = 1, Nombre = "R1", Precio = 5, NombreImagenCompleta = "c1", NombreImagenMiniatura = "m1" },
-        new RecompensaSimple { Id = 2, Nombre = "R2", Precio = 10, NombreImagenCompleta = "c2", NombreImagenMiniatura = "m2" }
-    };
+            // --- ARRANGE ---
 
-            var tienda = new LogicaNegocio.Entidades.Tienda
-            {
-                Id = 20,
-                Recompesas = recompensas
-            };
+            // 1. Preparamos los datos del dominio que devolverá el repositorio.
+            //    Usamos una mezcla de tipos para una prueba más robusta.
+            var recompensaIcono = new RecompensaSimple { Id = 1, Nombre = "Icono Genial", Precio = 5 };
+            ((RepresentacionIcono)recompensaIcono.Representacion).NombreIcono = "fa-icon";
+
+            var recompensaImagen = new PersonalizacionAvatar { Id = 2, Nombre = "Avatar Increíble", Precio = 10 };
+            ((RepresentacionImagen)recompensaImagen.Representacion).NombreImagenCompleta = "completa.png";
+            ((RepresentacionImagen)recompensaImagen.Representacion).NombreImagenMiniatura = "mini.png";
+
+            var recompensasDeDominio = new List<LogicaNegocio.Entidades.Recompensa> { recompensaIcono, recompensaImagen };
+            var tienda = new LogicaNegocio.Entidades.Tienda { Id = 20, Recompesas = recompensasDeDominio };
 
             _mockRepoTiendas
                 .Setup(r => r.GetByIdAsync(20))
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Tienda>.Exitoso(tienda));
 
-            var mockRepoArchivos = new Mock<IRepositorioAlmacenamientoArchivos>();
-            mockRepoArchivos
-                .Setup(a => a.ObtenerArchivoSasUrlAsync(It.IsAny<string>()))
-                .Returns<string>(nombre => Task.FromResult(Resultado<string>.Exitoso($"url-fake/{nombre}")));
+            // 2. Preparamos la respuesta que ESPERAMOS que el enricher nos devuelva.
+            //    Esta es la "verdad" contra la que compararemos el resultado final.
+            var dtosEsperados = new List<RecompensaClienteDto>
+            {
+                new RecompensaClienteDto
+                {
+                    Id = 1, Nombre = "Icono Genial", Precio = 5,
+                    Datos = new RespuestaIconoDto("fa-icon")
+                },
+                new RecompensaClienteDto
+                {
+                    Id = 2, Nombre = "Avatar Increíble", Precio = 10,
+                    Datos = new RespuestaImagenDto("url-fake/mini.png", "url-fake/completa.png")
+                }
+            };
 
-            var generadorUrlsParaColecciones = new GeneradorUrlsParaColeccionesImagenes(
-                new GeneradorUrlImagen(mockRepoArchivos.Object)
-            );
+            // 3. Configuramos el mock del enricher para que devuelva nuestra lista esperada.
+            _mockRecompensaEnricher
+                .Setup(e => e.EnrichAsync(recompensasDeDominio))
+                .ReturnsAsync(dtosEsperados);
 
-            var useCase = new ObtenerListadoRecompensa(
-                _mockRepoTiendas.Object,
-                generadorUrlsParaColecciones
-            );
+            // --- ACT ---
+            var resultado = await _useCase.EjecutarAsync(20);
 
-            var resultado = await useCase.EjecutarAsync(20);
-
+            // --- ASSERT ---
             Assert.True(resultado.EsExitoso);
-            var lista = resultado.Valor!.ToList();
-            Assert.Equal(2, lista.Count);
+            var listaResultado = resultado.Valor!.ToList();
 
-            Assert.Contains(lista, dto =>
-                dto.Nombre == "R1" &&
-                dto.Precio == 5 &&
-                dto.EnlaceImagenCompleta == "url-fake/c1" &&
-                dto.EnlaceImagenMiniatura == "url-fake/m1");
+            // 4. Verificamos que el resultado del caso de uso es exactamente lo que devolvió el mock.
+            Assert.Equal(2, listaResultado.Count);
+            Assert.Equal(dtosEsperados, listaResultado);
 
-            Assert.Contains(lista, dto =>
-                dto.Nombre == "R2" &&
-                dto.Precio == 10 &&
-                dto.EnlaceImagenCompleta == "url-fake/c2" &&
-                dto.EnlaceImagenMiniatura == "url-fake/m2");
+            // 5. (Opcional pero recomendado) Verificamos que los mocks fueron llamados como se esperaba.
+            _mockRepoTiendas.Verify(r => r.GetByIdAsync(20), Times.Once);
+            _mockRecompensaEnricher.Verify(e => e.EnrichAsync(recompensasDeDominio), Times.Once);
+
         }
+
+
     }
 }

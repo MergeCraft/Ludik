@@ -534,21 +534,40 @@ namespace AccesoDatos.RepositoriosEF
             };
             modelBuilder.Entity<Tienda>().HasData(tiendas);
 
-            modelBuilder.Entity<RecompensaSimple>().HasData(
+
+
+            // 1. Crear una lista de las entidades RecompensaSimple
+            var recompensasSimples = new List<RecompensaSimple>
+            {
                 // Tienda 1
-                // Usamos un objeto anónimo con todas las propiedades necesarias
-                new { Id = 1, Nombre = "Estrella Mágica", Precio = 50, NombreIcono = "star" },
-                new { Id = 2, Nombre = "Regalo Sorpresa", Precio = 30, NombreIcono = "gift" },
-                new { Id = 3, Nombre = "Corazón Brillante", Precio = 20, NombreIcono = "heart" },
-                new { Id = 4, Nombre = "Medalla de Oro", Precio = 80, NombreIcono = "medal" },
-                new { Id = 5, Nombre = "Montón de Monedas", Precio = 100, NombreIcono = "coins" },
+                new RecompensaSimple { Id = 1, Nombre = "Estrella Mágica", Precio = 50 },
+                new RecompensaSimple { Id = 2, Nombre = "Regalo Sorpresa", Precio = 30 },
+                new RecompensaSimple { Id = 3, Nombre = "Corazón Brillante", Precio = 20 },
+                new RecompensaSimple { Id = 4, Nombre = "Medalla de Oro", Precio = 80 },
+                new RecompensaSimple { Id = 5, Nombre = "Montón de Monedas", Precio = 100 },
                 // Tienda 2
-                new { Id = 6, Nombre = "Trofeo Brillante", Precio = 70, NombreIcono = "trophy" },
-                new { Id = 7, Nombre = "Llama de Fuego", Precio = 40, NombreIcono = "fire" },
-                new { Id = 8, Nombre = "Corona Real", Precio = 90, NombreIcono = "crown" },
-                new { Id = 9, Nombre = "Cohete Espacial", Precio = 60, NombreIcono = "rocket" },
-                new { Id = 10, Nombre = "Robot Amistoso", Precio = 55, NombreIcono = "robot" }
-            );
+                new RecompensaSimple { Id = 6, Nombre = "Trofeo Brillante", Precio = 70 },
+                new RecompensaSimple { Id = 7, Nombre = "Llama de Fuego", Precio = 40 },
+                new RecompensaSimple { Id = 8, Nombre = "Corona Real", Precio = 90 },
+                new RecompensaSimple { Id = 9, Nombre = "Cohete Espacial", Precio = 60 },
+                new RecompensaSimple { Id = 10, Nombre = "Robot Amistoso", Precio = 55 }
+            };
+
+            // 2. Asignar los datos específicos a la propiedad Representacion
+            //    El constructor de RecompensaSimple ya creó el objeto RepresentacionIcono, solo necesitamos poblarlo.
+            ((RepresentacionIcono)recompensasSimples[0].Representacion).NombreIcono = "star";
+            ((RepresentacionIcono)recompensasSimples[1].Representacion).NombreIcono = "gift";
+            ((RepresentacionIcono)recompensasSimples[2].Representacion).NombreIcono = "heart";
+            ((RepresentacionIcono)recompensasSimples[3].Representacion).NombreIcono = "medal";
+            ((RepresentacionIcono)recompensasSimples[4].Representacion).NombreIcono = "coins";
+            ((RepresentacionIcono)recompensasSimples[5].Representacion).NombreIcono = "trophy";
+            ((RepresentacionIcono)recompensasSimples[6].Representacion).NombreIcono = "fire";
+            ((RepresentacionIcono)recompensasSimples[7].Representacion).NombreIcono = "crown";
+            ((RepresentacionIcono)recompensasSimples[8].Representacion).NombreIcono = "rocket";
+            ((RepresentacionIcono)recompensasSimples[9].Representacion).NombreIcono = "robot";
+
+            // 3. Usar la lista de entidades reales en HasData
+            modelBuilder.Entity<RecompensaSimple>().HasData(recompensasSimples);
         }
 
         private static void PrecargarAvatares(ModelBuilder modelBuilder, IEnumerable<PerfilEstudiante> perfiles)

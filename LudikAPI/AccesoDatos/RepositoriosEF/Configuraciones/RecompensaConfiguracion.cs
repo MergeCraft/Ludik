@@ -1,4 +1,5 @@
 ﻿using LogicaNegocio.Entidades;
+using LogicaNegocio.EntidadesAuxiliares;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -10,9 +11,16 @@ public class RecompensaConfiguracion : IEntityTypeConfiguration<Recompensa>
     {
         builder.HasIndex(x => x.Nombre);
 
-        builder.HasDiscriminator<string>("RecompensaTipo")
-            .HasValue<RecompensaSimple>("Simple")
-            .HasValue<PersonalizacionAvatar>("PersonalizacionAvatar")
-            .HasValue<Potenciador>("Potenciador");
+        // --- Configurar la jerarquía TPH principal para Recompensa ---
+        builder.HasDiscriminator<string>("TipoRecompensa")
+            .HasValue<RecompensaSimple>("Recompensa_Simple")
+            .HasValue<PersonalizacionAvatar>("Recompensa_Avatar")
+            .HasValue<Potenciador>("Recompensa_Potenciador");
+
+        // Le decimos a EF de forma explícita que la propiedad 'Representacion'
+        // debe ser convertida usando el conversor personalizado.
+        // EF también inferirá que esta columna debe ser de tipo string.
+        builder.Property(r => r.Representacion)
+            .HasConversion<RepresentacionVisualConvertidor>();
     }
 }

@@ -2059,7 +2059,7 @@ namespace AccesoDatos.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<string>("NombreImagenMiniatura")
+                    b.Property<string>("NombreIcono")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -2085,7 +2085,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Asistencia y participación en todas las clases del mes.",
                             MonedasOtorgadas = 30,
                             Nombre = "Participación Perfecta",
-                            NombreImagenMiniatura = "medalla_participacion_perfecta.png",
+                            NombreIcono = "medalla_participacion_perfecta.png",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             TieneAsignacionMutua = false
                         },
@@ -2095,7 +2095,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Ayuda destacada a compañeros en proyectos grupales.",
                             MonedasOtorgadas = 25,
                             Nombre = "Maestro de la Colaboración",
-                            NombreImagenMiniatura = "medalla_maestro_colaboracion.png",
+                            NombreIcono = "medalla_maestro_colaboracion.png",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             TieneAsignacionMutua = false
                         },
@@ -2105,7 +2105,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Realización de preguntas perspicaces que enriquecen la clase.",
                             MonedasOtorgadas = 15,
                             Nombre = "Mente Curiosa",
-                            NombreImagenMiniatura = "medalla_mente_curiosa.png",
+                            NombreIcono = "medalla_mente_curiosa.png",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             TieneAsignacionMutua = false
                         },
@@ -2115,7 +2115,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Se otorga por ser un pilar de apoyo para tus compañeros. Demuestra que estás siempre dispuesto a ofrecer tu ayuda cuando alguien la necesita.",
                             MonedasOtorgadas = 20,
                             Nombre = "Compañerismo",
-                            NombreImagenMiniatura = "medalla_companerismo.png",
+                            NombreIcono = "medalla_companerismo.png",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             TieneAsignacionMutua = false
                         },
@@ -2125,7 +2125,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Premia a las mentes que nunca dejan de preguntar. Se consigue al realizar preguntas que desafían al grupo y enriquecen el aprendizaje de todos.",
                             MonedasOtorgadas = 15,
                             Nombre = "Curiosidad Insaciable",
-                            NombreImagenMiniatura = "medalla_curiosidad_insaciable.png",
+                            NombreIcono = "medalla_curiosidad_insaciable.png",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             TieneAsignacionMutua = false
                         },
@@ -2135,7 +2135,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Reconoce a quienes inspiran con su ejemplo. Se obtiene al demostrar una actitud y un esfuerzo que motivan a todo el grupo a superarse.",
                             MonedasOtorgadas = 25,
                             Nombre = "Faro del Grupo",
-                            NombreImagenMiniatura = "medalla_faro_del_grupo.png",
+                            NombreIcono = "medalla_faro_del_grupo.png",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             TieneAsignacionMutua = false
                         },
@@ -2145,7 +2145,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Para aquellos que no solo tienen buenas ideas, sino que construyen sobre las de los demás para crear algo aún mejor.",
                             MonedasOtorgadas = 20,
                             Nombre = "Arquitecto de Ideas",
-                            NombreImagenMiniatura = "medalla_arquitecto_ideas.png",
+                            NombreIcono = "medalla_arquitecto_ideas.png",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             TieneAsignacionMutua = false
                         },
@@ -2155,7 +2155,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Se otorga por demostrar liderazgo natural, guiando y organizando al equipo para alcanzar metas comunes de forma efectiva.",
                             MonedasOtorgadas = 25,
                             Nombre = "Capitán de Equipo",
-                            NombreImagenMiniatura = "medalla_capitan_equipo.png",
+                            NombreIcono = "medalla_capitan_equipo.png",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             TieneAsignacionMutua = false
                         },
@@ -2165,7 +2165,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Premia la iniciativa de buscar y compartir recursos valiosos (videos, artículos, herramientas) que benefician a toda la clase.",
                             MonedasOtorgadas = 15,
                             Nombre = "Cazador de Tesoros",
-                            NombreImagenMiniatura = "medalla_cazador_tesoros.png",
+                            NombreIcono = "medalla_cazador_tesoros.png",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             TieneAsignacionMutua = false
                         },
@@ -2175,7 +2175,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Se consigue al fomentar activamente un ambiente de respeto e inclusión, asegurando que cada miembro del grupo se sienta valorado.",
                             MonedasOtorgadas = 20,
                             Nombre = "Espíritu de Equipo",
-                            NombreImagenMiniatura = "medalla_espiritu_equipo.png",
+                            NombreIcono = "medalla_espiritu_equipo.png",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             TieneAsignacionMutua = false
                         },
@@ -2185,7 +2185,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Reconoce la habilidad de dar críticas constructivas que ayudan a los compañeros a mejorar su trabajo de forma positiva y amable.",
                             MonedasOtorgadas = 15,
                             Nombre = "Pulidor de Diamantes",
-                            NombreImagenMiniatura = "medalla_pulidor_diamantes.png",
+                            NombreIcono = "medalla_pulidor_diamantes.png",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             TieneAsignacionMutua = false
                         },
@@ -2195,7 +2195,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Se otorga por aportar ideas creativas y soluciones originales que sacan al grupo de la rutina y abren nuevas posibilidades.",
                             MonedasOtorgadas = 20,
                             Nombre = "Mente Innovadora",
-                            NombreImagenMiniatura = "medalla_mente_innovadora.png",
+                            NombreIcono = "medalla_mente_innovadora.png",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             TieneAsignacionMutua = false
                         },
@@ -2205,7 +2205,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Premia la increíble habilidad de tomar un tema complejo y explicarlo de una manera tan clara y sencilla que todos puedan entenderlo.",
                             MonedasOtorgadas = 25,
                             Nombre = "El Explicador",
-                            NombreImagenMiniatura = "medalla_el_explicador.png",
+                            NombreIcono = "medalla_el_explicador.png",
                             ProfesorId = "9e445865-a24d-4543-a6c6-9443d048cdb0",
                             TieneAsignacionMutua = false
                         });
@@ -2999,25 +2999,20 @@ namespace AccesoDatos.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("NombreImagenCompleta")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NombreImagenMiniatura")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Precio")
                         .HasColumnType("int");
 
-                    b.Property<string>("RecompensaTipo")
+                    b.Property<string>("Representacion")
                         .IsRequired()
-                        .HasMaxLength(21)
-                        .HasColumnType("nvarchar(21)");
-
-                    b.Property<bool>("RequiereImagen")
-                        .HasColumnType("bit");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("TiendaId")
                         .HasColumnType("int");
+
+                    b.Property<string>("TipoRecompensa")
+                        .IsRequired()
+                        .HasMaxLength(34)
+                        .HasColumnType("nvarchar(34)");
 
                     b.HasKey("Id");
 
@@ -3027,7 +3022,7 @@ namespace AccesoDatos.Migrations
 
                     b.ToTable("Recompensas");
 
-                    b.HasDiscriminator<string>("RecompensaTipo").HasValue("Recompensa");
+                    b.HasDiscriminator<string>("TipoRecompensa").HasValue("Recompensa");
 
                     b.UseTphMappingStrategy();
                 });
@@ -3842,117 +3837,95 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("AtributoAvatarId");
 
-                    b.HasDiscriminator().HasValue("PersonalizacionAvatar");
+                    b.HasDiscriminator().HasValue("Recompensa_Avatar");
 
                     b.HasData(
                         new
                         {
                             Id = 11,
-                            Nombre = "Item: Curly",
-                            NombreImagenCompleta = "top-curly.png",
-                            NombreImagenMiniatura = "top-curly.png",
+                            Nombre = "Curly",
                             Precio = 0,
-                            RequiereImagen = true,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"top-curly.png\",\"NombreImagenMiniatura\":\"top-curly.png\"}",
                             AtributoAvatarId = 1
                         },
                         new
                         {
                             Id = 12,
-                            Nombre = "Item: Default",
-                            NombreImagenCompleta = "eyes-default.png",
-                            NombreImagenMiniatura = "eyes-default.png",
+                            Nombre = "Default",
                             Precio = 0,
-                            RequiereImagen = true,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"eyes-default.png\",\"NombreImagenMiniatura\":\"eyes-default.png\"}",
                             AtributoAvatarId = 21
                         },
                         new
                         {
                             Id = 13,
-                            Nombre = "Item: DefaultNatural",
-                            NombreImagenCompleta = "eyebrows-defaultNatural.png",
-                            NombreImagenMiniatura = "eyebrows-defaultNatural.png",
+                            Nombre = "DefaultNatural",
                             Precio = 0,
-                            RequiereImagen = true,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"eyebrows-defaultNatural.png\",\"NombreImagenMiniatura\":\"eyebrows-defaultNatural.png\"}",
                             AtributoAvatarId = 12
                         },
                         new
                         {
                             Id = 14,
-                            Nombre = "Item: Default",
-                            NombreImagenCompleta = "mouth-default.png",
-                            NombreImagenMiniatura = "mouth-default.png",
+                            Nombre = "Default",
                             Precio = 0,
-                            RequiereImagen = true,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"mouth-default.png\",\"NombreImagenMiniatura\":\"mouth-default.png\"}",
                             AtributoAvatarId = 31
                         },
                         new
                         {
                             Id = 15,
-                            Nombre = "Item: ShirtVNeck",
-                            NombreImagenCompleta = "clothing-shirtVNeck.png",
-                            NombreImagenMiniatura = "clothing-shirtVNeck.png",
+                            Nombre = "ShirtVNeck",
                             Precio = 0,
-                            RequiereImagen = true,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"clothing-shirtVNeck.png\",\"NombreImagenMiniatura\":\"clothing-shirtVNeck.png\"}",
                             AtributoAvatarId = 52
                         },
                         new
                         {
                             Id = 16,
-                            Nombre = "Item: Sunglasses",
-                            NombreImagenCompleta = "accessories-sunglasses.png",
-                            NombreImagenMiniatura = "accessories-sunglasses.png",
+                            Nombre = "Sunglasses",
                             Precio = 0,
-                            RequiereImagen = true,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"accessories-sunglasses.png\",\"NombreImagenMiniatura\":\"accessories-sunglasses.png\"}",
                             AtributoAvatarId = 43
                         },
                         new
                         {
                             Id = 17,
-                            Nombre = "Item: edb98a",
-                            NombreImagenCompleta = "skinColor-edb98a.png",
-                            NombreImagenMiniatura = "skinColor-edb98a.png",
+                            Nombre = "edb98a",
                             Precio = 0,
-                            RequiereImagen = true,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"skinColor-edb98a.png\",\"NombreImagenMiniatura\":\"skinColor-edb98a.png\"}",
                             AtributoAvatarId = 56
                         },
                         new
                         {
                             Id = 18,
-                            Nombre = "Item: 2c1b18",
-                            NombreImagenCompleta = "hairColor-2c1b18.png",
-                            NombreImagenMiniatura = "hairColor-2c1b18.png",
+                            Nombre = "2c1b18",
                             Precio = 0,
-                            RequiereImagen = true,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"hairColor-2c1b18.png\",\"NombreImagenMiniatura\":\"hairColor-2c1b18.png\"}",
                             AtributoAvatarId = 60
                         },
                         new
                         {
                             Id = 19,
-                            Nombre = "Item: 3c4f5c",
-                            NombreImagenCompleta = "clothesColor-3c4f5c.png",
-                            NombreImagenMiniatura = "clothesColor-3c4f5c.png",
+                            Nombre = "3c4f5c",
                             Precio = 0,
-                            RequiereImagen = true,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"clothesColor-3c4f5c.png\",\"NombreImagenMiniatura\":\"clothesColor-3c4f5c.png\"}",
                             AtributoAvatarId = 80
                         },
                         new
                         {
                             Id = 20,
-                            Nombre = "Item: 25557c",
-                            NombreImagenCompleta = "accessoriesColor-25557c.png",
-                            NombreImagenMiniatura = "accessoriesColor-25557c.png",
+                            Nombre = "25557c",
                             Precio = 0,
-                            RequiereImagen = true,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"accessoriesColor-25557c.png\",\"NombreImagenMiniatura\":\"accessoriesColor-25557c.png\"}",
                             AtributoAvatarId = 98
                         },
                         new
                         {
                             Id = 21,
-                            Nombre = "Item: 2c1b18",
-                            NombreImagenCompleta = "beardColor-2c1b18.png",
-                            NombreImagenMiniatura = "beardColor-2c1b18.png",
+                            Nombre = "2c1b18",
                             Precio = 0,
-                            RequiereImagen = true,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"beardColor-2c1b18.png\",\"NombreImagenMiniatura\":\"beardColor-2c1b18.png\"}",
                             AtributoAvatarId = 70
                         });
                 });
@@ -3970,7 +3943,7 @@ namespace AccesoDatos.Migrations
                     b.Property<double>("Multiplicador")
                         .HasColumnType("float");
 
-                    b.HasDiscriminator().HasValue("Potenciador");
+                    b.HasDiscriminator().HasValue("Recompensa_Potenciador");
 
                     b.HasData(
                         new
@@ -3978,7 +3951,7 @@ namespace AccesoDatos.Migrations
                             Id = 101,
                             Nombre = "Bono x1.5 (24h)",
                             Precio = 0,
-                            RequiereImagen = false,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(1, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 1.5
@@ -3988,7 +3961,7 @@ namespace AccesoDatos.Migrations
                             Id = 102,
                             Nombre = "Bono x1.6 (24h)",
                             Precio = 0,
-                            RequiereImagen = false,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(1, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 1.6000000000000001
@@ -3998,7 +3971,7 @@ namespace AccesoDatos.Migrations
                             Id = 103,
                             Nombre = "Bono x1.7 (48h)",
                             Precio = 0,
-                            RequiereImagen = false,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(2, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 1.7
@@ -4008,7 +3981,7 @@ namespace AccesoDatos.Migrations
                             Id = 104,
                             Nombre = "Bono x1.8 (48h)",
                             Precio = 0,
-                            RequiereImagen = false,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(2, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 1.8
@@ -4018,7 +3991,7 @@ namespace AccesoDatos.Migrations
                             Id = 105,
                             Nombre = "Bono x1.9 (72h)",
                             Precio = 0,
-                            RequiereImagen = false,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(3, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 1.8999999999999999
@@ -4028,7 +4001,7 @@ namespace AccesoDatos.Migrations
                             Id = 106,
                             Nombre = "¡Doble Moneda! (72h)",
                             Precio = 0,
-                            RequiereImagen = false,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(3, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 2.0
@@ -4038,7 +4011,7 @@ namespace AccesoDatos.Migrations
                             Id = 107,
                             Nombre = "Bono x2.1 (96h)",
                             Precio = 0,
-                            RequiereImagen = false,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(4, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 2.1000000000000001
@@ -4048,7 +4021,7 @@ namespace AccesoDatos.Migrations
                             Id = 108,
                             Nombre = "Bono x2.2 (96h)",
                             Precio = 0,
-                            RequiereImagen = false,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(4, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 2.2000000000000002
@@ -4058,7 +4031,7 @@ namespace AccesoDatos.Migrations
                             Id = 109,
                             Nombre = "Bono x2.3 (120h)",
                             Precio = 0,
-                            RequiereImagen = false,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(5, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 2.2999999999999998
@@ -4068,7 +4041,7 @@ namespace AccesoDatos.Migrations
                             Id = 110,
                             Nombre = "¡Super Bono x2.5! (168h)",
                             Precio = 0,
-                            RequiereImagen = false,
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(7, 0, 0, 0, 0),
                             FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 2.5
@@ -4079,98 +4052,78 @@ namespace AccesoDatos.Migrations
                 {
                     b.HasBaseType("LogicaNegocio.Entidades.Recompensa");
 
-                    b.HasDiscriminator().HasValue("Simple");
+                    b.HasDiscriminator().HasValue("Recompensa_Simple");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             Nombre = "Estrella Mágica",
-                            NombreImagenCompleta = "star",
-                            NombreImagenMiniatura = "star",
                             Precio = 50,
-                            RequiereImagen = false
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"star\"}"
                         },
                         new
                         {
                             Id = 2,
                             Nombre = "Regalo Sorpresa",
-                            NombreImagenCompleta = "gift",
-                            NombreImagenMiniatura = "gift",
                             Precio = 30,
-                            RequiereImagen = false
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"gift\"}"
                         },
                         new
                         {
                             Id = 3,
                             Nombre = "Corazón Brillante",
-                            NombreImagenCompleta = "heart",
-                            NombreImagenMiniatura = "heart",
                             Precio = 20,
-                            RequiereImagen = false
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"heart\"}"
                         },
                         new
                         {
                             Id = 4,
                             Nombre = "Medalla de Oro",
-                            NombreImagenCompleta = "medal",
-                            NombreImagenMiniatura = "medal",
                             Precio = 80,
-                            RequiereImagen = false
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"medal\"}"
                         },
                         new
                         {
                             Id = 5,
                             Nombre = "Montón de Monedas",
-                            NombreImagenCompleta = "coins",
-                            NombreImagenMiniatura = "coins",
                             Precio = 100,
-                            RequiereImagen = false
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"coins\"}"
                         },
                         new
                         {
                             Id = 6,
                             Nombre = "Trofeo Brillante",
-                            NombreImagenCompleta = "trophy",
-                            NombreImagenMiniatura = "trophy",
                             Precio = 70,
-                            RequiereImagen = false
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"trophy\"}"
                         },
                         new
                         {
                             Id = 7,
                             Nombre = "Llama de Fuego",
-                            NombreImagenCompleta = "fire",
-                            NombreImagenMiniatura = "fire",
                             Precio = 40,
-                            RequiereImagen = false
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"fire\"}"
                         },
                         new
                         {
                             Id = 8,
                             Nombre = "Corona Real",
-                            NombreImagenCompleta = "crown",
-                            NombreImagenMiniatura = "crown",
                             Precio = 90,
-                            RequiereImagen = false
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"crown\"}"
                         },
                         new
                         {
                             Id = 9,
                             Nombre = "Cohete Espacial",
-                            NombreImagenCompleta = "rocket",
-                            NombreImagenMiniatura = "rocket",
                             Precio = 60,
-                            RequiereImagen = false
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"rocket\"}"
                         },
                         new
                         {
                             Id = 10,
                             Nombre = "Robot Amistoso",
-                            NombreImagenCompleta = "robot",
-                            NombreImagenMiniatura = "robot",
                             Precio = 55,
-                            RequiereImagen = false
+                            Representacion = "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"robot\"}"
                         });
                 });
 

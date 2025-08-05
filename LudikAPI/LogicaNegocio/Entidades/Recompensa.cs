@@ -1,9 +1,11 @@
-using System;
-using System.ComponentModel.DataAnnotations;
+using LogicaNegocio.EntidadesAuxiliares;
 using LogicaNegocio.InterfacesEntidades;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
 using LogicaNegocio.ValueObject;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LogicaNegocio.Entidades
 {
@@ -13,7 +15,8 @@ namespace LogicaNegocio.Entidades
         [Required]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "El nombre Recompensa  debe tener entre 3 y 50 caracteres.")]
         public string Nombre { get; set; }
-        public IRepresentacionVisual Representacion { get; set; }
+        
+        public abstract RepresentacionVisualBase Representacion { get; protected set; }
         public int Precio { get; set; }
 
         public virtual Resultado esValido()

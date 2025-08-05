@@ -1,5 +1,6 @@
 using System;
 using LogicaNegocio.EntidadesAuxiliares;
+using LogicaNegocio.InterfacesEntidades;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
 
@@ -11,7 +12,9 @@ namespace LogicaNegocio.Entidades
 
         public TimeSpan Duracion { get; set; }
 
-        public double Multiplicador { get; set; } 
+        public double Multiplicador { get; set; }
+
+        public override RepresentacionVisualBase Representacion { get; protected set; }
 
         public bool EstaActivo =>
             DateTime.UtcNow >= FechaActivacion && DateTime.UtcNow <= FechaActivacion + Duracion;
@@ -20,6 +23,7 @@ namespace LogicaNegocio.Entidades
         {
             Representacion = new RepresentacionImagen();
         }
+
 
         public override Resultado Otorgar(PerfilEstudiante perfil)
         {

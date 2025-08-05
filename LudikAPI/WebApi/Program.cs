@@ -70,6 +70,8 @@ using LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla;
 using LogicaAplicacion.InterfacesCasosUsos.ProyectoAulaColaborativo;
 using LogicaAplicacion.ImplementacionCasosUsos.ProyectoAulaColaborativo;
 using LogicaAplicacion.InterfacesCasosUsos.Usuario;
+using System.Text.Json.Serialization.Metadata;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -315,6 +317,7 @@ builder.Services.AddScoped<IServicioDeReinicioSemanal, ServicioDeReinicioSemanal
 builder.Services.AddScoped<IGeneradorUrlImagen, GeneradorUrlImagen>();
 builder.Services.AddScoped<IGeneradorUrlsParaColeccionesImagenes, GeneradorUrlsParaColeccionesImagenes>();
 builder.Services.AddScoped<IServicioCrearObjetosParaProfesor, ServicioCrearObjetosParaProfesor>();
+builder.Services.AddScoped<IRecompensaEnricher, RecompensaEnricher>();
 
 
 
@@ -323,7 +326,39 @@ builder.Services.AddScoped<IServicioCrearObjetosParaProfesor, ServicioCrearObjet
 // -------------------------------
 //      Swagger y CORS
 // -------------------------------
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(opts =>
+    {
+        // Habilita polimorfismo para RespuestaVisual
+        opts.JsonSerializerOptions.TypeInfoResolver = new DefaultJsonTypeInfoResolver
+        {
+            Modifiers =
+            {
+                ti =>
+                {
+                    if (ti.Type == typeof(LogicaAplicacion.DTOs.RecompensaDTOs.RespuestaVisual))
+                    {
+                        ti.PolymorphismOptions = new JsonPolymorphismOptions
+                        {
+                            TypeDiscriminatorPropertyName = "$type",
+                            UnknownDerivedTypeHandling   = JsonUnknownDerivedTypeHandling.FailSerialization,
+                            DerivedTypes =
+                            {
+                                new JsonDerivedType(
+                                    typeof(LogicaAplicacion.DTOs.RecompensaDTOs.RespuestaImagenDto),
+                                    nameof(LogicaAplicacion.DTOs.RecompensaDTOs.RespuestaImagenDto)
+                                ),
+                                new JsonDerivedType(
+                                    typeof(LogicaAplicacion.DTOs.RecompensaDTOs.RespuestaIconoDto),
+                                    nameof(LogicaAplicacion.DTOs.RecompensaDTOs.RespuestaIconoDto)
+                                )
+                            }
+                        };
+                    }
+                }
+            }
+        };
+    });
 builder.Services.AddEndpointsApiExplorer();
 
 var ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WebApi.xml");

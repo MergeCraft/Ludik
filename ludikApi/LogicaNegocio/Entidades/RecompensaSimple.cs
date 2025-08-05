@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LogicaNegocio.EntidadesAuxiliares;
+using LogicaNegocio.InterfacesEntidades;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
 
@@ -11,6 +12,12 @@ namespace LogicaNegocio.Entidades
 {
     public class RecompensaSimple : Recompensa
     {
+        public override RepresentacionVisualBase Representacion { get; protected set; }
+        public RecompensaSimple()
+        {
+            Representacion = new RepresentacionIcono();
+        }
+
         public override Resultado Otorgar(PerfilEstudiante perfil){
             var pr = new PerfilEstudianteRecompensa
             {
@@ -21,9 +28,6 @@ namespace LogicaNegocio.Entidades
             return Resultado.Exitoso();
         }
 
-        public RecompensaSimple()
-        {
-            Representacion = new RepresentacionIcono();
-        }
+        
     }
 }
