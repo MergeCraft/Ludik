@@ -145,12 +145,12 @@ namespace AccesoDatos.RepositoriosEF
                 var estudiante = await _db.Estudiantes
                     .AsNoTracking()
                     .Where(e => e.Id == estudianteId)
+                    .Include(e => e.EstPotenciador)
                     .Include(e => e.Perfiles)
                         .ThenInclude(p => p.MedallasObtenidas)
                             .ThenInclude(pm => pm.Medalla)
                     // si persistes PotenciadorActivo, inclúyelo también:
                     .Include(e => e.Perfiles)
-                        .ThenInclude(p => p.PotenciadorActivo)
                     .FirstOrDefaultAsync();
 
                 if (estudiante == null)
@@ -176,8 +176,9 @@ namespace AccesoDatos.RepositoriosEF
             {
                 var estudiante = await _db.Estudiantes
                     .Include(e => e.Hitos)          
-                    .Include(e => e.Perfiles)       
-                                                    
+                    .Include(e => e.Perfiles)   
+                    .Include(e => e.EstPotenciador)
+                        .ThenInclude(ep => ep.Potenciador)
                     .FirstOrDefaultAsync(e => e.Id == id);
 
                 if (estudiante == null)

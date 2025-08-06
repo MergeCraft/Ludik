@@ -31,14 +31,6 @@ public class PerfilEstudianteConfiguracion : IEntityTypeConfiguration<PerfilEstu
             .WithOne()
             .HasForeignKey<Avatar>("PerfilEstudianteId") // FK explícita
             .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasOne(p => p.PotenciadorActivo)
-       .WithOne(pa => pa.PerfilEstudiante)
-       .HasForeignKey<PerfilEstudiantePotenciador>(
-           pa => pa.PerfilEstudianteId
-       )
-       .OnDelete(DeleteBehavior.Cascade);
-
         // Índice compuesto para evitar duplicados de (GrupoId, EstudianteId)
         builder.HasIndex(pe => new { pe.GrupoId, pe.EstudianteId })
             .IsUnique()

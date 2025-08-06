@@ -1822,6 +1822,34 @@ namespace AccesoDatos.Migrations
                         });
                 });
 
+            modelBuilder.Entity("LogicaNegocio.Entidades.EstudiantePotenciador", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("EstudianteId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("FechaActivacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PotenciadorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EstudianteId")
+                        .IsUnique();
+
+                    b.HasIndex("PotenciadorId");
+
+                    b.ToTable("EstudiantePotenciadores", (string)null);
+                });
+
             modelBuilder.Entity("LogicaNegocio.Entidades.Grupo", b =>
                 {
                     b.Property<int>("Id")
@@ -2665,30 +2693,6 @@ namespace AccesoDatos.Migrations
                     b.HasIndex("PerfilEstudianteId");
 
                     b.ToTable("PerfilEstudianteMedallas");
-                });
-
-            modelBuilder.Entity("LogicaNegocio.Entidades.PerfilEstudiantePotenciador", b =>
-                {
-                    b.Property<int>("PerfilEstudianteId")
-                        .HasColumnType("int");
-
-                    b.Property<TimeSpan>("Duracion")
-                        .HasColumnType("time");
-
-                    b.Property<DateTime>("FechaActivacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("Multiplicador")
-                        .HasColumnType("float");
-
-                    b.Property<int>("PotenciadorId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PerfilEstudianteId");
-
-                    b.HasIndex("PotenciadorId");
-
-                    b.ToTable("PerfilEstudiantePotenciadores");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.PerfilEstudianteRecompensa", b =>
@@ -3956,9 +3960,6 @@ namespace AccesoDatos.Migrations
                     b.Property<TimeSpan>("Duracion")
                         .HasColumnType("time");
 
-                    b.Property<DateTime>("FechaActivacion")
-                        .HasColumnType("datetime2");
-
                     b.Property<double>("Multiplicador")
                         .HasColumnType("float");
 
@@ -3972,7 +3973,6 @@ namespace AccesoDatos.Migrations
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(1, 0, 0, 0, 0),
-                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 1.5
                         },
                         new
@@ -3982,7 +3982,6 @@ namespace AccesoDatos.Migrations
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(1, 0, 0, 0, 0),
-                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 1.6000000000000001
                         },
                         new
@@ -3992,7 +3991,6 @@ namespace AccesoDatos.Migrations
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(2, 0, 0, 0, 0),
-                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 1.7
                         },
                         new
@@ -4002,7 +4000,6 @@ namespace AccesoDatos.Migrations
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(2, 0, 0, 0, 0),
-                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 1.8
                         },
                         new
@@ -4012,7 +4009,6 @@ namespace AccesoDatos.Migrations
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(3, 0, 0, 0, 0),
-                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 1.8999999999999999
                         },
                         new
@@ -4022,7 +4018,6 @@ namespace AccesoDatos.Migrations
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(3, 0, 0, 0, 0),
-                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 2.0
                         },
                         new
@@ -4032,7 +4027,6 @@ namespace AccesoDatos.Migrations
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(4, 0, 0, 0, 0),
-                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 2.1000000000000001
                         },
                         new
@@ -4042,7 +4036,6 @@ namespace AccesoDatos.Migrations
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(4, 0, 0, 0, 0),
-                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 2.2000000000000002
                         },
                         new
@@ -4052,7 +4045,6 @@ namespace AccesoDatos.Migrations
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(5, 0, 0, 0, 0),
-                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 2.2999999999999998
                         },
                         new
@@ -4062,7 +4054,6 @@ namespace AccesoDatos.Migrations
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
                             Duracion = new TimeSpan(7, 0, 0, 0, 0),
-                            FechaActivacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Multiplicador = 2.5
                         });
                 });
@@ -4768,6 +4759,25 @@ namespace AccesoDatos.Migrations
                     b.Navigation("TablaEquivalencia");
                 });
 
+            modelBuilder.Entity("LogicaNegocio.Entidades.EstudiantePotenciador", b =>
+                {
+                    b.HasOne("LogicaNegocio.Entidades.Estudiante", "Est")
+                        .WithOne("EstPotenciador")
+                        .HasForeignKey("LogicaNegocio.Entidades.EstudiantePotenciador", "EstudianteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LogicaNegocio.Entidades.Potenciador", "Potenciador")
+                        .WithMany()
+                        .HasForeignKey("PotenciadorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Est");
+
+                    b.Navigation("Potenciador");
+                });
+
             modelBuilder.Entity("LogicaNegocio.Entidades.Grupo", b =>
                 {
                     b.HasOne("LogicaNegocio.Entidades.EnlaceUnion", "EnlaceUnion")
@@ -4886,25 +4896,6 @@ namespace AccesoDatos.Migrations
                     b.Navigation("Medalla");
 
                     b.Navigation("PerfilEstudiante");
-                });
-
-            modelBuilder.Entity("LogicaNegocio.Entidades.PerfilEstudiantePotenciador", b =>
-                {
-                    b.HasOne("LogicaNegocio.Entidades.PerfilEstudiante", "PerfilEstudiante")
-                        .WithOne("PotenciadorActivo")
-                        .HasForeignKey("LogicaNegocio.Entidades.PerfilEstudiantePotenciador", "PerfilEstudianteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LogicaNegocio.Entidades.Potenciador", "Potenciador")
-                        .WithMany()
-                        .HasForeignKey("PotenciadorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("PerfilEstudiante");
-
-                    b.Navigation("Potenciador");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.PerfilEstudianteRecompensa", b =>
@@ -5534,8 +5525,6 @@ namespace AccesoDatos.Migrations
                     b.Navigation("KudosRecibidos");
 
                     b.Navigation("MedallasObtenidas");
-
-                    b.Navigation("PotenciadorActivo");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.RendimientoPeriodo", b =>
@@ -5555,6 +5544,9 @@ namespace AccesoDatos.Migrations
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Estudiante", b =>
                 {
+                    b.Navigation("EstPotenciador")
+                        .IsRequired();
+
                     b.Navigation("Perfiles");
 
                     b.Navigation("PreguntasSeguridad");

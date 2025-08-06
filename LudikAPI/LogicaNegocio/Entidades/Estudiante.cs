@@ -13,6 +13,7 @@ namespace LogicaNegocio.Entidades
 
         public List<PreguntaRespuestaSeguridad> PreguntasSeguridad { get; set; }
 
+        public EstudiantePotenciador EstPotenciador { get; set; }
 
         public bool CoincidenLasRespuestas(List<PreguntaRespuestaSeguridad> respuestasIngresadas, IPasswordHasher<Usuario> hasher)
         {
@@ -52,6 +53,34 @@ namespace LogicaNegocio.Entidades
             if (perfil == null)
                 return Resultado<PerfilEstudiante>.Falla(new Error("Error.NotFound", $"No se encontró el perfil con ID {id}."));
             return Resultado<PerfilEstudiante>.Exitoso(perfil);
+        }
+        public void ActivarPotenciador(Potenciador plantilla)
+        {
+            if(EstPotenciador != null)
+            {
+                LimpiarPotenciadorExpirado();
+            }
+            if (EstPotenciador == null)
+                EstPotenciador = new EstudiantePotenciador
+                {
+                    Est = this,
+                    EstudianteId = this.Id,
+                    FechaActivacion = DateTime.UtcNow,
+                    PotenciadorId = plantilla.Id,
+                    Potenciador = plantilla
+                };
+        }
+        public void LimpiarPotenciadorExpirado()
+        {
+            if (EstPotenciador != null )
+                EstPotenciador = null;
+        }
+        public double ObtenerMultiplicadorMonedas()
+        {
+           
+            if (EstPotenciador != null && EstPotenciador.EstaActivo)
+                return EstPotenciador.Potenciador.Multiplicador;
+            return 1.0;
         }
     }
 

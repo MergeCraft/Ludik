@@ -32,5 +32,10 @@ public class EstudianteConfiguracion : IEntityTypeConfiguration<Estudiante>
                     .HasForeignKey("EstudianteId")
                     // Cascade delete aquí es aceptable, si se borra el estudiante, se borra su registro de hitos.
                     .OnDelete(DeleteBehavior.Cascade));
+
+        builder.HasOne(e => e.EstPotenciador)
+                   .WithOne(ep => ep.Est)
+                   .HasForeignKey<EstudiantePotenciador>(ep => ep.Id)
+                   .OnDelete(DeleteBehavior.Cascade);
     }
 }

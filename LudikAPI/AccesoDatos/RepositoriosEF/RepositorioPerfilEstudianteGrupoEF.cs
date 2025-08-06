@@ -97,7 +97,8 @@ namespace AccesoDatos.RepositoriosEF
 					.Include(p => p.Grupo) //No eliminar estos includes, solucionan el problema que se daba en la seleccion de la meta del estudiante
 						.ThenInclude(g => g.TablaEquivalencia) //No eliminar estos includes, solucionan el problema que se daba en la seleccion de la meta del estudiante
 							.ThenInclude(te => te.Equivalencias) //No eliminar estos includes, solucionan el problema que se daba en la seleccion de la meta del estudiante
-					.Include(p => p.PotenciadorActivo)
+					.Include(p => p.Estudiante)
+                        .ThenInclude(e => e.EstPotenciador)
                     .FirstOrDefaultAsync(p => p.Id == id);
 
 				if (perfil == null)
@@ -167,8 +168,8 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(p => p.MedallasObtenidas)
                         .ThenInclude(pm => pm.Medalla)
                     .Include(p => p.BarraProgreso)
-                    .Include(p => p.PotenciadorActivo)
-                        .ThenInclude(pe => pe.Potenciador)
+                    .Include(p => p.Estudiante)
+                        .ThenInclude(pe => pe.EstPotenciador)
                     .FirstOrDefaultAsync(p => p.EstudianteId == estudianteId && p.GrupoId == grupoId);
 
                 if (perfil == null)
@@ -231,9 +232,10 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var perfil = await _db.PerfilesEstudiantes
-                    .Include(p => p.PotenciadorActivo)
-                    .Include(p => p.Estudiante)     
-                    .FirstOrDefaultAsync(p => p.Id == id);
+                            .Include(p => p.Estudiante)
+                                .ThenInclude(e => e.EstPotenciador)
+                                    .ThenInclude(ep => ep.Potenciador)
+                            .FirstOrDefaultAsync(p => p.Id == id);
 
                 if (perfil == null)
                 {
@@ -264,6 +266,8 @@ namespace AccesoDatos.RepositoriosEF
                 var perfiles = await _db.PerfilesEstudiantes
                     .Where(p => p.EstudianteId == estudianteId)
                     .Include(p => p.InventarioRecompensas) 
+                    .Include(p => p.Estudiante)
+                        .ThenInclude(e => e.EstPotenciador)
                     .ToListAsync();
 
                 return Resultado<List<PerfilEstudiante>>.Exitoso(perfiles);

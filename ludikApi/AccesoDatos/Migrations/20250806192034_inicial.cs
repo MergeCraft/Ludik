@@ -736,7 +736,6 @@ namespace AccesoDatos.Migrations
                     TiendaId = table.Column<int>(type: "int", nullable: true),
                     TipoRecompensa = table.Column<string>(type: "nvarchar(34)", maxLength: 34, nullable: false),
                     AtributoAvatarId = table.Column<int>(type: "int", nullable: true),
-                    FechaActivacion = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Duracion = table.Column<TimeSpan>(type: "time", nullable: true),
                     Multiplicador = table.Column<double>(type: "float", nullable: true)
                 },
@@ -848,6 +847,33 @@ namespace AccesoDatos.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EstudiantePotenciadores",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EstudianteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PotenciadorId = table.Column<int>(type: "int", nullable: false),
+                    FechaActivacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EstudiantePotenciadores", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EstudiantePotenciadores_Estudiantes_EstudianteId",
+                        column: x => x.EstudianteId,
+                        principalTable: "Estudiantes",
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EstudiantePotenciadores_Recompensas_PotenciadorId",
+                        column: x => x.PotenciadorId,
+                        principalTable: "Recompensas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Hitos",
                 columns: table => new
                 {
@@ -865,33 +891,6 @@ namespace AccesoDatos.Migrations
                         principalTable: "Recompensas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PerfilEstudiantePotenciadores",
-                columns: table => new
-                {
-                    PerfilEstudianteId = table.Column<int>(type: "int", nullable: false),
-                    PotenciadorId = table.Column<int>(type: "int", nullable: false),
-                    FechaActivacion = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Duracion = table.Column<TimeSpan>(type: "time", nullable: false),
-                    Multiplicador = table.Column<double>(type: "float", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PerfilEstudiantePotenciadores", x => x.PerfilEstudianteId);
-                    table.ForeignKey(
-                        name: "FK_PerfilEstudiantePotenciadores_PerfilesEstudiantes_PerfilEstudianteId",
-                        column: x => x.PerfilEstudianteId,
-                        principalTable: "PerfilesEstudiantes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PerfilEstudiantePotenciadores_Recompensas_PotenciadorId",
-                        column: x => x.PotenciadorId,
-                        principalTable: "Recompensas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -1163,19 +1162,19 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.InsertData(
                 table: "Recompensas",
-                columns: new[] { "Id", "Duracion", "FechaActivacion", "Multiplicador", "Nombre", "Precio", "Representacion", "TiendaId", "TipoRecompensa" },
+                columns: new[] { "Id", "Duracion", "Multiplicador", "Nombre", "Precio", "Representacion", "TiendaId", "TipoRecompensa" },
                 values: new object[,]
                 {
-                    { 101, new TimeSpan(1, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.5, "Bono x1.5 (24h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 102, new TimeSpan(1, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.6000000000000001, "Bono x1.6 (24h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 103, new TimeSpan(2, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.7, "Bono x1.7 (48h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 104, new TimeSpan(2, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.8, "Bono x1.8 (48h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 105, new TimeSpan(3, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.8999999999999999, "Bono x1.9 (72h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 106, new TimeSpan(3, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.0, "¡Doble Moneda! (72h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 107, new TimeSpan(4, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.1000000000000001, "Bono x2.1 (96h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 108, new TimeSpan(4, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.2000000000000002, "Bono x2.2 (96h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 109, new TimeSpan(5, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.2999999999999998, "Bono x2.3 (120h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 110, new TimeSpan(7, 0, 0, 0, 0), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.5, "¡Super Bono x2.5! (168h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" }
+                    { 101, new TimeSpan(1, 0, 0, 0, 0), 1.5, "Bono x1.5 (24h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 102, new TimeSpan(1, 0, 0, 0, 0), 1.6000000000000001, "Bono x1.6 (24h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 103, new TimeSpan(2, 0, 0, 0, 0), 1.7, "Bono x1.7 (48h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 104, new TimeSpan(2, 0, 0, 0, 0), 1.8, "Bono x1.8 (48h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 105, new TimeSpan(3, 0, 0, 0, 0), 1.8999999999999999, "Bono x1.9 (72h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 106, new TimeSpan(3, 0, 0, 0, 0), 2.0, "¡Doble Moneda! (72h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 107, new TimeSpan(4, 0, 0, 0, 0), 2.1000000000000001, "Bono x2.1 (96h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 108, new TimeSpan(4, 0, 0, 0, 0), 2.2000000000000002, "Bono x2.2 (96h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 109, new TimeSpan(5, 0, 0, 0, 0), 2.2999999999999998, "Bono x2.3 (120h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 110, new TimeSpan(7, 0, 0, 0, 0), 2.5, "¡Super Bono x2.5! (168h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" }
                 });
 
             migrationBuilder.InsertData(
@@ -1677,6 +1676,17 @@ namespace AccesoDatos.Migrations
                 column: "HitoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EstudiantePotenciadores_EstudianteId",
+                table: "EstudiantePotenciadores",
+                column: "EstudianteId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EstudiantePotenciadores_PotenciadorId",
+                table: "EstudiantePotenciadores",
+                column: "PotenciadorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Grupo_ProfesorId",
                 table: "Grupos",
                 column: "ProfesorId");
@@ -1756,11 +1766,6 @@ namespace AccesoDatos.Migrations
                 name: "IX_PerfilEstudianteMedallas_PerfilEstudianteId",
                 table: "PerfilEstudianteMedallas",
                 column: "PerfilEstudianteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PerfilEstudiantePotenciadores_PotenciadorId",
-                table: "PerfilEstudiantePotenciadores",
-                column: "PotenciadorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PerfilEstudianteRecompensas_PerfilEstudianteId_RecompensaId",
@@ -1960,13 +1965,13 @@ namespace AccesoDatos.Migrations
                 name: "EstudianteHitos");
 
             migrationBuilder.DropTable(
+                name: "EstudiantePotenciadores");
+
+            migrationBuilder.DropTable(
                 name: "IniciosSesionUsuario");
 
             migrationBuilder.DropTable(
                 name: "KudosOtorgados");
-
-            migrationBuilder.DropTable(
-                name: "PerfilEstudiantePotenciadores");
 
             migrationBuilder.DropTable(
                 name: "PerfilEstudianteRecompensas");

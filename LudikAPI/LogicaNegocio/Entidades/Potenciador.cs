@@ -8,7 +8,7 @@ namespace LogicaNegocio.Entidades
 {
 	public class Potenciador : Recompensa
 	{
-        public DateTime FechaActivacion { get; set; }
+       
 
         public TimeSpan Duracion { get; set; }
 
@@ -16,8 +16,7 @@ namespace LogicaNegocio.Entidades
 
         public override RepresentacionVisualBase Representacion { get; protected set; }
 
-        public bool EstaActivo =>
-            DateTime.UtcNow >= FechaActivacion && DateTime.UtcNow <= FechaActivacion + Duracion;
+        
 
         public Potenciador()
         {
@@ -25,13 +24,12 @@ namespace LogicaNegocio.Entidades
         }
 
 
-        public override Resultado Otorgar(PerfilEstudiante perfil)
+        public override Resultado Otorgar(PerfilEstudiante estudiante)
         {
-
-            perfil.ActivarPotenciador(this);
             return Resultado.Exitoso();
         }
+        
     }
-
+     
 }
 

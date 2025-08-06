@@ -52,7 +52,7 @@ namespace AccesoDatos.RepositoriosEF
         public DbSet<TipoKudo> TiposKudo { get; set; }
         public DbSet<UmbralParaMedallaPorKudos> UmbralesParaMedallasPorKudos { get; set; }
         public DbSet<ProyectoAulaColaborativo> ProyectosAulaColaborativos { get; set; }
-        public DbSet<PerfilEstudiantePotenciador> PerfilEstudiantePotenciadores { get; set; }
+        public DbSet<EstudiantePotenciador> EstudiantePotenciadores { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

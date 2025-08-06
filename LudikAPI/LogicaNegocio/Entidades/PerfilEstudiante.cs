@@ -48,8 +48,6 @@ namespace LogicaNegocio.Entidades
         public BarraProgreso BarraProgreso { get; set; }
 
 
-        public PerfilEstudiantePotenciador? PotenciadorActivo { get; set; }
-
         public PerfilEstudiante()
         {
             this.MedallasObtenidas = new List<PerfilEstudianteMedalla>();
@@ -61,7 +59,7 @@ namespace LogicaNegocio.Entidades
 
         public void RecibirMedallas(Medalla medalla, int cantidad)
         {
-            double factorMultiplicador = this.ObtenerMultiplicadorMonedas();
+            double factorMultiplicador =Estudiante.ObtenerMultiplicadorMonedas();
             int monedasGanadas = (int)(medalla.MonedasOtorgadas * factorMultiplicador * cantidad);
             this.Monedas += monedasGanadas;
 
@@ -78,30 +76,7 @@ namespace LogicaNegocio.Entidades
                 this.MedallasObtenidas.Add(nuevaAsignacion);
             }
         }
-        public void ActivarPotenciador(Potenciador plantilla)
-        {
-            if (PotenciadorActivo == null)
-                PotenciadorActivo = new PerfilEstudiantePotenciador
-                {
-                    PerfilEstudiante = this,
-                    PerfilEstudianteId = this.Id
-                };
-
-            // Siempre copias snapshot de la plantilla:
-            PotenciadorActivo.Potenciador = plantilla;
-            PotenciadorActivo.FechaActivacion = DateTime.UtcNow;
-            
-            
-        }
-        public void LimpiarPotenciadorExpirado()
-        {
-            if (PotenciadorActivo != null && !PotenciadorActivo.Potenciador.EstaActivo)
-                PotenciadorActivo = null;
-        }
-        public double ObtenerMultiplicadorMonedas()
-        {
-            return PotenciadorActivo?.Potenciador.Multiplicador ?? 1.0;
-        }
+        
         public Resultado esValido()
         {
             throw new NotImplementedException();

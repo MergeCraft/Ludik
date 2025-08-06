@@ -70,18 +70,13 @@ public class HitoEventoHandler : INotificationHandler<AsignacionMedallaCompletad
                 }
 
                 // Activar y marcar para persistencia
-                foreach (var perfil in perfilesResultado.Valor)
-                {
+                
                     if (hito.Recompensa is Potenciador pot)
                     {
-                        perfil.ActivarPotenciador(pot);
-                        await _repoPerfiles.UpdateAsync(perfil);
-                    }
-                    else
-                    {
-                        _logger.LogWarning("La recompensa del hito {HitoId} no es un Potenciador.", hito.Id);
-                    }
-                }
+                    estudianteConHitosValor.ActivarPotenciador(pot);
+                    await _repositorioEstudiantes.UpdateAsync(estudianteConHitosValor);
+                    
+              
 
                 // Marcar el hito como obtenido y guardar en el estudiante
                 estudianteConHitosValor.Hitos.Add(hito);
@@ -90,6 +85,8 @@ public class HitoEventoHandler : INotificationHandler<AsignacionMedallaCompletad
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
+        }
+
         catch (Exception ex)
         {
             _logger.LogError(ex, "[HitoEventHandler] Excepción interna al procesar hitos.");
