@@ -27,7 +27,7 @@ public static class PerfilMapper
         // Ahora perfil.PotenciadorActivo es PerfilEstudiantePotenciador
         var activo = perfil.Estudiante.EstPotenciador;
         
-        if (activo != null && activo.EstaActivo)
+        if (activo != null )
         {
             dto.MultiplicadorPotenciador = activo.Potenciador.Multiplicador;
             var fin = activo.FechaActivacion + activo.Potenciador.Duracion;

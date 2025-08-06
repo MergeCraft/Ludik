@@ -15,14 +15,11 @@ namespace LogicaNegocio.Entidades
         public double Multiplicador { get; set; }
 
         public override RepresentacionVisualBase Representacion { get; protected set; }
-
         
-
         public Potenciador()
         {
             Representacion = new RepresentacionImagen();
         }
-
 
         public override Resultado Otorgar(PerfilEstudiante estudiante)
         {

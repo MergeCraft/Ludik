@@ -22,7 +22,7 @@ public class HitoEventoHandler : INotificationHandler<AsignacionMedallaCompletad
         IRepositorioPerfilEstudianteGrupo repoPerfiles,
         ILogger<HitoEventoHandler> logger,
         IRepositorioPerfilEstudianteRecompensa repoRecompensas,
-        IUnitOfWork unitOfWork,IRepositorioPerfilEstudianteMedalla repositorioPerfilEstudianteMedalla,IRepositorioEstudiantes repositorioEstudiantes)
+        IUnitOfWork unitOfWork, IRepositorioPerfilEstudianteMedalla repositorioPerfilEstudianteMedalla, IRepositorioEstudiantes repositorioEstudiantes)
     {
         _repoHitos = repoHitos;
         _repoPerfiles = repoPerfiles;
@@ -34,7 +34,7 @@ public class HitoEventoHandler : INotificationHandler<AsignacionMedallaCompletad
 
     }
 
-   
+
 
     public async Task Handle(AsignacionMedallaCompletadaEvento notification, CancellationToken cancellationToken)
     {
@@ -70,21 +70,21 @@ public class HitoEventoHandler : INotificationHandler<AsignacionMedallaCompletad
                 }
 
                 // Activar y marcar para persistencia
-                
-                    if (hito.Recompensa is Potenciador pot)
-                    {
+
+                if (hito.Recompensa is Potenciador pot)
+                {
                     estudianteConHitosValor.ActivarPotenciador(pot);
                     await _repositorioEstudiantes.UpdateAsync(estudianteConHitosValor);
-                    
-              
 
-                // Marcar el hito como obtenido y guardar en el estudiante
-                estudianteConHitosValor.Hitos.Add(hito);
-                await _repositorioEstudiantes.UpdateAsync(estudianteConHitosValor);
+
+
+                    // Marcar el hito como obtenido y guardar en el estudiante
+                    estudianteConHitosValor.Hitos.Add(hito);
+                    await _repositorioEstudiantes.UpdateAsync(estudianteConHitosValor);
+                }
+
+                await _unitOfWork.SaveChangesAsync(cancellationToken);
             }
-
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
-        }
         }
 
         catch (Exception ex)
