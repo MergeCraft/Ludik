@@ -84,11 +84,11 @@ export const useReiniciarLogrosGrupo = (onSuccessCallback) => {
   });
 };
 
-export const useGruposPorRol = (rol) => {
+export const useGruposPorRol = (rol, isLoggedIn) => {
   return useQuery({
     queryKey: ["grupos", rol],
     queryFn: () => obtenerGrupos(rol),
-    enabled: !!rol,
+    enabled: isLoggedIn && !!rol,
     onError: manejarVisualizacionDeErrores,
   });
 };
@@ -224,9 +224,10 @@ export const useRecompensasTienda = (tiendaId) => {
 
 export const useRankings = (grupoId) => {
   return useQuery({
-    queryKey: ["rankings"],
-    queryFn: obtenerRankings(grupoId),
+    queryKey: ["rankings", grupoId], // mejor práctica: usar grupoId en la key
+    queryFn: () => obtenerRankings(grupoId), // ← corrección aquí
     onError: manejarVisualizacionDeErrores,
+    enabled: !!grupoId, // evita llamada si grupoId es falsy
   });
 };
 

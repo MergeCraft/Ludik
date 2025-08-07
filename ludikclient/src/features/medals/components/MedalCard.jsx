@@ -1,4 +1,3 @@
-// MedalCard.jsx
 import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
@@ -7,7 +6,7 @@ import DefaultMedalImage1 from "../../../assets/DefaultMedal.png";
 import DefaultMedalImage2 from "../../../assets/DefaultMedal2.png";
 import DefaultMedalImage3 from "../../../assets/DefaultMedal3.png";
 
-const MedalCard = ({ nombre, descripcion, nombreIcono, cantidadMedallasBrinda, esAsignacionMutua, onEdit, showEditOption }) => {
+const MedalCard = ({ medal, onEdit, showEditOption }) => {
   const [showPopoverTitulo, setShowPopoverTitulo] = useState(false);
   const [showPopoverDesc, setShowPopoverDesc] = useState(false);
   const popoverTituloRef = useRef(null);
@@ -31,8 +30,8 @@ const MedalCard = ({ nombre, descripcion, nombreIcono, cantidadMedallasBrinda, e
     <div className={`${styles.medallaCard} ${!showEditOption ? styles.bottomPadding : ""}`}>
       <div className={styles.medallaContainer}>
         <div className={styles.medallaImagenWrapper}>
-          <img src={defaultMedalImages[Math.floor(Math.random() * defaultMedalImages.length)]} alt={nombre} className={styles.medallaImagen} />
-          {esAsignacionMutua && (
+          <img src={defaultMedalImages[Math.floor(Math.random() * defaultMedalImages.length)]} alt={medal?.nombre} className={styles.medallaImagen} />
+          {medal?.esAsignacionMutua && (
             <span className={styles.asignacionLabel}>
               <FontAwesomeIcon icon="fa-solid fa-user" />
               <FontAwesomeIcon icon="fa-solid fa-arrow-right-arrow-left" />
@@ -43,29 +42,29 @@ const MedalCard = ({ nombre, descripcion, nombreIcono, cantidadMedallasBrinda, e
 
         <div className={styles.tituloWrapper}>
           <p className={styles.medallaTitle} onClick={() => setShowPopoverTitulo((prev) => !prev)}>
-            {nombre}
+            {medal?.nombre}
           </p>
           {showPopoverTitulo && (
             <div ref={popoverTituloRef} className={`${styles.popover} ${styles.popoverTitulo}`}>
-              {nombre}
+              {medal?.nombre}
             </div>
           )}
         </div>
 
         <div className={styles.descripcionWrapper}>
           <p className={styles.medallaDescripcion} onClick={() => setShowPopoverDesc((prev) => !prev)}>
-            {descripcion}
+            {medal?.descripcion}
           </p>
           {showPopoverDesc && (
             <div ref={popoverDescRef} className={`${styles.popover} ${styles.popoverDescripcion}`}>
-              {descripcion}
+              {medal?.descripcion}
             </div>
           )}
         </div>
 
         {showEditOption && (
           <p className={styles.medallaPuntos}>
-            <FontAwesomeIcon icon="fa-solid fa-coins" /> {cantidadMedallasBrinda}
+            <FontAwesomeIcon icon="fa-solid fa-coins" /> {medal?.cantidadMedallasBrinda}
           </p>
         )}
       </div>
@@ -80,11 +79,14 @@ const MedalCard = ({ nombre, descripcion, nombreIcono, cantidadMedallasBrinda, e
 };
 
 MedalCard.propTypes = {
-  nombre: PropTypes.string.isRequired,
-  descripcion: PropTypes.string.isRequired,
-  nombreIcono: PropTypes.string.isRequired,
-  cantidadMedallasBrinda: PropTypes.number.isRequired,
-  esAsignacionMutua: PropTypes.bool.isRequired,
+  medal: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    nombre: PropTypes.string.isRequired,
+    nombreIcono: PropTypes.string.isRequired,
+    descripcion: PropTypes.string.isRequired,
+    cantidadMedallasBrinda: PropTypes.number.isRequired,
+    esAsignacionMutua: PropTypes.bool.isRequired,
+  }).isRequired,
   onEdit: PropTypes.func.isRequired,
   showEditOption: PropTypes.bool.isRequired,
 };

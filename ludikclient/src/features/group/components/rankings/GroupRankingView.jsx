@@ -23,18 +23,18 @@ const GroupRankingView = ({ setModalContent, setModalTitle, setShowModal, groupI
     setShowModal(true);
   };
 
-  if (isLoading) return <BarLoader />;
-
   return (
     <div className={styles.container}>
       {showTeacherOptions && (
         <button className={styles.agregarRanking} onClick={abrirModalCrearRanking}>
-          <FontAwesomeIcon icon="fa-solid fa-plus" size="xl" />
+          <FontAwesomeIcon icon="fa-solid fa-ranking-star" size="xl" />
           Crear nueva tabla de clasificacion
         </button>
       )}
 
-      {!rankings || rankings.length === 0 ? (
+      {isLoading ? (
+        <BarLoader />
+      ) : !rankings || rankings.length === 0 ? (
         <p className={styles.sinRankings}>No hay rankings disponibles.</p>
       ) : (
         rankings.map((tabla) => <RankingItem key={tabla.id} tabla={tabla} showTeacherOptions={showTeacherOptions} onView={abrirDetalleRanking} />)

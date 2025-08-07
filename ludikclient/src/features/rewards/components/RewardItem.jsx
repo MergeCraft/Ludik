@@ -4,9 +4,12 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useClaimReward } from "../../group/hooks/useStudentMutation";
 
-
 const RewardItem = ({ reward, redeemed, perfilId, showProfesorOptions, storeView, onEdit }) => {
   const { mutate: claimReward, isLoading: isClaiming } = useClaimReward(perfilId, reward.id, showProfesorOptions);
+ 
+  const representacion = reward.representacion || reward.datos || {};
+  const nombreIcono = representacion?.nombreIcono;
+  const urlMiniatura = representacion?.urlMiniatura;
 
   const handleClaimReward = () => {
     if (showProfesorOptions || !perfilId) return;
@@ -21,11 +24,7 @@ const RewardItem = ({ reward, redeemed, perfilId, showProfesorOptions, storeView
     <div className={`${styles.rewardCard} ${storeView && styles.storeViewCard}`}>
       <h4>{reward.nombre}</h4>
       <div className={styles.iconContainer}>
-        {reward.requiereImagen ? (
-          <img src={`${reward.rutaImagenCompleta}`} alt={`Recompensa ${reward.nombre}`} />
-        ) : (
-          <FontAwesomeIcon icon={`fa-solid fa-${reward.rutaImagenCompleta ? reward.rutaImagenCompleta : "trophy"}`} />
-        )}
+        {reward.tipo === "Imagen" ? <img src={`${urlMiniatura}`} alt={`Recompensa ${reward?.nombre}`} /> : <FontAwesomeIcon icon={`fa-solid fa-${nombreIcono ? nombreIcono : "trophy"}`} />}
       </div>
 
       {!redeemed && (
@@ -48,15 +47,19 @@ const RewardItem = ({ reward, redeemed, perfilId, showProfesorOptions, storeView
     </div>
   );
 };
-
 RewardItem.propTypes = {
   reward: PropTypes.shape({
     id: PropTypes.number.isRequired,
     nombre: PropTypes.string.isRequired,
-    rutaImagenCompleta: PropTypes.string.isRequired,
-    rutaImagenMiniatura: PropTypes.string.isRequired,
     precio: PropTypes.number.isRequired,
-    requiereImagen: PropTypes.bool.isRequired,
+    tipo: PropTypes.string.isRequired, // por ejemplo: "Icono"
+    representacion: PropTypes.shape({
+      nombreIcono: PropTypes.string, // puede variar según el tipo
+    }).isRequired,
+    datos: PropTypes.shape({
+      urlMiniatura: PropTypes.string, // puede variar según el tipo
+      urlCompleta: PropTypes.string, // puede variar según el tipo
+    }).isRequired,
   }).isRequired,
   redeemed: PropTypes.bool.isRequired,
   perfilId: PropTypes.number.isRequired,

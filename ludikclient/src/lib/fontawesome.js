@@ -98,6 +98,8 @@ import {
   faPeopleGroup,
   faChartBar,
   faBasketShopping,
+  faAnglesUp,
+  faStopwatch,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { faUser as farUser, faEye as farEye } from "@fortawesome/free-regular-svg-icons";
@@ -201,5 +203,7 @@ library.add(
   faEyeSlash,
   faPeopleGroup,
   faChartBar,
-  faBasketShopping
+  faBasketShopping,
+  faAnglesUp,
+  faStopwatch
 );

@@ -40,6 +40,18 @@
   z-index: -1;
 }
 
+.heroSectionContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 350px;
+}
+
+.heroSectionContent img {
+  object-fit: contain;
+  width: 270px;
+}
+
 .heroTitle {
   font-size: 2.5rem;
   margin-bottom: 1rem;
@@ -59,9 +71,11 @@
 /* Botones de inicio */
 .menuComenzar {
   display: flex;
-  justify-content: center;
-  gap: 20px;
-  opacity: 0;
+  background-color: #131f24e4;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 1px 20px 3px rgba(0, 0, 0, 0.308);
+  width: 50%;
 }
 
 .botonComienzo {
@@ -238,10 +252,31 @@
   .menuComenzar {
     flex-direction: column;
     align-items: center;
+    width: 90%;
+
   }
 
   .heroSection {
-    height: 85vh;
+    height: 90vh;
+  }
+
+  .heroSectionContent {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .heroSectionContent img {
+    display: none;
+  }
+
+  .heroTitle {
+    font-size: 1.8rem;
+
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+
   }
 
 }

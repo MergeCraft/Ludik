@@ -56,17 +56,11 @@ const iconOptions = [
   { label: "Pastel", value: "cake-candles" },
 ];
 
-const extractIconName = (ruta) => {
-  if (!ruta) return "";
-  const match = ruta.match(/\/([^/]+)\.svg$/);
-  return match ? match[1] : "";
-};
-
 const RewardCreateForm = ({ reward, onClose }) => {
   const [recompensa, setRecompensa] = useState({
     id: 0,
     nombre: "",
-    imagen: "",
+    nombreIcono: "",
     precio: 0,
   });
 
@@ -74,29 +68,29 @@ const RewardCreateForm = ({ reward, onClose }) => {
 
   useEffect(() => {
     if (reward) {
-      const iconName = extractIconName(reward.rutaImagenCompleta);
-
       setRecompensa({
-        id: reward.id,
-        nombre: reward.nombre,
-        imagen: iconName,
-        precio: reward.precio,
+        id: reward.id || 0,
+        nombre: reward.nombre || "",
+        nombreIcono: reward.representacion?.nombreIcono || "",
+        precio: reward.precio || 0,
       });
+    } else {
+      setRecompensa({ id: 0, nombre: "", nombreIcono: "", precio: 0 });
     }
   }, [reward]);
 
   const crearRecompensaMutation = useCrearRecompensa(() => {
-    setRecompensa({ id: 0, nombre: "", imagen: "", precio: 0 });
+    setRecompensa({ id: 0, nombre: "", nombreIcono: "", precio: 0 });
     onClose?.();
   });
 
   const editarRecompensaMutation = useEditarRecompensa(() => {
-    setRecompensa({ id: 0, nombre: "", imagen: "", precio: 0 });
+    setRecompensa({ id: 0, nombre: "", nombreIcono: "", precio: 0 });
     onClose?.();
   });
 
   const eliminarRecompensaMutation = useEliminarRecompensa(() => {
-    setRecompensa({ id: 0, nombre: "", imagen: "", precio: 0 });
+    setRecompensa({ id: 0, nombre: "", nombreIcono: "", precio: 0 });
     onClose?.();
   });
 
@@ -109,7 +103,7 @@ const RewardCreateForm = ({ reward, onClose }) => {
   };
 
   const handleIconSelect = (value) => {
-    setRecompensa((prev) => ({ ...prev, imagen: value }));
+    setRecompensa((prev) => ({ ...prev, nombreIcono: value }));
     setShowIconPicker(false);
   };
 
@@ -121,7 +115,7 @@ const RewardCreateForm = ({ reward, onClose }) => {
       return;
     }
 
-    if (!recompensa.imagen) {
+    if (!recompensa.nombreIcono) {
       Toast.notificarError("Debes seleccionar un ícono representativo.");
       return;
     }
@@ -131,13 +125,9 @@ const RewardCreateForm = ({ reward, onClose }) => {
       return;
     }
 
-    const rutaImagenCompleta = recompensa.imagen;
-    const rutaImagenMiniatura = recompensa.imagen;
-
     const payload = {
       nombre: recompensa.nombre,
-      rutaImagenCompleta,
-      rutaImagenMiniatura,
+      nombreIcono: recompensa.nombreIcono,
       precio: recompensa.precio,
     };
 
@@ -167,12 +157,17 @@ const RewardCreateForm = ({ reward, onClose }) => {
       <label className={styles.iconButtonContainer}>
         Ícono representativo
         <button type="button" className={`button ${styles.iconSelectButton}`} onClick={() => setShowIconPicker((prev) => !prev)}>
-          {recompensa.imagen ? <FontAwesomeIcon icon={`fa-solid fa-${recompensa.imagen}`} size="xl" /> : "Seleccionar ícono"}
+          {recompensa.nombreIcono ? <FontAwesomeIcon icon={`fa-solid fa-${recompensa.nombreIcono}`} size="xl" /> : "Seleccionar ícono"}
         </button>
         {showIconPicker && (
           <div className={styles.iconGrid}>
             {iconOptions.map((icon) => (
-              <button key={icon.value} type="button" className={`${styles.iconOption} ${recompensa.imagen === icon.value ? styles.iconSelected : ""}`} onClick={() => handleIconSelect(icon.value)}>
+              <button
+                key={icon.value}
+                type="button"
+                className={`${styles.iconOption} ${recompensa.nombreIcono === icon.value ? styles.iconSelected : ""}`}
+                onClick={() => handleIconSelect(icon.value)}
+              >
                 <FontAwesomeIcon icon={`fa-solid fa-${icon.value}`} size="xl" />
               </button>
             ))}
@@ -203,8 +198,12 @@ RewardCreateForm.propTypes = {
   reward: PropTypes.shape({
     id: PropTypes.number,
     nombre: PropTypes.string,
-    rutaImagenCompleta: PropTypes.string,
     precio: PropTypes.number,
+    representacion: PropTypes.shape({
+      $type: PropTypes.string,
+      nombreIcono: PropTypes.string,
+    }),
+    tipo: PropTypes.string,
   }),
   onClose: PropTypes.func,
 };

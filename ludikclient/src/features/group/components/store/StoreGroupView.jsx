@@ -26,7 +26,7 @@ const StoreGroupView = ({ recompensas, isLoading, isProfesor, perfil, grupoId, s
       <div>
         {isProfesor && (
           <button className={style.addRewardButton} onClick={handleAsignNewReward}>
-            <FontAwesomeIcon icon="plus" size="2xl" />
+            <FontAwesomeIcon icon="trophy" size="2xl" />
             Asignar nueva recompensa
           </button>
         )}

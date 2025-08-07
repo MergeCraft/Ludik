@@ -15,11 +15,11 @@ import {
 import { canjearRecompensa } from "../../../services/storeService";
 import { obtenerImagenPerfil } from "../../../services/imagesService";
 
-export const usePerfilGrupo = (grupoId, isProfesor) => {
+export const usePerfilGrupo = (grupoId, isProfesor, isLoggedIn) => {
   return useQuery({
     queryKey: ["perfilGrupo", grupoId],
     queryFn: () => obtenerPerfilGrupo(grupoId),
-    enabled: !isProfesor,
+    enabled: isLoggedIn && !!grupoId && !isProfesor,
     onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });
 };
