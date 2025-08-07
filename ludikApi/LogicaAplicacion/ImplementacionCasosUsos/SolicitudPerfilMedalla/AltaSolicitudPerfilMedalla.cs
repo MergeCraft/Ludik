@@ -28,7 +28,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla
             _observers = observers.ToList();
 
         }
-        public async Task<Resultado> EjecutarAsync(AltaSolicitudPerfilMedallaDto dto)
+        public async Task<Resultado> EjecutarAsync(AltaSolicitudPerfilMedallaDto dto, string estudianteLogueado)
         {
             var perfilResultado = await _repoPerfilEstudianteGrupo.GetByIdAsync(dto.PerfilEstudianteId);
             if (perfilResultado.EsFallo)
@@ -37,6 +37,11 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla
 
             var perfil = perfilResultado.Valor!;
             var grupoId = perfil.GrupoId;
+
+
+            if (perfil.EstudianteId != estudianteLogueado)
+                return Resultado.Falla(new Error("Error.Forbidden",
+                    "No puedes hacer una solicitud para un perfil que no es tuyo."));
 
             var medallaResultado = await _repoMedallas.GetByIdAsync(dto.MedallaId);
             if (medallaResultado.EsFallo)

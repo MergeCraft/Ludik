@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250806192034_inicial")]
+    [Migration("20250807130058_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -3960,8 +3960,8 @@ namespace AccesoDatos.Migrations
                 {
                     b.HasBaseType("LogicaNegocio.Entidades.Recompensa");
 
-                    b.Property<TimeSpan>("Duracion")
-                        .HasColumnType("time");
+                    b.Property<int>("DuracionHoras")
+                        .HasColumnType("int");
 
                     b.Property<double>("Multiplicador")
                         .HasColumnType("float");
@@ -3975,7 +3975,7 @@ namespace AccesoDatos.Migrations
                             Nombre = "Bono x1.5 (24h)",
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
-                            Duracion = new TimeSpan(1, 0, 0, 0, 0),
+                            DuracionHoras = 24,
                             Multiplicador = 1.5
                         },
                         new
@@ -3984,7 +3984,7 @@ namespace AccesoDatos.Migrations
                             Nombre = "Bono x1.6 (24h)",
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
-                            Duracion = new TimeSpan(1, 0, 0, 0, 0),
+                            DuracionHoras = 24,
                             Multiplicador = 1.6000000000000001
                         },
                         new
@@ -3993,7 +3993,7 @@ namespace AccesoDatos.Migrations
                             Nombre = "Bono x1.7 (48h)",
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
-                            Duracion = new TimeSpan(2, 0, 0, 0, 0),
+                            DuracionHoras = 48,
                             Multiplicador = 1.7
                         },
                         new
@@ -4002,7 +4002,7 @@ namespace AccesoDatos.Migrations
                             Nombre = "Bono x1.8 (48h)",
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
-                            Duracion = new TimeSpan(2, 0, 0, 0, 0),
+                            DuracionHoras = 48,
                             Multiplicador = 1.8
                         },
                         new
@@ -4011,7 +4011,7 @@ namespace AccesoDatos.Migrations
                             Nombre = "Bono x1.9 (72h)",
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
-                            Duracion = new TimeSpan(3, 0, 0, 0, 0),
+                            DuracionHoras = 72,
                             Multiplicador = 1.8999999999999999
                         },
                         new
@@ -4020,7 +4020,7 @@ namespace AccesoDatos.Migrations
                             Nombre = "¡Doble Moneda! (72h)",
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
-                            Duracion = new TimeSpan(3, 0, 0, 0, 0),
+                            DuracionHoras = 72,
                             Multiplicador = 2.0
                         },
                         new
@@ -4029,7 +4029,7 @@ namespace AccesoDatos.Migrations
                             Nombre = "Bono x2.1 (96h)",
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
-                            Duracion = new TimeSpan(4, 0, 0, 0, 0),
+                            DuracionHoras = 96,
                             Multiplicador = 2.1000000000000001
                         },
                         new
@@ -4038,7 +4038,7 @@ namespace AccesoDatos.Migrations
                             Nombre = "Bono x2.2 (96h)",
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
-                            Duracion = new TimeSpan(4, 0, 0, 0, 0),
+                            DuracionHoras = 96,
                             Multiplicador = 2.2000000000000002
                         },
                         new
@@ -4047,7 +4047,7 @@ namespace AccesoDatos.Migrations
                             Nombre = "Bono x2.3 (120h)",
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
-                            Duracion = new TimeSpan(5, 0, 0, 0, 0),
+                            DuracionHoras = 120,
                             Multiplicador = 2.2999999999999998
                         },
                         new
@@ -4056,7 +4056,7 @@ namespace AccesoDatos.Migrations
                             Nombre = "¡Super Bono x2.5! (168h)",
                             Precio = 0,
                             Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}",
-                            Duracion = new TimeSpan(7, 0, 0, 0, 0),
+                            DuracionHoras = 168,
                             Multiplicador = 2.5
                         });
                 });

@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using LogicaNegocio.EntidadesAuxiliares;
 using LogicaNegocio.InterfacesEntidades;
 using LogicaNegocio.InterfacesRepositorios;
@@ -8,11 +9,14 @@ namespace LogicaNegocio.Entidades
 {
 	public class Potenciador : Recompensa
 	{
-       
 
-        public TimeSpan Duracion { get; set; }
+
+        public int DuracionHoras { get; set; }
 
         public double Multiplicador { get; set; }
+
+        [NotMapped]
+        public TimeSpan Duracion => TimeSpan.FromHours(DuracionHoras);
 
         public override RepresentacionVisualBase Representacion { get; protected set; }
         

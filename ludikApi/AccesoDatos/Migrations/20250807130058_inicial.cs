@@ -736,7 +736,7 @@ namespace AccesoDatos.Migrations
                     TiendaId = table.Column<int>(type: "int", nullable: true),
                     TipoRecompensa = table.Column<string>(type: "nvarchar(34)", maxLength: 34, nullable: false),
                     AtributoAvatarId = table.Column<int>(type: "int", nullable: true),
-                    Duracion = table.Column<TimeSpan>(type: "time", nullable: true),
+                    DuracionHoras = table.Column<int>(type: "int", nullable: true),
                     Multiplicador = table.Column<double>(type: "float", nullable: true)
                 },
                 constraints: table =>
@@ -1162,19 +1162,19 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.InsertData(
                 table: "Recompensas",
-                columns: new[] { "Id", "Duracion", "Multiplicador", "Nombre", "Precio", "Representacion", "TiendaId", "TipoRecompensa" },
+                columns: new[] { "Id", "DuracionHoras", "Multiplicador", "Nombre", "Precio", "Representacion", "TiendaId", "TipoRecompensa" },
                 values: new object[,]
                 {
-                    { 101, new TimeSpan(1, 0, 0, 0, 0), 1.5, "Bono x1.5 (24h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 102, new TimeSpan(1, 0, 0, 0, 0), 1.6000000000000001, "Bono x1.6 (24h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 103, new TimeSpan(2, 0, 0, 0, 0), 1.7, "Bono x1.7 (48h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 104, new TimeSpan(2, 0, 0, 0, 0), 1.8, "Bono x1.8 (48h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 105, new TimeSpan(3, 0, 0, 0, 0), 1.8999999999999999, "Bono x1.9 (72h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 106, new TimeSpan(3, 0, 0, 0, 0), 2.0, "¡Doble Moneda! (72h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 107, new TimeSpan(4, 0, 0, 0, 0), 2.1000000000000001, "Bono x2.1 (96h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 108, new TimeSpan(4, 0, 0, 0, 0), 2.2000000000000002, "Bono x2.2 (96h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 109, new TimeSpan(5, 0, 0, 0, 0), 2.2999999999999998, "Bono x2.3 (120h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 110, new TimeSpan(7, 0, 0, 0, 0), 2.5, "¡Super Bono x2.5! (168h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" }
+                    { 101, 24, 1.5, "Bono x1.5 (24h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 102, 24, 1.6000000000000001, "Bono x1.6 (24h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 103, 48, 1.7, "Bono x1.7 (48h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 104, 48, 1.8, "Bono x1.8 (48h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 105, 72, 1.8999999999999999, "Bono x1.9 (72h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 106, 72, 2.0, "¡Doble Moneda! (72h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 107, 96, 2.1000000000000001, "Bono x2.1 (96h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 108, 96, 2.2000000000000002, "Bono x2.2 (96h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 109, 120, 2.2999999999999998, "Bono x2.3 (120h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
+                    { 110, 168, 2.5, "¡Super Bono x2.5! (168h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" }
                 });
 
             migrationBuilder.InsertData(

@@ -31,6 +31,7 @@ namespace InterfacesRepositorio
         Task<List<Grupo>> ObtenerGruposPorProfesorId(string idProfesor);
 
         Task<Resultado<List<Grupo>>> ObtenerGruposPorIdsYProfesor(List<int> gruposIds, string profesorId);
+        Task<bool> EstudiantePerteneceAlGrupoAsync(int grupoId, string estudianteId);
 
     }
 

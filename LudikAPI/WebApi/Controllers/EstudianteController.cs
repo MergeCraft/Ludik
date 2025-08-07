@@ -217,7 +217,9 @@ namespace WebApi.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var resultado = await _altaSolicitudPerfilMedalla.EjecutarAsync(dto);
+            var estudianteId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var resultado = await _altaSolicitudPerfilMedalla.EjecutarAsync(dto, estudianteId);
 
             if (resultado.EsExitoso)
                 return StatusCode(StatusCodes.Status201Created);

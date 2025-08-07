@@ -19,9 +19,8 @@ namespace LogicaNegocio.Entidades
 
         [NotMapped]
         public bool EstaActivo =>
-        // FechaActivacion + duración del potenciador
-        DateTime.UtcNow >= FechaActivacion
-          && DateTime.UtcNow <= FechaActivacion + Potenciador.Duracion;
+    DateTime.UtcNow >= FechaActivacion &&
+    DateTime.UtcNow <= FechaActivacion + TimeSpan.FromHours(Potenciador.DuracionHoras);
 
     }
 }

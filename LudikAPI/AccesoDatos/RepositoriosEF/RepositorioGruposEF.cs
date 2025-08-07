@@ -354,6 +354,14 @@ namespace AccesoDatos.RepositoriosEF
                 return Resultado<List<Grupo>>.Falla(new Error("Error.Unexpected", ex.Message));
             }
         }
+        public async Task<bool> EstudiantePerteneceAlGrupoAsync(int grupoId, string estudianteId)
+        {
+            return await _db.PerfilesEstudiantes
+                .AnyAsync(p =>
+                    p.GrupoId == grupoId
+                    && p.EstudianteId == estudianteId 
+                );
+        }
     }
 
 }

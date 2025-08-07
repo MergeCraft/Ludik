@@ -82,16 +82,16 @@ namespace AccesoDatos.RepositoriosEF
 
             // --- Avatares ---
             PrecargarAvatares(modelBuilder, perfiles);
-            
+
 
             // ====================================================
             // --- INICIO DE LA PRECARGA DE ATRIBUTOS DE AVATAR ---
             // ====================================================
-            
+
             var atributos = PrecargarAtributosAvatar(modelBuilder);
             var atributosPorDefecto = AsignarAvatarPorDefecto(modelBuilder, atributos);
             PrecargarInventarioInicial(modelBuilder, atributosPorDefecto);
-            
+
             // ===========================================
             // --- PRECARGA DE PREGUNTAS DE SEGURIDAD ---
             // ===========================================
@@ -299,7 +299,7 @@ namespace AccesoDatos.RepositoriosEF
         {
             var perfiles = new List<PerfilEstudiante>
             {
-                
+
                 new PerfilEstudiante { Id = 4, Monedas = 200, MetaCalificacion = 10, EstudianteId = Estudiante4Id, GrupoId = 2, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
                 new PerfilEstudiante { Id = 5, Monedas = 180, MetaCalificacion = 8, EstudianteId = Estudiante5Id, GrupoId = 2, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
                 
@@ -440,7 +440,7 @@ namespace AccesoDatos.RepositoriosEF
                 new { EquivalenciaId = 8, MedallaId = 8 },
                 new { EquivalenciaId = 8, MedallaId = 10 },
                 new { EquivalenciaId = 8, MedallaId = 12 },
-                new { EquivalenciaId = 8, MedallaId = 2 }, 
+                new { EquivalenciaId = 8, MedallaId = 2 },
 
                 // Nota 8: Requiere medallas de Nota 7 + 1 nueva
                 new { EquivalenciaId = 9, MedallaId = 1 },
@@ -461,7 +461,7 @@ namespace AccesoDatos.RepositoriosEF
                 new { EquivalenciaId = 10, MedallaId = 12 },
                 new { EquivalenciaId = 10, MedallaId = 2 },
                 new { EquivalenciaId = 10, MedallaId = 3 },
-                new { EquivalenciaId = 10, MedallaId = 5 }, 
+                new { EquivalenciaId = 10, MedallaId = 5 },
 
                 // Nota 10: Requiere medallas de Nota 9 + 1 nueva
                 new { EquivalenciaId = 11, MedallaId = 1 },
@@ -612,7 +612,7 @@ namespace AccesoDatos.RepositoriosEF
             };
             modelBuilder.Entity<Avatar>().HasData(avatares);
         }
-       
+
 
         private static void PrecargarRespuestasDeSeguridad(ModelBuilder modelBuilder)
         {
@@ -747,17 +747,17 @@ namespace AccesoDatos.RepositoriosEF
         {
             var avatarPorDefecto = new
             {
-                Pelo = "curly",             
-                Ojos = "default",           
-                Cejas = "defaultNatural",   
-                Boca = "default",           
-                Ropa = "shirtVNeck",        
-                Gafas = "sunglasses",       
-                Barba = "",        
+                Pelo = "curly",
+                Ojos = "default",
+                Cejas = "defaultNatural",
+                Boca = "default",
+                Ropa = "shirtVNeck",
+                Gafas = "sunglasses",
+                Barba = "",
                 ColorPiel = "edb98a",
-                ColorPelo = "2c1b18",             
+                ColorPelo = "2c1b18",
                 ColorRopa = "3c4f5c",
-                ColorGafas = "25557c",           
+                ColorGafas = "25557c",
                 ColorBarba = "2c1b18"
             };
 
@@ -839,16 +839,16 @@ namespace AccesoDatos.RepositoriosEF
             // Se ajusta el rango de multiplicadores y se utiliza TimeSpan para la duración.
             var potenciadores = new List<Potenciador>
             {
-                new Potenciador { Id = 101, Nombre = "Bono x1.5 (24h)", Multiplicador = 1.5, Duracion = TimeSpan.FromHours(24) },
-                new Potenciador { Id = 102, Nombre = "Bono x1.6 (24h)", Multiplicador = 1.6, Duracion = TimeSpan.FromHours(24) },
-                new Potenciador { Id = 103, Nombre = "Bono x1.7 (48h)", Multiplicador = 1.7, Duracion = TimeSpan.FromHours(48) },
-                new Potenciador { Id = 104, Nombre = "Bono x1.8 (48h)", Multiplicador = 1.8, Duracion = TimeSpan.FromHours(48) },
-                new Potenciador { Id = 105, Nombre = "Bono x1.9 (72h)", Multiplicador = 1.9, Duracion = TimeSpan.FromHours(72) },
-                new Potenciador { Id = 106, Nombre = "¡Doble Moneda! (72h)", Multiplicador = 2.0, Duracion = TimeSpan.FromHours(72) },
-                new Potenciador { Id = 107, Nombre = "Bono x2.1 (96h)", Multiplicador = 2.1, Duracion = TimeSpan.FromHours(96) },
-                new Potenciador { Id = 108, Nombre = "Bono x2.2 (96h)", Multiplicador = 2.2, Duracion = TimeSpan.FromHours(96) },
-                new Potenciador { Id = 109, Nombre = "Bono x2.3 (120h)", Multiplicador = 2.3, Duracion = TimeSpan.FromHours(120) },
-                new Potenciador { Id = 110, Nombre = "¡Super Bono x2.5! (168h)", Multiplicador = 2.5, Duracion = TimeSpan.FromHours(168) }
+                new Potenciador { Id = 101, Nombre = "Bono x1.5 (24h)", Multiplicador = 1.5, DuracionHoras = 24 },
+                new Potenciador { Id = 102, Nombre = "Bono x1.6 (24h)", Multiplicador = 1.6, DuracionHoras = 24 },
+                new Potenciador { Id = 103, Nombre = "Bono x1.7 (48h)", Multiplicador = 1.7, DuracionHoras = 48 },
+                new Potenciador { Id = 104, Nombre = "Bono x1.8 (48h)", Multiplicador = 1.8, DuracionHoras = 48 },
+                new Potenciador { Id = 105, Nombre = "Bono x1.9 (72h)", Multiplicador = 1.9, DuracionHoras = 72 },
+                new Potenciador { Id = 106, Nombre = "¡Doble Moneda! (72h)", Multiplicador = 2.0, DuracionHoras = 72 },
+                new Potenciador { Id = 107, Nombre = "Bono x2.1 (96h)", Multiplicador = 2.1, DuracionHoras = 96 },
+                new Potenciador { Id = 108, Nombre = "Bono x2.2 (96h)", Multiplicador = 2.2, DuracionHoras = 96 },
+                new Potenciador { Id = 109, Nombre = "Bono x2.3 (120h)", Multiplicador = 2.3, DuracionHoras = 120 },
+                new Potenciador { Id = 110, Nombre = "¡Super Bono x2.5! (168h)", Multiplicador = 2.5, DuracionHoras = 168 }
             };
 
             modelBuilder.Entity<Potenciador>().HasData(potenciadores);
