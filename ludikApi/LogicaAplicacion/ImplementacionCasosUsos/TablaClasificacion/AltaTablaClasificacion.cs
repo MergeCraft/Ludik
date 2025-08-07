@@ -22,12 +22,14 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion
         }
         public async Task<Resultado> EjecutarAsync(int grupoId, TablaClasificacionAltaDto dto)
         {
-            var grupo = await _repositorioGrupos.GetByIdAsync(grupoId);
-            if (grupo == null)
+           
+            var grupoResultado = await _repositorioGrupos.GetByIdAsync(grupoId);
+            if (grupoResultado.EsFallo)
             {
                 return Resultado.Falla(new Error("Error.Validation", "El grupo no existe"));
             }
-            var grupoEncontrado = grupo.Valor;
+            var grupoEncontrado = grupoResultado.Valor;
+            
             var tablaClasificacion = TablaClasificacionMapper.MapAlta(dto, grupoEncontrado);
 
             var val = tablaClasificacion.esValido();
