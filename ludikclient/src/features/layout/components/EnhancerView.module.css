@@ -1,0 +1,20 @@
+.enhancerContainer {
+    position: fixed;
+    top: 7px;
+    right: 20px;
+    z-index: 100;
+
+    background-color: var(--potenciador);
+    background-image: url('../../../assets/fondoPotenciador.gif');
+    /* Ruta relativa o absoluta */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 10px 15px;
+    border-radius: 100px;
+}
+
+.enhancerContent {
+    display: flex;
+    gap: 10px;
+}

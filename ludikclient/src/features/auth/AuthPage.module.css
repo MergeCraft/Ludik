@@ -28,7 +28,6 @@
   background-color: var(--secundario);
   border-radius: 15px;
   padding: 20px;
-  width: 90%;
   max-width: 400px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
@@ -98,7 +97,12 @@
   height: 90px;
 }
 
-.acciones hr {
+.formulario hr:first-of-type {
+  margin: 10px 0;
+
+}
+
+.formulario hr {
   width: 100%;
   border: none;
   border-top: 2px solid var(--terciario);
@@ -313,4 +317,12 @@ input:checked+.slider .switchLabel.alumno {
 
 .botonVolver:hover {
   color: #555;
+}
+
+@media screen and (max-width: 992px) {
+
+  .formBox {
+    max-width: 100%;
+
+  }
 }

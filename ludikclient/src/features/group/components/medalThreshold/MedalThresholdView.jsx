@@ -14,7 +14,6 @@ const MedalThresholdView = ({ setModalContent, setModalTitle, setShowModal, grou
   const { data: tiposKudo, isLoading: loadingKudos } = useTiposKudo();
 
   const loadingAll = isLoadingUmbrales || loadingMedallas || loadingKudos;
-  if (loadingAll) return <BarLoader />;
 
   const handleOpenThresholdCreateForm = () => {
     setModalTitle("Crear nuevo umbral");
@@ -34,11 +33,10 @@ const MedalThresholdView = ({ setModalContent, setModalTitle, setShowModal, grou
       <div className={styles.thresholdsContainer}>
         {showTeacherOptions && (
           <button className={styles.addThresholdButton} onClick={handleOpenThresholdCreateForm}>
-            <FontAwesomeIcon icon="fa-solid fa-plus" size="2xl" />
+            <FontAwesomeIcon icon="fa-solid fa-chart-bar" size="2xl" />
             Crear nuevo umbral de obtención
           </button>
         )}
-
         {thresholds?.length !== 0 && (
           <>
             {thresholds?.map((threshold) => (
@@ -57,7 +55,8 @@ const MedalThresholdView = ({ setModalContent, setModalTitle, setShowModal, grou
           </>
         )}
       </div>
-      {thresholds?.length === 0 && <p className={styles.emptyMessage}>No hay umbrales definidos aún.</p>}
+
+      {loadingAll ? <BarLoader /> : thresholds?.length === 0 && <p className={styles.emptyMessage}>No hay umbrales definidos aún.</p>}
     </>
   );
 };

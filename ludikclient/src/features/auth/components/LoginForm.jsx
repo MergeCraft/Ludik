@@ -11,9 +11,12 @@ import styles from "../AuthPage.module.css";
 const LoginForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { mutateAsync: login } = useLogin();
   const message = location.state?.message;
+  const path = location.pathname;
+
   const dispatch = useDispatch();
+
+  const { mutateAsync: login } = useLogin();
 
   const [recordar, setRecordar] = useState(false);
   const [usuario, setUsuario] = useState("");
@@ -48,6 +51,13 @@ const LoginForm = () => {
 
   return (
     <form className={styles.formulario} onSubmit={handleSubmit}>
+      {path == "/" && (
+        <>
+          <h2>¡Comenza ahora!</h2>
+          <hr />
+        </>
+      )}
+
       {/* campos de usuario y contraseña */}
       <div className={styles.campo}>
         <label htmlFor="usuario" className={styles.etiqueta}>

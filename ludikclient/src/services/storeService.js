@@ -2,12 +2,11 @@
 import api from "../lib/axios";
 import { handleApiError } from "../lib/apiUtils";
 
-export const crearRecompensa = async ({ nombre, rutaImagenCompleta, rutaImagenMiniatura, precio }) => {
+export const crearRecompensa = async ({ nombre, nombreIcono, precio }) => {
   try {
     const response = await api.post("/api/Recompensa/alta", {
       nombre,
-      rutaImagenCompleta,
-      rutaImagenMiniatura,
+      nombreIcono,
       precio,
     });
     return response.data;

@@ -190,17 +190,9 @@
     width: 100%;
     aspect-ratio: 1 / 1;
     height: auto;
-    max-height: 60px;
-    object-fit: contain;
     margin-bottom: 0.25rem;
     border-radius: 15px;
-}
-
-.avatarItemCard p {
-    font-size: 0.75rem;
-    text-align: center;
-    margin: 0;
-    color: #444;
+    object-fit: cover;
 }
 
 .colorBox {

@@ -1,22 +1,24 @@
 import React from "react";
 import classNames from "classnames";
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import styles from "./Home.module.css";
 import SistemadeMedallas from "../../assets/SistemadeMedallas.png";
 import SeguimientoVisual from "../../assets/SeguimientoVisual.png";
 import HerramientaDocente from "../../assets/HerramientaDocente.png";
-import imagenDevs from "../../assets/genericGroupImage.png";
+import dev1 from "../../assets/dev1.png";
+import dev2 from "../../assets/dev2.png";
+import dev3 from "../../assets/dev3.png";
+import logo from "../../assets/logo.png";
+
+import LoginForm from "../auth/components/LoginForm";
 
 const developers = [
-  { name: "Renato Ríos", role: "Backend", photo: imagenDevs },
-  { name: "Manuel Martinez", role: "Backend", photo: imagenDevs },
-  { name: "Lucas Giusiano", role: "Frontend y UX/UI", photo: imagenDevs },
+  { name: "Renato Ríos", role: "Backend", photo: dev1 },
+  { name: "Manuel Martinez", role: "Backend", photo: dev2 },
+  { name: "Lucas Giusiano", role: "Frontend y UX/UI", photo: dev3 },
 ];
 
 function Home() {
-  const navigate = useNavigate();
-
   useEffect(() => {
     const elements = document.querySelectorAll(`.${styles.featureAlt}, .${styles.devCard}`);
     const observer = new IntersectionObserver(
@@ -39,18 +41,20 @@ function Home() {
   return (
     <>
       <main className={styles.heroSection}>
-        <div>
+        <div className={styles.heroSectionContent}>
           <div className="fade-up">
+            <img src={logo} alt="Logo de Ludik" />
             <h1 className={styles.heroTitle}>Gamifica el aprendizaje</h1>
             <p className={styles.heroSubtitle}>Una bitácora educativa diseñada para motivar, recompensar y facilitar el seguimiento de los estudiantes.</p>
           </div>
           <div className={classNames(styles.menuComenzar, "fade-in", "delay-2")}>
-            <button className={classNames("button", styles.botonComienzo)} onClick={() => setTimeout(() => navigate("/signup"), 200)}>
+            {/* <button className={classNames("button", styles.botonComienzo)} onClick={() => setTimeout(() => navigate("/signup"), 200)}>
               Comenzar ahora
             </button>
             <button className={classNames("button", styles.botonComienzo, styles.buttonWhite)} onClick={() => setTimeout(() => navigate("/login"), 200)}>
               Ya tengo una cuenta
-            </button>
+            </button> */}
+            <LoginForm />
           </div>
         </div>
       </main>

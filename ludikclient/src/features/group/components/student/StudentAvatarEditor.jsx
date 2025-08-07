@@ -51,6 +51,8 @@ const StudentAvatarEditor = ({ idPerfil }) => {
   const [selecciones, setSelecciones] = useState({});
   const { data: inventario, isLoading, isError, error } = useInventarioAvatar(idPerfil);
 
+  console.log(inventario);
+
   // Controles específicos de la pestaña 'posicion'
   const [voltear, setVoltear] = useState(false);
   const [rotacion, setRotacion] = useState(0);
@@ -255,8 +257,7 @@ const StudentAvatarEditor = ({ idPerfil }) => {
                     onChange={() => handleChange(selectedTab, item.codigoUnico)}
                     className={styles.radioInputHidden}
                   />
-                  <img src={`/ruta-a-assets/${item.rutaRecurso}`} alt={item.nombre} />
-                  <p>{item.nombre}</p>
+                  <img src={item.enlaceImagen} alt={item.nombre} />
                 </label>
               ))}
             </div>

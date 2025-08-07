@@ -22,6 +22,8 @@ const MedalManagerPage = () => {
 
   const { data: medallas, isLoading } = useMedallasProfesor();
 
+  console.log(medallas);
+
   const handleOpenCreate = () => {
     setMedalToEditId(null);
     setShowModal(true);
@@ -47,7 +49,7 @@ const MedalManagerPage = () => {
   ) : (
     <div className={styles.medalsContainer}>
       {filteredMedallas.map((medalla) => (
-        <MedalCard key={medalla.id} {...medalla} onEdit={() => handleOpenEdit(medalla.id)} showEditOption={true} />
+        <MedalCard key={medalla.id} medal={medalla} onEdit={() => handleOpenEdit(medalla.id)} showEditOption={true} />
       ))}
     </div>
   );

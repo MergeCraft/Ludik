@@ -72,6 +72,8 @@ using LogicaAplicacion.ImplementacionCasosUsos.ProyectoAulaColaborativo;
 using LogicaAplicacion.InterfacesCasosUsos.Usuario;
 using System.Text.Json.Serialization.Metadata;
 using System.Text.Json.Serialization;
+using LogicaAplicacion.DTOs.RecompensaDTOs;
+using LogicaNegocio.ValueObject;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -111,17 +113,17 @@ builder.Services.AddIdentity<Usuario, IdentityRole>(opciones =>
 // Configuración de Hangfire
 //--------------------------
 builder.Services.AddHangfire(config => config
-    .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-    .UseSimpleAssemblyNameTypeSerializer()
-    .UseRecommendedSerializerSettings()
-    .UseSqlServerStorage(cadenaDeConexionBD, new SqlServerStorageOptions
-    {
-        CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
-        SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
-        QueuePollInterval = TimeSpan.Zero,
-        UseRecommendedIsolationLevel = true,
-        DisableGlobalLocks = true // Mejora el rendimiento en SQL Server
-    }));
+	.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+	.UseSimpleAssemblyNameTypeSerializer()
+	.UseRecommendedSerializerSettings()
+	.UseSqlServerStorage(cadenaDeConexionBD, new SqlServerStorageOptions
+	{
+		CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+		SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+		QueuePollInterval = TimeSpan.Zero,
+		UseRecommendedIsolationLevel = true,
+		DisableGlobalLocks = true // Mejora el rendimiento en SQL Server
+	}));
 
 //procesador de trabajos de Hangfire
 builder.Services.AddHangfireServer();
@@ -168,12 +170,12 @@ builder.Services.AddAuthorization(options =>
 	options.AddPolicy("EsAdministrador", policy => policy.RequireRole("Administrador"));
 	options.AddPolicy("EsProfesor", policy => policy.RequireRole("Profesor"));
 	options.AddPolicy("EsEstudiante", policy => policy.RequireRole("Estudiante"));
-    options.AddPolicy("EsProfesorOEstudiante", policy => policy.RequireRole("Profesor", "Estudiante"));
+	options.AddPolicy("EsProfesorOEstudiante", policy => policy.RequireRole("Profesor", "Estudiante"));
 });
 
 // Registrar MediatR
 builder.Services.AddMediatR(cfg =>
-    cfg.RegisterServicesFromAssembly(typeof(LogicaAplicacion.AssemblyReference).Assembly));
+	cfg.RegisterServicesFromAssembly(typeof(LogicaAplicacion.AssemblyReference).Assembly));
 
 builder.Services.AddScoped<INotificacionServicio, NotificacionServicioFalso>();
 
@@ -211,20 +213,20 @@ builder.Services.AddScoped<IRepositorioRecompensasDeProfesores, RepositorioRecom
 builder.Services.AddAzureClients(clientBuilder =>
 {
 
-    // TODO: La cadena de conexión debe estar en secretos de usuario o Azure Key Vault en producción.
-    if (!builder.Environment.IsDevelopment())
-    {
-        var connectionString = builder.Configuration.GetConnectionString("AzureStorage");
-        clientBuilder.AddBlobServiceClient(connectionString);
-    }
-    else
-    {
-        // Si ESTÁS en desarrollo, usa la cadena de conexión de Azurite.
-        var connectionString = builder.Configuration.GetConnectionString("StorageConnection");
-        clientBuilder.AddBlobServiceClient(connectionString);
-    }
+	// TODO: La cadena de conexión debe estar en secretos de usuario o Azure Key Vault en producción.
+	if (!builder.Environment.IsDevelopment())
+	{
+		var connectionString = builder.Configuration.GetConnectionString("AzureStorage");
+		clientBuilder.AddBlobServiceClient(connectionString);
+	}
+	else
+	{
+		// Si ESTÁS en desarrollo, usa la cadena de conexión de Azurite.
+		var connectionString = builder.Configuration.GetConnectionString("StorageConnection");
+		clientBuilder.AddBlobServiceClient(connectionString);
+	}
 });
-builder.Services.AddScoped<IRepositorioAlmacenamientoArchivos, RepositorioAzureBlobsStorage>(); 
+builder.Services.AddScoped<IRepositorioAlmacenamientoArchivos, RepositorioAzureBlobsStorage>();
 
 
 //Inyeccion de dependencias casos de uso
@@ -241,14 +243,14 @@ builder.Services.AddKeyedScoped<IActualizadorRutaImagen, ActualizadorImagenPerfi
 builder.Services.AddScoped<IAltaRecompensa, AltaRecompensa>();
 builder.Services.AddScoped<IAltaTablaClasificacion, AltaTablaClasificacion>();
 builder.Services.AddScoped<IAsignarKudo, AsignarKudo>();
-builder.Services.AddScoped<IAltaUmbralParaMedallaPorKudos, AltaUmbralParaMedallaPorKudos >();
+builder.Services.AddScoped<IAltaUmbralParaMedallaPorKudos, AltaUmbralParaMedallaPorKudos>();
 builder.Services.AddScoped<IAceptarSolicitudPerfilMedalla, AceptarSolicitudPerfilMedalla>();
 builder.Services.AddScoped<IAltaSolicitudPerfilMedalla, AltaSolicitudPerfilMedalla>();
 builder.Services.AddScoped<IAltaProyectoAulaColaborativo, AltaProyectoAulaColaborativo>();
 builder.Services.AddScoped<IActualizarUmbralParaMedallaPorKudos, ActualizarUmbralParaMedallaPorKudos>();
 builder.Services.AddScoped<IAsignarRecompensaTiendas, AsignarRecompensaTiendas>();
 
-builder.Services.AddScoped<IBajaMedalla,BajaMedalla>();
+builder.Services.AddScoped<IBajaMedalla, BajaMedalla>();
 builder.Services.AddScoped<IBajaGrupo, BajaGrupo>();
 builder.Services.AddScoped<IBajaRecompensa, BajaRecompensa>();
 builder.Services.AddScoped<IBajaTablaClasificacion, BajaTablaClasificacion>();
@@ -263,21 +265,21 @@ builder.Services.AddScoped<IEditarRecompensa, EditarRecompensa>();
 builder.Services.AddScoped<IEliminarUmbralParaMedallaPorKudos, EliminarUmbralParaMedallaPorKudos>();
 
 
-builder.Services.AddScoped<IObtenerMedallaPorId,ObtenerMedallaPorId>();
-builder.Services.AddScoped<IObtenerTodasLasMedallas,ObtenerTodasLasMedallas>();
+builder.Services.AddScoped<IObtenerMedallaPorId, ObtenerMedallaPorId>();
+builder.Services.AddScoped<IObtenerTodasLasMedallas, ObtenerTodasLasMedallas>();
 builder.Services.AddScoped<IObtenerGruposDeEstudiante, ObtenerGruposDeEstudiante>();
 builder.Services.AddScoped<IObtenerGruposDeProfesor, ObtenerGruposDeProfesor>();
 builder.Services.AddScoped<IObtenerInformacionGrupo, ObtenerInformacionGrupo>();
 builder.Services.AddScoped<IObtenerPerfilesPorGrupo, ObtenerPerfilesPorGrupo>();
 builder.Services.AddScoped<IObtenerSolicitudesUnionDelGrupo, ObtenerSolicitudesUnionDelGrupo>();
-builder.Services.AddScoped<IObtenerTablasEquivalenciaDelProfesor,ObtenerTablasEquivalenciaDelProfesor>();
+builder.Services.AddScoped<IObtenerTablasEquivalenciaDelProfesor, ObtenerTablasEquivalenciaDelProfesor>();
 builder.Services.AddScoped<IObtenerPerfilConMedallas, ObtenerPerfilConMedallas>();
 builder.Services.AddScoped<IObtenerListadoRecompensa, ObtenerListadoRecompensa>();
 builder.Services.AddScoped<IObtenerRecompensasInventarioPerfil, ObtenerRecompensasInventarioPerfil>();
 builder.Services.AddScoped<IObtenerTablaClasificacion, ObtenerTablaClasificacion>();
 builder.Services.AddScoped<IObtenerTodasLasTablasClasificacion, ObtenerTodasLasTablasClasificacion>();
 builder.Services.AddScoped<IObtenerContenidoBarraProgreso, ObtenerContenidoBarraProgreso>();
-builder.Services.AddScoped<IObtenerPreguntasDeSegurididadPorNombreUsuario,ObtenerPreguntasDeSeguridadPorNombreUsuario>();
+builder.Services.AddScoped<IObtenerPreguntasDeSegurididadPorNombreUsuario, ObtenerPreguntasDeSeguridadPorNombreUsuario>();
 builder.Services.AddScoped<IObtenerPreguntasDeSeguridadDelSistema, ObtenerPreguntasDeSeguridadDelSistema>();
 builder.Services.AddScoped<IObtenerAtributosAvatarDisponiblesParaPerfil, ObtenerAtributosAvatarDisponiblesParaPerfil>();
 builder.Services.AddScoped<IObtenerPreguntasDeSegurididadPorNombreUsuario, ObtenerPreguntasDeSeguridadPorNombreUsuario>();
@@ -294,7 +296,7 @@ builder.Services.AddScoped<IObtenerRecompensasDelProfesor, ObtenerRecompensasDel
 
 
 
-builder.Services.AddScoped<IModificarMedalla,ModificarMedalla>();
+builder.Services.AddScoped<IModificarMedalla, ModificarMedalla>();
 builder.Services.AddScoped<IModificarAvatar, ModificarAvatar>();
 builder.Services.AddScoped<IGeneradorEnlaceGrupo, GeneradorEnlaceGrupo>();
 builder.Services.AddScoped<IQuitarMedalla, QuitarMedalla>();
@@ -302,7 +304,7 @@ builder.Services.AddScoped<IQuitarMedalla, QuitarMedalla>();
 builder.Services.AddScoped<IRechazarSolicitudUnion, RechazarSolicitudUnion>();
 builder.Services.AddScoped<IReinicioLogrosDeUnGrupo, ReinicioLogrosDeUnGrupo>();
 builder.Services.AddScoped<IReinicioLogrosDeTodosLosGrupos, ReinicioLogrosDeTodosLosGrupos>();
-builder.Services.AddScoped<IRestablecerContrasena,RestablecerContrasena>();
+builder.Services.AddScoped<IRestablecerContrasena, RestablecerContrasena>();
 builder.Services.AddScoped<IRestablecerContrasena, RestablecerContrasena>();
 builder.Services.AddScoped<IRechazarSolicitudPerfilMedalla, RechazarSolicitudPerfilMedalla>();
 builder.Services.AddScoped<ILoginUsuario, LoginUsuario>();
@@ -327,76 +329,87 @@ builder.Services.AddScoped<IRecompensaEnricher, RecompensaEnricher>();
 //      Swagger y CORS
 // -------------------------------
 builder.Services.AddControllers()
-    .AddJsonOptions(opts =>
-    {
-        // Habilita polimorfismo para RespuestaVisual
-        opts.JsonSerializerOptions.TypeInfoResolver = new DefaultJsonTypeInfoResolver
-        {
-            Modifiers =
-            {
-                ti =>
-                {
-                    if (ti.Type == typeof(LogicaAplicacion.DTOs.RecompensaDTOs.RespuestaVisual))
-                    {
-                        ti.PolymorphismOptions = new JsonPolymorphismOptions
-                        {
-                            TypeDiscriminatorPropertyName = "$type",
-                            UnknownDerivedTypeHandling   = JsonUnknownDerivedTypeHandling.FailSerialization,
-                            DerivedTypes =
-                            {
-                                new JsonDerivedType(
-                                    typeof(LogicaAplicacion.DTOs.RecompensaDTOs.RespuestaImagenDto),
-                                    nameof(LogicaAplicacion.DTOs.RecompensaDTOs.RespuestaImagenDto)
-                                ),
-                                new JsonDerivedType(
-                                    typeof(LogicaAplicacion.DTOs.RecompensaDTOs.RespuestaIconoDto),
-                                    nameof(LogicaAplicacion.DTOs.RecompensaDTOs.RespuestaIconoDto)
-                                )
-                            }
-                        };
-                    }
-                }
-            }
-        };
-    });
+	.AddJsonOptions(opts =>
+	{
+		// Habilita polimorfismo para RespuestaVisual y DatosVisuales
+		opts.JsonSerializerOptions.TypeInfoResolver = new DefaultJsonTypeInfoResolver
+		{
+			Modifiers =
+			{
+				ti =>
+				{
+                    // Configuración para RespuestaVisual
+                    if (ti.Type == typeof(RespuestaVisual))
+					{
+						ti.PolymorphismOptions = new JsonPolymorphismOptions
+						{
+							TypeDiscriminatorPropertyName = "$type",
+							UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FailSerialization,
+							DerivedTypes =
+							{
+								new JsonDerivedType(typeof(RespuestaImagenDto), nameof(RespuestaImagenDto)),
+								new JsonDerivedType(typeof(RespuestaIconoDto), nameof(RespuestaIconoDto))
+							}
+						};
+					}
+
+                    // Configuración para DatosVisuales
+                    if (ti.Type == typeof(DatosVisuales))
+					{
+						ti.PolymorphismOptions = new JsonPolymorphismOptions
+						{
+							TypeDiscriminatorPropertyName = "$type",
+							UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FailSerialization,
+							DerivedTypes =
+							{
+								new JsonDerivedType(typeof(DatosImagen), "Imagen"),
+								new JsonDerivedType(typeof(DatosIcono), "Icono")
+							}
+						};
+					}
+				}
+			}
+		};
+	});
+
 builder.Services.AddEndpointsApiExplorer();
 
 var ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WebApi.xml");
 builder.Services.AddSwaggerGen(opciones =>
 {
-    opciones.IncludeXmlComments(ruta);
-    opciones.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "API de Ludik",
-        Version = "v1",
-        Description = "Bitácora digital de logros de aprendizaje.",
-        Contact = new OpenApiContact { Email = "renatoriosx@gmail.com" }
-    });
+	opciones.IncludeXmlComments(ruta);
+	opciones.SwaggerDoc("v1", new OpenApiInfo
+	{
+		Title = "API de Ludik",
+		Version = "v1",
+		Description = "Bitácora digital de logros de aprendizaje.",
+		Contact = new OpenApiContact { Email = "renatoriosx@gmail.com" }
+	});
 
-    opciones.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "Introduce el token JWT con el prefijo 'Bearer ', por ejemplo: Bearer eyJhbGciOiJIUzI1NiIs..."
-    });
+	opciones.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+	{
+		Name = "Authorization",
+		Type = SecuritySchemeType.ApiKey,
+		Scheme = "Bearer",
+		BearerFormat = "JWT",
+		In = ParameterLocation.Header,
+		Description = "Introduce el token JWT con el prefijo 'Bearer ', por ejemplo: Bearer eyJhbGciOiJIUzI1NiIs..."
+	});
 
-    opciones.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            Array.Empty<string>()
-        }
-    });
+	opciones.AddSecurityRequirement(new OpenApiSecurityRequirement
+	{
+		{
+			new OpenApiSecurityScheme
+			{
+				Reference = new OpenApiReference
+				{
+					Type = ReferenceType.SecurityScheme,
+					Id = "Bearer"
+				}
+			},
+			Array.Empty<string>()
+		}
+	});
 });
 
 builder.Services.AddCors(options =>
@@ -414,21 +427,21 @@ var app = builder.Build();
 // --- INICIO: Lógica para precargar archivos 
 if (app.Environment.IsDevelopment())
 {
-    using (var scope = app.Services.CreateScope()) 
-    {
-        var services = scope.ServiceProvider;
-        try
-        {
-            var seeder = services.GetRequiredService<ISeedServicio>();
-            // Usamos .GetAwaiter().GetResult() para ejecutarlo de forma síncrona en el arranque.
-            seeder.PrecargarArchivosAsync().GetAwaiter().GetResult();
-        }
-        catch (Exception ex)
-        {
-            var logger = services.GetRequiredService<ILogger<Program>>();
-            logger.LogError(ex, "Ocurrió un error durante la precarga de archivos.");
-        }
-    }
+	using (var scope = app.Services.CreateScope())
+	{
+		var services = scope.ServiceProvider;
+		try
+		{
+			var seeder = services.GetRequiredService<ISeedServicio>();
+			// Usamos .GetAwaiter().GetResult() para ejecutarlo de forma síncrona en el arranque.
+			seeder.PrecargarArchivosAsync().GetAwaiter().GetResult();
+		}
+		catch (Exception ex)
+		{
+			var logger = services.GetRequiredService<ILogger<Program>>();
+			logger.LogError(ex, "Ocurrió un error durante la precarga de archivos.");
+		}
+	}
 }
 // --- FIN: Lógica para precargar archivos ---
 
@@ -473,11 +486,11 @@ app.UseHangfireDashboard();
 
 // Programar el trabajo recurrente
 
- RecurringJob.AddOrUpdate<IServicioDeReinicioSemanal>(
-    "reinicio-semanal-kudos",
-    servicio => servicio.ReiniciarKudosDeEstudiantesAsync(),
-    "0 0 * * 1",
-    TimeZoneInfo.Local);
+RecurringJob.AddOrUpdate<IServicioDeReinicioSemanal>(
+   "reinicio-semanal-kudos",
+   servicio => servicio.ReiniciarKudosDeEstudiantesAsync(),
+   "0 0 * * 1",
+   TimeZoneInfo.Local);
 
 app.Run();
 

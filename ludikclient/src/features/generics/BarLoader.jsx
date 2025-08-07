@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./BarLoader.module.css";
-import { BarLoader as ReactBarLoader } from "react-spinners";
+import { BarLoader as ReactBarLoader, PulseLoader as ReactPulseLoader } from "react-spinners";
 
 const BarLoader = () => {
   return (
@@ -10,4 +10,13 @@ const BarLoader = () => {
   );
 };
 
+const PulseLoader = () => {
+  return (
+    <div className={styles.pulseLoaderContainer}>
+      <ReactPulseLoader color="var(--blanco-secundario)" size={10} />
+    </div>
+  );
+};
+
 export default BarLoader;
+export { PulseLoader };

@@ -1,4 +1,5 @@
 :root {
+  --potenciador: #93049b;
   --monedas: #c1a100;
   --medallas: #8c4b16;
   --meta-alumno: #3aa232;
@@ -194,7 +195,6 @@ select, textarea {
   background-color: var(--blanco-secundario);
   color: black;
   font-size: 14px;
-  margin-top: 5px;
   width: 100%;
   box-sizing: border-box;
 }

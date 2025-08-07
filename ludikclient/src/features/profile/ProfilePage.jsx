@@ -19,10 +19,15 @@ const ProfilePage = () => {
       <section className={styles.userInfo}>
         <div className={styles.userBox}>
           <div className={styles.userBoxContent}>
+            <p className={styles.userText}>{`${usuario.nombre} ${usuario.apellido}`}</p>
+            <span className={styles.userLabel}>NOMBRE COMPLETO</span>
+          </div>
+        </div>
+        <div className={styles.userBox}>
+          <div className={styles.userBoxContent}>
             <p className={styles.userText}>{usuario.userName}</p>
             <span className={styles.userLabel}>NOMBRE DE USUARIO</span>
           </div>
-          {/* <FontAwesomeIcon icon="fa-solid fa-pen-to-square" size="lg" className={styles.editIcon} /> */}
         </div>
 
         {isProfesor && (
@@ -31,7 +36,6 @@ const ProfilePage = () => {
               <p className={styles.userText}>{usuario.correo}</p>
               <span className={styles.userLabel}>CORREO ELECTRONICO</span>
             </div>
-            {/* <FontAwesomeIcon icon="fa-solid fa-pen-to-square" size="lg" className={styles.editIcon} /> */}
           </div>
         )}
 
