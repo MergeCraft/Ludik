@@ -1,0 +1,53 @@
+// src/features/layout/Layout.jsx
+import React from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import styles from "./Layout.module.css";
+import HeaderMenu from "./components/HeaderMenu";
+import EnhancerView from "./components/EnhancerView.jsx";
+import logo from "../../assets/logo.png";
+import { useSelector } from "react-redux";
+import { selectIsAuthenticated, selectUserRole } from "../auth/hooks/userSlice";
+
+import { useGruposPorRol } from "../group/hooks/useGrupoMutation";
+import { usePerfilGrupo } from "../group/hooks/useStudentMutation.js";
+
+function Layout() {
+  const navigate = useNavigate();
+
+  const isLoggedIn = useSelector(selectIsAuthenticated);
+  const role = useSelector(selectUserRole);
+
+  const isProfesor = role === "Profesor";
+
+  const { data: grupos } = useGruposPorRol(role, isLoggedIn);
+
+  const { data: perfil, isLoading: isLoadingPerfil } = usePerfilGrupo(grupos?.[0]?.id, isProfesor, isLoggedIn);
+
+  if (perfil != null) {
+    perfil.multiplicadorPotenciador = 3;
+
+    perfil.tiempoRestantePotenciador = "01:30";
+  }
+
+  return (
+    <div className={styles.layoutContainer}>
+      <header className={styles.header}>
+        <div className={styles.logoArea}>
+          <img src={logo} alt="Ludik Logo" className={styles.logoImage} onClick={() => navigate("/")} style={{ cursor: "pointer" }} />
+        </div>
+
+        {isLoggedIn && (
+          <>
+            <HeaderMenu />
+
+            {perfil?.multiplicadorPotenciador && <EnhancerView enhancerX={perfil?.multiplicadorPotenciador} enhancerTime={perfil?.tiempoRestantePotenciador} isLoading={isLoadingPerfil} />}
+          </>
+        )}
+      </header>
+
+      <Outlet />
+    </div>
+  );
+}
+
+export default Layout;

@@ -1,0 +1,33 @@
+.thresholdsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-auto-rows: auto;
+    gap: 10px;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.thresholdsContainer p {
+    text-align: center;
+}
+
+.addThresholdButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--secundario);
+    border: 1px solid var(--principal);
+    border-radius: 15px;
+    width: 100%;
+    height: 100%;
+    min-width: 178px;
+    min-height: 250px;
+    color: var(--principal);
+    cursor: pointer;
+    padding: 10px;
+}
+
+.emptyMessage {
+    text-align: center;
+}

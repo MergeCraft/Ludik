@@ -1,0 +1,131 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--principal);
+    border-radius: 15px;
+    padding: 15px;
+    width: 100%;
+}
+
+.title {
+    border: 1px solid var(--terciario);
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+    padding-top: 3px;
+    border-radius: 15px;
+}
+
+.title strong {
+    font-size: small;
+}
+
+.progressBarContainer p {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.infoProgressBar {
+    display: flex;
+    gap: 5px;
+    font-size: small;
+    justify-content: space-evenly;
+}
+
+.infoProgressBar p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid var(--terciario);
+    border-radius: 10px;
+    padding: 10px 15px;
+}
+
+.infoProgressBar strong {
+    margin-bottom: 5px;
+}
+
+.progressBar {
+    display: flex;
+    justify-content: center;
+}
+
+.progressBar label {
+    position: relative;
+    padding: 15px 0;
+    flex-grow: 1;
+    transition: 0.3s;
+}
+
+.circle {
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: var(--blanco-principal);
+    font-size: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    background-color: var(--meta-alumno);
+    border: 1px solid var(--secundario-boton-secundario);
+}
+
+.progressBar label:first-child {
+    border-radius: 20px 0 0 20px;
+}
+
+.progressBar label:first-child::before {
+    display: none;
+}
+
+.progressBar label:last-child {
+    border-radius: 0 20px 20px 0;
+}
+
+.progressBar input {
+    display: none;
+}
+
+.alcanzado {
+    background-color: var(--meta-alumno);
+}
+
+.noAlcanzado {
+    background-color: var(--blanco-principal);
+}
+
+.label .icono {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    color: var(--monedas);
+    pointer-events: none;
+}
+
+@media screen and (max-width: 992px) {
+    .progressBar label:first-child {
+        border-radius: 20px 0 0 20px;
+    }
+
+    .progressBar label:last-child {
+        border-radius: 0 20px 20px 0;
+    }
+
+    .infoProgressBar {
+        justify-content: space-between;
+    }
+
+    .infoProgressBar p {
+        flex-grow: 1;
+    }
+}

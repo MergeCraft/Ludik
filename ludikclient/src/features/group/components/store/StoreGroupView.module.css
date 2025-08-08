@@ -1,0 +1,32 @@
+.storeContent div:first-child {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 15px;
+    justify-items: center;
+}
+
+.storeContent div:first-child>* {
+    width: 100%;
+    justify-self: center;
+}
+
+.addRewardButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--secundario);
+    border: 1px solid var(--principal);
+    border-radius: 15px;
+    max-width: 130px;
+    color: var(--principal);
+    cursor: pointer;
+    padding: 10px;
+    min-height: 150px;
+}
+
+.mensaje {
+    text-align: center;
+    margin-top: 10px;
+}
