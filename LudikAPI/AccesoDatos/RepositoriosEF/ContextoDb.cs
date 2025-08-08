@@ -40,7 +40,6 @@ namespace AccesoDatos.RepositoriosEF
         public DbSet<PreguntaDeSeguridad> PreguntasDeSeguridad { get; set; }
         public DbSet<PreguntaRespuestaSeguridad> PreguntasRespuestasSeguridad { get; set; }
         public DbSet<Potenciador> Potenciadores { get; set; }
-        public DbSet<Pin> Pines { get; set; }
         public DbSet<Hito> Hitos { get; set; }
         public DbSet<Equivalencia> Equivalencias { get; set; }
         public DbSet<EnlaceUnion> EnlacesUnion { get; set; }
