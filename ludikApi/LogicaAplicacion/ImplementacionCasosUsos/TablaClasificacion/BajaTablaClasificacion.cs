@@ -29,6 +29,14 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion
             var resultadoObtenerProfesor = await _repositorioProfesores.GetByStringIdAsync(profesorId);
             var profesor = resultadoObtenerProfesor.Valor;
 
+
+            if(tabla == null)
+            {
+                return Resultado.Falla(new Error(
+                    "Error.NotFound",
+                    "No se encontró la tabla de clasificación con el ID proporcionado."));
+            }
+
             bool tieneEseGrupo = profesor.Grupos
             .Any(g => g.Id == tabla.GrupoId);
 
