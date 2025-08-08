@@ -17,15 +17,15 @@ namespace WebApi.Helpers
             // Mapear código de error a un StatusCode HTTP.
             int statusCode = primerError.Codigo switch
             {
-                "Error.NotFound" => StatusCodes.Status404NotFound,
-                "Error.Validation" => StatusCodes.Status400BadRequest,
-                "Error.Conflict" => StatusCodes.Status409Conflict,
                 "Error.Unauthorized" => StatusCodes.Status401Unauthorized,
+                "Error.Validation" => StatusCodes.Status400BadRequest,
                 "Error.Forbidden" => StatusCodes.Status403Forbidden,
+                "Error.NotFound" => StatusCodes.Status404NotFound,
+                "Error.Conflict" => StatusCodes.Status409Conflict,
                 _ => StatusCodes.Status500InternalServerError
             };
 
-            // Para errores de validación, es útil devolver todos los errores.
+            // Para errores de validación, es útil devolver todos los errores
             object responsePayload = primerError.Codigo == "Error.Validation"
                 ? resultado.Errores.Select(e => new { e.Codigo, e.Mensaje })
                 : new { primerError.Codigo, primerError.Mensaje };

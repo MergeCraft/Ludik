@@ -28,7 +28,7 @@ namespace AccesoDatos.RepositoriosEF
 		public async Task<Resultado> AddAsync(Grupo unGrupo)
 		{
 			if (unGrupo == null)
-				return Resultado.Falla(new Error("Grupo.Add.Validacion", "El Grupo no puede ser nulo."));
+				return Resultado.Falla(new Error("Error.Validation", "El grupo a guardar debe de contener datos."));
 
 			try
 			{
@@ -49,16 +49,16 @@ namespace AccesoDatos.RepositoriosEF
 			catch (DbUpdateException dbEx)
 			{
 				var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
-				return Resultado.Falla(new Error("Grupo.Add.DbError", $"Error al guardar el grupo en la BD: {detalle}"));
+				return Resultado.Falla(new Error("Error.Unexpected", $"Error al guardar el grupo en la BD: {detalle}"));
 			}
 
 			catch (GrupoNoValidoExeption valEx)
 			{
-				return Resultado.Falla(new Error("Grupo.Add.Validacion", valEx.Message));
+				return Resultado.Falla(new Error("Error.Validation", valEx.Message));
 			}
 			catch (Exception e)
 			{
-				return Resultado.Falla(Error.Unexpected); // [cite: 14, 47]
+				return Resultado.Falla(Error.Unexpected);
 			}
 		}
 
@@ -67,6 +67,7 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var grupo = await _db.Grupos
+                    .Include(g => g.Profesor)
                     .Include(g => g.Alumnos)
 						.ThenInclude(a => a.HistorialRendimientoPeriodos)
                     .Include(g => g.Alumnos)
@@ -106,7 +107,7 @@ namespace AccesoDatos.RepositoriosEF
 		public async Task<Resultado> UpdateAsync(Grupo grupoNuevo)
 		{
 			if (grupoNuevo == null)
-				return Resultado.Falla(new Error("Grupo.Update.Validacion", "El grupo para actualizar no puede ser null.")); // [cite: 14]
+				return Resultado.Falla(new Error("Error.Validation", "El grupo para actualizar no puede ser null."));
 
 
 			try
@@ -130,11 +131,11 @@ namespace AccesoDatos.RepositoriosEF
 			{
 				var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
 
-				return Resultado.Falla(new Error("Grupo.Update.DbError", $"Error al actualizar el grupo en la BD: {detalle}"));
+				return Resultado.Falla(new Error("Error.Unexpected", $"Error al actualizar el grupo en la BD: {detalle}"));
 			}
 			catch (GrupoNoValidoExeption valEx)
 			{
-				return Resultado.Falla(new Error("Grupo.Update.Validacion", valEx.Message));
+				return Resultado.Falla(new Error("Error.Unexpected", valEx.Message));
 			}
 			catch (Exception e)
 			{
@@ -156,7 +157,7 @@ namespace AccesoDatos.RepositoriosEF
 
 				if (grupo == null)
 				{
-					return Resultado.Falla(Error.NotFound); // [cite: 14, 39]
+					return Resultado.Falla(Error.NotFound);
 				}
 
 				if (grupo.Alumnos != null && grupo.Alumnos.Any())
@@ -173,13 +174,13 @@ namespace AccesoDatos.RepositoriosEF
 
 				_db.Grupos.Remove(grupo);
 				await _db.SaveChangesAsync();
-				return Resultado.Exitoso(); // [cite: 12]
+				return Resultado.Exitoso();
 			}
 			catch (DbUpdateException dbEx)
 			{
 				var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
 
-				return Resultado.Falla(new Error("Grupo.Remove.DbError", $"Error al eliminar el grupo: {detalle}"));
+				return Resultado.Falla(new Error("Error.Unexpected", $"Error al eliminar el grupo: {detalle}"));
 			}
 			catch (Exception e)
 			{

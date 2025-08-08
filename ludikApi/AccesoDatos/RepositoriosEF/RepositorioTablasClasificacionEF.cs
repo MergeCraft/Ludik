@@ -126,7 +126,7 @@ namespace AccesoDatos.RepositoriosEF
             catch (DbUpdateException dbEx)
             {
                 var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
-                return Resultado.Falla(new Error("Error.DB", $"Error al eliminar la tabla: {detalle}"));
+                return Resultado.Falla(new Error("Error.Unexpected", $"Error al eliminar la tabla: {detalle}"));
             }
             catch (Exception ex)
             {
