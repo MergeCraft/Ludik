@@ -12,22 +12,22 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion
 {
     public class BajaTablaClasificacion:IBajaTablaClasificacion
     {
-        private readonly IRepositorioTablasClasificacion _repo;
-        private readonly IRepositorioProfesores _repoProfesores;
+        private readonly IRepositorioTablasClasificacion _repositorioTablasClasificacion;
+        private readonly IRepositorioProfesores _repositorioProfesores;
 
 
-        public BajaTablaClasificacion(IRepositorioTablasClasificacion repo,IRepositorioProfesores repositorioProfesores)
+        public BajaTablaClasificacion(IRepositorioTablasClasificacion repositorioTablasClasificacion,IRepositorioProfesores repositorioProfesores)
         {
-            _repo = repo;
-            _repoProfesores = repositorioProfesores;
+            _repositorioTablasClasificacion = repositorioTablasClasificacion;
+            _repositorioProfesores = repositorioProfesores;
         }
 
         public async Task<Resultado> EjecutarAsync(int tablaId, string profesorId)
         {
-            var resBusqueda = await _repo.GetByIdAsync(tablaId);
-            var tabla = resBusqueda.Valor;
-            var resBusquedaProfesor = await _repoProfesores.GetByStringIdAsync(profesorId);
-            var profesor = resBusquedaProfesor.Valor;
+            var resultadoObtenerTabla = await _repositorioTablasClasificacion.GetByIdAsync(tablaId);
+            var tabla = resultadoObtenerTabla.Valor;
+            var resultadoObtenerProfesor = await _repositorioProfesores.GetByStringIdAsync(profesorId);
+            var profesor = resultadoObtenerProfesor.Valor;
 
             bool tieneEseGrupo = profesor.Grupos
             .Any(g => g.Id == tabla.GrupoId);
@@ -35,10 +35,10 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion
             if (!tieneEseGrupo)
             {
                 return Resultado.Falla(new Error(
-                    "Error.Autorizacion",
-                    "El grupo de la tabla no pertenece al profesor logueado."));
+                    "Error.Forbidden",
+                    "No puedes eliminar una tabla de clasificación que le pertenece al grupo de otro profesor."));
             }
-            var res = await _repo.RemoveAsync(tablaId);
+            var res = await _repositorioTablasClasificacion.RemoveAsync(tablaId);
             if (res.EsFallo)
                 return Resultado.Falla(res.Errores);
             

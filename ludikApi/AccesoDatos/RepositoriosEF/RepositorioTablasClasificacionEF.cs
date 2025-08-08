@@ -52,8 +52,9 @@ namespace AccesoDatos.RepositoriosEF
             catch (Exception ex)
             {
                 return Resultado<IEnumerable<TablaClasificacion>>.Falla(
-                    new Error("Error.DB", ex.Message)
-                );
+                    new Error("Error.Unexpected",
+                        "Error al intentar obtener las tablas de clasificación del gurpo. Error: " + ex.Message)
+                    );
             }
         }
 
@@ -76,7 +77,7 @@ namespace AccesoDatos.RepositoriosEF
             catch (Exception ex)
             {
                 return Resultado<IEnumerable<TablaClasificacion>>.Falla(
-                    new Error("Error.DB", ex.Message)
+                    new Error("Error.Unexpected", "Error al intentar obtener las tablas de clasificación del gurpo. Error: "+ex.Message)
                 );
             }
         }
@@ -86,17 +87,17 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var tabla = await _db.TablasClasificacion
-                    .AsNoTracking()                            // opcional, por si no necesitas cambios de vuelta
+                    .AsNoTracking()                           
                     .Include(tc => tc.MedallaAsociada)
-                    .Include(tc => tc.Participantes)           // <-- aquí traes el M:N
-                        .ThenInclude(p => p.Estudiante)       // para usar datos del estudiante
+                    .Include(tc => tc.Participantes)           
+                        .ThenInclude(p => p.Estudiante)       
                     .Include(tc => tc.Participantes)
-                        .ThenInclude(p => p.MedallasObtenidas)   // para contar medallas
+                        .ThenInclude(p => p.MedallasObtenidas)   
                     .FirstOrDefaultAsync(tc => tc.Id == id);
 
                 if (tabla == null)
                     return Resultado<TablaClasificacion>.Falla(
-                        new Error("NotFound", "Tabla no encontrada.")
+                        new Error("Error.NotFound", "Tabla de clasificación no encontrada.")
                     );
 
                 return Resultado<TablaClasificacion>.Exitoso(tabla);
@@ -104,7 +105,7 @@ namespace AccesoDatos.RepositoriosEF
             catch (Exception ex)
             {
                 return Resultado<TablaClasificacion>.Falla(
-                    new Error("Error.DB", ex.Message)
+                    new Error("Error.Unexpected", "Error al obtener la tablas de clasificación. Error :"+ ex.Message)
                 );
             }
         }

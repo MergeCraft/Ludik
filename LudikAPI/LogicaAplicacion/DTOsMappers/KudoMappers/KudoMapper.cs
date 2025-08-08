@@ -13,7 +13,7 @@ public class KudoMapper
         {
             Id = tipoKudo.Id,
             Nombre = tipoKudo.Nombre,
-            EnlaceImagenMiniatura = tipoKudo.NombreImagenMiniatura
+            NombreIcono = tipoKudo.NombreIcono
 
         };
     }
@@ -24,7 +24,8 @@ public class KudoMapper
         return new TipoKudo
         {
             Id = dto.Id,
-            Nombre = dto.Nombre
+            Nombre = dto.Nombre,
+            NombreIcono = dto.NombreIcono
         };
 
     }

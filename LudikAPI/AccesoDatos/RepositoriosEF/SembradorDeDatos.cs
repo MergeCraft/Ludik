@@ -875,70 +875,70 @@ namespace AccesoDatos.RepositoriosEF
                 Id = 1,
                 Nombre = "Gracias por la Ayuda",
                 Descripcion = "Considera dar este kudo cuando un compañero te dedica tiempo para explicarte algo que no entendías o te ayuda a completar una tarea.",
-                NombreImagenMiniatura = "kudo_ayuda.png"
+                NombreIcono = "thumbs-up"
             },
             new TipoKudo
             {
                 Id = 2,
                 Nombre = "Esa Pregunta Suma",
                 Descripcion = "Considera dar este kudo cuando la pregunta de un compañero aclara una duda para todo el grupo o genera un debate que enriquece la clase.",
-                NombreImagenMiniatura = "kudo_pregunta.png"
+                NombreIcono = "hands-clapping"
             },
             new TipoKudo
             {
                 Id = 3,
                 Nombre = "Inspirador",
                 Descripcion = "Considera dar este kudo cuando el esfuerzo, la perseverancia o la actitud positiva de un compañero te motiven a superarte.",
-                NombreImagenMiniatura = "kudo_inspirador.png"
+                NombreIcono = "running"
             },
             new TipoKudo
             {
                 Id = 4,
                 Nombre = "Conectando Ideas",
                 Descripcion = "Considera dar este kudo cuando un compañero toma tu idea o la de alguien más y la mejora, aportando un punto de vista que hace el trabajo más fuerte.",
-                NombreImagenMiniatura = "kudo_conectando_ideas.png"
+                NombreIcono = "lightbulb"
             },
             new TipoKudo
             {
                 Id = 5,
                 Nombre = "Líder de Equipo",
                 Descripcion = "Considera dar este kudo cuando un compañero organiza el trabajo en equipo, se asegura de que todos participen o guía al grupo para cumplir el objetivo.",
-                NombreImagenMiniatura = "kudo_lider_equipo.png"
+                NombreIcono = "star"
             },
             new TipoKudo
             {
                 Id = 6,
                 Nombre = "Bibliotecario",
                 Descripcion = "Considera dar este kudo cuando un compañero comparte un enlace, video, apunte o cualquier material que te resultó muy útil para estudiar o hacer una tarea.",
-                NombreImagenMiniatura = "kudo_bibliotecario.png"
+                NombreIcono = "book"
             },
             new TipoKudo
             {
                 Id = 7,
                 Nombre = "Codo a Codo",
                 Descripcion = "Considera dar este kudo cuando notes que un compañero se esfuerza por integrar a otros, asegurándose de que nadie se quede atrás y todos se sientan parte del equipo.",
-                NombreImagenMiniatura = "kudo_codo_a_codo.png"
+                NombreIcono = "face-smile"
             },
             new TipoKudo
             {
                 Id = 8,
                 Nombre = "Crítica que Construye",
                 Descripcion = "Considera dar este kudo cuando un compañero te da una sugerencia para mejorar tu trabajo de forma respetuosa y con la intención real de ayudar.",
-                NombreImagenMiniatura = "kudo_critica_constructiva.png"
+                NombreIcono = "hammer"
             },
             new TipoKudo
             {
                 Id = 9,
                 Nombre = "Chispa Creativa",
                 Descripcion = "Considera dar este kudo cuando un compañero propone una solución original a un problema o una idea innovadora para un proyecto que sorprende al grupo.",
-                NombreImagenMiniatura = "kudo_chispa_creativa.png"
+                NombreIcono = "fire"
             },
             new TipoKudo
             {
                 Id = 10,
                 Nombre = "Einstein",
                 Descripcion = "Considera dar este kudo cuando la explicación de un compañero sobre un tema muy difícil hace que, finalmente, lo entiendas con total claridad.",
-                NombreImagenMiniatura = "kudo_einstein.png"
+                NombreIcono = "brain"
             }
             );
         }

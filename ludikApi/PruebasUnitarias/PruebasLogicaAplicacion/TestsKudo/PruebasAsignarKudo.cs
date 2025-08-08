@@ -81,7 +81,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
                 Id = 5,
                 Nombre = "Amistad",
                 Descripcion = "Promueve la amistad",
-                NombreImagenMiniatura = "amistad.png"
+                NombreIcono = "amistad.png"
             };
             _mockTiposKudoRepo
                 .Setup(r => r.GetByIdAsync(tipoKudo.Id))

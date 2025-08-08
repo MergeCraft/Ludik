@@ -10,14 +10,11 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Kudo;
 public class ObtenerKudos: IObtenerKudos
 {
     private readonly IRepositorioTiposKudo _repositorioTiposKudo;
-    private readonly IGeneradorUrlsParaColeccionesImagenes _generadorUrlsParaColecciones;
 
     public ObtenerKudos(
-        IRepositorioTiposKudo repositorioTiposKudo,
-        IGeneradorUrlsParaColeccionesImagenes generadorUrlsParaColecciones)
+        IRepositorioTiposKudo repositorioTiposKudo)
     {
         _repositorioTiposKudo = repositorioTiposKudo;
-        _generadorUrlsParaColecciones = generadorUrlsParaColecciones;
     }
     public async Task<Resultado<IEnumerable<TipoKudoDto>>> EjecutarAsync()
     {
@@ -27,8 +24,6 @@ public class ObtenerKudos: IObtenerKudos
             return Resultado<IEnumerable<TipoKudoDto>>.Falla(resultadoRepo.Errores);
         
         var kudosDto = resultadoRepo.Valor.Select(kudo => KudoMapper.toDto(kudo)).ToList();
-        await _generadorUrlsParaColecciones.EjecutarProcesarUrlsAsync(kudosDto,
-            (dto => dto.EnlaceImagenMiniatura, (dto, url) => dto.EnlaceImagenMiniatura = url));
 
         return Resultado<IEnumerable<TipoKudoDto>>.Exitoso(kudosDto);
     }

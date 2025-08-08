@@ -36,12 +36,13 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
             solicitud.Estado = EstadoSolicitud.Aceptada;
 
             var grupo = solicitud.Grupo;
-            //TODO arreglar imagenes default con las que aparecera.
+
             var perfil = new Entidad.PerfilEstudiante
             {
                 EstudianteId = solicitud.EstudianteId,
-                NombreImagenCompleta = "ImagenAvatarPorDefecto",
-                NombreImagenMiniatura= "ImagenAvatarPorDefectoMiniatura"
+                NombreImagenCompleta = "eyebrows-defaultNatural.png",
+                NombreImagenMiniatura= "eyebrows-defaultNatural.png",
+                KudosDisponiblesParaOtorgar = 3
             };
 
             var resultadoPerfil = await _repoPerfilEstudianteGrupo.AddAsync(perfil);

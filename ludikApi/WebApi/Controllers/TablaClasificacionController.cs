@@ -17,14 +17,16 @@ namespace WebApi.Controllers
 	{
 		private readonly IAltaTablaClasificacion _altaTablaClasificacion;
 		private readonly IObtenerTablaClasificacion _obtenerTablaClasificacion;
-		private readonly IObtenerTodasLasTablasClasificacion _obtenerTodasLasTablasClasificacion;
 		private readonly IObtenerTodasLasTablasClasificacionGrupo _obtenerTodasLasTablasClasificacionGrupo;
 		private readonly IBajaTablaClasificacion _bajaTablaClasificacion;
-        public TablaClasificacionController(IAltaTablaClasificacion altaTablaClasificacion, IObtenerTablaClasificacion obtenerTablaClasificacion, IObtenerTodasLasTablasClasificacion obtenerTodasLasTablasClasificacion, IBajaTablaClasificacion bajaTablaClasificacion,IObtenerTodasLasTablasClasificacionGrupo obtenerTodasLasTablasClasificacionGrupo)
+        public TablaClasificacionController(
+            IAltaTablaClasificacion altaTablaClasificacion, 
+            IObtenerTablaClasificacion obtenerTablaClasificacion, 
+            IBajaTablaClasificacion bajaTablaClasificacion,
+            IObtenerTodasLasTablasClasificacionGrupo obtenerTodasLasTablasClasificacionGrupo)
 		{
 			_altaTablaClasificacion = altaTablaClasificacion;
 			_obtenerTablaClasificacion = obtenerTablaClasificacion;
-			_obtenerTodasLasTablasClasificacion = obtenerTodasLasTablasClasificacion;
 			_bajaTablaClasificacion = bajaTablaClasificacion;
             _obtenerTodasLasTablasClasificacionGrupo = obtenerTodasLasTablasClasificacionGrupo;
 
@@ -52,7 +54,7 @@ namespace WebApi.Controllers
 			if (string.IsNullOrEmpty(profesorId))
 				return Unauthorized(new Error("Error.Unauthorized", "No se pudo identificar al profesor del token."));
 
-			var resultado = await _altaTablaClasificacion.EjecutarAsync(grupoId, dto);
+			var resultado = await _altaTablaClasificacion.EjecutarAsync(profesorId, grupoId, dto);
 
 			if (resultado.EsFallo)
 				return this.ManejarFallo(resultado);
@@ -89,27 +91,7 @@ namespace WebApi.Controllers
 
 			return Ok(resultado.Valor);
 		}
-		/// <summary>
-		/// Obtiene todas las tablas de clasificación (cada una con sus participantes ordenados).
-		/// </summary>
-		[Authorize(Policy = "EsProfesorOEstudiante")]
-		[HttpGet]
-		[ProducesResponseType(typeof(IEnumerable<TablaClasificacionInfoDto>), StatusCodes.Status200OK)]
-		[ProducesResponseType(typeof(IEnumerable<Error>), StatusCodes.Status400BadRequest)]
-		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-		[ProducesResponseType(StatusCodes.Status403Forbidden)]
-		public async Task<IActionResult> ObtenerTodasLasTablasClasificacion()
-		{
-			var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-			if (string.IsNullOrEmpty(profesorId))
-				return Unauthorized(new Error("Error.Unauthorized", "No se pudo identificar al profesor."));
 
-			var resultado = await _obtenerTodasLasTablasClasificacion.EjecutarAsync();
-			if (resultado.EsFallo)
-				return this.ManejarFallo(resultado);
-
-			return Ok(resultado.Valor);
-		}
         /// <summary>
         /// Obtiene todas las tablas de clasificación de un grupo concreto
         /// (cada una con sus participantes ordenados).
@@ -124,7 +106,7 @@ namespace WebApi.Controllers
         {
             var usuarioId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(usuarioId))
-                return Unauthorized(new Error("Error.Unauthorized", "No tiene la autorización para esto."));
+                return Unauthorized(new Error("Error.Unauthorized", "No estás autorizado para realizar esta acción."));
 
             var resultado = await _obtenerTodasLasTablasClasificacionGrupo
                 .EjecutarAsync(grupoId, usuarioId);
@@ -152,7 +134,7 @@ namespace WebApi.Controllers
 		{
 			var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 			if (string.IsNullOrEmpty(profesorId))
-				return Unauthorized(new Error("Error.Unauthorized", "No se pudo identificar al profesor del token."));
+				return Unauthorized(new Error("Error.Unauthorized", "No estás autorizado para realizar esta acción."));
 
 			var resultado = await _bajaTablaClasificacion.EjecutarAsync(tablaId, profesorId);
 			if (resultado.EsFallo)

@@ -20,16 +20,19 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion
             _repositorioTablasClasificacion = repositorioTablasClasificacion;
             _repositorioGrupos = repositorioGrupos;
         }
-        public async Task<Resultado> EjecutarAsync(int grupoId, TablaClasificacionAltaDto dto)
+        public async Task<Resultado> EjecutarAsync(string profesorId, int grupoId, TablaClasificacionAltaDto dto)
         {
            
             var grupoResultado = await _repositorioGrupos.GetByIdAsync(grupoId);
             if (grupoResultado.EsFallo)
-            {
                 return Resultado.Falla(new Error("Error.Validation", "El grupo no existe"));
-            }
-            var grupoEncontrado = grupoResultado.Valor;
             
+            var grupoEncontrado = grupoResultado.Valor;
+
+            if (grupoEncontrado.ProfesorId != profesorId)
+                return Resultado.Falla(new Error("Error.Forbidden" ,"No tienes permiso para crear una tabla de clasificación en este grupo. Elige un grupo que te pertenezca."));
+            
+
             var tablaClasificacion = TablaClasificacionMapper.MapAlta(dto, grupoEncontrado);
 
             var val = tablaClasificacion.esValido();

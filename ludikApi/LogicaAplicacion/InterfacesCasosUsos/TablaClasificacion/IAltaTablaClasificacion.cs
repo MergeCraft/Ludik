@@ -10,6 +10,6 @@ namespace LogicaAplicacion.InterfacesCasosUsos.TablaClasificacion
 {
     public interface IAltaTablaClasificacion
     {
-        public Task<Resultado> EjecutarAsync(int grupoId, TablaClasificacionAltaDto dto);
+        public Task<Resultado> EjecutarAsync(string profesorId, int grupoId, TablaClasificacionAltaDto dto);
     }
 }
