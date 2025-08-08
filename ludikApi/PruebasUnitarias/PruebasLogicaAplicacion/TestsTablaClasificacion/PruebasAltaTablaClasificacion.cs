@@ -16,16 +16,20 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaClasificacion
     {
         private readonly Mock<IRepositorioTablasClasificacion> _repoTablaMock;
         private readonly Mock<IRepositorioGrupos> _repoGrupoMock;
+        private readonly Mock<IRepositorioProfesores> _repoProfesoresMock;
         private readonly AltaTablaClasificacion _casoUso;
         private readonly LogicaNegocio.Entidades.Grupo _grupo;
         private const int GrupoId = 5;
         private const int MedallaId = 10;
+        private const string ProfesorId = "prof-123";
 
         public PruebasAltaTablaClasificacion()
         {
             _repoTablaMock = new Mock<IRepositorioTablasClasificacion>();
             _repoGrupoMock = new Mock<IRepositorioGrupos>();
-            _casoUso = new AltaTablaClasificacion(_repoTablaMock.Object, _repoGrupoMock.Object);
+            _repoProfesoresMock = new Mock<IRepositorioProfesores>();
+
+            _casoUso = new AltaTablaClasificacion(_repoTablaMock.Object, _repoGrupoMock.Object, _repoProfesoresMock.Object);
 
             // Preparamos un grupo válido con alumnos
             _grupo = new LogicaNegocio.Entidades.Grupo
@@ -35,7 +39,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaClasificacion
                 {
                     new LogicaNegocio.Entidades.PerfilEstudiante { Id = 1 },
                     new LogicaNegocio.Entidades.PerfilEstudiante { Id = 2 }
-                }
+                },
+                ProfesorId = ProfesorId,
             };
         }
 
@@ -49,7 +54,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaClasificacion
 
             var dto = new TablaClasificacionAltaDto { Nombre = "TablaValida", MedallaAsociadaId = MedallaId };
 
-            var resultado = await _casoUso.EjecutarAsync(GrupoId, dto);
+            var resultado = await _casoUso.EjecutarAsync(ProfesorId,GrupoId, dto);
 
             Assert.True(resultado.EsFallo);
             Assert.Contains(resultado.Errores, e =>
@@ -67,7 +72,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaClasificacion
 
             var dto = new TablaClasificacionAltaDto { Nombre = "Ab", MedallaAsociadaId = MedallaId };
 
-            var resultado = await _casoUso.EjecutarAsync(GrupoId, dto);
+            var resultado = await _casoUso.EjecutarAsync(ProfesorId, GrupoId, dto);
 
             Assert.True(resultado.EsFallo);
             Assert.Contains(resultado.Errores, e =>
@@ -89,7 +94,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaClasificacion
 
             var dto = new TablaClasificacionAltaDto { Nombre = "TablaValida", MedallaAsociadaId = MedallaId };
 
-            var resultado = await _casoUso.EjecutarAsync(GrupoId, dto);
+            var resultado = await _casoUso.EjecutarAsync(ProfesorId, GrupoId, dto);
 
             Assert.True(resultado.EsFallo);
             Assert.Contains(resultado.Errores, e => e.Codigo == "Error.DB");
@@ -115,7 +120,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaClasificacion
                 MedallaAsociadaId = MedallaId
             };
 
-            var resultado = await _casoUso.EjecutarAsync(GrupoId, dto);
+            var resultado = await _casoUso.EjecutarAsync(ProfesorId, GrupoId, dto);
 
             Assert.True(resultado.EsExitoso);
             _repoTablaMock.Verify(r => r.AddAsync(It.IsAny<TablaClasificacion>()), Times.Once);

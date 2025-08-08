@@ -22,7 +22,6 @@ namespace AccesoDatos.RepositoriosEF
         {
             try
             {
-                // Si la entidad Recompensa tiene navegación a Tienda ya asignada, simplemente:
                 await _db.Recompensas.AddAsync(unObjeto);
                 await _db.SaveChangesAsync();
                 return Resultado.Exitoso();
@@ -58,24 +57,6 @@ namespace AccesoDatos.RepositoriosEF
             }
         }
 
-        public async Task<Resultado<IEnumerable<Recompensa>>> GetByTiendaIdAsync(int tiendaId)
-        {
-            try
-            {
-               /*
-                  var lista = await _db.Recompensas
-                      .Where(r => r.TiendaId == tiendaId)
-                      .ToListAsync();
-                  return Resultado<IEnumerable<Recompensa>>.Exitoso(lista);
-               */
-               return Resultado<IEnumerable<Recompensa>>.Falla(new Error("Error.Conflict", "No implementado. Se quito la tienda de recompensa."));
-            }
-            catch (Exception ex)
-            {
-                return Resultado<IEnumerable<Recompensa>>.Falla(
-                    new Error("Error.Unexpected", ex.Message));
-            }
-        }
 
         public async Task<Resultado> RemoveAsync(int id)
         {
@@ -101,7 +82,7 @@ namespace AccesoDatos.RepositoriosEF
         {
             try
             {
-                // Opcional: verificar que existe
+
                 var existe = await _db.Recompensas.AnyAsync(r => r.Id == unObjeto.Id);
                 if (!existe)
                     return Resultado.Falla(new Error("Error.NotFound", $"No se encontró la recompensa con Id {unObjeto.Id}."));

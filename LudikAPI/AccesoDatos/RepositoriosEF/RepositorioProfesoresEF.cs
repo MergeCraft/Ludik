@@ -23,9 +23,9 @@ namespace AccesoDatos.RepositoriosEF
         {
             try
             {
-                // Placeholder
+
                 await Task.CompletedTask;
-                return Resultado.Falla(new Error("Repositorio.Estudiante.NoImplementado", "Sin implementar"));
+                return Resultado.Falla(new Error("NoImplementado", "Sin implementar"));
             }
             catch (Exception e)
             {

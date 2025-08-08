@@ -116,7 +116,19 @@ namespace AccesoDatos.RepositoriosEF
         }
 
         public async Task<Resultado> RemoveAsync(ProyectoAulaColaborativo pac)
-            => await RemoveAsync(pac.Id);
+        {
+            try
+            {
+                await RemoveAsync(pac.Id);
+                return Resultado.Exitoso();
+            }
+            catch (Exception e)
+            {
+                return Resultado.Falla(new Error("Error.Unexpected", e.Message));
+            }
+            
+        }
+        
 
         
     }

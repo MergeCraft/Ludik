@@ -3283,7 +3283,7 @@ namespace AccesoDatos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NombreImagenMiniatura")
+                    b.Property<string>("NombreIcono")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -3297,70 +3297,70 @@ namespace AccesoDatos.Migrations
                             Id = 1,
                             Descripcion = "Considera dar este kudo cuando un compañero te dedica tiempo para explicarte algo que no entendías o te ayuda a completar una tarea.",
                             Nombre = "Gracias por la Ayuda",
-                            NombreImagenMiniatura = "kudo_ayuda.png"
+                            NombreIcono = "thumbs-up"
                         },
                         new
                         {
                             Id = 2,
                             Descripcion = "Considera dar este kudo cuando la pregunta de un compañero aclara una duda para todo el grupo o genera un debate que enriquece la clase.",
                             Nombre = "Esa Pregunta Suma",
-                            NombreImagenMiniatura = "kudo_pregunta.png"
+                            NombreIcono = "hands-clapping"
                         },
                         new
                         {
                             Id = 3,
                             Descripcion = "Considera dar este kudo cuando el esfuerzo, la perseverancia o la actitud positiva de un compañero te motiven a superarte.",
                             Nombre = "Inspirador",
-                            NombreImagenMiniatura = "kudo_inspirador.png"
+                            NombreIcono = "running"
                         },
                         new
                         {
                             Id = 4,
                             Descripcion = "Considera dar este kudo cuando un compañero toma tu idea o la de alguien más y la mejora, aportando un punto de vista que hace el trabajo más fuerte.",
                             Nombre = "Conectando Ideas",
-                            NombreImagenMiniatura = "kudo_conectando_ideas.png"
+                            NombreIcono = "lightbulb"
                         },
                         new
                         {
                             Id = 5,
                             Descripcion = "Considera dar este kudo cuando un compañero organiza el trabajo en equipo, se asegura de que todos participen o guía al grupo para cumplir el objetivo.",
                             Nombre = "Líder de Equipo",
-                            NombreImagenMiniatura = "kudo_lider_equipo.png"
+                            NombreIcono = "star"
                         },
                         new
                         {
                             Id = 6,
                             Descripcion = "Considera dar este kudo cuando un compañero comparte un enlace, video, apunte o cualquier material que te resultó muy útil para estudiar o hacer una tarea.",
                             Nombre = "Bibliotecario",
-                            NombreImagenMiniatura = "kudo_bibliotecario.png"
+                            NombreIcono = "book"
                         },
                         new
                         {
                             Id = 7,
                             Descripcion = "Considera dar este kudo cuando notes que un compañero se esfuerza por integrar a otros, asegurándose de que nadie se quede atrás y todos se sientan parte del equipo.",
                             Nombre = "Codo a Codo",
-                            NombreImagenMiniatura = "kudo_codo_a_codo.png"
+                            NombreIcono = "face-smile"
                         },
                         new
                         {
                             Id = 8,
                             Descripcion = "Considera dar este kudo cuando un compañero te da una sugerencia para mejorar tu trabajo de forma respetuosa y con la intención real de ayudar.",
                             Nombre = "Crítica que Construye",
-                            NombreImagenMiniatura = "kudo_critica_constructiva.png"
+                            NombreIcono = "hammer"
                         },
                         new
                         {
                             Id = 9,
                             Descripcion = "Considera dar este kudo cuando un compañero propone una solución original a un problema o una idea innovadora para un proyecto que sorprende al grupo.",
                             Nombre = "Chispa Creativa",
-                            NombreImagenMiniatura = "kudo_chispa_creativa.png"
+                            NombreIcono = "fire"
                         },
                         new
                         {
                             Id = 10,
                             Descripcion = "Considera dar este kudo cuando la explicación de un compañero sobre un tema muy difícil hace que, finalmente, lo entiendas con total claridad.",
                             Nombre = "Einstein",
-                            NombreImagenMiniatura = "kudo_einstein.png"
+                            NombreIcono = "brain"
                         });
                 });
 

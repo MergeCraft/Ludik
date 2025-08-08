@@ -7,7 +7,7 @@ namespace InterfacesRepositorio
 {
 	public interface IRepositorioTiendas : IRepositorio<Tienda>
 	{
-        public Task<Resultado<Tienda>> GetByStringIdAsync(string idString);
+
 
 
     }

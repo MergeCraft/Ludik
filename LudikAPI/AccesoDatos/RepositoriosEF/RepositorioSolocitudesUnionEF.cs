@@ -29,7 +29,6 @@ namespace AccesoDatos.RepositoriosEF
             return Resultado.Exitoso();
         }
 
-        //TODO: evaluar hacer metodo que compare si dos strings son iguales
         public async Task<bool> ExisteSolicitudPendiente(string idEstudiante, int idGrupo)
         {
             return await _db.SolicitudesUnion
@@ -69,7 +68,7 @@ namespace AccesoDatos.RepositoriosEF
         public async Task<Resultado> UpdateAsync(SolicitudUnion unObjeto)
         {
             if (unObjeto == null)
-                return Resultado.Falla(new Error("Validation", "El objeto no puede ser nulo."));
+                return Resultado.Falla(new Error("Error.Validation", "El objeto no puede ser nulo."));
 
             try
             {
@@ -79,7 +78,7 @@ namespace AccesoDatos.RepositoriosEF
             }
             catch (Exception ex)
             {
-                return Resultado.Falla(new Error("Database", "Error al actualizar la solicitud: " + ex.Message));
+                return Resultado.Falla(new Error("Error.Unexpected", "Error al actualizar la solicitud: " + ex.Message));
             }
         }
         public async Task<SolicitudUnion> GetSolicitudConEstudianteYGrupoPorIdAsync(int id)

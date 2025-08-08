@@ -22,7 +22,7 @@ namespace AccesoDatos.RepositoriosEF
         public async Task<Resultado> AddAsync(Estudiante estudianteNuevo)
         {
             if (estudianteNuevo == null)
-                return Resultado.Falla(new Error("Repositorio.Estudiante.Add.Null", "El estudiante no puede ser nulo.")); 
+                return Resultado.Falla(new Error("Error.Validation", "El estudiante no puede ser nulo.")); 
 
             try
             {
@@ -33,11 +33,11 @@ namespace AccesoDatos.RepositoriosEF
             catch (DbUpdateException dbEx)
             {
                 var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
-                return Resultado.Falla(new Error("Repositorio.Estudiante.Add.DbError", $"Error al guardar el estudiante: {detalle}")); 
+                return Resultado.Falla(new Error("Error.Unexpected", $"Error al guardar el estudiante: {detalle}")); 
             }
             catch (Exception e)
             {
-                return Resultado.Falla(new Error("Unexpected", e.Message)); 
+                return Resultado.Falla(new Error("Error.Unexpected", e.Message)); 
             }
         }
 
@@ -56,7 +56,7 @@ namespace AccesoDatos.RepositoriosEF
             }
             catch (Exception e)
             {
-                return Resultado<Estudiante>.Falla(new Error("Unexpected",e.Message));
+                return Resultado<Estudiante>.Falla(new Error("Error.Unexpected", e.Message));
             }
         }
         public async Task<Resultado<Estudiante>> GetByStringIdAsync(string id)
@@ -188,7 +188,7 @@ namespace AccesoDatos.RepositoriosEF
             }
             catch (Exception e)
             {
-                return Resultado<Estudiante>.Falla(new Error("Unexpected", e.Message));
+                return Resultado<Estudiante>.Falla(new Error("Error.Unexpected", e.Message));
             }
         }
     }

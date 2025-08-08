@@ -29,7 +29,7 @@ namespace AccesoDatos.RepositoriosEF
             }
             catch (Exception ex)
             {
-                return Resultado.Falla(new Error("Error.Database", ex.Message));
+                return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
             }
         }
 
@@ -46,7 +46,7 @@ namespace AccesoDatos.RepositoriosEF
             }
             catch (Exception ex)
             {
-                return Resultado<IEnumerable<PerfilEstudianteRecompensa>>.Falla(new Error("Error.Database", ex.Message));
+                return Resultado<IEnumerable<PerfilEstudianteRecompensa>>.Falla(new Error("Error.Unexpected", ex.Message));
             }
         }
 
@@ -66,7 +66,7 @@ namespace AccesoDatos.RepositoriosEF
             }
             catch (Exception ex)
             {
-                return Resultado<PerfilEstudianteRecompensa>.Falla(new Error("Error.Database", ex.Message));
+                return Resultado<PerfilEstudianteRecompensa>.Falla(new Error("Error.Unexpected", ex.Message));
             }
         }
 
@@ -80,7 +80,7 @@ namespace AccesoDatos.RepositoriosEF
             }
             catch (Exception ex)
             {
-                return Resultado.Falla(new Error("Error.Database", ex.Message));
+                return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
             }
         }
 
@@ -98,7 +98,7 @@ namespace AccesoDatos.RepositoriosEF
             }
             catch (Exception ex)
             {
-                return Resultado.Falla(new Error("Error.Database", ex.Message));
+                return Resultado.Falla(new Error("Error.Unexpected", ex.Message));
             }
         }
 

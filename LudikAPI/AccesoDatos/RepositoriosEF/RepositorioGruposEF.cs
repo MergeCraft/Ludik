@@ -216,7 +216,7 @@ namespace AccesoDatos.RepositoriosEF
             {
                 if (string.IsNullOrWhiteSpace(idProfesor))
                     return Resultado<IEnumerable<Grupo>>.Falla(
-                        new Error("Grupo.GetByProfesor.Validacion", "El ID de profesor no puede estar vacío."));
+                        new Error("Error.Validation", "El ID de profesor no puede estar vacío."));
 
                 var grupos = await _db.Grupos
                     .Include(g => g.Alumnos)
@@ -234,17 +234,12 @@ namespace AccesoDatos.RepositoriosEF
                     .Where(g => g.ProfesorId == idProfesor)
                     .ToListAsync();
 
-                if (!grupos.Any())
-                    return Resultado<IEnumerable<Grupo>>.Falla(
-                        new Error("Grupo.GetByProfesor.Vacio",
-                                  $"El profesor {idProfesor} no tiene grupos registrados."));
-
                 return Resultado<IEnumerable<Grupo>>.Exitoso(grupos);
             }
             catch (Exception ex)
             {
                 return Resultado<IEnumerable<Grupo>>.Falla(
-                    new Error("Grupo.GetByProfesor.DbError", ex.Message));
+                    new Error("Error.Unexpected", ex.Message));
             }
         }
 

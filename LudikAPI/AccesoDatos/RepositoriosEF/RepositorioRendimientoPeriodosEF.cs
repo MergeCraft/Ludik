@@ -21,7 +21,7 @@ namespace AccesoDatos.RepositoriosEF
         public async Task<Resultado> AddAsync(RendimientoPeriodo unObjeto)
         {
             if (unObjeto == null)
-                return Resultado.Falla(new Error("Error.Validation", "El objeto RendimientoPeriodo no puede ser nulo."));
+                return Resultado.Falla(new Error("Error.Validation", "El rendimiento periodo no puede ser nulo."));
 
             try
             {

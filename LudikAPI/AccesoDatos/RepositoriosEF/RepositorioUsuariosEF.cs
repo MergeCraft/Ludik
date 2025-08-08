@@ -73,7 +73,7 @@ namespace AccesoDatos.RepositoriosEF
         public async Task<Resultado> AddAsync(Usuario usuarioNuevo)
         {
             if(usuarioNuevo == null)
-                return Resultado.Falla(new Error("Validation", "El usuario proporcionado no es válido."));
+                return Resultado.Falla(new Error("Error.Validation", "El usuario proporcionado no es válido."));
             try
             {
                 await _db.Users.AddAsync(usuarioNuevo);
@@ -82,7 +82,7 @@ namespace AccesoDatos.RepositoriosEF
             }
             catch (Exception e)
             {
-                return Resultado.Falla(new Error ("Unexpected", "Surgio un error al guardar el usuario"));
+                return Resultado.Falla(new Error ("Error.Unexpected", "Surgio un error al guardar el usuario"));
             }
 
             

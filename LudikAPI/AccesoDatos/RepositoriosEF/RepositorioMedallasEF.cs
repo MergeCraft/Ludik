@@ -21,7 +21,7 @@ namespace AccesoDatos.RepositoriosEF
         public async Task<Resultado> AddAsync(Medalla unaMedalla)
         {
             if (unaMedalla == null)
-                return Resultado.Falla(new Error("Repositorio.Medalla.Add.Null", "La medalla no puede ser nula."));
+                return Resultado.Falla(new Error("Error.Validation", "La medalla no puede ser nula."));
             
 
             try
@@ -33,16 +33,15 @@ namespace AccesoDatos.RepositoriosEF
             }
             catch (DbUpdateException dbEx)
             {
-                // dbEx para determinar si es un conflicto (ej. clave duplicada)
-                // o algún otro problema de base de datos.
+
                 var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
 
-                return Resultado.Falla(new Error("Repositorio.Medalla.Add.DbError", $"Error al guardar la medalla en la BD: {detalle}")); 
+                return Resultado.Falla(new Error("Error.Unexpected", $"Error al guardar la medalla en la BD: {detalle}")); 
             }
             catch (Exception e)
             {
 
-                return Resultado.Falla(new Error("Repositorio.Medalla.Add.Inesperado", e.Message));
+                return Resultado.Falla(new Error("Error.Unexpected", e.Message));
             }
         }
 
@@ -98,7 +97,7 @@ namespace AccesoDatos.RepositoriosEF
             {
                 var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
 
-                return Resultado.Falla(new Error("Repositorio.Medalla.Remove.DbError", $"Error al eliminar la medalla: {detalle}"));
+                return Resultado.Falla(new Error("Error.Unexpected", $"Error al eliminar la medalla: {detalle}"));
             }
             catch (Exception e)
             {
@@ -111,7 +110,7 @@ namespace AccesoDatos.RepositoriosEF
         public async Task<Resultado> RemoveAsync(Medalla unaMedalla)
         {
             if (unaMedalla == null)
-                return Resultado.Falla(new Error("Repositorio.Medalla.Remove.Null", "La medalla a eliminar no puede ser nula."));
+                return Resultado.Falla(new Error("Error.Validation", "La medalla a eliminar no puede ser nula."));
 
             try
             {
@@ -128,7 +127,7 @@ namespace AccesoDatos.RepositoriosEF
             {
                 var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
 
-                return Resultado.Falla(new Error("Repositorio.Medalla.Remove.DbError", $"Error al eliminar la medalla: {detalle}"));
+                return Resultado.Falla(new Error("Error.Unexpected", $"Error al eliminar la medalla: {detalle}"));
             }
             catch (Exception e)
             {
@@ -141,7 +140,7 @@ namespace AccesoDatos.RepositoriosEF
         public async Task<Resultado> UpdateAsync(Medalla unaMedalla)
         {
             if (unaMedalla == null)
-                return Resultado.Falla(new Error("Repositorio.Medalla.Update.Null", "La medalla a actualizar no puede ser nula."));
+                return Resultado.Falla(new Error("Error.Validation", "La medalla a actualizar no puede ser nula."));
             
 
             try
@@ -160,7 +159,7 @@ namespace AccesoDatos.RepositoriosEF
             {
                 var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
 
-                return Resultado.Falla(new Error("Repositorio.Medalla.Update.DbError", $"Error al actualizar la medalla en la BD: {detalle}"));
+                return Resultado.Falla(new Error("Error.Unexpected", $"Error al actualizar la medalla en la BD: {detalle}"));
             }
             catch (Exception e)
             {

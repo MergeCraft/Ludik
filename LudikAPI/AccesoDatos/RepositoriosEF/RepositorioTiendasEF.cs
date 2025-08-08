@@ -44,23 +44,7 @@ namespace AccesoDatos.RepositoriosEF
                 return Resultado<Tienda>.Falla(new Error("Error.Unexpected", ex.Message));
             }
         }
-        public async Task<Resultado<Tienda>> GetByStringIdAsync(string idString)
-        {
-            try
-            {
-                if (!int.TryParse(idString, out int id))
-                {
-                    return Resultado<Tienda>.Falla(new Error("Error.InvalidId", $"El ID proporcionado '{idString}' no es válido."));
-                }
-
-                // Reutilizamos el método ya existente
-                return await GetByIdAsync(id);
-            }
-            catch (Exception ex)
-            {
-                return Resultado<Tienda>.Falla(new Error("Error.Unexpected", ex.Message));
-            }
-        }
+        
 
         public Task<Resultado> RemoveAsync(int id)
         {

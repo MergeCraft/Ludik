@@ -130,7 +130,6 @@ namespace AccesoDatos.RepositoriosEF
             {
                 var entidad = await _db.PerfilEstudianteMedallas
                                        .Where(pm => pm.PerfilEstudianteId == perfilId && pm.MedallaId == medallaId)
-                                        // si quieres la más reciente
                                        .FirstOrDefaultAsync();
                 if (entidad == null)
                     return Resultado<PerfilEstudianteMedalla>.Falla(new Error("Error.NotFound", "No existe asignación previa."));

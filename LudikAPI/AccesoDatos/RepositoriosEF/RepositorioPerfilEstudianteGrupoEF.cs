@@ -23,24 +23,23 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var perfiles = await _db.PerfilesEstudiantes
-            .Include(p => p.BarraProgreso)
-            .Include(p => p.Estudiante)
-            .Include(p => p.MedallasObtenidas)
-                .ThenInclude(pm => pm.Medalla)
-            .Include(p => p.Grupo)
-                .ThenInclude(g => g.TablaEquivalencia)
-                    .ThenInclude(te => te.Equivalencias)
-                        .ThenInclude(eq => eq.MedallasNecesarias)
-            .Include(p => p.HistorialRendimientoPeriodos)
-                .ThenInclude(rp => rp.RendimientoMedallas)
-                    .ThenInclude(rpm => rpm.Medalla)
-            .Where(p => p.GrupoId == grupoId)
-            .ToListAsync();
+                    .Include(p => p.BarraProgreso)
+                    .Include(p => p.Estudiante)
+                    .Include(p => p.MedallasObtenidas)
+                        .ThenInclude(pm => pm.Medalla)
+                    .Include(p => p.Grupo)
+                        .ThenInclude(g => g.TablaEquivalencia)
+                            .ThenInclude(te => te.Equivalencias)
+                                .ThenInclude(eq => eq.MedallasNecesarias)
+                    .Include(p => p.HistorialRendimientoPeriodos)
+                        .ThenInclude(rp => rp.RendimientoMedallas)
+                            .ThenInclude(rpm => rpm.Medalla)
+                    .Where(p => p.GrupoId == grupoId)
+                    .ToListAsync();
 
 				if (perfiles == null || !perfiles.Any())
 					return Resultado<List<PerfilEstudiante>>.Falla(
-						new Error("Error.Validation",
-								  $"No se encontraron perfiles para el grupo con Id {grupoId}."));
+						new Error("Error.Validation",$"No se encontraron perfiles para el grupo con Id {grupoId}."));
 
 				return Resultado<List<PerfilEstudiante>>.Exitoso(perfiles);
 			}
@@ -48,14 +47,12 @@ namespace AccesoDatos.RepositoriosEF
 			{
 				var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
 				return Resultado<List<PerfilEstudiante>>.Falla(
-					new Error("Error.Unexpected",
-							  $"Error al consultar la BD: {detalle}"));
+					new Error("Error.Unexpected",$"Error al consultar la BD: {detalle}"));
 			}
 			catch (Exception ex)
 			{
 				return Resultado<List<PerfilEstudiante>>.Falla(
-					new Error("Error.Unexpected",
-							  $"Error inesperado: {ex.Message}"));
+					new Error("Error.Unexpected", $"Error inesperado: {ex.Message}"));
 			}
 		}
 
@@ -220,7 +217,7 @@ namespace AccesoDatos.RepositoriosEF
 			catch (DbUpdateException dbEx)
 			{
 				var detalle = dbEx.InnerException?.Message ?? dbEx.Message;
-				return Resultado.Falla(new Error("Error.BD", $"Error al guardar los cambios: {detalle}"));
+				return Resultado.Falla(new Error("Error.Unexpected", $"Error al guardar los cambios: {detalle}"));
 			}
 			catch (Exception ex)
 			{

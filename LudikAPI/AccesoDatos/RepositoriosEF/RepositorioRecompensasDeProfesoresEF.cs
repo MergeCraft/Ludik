@@ -56,7 +56,7 @@ public class RepositorioRecompensasDeProfesoresEF: IRepositorioRecompensasDeProf
         catch (Exception e)
         {
             return Resultado<IEnumerable<ProfesorRecompensa>>.Falla(new Error("Error.Unexpected",
-                "Ha ocurrido un error en la base de datos. Erro: " + e.Message));
+                "Ha ocurrido un error en la base de datos. Error: " + e.Message));
         }
     }
 }

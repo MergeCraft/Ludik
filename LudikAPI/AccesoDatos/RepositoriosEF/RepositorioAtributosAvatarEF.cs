@@ -48,6 +48,7 @@ public class RepositorioAtributosAvatarEF: IRepositorioAtributosAvatar
         {
             if (ids == null)
                 return Resultado<IEnumerable<AtributoAvatar>>.Falla(new Error("Error.Validation", "No se han recibido atributos del avatar."));
+            
             IEnumerable<AtributoAvatar> atributos = await _db.AtributosAvatar
                 .Where(a => ids.Contains(a.Id))
                 .ToListAsync();

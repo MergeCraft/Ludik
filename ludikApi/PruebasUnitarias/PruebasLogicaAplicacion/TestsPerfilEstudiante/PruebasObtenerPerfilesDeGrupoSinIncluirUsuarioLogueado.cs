@@ -71,9 +71,9 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
                 }
             };
 
-            // Mock del repositorio
-            var mockRepo = new Mock<IRepositorioPerfilEstudianteGrupo>();
-            mockRepo.Setup(r => r.ObtenerPorGrupoIdAsync(10))
+            // Mock del repositorio de perfiles de estudiantes en grupo
+            var mockRepositorioPerfiles = new Mock<IRepositorioPerfilEstudianteGrupo>();
+            mockRepositorioPerfiles.Setup(r => r.ObtenerPorGrupoIdAsync(10))
                 .ReturnsAsync(Resultado<List<LogicaNegocio.Entidades.PerfilEstudiante>>.Exitoso(
                     new List<LogicaNegocio.Entidades.PerfilEstudiante> { perfilLogueado, perfilCompanero }
                 ));
@@ -86,10 +86,15 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
                     It.IsAny<(System.Func<PerfilEstudianteInformacionDto, string>, System.Action<PerfilEstudianteInformacionDto, string>)>()
                 ))
                 .Returns(Task.CompletedTask);
-
+            var mockRepositorioGrupos = new Mock<IRepositorioGrupos>();
+            mockRepositorioGrupos.Setup(r => r.GetByIdAsync(10))
+                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Grupo>.Exitoso(
+                    new LogicaNegocio.Entidades.Grupo { Id = 10, Nombre = "Grupo Test" }
+                ));
             var casoUso = new ObtenerPerfilesDeGrupoSinIncluirUsuarioLogueado(
-                mockRepo.Object,
-                mockGeneradorUrls.Object
+                mockRepositorioPerfiles.Object,
+                mockGeneradorUrls.Object,
+                mockRepositorioGrupos.Object
             );
 
             // Act
@@ -115,7 +120,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
             Assert.False(dtoMedalla.EsAsignacionMutua);
 
             // Verificaciones de llamadas a mocks
-            mockRepo.Verify(r => r.ObtenerPorGrupoIdAsync(10), Times.Once);
+            mockRepositorioPerfiles.Verify(r => r.ObtenerPorGrupoIdAsync(10), Times.Once);
             mockGeneradorUrls.Verify(g => g.EjecutarProcesarUrlsAsync(
                 It.IsAny<List<PerfilEstudianteInformacionDto>>(),
                 It.IsAny<(System.Func<PerfilEstudianteInformacionDto, string>, System.Action<PerfilEstudianteInformacionDto, string>)>()

@@ -40,7 +40,7 @@ public class RepositorioUmbralesParaMedallasesPorKudosEF: IRepositorioUmbralesPa
         {
             if (unObjeto == null)
             {
-                return Task.FromResult(Resultado.Falla(new Error("Error.Validation", "El objeto a eliminar no puede ser nulo.")));
+                return Task.FromResult(Resultado.Falla(new Error("Error.Validation", "El umbral a eliminar no puede ser nulo.")));
             }
             _db.UmbralesParaMedallasPorKudos.Remove(unObjeto);
             return Task.FromResult(Resultado.Exitoso());
