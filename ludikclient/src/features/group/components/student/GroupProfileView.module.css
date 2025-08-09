@@ -122,6 +122,11 @@
 
 .alcanzado {
     background-color: var(--meta-alumno);
+    background-image: url('../../../../assets/destellos3.gif');
+    /* Ruta relativa o absoluta */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80%;
 }
 
 .noAlcanzado {
@@ -178,6 +183,7 @@
     padding: 6px 10px;
     justify-content: center;
     align-items: center;
+    flex-grow: 1;
 }
 
 .medallasGrid {
@@ -249,6 +255,10 @@
 
     .accionesSeleccionMeta * {
         width: auto;
+    }
+
+    .progressBarManager {
+        flex-direction: column;
     }
 
 

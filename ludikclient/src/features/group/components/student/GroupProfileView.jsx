@@ -15,6 +15,8 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
   const { data: imagenPerfil, isLoading: isLoadingImagen, isError: isErrorImagen } = useImagenPerfil(perfil?.id);
   const { data: barraProgreso, isLoading: isLoadingBarra } = useBarraProgresoPerfil(perfil?.id);
 
+  console.log(perfil.medallas);
+
   const { mutate: setMeta } = useDefinirMetaCalificacion(perfil?.id);
 
   const [metaTemporal, setMetaTemporal] = useState(perfil.metaCalificacion);

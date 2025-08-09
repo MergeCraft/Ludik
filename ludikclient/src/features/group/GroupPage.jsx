@@ -33,7 +33,6 @@ const GroupPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [modalTitle, setModalTitle] = useState("");
-
   const [selectedView, setSelectedView] = useState("alumnos"); // alumnos | tienda | solicitudes
 
   // Cargar datos del grupo, alumnos, medallas y recompensas
@@ -195,7 +194,7 @@ const GroupPage = () => {
         ) : selectedView === "rankings" ? (
           <GroupRankingView setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
         ) : selectedView === "pac" ? (
-          <GroupPacView setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
+          <GroupPacView recompensas={recompensas} setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
         ) : selectedView === "threshold" ? (
           <MedalThresholdView setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
         ) : selectedView === "configs" ? (

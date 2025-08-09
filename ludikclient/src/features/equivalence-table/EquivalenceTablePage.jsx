@@ -52,10 +52,10 @@ const EquivalenceTablePage = () => {
   return (
     <BaseManagerPage
       actions={actions}
-      modalTitle={modalTipo === "crear" ? "Crear equivalencia" : "Editar equivalencia"}
+      modalTitle={modalTipo === "crear" ? "Crear Tabla de Equivalencia" : "Editar Tabla de Equivalencia"}
       modalContent={modalContent}
       items={items}
-      searchPlaceholder="equivalencia"
+      searchPlaceholder="Tabla de Equivalencia"
       showModal={showModal}
       setShowModal={setShowModal}
       searchValue={search}

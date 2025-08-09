@@ -23,12 +23,6 @@ function Layout() {
 
   const { data: perfil, isLoading: isLoadingPerfil } = usePerfilGrupo(grupos?.[0]?.id, isProfesor, isLoggedIn);
 
-  if (perfil != null) {
-    perfil.multiplicadorPotenciador = 3;
-
-    perfil.tiempoRestantePotenciador = "01:30";
-  }
-
   return (
     <div className={styles.layoutContainer}>
       <header className={styles.header}>

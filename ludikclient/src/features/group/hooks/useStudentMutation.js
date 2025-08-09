@@ -15,7 +15,7 @@ import {
 import { canjearRecompensa } from "../../../services/storeService";
 import { obtenerImagenPerfil } from "../../../services/imagesService";
 
-export const usePerfilGrupo = (grupoId, isProfesor, isLoggedIn) => {
+export const usePerfilGrupo = (grupoId, isProfesor, isLoggedIn = true) => {
   return useQuery({
     queryKey: ["perfilGrupo", grupoId],
     queryFn: () => obtenerPerfilGrupo(grupoId),
