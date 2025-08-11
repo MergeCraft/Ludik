@@ -69,5 +69,20 @@ namespace AccesoDatos.RepositoriosEF
         {
             throw new NotImplementedException();
         }
+
+        public async Task<bool> ExisteEnRendimientoPeriodoAsync(int medallaId)
+        {
+            try
+            {
+                return await _db.RendimientosPeriodos
+                                .AsNoTracking()
+                                .SelectMany(rp => rp.RendimientoMedallas)
+                                .AnyAsync(rpm => rpm.MedallaId == medallaId);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

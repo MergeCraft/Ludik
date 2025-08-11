@@ -106,5 +106,21 @@ namespace AccesoDatos.RepositoriosEF
                 return Resultado.Falla(new Error("Error.Unexpected", $"Error al actualizar la tabla: {detalle}"));
             }
         }
+        public async Task<bool> ExisteTablaEquivalenciaConMedallaAsync(int medallaId)
+        {
+            try
+            {
+                return await _db.TablasEquivalencia
+                                .AsNoTracking()
+                                .AnyAsync(t => t.Equivalencias
+                                                 .Any(e => e.MedallasNecesarias
+                                                               .Any(m => m.Id == medallaId)));
+            }
+            catch (Exception ex)
+            {
+                
+                return false;
+            }
+        }
     }
 }

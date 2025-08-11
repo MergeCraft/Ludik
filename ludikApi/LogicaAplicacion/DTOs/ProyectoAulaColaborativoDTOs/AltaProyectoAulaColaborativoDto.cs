@@ -13,5 +13,7 @@ namespace LogicaAplicacion.DTOs.ProyectoAulaColaborativoDTOs
         public MetaVisual Visual { get; set; }
         public int CantidadMedallasNecesarias { get; set; }
         public int RecompensaClaseId { get; set; }
+        public DateTime FechaInicio { get; set; }
+        public DateTime FechaFin { get; set; }
     }
 }

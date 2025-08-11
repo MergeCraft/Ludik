@@ -9,6 +9,8 @@ namespace InterfacesRepositorio
 	{
         Task<Resultado<IEnumerable<TablaClasificacion>>> GetAllByAsync(int grupoId);
 
+        Task<bool> ExisteTablaClasificacionConMedallaAsync(int medallaId);
+
 
     }
 

@@ -10,6 +10,6 @@ namespace LogicaAplicacion.InterfacesCasosUsos.SolicitudUnion
 {
     public interface IAceptarSolicitudUnion
     {
-        Task<Resultado> EjecutarAsync(int idSolicitud);
+        Task<Resultado> EjecutarAsync(int idSolicitud,string profesorId);
     }
 }

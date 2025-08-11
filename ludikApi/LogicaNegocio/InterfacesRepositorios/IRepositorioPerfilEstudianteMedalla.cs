@@ -15,5 +15,6 @@ namespace LogicaNegocio.InterfacesRepositorios
         Task<Resultado<PerfilEstudianteMedalla>> GetByPerfilYMedallaAsync(int perfilId, int medallaId);
         Task<Resultado<PerfilEstudianteMedalla>> GetByIdConPerfilYMedallaAsync(int id);
         Task<Resultado<int>> ContarMedallasPorEstudianteAsync(string estudianteId);
+        Task<bool> ExistePerfilEstudianteMedallaAsync(int medallaId);
     }
 }

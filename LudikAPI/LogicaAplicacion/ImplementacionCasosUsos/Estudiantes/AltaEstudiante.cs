@@ -50,8 +50,8 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Estudiantes
 
             var resultadoNombre = NombreCompleto.Crear(estudianteAltaDto.Nombre, estudianteAltaDto.Apellido);
             if (resultadoNombre.EsFallo)
-                return Resultado.Falla(resultadoNombre.Errores);
-            
+                return Resultado.Falla(new Error("Error.Validation", "El nombre o apellido no cumple el formato 3-20 caracteres"));
+
             var estudianteNuevo = EstudianteAltaMapper.fromDto(estudianteAltaDto, resultadoNombre.Valor);
 
             var existeNombre = await _userManager.FindByNameAsync(estudianteAltaDto.NombreUsuario);

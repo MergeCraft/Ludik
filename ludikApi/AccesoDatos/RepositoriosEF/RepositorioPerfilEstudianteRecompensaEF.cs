@@ -115,5 +115,17 @@ namespace AccesoDatos.RepositoriosEF
                 return Resultado.Falla(new Error("Error.Database", ex.Message));
             }
         }
+        public async Task<bool> FueCanjeadaAsync(int recompensaId)
+        {
+            try
+            {
+                return await _db.PerfilEstudianteRecompensas
+                                .AnyAsync(p => p.RecompensaId == recompensaId);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

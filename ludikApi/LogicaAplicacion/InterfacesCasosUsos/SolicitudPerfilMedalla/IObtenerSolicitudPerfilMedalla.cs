@@ -10,6 +10,6 @@ namespace LogicaAplicacion.InterfacesCasosUsos.SolicitudPerfilMedalla
 {
     public interface IObtenerSolicitudPerfilMedalla
     {
-        Task<Resultado<List<SolicitudPerfilMedallaDto>>> EjecutarAsync(int grupoId);
+        Task<Resultado<List<SolicitudPerfilMedallaDto>>> EjecutarAsync(int grupoId,string profesorId);
     }
 }

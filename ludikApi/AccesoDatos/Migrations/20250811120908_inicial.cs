@@ -913,7 +913,9 @@ namespace AccesoDatos.Migrations
                     CantidadMedallasNecesarias = table.Column<int>(type: "int", nullable: false),
                     TotalContribuciones = table.Column<int>(type: "int", nullable: false),
                     RecompensaClaseId = table.Column<int>(type: "int", nullable: false),
-                    Estado = table.Column<int>(type: "int", nullable: false)
+                    Estado = table.Column<int>(type: "int", nullable: false),
+                    FechaInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaFin = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

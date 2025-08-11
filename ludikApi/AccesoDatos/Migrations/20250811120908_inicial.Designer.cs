@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250808185424_inicial")]
+    [Migration("20250811120908_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -2951,6 +2951,12 @@ namespace AccesoDatos.Migrations
 
                     b.Property<int>("Estado")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaFin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaInicio")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("GrupoId")
                         .HasColumnType("int");

@@ -2949,6 +2949,12 @@ namespace AccesoDatos.Migrations
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("FechaFin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaInicio")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("GrupoId")
                         .HasColumnType("int");
 

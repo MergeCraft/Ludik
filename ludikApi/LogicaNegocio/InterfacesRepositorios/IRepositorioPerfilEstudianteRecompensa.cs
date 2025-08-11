@@ -10,5 +10,6 @@ namespace LogicaNegocio.InterfacesRepositorios
 {
     public interface IRepositorioPerfilEstudianteRecompensa:IRepositorio<PerfilEstudianteRecompensa>
     {
+        Task<bool> FueCanjeadaAsync(int recompensaId);
     }
 }

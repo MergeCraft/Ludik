@@ -196,11 +196,12 @@ namespace WebApi.Controllers
         {
             try
             {
+
                 var idProfesor = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 if (string.IsNullOrEmpty(idProfesor))
                     return Unauthorized(new { Mensaje = "No se pudo identificar al usuario autenticado." });
 
-                var resultado = await _aceptarSolicitudUnion.EjecutarAsync(solicitudId);
+                var resultado = await _aceptarSolicitudUnion.EjecutarAsync(solicitudId,idProfesor);
 
                 if (resultado.EsFallo)
                 {
@@ -246,7 +247,7 @@ namespace WebApi.Controllers
                 if (string.IsNullOrEmpty(idProfesor))
                     return Unauthorized(new { Mensaje = "No se pudo identificar al usuario autenticado." });
 
-                var resultado = await _rechazarSolicitudUnion.EjecutarAsync(solicitudId);
+                var resultado = await _rechazarSolicitudUnion.EjecutarAsync(solicitudId, idProfesor);
 
                 if (resultado.EsFallo)
                 {
@@ -388,7 +389,7 @@ namespace WebApi.Controllers
                 if (string.IsNullOrEmpty(idProfesor))
                     return Unauthorized(new { Mensaje = "No se pudo identificar al usuario autenticado." });
 
-                var resultado = await _obtenerSolicitudPerfilMedalla.EjecutarAsync(grupoId);
+                var resultado = await _obtenerSolicitudPerfilMedalla.EjecutarAsync(grupoId, idProfesor);
 
                 if (resultado.EsFallo)
                 {

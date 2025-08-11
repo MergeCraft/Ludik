@@ -25,6 +25,11 @@ namespace LogicaNegocio.Entidades
         public Recompensa RecompensaClase { get; set; } = default!;
         public EstadoPAC Estado { get; set; } = EstadoPAC.Activo;
 
+        public DateTime FechaInicio { get; set; }
+
+        public DateTime FechaFin { get; set; }
+
+
 
         public Resultado esValido()
         {
