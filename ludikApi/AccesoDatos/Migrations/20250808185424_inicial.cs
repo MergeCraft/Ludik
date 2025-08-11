@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
-    public partial class inicialConDatos : Migration
+    public partial class inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -42,24 +42,6 @@ namespace AccesoDatos.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EnlacesUnion", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Pines",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdUsuario = table.Column<int>(type: "int", nullable: false),
-                    Codigo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FExpiracion = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TiempoDeVida = table.Column<int>(type: "int", nullable: false),
-                    FueUtilizado = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Pines", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -1975,9 +1957,6 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.DropTable(
                 name: "PerfilEstudianteRecompensas");
-
-            migrationBuilder.DropTable(
-                name: "Pines");
 
             migrationBuilder.DropTable(
                 name: "PreguntasRespuestasSeguridad");

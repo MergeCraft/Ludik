@@ -2786,38 +2786,6 @@ namespace AccesoDatos.Migrations
                         });
                 });
 
-            modelBuilder.Entity("LogicaNegocio.Entidades.Pin", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Codigo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("FCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FExpiracion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("FueUtilizado")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("IdUsuario")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TiempoDeVida")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Pines");
-                });
-
             modelBuilder.Entity("LogicaNegocio.Entidades.PreguntaDeSeguridad", b =>
                 {
                     b.Property<int>("Id")

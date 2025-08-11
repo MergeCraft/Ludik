@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250808173020_inicialConDatos")]
-    partial class inicialConDatos
+    [Migration("20250808185424_inicial")]
+    partial class inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -2787,38 +2787,6 @@ namespace AccesoDatos.Migrations
                             PerfilEstudianteId = 1,
                             RecompensaId = 21
                         });
-                });
-
-            modelBuilder.Entity("LogicaNegocio.Entidades.Pin", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Codigo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("FCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FExpiracion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("FueUtilizado")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("IdUsuario")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TiempoDeVida")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Pines");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.PreguntaDeSeguridad", b =>
