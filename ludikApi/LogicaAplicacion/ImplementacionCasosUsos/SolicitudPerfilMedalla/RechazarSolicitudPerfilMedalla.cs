@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using InterfacesRepositorio;
 using LogicaAplicacion.InterfacesCasosUsos.SolicitudPerfilMedalla;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
@@ -15,15 +16,18 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla
     public class RechazarSolicitudPerfilMedalla : IRechazarSolicitudPerfilMedalla
     {
         private readonly IRepositorioSolicitudPerfilMedalla _repositorio;
+        private readonly IRepositorioProfesores _repositorioProfesores;
+
         private readonly List<IObserver<Entidades.SolicitudPerfilMedalla>> _observers;
 
 
-        public RechazarSolicitudPerfilMedalla(IRepositorioSolicitudPerfilMedalla repositorio, IEnumerable<IObserver<Entidades.SolicitudPerfilMedalla>> observers)
+        public RechazarSolicitudPerfilMedalla(IRepositorioSolicitudPerfilMedalla repositorio, IEnumerable<IObserver<Entidades.SolicitudPerfilMedalla>> observers, IRepositorioProfesores repositorioProfesores)
         {
             _repositorio = repositorio;
             _observers = observers.ToList();
+            _repositorioProfesores = repositorioProfesores;
         }
-        public async Task<Resultado> EjecutarAsync(int idSolicitudPerfil)
+        public async Task<Resultado> EjecutarAsync(int idSolicitudPerfil,string profesorId)
         {
             var solicitud = await _repositorio.GetByIdAsync(idSolicitudPerfil);
             if (solicitud.EsFallo || solicitud.Valor == null)
@@ -35,6 +39,13 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla
             {
                 return Resultado.Falla(new Error("Error.Validation", "La solicitud ya fue procesada."));
             }
+
+            var resultadoPosee = await _repositorioProfesores.PoseeMedallaAsync(profesorId, solicitudValor.MedallaId);
+            if (resultadoPosee.Valor == false)
+            {
+                return Resultado.Falla(new Error("Error.Validation", "Esa medalla pertenece a otro docente"));
+            }
+
 
             solicitudValor.Estado = EstadoSolicitud.Rechazada;
             var resultadoActualizacion = await _repositorio.UpdateAsync(solicitudValor);

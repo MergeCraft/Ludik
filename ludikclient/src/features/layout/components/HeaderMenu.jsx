@@ -59,7 +59,7 @@ const HeaderMenu = () => {
                 </li>
 
                 <li onClick={() => goTo("/equivalenceTable")} className={isActive("/equivalenceTable") ? styles.activeRubricas : ""}>
-                  <FontAwesomeIcon icon="fa-solid fa-clipboard-list" size="lg" /> Rubricas
+                  <FontAwesomeIcon icon="fa-solid fa-clipboard-list" size="lg" /> Tablas de Equivalencia
                 </li>
 
                 <li onClick={() => goTo("/rewards")} className={isActive("/rewards") ? styles.activeRecompensas : ""}>

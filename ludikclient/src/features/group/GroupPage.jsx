@@ -33,7 +33,6 @@ const GroupPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [modalTitle, setModalTitle] = useState("");
-
   const [selectedView, setSelectedView] = useState("alumnos"); // alumnos | tienda | solicitudes
 
   // Cargar datos del grupo, alumnos, medallas y recompensas
@@ -44,6 +43,8 @@ const GroupPage = () => {
   const { data: tiposKudo, isLoading: isLoadingKudos } = useTiposKudo();
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasTienda(group?.idTienda);
   const { data: perfil, isLoadingPerfil } = usePerfilGrupo(groupId, isProfesor);
+
+  console.log(perfil);
 
   const studentsFiltrados = students?.filter((item) => item.nombreEstudiante.toLowerCase().includes(search.toLowerCase()));
 
@@ -193,9 +194,16 @@ const GroupPage = () => {
         ) : selectedView === "perfil" ? (
           <GroupProfileView perfil={perfil} isLoading={isLoadingPerfil} setModalContent={setModalContent} setShowModal={setShowModal} setModalTitle={setModalTitle} />
         ) : selectedView === "rankings" ? (
-          <GroupRankingView setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
+          <GroupRankingView
+            setModalContent={setModalContent}
+            setModalTitle={setModalTitle}
+            setShowModal={setShowModal}
+            groupId={groupId}
+            showTeacherOptions={isProfesor}
+            idPerfilEstudiante={perfil?.id}
+          />
         ) : selectedView === "pac" ? (
-          <GroupPacView setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
+          <GroupPacView recompensas={recompensas} setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
         ) : selectedView === "threshold" ? (
           <MedalThresholdView setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
         ) : selectedView === "configs" ? (
@@ -211,7 +219,7 @@ const GroupPage = () => {
       modalTitle={modalTitle}
       modalContent={modalContent}
       items={items}
-      searchPlaceholder="alumno"
+      searchPlaceholder={isProfesor ? "alumno" : "compañero"}
       showModal={showModal}
       setShowModal={setShowModal}
       searchValue={search}

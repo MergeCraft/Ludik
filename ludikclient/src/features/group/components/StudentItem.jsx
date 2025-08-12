@@ -19,7 +19,7 @@ const StudentItem = ({ perfilEmisorId, student, medals, kudos, isLoadingKudos, s
     const kudoId = Number(e.target.value);
     if (!kudoId) return;
 
-    const kudo = medals.find((k) => k.id === kudoId);
+    const kudo = kudos.find((k) => k.id === kudoId);
     if (!kudo) return;
 
     setIsKudoLoading(true);
@@ -59,7 +59,6 @@ const StudentItem = ({ perfilEmisorId, student, medals, kudos, isLoadingKudos, s
             </div>
           ) : (
             <div className={styles.asignarMedalla}>
-              <p>Brindar reconocimiento</p>
               <select
                 className={`button ${styles.medallas}`}
                 name="kudos"
@@ -76,7 +75,7 @@ const StudentItem = ({ perfilEmisorId, student, medals, kudos, isLoadingKudos, s
                   <option value="">No hay reconocimientos disponibles</option>
                 ) : (
                   <>
-                    <option value="">Reconocimientos</option>
+                    <option value="">Brindar reconocimiento</option>
                     {kudos?.map((kudo) => (
                       <option key={kudo.id} value={kudo.id}>
                         {kudo.nombre}

@@ -16,11 +16,14 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
     {
         private readonly IRepositorioGrupos _repositorioGrupo;
         private readonly IRepositorioTablasEquivalencia _repositorioTablaEquivalencia;
+        private readonly IRepositorioProfesores _repositorioProfesores;
 
-        public EditarGrupo(IRepositorioGrupos repo, IRepositorioTablasEquivalencia repositorioTablaEquivalencia)
+
+        public EditarGrupo(IRepositorioGrupos repo, IRepositorioTablasEquivalencia repositorioTablaEquivalencia, IRepositorioProfesores repositorioProfesores)
         {
             _repositorioGrupo = repo;
             _repositorioTablaEquivalencia = repositorioTablaEquivalencia;
+            _repositorioProfesores = repositorioProfesores;
         }
         public async Task<Resultado> EjecutarAsync(GrupoEditarDto grupoDto, string profesorId)
         {
@@ -40,6 +43,13 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
             var tablaEquivalencia = await _repositorioTablaEquivalencia.GetByIdAsync(grupoDto.TablaEquivalenciaId);
             if (tablaEquivalencia.EsFallo || tablaEquivalencia.Valor == null)
                 return Resultado.Falla(new Error("Error.Validation", "La tabla de equivalencia especificada no existe."));
+
+            var resultadoProfesor = await _repositorioProfesores.GetByStringIdAsync(profesorId);
+            var profesor = resultadoProfesor.Valor;
+            if (!profesor.TablasEquivalencia!.Any(g => g.Id == tablaEquivalencia.Valor.Id))
+            {
+                return Resultado.Falla(new Error("Error.Unauthorized", "La tabla no se encuentra dentro de las tablas del profesor logueado."));
+            }
 
             GrupoEditarDtoMapper.UpdateFromDto(grupoDto, resultado.Valor);
             var resultadoValidacion = resultado.Valor.esValido();

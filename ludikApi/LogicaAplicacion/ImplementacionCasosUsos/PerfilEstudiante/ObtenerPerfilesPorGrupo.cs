@@ -15,20 +15,31 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.PerfilEstudiante
     {
         private readonly IRepositorioPerfilEstudianteGrupo _repositorioPerfil;
         private readonly IGeneradorUrlsParaColeccionesImagenes _generadorUrlsParaColecciones;
+        private readonly IRepositorioGrupos _repoGrupos;
 
         public ObtenerPerfilesPorGrupo(
             IRepositorioPerfilEstudianteGrupo repositorioPerfil,
-            IGeneradorUrlsParaColeccionesImagenes generadorUrlsImagenes)
+            IGeneradorUrlsParaColeccionesImagenes generadorUrlsImagenes,
+            IRepositorioGrupos repoGrupos)
         {
             _repositorioPerfil = repositorioPerfil;
             _generadorUrlsParaColecciones = generadorUrlsImagenes;
+            _repoGrupos = repoGrupos;
         }
 
-        public async Task<Resultado<List<PerfilEstudianteInformacionDto>>> EjecutarAsync(int grupoId)
+        public async Task<Resultado<List<PerfilEstudianteInformacionDto>>> EjecutarAsync(int grupoId,string profesorId)
         {
+            
             var resultadoPerfiles = await _repositorioPerfil.ObtenerPorGrupoIdAsync(grupoId);
             if (resultadoPerfiles.EsFallo)
                 return Resultado<List<PerfilEstudianteInformacionDto>>.Falla(resultadoPerfiles.Errores);
+
+            var grupoRes = await _repoGrupos.GetByIdAsync(grupoId);
+            if (grupoRes.Valor.ProfesorId != profesorId)
+            {
+                return Resultado<List<PerfilEstudianteInformacionDto>>.Falla(new Error("Error.Unauthorized", "Este grupo pertenece a otro profesor"));
+            }
+
 
             var perfiles = resultadoPerfiles.Valor!;
             List<PerfilEstudianteInformacionDto> dtos = new List<PerfilEstudianteInformacionDto>();

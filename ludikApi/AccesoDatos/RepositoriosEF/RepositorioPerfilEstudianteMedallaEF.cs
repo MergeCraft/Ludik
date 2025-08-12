@@ -205,6 +205,20 @@ namespace AccesoDatos.RepositoriosEF
                     new Error("Error.Unexpected", $"Ocurrió un error inesperado al contar las medallas del estudiante: {ex.Message}"));
             }
         }
-
+        public async Task<bool> ExistePerfilEstudianteMedallaAsync(int medallaId)
+        {
+            try
+            {
+                return await _db.PerfilEstudianteMedallas
+                                .AsNoTracking()
+                                .AnyAsync(pm => pm.MedallaId == medallaId);
+            }
+            catch (Exception ex)
+            {
+                // Opcional: loggear ex
+                // Log.Error(ex, "Error comprobando medalla en PerfilEstudianteMedalla");
+                return false;
+            }
+        }
     }
 }

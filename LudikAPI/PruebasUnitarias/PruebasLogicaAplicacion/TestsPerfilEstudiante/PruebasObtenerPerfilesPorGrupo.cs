@@ -17,13 +17,15 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
     {
         private readonly Mock<IRepositorioPerfilEstudianteGrupo> _mockRepo;
         private readonly Mock<IGeneradorUrlsParaColeccionesImagenes> _mockUrlGen;
+        private readonly Mock<IRepositorioGrupos> _mockRepoGrupos;
         private readonly ObtenerPerfilesPorGrupo _casoUso;
 
         public PruebasObtenerPerfilesPorGrupo()
         {
             _mockRepo = new Mock<IRepositorioPerfilEstudianteGrupo>();
             _mockUrlGen = new Mock<IGeneradorUrlsParaColeccionesImagenes>();
-            _casoUso = new ObtenerPerfilesPorGrupo(_mockRepo.Object, _mockUrlGen.Object);
+            _mockRepoGrupos = new Mock<IRepositorioGrupos>();
+            _casoUso = new ObtenerPerfilesPorGrupo(_mockRepo.Object, _mockUrlGen.Object, _mockRepoGrupos.Object);
         }
 
         [Fact]
@@ -34,14 +36,14 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
                 .Setup(r => r.ObtenerPorGrupoIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(Resultado<List<LogicaNegocio.Entidades.PerfilEstudiante>>.Falla(error));
 
-            var resultado = await _casoUso.EjecutarAsync(123);
+            var resultado = await _casoUso.EjecutarAsync(123, "profX");
 
             Assert.True(resultado.EsFallo);
             Assert.Contains(error, resultado.Errores);
             _mockUrlGen.Verify(
                 g => g.EjecutarProcesarUrlsAsync<PerfilEstudianteInformacionDto>(
                     It.IsAny<IEnumerable<PerfilEstudianteInformacionDto>>(),
-                    It.IsAny<(Func<PerfilEstudianteInformacionDto, string>, Action<PerfilEstudianteInformacionDto, string>)[]>()),
+                    It.IsAny<(System.Func<PerfilEstudianteInformacionDto, string>, System.Action<PerfilEstudianteInformacionDto, string>)[]>()),
                 Times.Never);
         }
 
@@ -63,7 +65,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
             {
                 Id = 7,
                 Nombre = "Grupo Test",
-                TablaEquivalencia = tabla
+                TablaEquivalencia = tabla,
+                ProfesorId = "profX"
             };
 
             // 3) Creo el VO NombreCompleto
@@ -92,7 +95,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
                             Descripcion           = "Descripción test",
                             NombreIcono = "medalla-mini.png",
                             MonedasOtorgadas      = 5,
-                            TieneAsignacionMutua  = false
                         }
                     }
                 }
@@ -102,19 +104,24 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
                 .Setup(r => r.ObtenerPorGrupoIdAsync(grupoReal.Id))
                 .ReturnsAsync(Resultado<List<LogicaNegocio.Entidades.PerfilEstudiante>>.Exitoso(new[] { perfil }.ToList()));
 
-            // 5) Capturo los DTOs que se pasen al generador de URLs
+            // 5) Setup del repositorio de grupos para que la validación de profesor pase
+            _mockRepoGrupos
+                .Setup(r => r.GetByIdAsync(grupoReal.Id))
+                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Grupo>.Exitoso(grupoReal));
+
+            // 6) Capturo los DTOs que se pasen al generador de URLs
             List<PerfilEstudianteInformacionDto> dtosProcesados = null;
             _mockUrlGen
                 .Setup(g => g.EjecutarProcesarUrlsAsync(
                     It.IsAny<IEnumerable<PerfilEstudianteInformacionDto>>(),
-                    It.IsAny<(Func<PerfilEstudianteInformacionDto, string>, Action<PerfilEstudianteInformacionDto, string>)[]>()))
-                .Callback<IEnumerable<PerfilEstudianteInformacionDto>, (Func<PerfilEstudianteInformacionDto, string>, Action<PerfilEstudianteInformacionDto, string>)[]>(
+                    It.IsAny<(System.Func<PerfilEstudianteInformacionDto, string>, System.Action<PerfilEstudianteInformacionDto, string>)[]>()))
+                .Callback<IEnumerable<PerfilEstudianteInformacionDto>, (System.Func<PerfilEstudianteInformacionDto, string>, System.Action<PerfilEstudianteInformacionDto, string>)[]>(
                     (dtos, _) => dtosProcesados = dtos.ToList()
                 )
                 .Returns(Task.CompletedTask);
 
             // Act
-            var resultado = await _casoUso.EjecutarAsync(grupoReal.Id);
+            var resultado = await _casoUso.EjecutarAsync(grupoReal.Id, "profX");
 
             // Assert
             Assert.True(resultado.EsExitoso);
@@ -132,7 +139,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
             _mockUrlGen.Verify(
                 g => g.EjecutarProcesarUrlsAsync(
                     It.IsAny<IEnumerable<PerfilEstudianteInformacionDto>>(),
-                    It.IsAny<(Func<PerfilEstudianteInformacionDto, string>, Action<PerfilEstudianteInformacionDto, string>)[]>()),
+                    It.IsAny<(System.Func<PerfilEstudianteInformacionDto, string>, System.Action<PerfilEstudianteInformacionDto, string>)[]>()),
                 Times.Once);
 
             // Y que el listado procesado coincide con el del resultado

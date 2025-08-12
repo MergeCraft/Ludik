@@ -19,7 +19,6 @@ namespace LogicaAplicacion.DTOsMappers.MedallaMappers
                 Nombre = medalla.Nombre,
                 Descripcion = medalla.Descripcion,
                 CantidadMonedasBrinda = medalla.MonedasOtorgadas,
-                EsAsignacionMutua = medalla.TieneAsignacionMutua
             };
         }
 
@@ -31,7 +30,6 @@ namespace LogicaAplicacion.DTOsMappers.MedallaMappers
                 Nombre = dto.Nombre,
                 Descripcion = dto.Descripcion,
                 MonedasOtorgadas = dto.CantidadMonedasBrinda,
-                TieneAsignacionMutua = dto.EsAsignacionMutua
             };
 
         }

@@ -68,7 +68,7 @@ const RewardsPage = () => {
       <button className="button-secondary" onClick={handleOpenCreate}>
         <span className={styles.clamped}> Crear recompensa</span>
       </button>
-      <button className="button" onClick={handleOpenAsignToGroups}>
+      <button className={`button ${styles.botonAsignar}`} onClick={handleOpenAsignToGroups}>
         <span className={styles.clamped}>Asignar recompensas</span>
       </button>
     </div>

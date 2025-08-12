@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Moq;
 using Xunit;
@@ -9,25 +10,29 @@ using LogicaAplicacion.ImplementacionCasosUsos.Grupos;
 using LogicaNegocio.Resultados;
 using Entidad = LogicaNegocio.Entidades;
 
-
 namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
 {
     public class PruebasEditarGrupo
     {
         private readonly Mock<IRepositorioGrupos> _repoGruposMock;
         private readonly Mock<IRepositorioTablasEquivalencia> _repoTablasMock;
+        private readonly Mock<IRepositorioProfesores> _repoProfesoresMock;
 
         public PruebasEditarGrupo()
         {
             _repoGruposMock = new Mock<IRepositorioGrupos>();
             _repoTablasMock = new Mock<IRepositorioTablasEquivalencia>();
+            _repoProfesoresMock = new Mock<IRepositorioProfesores>();
         }
 
         [Fact]
         public async Task Ejecutar_DtoNulo_RetornaErrorValidacion()
         {
             // Arrange
-            var servicio = new EditarGrupo(_repoGruposMock.Object, _repoTablasMock.Object);
+            var servicio = new EditarGrupo(
+                _repoGruposMock.Object,
+                _repoTablasMock.Object,
+                _repoProfesoresMock.Object);
 
             // Act
             var resultado = await servicio.EjecutarAsync(null!, "profesor123");
@@ -45,7 +50,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             {
                 Id = 1,
                 Nombre = "Nuevo nombre",
-                TablaEquivalenciaId = 5, // aunque no se use, asignamos un valor
+                TablaEquivalenciaId = 5,
                 ProfesorId = "profesor123"
             };
 
@@ -53,7 +58,10 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             _repoGruposMock.Setup(r => r.GetByIdAsync(1))
                 .ReturnsAsync(Resultado<Entidad.Grupo>.Exitoso((Entidad.Grupo)null!));
 
-            var servicio = new EditarGrupo(_repoGruposMock.Object, _repoTablasMock.Object);
+            var servicio = new EditarGrupo(
+                _repoGruposMock.Object,
+                _repoTablasMock.Object,
+                _repoProfesoresMock.Object);
 
             // Act
             var resultado = await servicio.EjecutarAsync(dto, "profesor123");
@@ -82,13 +90,16 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
                 Nombre = "Antiguo",
                 Institucion = "X",
                 Materia = "Y",
-                TablaEquivalencia = new TablaEquivalencia() // dummy, no importa aquí
+                TablaEquivalencia = new TablaEquivalencia()
             };
 
             _repoGruposMock.Setup(r => r.GetByIdAsync(1))
                 .ReturnsAsync(Resultado<Entidad.Grupo>.Exitoso(grupo));
 
-            var servicio = new EditarGrupo(_repoGruposMock.Object, _repoTablasMock.Object);
+            var servicio = new EditarGrupo(
+                _repoGruposMock.Object,
+                _repoTablasMock.Object,
+                _repoProfesoresMock.Object);
 
             // Act & Assert
             await Assert.ThrowsAsync<UnauthorizedAccessException>(() =>
@@ -122,7 +133,10 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             _repoGruposMock.Setup(r => r.GetByIdAsync(grupoId))
                 .ReturnsAsync(Resultado<Entidad.Grupo>.Exitoso(grupo));
 
-            var servicio = new EditarGrupo(_repoGruposMock.Object, _repoTablasMock.Object);
+            var servicio = new EditarGrupo(
+                _repoGruposMock.Object,
+                _repoTablasMock.Object,
+                _repoProfesoresMock.Object);
 
             // Act
             var resultado = await servicio.EjecutarAsync(dto, "profesor123");
@@ -159,11 +173,14 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             _repoGruposMock.Setup(r => r.GetByIdAsync(grupoId))
                 .ReturnsAsync(Resultado<Entidad.Grupo>.Exitoso(grupo));
 
-            // Simulamos que GetByIdAsync de tabla devuelve fallo o Valor null
+            // Simulamos que GetByIdAsync de tabla devuelve fallo
             _repoTablasMock.Setup(r => r.GetByIdAsync(tablaId))
                 .ReturnsAsync(Resultado<TablaEquivalencia>.Falla(new Error("Error.Validation", "No existe")));
 
-            var servicio = new EditarGrupo(_repoGruposMock.Object, _repoTablasMock.Object);
+            var servicio = new EditarGrupo(
+                _repoGruposMock.Object,
+                _repoTablasMock.Object,
+                _repoProfesoresMock.Object);
 
             // Act
             var resultado = await servicio.EjecutarAsync(dto, "profesor123");
@@ -196,34 +213,47 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
                 Nombre = "Antiguo",
                 Institucion = "X",
                 Materia = "Y",
-                TablaEquivalencia = new TablaEquivalencia(),
+                TablaEquivalencia = new TablaEquivalencia { Id = tablaId },
                 Tienda = new LogicaNegocio.Entidades.Tienda()
             };
 
             _repoGruposMock.Setup(r => r.GetByIdAsync(grupoId))
                 .ReturnsAsync(Resultado<Entidad.Grupo>.Exitoso(grupoExistente));
 
-            // Simulamos tabla válida
-            var tablaEq = new TablaEquivalencia();
+            // Simulamos tabla válida (con mismo Id)
+            var tablaEq = new TablaEquivalencia { Id = tablaId };
             _repoTablasMock.Setup(r => r.GetByIdAsync(tablaId))
                 .ReturnsAsync(Resultado<TablaEquivalencia>.Exitoso(tablaEq));
+
+            // Profesor que contiene la tabla (para pasar la validación de pertenencia)
+            var profesor = new LogicaNegocio.Entidades.Profesor
+            {
+                TablasEquivalencia = new List<TablaEquivalencia>
+                {
+                    new TablaEquivalencia { Id = tablaId }
+                }
+            };
+            _repoProfesoresMock.Setup(r => r.GetByStringIdAsync(It.IsAny<string>()))
+                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Profesor>.Exitoso(profesor));
 
             // Simulamos UpdateAsync
             _repoGruposMock.Setup(r => r.UpdateAsync(It.IsAny<Entidad.Grupo>()))
                 .ReturnsAsync(Resultado.Exitoso());
 
-            var servicio = new EditarGrupo(_repoGruposMock.Object, _repoTablasMock.Object);
+            var servicio = new EditarGrupo(
+                _repoGruposMock.Object,
+                _repoTablasMock.Object,
+                _repoProfesoresMock.Object);
 
             // Act
             var resultado = await servicio.EjecutarAsync(dto, "profesor123");
 
             // Assert
             Assert.True(resultado.EsExitoso);
-            // Verificamos que se actualizó el grupo con los nuevos valores
             _repoGruposMock.Verify(r => r.UpdateAsync(It.Is<Entidad.Grupo>(g =>
                 g.Id == grupoId
                 && g.Nombre == "NuevoNombre"
-                && g.TablaEquivalencia.Id == tablaEq.Id   // si TablaEquivalencia tiene Id; de lo contrario solo comparas referencia
+                && g.TablaEquivalencia.Id == tablaEq.Id
             )), Times.Once);
         }
     }

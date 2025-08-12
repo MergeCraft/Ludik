@@ -48,79 +48,28 @@
     margin-bottom: 5px;
 }
 
-.progressBar {
-    display: flex;
-    justify-content: center;
-}
-
-.progressBar label {
-    position: relative;
-    padding: 15px 0;
-    flex-grow: 1;
-    transition: 0.3s;
-}
-
-.circle {
-    position: absolute;
-    right: -10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    color: var(--blanco-principal);
-    font-size: 0.6rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    background-color: var(--meta-alumno);
-    border: 1px solid var(--secundario-boton-secundario);
-}
-
-.progressBar label:first-child {
-    border-radius: 20px 0 0 20px;
-}
-
-.progressBar label:first-child::before {
-    display: none;
-}
-
-.progressBar label:last-child {
-    border-radius: 0 20px 20px 0;
-}
-
-.progressBar input {
-    display: none;
-}
-
-.alcanzado {
-    background-color: var(--meta-alumno);
-}
-
-.noAlcanzado {
+/* Nueva barra de progreso */
+.progressBarWrapper {
+    width: 100%;
+    height: 35px;
     background-color: var(--blanco-principal);
+    border-radius: 120px;
+    overflow: hidden;
+    border: 1px solid var(--terciario);
 }
 
-.label .icono {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 14px;
-    color: var(--monedas);
-    pointer-events: none;
+.progressFill {
+    height: 100%;
+    background-color: var(--meta-alumno);
+    transition: width 0.4s ease-in-out;
+    background-image: url('../../../../assets/destellos2.gif');
+    /* Ruta relativa o absoluta */
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: 15%;
 }
 
 @media screen and (max-width: 992px) {
-    .progressBar label:first-child {
-        border-radius: 20px 0 0 20px;
-    }
-
-    .progressBar label:last-child {
-        border-radius: 0 20px 20px 0;
-    }
-
     .infoProgressBar {
         justify-content: space-between;
     }

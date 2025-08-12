@@ -47,7 +47,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
                 NombreIcono = "http://img/test.png",
                 Descripcion = "Descripción test",
                 MonedasOtorgadas = 10,
-                TieneAsignacionMutua = false
             };
             var perfilCompanero = new LogicaNegocio.Entidades.PerfilEstudiante
             {
@@ -117,7 +116,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
             Assert.Equal("http://img/test.png", dtoMedalla.NombreIcono);
             Assert.Equal("Descripción test", dtoMedalla.Descripcion);
             Assert.Equal(10, dtoMedalla.CantidadMedallasBrinda);
-            Assert.False(dtoMedalla.EsAsignacionMutua);
 
             // Verificaciones de llamadas a mocks
             mockRepositorioPerfiles.Verify(r => r.ObtenerPorGrupoIdAsync(10), Times.Once);

@@ -110,18 +110,33 @@ const RewardCreateForm = ({ reward, onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Validar que el nombre no esté vacío
     if (!recompensa.nombre.trim()) {
-      Toast.notificarError("El nombre de la recompensa no puede estar vacío.");
+      Toast.notificarWarning("El nombre de la recompensa no puede estar vacío.");
       return;
     }
 
+    // Validar longitud del nombre entre 3 y 50 caracteres
+    if (recompensa.nombre.trim().length < 3 || recompensa.nombre.trim().length > 50) {
+      Toast.notificarWarning("El nombre de la recompensa debe tener entre 3 y 50 caracteres.");
+      return;
+    }
+
+    // Validar que se haya seleccionado un ícono
     if (!recompensa.nombreIcono) {
-      Toast.notificarError("Debes seleccionar un ícono representativo.");
+      Toast.notificarWarning("Debes seleccionar un ícono representativo.");
       return;
     }
 
+    // Validar que el precio no sea negativo
     if (recompensa.precio < 0) {
-      Toast.notificarError("El precio no puede ser negativo.");
+      Toast.notificarWarning("El precio no puede ser negativo.");
+      return;
+    }
+
+    // Validar que el precio esté entre 10 y 10,000
+    if (recompensa.precio < 10 || recompensa.precio > 10000) {
+      Toast.notificarWarning("La cantidad de monedas necesarias debe estar entre 10 y 10,000.");
       return;
     }
 

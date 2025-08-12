@@ -168,5 +168,20 @@ namespace AccesoDatos.RepositoriosEF
                 return Resultado<bool>.Falla(new Error("Error.Unexpected", ex.Message));
             }
         }
+        public async Task<bool> EsRecompensaDeAsync(string profesorId, int recompensaId)
+        {
+            try
+            {
+                return await _db.Profesores
+                                .Where(p => p.Id == profesorId)
+                                .SelectMany(p => p.RecompensasCreadas)
+                                .AnyAsync(pr => pr.RecompensaId == recompensaId);
+            }
+            catch (Exception ex)
+            {
+                
+                return false;
+            }
+        }
     }
 }

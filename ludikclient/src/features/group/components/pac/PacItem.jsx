@@ -1,17 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styles from "./PacItem.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-const estadoLabel = (estado) => {
-  return ["Pendiente", "En curso", "Finalizado"][estado] || "Desconocido";
-};
 
 const PacItem = ({ pac }) => {
-  const totalNiveles = pac.cantidadMedallasNecesarias;
+  const totalNiveles = pac.cantidadMedallasNecesarias || 0;
+  const totalContribuciones = pac.totalContribuciones || 0;
 
-  // Determina cuál es el último tramo alcanzado
-  const ultimoAlcanzadoIndex = Math.min(pac.totalContribuciones, pac.cantidadMedallasNecesarias) - 1;
+  // Calcular porcentaje de progreso
+  const porcentaje = totalNiveles > 0 ? Math.min((totalContribuciones / totalNiveles) * 100, 100) : 0;
 
   return (
     <div className={styles.card}>
@@ -21,30 +17,17 @@ const PacItem = ({ pac }) => {
 
       <div className={styles.progressBarContainer}>
         <p>Progreso</p>
-        <div className={styles.progressBar}>
-          {Array.from({ length: totalNiveles }).map((_, index) => {
-            const alcanzado = pac.totalContribuciones > index;
-            const esUltimoAlcanzado = index === ultimoAlcanzadoIndex;
-
-            return (
-              <label key={`nivel-${index}`} className={`${styles.label} ${alcanzado ? styles.alcanzado : styles.noAlcanzado}`}>
-                {esUltimoAlcanzado && (
-                  <span className={`${styles.circle}`}>
-                    <FontAwesomeIcon icon="fa-solid fa-star" className={styles.icono} />
-                  </span>
-                )}
-              </label>
-            );
-          })}
+        <div className={styles.progressBarWrapper}>
+          <div className={styles.progressFill} style={{ width: `${porcentaje}%` }} />
         </div>
       </div>
 
       <div className={styles.infoProgressBar}>
         <p>
-          <strong>Contribuciones</strong> {pac.totalContribuciones}
+          <strong>Contribuciones</strong> {totalContribuciones}
         </p>
         <p>
-          <strong>Medallas Necesarias</strong> {pac.cantidadMedallasNecesarias}
+          <strong>Medallas Necesarias</strong> {totalNiveles}
         </p>
       </div>
     </div>

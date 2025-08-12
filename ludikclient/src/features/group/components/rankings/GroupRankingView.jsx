@@ -8,7 +8,7 @@ import RankingCreateForm from "./RankingCreateForm";
 import RankingItem from "./RankingItem.jsx";
 import RankingExtendedView from "./RankingExtendedView";
 
-const GroupRankingView = ({ setModalContent, setModalTitle, setShowModal, groupId, showTeacherOptions }) => {
+const GroupRankingView = ({ setModalContent, setModalTitle, setShowModal, groupId, showTeacherOptions, idPerfilEstudiante }) => {
   const { data: rankings, isLoading } = useRankings(groupId);
 
   const abrirModalCrearRanking = () => {
@@ -19,7 +19,7 @@ const GroupRankingView = ({ setModalContent, setModalTitle, setShowModal, groupI
 
   const abrirDetalleRanking = (rankingId) => {
     setModalTitle("Detalle del Ranking");
-    setModalContent(<RankingExtendedView id={rankingId} />);
+    setModalContent(<RankingExtendedView id={rankingId} idEstudiante={idPerfilEstudiante} />);
     setShowModal(true);
   };
 
@@ -37,13 +37,14 @@ const GroupRankingView = ({ setModalContent, setModalTitle, setShowModal, groupI
       ) : !rankings || rankings.length === 0 ? (
         <p className={styles.sinRankings}>No hay rankings disponibles.</p>
       ) : (
-        rankings.map((tabla) => <RankingItem key={tabla.id} tabla={tabla} showTeacherOptions={showTeacherOptions} onView={abrirDetalleRanking} />)
+        rankings.map((tabla) => <RankingItem key={tabla.id} tabla={tabla} showTeacherOptions={showTeacherOptions} onView={abrirDetalleRanking} idEstudiante={idPerfilEstudiante} />)
       )}
     </div>
   );
 };
 GroupRankingView.propTypes = {
   groupId: PropTypes.number.isRequired,
+  idPerfilEstudiante: PropTypes.number.isRequired,
   setModalContent: PropTypes.func.isRequired,
   setModalTitle: PropTypes.func.isRequired,
   setShowModal: PropTypes.func.isRequired,

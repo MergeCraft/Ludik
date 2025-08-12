@@ -48,7 +48,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Nombre = nombreInvalido,
                 Descripcion = "Descripción válida",
                 CantidadMonedasBrinda = 1,
-                EsAsignacionMutua = false
             };
 
             // Act
@@ -71,7 +70,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Nombre = "NombreVálido",
                 Descripcion = new string('a', 151), // supera el límite de 150 caracteres
                 CantidadMonedasBrinda = 1,
-                EsAsignacionMutua = false
             };
 
             // Act
@@ -108,7 +106,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Nombre = "NombreVálido",
                 Descripcion = "Descripción válida",
                 CantidadMonedasBrinda = -5,
-                EsAsignacionMutua = true
             };
 
             // Act
@@ -132,7 +129,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Nombre = "NombreVálido",
                 Descripcion = "Descripción válida",
                 CantidadMonedasBrinda = 10,
-                EsAsignacionMutua = false
             };
 
             LogicaNegocio.Entidades.Medalla capturada = null;
@@ -152,7 +148,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             Assert.Equal(dto.Descripcion, capturada.Descripcion);
             Assert.Equal(dto.NombreIcono, capturada.NombreIcono);
             Assert.Equal(dto.CantidadMonedasBrinda, capturada.MonedasOtorgadas);
-            Assert.Equal(dto.EsAsignacionMutua, capturada.TieneAsignacionMutua);
             Assert.Equal(ProfesorId, capturada.ProfesorId);
         }
 
@@ -166,7 +161,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Nombre = "NombreVálido",
                 Descripcion = "Descripción válida",
                 CantidadMonedasBrinda = 3,
-                EsAsignacionMutua = true
             };
             var errorRepo = new Error("Repo.Error", "Fallo BD");
             _repoMedallasMock

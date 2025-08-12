@@ -16,15 +16,23 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Recompensa
     {
         private readonly IRepositorioRecompensas _repositorioRecompensas;
         private readonly IRepositorioTiendas _repositorioTiendas;
-        public EditarRecompensa(IRepositorioRecompensas repositorioRecompensas, IRepositorioTiendas repositorioTiendas)
+        private readonly IRepositorioProfesores _repositorioProfesores;
+        public EditarRecompensa(IRepositorioRecompensas repositorioRecompensas, IRepositorioTiendas repositorioTiendas, IRepositorioProfesores repositorioProfesores)
         {
             _repositorioRecompensas = repositorioRecompensas;
             _repositorioTiendas = repositorioTiendas;
+            _repositorioProfesores = repositorioProfesores;
         }
         public async Task<Resultado> EjecutarAsync(string recompensaIdString, RecompensaSimpleEditarDto dto, string profesorId)
         {
+           
+
             if (!int.TryParse(recompensaIdString, out int recompensaId))
                 return Resultado.Falla(new Error("Error.InvalidId", $"ID de recompensa inválido: '{recompensaIdString}'."));
+
+            var esDeProfesor = await _repositorioProfesores.EsRecompensaDeAsync(profesorId, recompensaId);
+            if (!esDeProfesor)
+                return Resultado.Falla(new Error("Error.Validation", "La recompensa no pertenece al profesor logueado."));
 
             var resultadoRecuperar = await _repositorioRecompensas.GetByIdAsync(recompensaId);
             if (resultadoRecuperar.EsFallo)

@@ -109,7 +109,11 @@ namespace WebApi.Controllers
 		{
 			try
 			{
-				var resultado = await _obtenerInformacionGrupo.EjecutarAsync(grupoId);
+                var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(profesorId))
+                    return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
+
+                var resultado = await _obtenerInformacionGrupo.EjecutarAsync(grupoId,profesorId);
 
 				if (resultado.EsFallo)
 					return this.ManejarFallo(resultado);
@@ -134,7 +138,11 @@ namespace WebApi.Controllers
 		{
 			try
 			{
-				var resultado = await _obtenerPerfilesPorGrupo.EjecutarAsync(grupoId);
+                var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(profesorId))
+                    return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
+
+                var resultado = await _obtenerPerfilesPorGrupo.EjecutarAsync(grupoId, profesorId);
 
 				if (resultado.EsFallo)
 					return this.ManejarFallo(resultado);

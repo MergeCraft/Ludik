@@ -73,7 +73,9 @@ namespace WebApi.Controllers
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Get(int id)
         {
-            var resultado = await _obtenerMedallaPorId.EjecutarAsync(id);
+            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var resultado = await _obtenerMedallaPorId.EjecutarAsync(id, profesorId);
 
             if (resultado.EsFallo)
                 return this.ManejarFallo(resultado);

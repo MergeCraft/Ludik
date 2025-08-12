@@ -24,12 +24,14 @@ export const parseBackendErrors = (errores, defaultMsg = "Ocurrió un error.") =
  * @throws {string[]} Array de mensajes de error
  */
 export const handleApiError = (error, defaultMsg) => {
+  console.log(error);
+
   if (Array.isArray(error)) {
     throw error; // Ya es array de mensajes
   }
 
   // Si viene el formato estándar { errores: [...] }
-  const erroresBackend = error?.response?.data?.errores;
+  const erroresBackend = error?.response?.data;
 
   if (erroresBackend) {
     const mensajes = parseBackendErrors(erroresBackend, defaultMsg);

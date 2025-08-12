@@ -28,7 +28,7 @@
   background-color: var(--secundario);
   border-radius: 15px;
   padding: 20px;
-  max-width: 400px;
+  width: 400px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
@@ -322,7 +322,7 @@ input:checked+.slider .switchLabel.alumno {
 @media screen and (max-width: 992px) {
 
   .formBox {
-    max-width: 100%;
+    width: 100%;
 
   }
 }

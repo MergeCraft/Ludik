@@ -12,9 +12,24 @@
     background-size: cover;
     padding: 10px 15px;
     border-radius: 100px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.308);
+
 }
 
 .enhancerContent {
     display: flex;
     gap: 10px;
+}
+
+@media screen and (max-width: 992px) {
+    .enhancerContent {
+        font-size: smaller;
+    }
+
+    .enhancerContainer {
+        top: 15px;
+        right: 15px;
+        padding: 5px 10px;
+
+    }
 }

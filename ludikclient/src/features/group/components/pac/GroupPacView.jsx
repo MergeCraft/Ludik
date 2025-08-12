@@ -10,11 +10,13 @@ import BarLoader from "../../../generics/BarLoader";
 // Hook para obtener PACs del grupo (debes implementarlo según tu backend y hooks)
 import { usePacsGrupo } from "../../hooks/useGrupoMutation";
 
-const GroupPacView = ({ setModalContent, setModalTitle, setShowModal, groupId, showTeacherOptions }) => {
+const GroupPacView = ({ recompensas, setModalContent, setModalTitle, setShowModal, groupId, showTeacherOptions }) => {
   const { data: pacs, isLoading, isError } = usePacsGrupo(groupId);
 
+  console.log(recompensas);
+
   const handleOpenPacCreateForm = () => {
-    setModalContent(<CrearPacForm groupId={groupId} onClose={() => setShowModal(false)} />);
+    setModalContent(<CrearPacForm groupId={groupId} recompensas={recompensas} onClose={() => setShowModal(false)} />);
     setModalTitle("Crear nuevo Proyecto Colaborativo");
     setShowModal(true);
   };
@@ -39,6 +41,18 @@ const GroupPacView = ({ setModalContent, setModalTitle, setShowModal, groupId, s
 };
 
 GroupPacView.propTypes = {
+  recompensas: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      nombre: PropTypes.string.isRequired,
+      precio: PropTypes.number.isRequired,
+      tipo: PropTypes.string.isRequired,
+      datos: PropTypes.shape({
+        $type: PropTypes.string.isRequired,
+        nombreIcono: PropTypes.string.isRequired,
+      }).isRequired,
+    })
+  ).isRequired,
   setModalContent: PropTypes.func.isRequired,
   setModalTitle: PropTypes.func.isRequired,
   setShowModal: PropTypes.func.isRequired,

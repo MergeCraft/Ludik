@@ -143,5 +143,20 @@ namespace AccesoDatos.RepositoriosEF
         {
             throw new NotImplementedException();
         }
+        public async Task<bool> ExisteTablaClasificacionConMedallaAsync(int medallaId)
+        {
+            try
+            {
+                return await _db.TablasClasificacion
+                                .AsNoTracking()
+                                .AnyAsync(tc => tc.MedallaAsociadaId == medallaId);
+            }
+            catch (Exception ex)
+            {
+                // Opcional: loggear el error
+                // Log.Error(ex, "Error comprobando existencia de medalla en tablas de clasificación");
+                return false;
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@ import DefaultMedalImage1 from "../../../assets/DefaultMedal.png";
 import DefaultMedalImage2 from "../../../assets/DefaultMedal2.png";
 import DefaultMedalImage3 from "../../../assets/DefaultMedal3.png";
 
-const MedalCard = ({ medal, onEdit, showEditOption }) => {
+const MedalCard = ({ medal, cantidad = 0, onEdit, showEditOption }) => {
   const [showPopoverTitulo, setShowPopoverTitulo] = useState(false);
   const [showPopoverDesc, setShowPopoverDesc] = useState(false);
   const popoverTituloRef = useRef(null);
@@ -31,13 +31,7 @@ const MedalCard = ({ medal, onEdit, showEditOption }) => {
       <div className={styles.medallaContainer}>
         <div className={styles.medallaImagenWrapper}>
           <img src={defaultMedalImages[Math.floor(Math.random() * defaultMedalImages.length)]} alt={medal?.nombre} className={styles.medallaImagen} />
-          {medal?.esAsignacionMutua && (
-            <span className={styles.asignacionLabel}>
-              <FontAwesomeIcon icon="fa-solid fa-user" />
-              <FontAwesomeIcon icon="fa-solid fa-arrow-right-arrow-left" />
-              <FontAwesomeIcon icon="fa-regular fa-user" />
-            </span>
-          )}
+          {cantidad != 0 && <span className={styles.cantidadMedallas}>{cantidad}</span>}
         </div>
 
         <div className={styles.tituloWrapper}>
@@ -87,6 +81,7 @@ MedalCard.propTypes = {
     cantidadMedallasBrinda: PropTypes.number.isRequired,
     esAsignacionMutua: PropTypes.bool.isRequired,
   }).isRequired,
+  cantidad: PropTypes.number.isRequired,
   onEdit: PropTypes.func.isRequired,
   showEditOption: PropTypes.bool.isRequired,
 };

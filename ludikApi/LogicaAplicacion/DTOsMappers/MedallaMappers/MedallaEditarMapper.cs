@@ -11,7 +11,6 @@ namespace LogicaAplicacion.DTOsMappers.MedallaMappers
             entidad.Nombre = dto.Nombre;
             entidad.Descripcion = dto.Descripcion;
             entidad.MonedasOtorgadas = dto.CantidadMonedasBrinda;
-            entidad.TieneAsignacionMutua = dto.EsAsignacionMutua;
         }
     }
 }

@@ -21,7 +21,9 @@ namespace LogicaAplicacion.DTOsMappers.ProyectoAulaColaborativoMappers
                 CantidadMedallasNecesarias = dto.CantidadMedallasNecesarias,
                 TotalContribuciones = 0,
                 RecompensaClaseId = dto.RecompensaClaseId,
-                Estado = EstadoPAC.Activo
+                Estado = EstadoPAC.Activo,
+                FechaInicio = dto.FechaInicio,
+                FechaFin = dto.FechaFin
             };
         }
     }

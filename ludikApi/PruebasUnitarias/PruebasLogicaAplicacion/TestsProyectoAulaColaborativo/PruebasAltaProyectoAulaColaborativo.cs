@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.ProyectoAulaColaborativoDTOs;
@@ -22,6 +21,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsProyectoAulaColaborativo
         private readonly AltaProyectoAulaColaborativo _casoUso;
         private const int GrupoId = 10;
         private const int RecompensaId = 20;
+        private const string ProfesorId = "profX";
 
         public PruebasAltaProyectoAulaColaborativo()
         {
@@ -39,6 +39,11 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsProyectoAulaColaborativo
             _repoGruposMock
                 .Setup(r => r.GetByIdAsync(GrupoId))
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Grupo>.Exitoso(grupo));
+
+            // Default: ObtenerGruposPorProfesorId devuelve el grupo (para pasar la validación de pertenencia)
+            _repoGruposMock
+                .Setup(r => r.ObtenerGruposPorProfesorId(It.IsAny<string>()))
+                .ReturnsAsync(new List<LogicaNegocio.Entidades.Grupo> { new LogicaNegocio.Entidades.Grupo { Id = GrupoId } });
 
             // Default: sin proyectos existentes (lista de tipo List<ProyectoAulaColaborativo>)
             _repoPacMock
@@ -60,7 +65,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsProyectoAulaColaborativo
         [Fact]
         public async Task EjecutarAsync_NullDto_RetornaValidationError()
         {
-            var resultado = await _casoUso.EjecutarAsync(GrupoId, null);
+            var resultado = await _casoUso.EjecutarAsync(GrupoId, null, ProfesorId);
 
             Assert.True(resultado.EsFallo);
             Assert.Contains(resultado.Errores, e => e.Codigo == "Error.Validation");
@@ -81,7 +86,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsProyectoAulaColaborativo
                 RecompensaClaseId = RecompensaId
             };
 
-            var res = await _casoUso.EjecutarAsync(GrupoId, dto);
+            var res = await _casoUso.EjecutarAsync(GrupoId, dto, ProfesorId);
             Assert.True(res.EsFallo);
             Assert.Contains(res.Errores, e => e.Codigo == "Error.Validation");
         }
@@ -103,7 +108,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsProyectoAulaColaborativo
                 RecompensaClaseId = RecompensaId
             };
 
-            var res = await _casoUso.EjecutarAsync(GrupoId, dto);
+            var res = await _casoUso.EjecutarAsync(GrupoId, dto, ProfesorId);
             Assert.True(res.EsFallo);
             Assert.Contains(res.Errores, e => e.Codigo == "Error.Validation"
                 && e.Mensaje.Contains("activo"));
@@ -124,7 +129,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsProyectoAulaColaborativo
                 RecompensaClaseId = RecompensaId
             };
 
-            var res = await _casoUso.EjecutarAsync(GrupoId, dto);
+            var res = await _casoUso.EjecutarAsync(GrupoId, dto, ProfesorId);
             Assert.True(res.EsFallo);
             Assert.Contains(res.Errores, e => e.Codigo == "Error.Validation"
                 && e.Mensaje.Contains(RecompensaId.ToString()));
@@ -146,34 +151,10 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsProyectoAulaColaborativo
                 RecompensaClaseId = RecompensaId
             };
 
-            var res = await _casoUso.EjecutarAsync(GrupoId, dto);
+            var res = await _casoUso.EjecutarAsync(GrupoId, dto, ProfesorId);
             Assert.True(res.EsFallo);
             Assert.Contains(res.Errores, e => e.Codigo == "Error.Unexpected");
         }
 
-        //[Fact]
-        //public async Task EjecutarAsync_DatosValidos_LlamaAddAsync()
-        //{
-        //    var dto = new AltaProyectoAulaColaborativoDto
-        //    {
-        //        Nombre = "P5",
-        //        Visual = MetaVisual.Piramide,
-        //        CantidadMedallasNecesarias = 5,
-        //        RecompensaClaseId = RecompensaId
-        //    };
-
-        //    var res = await _casoUso.EjecutarAsync(GrupoId, dto);
-
-        //    Assert.True(res.EsExitoso);
-        //    _repoPacMock.Verify(r => r.AddAsync(
-        //        It.Is<ProyectoAulaColaborativo>(p =>
-        //            p.GrupoId == GrupoId &&
-        //            p.Nombre == dto.Nombre &&
-        //            p.Visual == dto.Visual &&
-        //            p.CantidadMedallasNecesarias == dto.CantidadMedallasNecesarias &&
-        //            p.RecompensaClaseId == dto.RecompensaClaseId &&
-        //            p.Estado == EstadoPAC.Activo
-        //        )), Times.Once);
-        //}
     }
 }

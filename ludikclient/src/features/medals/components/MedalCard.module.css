@@ -105,8 +105,9 @@
     margin: 0;
 }
 
-.asignacionLabel {
+.cantidadMedallas {
     position: absolute;
+    aspect-ratio: 1/1;
     bottom: 5px;
     right: 35px;
     display: flex;

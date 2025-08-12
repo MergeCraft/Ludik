@@ -14,9 +14,8 @@
     border-radius: 15px;
     padding: 24px;
     width: 70%;
-    max-width: 500px;
+    max-width: 600px;
     color: var(--blanco-principal);
-    font-family: sans-serif;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     max-height: 90vh;
     overflow: scroll;
@@ -46,17 +45,25 @@
 .closeButton {
     background: none;
     border: none;
-    color: #d9d9d9;
+    color: var(--blanco-principal);
     cursor: pointer;
     font-size: 1.2rem;
+    padding: 10px;
+    transform: translateX(5px);
 }
 
 .modal hr {
     margin: 0 auto;
-    width: 90%;
-    border: 1px solid var(--secundario);
+    width: 95%;
+    border: 1px solid var(--terciario);
 }
 
 .modalContent {
     margin-top: 15px;
+}
+
+@media screen and (max-width: 992px) {
+    .modal {
+        width: 90%;
+    }
 }
