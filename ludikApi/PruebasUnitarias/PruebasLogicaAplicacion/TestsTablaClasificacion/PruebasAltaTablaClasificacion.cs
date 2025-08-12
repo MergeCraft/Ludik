@@ -19,7 +19,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaClasificacion
         private readonly Mock<IRepositorioProfesores> _repoProfesoresMock;
         private readonly AltaTablaClasificacion _casoUso;
         private readonly LogicaNegocio.Entidades.Grupo _grupo;
-        private const int GrupoId = 5;
+        private const int GrupoId = 1;
         private const int MedallaId = 10;
         private const string ProfesorId = "prof-123";
 

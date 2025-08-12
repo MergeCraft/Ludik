@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using InterfacesRepositorio;
@@ -17,86 +16,114 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsProyectoAulaColaborativo
     public class PruebasObtenerProyectoAulaColaborativo
     {
         private readonly Mock<IRepositorioProyectoAulaColaborativo> _repoPacMock;
+        private readonly Mock<IRepositorioGrupos> _repoGruposMock;
         private readonly ObtenerProyectoAulaColaborativo _casoUso;
         private const int GrupoId = 99;
+        private const string ProfesorId = "profX";
 
-        //public PruebasObtenerProyectoAulaColaborativo()
-        //{
-        //    _repoPacMock = new Mock<IRepositorioProyectoAulaColaborativo>();
-        //    _casoUso = new ObtenerProyectoAulaColaborativo(_repoPacMock.Object);
-        //}
+        public PruebasObtenerProyectoAulaColaborativo()
+        {
+            _repoPacMock = new Mock<IRepositorioProyectoAulaColaborativo>();
+            _repoGruposMock = new Mock<IRepositorioGrupos>();
+            _casoUso = new ObtenerProyectoAulaColaborativo(_repoPacMock.Object, _repoGruposMock.Object);
 
-        //[Fact]
-        //public async Task EjecutarAsync_RepoFalla_RetornaFalloConErrores()
-        //{
-        //    // Arrange
-        //    var errores = new List<Error> { new Error("RepoError", "Error en repositorio") };
-        //    _repoPacMock
-        //        .Setup(r => r.GetByGrupoAsync(GrupoId))
-        //        .ReturnsAsync(Resultado<List<ProyectoAulaColaborativo>>.Falla(errores));
+            // por defecto: ObtenerGruposPorProfesorId devuelve el grupo para que la validación pase
+            _repoGruposMock
+                .Setup(r => r.ObtenerGruposPorProfesorId(It.IsAny<string>()))
+                .ReturnsAsync(new List<LogicaNegocio.Entidades.Grupo> { new LogicaNegocio.Entidades.Grupo { Id = GrupoId } });
+        }
 
-        //    // Act
-        //    var resultado = await _casoUso.EjecutarAsync(GrupoId);
+        [Fact]
+        public async Task EjecutarAsync_RepoFalla_RetornaFalloConErrores()
+        {
+            // Arrange
+            var errores = new List<Error> { new Error("RepoError", "Error en repositorio") };
+            _repoPacMock
+                .Setup(r => r.GetByGrupoAsync(GrupoId))
+                .ReturnsAsync(Resultado<List<ProyectoAulaColaborativo>>.Falla(errores));
 
-        //    // Assert
-        //    Assert.True(resultado.EsFallo);
-        //    Assert.Equal(errores, resultado.Errores);
-        //}
+            // Act
+            var resultado = await _casoUso.EjecutarAsync(GrupoId, ProfesorId);
 
-        //[Fact]
-        //public async Task EjecutarAsync_SinProyecto_RetornaExitosoConListaVacia()
-        //{
-        //    // Arrange: simular que no hay PAC
-        //    _repoPacMock
-        //        .Setup(r => r.GetByGrupoAsync(GrupoId))
-        //        .ReturnsAsync(Resultado<List<ProyectoAulaColaborativo>>.Exitoso(new List<ProyectoAulaColaborativo>()));
+            // Assert
+            Assert.True(resultado.EsFallo);
+            Assert.Equal(errores, resultado.Errores);
+        }
 
-        //    // Act
-        //    var resultado = await _casoUso.EjecutarAsync(GrupoId);
+        [Fact]
+        public async Task EjecutarAsync_SinProyecto_RetornaExitosoConListaVacia()
+        {
+            // Arrange: simular que no hay PAC
+            _repoPacMock
+                .Setup(r => r.GetByGrupoAsync(GrupoId))
+                .ReturnsAsync(Resultado<List<ProyectoAulaColaborativo>>.Exitoso(new List<ProyectoAulaColaborativo>()));
 
-        //    // Assert
-        //    Assert.True(resultado.EsExitoso);
-        //    Assert.NotNull(resultado.Valor);
-        //    Assert.Empty(resultado.Valor); // lista vacía
-        //}
+            // Act
+            var resultado = await _casoUso.EjecutarAsync(GrupoId, ProfesorId);
 
-        //[Fact]
-        //public async Task EjecutarAsync_ConProyecto_RetornaDtoMapeado()
-        //{
-        //    // Arrange: un solo PAC
-        //    var pac = new ProyectoAulaColaborativo
-        //    {
-        //        Id = 1,
-        //        GrupoId = GrupoId,
-        //        Nombre = "PAC 1",
-        //        Visual = MetaVisual.Piramide,
-        //        CantidadMedallasNecesarias = 2,
-        //        TotalContribuciones = 5,
-        //        RecompensaClaseId = 7,
-        //        Estado = EstadoPAC.Activo
-        //    };
+            // Assert
+            Assert.True(resultado.EsExitoso);
+            Assert.NotNull(resultado.Valor);
+            Assert.Empty(resultado.Valor);
+        }
 
-        //    _repoPacMock
-        //        .Setup(r => r.GetByGrupoAsync(GrupoId))
-        //        .ReturnsAsync(Resultado<List<ProyectoAulaColaborativo>>.Exitoso(new List<ProyectoAulaColaborativo> { pac }));
+        [Fact]
+        public async Task EjecutarAsync_ConProyecto_RetornaDtoMapeado()
+        {
+            // Arrange: un solo PAC
+            var pac = new ProyectoAulaColaborativo
+            {
+                Id = 1,
+                GrupoId = GrupoId,
+                Nombre = "PAC 1",
+                Visual = MetaVisual.Piramide,
+                CantidadMedallasNecesarias = 2,
+                TotalContribuciones = 5,
+                RecompensaClaseId = 7,
+                Estado = EstadoPAC.Activo
+            };
 
-        //    // Act
-        //    var resultado = await _casoUso.EjecutarAsync(GrupoId);
+            _repoPacMock
+                .Setup(r => r.GetByGrupoAsync(GrupoId))
+                .ReturnsAsync(Resultado<List<ProyectoAulaColaborativo>>.Exitoso(new List<ProyectoAulaColaborativo> { pac }));
 
-        //    // Assert
-        //    Assert.True(resultado.EsExitoso);
-        //    var dtos = resultado.Valor.ToList();
-        //    Assert.Single(dtos);
+            // Act
+            var resultado = await _casoUso.EjecutarAsync(GrupoId, ProfesorId);
 
-        //    var dto = dtos[0];
-        //    Assert.Equal(pac.Id, dto.Id);
-        //    Assert.Equal(pac.Nombre, dto.Nombre);
-        //    Assert.Equal(pac.GrupoId, dto.GrupoId);
-        //    Assert.Equal(pac.Visual, dto.Visual);
-        //    Assert.Equal(pac.CantidadMedallasNecesarias, dto.CantidadMedallasNecesarias);
-        //    Assert.Equal(pac.TotalContribuciones, dto.TotalContribuciones);
-        //    Assert.Equal(pac.RecompensaClaseId, dto.RecompensaClaseId);
-        //    Assert.Equal(pac.Estado, dto.Estado);
-        //}
+            // Assert
+            Assert.True(resultado.EsExitoso);
+            var dtos = resultado.Valor!.ToList();
+            Assert.Single(dtos);
+
+            var dto = dtos[0];
+            Assert.Equal(pac.Id, dto.Id);
+            Assert.Equal(pac.Nombre, dto.Nombre);
+            Assert.Equal(pac.GrupoId, dto.GrupoId);
+            Assert.Equal(pac.Visual, dto.Visual);
+            Assert.Equal(pac.CantidadMedallasNecesarias, dto.CantidadMedallasNecesarias);
+            Assert.Equal(pac.TotalContribuciones, dto.TotalContribuciones);
+            Assert.Equal(pac.RecompensaClaseId, dto.RecompensaClaseId);
+            Assert.Equal(pac.Estado, dto.Estado);
+        }
+
+        [Fact]
+        public async Task EjecutarAsync_ProfesorNoAutorizado_RetornaUnauthorized()
+        {
+            // Arrange: el repo de grupos devuelve una lista sin el GrupoId
+            _repoGruposMock
+                .Setup(r => r.ObtenerGruposPorProfesorId(It.IsAny<string>()))
+                .ReturnsAsync(new List<LogicaNegocio.Entidades.Grupo>()); // vacío -> no tiene acceso
+
+            _repoPacMock
+                .Setup(r => r.GetByGrupoAsync(GrupoId))
+                .ReturnsAsync(Resultado<List<ProyectoAulaColaborativo>>.Exitoso(new List<ProyectoAulaColaborativo>()));
+
+            // Act
+            var resultado = await _casoUso.EjecutarAsync(GrupoId, ProfesorId);
+
+            // Assert
+            Assert.True(resultado.EsFallo);
+            Assert.Contains(resultado.Errores, e => e.Codigo == "Error.Unauthorized" || e.Mensaje.Contains("no tiene acceso"));
+        }
     }
 }

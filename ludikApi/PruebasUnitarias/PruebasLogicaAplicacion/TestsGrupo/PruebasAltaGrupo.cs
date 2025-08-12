@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using Moq;
 using Xunit;
 using LogicaNegocio.Entidades;
@@ -10,7 +11,6 @@ using LogicaNegocio.Resultados;
 using LogicaAplicacion.InterfacesCasosUsos.Grupo;
 using Entidad = LogicaNegocio.Entidades;
 
-
 namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
 {
     public class PruebasAltaGrupo
@@ -18,137 +18,194 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
         private readonly Mock<IRepositorioGrupos> _repoGruposMock;
         private readonly Mock<IRepositorioTablasEquivalencia> _repoTablasMock;
         private readonly Mock<IGeneradorEnlaceGrupo> _generadorEnlaceMock;
+        private readonly Mock<IRepositorioProfesores> _repoProfesoresMock;
 
         public PruebasAltaGrupo()
         {
             _repoGruposMock = new Mock<IRepositorioGrupos>();
             _repoTablasMock = new Mock<IRepositorioTablasEquivalencia>();
             _generadorEnlaceMock = new Mock<IGeneradorEnlaceGrupo>();
+            _repoProfesoresMock = new Mock<IRepositorioProfesores>();
         }
 
-        //[Fact]
-        //public async Task Ejecutar_DtoNulo_RetornaErrorValidacion()
-        //{
-        //    // Arrange
-        //    var servicio = new AltaGrupo(_repoGruposMock.Object, _repoTablasMock.Object, _generadorEnlaceMock.Object);
+        [Fact]
+        public async Task Ejecutar_DtoNulo_RetornaErrorValidacion()
+        {
+            // Arrange
+            var servicio = new AltaGrupo(
+                _repoGruposMock.Object,
+                _repoTablasMock.Object,
+                _generadorEnlaceMock.Object,
+                _repoProfesoresMock.Object);
 
-        //    // Act
-        //    var resultado = await servicio.EjecutarAsync(null!, "profesor123");
+            // Act
+            var resultado = await servicio.EjecutarAsync(null!, "profesor123");
 
-        //    // Assert
-        //    Assert.True(resultado.EsFallo);
-        //    Assert.Contains("No hay información", resultado.Errores[0].Mensaje);
-        //}
+            // Assert
+            Assert.True(resultado.EsFallo);
+            Assert.Contains("No hay información", resultado.Errores[0].Mensaje);
+        }
 
-        //[Fact]
-        //public async Task Ejecutar_TablaEquivalenciaInexistente_RetornaErrorNotFound()
-        //{
-        //    // Arrange
-        //    var dto = new GrupoAltaRequestDto
-        //    {
-        //        Nombre = "Grupo Test",
-        //        TablaEquivalenciaId = 99
-        //    };
+        [Fact]
+        public async Task Ejecutar_TablaEquivalenciaInexistente_RetornaErrorNotFound()
+        {
+            // Arrange
+            var dto = new GrupoAltaRequestDto
+            {
+                Nombre = "Grupo Test",
+                TablaEquivalenciaId = 99
+            };
 
-        //    _repoTablasMock.Setup(r => r.GetByIdAsync(99))
-        //        .ReturnsAsync((Resultado<TablaEquivalencia>)null!);
+            _repoTablasMock.Setup(r => r.GetByIdAsync(99))
+                .ReturnsAsync((Resultado<TablaEquivalencia>)null!);
 
-        //    var servicio = new AltaGrupo(_repoGruposMock.Object, _repoTablasMock.Object, _generadorEnlaceMock.Object);
+            var servicio = new AltaGrupo(
+                _repoGruposMock.Object,
+                _repoTablasMock.Object,
+                _generadorEnlaceMock.Object,
+                _repoProfesoresMock.Object);
 
-        //    // Act
-        //    var resultado = await servicio.EjecutarAsync(dto, "profesor123");
+            // Act
+            var resultado = await servicio.EjecutarAsync(dto, "profesor123");
 
-        //    // Assert
-        //    Assert.True(resultado.EsFallo);
-        //    Assert.Contains("tabla de equivalencia", resultado.Errores[0].Mensaje);
-        //}
+            // Assert
+            Assert.True(resultado.EsFallo);
+            Assert.Contains("tabla de equivalencia", resultado.Errores[0].Mensaje);
+        }
 
-        //[Fact]
-        //public async Task Ejecutar_ErrorEnGeneracionUrl_RetornaErrorUnexpected()
-        //{
-        //    // Arrange
-        //    var dto = new GrupoAltaRequestDto
-        //    {
-        //        Nombre = "Grupo Test",
-        //        TablaEquivalenciaId = 1
-        //    };
+        [Fact]
+        public async Task Ejecutar_ErrorEnGeneracionUrl_RetornaErrorUnexpected()
+        {
+            // Arrange
+            var dto = new GrupoAltaRequestDto
+            {
+                Nombre = "Grupo Test",
+                TablaEquivalenciaId = 1
+            };
 
-        //    var tabla = new TablaEquivalencia();
-        //    _repoTablasMock.Setup(r => r.GetByIdAsync(1))
-        //        .ReturnsAsync(Resultado<TablaEquivalencia>.Exitoso(tabla));
+            // tabla con Id explícito
+            var tabla = new TablaEquivalencia { Id = 1 };
+            _repoTablasMock.Setup(r => r.GetByIdAsync(1))
+                .ReturnsAsync(Resultado<TablaEquivalencia>.Exitoso(tabla));
 
-        //    _generadorEnlaceMock.Setup(g => g.GenerarEnlace(It.IsAny<string>()))
-        //        .Returns(Resultado<string>.Falla(new Error("Error", "Falló enlace")));
+            // Profesor que contiene la tabla con Id = 1
+            var profesor = new LogicaNegocio.Entidades.Profesor
+            {
+                TablasEquivalencia = new List<TablaEquivalencia>
+                {
+                    new TablaEquivalencia { Id = 1 }
+                }
+            };
+            _repoProfesoresMock.Setup(r => r.GetByStringIdAsync(It.IsAny<string>()))
+                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Profesor>.Exitoso(profesor));
 
-        //    var servicio = new AltaGrupo(_repoGruposMock.Object, _repoTablasMock.Object, _generadorEnlaceMock.Object);
+            // Generador de enlace falla
+            _generadorEnlaceMock.Setup(g => g.GenerarEnlace(It.IsAny<string>()))
+                .Returns(Resultado<string>.Falla(new Error("Error", "Falló enlace")));
 
-        //    // Act
-        //    var resultado = await servicio.EjecutarAsync(dto, "profesor123");
+            var servicio = new AltaGrupo(
+                _repoGruposMock.Object,
+                _repoTablasMock.Object,
+                _generadorEnlaceMock.Object,
+                _repoProfesoresMock.Object);
 
-        //    // Assert
-        //    Assert.True(resultado.EsFallo);
-        //    Assert.Contains("URL", resultado.Errores[0].Mensaje);
-        //}
+            // Act
+            var resultado = await servicio.EjecutarAsync(dto, "profesor123");
 
-        //[Fact]
-        //public async Task Ejecutar_DatosInvalidos_RetornaErroresDeValidacion()
-        //{
-        //    // Arrange
-        //    var dto = new GrupoAltaRequestDto
-        //    {
-        //        Nombre = "", // Inválido
-        //        TablaEquivalenciaId = 1
-        //    };
+            // Assert
+            Assert.True(resultado.EsFallo);
+            Assert.Contains("URL", resultado.Errores[0].Mensaje);
+        }
 
-        //    var tabla = new TablaEquivalencia();
-        //    _repoTablasMock.Setup(r => r.GetByIdAsync(1))
-        //        .ReturnsAsync(Resultado<TablaEquivalencia>.Exitoso(tabla));
+        [Fact]
+        public async Task Ejecutar_DatosInvalidos_RetornaErroresDeValidacion()
+        {
+            // Arrange
+            var dto = new GrupoAltaRequestDto
+            {
+                Nombre = "", // Inválido
+                TablaEquivalenciaId = 1
+            };
 
-        //    _generadorEnlaceMock.Setup(g => g.GenerarEnlace(It.IsAny<string>()))
-        //        .Returns(Resultado<string>.Exitoso("https://fakeurl"));
+            var tabla = new TablaEquivalencia { Id = 1 };
+            _repoTablasMock.Setup(r => r.GetByIdAsync(1))
+                .ReturnsAsync(Resultado<TablaEquivalencia>.Exitoso(tabla));
 
-        //    var servicio = new AltaGrupo(_repoGruposMock.Object, _repoTablasMock.Object, _generadorEnlaceMock.Object);
+            _generadorEnlaceMock.Setup(g => g.GenerarEnlace(It.IsAny<string>()))
+                .Returns(Resultado<string>.Exitoso("https://fakeurl"));
 
-        //    // Act
-        //    var resultado = await servicio.EjecutarAsync(dto, "");
+            // Profesor que contiene la tabla (para pasar la validación de pertenencia)
+            var profesor = new LogicaNegocio.Entidades.Profesor
+            {
+                TablasEquivalencia = new List<TablaEquivalencia>
+                {
+                    new TablaEquivalencia { Id = 1 }
+                }
+            };
+            _repoProfesoresMock.Setup(r => r.GetByStringIdAsync(It.IsAny<string>()))
+                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Profesor>.Exitoso(profesor));
 
-        //    // Assert
-        //    Assert.True(resultado.EsFallo);
-        //    // Verificamos el mensaje de validación de nombre
-        //    Assert.Contains(resultado.Errores, e =>
-        //        e.Mensaje.Contains("El nombre del grupo debe tener entre 3 y 30 caracteres."));
-        //    // Verificamos el mensaje de validación de profesorId
-        //    Assert.Contains(resultado.Errores, e =>
-        //        e.Mensaje.Contains("El identificador del profesor es obligatorio."));
-        //}
+            var servicio = new AltaGrupo(
+                _repoGruposMock.Object,
+                _repoTablasMock.Object,
+                _generadorEnlaceMock.Object,
+                _repoProfesoresMock.Object);
 
-        //[Fact]
-        //public async Task Ejecutar_DatosValidos_CreaGrupo()
-        //{
-        //    // Arrange
-        //    var dto = new GrupoAltaRequestDto
-        //    {
-        //        Nombre = "Grupo Válido",
-        //        TablaEquivalenciaId = 1,
-        //        Institucion = "Instituto",
-        //        Materia = "Matemática"
-        //    };
+            // Act
+            var resultado = await servicio.EjecutarAsync(dto, "");
 
-        //    var tabla = new TablaEquivalencia();
-        //    _repoTablasMock.Setup(r => r.GetByIdAsync(1))
-        //        .ReturnsAsync(Resultado<TablaEquivalencia>.Exitoso(tabla));
+            // Assert
+            Assert.True(resultado.EsFallo);
+            // Verificamos el mensaje de validación de nombre
+            Assert.Contains(resultado.Errores, e =>
+                e.Mensaje.Contains("El nombre del grupo") || e.Mensaje.Contains("El nombre del grupo debe"));
+            // Verificamos el mensaje de validación de profesorId
+            Assert.Contains(resultado.Errores, e =>
+                e.Mensaje.Contains("profesor") || e.Mensaje.Contains("identificador"));
+        }
 
-        //    _generadorEnlaceMock.Setup(g => g.GenerarEnlace(It.IsAny<string>()))
-        //        .Returns(Resultado<string>.Exitoso("https://fakeurl"));
+        [Fact]
+        public async Task Ejecutar_DatosValidos_CreaGrupo()
+        {
+            // Arrange
+            var dto = new GrupoAltaRequestDto
+            {
+                Nombre = "Grupo Válido",
+                TablaEquivalenciaId = 1,
+                Institucion = "Instituto",
+                Materia = "Matemática"
+            };
 
-        //    var servicio = new AltaGrupo(_repoGruposMock.Object, _repoTablasMock.Object, _generadorEnlaceMock.Object);
+            var tabla = new TablaEquivalencia { Id = 1 };
+            _repoTablasMock.Setup(r => r.GetByIdAsync(1))
+                .ReturnsAsync(Resultado<TablaEquivalencia>.Exitoso(tabla));
 
-        //    // Act
-        //    var resultado = await servicio.EjecutarAsync(dto, "profesor123");
+            _generadorEnlaceMock.Setup(g => g.GenerarEnlace(It.IsAny<string>()))
+                .Returns(Resultado<string>.Exitoso("https://fakeurl"));
 
-        //    // Assert
-        //    Assert.True(resultado.EsExitoso);
-        //    _repoGruposMock.Verify(r => r.AddAsync(It.IsAny<Entidad.Grupo>()), Times.Once);
-        //}
+            // Profesor que contiene la tabla (para pasar la validación de pertenencia)
+            var profesor = new LogicaNegocio.Entidades.Profesor
+            {
+                TablasEquivalencia = new List<TablaEquivalencia>
+                {
+                    new TablaEquivalencia { Id = 1 }
+                }
+            };
+            _repoProfesoresMock.Setup(r => r.GetByStringIdAsync(It.IsAny<string>()))
+                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Profesor>.Exitoso(profesor));
+
+            var servicio = new AltaGrupo(
+                _repoGruposMock.Object,
+                _repoTablasMock.Object,
+                _generadorEnlaceMock.Object,
+                _repoProfesoresMock.Object);
+
+            // Act
+            var resultado = await servicio.EjecutarAsync(dto, "profesor123");
+
+            // Assert
+            Assert.True(resultado.EsExitoso);
+            _repoGruposMock.Verify(r => r.AddAsync(It.IsAny<Entidad.Grupo>()), Times.Once);
+        }
     }
 }
