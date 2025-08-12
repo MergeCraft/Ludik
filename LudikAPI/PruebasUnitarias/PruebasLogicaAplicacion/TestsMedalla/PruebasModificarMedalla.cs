@@ -35,7 +35,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Descripcion = "Desc",
                 NombreIcono = "url",
                 CantidadMonedasBrinda = 1,
-                EsAsignacionMutua = false
             };
 
             var resultado = await _servicio.EjecutarAsync(idInvalido, dto, ProfesorCorrecto);
@@ -69,7 +68,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Descripcion = "Desc",
                 NombreIcono = "url",
                 CantidadMonedasBrinda = 2,
-                EsAsignacionMutua = true
             };
 
             var resultado = await _servicio.EjecutarAsync(id, dto, ProfesorCorrecto);
@@ -91,7 +89,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Descripcion = "Desc",
                 NombreIcono = "icono",
                 MonedasOtorgadas = 5,
-                TieneAsignacionMutua = false,
                 ProfesorId = ProfesorCorrecto
             };
 
@@ -105,7 +102,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Descripcion = "Descripcion",
                 NombreIcono = "nuevaUrl",
                 CantidadMonedasBrinda = 3,
-                EsAsignacionMutua = false
             };
 
             var resultado = await _servicio.EjecutarAsync(id, dto, ProfesorIncorrecto);
@@ -127,7 +123,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Nombre = "NombreValido",
                 Descripcion = "Desc",
                 MonedasOtorgadas = 5,
-                TieneAsignacionMutua = false,
                 ProfesorId = "prof1"   // Asegurarse que esté asignado
             };
 
@@ -141,7 +136,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Descripcion = "DescNueva",
                 NombreIcono = "urlNueva",
                 CantidadMonedasBrinda = 3,
-                EsAsignacionMutua = true
             };
 
             // Act
@@ -166,7 +160,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Descripcion = "Desc",
                 NombreIcono = "viejaUrl",
                 MonedasOtorgadas = 5,
-                TieneAsignacionMutua = false,
                 ProfesorId = ProfesorCorrecto
             };
 
@@ -184,7 +177,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Descripcion = "NuevaDesc",
                 NombreIcono = "nuevaUrl",
                 CantidadMonedasBrinda = 10,
-                EsAsignacionMutua = true
             };
 
             var resultado = await _servicio.EjecutarAsync(id, dto, ProfesorCorrecto);
@@ -195,8 +187,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 m.Nombre == dto.Nombre &&
                 m.Descripcion == dto.Descripcion &&
                 m.NombreIcono == dto.NombreIcono &&
-                m.MonedasOtorgadas == dto.CantidadMonedasBrinda &&
-                m.TieneAsignacionMutua == dto.EsAsignacionMutua
+                m.MonedasOtorgadas == dto.CantidadMonedasBrinda 
             )), Times.Once);
         }
 
@@ -211,7 +202,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Descripcion = "Desc",
                 NombreIcono = "viejaUrl",
                 MonedasOtorgadas = 5,
-                TieneAsignacionMutua = false,
                 ProfesorId = ProfesorCorrecto
             };
 
@@ -230,7 +220,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Descripcion = "NuevaDesc",
                 NombreIcono = "nuevaUrl",
                 CantidadMonedasBrinda = 8,
-                EsAsignacionMutua = true
             };
 
             var resultado = await _servicio.EjecutarAsync(id, dto, ProfesorCorrecto);

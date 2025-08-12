@@ -9,6 +9,6 @@ namespace LogicaAplicacion.InterfacesCasosUsos.SolicitudPerfilMedalla
 {
     public interface IRechazarSolicitudPerfilMedalla
     {
-        Task<Resultado> EjecutarAsync(int idSolicitudPerfil);
+        Task<Resultado> EjecutarAsync(int idSolicitudPerfil, string profesorId);
     }
 }

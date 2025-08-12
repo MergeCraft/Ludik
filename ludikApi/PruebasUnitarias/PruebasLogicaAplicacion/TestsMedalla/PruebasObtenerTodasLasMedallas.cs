@@ -59,7 +59,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
                     Descripcion = "Cumple siempre con sus tareas",
                     NombreIcono = "img/responsable.png",
                     MonedasOtorgadas = 20,
-                    TieneAsignacionMutua = false
                 },
                 new LogicaNegocio.Entidades.Medalla
                 {
@@ -68,7 +67,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
                     Descripcion = "Ayuda a otros estudiantes",
                     NombreIcono = "img/colaborador.png",
                     MonedasOtorgadas = 30,
-                    TieneAsignacionMutua = true
                 }
             };
 
@@ -83,7 +81,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
 
             Assert.Equal(2, lista.Count);
             Assert.Contains(lista, m => m.Nombre == "Responsable" && m.CantidadMedallasBrinda == 20);
-            Assert.Contains(lista, m => m.Nombre == "Colaborador" && m.EsAsignacionMutua);
         }
     }
 }

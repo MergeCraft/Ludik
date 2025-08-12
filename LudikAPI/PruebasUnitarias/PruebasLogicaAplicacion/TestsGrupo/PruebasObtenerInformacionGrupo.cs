@@ -34,14 +34,13 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Grupo>.Falla(errores));
 
             // Act
-            var resultado = await _casoUso.EjecutarAsync(grupoId);
+            var resultado = await _casoUso.EjecutarAsync(grupoId, "profX");
 
             // Assert
             Assert.True(resultado.EsFallo);
             Assert.Contains(resultado.Errores, e => e.Mensaje.Contains("No existe el grupo."));
         }
 
-        
         [Fact]
         public async Task EjecutarAsync_GrupoExisteConEnlace_RetornaDtoMapeado()
         {
@@ -53,10 +52,10 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             {
                 Id = 5,
                 Equivalencias = new List<Equivalencia>
-        {
-            new Equivalencia(5, new List<LogicaNegocio.Entidades.Medalla> { new LogicaNegocio.Entidades.Medalla { Id = 1 } }),
-            new Equivalencia(2, new List<LogicaNegocio.Entidades.Medalla> { new LogicaNegocio.Entidades.Medalla { Id = 2 } })
-        }
+                {
+                    new Equivalencia(5, new List<LogicaNegocio.Entidades.Medalla> { new LogicaNegocio.Entidades.Medalla { Id = 1 } }),
+                    new Equivalencia(2, new List<LogicaNegocio.Entidades.Medalla> { new LogicaNegocio.Entidades.Medalla { Id = 2 } })
+                }
             };
 
             var enlace = new EnlaceUnion("http://url.com/inv", "codigo123")
@@ -82,7 +81,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Grupo>.Exitoso(grupo));
 
             // Act
-            var resultado = await _casoUso.EjecutarAsync(grupoId);
+            var resultado = await _casoUso.EjecutarAsync(grupoId, "profX");
 
             // Assert
             Assert.True(resultado.EsExitoso);
@@ -109,16 +108,16 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             {
                 Id = 7,
                 Equivalencias = new List<Equivalencia>
-        {
-            new Equivalencia
-            {
-                Nota = 2,
-                MedallasNecesarias = new List<LogicaNegocio.Entidades.Medalla>
                 {
-                    new LogicaNegocio.Entidades.Medalla { Id = 1 }
+                    new Equivalencia
+                    {
+                        Nota = 2,
+                        MedallasNecesarias = new List<LogicaNegocio.Entidades.Medalla>
+                        {
+                            new LogicaNegocio.Entidades.Medalla { Id = 1 }
+                        }
+                    }
                 }
-            }
-        }
             };
 
             var grupo = new LogicaNegocio.Entidades.Grupo
@@ -139,7 +138,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Grupo>.Exitoso(grupo));
 
             // Act
-            var resultado = await _casoUso.EjecutarAsync(grupoId);
+            var resultado = await _casoUso.EjecutarAsync(grupoId, "profY");
 
             // Assert
             Assert.True(resultado.EsExitoso);
@@ -153,6 +152,36 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             Assert.Equal(fechaCreacion, dto.fCreacion);
             Assert.Null(dto.UrlCompleta);
             Assert.Equal(0, dto.IdTienda);
+        }
+
+        [Fact]
+        public async Task EjecutarAsync_ProfesorNoAutorizado_RetornaUnauthorized()
+        {
+            // Arrange
+            int grupoId = 4;
+            var grupo = new LogicaNegocio.Entidades.Grupo
+            {
+                Id = grupoId,
+                Nombre = "Grupo Privado",
+                TablaEquivalencia = new TablaEquivalencia { Id = 1 },
+                ProfesorId = "profOriginal",
+                Institucion = "X",
+                Materia = "Y",
+                FCreacion = DateTime.UtcNow,
+                EnlaceUnion = null,
+                Tienda = new LogicaNegocio.Entidades.Tienda { Id = 0 }
+            };
+
+            _repoGruposMock
+                .Setup(r => r.GetByIdAsync(grupoId))
+                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Grupo>.Exitoso(grupo));
+
+            // Act
+            var resultado = await _casoUso.EjecutarAsync(grupoId, "otroProfesor");
+
+            // Assert
+            Assert.True(resultado.EsFallo);
+            Assert.Contains(resultado.Errores, e => e.Mensaje.Contains("No se puede ver la informacion") || e.Codigo == "Error.Unauthorized");
         }
     }
 }

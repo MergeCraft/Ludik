@@ -14,7 +14,6 @@ public class MedallaMapper
             Nombre = medalla.Nombre,
             Descripcion = medalla.Descripcion,
             CantidadMedallasBrinda = medalla.MonedasOtorgadas,
-            EsAsignacionMutua = medalla.TieneAsignacionMutua
         };
     }
 
@@ -28,7 +27,6 @@ public class MedallaMapper
             Nombre = dto.Nombre,
             Descripcion = dto.Descripcion,
             MonedasOtorgadas = dto.CantidadMedallasBrinda,
-            TieneAsignacionMutua = dto.EsAsignacionMutua
         };
 
     }

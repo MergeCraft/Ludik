@@ -2,7 +2,6 @@
 using InterfacesRepositorio;
 using LogicaAplicacion.DTOs.MedallaDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Medallas;
-using LogicaAplicacion.Servicios;
 using LogicaNegocio.Entidades;
 using LogicaNegocio.Resultados;
 using Moq;
@@ -13,21 +12,17 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
     public class PruebasObtenerMedallaPorId
     {
         private readonly Mock<IRepositorioMedallas> _repoMock;
-        private readonly Mock<IGeneradorUrlImagen> _generadorUrlImagenMock;
+        private readonly Mock<IRepositorioProfesores> _repoProfesoresMock;
         private readonly ObtenerMedallaPorId _casoUso;
         private const int IdMedalla = 1;
+        private const string ProfesorId = "prof123";
 
         public PruebasObtenerMedallaPorId()
         {
             _repoMock = new Mock<IRepositorioMedallas>();
-            _generadorUrlImagenMock = new Mock<IGeneradorUrlImagen>();
+            _repoProfesoresMock = new Mock<IRepositorioProfesores>();
 
-            // Setup básico para que devuelva la misma url que recibe
-            _generadorUrlImagenMock
-                .Setup(g => g.GenerarUrlLecturaAsync(It.IsAny<string>()))
-                .ReturnsAsync((string url) => url);
-
-            _casoUso = new ObtenerMedallaPorId(_repoMock.Object);
+            _casoUso = new ObtenerMedallaPorId(_repoMock.Object, _repoProfesoresMock.Object);
         }
 
         [Fact]
@@ -39,7 +34,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Medalla>.Falla(Error.NotFound));
 
             // Act
-            var resultado = await _casoUso.EjecutarAsync(IdMedalla);
+            var resultado = await _casoUso.EjecutarAsync(IdMedalla, ProfesorId);
 
             // Assert
             Assert.True(resultado.EsFallo);
@@ -47,7 +42,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
         }
 
         [Fact]
-        public async Task MedallaExiste_RetornaDtoCorrecto()
+        public async Task MedallaExiste_YProfesorPosee_RetornaDtoCorrecto()
         {
             // Arrange
             var medalla = new LogicaNegocio.Entidades.Medalla
@@ -57,15 +52,19 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
                 Descripcion = "Ayuda frecuentemente a sus compañeros",
                 NombreIcono = "img/colaborador.png",
                 MonedasOtorgadas = 50,
-                TieneAsignacionMutua = true
             };
 
             _repoMock
                 .Setup(r => r.GetByIdAsync(IdMedalla))
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Medalla>.Exitoso(medalla));
 
+            // Profesor posee la medalla
+            _repoProfesoresMock
+                .Setup(r => r.PoseeMedallaAsync(ProfesorId, IdMedalla))
+                .ReturnsAsync(Resultado<bool>.Exitoso(true));
+
             // Act
-            var resultado = await _casoUso.EjecutarAsync(IdMedalla);
+            var resultado = await _casoUso.EjecutarAsync(IdMedalla, ProfesorId);
 
             // Assert
             Assert.True(resultado.EsExitoso);
@@ -76,7 +75,36 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsMedalla
             Assert.Equal(medalla.Descripcion, dto.Descripcion);
             Assert.Equal(medalla.NombreIcono, dto.NombreIcono);
             Assert.Equal(medalla.MonedasOtorgadas, dto.CantidadMedallasBrinda);
-            Assert.Equal(medalla.TieneAsignacionMutua, dto.EsAsignacionMutua);
+        }
+
+        [Fact]
+        public async Task MedallaExiste_PeroProfesorNoPosee_RetornaForbidden()
+        {
+            // Arrange
+            var medalla = new LogicaNegocio.Entidades.Medalla
+            {
+                Id = IdMedalla,
+                Nombre = "Colaborador",
+                Descripcion = "Ayuda frecuentemente a sus compañeros",
+                NombreIcono = "img/colaborador.png",
+                MonedasOtorgadas = 50,
+            };
+
+            _repoMock
+                .Setup(r => r.GetByIdAsync(IdMedalla))
+                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Medalla>.Exitoso(medalla));
+
+            // Profesor NO posee la medalla (resultado exitoso con Valor == false)
+            _repoProfesoresMock
+                .Setup(r => r.PoseeMedallaAsync(ProfesorId, IdMedalla))
+                .ReturnsAsync(Resultado<bool>.Exitoso(false));
+
+            // Act
+            var resultado = await _casoUso.EjecutarAsync(IdMedalla, ProfesorId);
+
+            // Assert
+            Assert.True(resultado.EsFallo);
+            Assert.Contains(resultado.Errores, e => e.Codigo == "Error.Forbidden" || e.Mensaje.Contains("No tienes permiso"));
         }
     }
 }

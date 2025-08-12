@@ -433,7 +433,7 @@ namespace WebApi.Controllers
                 if (string.IsNullOrEmpty(idProfesor))
                     return Unauthorized(new { Mensaje = "No se pudo identificar al profesor autenticado." });
 
-                var resultado = await _aceptarSolicitudPerfilMedalla.EjecutarAsync(solicitudId);
+                var resultado = await _aceptarSolicitudPerfilMedalla.EjecutarAsync(solicitudId, idProfesor);
 
                 if (resultado.EsFallo)
                 {
@@ -477,7 +477,7 @@ namespace WebApi.Controllers
                 if (string.IsNullOrEmpty(idProfesor))
                     return Unauthorized(new { Mensaje = "No se pudo identificar al profesor autenticado." });
 
-                var resultado = await _rechazarSolicitudPerfilMedalla.EjecutarAsync(solicitudId);
+                var resultado = await _rechazarSolicitudPerfilMedalla.EjecutarAsync(solicitudId,idProfesor);
 
                 if (resultado.EsFallo)
                 {
@@ -524,7 +524,7 @@ namespace WebApi.Controllers
                 if (string.IsNullOrEmpty(profesorId))
                     return Unauthorized(new { Mensaje = "No se pudo identificar al usuario autenticado." });
 
-                var resultado = await _altaPac.EjecutarAsync(grupoId, dto);
+                var resultado = await _altaPac.EjecutarAsync(grupoId, dto,profesorId);
                 if (resultado.EsFallo)
                 {
                     if (resultado.Errores.Any(e => e.Codigo == Error.NotFound.Codigo))
@@ -554,7 +554,7 @@ namespace WebApi.Controllers
             if (string.IsNullOrEmpty(profesorId))
                 return Unauthorized(new { Mensaje = "No se pudo identificar al usuario autenticado." });
 
-            var resultado = await _obtenerProyectoAulaColaborativo.EjecutarAsync(grupoId);
+            var resultado = await _obtenerProyectoAulaColaborativo.EjecutarAsync(grupoId,profesorId);
             if (resultado.EsFallo)
             {
                 if (resultado.Errores.Any(e => e.Codigo == Error.NotFound.Codigo))

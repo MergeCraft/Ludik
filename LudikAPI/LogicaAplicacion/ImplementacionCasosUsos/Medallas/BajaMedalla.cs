@@ -15,13 +15,14 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Medallas
         private readonly IRepositorioTablasEquivalencia _repoTablaEquivalencia;
         private readonly IRepositorioPerfilEstudianteMedalla _repoPerfilEstudianteMedalla;
         private readonly IRepositorioRendimientoPeriodos _repositorioRendimientoPeriodos;
-        public BajaMedalla(IRepositorioMedallas repoMedallas, IRepositorioProfesores repoProfesores, IRepositorioTablasClasificacion repoTablasClasificacion, IRepositorioTablasEquivalencia repoTablaEquivalencia,IRepositorioPerfilEstudianteMedalla repositorioPerfilEstudianteMedalla)
+        public BajaMedalla(IRepositorioMedallas repoMedallas, IRepositorioProfesores repoProfesores, IRepositorioTablasClasificacion repoTablasClasificacion, IRepositorioTablasEquivalencia repoTablaEquivalencia,IRepositorioPerfilEstudianteMedalla repositorioPerfilEstudianteMedalla,IRepositorioRendimientoPeriodos repositorioRendimientoPeriodos)
         {
             _repoMedallas = repoMedallas;
             _repoProfesores = repoProfesores;
             _repoTablasClasificacion = repoTablasClasificacion;
             _repoTablaEquivalencia = repoTablaEquivalencia;
             _repoPerfilEstudianteMedalla = repositorioPerfilEstudianteMedalla;
+            _repositorioRendimientoPeriodos = repositorioRendimientoPeriodos;
 
         }
 

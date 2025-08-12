@@ -25,7 +25,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.ProyectoAulaColaborativo
             _repoGrupos = repoGrupos;
             _repoRecompensas = repoRecompensas;
         }
-        public async Task<Resultado> EjecutarAsync(int grupoId, AltaProyectoAulaColaborativoDto dto)
+        public async Task<Resultado> EjecutarAsync(int grupoId, AltaProyectoAulaColaborativoDto dto,string profesorId)
         {
             if (dto == null)
                 return Resultado.Falla(new Error("Error.Validation","No hay información para dar de alta el proyecto colaborativo."));
@@ -33,7 +33,11 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.ProyectoAulaColaborativo
             var grupoRes = await _repoGrupos.GetByIdAsync(grupoId);
             if (grupoRes.EsFallo)
                 return Resultado.Falla(new Error("Error.Validation",$"No se encontró el grupo con ID {grupoId}."));
-
+            var gruposProfRes = await _repoGrupos.ObtenerGruposPorProfesorId(profesorId);
+            if (gruposProfRes==null)
+                return Resultado.Falla(new Error("Error.Validation", "Error al obtener los grupos del profesor."));
+            if (!gruposProfRes!.Any(g => g.Id == grupoId))
+                return Resultado.Falla(new Error("Error.Unauthorized", $"El profesor no tiene acceso al grupo con ID {grupoId}."));
             var pacs = await _repoPac.GetByGrupoAsync(grupoId);
             if (pacs.EsFallo)
                 return Resultado.Falla(new Error("Error.Unexpected","Error verificando proyectos existentes."));

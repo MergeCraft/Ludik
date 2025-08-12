@@ -2095,9 +2095,6 @@ namespace AccesoDatos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("TieneAsignacionMutua")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Nombre");
@@ -2114,8 +2111,7 @@ namespace AccesoDatos.Migrations
                             MonedasOtorgadas = 30,
                             Nombre = "Participación Perfecta",
                             NombreIcono = "medalla_participacion_perfecta.png",
-                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                            TieneAsignacionMutua = false
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
                         {
@@ -2124,8 +2120,7 @@ namespace AccesoDatos.Migrations
                             MonedasOtorgadas = 25,
                             Nombre = "Maestro de la Colaboración",
                             NombreIcono = "medalla_maestro_colaboracion.png",
-                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                            TieneAsignacionMutua = false
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
                         {
@@ -2134,8 +2129,7 @@ namespace AccesoDatos.Migrations
                             MonedasOtorgadas = 15,
                             Nombre = "Mente Curiosa",
                             NombreIcono = "medalla_mente_curiosa.png",
-                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                            TieneAsignacionMutua = false
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
                         {
@@ -2144,8 +2138,7 @@ namespace AccesoDatos.Migrations
                             MonedasOtorgadas = 20,
                             Nombre = "Compañerismo",
                             NombreIcono = "medalla_companerismo.png",
-                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                            TieneAsignacionMutua = false
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
                         {
@@ -2154,8 +2147,7 @@ namespace AccesoDatos.Migrations
                             MonedasOtorgadas = 15,
                             Nombre = "Curiosidad Insaciable",
                             NombreIcono = "medalla_curiosidad_insaciable.png",
-                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                            TieneAsignacionMutua = false
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
                         {
@@ -2164,8 +2156,7 @@ namespace AccesoDatos.Migrations
                             MonedasOtorgadas = 25,
                             Nombre = "Faro del Grupo",
                             NombreIcono = "medalla_faro_del_grupo.png",
-                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                            TieneAsignacionMutua = false
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
                         {
@@ -2174,8 +2165,7 @@ namespace AccesoDatos.Migrations
                             MonedasOtorgadas = 20,
                             Nombre = "Arquitecto de Ideas",
                             NombreIcono = "medalla_arquitecto_ideas.png",
-                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                            TieneAsignacionMutua = false
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
                         {
@@ -2184,8 +2174,7 @@ namespace AccesoDatos.Migrations
                             MonedasOtorgadas = 25,
                             Nombre = "Capitán de Equipo",
                             NombreIcono = "medalla_capitan_equipo.png",
-                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                            TieneAsignacionMutua = false
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
                         {
@@ -2194,8 +2183,7 @@ namespace AccesoDatos.Migrations
                             MonedasOtorgadas = 15,
                             Nombre = "Cazador de Tesoros",
                             NombreIcono = "medalla_cazador_tesoros.png",
-                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                            TieneAsignacionMutua = false
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
                         {
@@ -2204,8 +2192,7 @@ namespace AccesoDatos.Migrations
                             MonedasOtorgadas = 20,
                             Nombre = "Espíritu de Equipo",
                             NombreIcono = "medalla_espiritu_equipo.png",
-                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                            TieneAsignacionMutua = false
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
                         {
@@ -2214,8 +2201,7 @@ namespace AccesoDatos.Migrations
                             MonedasOtorgadas = 15,
                             Nombre = "Pulidor de Diamantes",
                             NombreIcono = "medalla_pulidor_diamantes.png",
-                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                            TieneAsignacionMutua = false
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
                         {
@@ -2224,8 +2210,7 @@ namespace AccesoDatos.Migrations
                             MonedasOtorgadas = 20,
                             Nombre = "Mente Innovadora",
                             NombreIcono = "medalla_mente_innovadora.png",
-                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                            TieneAsignacionMutua = false
+                            ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
                         {
@@ -2234,8 +2219,7 @@ namespace AccesoDatos.Migrations
                             MonedasOtorgadas = 25,
                             Nombre = "El Explicador",
                             NombreIcono = "medalla_el_explicador.png",
-                            ProfesorId = "9e445865-a24d-4543-a6c6-9443d048cdb0",
-                            TieneAsignacionMutua = false
+                            ProfesorId = "9e445865-a24d-4543-a6c6-9443d048cdb0"
                         });
                 });
 

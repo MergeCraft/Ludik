@@ -10,6 +10,6 @@ namespace LogicaAplicacion.InterfacesCasosUsos.Grupo
 {
     public interface IObtenerInformacionGrupo
     {
-        Task<Resultado<GrupoInformacionDto>> EjecutarAsync(int grupoId);
+        Task<Resultado<GrupoInformacionDto>> EjecutarAsync(int grupoId,string profesor);
     }
 }

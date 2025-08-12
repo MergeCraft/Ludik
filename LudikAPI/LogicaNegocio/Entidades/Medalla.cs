@@ -20,8 +20,6 @@ namespace LogicaNegocio.Entidades
         [Required]
         public int MonedasOtorgadas { get; set; }
 
-        public Boolean TieneAsignacionMutua { get; set; }
-
         public string ProfesorId { get; set; }
         [ForeignKey("ProfesorId")]
         public virtual Profesor Creador { get; set; }

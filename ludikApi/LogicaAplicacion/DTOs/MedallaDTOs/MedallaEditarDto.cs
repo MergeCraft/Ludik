@@ -12,6 +12,5 @@ namespace LogicaAplicacion.DTOs.MedallaDTOs
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public int CantidadMonedasBrinda { get; set; }
-        public bool EsAsignacionMutua { get; set; }
     }
 }
