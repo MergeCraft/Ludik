@@ -6,6 +6,7 @@
     align-items: center;
     box-sizing: border-box;
     max-width: 130px;
+    text-align: center;
 }
 
 .rewardCard h4 {
@@ -18,7 +19,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: 0 10px;
+    padding: 0 12px;
 
 }
 

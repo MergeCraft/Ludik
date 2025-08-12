@@ -20,6 +20,7 @@ export const usePerfilGrupo = (grupoId, isProfesor, isLoggedIn = true) => {
     queryKey: ["perfilGrupo", grupoId],
     queryFn: () => obtenerPerfilGrupo(grupoId),
     enabled: isLoggedIn && !!grupoId && !isProfesor,
+    refetchInterval: 300000,
     onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });
 };

@@ -7,8 +7,7 @@ const PacItem = ({ pac }) => {
   const totalContribuciones = pac.totalContribuciones || 0;
 
   // Calcular porcentaje de progreso
-  // const porcentaje = totalNiveles > 0 ? Math.min((totalContribuciones / totalNiveles) * 100, 100) : 0;
-  const porcentaje = 80;
+  const porcentaje = totalNiveles > 0 ? Math.min((totalContribuciones / totalNiveles) * 100, 100) : 0;
 
   return (
     <div className={styles.card}>

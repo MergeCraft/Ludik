@@ -34,7 +34,9 @@ function Layout() {
           <>
             <HeaderMenu />
 
-            {perfil?.multiplicadorPotenciador && <EnhancerView enhancerX={perfil?.multiplicadorPotenciador} enhancerTime={perfil?.tiempoRestantePotenciador} isLoading={isLoadingPerfil} />}
+            {!isProfesor && perfil?.multiplicadorPotenciador != null && (
+              <EnhancerView enhancerX={perfil.multiplicadorPotenciador} enhancerTime={perfil.tiempoRestantePotenciador} isLoading={isLoadingPerfil} />
+            )} 
           </>
         )}
       </header>

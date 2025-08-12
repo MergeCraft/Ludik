@@ -28,15 +28,9 @@ const GroupUnionLinkModal = ({ onClose }) => {
         <input type="text" name="codigo" value={codigo} onChange={(e) => setCodigo(e.target.value)} disabled={isLoading} placeholder="Ingrese el código del grupo" />
       </label>
 
-      <div className={styles.acciones}>
-        <button type="submit" disabled={isLoading || codigo.trim().length < 5} className="button-secondary">
-          Unirme al Grupo
-        </button>
-
-        <button type="button" disabled={isLoading} onClick={onClose} className="button-secondary">
-          Cancelar
-        </button>
-      </div>
+      <button type="submit" disabled={isLoading || codigo.trim().length < 5} className="button-secondary">
+        Unirme al Grupo
+      </button>
     </form>
   );
 };

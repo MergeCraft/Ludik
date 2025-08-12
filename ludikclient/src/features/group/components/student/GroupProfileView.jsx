@@ -14,9 +14,6 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasPerfil(perfil?.id);
   const { data: imagenPerfil, isLoading: isLoadingImagen, isError: isErrorImagen } = useImagenPerfil(perfil?.id);
   const { data: barraProgreso, isLoading: isLoadingBarra } = useBarraProgresoPerfil(perfil?.id);
-
-  console.log(perfil.medallas);
-
   const { mutate: setMeta } = useDefinirMetaCalificacion(perfil?.id);
 
   const [metaTemporal, setMetaTemporal] = useState(perfil.metaCalificacion);
@@ -80,7 +77,7 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
 
         <div className={styles.progressBarManager}>
           <div className={styles.progressBarContainer}>
-            <p>Progreso hacia la próxima calificación</p>
+            <p>Progreso actual</p>
             {!isLoadingBarra && barraProgreso && (
               <div className={styles.progressBar}>
                 {Array.from({ length: barraProgreso?.calificacionMaxima }, (_, index) => {
@@ -96,6 +93,20 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
                 })}
               </div>
             )}
+            <hr />
+            <div className={styles.medallasNecesariasNotaContainer}>
+              <p>Medallas para avanzar</p>
+              <div className={styles.medallasNecesariasNotaGrid}>
+                {barraProgreso?.medallasNecesariasParaSiguienteNota?.map((medalla) => (
+                  <MedalCard
+                    key={medalla.medallaId + medalla.nombre}
+                    medal={medalla} // reemplazalo si no tenés imagen
+                    onEdit={() => {}}
+                    showEditOption={false}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
           <div className={styles.metaContainer}>
             <p>Meta de calificación</p>
@@ -125,11 +136,8 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
             perfil.medallas.map((medalla) => (
               <MedalCard
                 key={medalla.medallaId + medalla.nombre}
-                nombre={medalla.nombre}
-                descripcion={medalla.descripcion}
-                urlImagen={medalla.urlImagen} // reemplazalo si no tenés imagen
-                cantidadMedallasBrinda={medalla.cantidad}
-                esAsignacionMutua={false}
+                medal={medalla} // reemplazalo si no tenés imagen
+                cantidad={medalla.cantidad}
                 onEdit={() => {}}
                 showEditOption={false}
               />

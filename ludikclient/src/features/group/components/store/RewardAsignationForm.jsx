@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useRecompensasProfesor, useAsignarRecompensaAGrupos } from "../../../rewards/hooks/useRewardMutation";
 import * as Toast from "../../../../lib/toastify";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import styles from "./RewardAsignationForm.module.css";
 import { BarLoader } from "react-spinners";
@@ -18,10 +17,6 @@ const RewardAsignationForm = ({ grupoId, gruposProfesor, isLoadingGroups, onClos
 
   const toggleGrupoSeleccionado = (id) => {
     setGruposSeleccionados((prev) => (prev.includes(id) ? prev.filter((gid) => gid !== id) : [...prev, id]));
-  };
-
-  const eliminarGrupo = (id) => {
-    setGruposSeleccionados((prev) => prev.filter((gid) => gid !== id));
   };
 
   const handleAsignar = () => {
@@ -80,25 +75,6 @@ const RewardAsignationForm = ({ grupoId, gruposProfesor, isLoadingGroups, onClos
               </>
             )}
           </fieldset>
-
-          <div className={styles.selectedGroups}>
-            <h4>Grupos seleccionados:</h4>
-            {gruposSeleccionados.length === 0 && <p>Ningún grupo seleccionado</p>}
-            <ul className={styles.selectedList}>
-              {gruposSeleccionados.map((id) => {
-                const grupo = gruposProfesor?.find((g) => g.id === id);
-                if (!grupo) return null;
-                return (
-                  <li key={id} className={styles.selectedListItem}>
-                    <span>{grupo.nombre}</span>
-                    <button onClick={() => eliminarGrupo(id)} className={styles.deleteButton} aria-label={`Eliminar grupo ${grupo.nombre}`}>
-                      <FontAwesomeIcon icon="trash" />
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
         </>
       )}
 

@@ -11,15 +11,9 @@
     font-size: 14px;
 }
 
-/* input {
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    background-color: var(--blanco-secundario);
-    color: #75757A;
-    font-size: 14px;
+.modalFormLink label input {
     margin-top: 5px;
-} */
+}
 
 .acciones {
     display: flex;

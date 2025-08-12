@@ -192,7 +192,14 @@ const GroupPage = () => {
         ) : selectedView === "perfil" ? (
           <GroupProfileView perfil={perfil} isLoading={isLoadingPerfil} setModalContent={setModalContent} setShowModal={setShowModal} setModalTitle={setModalTitle} />
         ) : selectedView === "rankings" ? (
-          <GroupRankingView setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
+          <GroupRankingView
+            setModalContent={setModalContent}
+            setModalTitle={setModalTitle}
+            setShowModal={setShowModal}
+            groupId={groupId}
+            showTeacherOptions={isProfesor}
+            idPerfilEstudiante={perfil.id}
+          />
         ) : selectedView === "pac" ? (
           <GroupPacView recompensas={recompensas} setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
         ) : selectedView === "threshold" ? (
@@ -210,7 +217,7 @@ const GroupPage = () => {
       modalTitle={modalTitle}
       modalContent={modalContent}
       items={items}
-      searchPlaceholder="alumno"
+      searchPlaceholder={isProfesor ? "alumno" : "compañero"}
       showModal={showModal}
       setShowModal={setShowModal}
       searchValue={search}

@@ -14,7 +14,7 @@
     position: absolute;
     top: 100%;
     /* justo debajo del botón */
-    left: 0;
+    right: 0;
     background-color: var(--secundario);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -71,10 +71,5 @@
 @media screen and (max-width: 992px) {
     .menuButton {
         font-size: small;
-    }
-
-    .menuList {
-        left: -30%;
-
     }
 }
