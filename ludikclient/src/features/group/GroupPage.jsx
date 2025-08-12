@@ -44,6 +44,8 @@ const GroupPage = () => {
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasTienda(group?.idTienda);
   const { data: perfil, isLoadingPerfil } = usePerfilGrupo(groupId, isProfesor);
 
+  console.log(perfil);
+
   const studentsFiltrados = students?.filter((item) => item.nombreEstudiante.toLowerCase().includes(search.toLowerCase()));
 
   const handleOpenApplicationRequests = () => {
@@ -198,7 +200,7 @@ const GroupPage = () => {
             setShowModal={setShowModal}
             groupId={groupId}
             showTeacherOptions={isProfesor}
-            idPerfilEstudiante={perfil.id}
+            idPerfilEstudiante={perfil?.id}
           />
         ) : selectedView === "pac" ? (
           <GroupPacView recompensas={recompensas} setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
