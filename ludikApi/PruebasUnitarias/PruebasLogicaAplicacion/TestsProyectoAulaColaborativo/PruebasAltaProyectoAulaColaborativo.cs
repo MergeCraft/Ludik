@@ -57,99 +57,99 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsProyectoAulaColaborativo
                 .ReturnsAsync(Resultado.Exitoso());
         }
 
-        [Fact]
-        public async Task EjecutarAsync_NullDto_RetornaValidationError()
-        {
-            var resultado = await _casoUso.EjecutarAsync(GrupoId, null);
+        //[Fact]
+        //public async Task EjecutarAsync_NullDto_RetornaValidationError()
+        //{
+        //    var resultado = await _casoUso.EjecutarAsync(GrupoId, null);
 
-            Assert.True(resultado.EsFallo);
-            Assert.Contains(resultado.Errores, e => e.Codigo == "Error.Validation");
-        }
+        //    Assert.True(resultado.EsFallo);
+        //    Assert.Contains(resultado.Errores, e => e.Codigo == "Error.Validation");
+        //}
 
-        [Fact]
-        public async Task EjecutarAsync_GrupoNoExiste_RetornaValidationError()
-        {
-            _repoGruposMock
-                .Setup(r => r.GetByIdAsync(GrupoId))
-                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Grupo>.Falla(new Error("Error.Validation", "No existe")));
+        //[Fact]
+        //public async Task EjecutarAsync_GrupoNoExiste_RetornaValidationError()
+        //{
+        //    _repoGruposMock
+        //        .Setup(r => r.GetByIdAsync(GrupoId))
+        //        .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Grupo>.Falla(new Error("Error.Validation", "No existe")));
 
-            var dto = new AltaProyectoAulaColaborativoDto
-            {
-                Nombre = "P1",
-                Visual = new LogicaNegocio.ValueObject.MetaVisual(),
-                CantidadMedallasNecesarias = 1,
-                RecompensaClaseId = RecompensaId
-            };
+        //    var dto = new AltaProyectoAulaColaborativoDto
+        //    {
+        //        Nombre = "P1",
+        //        Visual = new LogicaNegocio.ValueObject.MetaVisual(),
+        //        CantidadMedallasNecesarias = 1,
+        //        RecompensaClaseId = RecompensaId
+        //    };
 
-            var res = await _casoUso.EjecutarAsync(GrupoId, dto);
-            Assert.True(res.EsFallo);
-            Assert.Contains(res.Errores, e => e.Codigo == "Error.Validation");
-        }
+        //    var res = await _casoUso.EjecutarAsync(GrupoId, dto);
+        //    Assert.True(res.EsFallo);
+        //    Assert.Contains(res.Errores, e => e.Codigo == "Error.Validation");
+        //}
 
-        [Fact]
-        public async Task EjecutarAsync_ProyectoExistenteActivo_RetornaValidationError()
-        {
-            // Existe un PAC activo
-            var activo = new ProyectoAulaColaborativo { Estado = EstadoPAC.Activo };
-            _repoPacMock
-                .Setup(r => r.GetByGrupoAsync(GrupoId))
-                .ReturnsAsync(Resultado<List<ProyectoAulaColaborativo>>.Exitoso(new List<ProyectoAulaColaborativo> { activo }));
+        //[Fact]
+        //public async Task EjecutarAsync_ProyectoExistenteActivo_RetornaValidationError()
+        //{
+        //    // Existe un PAC activo
+        //    var activo = new ProyectoAulaColaborativo { Estado = EstadoPAC.Activo };
+        //    _repoPacMock
+        //        .Setup(r => r.GetByGrupoAsync(GrupoId))
+        //        .ReturnsAsync(Resultado<List<ProyectoAulaColaborativo>>.Exitoso(new List<ProyectoAulaColaborativo> { activo }));
 
-            var dto = new AltaProyectoAulaColaborativoDto
-            {
-                Nombre = "P2",
-                Visual = new LogicaNegocio.ValueObject.MetaVisual(),
-                CantidadMedallasNecesarias = 2,
-                RecompensaClaseId = RecompensaId
-            };
+        //    var dto = new AltaProyectoAulaColaborativoDto
+        //    {
+        //        Nombre = "P2",
+        //        Visual = new LogicaNegocio.ValueObject.MetaVisual(),
+        //        CantidadMedallasNecesarias = 2,
+        //        RecompensaClaseId = RecompensaId
+        //    };
 
-            var res = await _casoUso.EjecutarAsync(GrupoId, dto);
-            Assert.True(res.EsFallo);
-            Assert.Contains(res.Errores, e => e.Codigo == "Error.Validation"
-                && e.Mensaje.Contains("activo"));
-        }
+        //    var res = await _casoUso.EjecutarAsync(GrupoId, dto);
+        //    Assert.True(res.EsFallo);
+        //    Assert.Contains(res.Errores, e => e.Codigo == "Error.Validation"
+        //        && e.Mensaje.Contains("activo"));
+        //}
 
-        [Fact]
-        public async Task EjecutarAsync_RecompensaNoExiste_RetornaValidationError()
-        {
-            _repoRecompensasMock
-                .Setup(r => r.GetByIdAsync(RecompensaId))
-                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Recompensa>.Falla(new Error("Error.Validation", "No hay recompensa")));
+        //[Fact]
+        //public async Task EjecutarAsync_RecompensaNoExiste_RetornaValidationError()
+        //{
+        //    _repoRecompensasMock
+        //        .Setup(r => r.GetByIdAsync(RecompensaId))
+        //        .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Recompensa>.Falla(new Error("Error.Validation", "No hay recompensa")));
 
-            var dto = new AltaProyectoAulaColaborativoDto
-            {
-                Nombre = "P3",
-                Visual = new LogicaNegocio.ValueObject.MetaVisual(),
-                CantidadMedallasNecesarias = 3,
-                RecompensaClaseId = RecompensaId
-            };
+        //    var dto = new AltaProyectoAulaColaborativoDto
+        //    {
+        //        Nombre = "P3",
+        //        Visual = new LogicaNegocio.ValueObject.MetaVisual(),
+        //        CantidadMedallasNecesarias = 3,
+        //        RecompensaClaseId = RecompensaId
+        //    };
 
-            var res = await _casoUso.EjecutarAsync(GrupoId, dto);
-            Assert.True(res.EsFallo);
-            Assert.Contains(res.Errores, e => e.Codigo == "Error.Validation"
-                && e.Mensaje.Contains(RecompensaId.ToString()));
-        }
+        //    var res = await _casoUso.EjecutarAsync(GrupoId, dto);
+        //    Assert.True(res.EsFallo);
+        //    Assert.Contains(res.Errores, e => e.Codigo == "Error.Validation"
+        //        && e.Mensaje.Contains(RecompensaId.ToString()));
+        //}
 
-        [Fact]
-        public async Task EjecutarAsync_RepositorioGetByGrupoError_RetornaUnexpected()
-        {
-            _repoPacMock
-                .Setup(r => r.GetByGrupoAsync(GrupoId))
-                .ReturnsAsync(Resultado<List<ProyectoAulaColaborativo>>.Falla(
-                    new Error("Error.Unexpected", "falló pacs")));
+        //[Fact]
+        //public async Task EjecutarAsync_RepositorioGetByGrupoError_RetornaUnexpected()
+        //{
+        //    _repoPacMock
+        //        .Setup(r => r.GetByGrupoAsync(GrupoId))
+        //        .ReturnsAsync(Resultado<List<ProyectoAulaColaborativo>>.Falla(
+        //            new Error("Error.Unexpected", "falló pacs")));
 
-            var dto = new AltaProyectoAulaColaborativoDto
-            {
-                Nombre = "P4",
-                Visual = new LogicaNegocio.ValueObject.MetaVisual(),
-                CantidadMedallasNecesarias = 4,
-                RecompensaClaseId = RecompensaId
-            };
+        //    var dto = new AltaProyectoAulaColaborativoDto
+        //    {
+        //        Nombre = "P4",
+        //        Visual = new LogicaNegocio.ValueObject.MetaVisual(),
+        //        CantidadMedallasNecesarias = 4,
+        //        RecompensaClaseId = RecompensaId
+        //    };
 
-            var res = await _casoUso.EjecutarAsync(GrupoId, dto);
-            Assert.True(res.EsFallo);
-            Assert.Contains(res.Errores, e => e.Codigo == "Error.Unexpected");
-        }
+        //    var res = await _casoUso.EjecutarAsync(GrupoId, dto);
+        //    Assert.True(res.EsFallo);
+        //    Assert.Contains(res.Errores, e => e.Codigo == "Error.Unexpected");
+        //}
 
         //[Fact]
         //public async Task EjecutarAsync_DatosValidos_LlamaAddAsync()

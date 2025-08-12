@@ -20,7 +20,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
             _repoGrupos = repoGrupos;
         }
 
-        public async Task<Resultado<GrupoInformacionDto>> EjecutarAsync(int grupoId)
+        public async Task<Resultado<GrupoInformacionDto>> EjecutarAsync(int grupoId,string profesorId)
         {
             var resultadoGrupo = await _repoGrupos.GetByIdAsync(grupoId);
 
@@ -28,6 +28,11 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
                 return Resultado<GrupoInformacionDto>.Falla(resultadoGrupo.Errores);
            
             var grupo = resultadoGrupo.Valor!;
+
+            if (grupo.ProfesorId != profesorId)
+            {
+                return Resultado<GrupoInformacionDto>.Falla(new Error("Error.Unauthorized", "No se puede ver la informacion de un grupo de otro profesor"));
+            }
 
             
             var dto = GrupoInformacionMapper.ToDto(grupo);

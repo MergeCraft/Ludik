@@ -10,6 +10,6 @@ namespace LogicaAplicacion.InterfacesCasosUsos.PerfilEstudiante
 {
     public interface IObtenerPerfilesPorGrupo
     {
-        public Task<Resultado<List<PerfilEstudianteInformacionDto>>> EjecutarAsync(int grupoId);
+        public Task<Resultado<List<PerfilEstudianteInformacionDto>>> EjecutarAsync(int grupoId,string profesorId);
     }
 }

@@ -15,16 +15,19 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
         private readonly IRepositorioGrupos _repositorioGrupos;
         private readonly IRepositorioTablasEquivalencia _repoTablasEquivalencia;
         private readonly IGeneradorEnlaceGrupo _generadorEnlace;
+        private readonly IRepositorioProfesores _repositorioProfesores;
 
 
         public AltaGrupo(
             IRepositorioGrupos repositorioGrupo,
             IRepositorioTablasEquivalencia repoTablasEquivalencia,
-            IGeneradorEnlaceGrupo generadorEnlace)
+            IGeneradorEnlaceGrupo generadorEnlace,
+            IRepositorioProfesores repositorioProfesores)
         {
             _repositorioGrupos = repositorioGrupo;
             _repoTablasEquivalencia = repoTablasEquivalencia;
             _generadorEnlace = generadorEnlace;
+            _repositorioProfesores = repositorioProfesores;
         }
 
         public async Task<Resultado> EjecutarAsync(GrupoAltaRequestDto grupoRequestDto, string profesorId)
@@ -35,6 +38,13 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
             var resultadoTabla = await _repoTablasEquivalencia.GetByIdAsync(grupoRequestDto.TablaEquivalenciaId);
             if (resultadoTabla == null)
                 return Resultado.Falla(new Error("Error.Validation", "No se encontró la tabla de equivalencia especificada."));
+
+            var resultadoProfesor = await _repositorioProfesores.GetByStringIdAsync(profesorId);
+            var profesor = resultadoProfesor.Valor;
+            if(!profesor.TablasEquivalencia!.Any(g => g.Id == resultadoTabla.Valor.Id))
+            {
+                return Resultado.Falla(new Error("Error.Unauthorized", "La tabla no se encuentra dentro de las tablas del profesor logueado."));
+            }
 
             var codigoUnicoInvitacion = Guid.NewGuid().ToString("N");
 

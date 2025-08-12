@@ -19,17 +19,19 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla
     {
         private readonly IRepositorioSolicitudPerfilMedalla _repositorio;
         private readonly IRepositorioPerfilEstudianteMedalla _repositorioPerfilEstudianteMedalla;
+        private readonly IRepositorioProfesores _repositorioProfesores;
         private readonly IMediator _mediator;
 
-        public AceptarSolicitudPerfilMedalla(IRepositorioSolicitudPerfilMedalla repositorio,IRepositorioPerfilEstudianteMedalla repositorioPerfilEstudianteMedalla,IMediator mediator)
+        public AceptarSolicitudPerfilMedalla(IRepositorioSolicitudPerfilMedalla repositorio,IRepositorioPerfilEstudianteMedalla repositorioPerfilEstudianteMedalla,IMediator mediator,IRepositorioProfesores repositorioProfesores)
         {
             _repositorio = repositorio;
             _repositorioPerfilEstudianteMedalla = repositorioPerfilEstudianteMedalla;
             _mediator = mediator;
+            _repositorioProfesores = repositorioProfesores;
 
         }
 
-        public async Task<Resultado> EjecutarAsync(int idSolicitudPerfil)
+        public async Task<Resultado> EjecutarAsync(int idSolicitudPerfil,string profesorId)
         {
             var solRes = await _repositorio.GetByIdAsync(idSolicitudPerfil);
             if (solRes.EsFallo || solRes.Valor == null)
@@ -38,6 +40,11 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudPerfilMedalla
             var solicitud = solRes.Valor;
             if (solicitud.Estado != EstadoSolicitud.Pendiente)
                 return Resultado.Falla(new Error("Error.Validation", "La solicitud ya fue procesada."));
+            var resultadoPosee = await _repositorioProfesores.PoseeMedallaAsync(profesorId,solicitud.MedallaId);
+            if(resultadoPosee.Valor == false)
+            {
+                return Resultado.Falla(new Error("Error.Validation", "Esa medalla pertenece a otro docente"));
+            }
 
             solicitud.Estado = EstadoSolicitud.Aceptada;
             var updSol = await _repositorio.UpdateAsync(solicitud);

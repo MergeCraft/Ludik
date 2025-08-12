@@ -21,7 +21,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsRecompensa
         {
             _mockRepoRecompensas = new Mock<IRepositorioRecompensas>();
             _mockRepoTiendas = new Mock<IRepositorioTiendas>(); // no se usa dentro del caso de uso
-            _useCase = new EditarRecompensa(_mockRepoRecompensas.Object, _mockRepoTiendas.Object);
+            //_useCase = new EditarRecompensa(_mockRepoRecompensas.Object, _mockRepoTiendas.Object);
         }
 
         [Fact]

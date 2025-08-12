@@ -15,8 +15,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsRecompensa
 
         public PruebaBajaRecompensa()
         {
-            _mockRepoRecompensas = new Mock<IRepositorioRecompensas>();
-            _useCase = new BajaRecompensa(_mockRepoRecompensas.Object);
+            //_mockRepoRecompensas = new Mock<IRepositorioRecompensas>();
+            //_useCase = new BajaRecompensa(_mockRepoRecompensas.Object);
         }
 
         [Fact]

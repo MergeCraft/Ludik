@@ -291,7 +291,6 @@ namespace AccesoDatos.Migrations
                     Descripcion = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     NombreIcono = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MonedasOtorgadas = table.Column<int>(type: "int", nullable: false),
-                    TieneAsignacionMutua = table.Column<bool>(type: "bit", nullable: false),
                     ProfesorId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -1363,22 +1362,22 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.InsertData(
                 table: "Medallas",
-                columns: new[] { "Id", "Descripcion", "MonedasOtorgadas", "Nombre", "NombreIcono", "ProfesorId", "TieneAsignacionMutua" },
+                columns: new[] { "Id", "Descripcion", "MonedasOtorgadas", "Nombre", "NombreIcono", "ProfesorId" },
                 values: new object[,]
                 {
-                    { 1, "Asistencia y participación en todas las clases del mes.", 30, "Participación Perfecta", "medalla_participacion_perfecta.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
-                    { 2, "Ayuda destacada a compañeros en proyectos grupales.", 25, "Maestro de la Colaboración", "medalla_maestro_colaboracion.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
-                    { 3, "Realización de preguntas perspicaces que enriquecen la clase.", 15, "Mente Curiosa", "medalla_mente_curiosa.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
-                    { 4, "Se otorga por ser un pilar de apoyo para tus compañeros. Demuestra que estás siempre dispuesto a ofrecer tu ayuda cuando alguien la necesita.", 20, "Compañerismo", "medalla_companerismo.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
-                    { 5, "Premia a las mentes que nunca dejan de preguntar. Se consigue al realizar preguntas que desafían al grupo y enriquecen el aprendizaje de todos.", 15, "Curiosidad Insaciable", "medalla_curiosidad_insaciable.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
-                    { 6, "Reconoce a quienes inspiran con su ejemplo. Se obtiene al demostrar una actitud y un esfuerzo que motivan a todo el grupo a superarse.", 25, "Faro del Grupo", "medalla_faro_del_grupo.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
-                    { 7, "Para aquellos que no solo tienen buenas ideas, sino que construyen sobre las de los demás para crear algo aún mejor.", 20, "Arquitecto de Ideas", "medalla_arquitecto_ideas.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
-                    { 8, "Se otorga por demostrar liderazgo natural, guiando y organizando al equipo para alcanzar metas comunes de forma efectiva.", 25, "Capitán de Equipo", "medalla_capitan_equipo.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
-                    { 9, "Premia la iniciativa de buscar y compartir recursos valiosos (videos, artículos, herramientas) que benefician a toda la clase.", 15, "Cazador de Tesoros", "medalla_cazador_tesoros.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
-                    { 10, "Se consigue al fomentar activamente un ambiente de respeto e inclusión, asegurando que cada miembro del grupo se sienta valorado.", 20, "Espíritu de Equipo", "medalla_espiritu_equipo.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
-                    { 11, "Reconoce la habilidad de dar críticas constructivas que ayudan a los compañeros a mejorar su trabajo de forma positiva y amable.", 15, "Pulidor de Diamantes", "medalla_pulidor_diamantes.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
-                    { 12, "Se otorga por aportar ideas creativas y soluciones originales que sacan al grupo de la rutina y abren nuevas posibilidades.", 20, "Mente Innovadora", "medalla_mente_innovadora.png", "8e445865-a24d-4543-a6c6-9443d048cdb9", false },
-                    { 13, "Premia la increíble habilidad de tomar un tema complejo y explicarlo de una manera tan clara y sencilla que todos puedan entenderlo.", 25, "El Explicador", "medalla_el_explicador.png", "9e445865-a24d-4543-a6c6-9443d048cdb0", false }
+                    { 1, "Asistencia y participación en todas las clases del mes.", 30, "Participación Perfecta", "medalla_participacion_perfecta.png", "8e445865-a24d-4543-a6c6-9443d048cdb9" },
+                    { 2, "Ayuda destacada a compañeros en proyectos grupales.", 25, "Maestro de la Colaboración", "medalla_maestro_colaboracion.png", "8e445865-a24d-4543-a6c6-9443d048cdb9" },
+                    { 3, "Realización de preguntas perspicaces que enriquecen la clase.", 15, "Mente Curiosa", "medalla_mente_curiosa.png", "8e445865-a24d-4543-a6c6-9443d048cdb9" },
+                    { 4, "Se otorga por ser un pilar de apoyo para tus compañeros. Demuestra que estás siempre dispuesto a ofrecer tu ayuda cuando alguien la necesita.", 20, "Compañerismo", "medalla_companerismo.png", "8e445865-a24d-4543-a6c6-9443d048cdb9" },
+                    { 5, "Premia a las mentes que nunca dejan de preguntar. Se consigue al realizar preguntas que desafían al grupo y enriquecen el aprendizaje de todos.", 15, "Curiosidad Insaciable", "medalla_curiosidad_insaciable.png", "8e445865-a24d-4543-a6c6-9443d048cdb9" },
+                    { 6, "Reconoce a quienes inspiran con su ejemplo. Se obtiene al demostrar una actitud y un esfuerzo que motivan a todo el grupo a superarse.", 25, "Faro del Grupo", "medalla_faro_del_grupo.png", "8e445865-a24d-4543-a6c6-9443d048cdb9" },
+                    { 7, "Para aquellos que no solo tienen buenas ideas, sino que construyen sobre las de los demás para crear algo aún mejor.", 20, "Arquitecto de Ideas", "medalla_arquitecto_ideas.png", "8e445865-a24d-4543-a6c6-9443d048cdb9" },
+                    { 8, "Se otorga por demostrar liderazgo natural, guiando y organizando al equipo para alcanzar metas comunes de forma efectiva.", 25, "Capitán de Equipo", "medalla_capitan_equipo.png", "8e445865-a24d-4543-a6c6-9443d048cdb9" },
+                    { 9, "Premia la iniciativa de buscar y compartir recursos valiosos (videos, artículos, herramientas) que benefician a toda la clase.", 15, "Cazador de Tesoros", "medalla_cazador_tesoros.png", "8e445865-a24d-4543-a6c6-9443d048cdb9" },
+                    { 10, "Se consigue al fomentar activamente un ambiente de respeto e inclusión, asegurando que cada miembro del grupo se sienta valorado.", 20, "Espíritu de Equipo", "medalla_espiritu_equipo.png", "8e445865-a24d-4543-a6c6-9443d048cdb9" },
+                    { 11, "Reconoce la habilidad de dar críticas constructivas que ayudan a los compañeros a mejorar su trabajo de forma positiva y amable.", 15, "Pulidor de Diamantes", "medalla_pulidor_diamantes.png", "8e445865-a24d-4543-a6c6-9443d048cdb9" },
+                    { 12, "Se otorga por aportar ideas creativas y soluciones originales que sacan al grupo de la rutina y abren nuevas posibilidades.", 20, "Mente Innovadora", "medalla_mente_innovadora.png", "8e445865-a24d-4543-a6c6-9443d048cdb9" },
+                    { 13, "Premia la increíble habilidad de tomar un tema complejo y explicarlo de una manera tan clara y sencilla que todos puedan entenderlo.", 25, "El Explicador", "medalla_el_explicador.png", "9e445865-a24d-4543-a6c6-9443d048cdb0" }
                 });
 
             migrationBuilder.InsertData(

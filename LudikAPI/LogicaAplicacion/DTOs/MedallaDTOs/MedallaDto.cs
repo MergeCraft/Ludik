@@ -7,5 +7,4 @@ public class MedallaDto
     public string NombreIcono { get; set; }
     public string Descripcion { get; set; }
     public int CantidadMedallasBrinda { get; set; }
-    public bool EsAsignacionMutua { get; set; }
 }

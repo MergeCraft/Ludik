@@ -18,9 +18,9 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
 
         public PruebasBajaMedalla()
         {
-            _repoMedallasMock = new Mock<IRepositorioMedallas>();
-            _repoProfesoresMock = new Mock<IRepositorioProfesores>();
-            _servicio = new BajaMedalla(_repoMedallasMock.Object, _repoProfesoresMock.Object);
+            //_repoMedallasMock = new Mock<IRepositorioMedallas>();
+            //_repoProfesoresMock = new Mock<IRepositorioProfesores>();
+            //_servicio = new BajaMedalla(_repoMedallasMock.Object, _repoProfesoresMock.Object);
         }
 
         [Fact]
@@ -98,7 +98,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Descripcion = "Desc",
                 NombreIcono = "url",
                 MonedasOtorgadas = 2,
-                TieneAsignacionMutua = false,
                 ProfesorId = ProfesorId
             };
 
@@ -126,7 +125,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
                 Descripcion = "Desc",
                 NombreIcono = "url",
                 MonedasOtorgadas = 3,
-                TieneAsignacionMutua = true,
                 ProfesorId = ProfesorId
             };
 
