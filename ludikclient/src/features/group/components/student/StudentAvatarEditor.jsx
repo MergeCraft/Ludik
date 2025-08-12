@@ -61,6 +61,8 @@ const StudentAvatarEditor = ({ idPerfil }) => {
   // Tema de ropa para query string
   const [temaRopa, setTemaRopa] = useState("");
 
+  console.log(setTemaRopa);
+
   // Estado para el SVG avatar cargado y loader
   const [avatarSvg, setAvatarSvg] = useState(null);
   const [loadingAvatar, setLoadingAvatar] = useState(false);
@@ -94,7 +96,7 @@ const StudentAvatarEditor = ({ idPerfil }) => {
           if (!jpegBlob) return;
 
           const atributosSeleccionados = Object.entries(selecciones)
-            .filter(([_, codigo]) => !!codigo)
+            .filter(([, codigo]) => !!codigo)
             .map(([tipo]) => {
               const item = inventario.find((i) => i.tipo === tipo && i.codigoUnico === selecciones[tipo]);
               return item?.id;
