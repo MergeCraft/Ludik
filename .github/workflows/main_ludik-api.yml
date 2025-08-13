@@ -8,26 +8,18 @@ on:
  
 env:
   AZURE_WEBAPP_NAME: 'Ludik-Api'
-  # Mantenemos la ruta que sospechamos es la correcta. La confirmaremos con el debug.
-  SOLUTION_PATH: 'Ludik\LudikAPI\LudikAPI.sln' # En Windows, es común usar \ en lugar de /
+ 
+  SOLUTION_PATH: 'LudikAPI\LudikAPI.sln' 
   DOTNET_VERSION: '8.0.x'
  
 jobs:
   build-and-deploy:
     name: Build and Deploy
-    # Forzamos el uso de Windows para que coincida con tu entorno.
-    runs-on: windows-latest
+    runs-on: windows-latest 
  
     steps:
       - name: '1. Checkout Repository'
         uses: actions/checkout@v4
- 
-      # =================================================================
-      # --- PASO DE DEPURACIÓN PARA WINDOWS ---
-      # Este comando nos mostrará la estructura de archivos exacta que ve el workflow.
-      - name: 'DEBUG: List files in the repository (Windows)'
-        run: Get-ChildItem -Recurse
-      # =================================================================
  
       - name: '2. Setup .NET Environment'
         uses: actions/setup-dotnet@v4
@@ -36,9 +28,6 @@ jobs:
  
       - name: '3. Restore Dependencies'
         run: dotnet restore "${{ env.SOLUTION_PATH }}"
- 
-      # El resto de los pasos continuarán si el restore funciona.
-      # ... (el resto de los pasos permanecen igual)
  
       - name: '4. Build Project'
         run: dotnet build "${{ env.SOLUTION_PATH }}" --configuration Release --no-restore
