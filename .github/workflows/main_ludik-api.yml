@@ -6,21 +6,29 @@ on:
       - main
   workflow_dispatch:
  
-# --- Variables de entorno para facilitar el mantenimiento ---
 env:
-  AZURE_WEBAPP_NAME: 'Ludik-Api' # El nombre de tu App Service en Azure
-  SOLUTION_PATH: 'Ludik/ludikApi/LudikAPI.sln' # La ruta a tu archivo de solución que proporcionaste
-  DOTNET_VERSION: '8.0' # Especifica la versión de .NET
+  AZURE_WEBAPP_NAME: 'Ludik-Api'
+  # Mantenemos la ruta que sospechamos es la correcta. La confirmaremos con el debug.
+  SOLUTION_PATH: 'Ludik\LudikAPI\LudikAPI.sln' # En Windows, es común usar \ en lugar de /
+  DOTNET_VERSION: '8.0.x'
  
 jobs:
   build-and-deploy:
     name: Build and Deploy
-    runs-on: windows-latest 
+    # Forzamos el uso de Windows para que coincida con tu entorno.
+    runs-on: windows-latest
  
     steps:
       - name: '1. Checkout Repository'
         uses: actions/checkout@v4
- # =================================================================# --- PASO DE DEPURACIÓN AÑADIDO ---# Este paso nos mostrará la estructura de archivos exacta que ve el workflow.- name: 'DEBUG: List files in the repository'run: ls -R# =================================================================
+ 
+      # =================================================================
+      # --- PASO DE DEPURACIÓN PARA WINDOWS ---
+      # Este comando nos mostrará la estructura de archivos exacta que ve el workflow.
+      - name: 'DEBUG: List files in the repository (Windows)'
+        run: dir /s
+      # =================================================================
+ 
       - name: '2. Setup .NET Environment'
         uses: actions/setup-dotnet@v4
         with:
@@ -29,18 +37,18 @@ jobs:
       - name: '3. Restore Dependencies'
         run: dotnet restore "${{ env.SOLUTION_PATH }}"
  
+      # El resto de los pasos continuarán si el restore funciona.
+      # ... (el resto de los pasos permanecen igual)
+ 
       - name: '4. Build Project'
         run: dotnet build "${{ env.SOLUTION_PATH }}" --configuration Release --no-restore
  
       - name: '5. Run Tests'
         run: dotnet test "${{ env.SOLUTION_PATH }}" --no-build --verbosity normal
-        # Variables de entorno DUMMY para que las pruebas se ejecuten correctamente
-        # sin necesidad de secretos de producción.
         env:
           ConnectionStrings__DefaultConnection: "Server=dummy;Database=dummy;User=dummy;Password=dummy;"
           Storage__ConnectionString: "DefaultEndpointsProtocol=https;AccountName=dummy;AccountKey=dummykey==;EndpointSuffix=core.windows.net"
           Jwt__SecretKey: "a_dummy_but_long_and_secret_key_for_ci_tests_1234567890"
-          # Añade aquí cualquier otra clave que tu app necesite en el arranque
  
       - name: '6. Publish Application'
         run: dotnet publish "${{ env.SOLUTION_PATH }}" --configuration Release --no-build --output "${{ github.workspace }}/myapp"
@@ -50,9 +58,7 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           slot-name: 'Production'
-          # Usa el publish-profile que ya tienes configurado en los secretos de GitHub.
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F633EB439A28468DAB40E73F22F69562 }}
-          # El paquete a desplegar es la carpeta de salida del paso de publicación.
           package: '${{ github.workspace }}/myapp'
 
 
