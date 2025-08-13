@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: '1. Checkout Repository'
         uses: actions/checkout@v4
- 
+ # =================================================================# --- PASO DE DEPURACIÓN AÑADIDO ---# Este paso nos mostrará la estructura de archivos exacta que ve el workflow.- name: 'DEBUG: List files in the repository'run: ls -R# =================================================================
       - name: '2. Setup .NET Environment'
         uses: actions/setup-dotnet@v4
         with:
@@ -54,6 +54,7 @@ jobs:
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F633EB439A28468DAB40E73F22F69562 }}
           # El paquete a desplegar es la carpeta de salida del paso de publicación.
           package: '${{ github.workspace }}/myapp'
+
 
 
 
