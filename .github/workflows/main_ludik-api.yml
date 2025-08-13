@@ -9,7 +9,7 @@ on:
 # --- Variables de entorno para facilitar el mantenimiento ---
 env:
   AZURE_WEBAPP_NAME: 'Ludik-Api' # El nombre de tu App Service en Azure
-  SOLUTION_PATH: 'Ludik/LudikAPI/LudikAPI.sln' # La ruta a tu archivo de solución que proporcionaste
+  SOLUTION_PATH: 'Ludik/ludikApi/LudikAPI.sln' # La ruta a tu archivo de solución que proporcionaste
   DOTNET_VERSION: '8.0' # Especifica la versión de .NET
  
 jobs:
@@ -54,6 +54,7 @@ jobs:
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F633EB439A28468DAB40E73F22F69562 }}
           # El paquete a desplegar es la carpeta de salida del paso de publicación.
           package: '${{ github.workspace }}/myapp'
+
 
 
 
