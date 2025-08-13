@@ -1,55 +1,56 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy ASP.Net Core app to Azure Web App - Ludik-Api
-
+ 
 on:
   push:
     branches:
       - main
   workflow_dispatch:
-
+ 
+# --- Variables de entorno para facilitar el mantenimiento ---
+env:
+  AZURE_WEBAPP_NAME: 'Ludik-Api' # El nombre de tu App Service en Azure
+  SOLUTION_PATH: 'Ludik/LudikApi/LudikAPI.sln' # La ruta a tu archivo de solución que proporcionaste
+  DOTNET_VERSION: '8.0.x' # Especifica la versión de .NET
+ 
 jobs:
-  build:
-    runs-on: windows-latest
-    permissions:
-      contents: read #This is required for actions/checkout
-
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest # Recomendado para App Services en Linux. Cambia a windows-latest si usas Windows.
+ 
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up .NET Core
+      - name: '1. Checkout Repository'
+        uses: actions/checkout@v4
+ 
+      - name: '2. Setup .NET Environment'
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.x'
-
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
-
-      - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4
-        with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
-
-  deploy:
-    runs-on: windows-latest
-    needs: build
-    
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: .net-app
-      
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+ 
+      - name: '3. Restore Dependencies'
+        run: dotnet restore "${{ env.SOLUTION_PATH }}"
+ 
+      - name: '4. Build Project'
+        run: dotnet build "${{ env.SOLUTION_PATH }}" --configuration Release --no-restore
+ 
+      - name: '5. Run Tests'
+        run: dotnet test "${{ env.SOLUTION_PATH }}" --no-build --verbosity normal
+        # Variables de entorno DUMMY para que las pruebas se ejecuten correctamente
+        # sin necesidad de secretos de producción.
+        env:
+          ConnectionStrings__DefaultConnection: "Server=dummy;Database=dummy;User=dummy;Password=dummy;"
+          Storage__ConnectionString: "DefaultEndpointsProtocol=https;AccountName=dummy;AccountKey=dummykey==;EndpointSuffix=core.windows.net"
+          Jwt__SecretKey: "a_dummy_but_long_and_secret_key_for_ci_tests_1234567890"
+          # Añade aquí cualquier otra clave que tu app necesite en el arranque
+ 
+      - name: '6. Publish Application'
+        run: dotnet publish "${{ env.SOLUTION_PATH }}" --configuration Release --no-build --output "${{ github.workspace }}/myapp"
+ 
+      - name: '7. Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'Ludik-Api'
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
           slot-name: 'Production'
-          package: .
+          # Usa el publish-profile que ya tienes configurado en los secretos de GitHub.
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F633EB439A28468DAB40E73F22F69562 }}
+          # El paquete a desplegar es la carpeta de salida del paso de publicación.
+          package: '${{ github.workspace }}/myapp'
