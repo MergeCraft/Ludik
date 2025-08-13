@@ -24,13 +24,13 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Tienda
         public PruebasObtenerListadoRecompensa()
         {
             _mockRepoTiendas = new Mock<IRepositorioTiendas>();
-            var mockRepoArchivos = new Mock<IRepositorioAlmacenamientoArchivos>();
+            _mockRecompensaEnricher = new Mock<IRecompensaEnricher>(); // <-- agregado
 
-            // Simula una URL generada por archivo
+            var mockRepoArchivos = new Mock<IRepositorioAlmacenamientoArchivos>();
             mockRepoArchivos
-             .Setup(a => a.ObtenerArchivoSasUrlAsync(It.IsAny<string>()))
-             .Returns<string>(nombre =>
-            Task.FromResult(Resultado<string>.Exitoso($"url-fake/{nombre}")));
+                .Setup(a => a.ObtenerArchivoSasUrlAsync(It.IsAny<string>()))
+                .Returns<string>(nombre =>
+                    Task.FromResult(Resultado<string>.Exitoso($"url-fake/{nombre}")));
 
             var generadorUrlsParaColecciones = new GeneradorUrlsParaColeccionesImagenes(
                 new GeneradorUrlImagen(mockRepoArchivos.Object));

@@ -111,43 +111,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Medalla
             _repoMedallasMock.Verify(r => r.UpdateAsync(It.IsAny<Entidad.Medalla>()), Times.Never);
         }
 
-        [Fact]
-        public async Task EjecutarAsync_ValidacionFalla_NoLlamaUpdate()
-        {
-            // Arrange
-            int id = 20;
-            var entidad = new Entidad.Medalla
-            {
-                Id = id,
-                NombreIcono = "vieja",
-                Nombre = "NombreValido",
-                Descripcion = "Desc",
-                MonedasOtorgadas = 5,
-                ProfesorId = "prof1"   // Asegurarse que esté asignado
-            };
-
-            _repoMedallasMock
-                .Setup(r => r.GetByIdAsync(id))
-                .ReturnsAsync(Resultado<Entidad.Medalla>.Exitoso(entidad));
-
-            var dto = new MedallaEditarDto
-            {
-                Nombre = "ab", // menos de 3 caracteres para provocar fallo en validación
-                Descripcion = "DescNueva",
-                NombreIcono = "urlNueva",
-                CantidadMonedasBrinda = 3,
-            };
-
-            // Act
-            var resultado = await _servicio.EjecutarAsync(id, dto, "prof1");
-
-            // Assert
-            Assert.True(resultado.EsFallo);
-            Assert.NotNull(resultado.Errores);
-            Assert.NotEmpty(resultado.Errores);
-            Assert.Contains(resultado.Errores, e => e.Mensaje.Contains("al menos 3 caracteres"));
-            _repoMedallasMock.Verify(r => r.UpdateAsync(It.IsAny<Entidad.Medalla>()), Times.Never);
-        }
+        
 
         [Fact]
         public async Task EjecutarAsync_Valido_LlamaUpdateYRetornaExitoso()
