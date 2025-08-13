@@ -85,11 +85,19 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PerfilEstudiante
                     It.IsAny<(System.Func<PerfilEstudianteInformacionDto, string>, System.Action<PerfilEstudianteInformacionDto, string>)>()
                 ))
                 .Returns(Task.CompletedTask);
+
+            // Mock del repositorio de grupos: importante -> indicar que el estudiante pertenece al grupo
             var mockRepositorioGrupos = new Mock<IRepositorioGrupos>();
+            mockRepositorioGrupos
+                .Setup(r => r.EstudiantePerteneceAlGrupoAsync(10, estudianteLogueadoId))
+                .ReturnsAsync(true);
+
+            // (si tienes otros setups de grupo no necesarios, puedes mantenerlos)
             mockRepositorioGrupos.Setup(r => r.GetByIdAsync(10))
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Grupo>.Exitoso(
                     new LogicaNegocio.Entidades.Grupo { Id = 10, Nombre = "Grupo Test" }
                 ));
+
             var casoUso = new ObtenerPerfilesDeGrupoSinIncluirUsuarioLogueado(
                 mockRepositorioPerfiles.Object,
                 mockGeneradorUrls.Object,

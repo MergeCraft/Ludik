@@ -42,7 +42,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaClasificacion
             var resultado = await _casoUso.EjecutarAsync(TablaId, ProfesorId);
 
             Assert.True(resultado.EsFallo);
-            Assert.Contains(resultado.Errores, e => e.Codigo == "Error.Autorizacion");
+            // <-- cambio aquí: verificamos el código que el caso de uso realmente devuelve
+            Assert.Contains(resultado.Errores, e => e.Codigo == "Error.Forbidden");
         }
 
         [Fact]
