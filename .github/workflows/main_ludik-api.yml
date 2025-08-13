@@ -15,7 +15,7 @@ env:
 jobs:
   build-and-deploy:
     name: Build and Deploy
-    runs-on: ubuntu-latest # Recomendado para App Services en Linux. Cambia a windows-latest si usas Windows.
+    runs-on: windows-latest 
  
     steps:
       - name: '1. Checkout Repository'
@@ -54,3 +54,4 @@ jobs:
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F633EB439A28468DAB40E73F22F69562 }}
           # El paquete a desplegar es la carpeta de salida del paso de publicación.
           package: '${{ github.workspace }}/myapp'
+
