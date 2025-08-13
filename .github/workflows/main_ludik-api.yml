@@ -26,7 +26,7 @@ jobs:
       # --- PASO DE DEPURACIÓN PARA WINDOWS ---
       # Este comando nos mostrará la estructura de archivos exacta que ve el workflow.
       - name: 'DEBUG: List files in the repository (Windows)'
-        run: dir /s
+        run: Get-ChildItem -Recurse
       # =================================================================
  
       - name: '2. Setup .NET Environment'
@@ -60,6 +60,7 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F633EB439A28468DAB40E73F22F69562 }}
           package: '${{ github.workspace }}/myapp'
+
 
 
 
