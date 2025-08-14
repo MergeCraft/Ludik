@@ -6,7 +6,7 @@ import { useClaimReward } from "../../group/hooks/useStudentMutation";
 
 const RewardItem = ({ reward, redeemed, perfilId, showProfesorOptions, storeView, onEdit }) => {
   const { mutate: claimReward, isLoading: isClaiming } = useClaimReward(perfilId, reward.id, showProfesorOptions);
- 
+
   const representacion = reward.representacion || reward.datos || {};
   const nombreIcono = representacion?.nombreIcono;
   const urlMiniatura = representacion?.urlMiniatura;
@@ -34,9 +34,11 @@ const RewardItem = ({ reward, redeemed, perfilId, showProfesorOptions, storeView
             {reward.precio}
           </p>
           {showProfesorOptions ? (
-            <button className={`${styles.editarRecompensa} ${storeView && styles.storeViewButton}`} onClick={handleEditClick} type="button" aria-label={`Editar recompensa ${reward.nombre}`}>
-              <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
-            </button>
+            !storeView && (
+              <button className={`${styles.editarRecompensa} ${storeView && styles.storeViewButton}`} onClick={handleEditClick} type="button" aria-label={`Editar recompensa ${reward.nombre}`}>
+                <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
+              </button>
+            )
           ) : (
             <button className={styles.canjearRecompensa} onClick={handleClaimReward} disabled={isClaiming} type="button" aria-label={`Canjear recompensa ${reward.nombre}`}>
               <FontAwesomeIcon icon="fa-solid fa-cart-shopping" />

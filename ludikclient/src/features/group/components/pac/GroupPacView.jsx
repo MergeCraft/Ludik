@@ -13,8 +13,6 @@ import { usePacsGrupo } from "../../hooks/useGrupoMutation";
 const GroupPacView = ({ recompensas, setModalContent, setModalTitle, setShowModal, groupId, showTeacherOptions }) => {
   const { data: pacs, isLoading, isError } = usePacsGrupo(groupId);
 
-  console.log(recompensas);
-
   const handleOpenPacCreateForm = () => {
     setModalContent(<CrearPacForm groupId={groupId} recompensas={recompensas} onClose={() => setShowModal(false)} />);
     setModalTitle("Crear nuevo Proyecto Colaborativo");

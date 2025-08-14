@@ -1,18 +1,12 @@
 .modalForm {
     color: var(--blanco-principal);
     width: 100%;
-    max-height: 80vh;
 }
 
 .modalForm label {
     margin-bottom: 10px;
 }
 
-/* .modalForm input, select {
-    padding: 10px 10px;
-    border-radius: 10px;
-    border: none;
-} */
 
 .modalForm h4,
 .modalForm h5 {
@@ -20,9 +14,9 @@
 }
 
 .equivalencias {
-    max-height: 300px;
     overflow-x: hidden;
     margin-bottom: 20px;
+    max-height: 550px;
 }
 
 .equivalencia {
@@ -80,7 +74,6 @@
 .medallasSeleccionadas {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    max-height: 280px;
     overflow-x: hidden;
     gap: 10px;
 }
@@ -130,7 +123,24 @@
     cursor: pointer;
     color: var(--blanco-principal);
     font-size: 1.2rem;
+    z-index: 100;
 
+}
+
+.medallaImagenWrapper {
+    position: relative;
+}
+
+.medallaCantidad {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* centra vertical y horizontal */
+    padding: 5px 10px;
+    border-radius: 50%;
+    color: var(--blanco-principal);
+    font-size: 1.2rem;
 }
 
 .acciones {

@@ -11,7 +11,7 @@ import "./lib/fontawesome";
 import "./App.css";
 
 import Layout from "./features/layout/Layout";
-import Home from "./features/home/Home.jsx";
+// import Home from "./features/home/Home.jsx";
 import AuthPage from "./features/auth/AuthPage";
 import GroupsPage from "./features/group/GroupsPage.jsx";
 import GroupPage from "./features/group/GroupPage.jsx";
@@ -34,13 +34,14 @@ function App() {
           <Router>
             <Routes>
               {/* Rutas públicas SIN Layout */}
+              <Route index element={<AuthPage />} />
               <Route path="/login" element={<AuthPage />} />
               <Route path="/signup" element={<AuthPage />} />
               <Route path="/passwordRecovery" element={<AuthPage />} />
 
               {/* Rutas con Layout */}
               <Route path="/" element={<Layout />}>
-                <Route index element={<Home />} />
+                {/* <Route index element={<Home />} /> */}
 
                 {/* Rutas protegidas */}
                 <Route element={<PrivateRoute allowedRoles={["Profesor"]} />}>

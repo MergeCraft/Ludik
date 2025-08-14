@@ -72,17 +72,8 @@
   margin-bottom: 0.5rem;
 }
 
-.recuerdame {
-  margin: 0;
-}
-
-.recordar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 15px;
-  color: white;
-  margin: 0.5rem 0;
+.botonIniciar {
+  margin-top: 10px;
 }
 
 .acciones {
@@ -90,7 +81,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  margin-top: 1rem;
+  margin-top: 10px;
 }
 
 .accionesLogin {
