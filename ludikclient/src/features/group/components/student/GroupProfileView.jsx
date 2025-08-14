@@ -25,6 +25,8 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
 
   const avatarUrl = imagenPerfil?.urlCompleta;
 
+  console.log(perfil);
+
   return isLoading ? (
     <BarLoader />
   ) : (

@@ -18,6 +18,8 @@ const ApplicationRequests = ({ groupId, link }) => {
 
   const codigo = new URL(link).searchParams.get("codigo");
 
+  console.log(link);
+
   const handleCopy = () => {
     navigator.clipboard.writeText(codigo);
     Toast.notificarExito("Enlace copiado!");
