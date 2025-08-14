@@ -1,20 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./GroupItem.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { useNavigate } from "react-router-dom";
+import { usePrefetchGrupo } from "../hooks/useGrupoMutation.js";
 
 const GroupItem = ({ id, name, grade, students, imgSrc }) => {
   const navigate = useNavigate();
+  const { prefetchGrupo } = usePrefetchGrupo();
 
   const handleClick = () => {
     navigate(`/grupo/${id}`);
   };
 
   return (
-    <div className={styles.groupItem} onClick={handleClick}>
+    <div className={styles.groupItem} onClick={handleClick} onMouseEnter={() => prefetchGrupo(id)}>
       <div className={styles.card}>
         <img className={styles.icon} alt="Group Icon" src={imgSrc} />
         <div className={styles.info}>

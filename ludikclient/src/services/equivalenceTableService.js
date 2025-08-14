@@ -3,6 +3,7 @@ import { handleApiError } from "../lib/apiUtils";
 
 export const crearTablaEquivalencia = async (equivalencia) => {
   try {
+    console.log(equivalencia);
     const response = await api.post("/api/TablaEquivalencia", equivalencia);
     return response.data;
   } catch (error) {

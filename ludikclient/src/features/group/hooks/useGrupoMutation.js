@@ -31,6 +31,33 @@ import { obtenerRecompensasTienda } from "../../../services/storeService";
 import { obtenerRankings, crearRanking, eliminarRanking, obtenerRankingPorId } from "../../../services/rankingsService";
 
 // ─────────────────────────────────────────────
+// 🔄 PREFETCH
+// ─────────────────────────────────────────────
+
+export const usePrefetchGrupo = () => {
+  const queryClient = useQueryClient();
+
+  const prefetchGrupo = (id) => {
+    if (!id) return;
+
+    queryClient.prefetchQuery({
+      queryKey: ["grupo", id], // ✅ array obligatorio en v4
+      queryFn: () => obtenerGrupo(id),
+      staleTime: 1000 * 60 * 5, // 5 minutos
+    });
+  };
+
+  const invalidateGrupo = (id) => {
+    if (!id) return;
+
+    queryClient.invalidateQueries({
+      queryKey: ["grupo", id], // ✅ array obligatorio en v4
+    });
+  };
+
+  return { prefetchGrupo, invalidateGrupo };
+};
+// ─────────────────────────────────────────────
 // 🧩 GRUPOS
 // ─────────────────────────────────────────────
 

@@ -18,16 +18,14 @@ const LoginForm = () => {
 
   const { mutateAsync: login } = useLogin();
 
-  const [recordar, setRecordar] = useState(false);
   const [usuario, setUsuario] = useState("");
   const [contrasena, setContrasena] = useState("");
   const [verContrasena, setVerContrasena] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value, checked } = e.target;
+    const { name, value } = e.target;
     if (name === "usuario") setUsuario(value);
     if (name === "contrasena") setContrasena(value);
-    if (name === "recuerdame") setRecordar(checked);
   };
 
   const handleSubmit = async (e) => {
@@ -76,17 +74,7 @@ const LoginForm = () => {
         </button>
       </div>
 
-      <div className={styles.recordar}>
-        <label className="switch">
-          <input type="checkbox" id="recuerdame" name="recuerdame" checked={recordar} onChange={handleChange} />
-          <span className="slider"></span>
-        </label>
-        <label htmlFor="recuerdame" className={`${styles.etiqueta} ${styles.recuerdame}`}>
-          Recuérdame
-        </label>
-      </div>
-
-      <button type="submit" className="button">
+      <button type="submit" className={`button ${styles.botonIniciar}`}>
         Iniciar sesión
       </button>
 
