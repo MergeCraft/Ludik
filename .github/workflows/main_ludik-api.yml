@@ -8,14 +8,13 @@ on:
  
 env:
   AZURE_WEBAPP_NAME: 'Ludik-Api'
-  SOLUTION_PATH: 'LudikAPI\LudikAPI.sln' 
+  SOLUTION_PATH: 'LudikAPI\LudikAPI.sln'
   DOTNET_VERSION: '8.0.x'
  
 jobs:
   build-and-deploy:
     name: Build and Deploy
     runs-on: windows-latest
- 
     steps:
       - name: '1. Checkout Repository'
         uses: actions/checkout@v4
@@ -32,16 +31,16 @@ jobs:
         run: dotnet build "${{ env.SOLUTION_PATH }}" --configuration Release --no-restore
  
       - name: '5. Run Tests'
-        # --- CORRECCIÓN AQUÍ ---
-        # Añadimos --configuration Release para que coincida con el paso de build.
         run: dotnet test "${{ env.SOLUTION_PATH }}" --configuration Release --no-build --verbosity normal
         env:
           ConnectionStrings__DefaultConnection: "Server=dummy;Database=dummy;User=dummy;Password=dummy;"
-          Storage__ConnectionString: "DefaultEndpointsProtocol=https;AccountName=dummy;AccountKey=dummykey==;EndpointSuffix=core.windows.net"
+          Storage__ConnectionString: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
           Jwt__SecretKey: "a_dummy_but_long_and_secret_key_for_ci_tests_1234567890"
  
       - name: '6. Publish Application'
         run: dotnet publish "${{ env.SOLUTION_PATH }}" --configuration Release --no-build --output "${{ github.workspace }}/myapp"
+        env:
+          Storage__ConnectionString: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
  
       - name: '7. Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
@@ -50,6 +49,7 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F633EB439A28468DAB40E73F22F69562 }}
           package: '${{ github.workspace }}/myapp'
+
 
 
 
