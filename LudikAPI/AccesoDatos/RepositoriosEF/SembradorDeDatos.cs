@@ -300,47 +300,47 @@ namespace AccesoDatos.RepositoriosEF
             var perfiles = new List<PerfilEstudiante>
             {
 
-                new PerfilEstudiante { Id = 4, Monedas = 200, MetaCalificacion = 10, EstudianteId = Estudiante4Id, GrupoId = 2, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 5, Monedas = 180, MetaCalificacion = 8, EstudianteId = Estudiante5Id, GrupoId = 2, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
+                new PerfilEstudiante { Id = 4, Monedas = 200, MetaCalificacion = 10, EstudianteId = Estudiante4Id, GrupoId = 2, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 5, Monedas = 180, MetaCalificacion = 8, EstudianteId = Estudiante5Id, GrupoId = 2, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg", KudosDisponiblesParaOtorgar = 3 },
                 
                 // --- Perfiles para el Grupo 1 (total 20) ---
-                new PerfilEstudiante { Id = 1, Monedas = 120, MetaCalificacion = 8, EstudianteId = Estudiante1Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 2, Monedas = 150, MetaCalificacion = 9, EstudianteId = Estudiante2Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 3, Monedas = 95, MetaCalificacion = 7, EstudianteId = Estudiante3Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 6, Monedas = 110, MetaCalificacion = 7, EstudianteId = Estudiante6Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 7, Monedas = 210, MetaCalificacion = 9, EstudianteId = Estudiante7Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 8, Monedas = 80, MetaCalificacion = 6, EstudianteId = Estudiante8Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 9, Monedas = 300, MetaCalificacion = 10, EstudianteId = Estudiante9Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 10, Monedas = 125, MetaCalificacion = 8, EstudianteId = Estudiante10Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 11, Monedas = 145, MetaCalificacion = 8, EstudianteId = Estudiante11Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 12, Monedas = 160, MetaCalificacion = 9, EstudianteId = Estudiante12Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 13, Monedas = 70, MetaCalificacion = 6, EstudianteId = Estudiante13Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 14, Monedas = 190, MetaCalificacion = 9, EstudianteId = Estudiante14Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 15, Monedas = 250, MetaCalificacion = 10, EstudianteId = Estudiante15Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 16, Monedas = 130, MetaCalificacion = 8, EstudianteId = Estudiante16Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 17, Monedas = 115, MetaCalificacion = 7, EstudianteId = Estudiante17Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 18, Monedas = 90, MetaCalificacion = 7, EstudianteId = Estudiante18Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 19, Monedas = 220, MetaCalificacion = 9, EstudianteId = Estudiante19Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 20, Monedas = 170, MetaCalificacion = 8, EstudianteId = Estudiante20Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 21, Monedas = 155, MetaCalificacion = 8, EstudianteId = Estudiante21Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 22, Monedas = 105, MetaCalificacion = 7, EstudianteId = Estudiante22Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
+                new PerfilEstudiante { Id = 1, Monedas = 120, MetaCalificacion = 8, EstudianteId = Estudiante1Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 2, Monedas = 150, MetaCalificacion = 9, EstudianteId = Estudiante2Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 3, Monedas = 95, MetaCalificacion = 7, EstudianteId = Estudiante3Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 6, Monedas = 110, MetaCalificacion = 7, EstudianteId = Estudiante6Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 7, Monedas = 210, MetaCalificacion = 9, EstudianteId = Estudiante7Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 8, Monedas = 80, MetaCalificacion = 6, EstudianteId = Estudiante8Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 9, Monedas = 300, MetaCalificacion = 10, EstudianteId = Estudiante9Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 10, Monedas = 125, MetaCalificacion = 8, EstudianteId = Estudiante10Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 11, Monedas = 145, MetaCalificacion = 8, EstudianteId = Estudiante11Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 12, Monedas = 160, MetaCalificacion = 9, EstudianteId = Estudiante12Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 13, Monedas = 70, MetaCalificacion = 6, EstudianteId = Estudiante13Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 14, Monedas = 190, MetaCalificacion = 9, EstudianteId = Estudiante14Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 15, Monedas = 250, MetaCalificacion = 10, EstudianteId = Estudiante15Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 16, Monedas = 130, MetaCalificacion = 8, EstudianteId = Estudiante16Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 17, Monedas = 115, MetaCalificacion = 7, EstudianteId = Estudiante17Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 18, Monedas = 90, MetaCalificacion = 7, EstudianteId = Estudiante18Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 19, Monedas = 220, MetaCalificacion = 9, EstudianteId = Estudiante19Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 20, Monedas = 170, MetaCalificacion = 8, EstudianteId = Estudiante20Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 21, Monedas = 155, MetaCalificacion = 8, EstudianteId = Estudiante21Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 22, Monedas = 105, MetaCalificacion = 7, EstudianteId = Estudiante22Id, GrupoId = 1, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
 
                 // ---Perfiles para el Grupo 3 ---
-                new PerfilEstudiante { Id = 23, Monedas = 100, MetaCalificacion = 7, EstudianteId = Estudiante23Id, GrupoId = 3, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 24, Monedas = 120, MetaCalificacion = 8, EstudianteId = Estudiante24Id, GrupoId = 3, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 25, Monedas = 250, MetaCalificacion = 10, EstudianteId = Estudiante25Id, GrupoId = 3, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 26, Monedas = 130, MetaCalificacion = 8, EstudianteId = Estudiante26Id, GrupoId = 3, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 27, Monedas = 90, MetaCalificacion = 6, EstudianteId = Estudiante27Id, GrupoId = 3, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 28, Monedas = 160, MetaCalificacion = 9, EstudianteId = Estudiante28Id, GrupoId = 3, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 29, Monedas = 175, MetaCalificacion = 9, EstudianteId = Estudiante29Id, GrupoId = 3, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 30, Monedas = 140, MetaCalificacion = 8, EstudianteId = Estudiante30Id, GrupoId = 3, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
+                new PerfilEstudiante { Id = 23, Monedas = 100, MetaCalificacion = 7, EstudianteId = Estudiante23Id, GrupoId = 3, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 24, Monedas = 120, MetaCalificacion = 8, EstudianteId = Estudiante24Id, GrupoId = 3, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 25, Monedas = 250, MetaCalificacion = 10, EstudianteId = Estudiante25Id, GrupoId = 3, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3 },
+                new PerfilEstudiante { Id = 26, Monedas = 130, MetaCalificacion = 8, EstudianteId = Estudiante26Id, GrupoId = 3, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 27, Monedas = 90, MetaCalificacion = 6, EstudianteId = Estudiante27Id, GrupoId = 3, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 28, Monedas = 160, MetaCalificacion = 9, EstudianteId = Estudiante28Id, GrupoId = 3, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3 },
+                new PerfilEstudiante { Id = 29, Monedas = 175, MetaCalificacion = 9, EstudianteId = Estudiante29Id, GrupoId = 3, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 30, Monedas = 140, MetaCalificacion = 8, EstudianteId = Estudiante30Id, GrupoId = 3, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
 
                 // ---Perfiles para el Grupo 4 ---
-                new PerfilEstudiante { Id = 31, Monedas = 110, MetaCalificacion = 7, EstudianteId = Estudiante31Id, GrupoId = 4, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 32, Monedas = 200, MetaCalificacion = 9, EstudianteId = Estudiante32Id, GrupoId = 4, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 33, Monedas = 150, MetaCalificacion = 8, EstudianteId = Estudiante33Id, GrupoId = 4, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 34, Monedas = 180, MetaCalificacion = 9, EstudianteId = Estudiante34Id, GrupoId = 4, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" },
-                new PerfilEstudiante { Id = 35, Monedas = 220, MetaCalificacion = 10, EstudianteId = Estudiante35Id, GrupoId = 4, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" }
+                new PerfilEstudiante { Id = 31, Monedas = 110, MetaCalificacion = 7, EstudianteId = Estudiante31Id, GrupoId = 4, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 32, Monedas = 200, MetaCalificacion = 9, EstudianteId = Estudiante32Id, GrupoId = 4, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 33, Monedas = 150, MetaCalificacion = 8, EstudianteId = Estudiante33Id, GrupoId = 4, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 34, Monedas = 180, MetaCalificacion = 9, EstudianteId = Estudiante34Id, GrupoId = 4, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3},
+                new PerfilEstudiante { Id = 35, Monedas = 220, MetaCalificacion = 10, EstudianteId = Estudiante35Id, GrupoId = 4, NombreImagenCompleta = "default/avatar_full.jpg", NombreImagenMiniatura = "default/avatar_thumb.jpg" , KudosDisponiblesParaOtorgar = 3}
             };
             modelBuilder.Entity<PerfilEstudiante>().HasData(perfiles);
             return perfiles;
@@ -530,7 +530,9 @@ namespace AccesoDatos.RepositoriosEF
             var tiendas = new List<object>
             {
                 new { Id = 1, GrupoId = 1 },
-                new { Id = 2, GrupoId = 2 }
+                new { Id = 2, GrupoId = 2 },
+                new { Id = 3, GrupoId = 3 },
+                new { Id = 4, GrupoId = 4 }
             };
             modelBuilder.Entity<Tienda>().HasData(tiendas);
 
@@ -574,41 +576,41 @@ namespace AccesoDatos.RepositoriosEF
         {
             var avatares = new List<Avatar>
             {
-                new() { Id = 1, PerfilEstudianteId = 1, ColorFondo = "b1e2ff" },
-                new() { Id = 2, PerfilEstudianteId = 2, ColorFondo = "a7ffc4" },
-                new() { Id = 3, PerfilEstudianteId = 3, ColorFondo = "ffafb9" },
-                new() { Id = 4, PerfilEstudianteId = 4, ColorFondo = "ffffb1" },
-                new() { Id = 5, PerfilEstudianteId = 5, ColorFondo = "e6e6e6" },
-                new() { Id = 6, PerfilEstudianteId = 6, ColorFondo = "f8d7da" },
-                new() { Id = 7, PerfilEstudianteId = 7, ColorFondo = "d4edda" },
-                new() { Id = 8, PerfilEstudianteId = 8, ColorFondo = "fff3cd" },
-                new() { Id = 9, PerfilEstudianteId = 9, ColorFondo = "d1ecf1" },
-                new() { Id = 10, PerfilEstudianteId = 10, ColorFondo = "e2d9f3" },
-                new() { Id = 11, PerfilEstudianteId = 11, ColorFondo = "fce3d4" },
-                new() { Id = 12, PerfilEstudianteId = 12, ColorFondo = "c3e6cb" },
-                new() { Id = 13, PerfilEstudianteId = 13, ColorFondo = "f5c6cb" },
-                new() { Id = 14, PerfilEstudianteId = 14, ColorFondo = "bee5eb" },
-                new() { Id = 15, PerfilEstudianteId = 15, ColorFondo = "ffeeba" },
-                new() { Id = 16, PerfilEstudianteId = 16, ColorFondo = "d6d8f5" },
-                new() { Id = 17, PerfilEstudianteId = 17, ColorFondo = "fde2e2" },
-                new() { Id = 18, PerfilEstudianteId = 18, ColorFondo = "d1e7dd" },
-                new() { Id = 19, PerfilEstudianteId = 19, ColorFondo = "cce7ff" },
-                new() { Id = 20, PerfilEstudianteId = 20, ColorFondo = "fbf8cc" },
-                new() { Id = 21, PerfilEstudianteId = 21, ColorFondo = "f1e0ff" },
-                new() { Id = 22, PerfilEstudianteId = 22, ColorFondo = "e0f7fa" },
-                new() { Id = 23, PerfilEstudianteId = 23, ColorFondo = "ffe0e0" },
-                new() { Id = 24, PerfilEstudianteId = 24, ColorFondo = "e0ffe0" },
-                new() { Id = 25, PerfilEstudianteId = 25, ColorFondo = "e0e0ff" },
-                new() { Id = 26, PerfilEstudianteId = 26, ColorFondo = "fff0e0" },
-                new() { Id = 27, PerfilEstudianteId = 27, ColorFondo = "f0fff0" },
-                new() { Id = 28, PerfilEstudianteId = 28, ColorFondo = "f0f0ff" },
-                new() { Id = 29, PerfilEstudianteId = 29, ColorFondo = "e0fff8" },
-                new() { Id = 30, PerfilEstudianteId = 30, ColorFondo = "f8e0ff" },
-                new() { Id = 31, PerfilEstudianteId = 31, ColorFondo = "eaf5ff" },
-                new() { Id = 32, PerfilEstudianteId = 32, ColorFondo = "fff5e6" },
-                new() { Id = 33, PerfilEstudianteId = 33, ColorFondo = "f2f2f2" },
-                new() { Id = 34, PerfilEstudianteId = 34, ColorFondo = "e6f7ff" },
-                new() { Id = 35, PerfilEstudianteId = 35, ColorFondo = "fae6ff" }
+                new() { Id = 1, PerfilEstudianteId = 1, ColorFondo = "#b1e2ff" },
+                new() { Id = 2, PerfilEstudianteId = 2, ColorFondo = "#a7ffc4" },
+                new() { Id = 3, PerfilEstudianteId = 3, ColorFondo = "#ffafb9" },
+                new() { Id = 4, PerfilEstudianteId = 4, ColorFondo = "#ffffb1" },
+                new() { Id = 5, PerfilEstudianteId = 5, ColorFondo = "#e6e6e6" },
+                new() { Id = 6, PerfilEstudianteId = 6, ColorFondo = "#f8d7da" },
+                new() { Id = 7, PerfilEstudianteId = 7, ColorFondo = "#d4edda" },
+                new() { Id = 8, PerfilEstudianteId = 8, ColorFondo = "#fff3cd" },
+                new() { Id = 9, PerfilEstudianteId = 9, ColorFondo = "#d1ecf1" },
+                new() { Id = 10, PerfilEstudianteId = 10, ColorFondo = "#e2d9f3" },
+                new() { Id = 11, PerfilEstudianteId = 11, ColorFondo = "#fce3d4" },
+                new() { Id = 12, PerfilEstudianteId = 12, ColorFondo = "#c3e6cb" },
+                new() { Id = 13, PerfilEstudianteId = 13, ColorFondo = "#f5c6cb" },
+                new() { Id = 14, PerfilEstudianteId = 14, ColorFondo = "#bee5eb" },
+                new() { Id = 15, PerfilEstudianteId = 15, ColorFondo = "#ffeeba" },
+                new() { Id = 16, PerfilEstudianteId = 16, ColorFondo = "#d6d8f5" },
+                new() { Id = 17, PerfilEstudianteId = 17, ColorFondo = "#fde2e2" },
+                new() { Id = 18, PerfilEstudianteId = 18, ColorFondo = "#d1e7dd" },
+                new() { Id = 19, PerfilEstudianteId = 19, ColorFondo = "#cce7ff" },
+                new() { Id = 20, PerfilEstudianteId = 20, ColorFondo = "#fbf8cc" },
+                new() { Id = 21, PerfilEstudianteId = 21, ColorFondo = "#f1e0ff" },
+                new() { Id = 22, PerfilEstudianteId = 22, ColorFondo = "#e0f7fa" },
+                new() { Id = 23, PerfilEstudianteId = 23, ColorFondo = "#ffe0e0" },
+                new() { Id = 24, PerfilEstudianteId = 24, ColorFondo = "#e0ffe0" },
+                new() { Id = 25, PerfilEstudianteId = 25, ColorFondo = "#e0e0ff" },
+                new() { Id = 26, PerfilEstudianteId = 26, ColorFondo = "#fff0e0" },
+                new() { Id = 27, PerfilEstudianteId = 27, ColorFondo = "#f0fff0" },
+                new() { Id = 28, PerfilEstudianteId = 28, ColorFondo = "#f0f0ff" },
+                new() { Id = 29, PerfilEstudianteId = 29, ColorFondo = "#e0fff8" },
+                new() { Id = 30, PerfilEstudianteId = 30, ColorFondo = "#f8e0ff" },
+                new() { Id = 31, PerfilEstudianteId = 31, ColorFondo = "#eaf5ff" },
+                new() { Id = 32, PerfilEstudianteId = 32, ColorFondo = "#fff5e6" },
+                new() { Id = 33, PerfilEstudianteId = 33, ColorFondo = "#f2f2f2" },
+                new() { Id = 34, PerfilEstudianteId = 34, ColorFondo = "#e6f7ff" },
+                new() { Id = 35, PerfilEstudianteId = 35, ColorFondo = "#fae6ff" }
             };
             modelBuilder.Entity<Avatar>().HasData(avatares);
         }
@@ -712,11 +714,11 @@ namespace AccesoDatos.RepositoriosEF
                 { TipoAtributo.Barba, new string[] { } },
                 { TipoAtributo.Gafas, new[] { "eyepatch", "kurt", "none", "prescription01", "prescription02", "round", "sunglasses", "wayfarers" } },
                 { TipoAtributo.Ropa, new[] { "blazerAndShirt", "blazerAndSweater", "collarAndSweater", "hoodie", "overall", "shirtCrewNeck", "shirtScoopNeck", "shirtVNeck" } },
-                { TipoAtributo.ColorPiel, new[] { "614335", "ae5d29", "d08b5b", "edb98a", "f8d25c", "fd9841", "ffdbb4" } },
-                { TipoAtributo.ColorPelo, new[] { "2c1b18", "4a312c", "724133", "a55728", "b58143", "c93305", "d6b370", "e8e1e1", "ecdcbf", "f59797" } },
-                { TipoAtributo.ColorBarba, new[] { "2c1b18", "4a312c", "724133", "a55728", "b58143", "c93305", "d6b370", "e8e1e1", "ecdcbf", "f59797" } },
-                { TipoAtributo.ColorRopa, new[] { "3c4f5c", "65c9ff", "262e33", "5199e4", "25557c", "929598", "a7ffc4", "b1e2ff", "e6e6e6", "ff5c5c", "ff488e", "ffafb9", "ffffb1", "ffffff" } },
-                { TipoAtributo.ColorGafas, new[] { "3c4f5c", "65c9ff", "262e33", "5199e4", "25557c", "929598", "a7ffc4", "b1e2ff", "e6e6e6", "ff5c5c", "ff488e", "ffafb9", "ffdeb5", "ffffb1", "ffffff" } }
+                { TipoAtributo.ColorPiel, new[] { "#614335", "#ae5d29", "#d08b5b", "#edb98a", "#f8d25c", "#fd9841", "#ffdbb4" } },
+                { TipoAtributo.ColorPelo, new[] { "#2c1b18", "#4a312c", "#724133", "#a55728", "#b58143", "#c93305", "#d6b370", "#e8e1e1", "#ecdcbf", "#f59797" } },
+                { TipoAtributo.ColorBarba, new[] { "#2c1b18", "#4a312c", "#724133", "#a55728", "#b58143", "#c93305", "#d6b370", "#e8e1e1", "#ecdcbf", "#f59797" } },
+                { TipoAtributo.ColorRopa, new[] { "#3c4f5c", "#65c9ff", "#262e33", "#5199e4", "#25557c", "#929598", "#a7ffc4", "#b1e2ff", "#e6e6e6", "#ff5c5c", "#ff488e", "#ffafb9", "#ffffb1", "#ffffff" } },
+                { TipoAtributo.ColorGafas, new[] { "#3c4f5c", "#65c9ff", "#262e33", "#5199e4", "#25557c", "#929598", "#a7ffc4", "#b1e2ff", "#e6e6e6", "#ff5c5c", "#ff488e", "#ffafb9", "#ffdeb5", "#ffffb1", "#ffffff" } }
             };
 
             foreach (var kvp in datos)
@@ -754,11 +756,11 @@ namespace AccesoDatos.RepositoriosEF
                 Ropa = "shirtVNeck",
                 Gafas = "sunglasses",
                 Barba = "",
-                ColorPiel = "edb98a",
-                ColorPelo = "2c1b18",
-                ColorRopa = "3c4f5c",
-                ColorGafas = "25557c",
-                ColorBarba = "2c1b18"
+                ColorPiel = "#edb98a",
+                ColorPelo = "#2c1b18",
+                ColorRopa = "#3c4f5c",
+                ColorGafas = "#25557c",
+                ColorBarba = "#2c1b18"
             };
 
             // 1. Encontrar y recolectar los objetos AtributoAvatar por defecto en una lista fuertemente tipada.

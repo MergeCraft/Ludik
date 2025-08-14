@@ -853,449 +853,449 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 53,
-                            CodigoUnico = "614335",
-                            Nombre = "614335",
-                            NombreImagenRecurso = "skinColor-614335.png",
+                            CodigoUnico = "#614335",
+                            Nombre = "#614335",
+                            NombreImagenRecurso = "skinColor-#614335.png",
                             Tipo = 7
                         },
                         new
                         {
                             Id = 54,
-                            CodigoUnico = "ae5d29",
-                            Nombre = "ae5d29",
-                            NombreImagenRecurso = "skinColor-ae5d29.png",
+                            CodigoUnico = "#ae5d29",
+                            Nombre = "#ae5d29",
+                            NombreImagenRecurso = "skinColor-#ae5d29.png",
                             Tipo = 7
                         },
                         new
                         {
                             Id = 55,
-                            CodigoUnico = "d08b5b",
-                            Nombre = "d08b5b",
-                            NombreImagenRecurso = "skinColor-d08b5b.png",
+                            CodigoUnico = "#d08b5b",
+                            Nombre = "#d08b5b",
+                            NombreImagenRecurso = "skinColor-#d08b5b.png",
                             Tipo = 7
                         },
                         new
                         {
                             Id = 56,
-                            CodigoUnico = "edb98a",
-                            Nombre = "edb98a",
-                            NombreImagenRecurso = "skinColor-edb98a.png",
+                            CodigoUnico = "#edb98a",
+                            Nombre = "#edb98a",
+                            NombreImagenRecurso = "skinColor-#edb98a.png",
                             Tipo = 7
                         },
                         new
                         {
                             Id = 57,
-                            CodigoUnico = "f8d25c",
-                            Nombre = "f8d25c",
-                            NombreImagenRecurso = "skinColor-f8d25c.png",
+                            CodigoUnico = "#f8d25c",
+                            Nombre = "#f8d25c",
+                            NombreImagenRecurso = "skinColor-#f8d25c.png",
                             Tipo = 7
                         },
                         new
                         {
                             Id = 58,
-                            CodigoUnico = "fd9841",
-                            Nombre = "fd9841",
-                            NombreImagenRecurso = "skinColor-fd9841.png",
+                            CodigoUnico = "#fd9841",
+                            Nombre = "#fd9841",
+                            NombreImagenRecurso = "skinColor-#fd9841.png",
                             Tipo = 7
                         },
                         new
                         {
                             Id = 59,
-                            CodigoUnico = "ffdbb4",
-                            Nombre = "ffdbb4",
-                            NombreImagenRecurso = "skinColor-ffdbb4.png",
+                            CodigoUnico = "#ffdbb4",
+                            Nombre = "#ffdbb4",
+                            NombreImagenRecurso = "skinColor-#ffdbb4.png",
                             Tipo = 7
                         },
                         new
                         {
                             Id = 60,
-                            CodigoUnico = "2c1b18",
-                            Nombre = "2c1b18",
-                            NombreImagenRecurso = "hairColor-2c1b18.png",
+                            CodigoUnico = "#2c1b18",
+                            Nombre = "#2c1b18",
+                            NombreImagenRecurso = "hairColor-#2c1b18.png",
                             Tipo = 8
                         },
                         new
                         {
                             Id = 61,
-                            CodigoUnico = "4a312c",
-                            Nombre = "4a312c",
-                            NombreImagenRecurso = "hairColor-4a312c.png",
+                            CodigoUnico = "#4a312c",
+                            Nombre = "#4a312c",
+                            NombreImagenRecurso = "hairColor-#4a312c.png",
                             Tipo = 8
                         },
                         new
                         {
                             Id = 62,
-                            CodigoUnico = "724133",
-                            Nombre = "724133",
-                            NombreImagenRecurso = "hairColor-724133.png",
+                            CodigoUnico = "#724133",
+                            Nombre = "#724133",
+                            NombreImagenRecurso = "hairColor-#724133.png",
                             Tipo = 8
                         },
                         new
                         {
                             Id = 63,
-                            CodigoUnico = "a55728",
-                            Nombre = "a55728",
-                            NombreImagenRecurso = "hairColor-a55728.png",
+                            CodigoUnico = "#a55728",
+                            Nombre = "#a55728",
+                            NombreImagenRecurso = "hairColor-#a55728.png",
                             Tipo = 8
                         },
                         new
                         {
                             Id = 64,
-                            CodigoUnico = "b58143",
-                            Nombre = "b58143",
-                            NombreImagenRecurso = "hairColor-b58143.png",
+                            CodigoUnico = "#b58143",
+                            Nombre = "#b58143",
+                            NombreImagenRecurso = "hairColor-#b58143.png",
                             Tipo = 8
                         },
                         new
                         {
                             Id = 65,
-                            CodigoUnico = "c93305",
-                            Nombre = "c93305",
-                            NombreImagenRecurso = "hairColor-c93305.png",
+                            CodigoUnico = "#c93305",
+                            Nombre = "#c93305",
+                            NombreImagenRecurso = "hairColor-#c93305.png",
                             Tipo = 8
                         },
                         new
                         {
                             Id = 66,
-                            CodigoUnico = "d6b370",
-                            Nombre = "d6b370",
-                            NombreImagenRecurso = "hairColor-d6b370.png",
+                            CodigoUnico = "#d6b370",
+                            Nombre = "#d6b370",
+                            NombreImagenRecurso = "hairColor-#d6b370.png",
                             Tipo = 8
                         },
                         new
                         {
                             Id = 67,
-                            CodigoUnico = "e8e1e1",
-                            Nombre = "e8e1e1",
-                            NombreImagenRecurso = "hairColor-e8e1e1.png",
+                            CodigoUnico = "#e8e1e1",
+                            Nombre = "#e8e1e1",
+                            NombreImagenRecurso = "hairColor-#e8e1e1.png",
                             Tipo = 8
                         },
                         new
                         {
                             Id = 68,
-                            CodigoUnico = "ecdcbf",
-                            Nombre = "ecdcbf",
-                            NombreImagenRecurso = "hairColor-ecdcbf.png",
+                            CodigoUnico = "#ecdcbf",
+                            Nombre = "#ecdcbf",
+                            NombreImagenRecurso = "hairColor-#ecdcbf.png",
                             Tipo = 8
                         },
                         new
                         {
                             Id = 69,
-                            CodigoUnico = "f59797",
-                            Nombre = "f59797",
-                            NombreImagenRecurso = "hairColor-f59797.png",
+                            CodigoUnico = "#f59797",
+                            Nombre = "#f59797",
+                            NombreImagenRecurso = "hairColor-#f59797.png",
                             Tipo = 8
                         },
                         new
                         {
                             Id = 70,
-                            CodigoUnico = "2c1b18",
-                            Nombre = "2c1b18",
-                            NombreImagenRecurso = "beardColor-2c1b18.png",
+                            CodigoUnico = "#2c1b18",
+                            Nombre = "#2c1b18",
+                            NombreImagenRecurso = "beardColor-#2c1b18.png",
                             Tipo = 9
                         },
                         new
                         {
                             Id = 71,
-                            CodigoUnico = "4a312c",
-                            Nombre = "4a312c",
-                            NombreImagenRecurso = "beardColor-4a312c.png",
+                            CodigoUnico = "#4a312c",
+                            Nombre = "#4a312c",
+                            NombreImagenRecurso = "beardColor-#4a312c.png",
                             Tipo = 9
                         },
                         new
                         {
                             Id = 72,
-                            CodigoUnico = "724133",
-                            Nombre = "724133",
-                            NombreImagenRecurso = "beardColor-724133.png",
+                            CodigoUnico = "#724133",
+                            Nombre = "#724133",
+                            NombreImagenRecurso = "beardColor-#724133.png",
                             Tipo = 9
                         },
                         new
                         {
                             Id = 73,
-                            CodigoUnico = "a55728",
-                            Nombre = "a55728",
-                            NombreImagenRecurso = "beardColor-a55728.png",
+                            CodigoUnico = "#a55728",
+                            Nombre = "#a55728",
+                            NombreImagenRecurso = "beardColor-#a55728.png",
                             Tipo = 9
                         },
                         new
                         {
                             Id = 74,
-                            CodigoUnico = "b58143",
-                            Nombre = "b58143",
-                            NombreImagenRecurso = "beardColor-b58143.png",
+                            CodigoUnico = "#b58143",
+                            Nombre = "#b58143",
+                            NombreImagenRecurso = "beardColor-#b58143.png",
                             Tipo = 9
                         },
                         new
                         {
                             Id = 75,
-                            CodigoUnico = "c93305",
-                            Nombre = "c93305",
-                            NombreImagenRecurso = "beardColor-c93305.png",
+                            CodigoUnico = "#c93305",
+                            Nombre = "#c93305",
+                            NombreImagenRecurso = "beardColor-#c93305.png",
                             Tipo = 9
                         },
                         new
                         {
                             Id = 76,
-                            CodigoUnico = "d6b370",
-                            Nombre = "d6b370",
-                            NombreImagenRecurso = "beardColor-d6b370.png",
+                            CodigoUnico = "#d6b370",
+                            Nombre = "#d6b370",
+                            NombreImagenRecurso = "beardColor-#d6b370.png",
                             Tipo = 9
                         },
                         new
                         {
                             Id = 77,
-                            CodigoUnico = "e8e1e1",
-                            Nombre = "e8e1e1",
-                            NombreImagenRecurso = "beardColor-e8e1e1.png",
+                            CodigoUnico = "#e8e1e1",
+                            Nombre = "#e8e1e1",
+                            NombreImagenRecurso = "beardColor-#e8e1e1.png",
                             Tipo = 9
                         },
                         new
                         {
                             Id = 78,
-                            CodigoUnico = "ecdcbf",
-                            Nombre = "ecdcbf",
-                            NombreImagenRecurso = "beardColor-ecdcbf.png",
+                            CodigoUnico = "#ecdcbf",
+                            Nombre = "#ecdcbf",
+                            NombreImagenRecurso = "beardColor-#ecdcbf.png",
                             Tipo = 9
                         },
                         new
                         {
                             Id = 79,
-                            CodigoUnico = "f59797",
-                            Nombre = "f59797",
-                            NombreImagenRecurso = "beardColor-f59797.png",
+                            CodigoUnico = "#f59797",
+                            Nombre = "#f59797",
+                            NombreImagenRecurso = "beardColor-#f59797.png",
                             Tipo = 9
                         },
                         new
                         {
                             Id = 80,
-                            CodigoUnico = "3c4f5c",
-                            Nombre = "3c4f5c",
-                            NombreImagenRecurso = "clothesColor-3c4f5c.png",
+                            CodigoUnico = "#3c4f5c",
+                            Nombre = "#3c4f5c",
+                            NombreImagenRecurso = "clothesColor-#3c4f5c.png",
                             Tipo = 10
                         },
                         new
                         {
                             Id = 81,
-                            CodigoUnico = "65c9ff",
-                            Nombre = "65c9ff",
-                            NombreImagenRecurso = "clothesColor-65c9ff.png",
+                            CodigoUnico = "#65c9ff",
+                            Nombre = "#65c9ff",
+                            NombreImagenRecurso = "clothesColor-#65c9ff.png",
                             Tipo = 10
                         },
                         new
                         {
                             Id = 82,
-                            CodigoUnico = "262e33",
-                            Nombre = "262e33",
-                            NombreImagenRecurso = "clothesColor-262e33.png",
+                            CodigoUnico = "#262e33",
+                            Nombre = "#262e33",
+                            NombreImagenRecurso = "clothesColor-#262e33.png",
                             Tipo = 10
                         },
                         new
                         {
                             Id = 83,
-                            CodigoUnico = "5199e4",
-                            Nombre = "5199e4",
-                            NombreImagenRecurso = "clothesColor-5199e4.png",
+                            CodigoUnico = "#5199e4",
+                            Nombre = "#5199e4",
+                            NombreImagenRecurso = "clothesColor-#5199e4.png",
                             Tipo = 10
                         },
                         new
                         {
                             Id = 84,
-                            CodigoUnico = "25557c",
-                            Nombre = "25557c",
-                            NombreImagenRecurso = "clothesColor-25557c.png",
+                            CodigoUnico = "#25557c",
+                            Nombre = "#25557c",
+                            NombreImagenRecurso = "clothesColor-#25557c.png",
                             Tipo = 10
                         },
                         new
                         {
                             Id = 85,
-                            CodigoUnico = "929598",
-                            Nombre = "929598",
-                            NombreImagenRecurso = "clothesColor-929598.png",
+                            CodigoUnico = "#929598",
+                            Nombre = "#929598",
+                            NombreImagenRecurso = "clothesColor-#929598.png",
                             Tipo = 10
                         },
                         new
                         {
                             Id = 86,
-                            CodigoUnico = "a7ffc4",
-                            Nombre = "a7ffc4",
-                            NombreImagenRecurso = "clothesColor-a7ffc4.png",
+                            CodigoUnico = "#a7ffc4",
+                            Nombre = "#a7ffc4",
+                            NombreImagenRecurso = "clothesColor-#a7ffc4.png",
                             Tipo = 10
                         },
                         new
                         {
                             Id = 87,
-                            CodigoUnico = "b1e2ff",
-                            Nombre = "b1e2ff",
-                            NombreImagenRecurso = "clothesColor-b1e2ff.png",
+                            CodigoUnico = "#b1e2ff",
+                            Nombre = "#b1e2ff",
+                            NombreImagenRecurso = "clothesColor-#b1e2ff.png",
                             Tipo = 10
                         },
                         new
                         {
                             Id = 88,
-                            CodigoUnico = "e6e6e6",
-                            Nombre = "e6e6e6",
-                            NombreImagenRecurso = "clothesColor-e6e6e6.png",
+                            CodigoUnico = "#e6e6e6",
+                            Nombre = "#e6e6e6",
+                            NombreImagenRecurso = "clothesColor-#e6e6e6.png",
                             Tipo = 10
                         },
                         new
                         {
                             Id = 89,
-                            CodigoUnico = "ff5c5c",
-                            Nombre = "ff5c5c",
-                            NombreImagenRecurso = "clothesColor-ff5c5c.png",
+                            CodigoUnico = "#ff5c5c",
+                            Nombre = "#ff5c5c",
+                            NombreImagenRecurso = "clothesColor-#ff5c5c.png",
                             Tipo = 10
                         },
                         new
                         {
                             Id = 90,
-                            CodigoUnico = "ff488e",
-                            Nombre = "ff488e",
-                            NombreImagenRecurso = "clothesColor-ff488e.png",
+                            CodigoUnico = "#ff488e",
+                            Nombre = "#ff488e",
+                            NombreImagenRecurso = "clothesColor-#ff488e.png",
                             Tipo = 10
                         },
                         new
                         {
                             Id = 91,
-                            CodigoUnico = "ffafb9",
-                            Nombre = "ffafb9",
-                            NombreImagenRecurso = "clothesColor-ffafb9.png",
+                            CodigoUnico = "#ffafb9",
+                            Nombre = "#ffafb9",
+                            NombreImagenRecurso = "clothesColor-#ffafb9.png",
                             Tipo = 10
                         },
                         new
                         {
                             Id = 92,
-                            CodigoUnico = "ffffb1",
-                            Nombre = "ffffb1",
-                            NombreImagenRecurso = "clothesColor-ffffb1.png",
+                            CodigoUnico = "#ffffb1",
+                            Nombre = "#ffffb1",
+                            NombreImagenRecurso = "clothesColor-#ffffb1.png",
                             Tipo = 10
                         },
                         new
                         {
                             Id = 93,
-                            CodigoUnico = "ffffff",
-                            Nombre = "ffffff",
-                            NombreImagenRecurso = "clothesColor-ffffff.png",
+                            CodigoUnico = "#ffffff",
+                            Nombre = "#ffffff",
+                            NombreImagenRecurso = "clothesColor-#ffffff.png",
                             Tipo = 10
                         },
                         new
                         {
                             Id = 94,
-                            CodigoUnico = "3c4f5c",
-                            Nombre = "3c4f5c",
-                            NombreImagenRecurso = "accessoriesColor-3c4f5c.png",
+                            CodigoUnico = "#3c4f5c",
+                            Nombre = "#3c4f5c",
+                            NombreImagenRecurso = "accessoriesColor-#3c4f5c.png",
                             Tipo = 11
                         },
                         new
                         {
                             Id = 95,
-                            CodigoUnico = "65c9ff",
-                            Nombre = "65c9ff",
-                            NombreImagenRecurso = "accessoriesColor-65c9ff.png",
+                            CodigoUnico = "#65c9ff",
+                            Nombre = "#65c9ff",
+                            NombreImagenRecurso = "accessoriesColor-#65c9ff.png",
                             Tipo = 11
                         },
                         new
                         {
                             Id = 96,
-                            CodigoUnico = "262e33",
-                            Nombre = "262e33",
-                            NombreImagenRecurso = "accessoriesColor-262e33.png",
+                            CodigoUnico = "#262e33",
+                            Nombre = "#262e33",
+                            NombreImagenRecurso = "accessoriesColor-#262e33.png",
                             Tipo = 11
                         },
                         new
                         {
                             Id = 97,
-                            CodigoUnico = "5199e4",
-                            Nombre = "5199e4",
-                            NombreImagenRecurso = "accessoriesColor-5199e4.png",
+                            CodigoUnico = "#5199e4",
+                            Nombre = "#5199e4",
+                            NombreImagenRecurso = "accessoriesColor-#5199e4.png",
                             Tipo = 11
                         },
                         new
                         {
                             Id = 98,
-                            CodigoUnico = "25557c",
-                            Nombre = "25557c",
-                            NombreImagenRecurso = "accessoriesColor-25557c.png",
+                            CodigoUnico = "#25557c",
+                            Nombre = "#25557c",
+                            NombreImagenRecurso = "accessoriesColor-#25557c.png",
                             Tipo = 11
                         },
                         new
                         {
                             Id = 99,
-                            CodigoUnico = "929598",
-                            Nombre = "929598",
-                            NombreImagenRecurso = "accessoriesColor-929598.png",
+                            CodigoUnico = "#929598",
+                            Nombre = "#929598",
+                            NombreImagenRecurso = "accessoriesColor-#929598.png",
                             Tipo = 11
                         },
                         new
                         {
                             Id = 100,
-                            CodigoUnico = "a7ffc4",
-                            Nombre = "a7ffc4",
-                            NombreImagenRecurso = "accessoriesColor-a7ffc4.png",
+                            CodigoUnico = "#a7ffc4",
+                            Nombre = "#a7ffc4",
+                            NombreImagenRecurso = "accessoriesColor-#a7ffc4.png",
                             Tipo = 11
                         },
                         new
                         {
                             Id = 101,
-                            CodigoUnico = "b1e2ff",
-                            Nombre = "b1e2ff",
-                            NombreImagenRecurso = "accessoriesColor-b1e2ff.png",
+                            CodigoUnico = "#b1e2ff",
+                            Nombre = "#b1e2ff",
+                            NombreImagenRecurso = "accessoriesColor-#b1e2ff.png",
                             Tipo = 11
                         },
                         new
                         {
                             Id = 102,
-                            CodigoUnico = "e6e6e6",
-                            Nombre = "e6e6e6",
-                            NombreImagenRecurso = "accessoriesColor-e6e6e6.png",
+                            CodigoUnico = "#e6e6e6",
+                            Nombre = "#e6e6e6",
+                            NombreImagenRecurso = "accessoriesColor-#e6e6e6.png",
                             Tipo = 11
                         },
                         new
                         {
                             Id = 103,
-                            CodigoUnico = "ff5c5c",
-                            Nombre = "ff5c5c",
-                            NombreImagenRecurso = "accessoriesColor-ff5c5c.png",
+                            CodigoUnico = "#ff5c5c",
+                            Nombre = "#ff5c5c",
+                            NombreImagenRecurso = "accessoriesColor-#ff5c5c.png",
                             Tipo = 11
                         },
                         new
                         {
                             Id = 104,
-                            CodigoUnico = "ff488e",
-                            Nombre = "ff488e",
-                            NombreImagenRecurso = "accessoriesColor-ff488e.png",
+                            CodigoUnico = "#ff488e",
+                            Nombre = "#ff488e",
+                            NombreImagenRecurso = "accessoriesColor-#ff488e.png",
                             Tipo = 11
                         },
                         new
                         {
                             Id = 105,
-                            CodigoUnico = "ffafb9",
-                            Nombre = "ffafb9",
-                            NombreImagenRecurso = "accessoriesColor-ffafb9.png",
+                            CodigoUnico = "#ffafb9",
+                            Nombre = "#ffafb9",
+                            NombreImagenRecurso = "accessoriesColor-#ffafb9.png",
                             Tipo = 11
                         },
                         new
                         {
                             Id = 106,
-                            CodigoUnico = "ffdeb5",
-                            Nombre = "ffdeb5",
-                            NombreImagenRecurso = "accessoriesColor-ffdeb5.png",
+                            CodigoUnico = "#ffdeb5",
+                            Nombre = "#ffdeb5",
+                            NombreImagenRecurso = "accessoriesColor-#ffdeb5.png",
                             Tipo = 11
                         },
                         new
                         {
                             Id = 107,
-                            CodigoUnico = "ffffb1",
-                            Nombre = "ffffb1",
-                            NombreImagenRecurso = "accessoriesColor-ffffb1.png",
+                            CodigoUnico = "#ffffb1",
+                            Nombre = "#ffffb1",
+                            NombreImagenRecurso = "accessoriesColor-#ffffb1.png",
                             Tipo = 11
                         },
                         new
                         {
                             Id = 108,
-                            CodigoUnico = "ffffff",
-                            Nombre = "ffffff",
-                            NombreImagenRecurso = "accessoriesColor-ffffff.png",
+                            CodigoUnico = "#ffffff",
+                            Nombre = "#ffffff",
+                            NombreImagenRecurso = "accessoriesColor-#ffffff.png",
                             Tipo = 11
                         });
                 });
@@ -1335,7 +1335,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 1,
-                            ColorFondo = "b1e2ff",
+                            ColorFondo = "#b1e2ff",
                             PerfilEstudianteId = 1,
                             Rotacion = 0,
                             Voltear = false,
@@ -1344,7 +1344,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 2,
-                            ColorFondo = "a7ffc4",
+                            ColorFondo = "#a7ffc4",
                             PerfilEstudianteId = 2,
                             Rotacion = 0,
                             Voltear = false,
@@ -1353,7 +1353,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 3,
-                            ColorFondo = "ffafb9",
+                            ColorFondo = "#ffafb9",
                             PerfilEstudianteId = 3,
                             Rotacion = 0,
                             Voltear = false,
@@ -1362,7 +1362,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 4,
-                            ColorFondo = "ffffb1",
+                            ColorFondo = "#ffffb1",
                             PerfilEstudianteId = 4,
                             Rotacion = 0,
                             Voltear = false,
@@ -1371,7 +1371,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 5,
-                            ColorFondo = "e6e6e6",
+                            ColorFondo = "#e6e6e6",
                             PerfilEstudianteId = 5,
                             Rotacion = 0,
                             Voltear = false,
@@ -1380,7 +1380,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 6,
-                            ColorFondo = "f8d7da",
+                            ColorFondo = "#f8d7da",
                             PerfilEstudianteId = 6,
                             Rotacion = 0,
                             Voltear = false,
@@ -1389,7 +1389,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 7,
-                            ColorFondo = "d4edda",
+                            ColorFondo = "#d4edda",
                             PerfilEstudianteId = 7,
                             Rotacion = 0,
                             Voltear = false,
@@ -1398,7 +1398,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 8,
-                            ColorFondo = "fff3cd",
+                            ColorFondo = "#fff3cd",
                             PerfilEstudianteId = 8,
                             Rotacion = 0,
                             Voltear = false,
@@ -1407,7 +1407,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 9,
-                            ColorFondo = "d1ecf1",
+                            ColorFondo = "#d1ecf1",
                             PerfilEstudianteId = 9,
                             Rotacion = 0,
                             Voltear = false,
@@ -1416,7 +1416,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 10,
-                            ColorFondo = "e2d9f3",
+                            ColorFondo = "#e2d9f3",
                             PerfilEstudianteId = 10,
                             Rotacion = 0,
                             Voltear = false,
@@ -1425,7 +1425,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 11,
-                            ColorFondo = "fce3d4",
+                            ColorFondo = "#fce3d4",
                             PerfilEstudianteId = 11,
                             Rotacion = 0,
                             Voltear = false,
@@ -1434,7 +1434,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 12,
-                            ColorFondo = "c3e6cb",
+                            ColorFondo = "#c3e6cb",
                             PerfilEstudianteId = 12,
                             Rotacion = 0,
                             Voltear = false,
@@ -1443,7 +1443,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 13,
-                            ColorFondo = "f5c6cb",
+                            ColorFondo = "#f5c6cb",
                             PerfilEstudianteId = 13,
                             Rotacion = 0,
                             Voltear = false,
@@ -1452,7 +1452,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 14,
-                            ColorFondo = "bee5eb",
+                            ColorFondo = "#bee5eb",
                             PerfilEstudianteId = 14,
                             Rotacion = 0,
                             Voltear = false,
@@ -1461,7 +1461,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 15,
-                            ColorFondo = "ffeeba",
+                            ColorFondo = "#ffeeba",
                             PerfilEstudianteId = 15,
                             Rotacion = 0,
                             Voltear = false,
@@ -1470,7 +1470,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 16,
-                            ColorFondo = "d6d8f5",
+                            ColorFondo = "#d6d8f5",
                             PerfilEstudianteId = 16,
                             Rotacion = 0,
                             Voltear = false,
@@ -1479,7 +1479,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 17,
-                            ColorFondo = "fde2e2",
+                            ColorFondo = "#fde2e2",
                             PerfilEstudianteId = 17,
                             Rotacion = 0,
                             Voltear = false,
@@ -1488,7 +1488,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 18,
-                            ColorFondo = "d1e7dd",
+                            ColorFondo = "#d1e7dd",
                             PerfilEstudianteId = 18,
                             Rotacion = 0,
                             Voltear = false,
@@ -1497,7 +1497,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 19,
-                            ColorFondo = "cce7ff",
+                            ColorFondo = "#cce7ff",
                             PerfilEstudianteId = 19,
                             Rotacion = 0,
                             Voltear = false,
@@ -1506,7 +1506,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 20,
-                            ColorFondo = "fbf8cc",
+                            ColorFondo = "#fbf8cc",
                             PerfilEstudianteId = 20,
                             Rotacion = 0,
                             Voltear = false,
@@ -1515,7 +1515,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 21,
-                            ColorFondo = "f1e0ff",
+                            ColorFondo = "#f1e0ff",
                             PerfilEstudianteId = 21,
                             Rotacion = 0,
                             Voltear = false,
@@ -1524,7 +1524,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 22,
-                            ColorFondo = "e0f7fa",
+                            ColorFondo = "#e0f7fa",
                             PerfilEstudianteId = 22,
                             Rotacion = 0,
                             Voltear = false,
@@ -1533,7 +1533,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 23,
-                            ColorFondo = "ffe0e0",
+                            ColorFondo = "#ffe0e0",
                             PerfilEstudianteId = 23,
                             Rotacion = 0,
                             Voltear = false,
@@ -1542,7 +1542,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 24,
-                            ColorFondo = "e0ffe0",
+                            ColorFondo = "#e0ffe0",
                             PerfilEstudianteId = 24,
                             Rotacion = 0,
                             Voltear = false,
@@ -1551,7 +1551,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 25,
-                            ColorFondo = "e0e0ff",
+                            ColorFondo = "#e0e0ff",
                             PerfilEstudianteId = 25,
                             Rotacion = 0,
                             Voltear = false,
@@ -1560,7 +1560,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 26,
-                            ColorFondo = "fff0e0",
+                            ColorFondo = "#fff0e0",
                             PerfilEstudianteId = 26,
                             Rotacion = 0,
                             Voltear = false,
@@ -1569,7 +1569,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 27,
-                            ColorFondo = "f0fff0",
+                            ColorFondo = "#f0fff0",
                             PerfilEstudianteId = 27,
                             Rotacion = 0,
                             Voltear = false,
@@ -1578,7 +1578,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 28,
-                            ColorFondo = "f0f0ff",
+                            ColorFondo = "#f0f0ff",
                             PerfilEstudianteId = 28,
                             Rotacion = 0,
                             Voltear = false,
@@ -1587,7 +1587,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 29,
-                            ColorFondo = "e0fff8",
+                            ColorFondo = "#e0fff8",
                             PerfilEstudianteId = 29,
                             Rotacion = 0,
                             Voltear = false,
@@ -1596,7 +1596,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 30,
-                            ColorFondo = "f8e0ff",
+                            ColorFondo = "#f8e0ff",
                             PerfilEstudianteId = 30,
                             Rotacion = 0,
                             Voltear = false,
@@ -1605,7 +1605,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 31,
-                            ColorFondo = "eaf5ff",
+                            ColorFondo = "#eaf5ff",
                             PerfilEstudianteId = 31,
                             Rotacion = 0,
                             Voltear = false,
@@ -1614,7 +1614,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 32,
-                            ColorFondo = "fff5e6",
+                            ColorFondo = "#fff5e6",
                             PerfilEstudianteId = 32,
                             Rotacion = 0,
                             Voltear = false,
@@ -1623,7 +1623,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 33,
-                            ColorFondo = "f2f2f2",
+                            ColorFondo = "#f2f2f2",
                             PerfilEstudianteId = 33,
                             Rotacion = 0,
                             Voltear = false,
@@ -1632,7 +1632,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 34,
-                            ColorFondo = "e6f7ff",
+                            ColorFondo = "#e6f7ff",
                             PerfilEstudianteId = 34,
                             Rotacion = 0,
                             Voltear = false,
@@ -1641,7 +1641,7 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 35,
-                            ColorFondo = "fae6ff",
+                            ColorFondo = "#fae6ff",
                             PerfilEstudianteId = 35,
                             Rotacion = 0,
                             Voltear = false,
@@ -2271,7 +2271,7 @@ namespace AccesoDatos.Migrations
                             Id = 4,
                             EstudianteId = "d4445865-a24d-4543-a6c6-9443d048cdb4",
                             GrupoId = 2,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 10,
                             Monedas = 200,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2282,7 +2282,7 @@ namespace AccesoDatos.Migrations
                             Id = 5,
                             EstudianteId = "e5445865-a24d-4543-a6c6-9443d048cdb5",
                             GrupoId = 2,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 8,
                             Monedas = 180,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2293,7 +2293,7 @@ namespace AccesoDatos.Migrations
                             Id = 1,
                             EstudianteId = "a1445865-a24d-4543-a6c6-9443d048cdb1",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 8,
                             Monedas = 120,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2304,7 +2304,7 @@ namespace AccesoDatos.Migrations
                             Id = 2,
                             EstudianteId = "b2445865-a24d-4543-a6c6-9443d048cdb2",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 9,
                             Monedas = 150,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2315,7 +2315,7 @@ namespace AccesoDatos.Migrations
                             Id = 3,
                             EstudianteId = "c3445865-a24d-4543-a6c6-9443d048cdb3",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 7,
                             Monedas = 95,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2326,7 +2326,7 @@ namespace AccesoDatos.Migrations
                             Id = 6,
                             EstudianteId = "f6445865-a24d-4543-a6c6-9443d048cdb6",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 7,
                             Monedas = 110,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2337,7 +2337,7 @@ namespace AccesoDatos.Migrations
                             Id = 7,
                             EstudianteId = "g7445865-a24d-4543-a6c6-9443d048cdb7",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 9,
                             Monedas = 210,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2348,7 +2348,7 @@ namespace AccesoDatos.Migrations
                             Id = 8,
                             EstudianteId = "h8445865-a24d-4543-a6c6-9443d048cdb8",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 6,
                             Monedas = 80,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2359,7 +2359,7 @@ namespace AccesoDatos.Migrations
                             Id = 9,
                             EstudianteId = "i9445865-a24d-4543-a6c6-9443d048cdb9",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 10,
                             Monedas = 300,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2370,7 +2370,7 @@ namespace AccesoDatos.Migrations
                             Id = 10,
                             EstudianteId = "jA445865-a24d-4543-a6c6-9443d048cdbA",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 8,
                             Monedas = 125,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2381,7 +2381,7 @@ namespace AccesoDatos.Migrations
                             Id = 11,
                             EstudianteId = "kB445865-a24d-4543-a6c6-9443d048cdbB",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 8,
                             Monedas = 145,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2392,7 +2392,7 @@ namespace AccesoDatos.Migrations
                             Id = 12,
                             EstudianteId = "lC445865-a24d-4543-a6c6-9443d048cdbC",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 9,
                             Monedas = 160,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2403,7 +2403,7 @@ namespace AccesoDatos.Migrations
                             Id = 13,
                             EstudianteId = "mD445865-a24d-4543-a6c6-9443d048cdbD",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 6,
                             Monedas = 70,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2414,7 +2414,7 @@ namespace AccesoDatos.Migrations
                             Id = 14,
                             EstudianteId = "nE445865-a24d-4543-a6c6-9443d048cdbE",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 9,
                             Monedas = 190,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2425,7 +2425,7 @@ namespace AccesoDatos.Migrations
                             Id = 15,
                             EstudianteId = "oF445865-a24d-4543-a6c6-9443d048cdbF",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 10,
                             Monedas = 250,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2436,7 +2436,7 @@ namespace AccesoDatos.Migrations
                             Id = 16,
                             EstudianteId = "p0445865-a24d-4543-a6c6-9443d048cdc0",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 8,
                             Monedas = 130,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2447,7 +2447,7 @@ namespace AccesoDatos.Migrations
                             Id = 17,
                             EstudianteId = "q1445865-a24d-4543-a6c6-9443d048cdc1",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 7,
                             Monedas = 115,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2458,7 +2458,7 @@ namespace AccesoDatos.Migrations
                             Id = 18,
                             EstudianteId = "r2445865-a24d-4543-a6c6-9443d048cdc2",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 7,
                             Monedas = 90,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2469,7 +2469,7 @@ namespace AccesoDatos.Migrations
                             Id = 19,
                             EstudianteId = "s3445865-a24d-4543-a6c6-9443d048cdc3",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 9,
                             Monedas = 220,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2480,7 +2480,7 @@ namespace AccesoDatos.Migrations
                             Id = 20,
                             EstudianteId = "t4445865-a24d-4543-a6c6-9443d048cdc4",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 8,
                             Monedas = 170,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2491,7 +2491,7 @@ namespace AccesoDatos.Migrations
                             Id = 21,
                             EstudianteId = "u5445865-a24d-4543-a6c6-9443d048cdc5",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 8,
                             Monedas = 155,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2502,7 +2502,7 @@ namespace AccesoDatos.Migrations
                             Id = 22,
                             EstudianteId = "v6445865-a24d-4543-a6c6-9443d048cdc6",
                             GrupoId = 1,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 7,
                             Monedas = 105,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2513,7 +2513,7 @@ namespace AccesoDatos.Migrations
                             Id = 23,
                             EstudianteId = "w7445865-a24d-4543-a6c6-9443d048cdc7",
                             GrupoId = 3,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 7,
                             Monedas = 100,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2524,7 +2524,7 @@ namespace AccesoDatos.Migrations
                             Id = 24,
                             EstudianteId = "x8445865-a24d-4543-a6c6-9443d048cdc8",
                             GrupoId = 3,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 8,
                             Monedas = 120,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2535,7 +2535,7 @@ namespace AccesoDatos.Migrations
                             Id = 25,
                             EstudianteId = "y9445865-a24d-4543-a6c6-9443d048cdcA",
                             GrupoId = 3,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 10,
                             Monedas = 250,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2546,7 +2546,7 @@ namespace AccesoDatos.Migrations
                             Id = 26,
                             EstudianteId = "zA445865-a24d-4543-a6c6-9443d048cdcB",
                             GrupoId = 3,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 8,
                             Monedas = 130,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2557,7 +2557,7 @@ namespace AccesoDatos.Migrations
                             Id = 27,
                             EstudianteId = "aB445865-a24d-4543-a6c6-9443d048cdcC",
                             GrupoId = 3,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 6,
                             Monedas = 90,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2568,7 +2568,7 @@ namespace AccesoDatos.Migrations
                             Id = 28,
                             EstudianteId = "bC445865-a24d-4543-a6c6-9443d048cdcD",
                             GrupoId = 3,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 9,
                             Monedas = 160,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2579,7 +2579,7 @@ namespace AccesoDatos.Migrations
                             Id = 29,
                             EstudianteId = "cD445865-a24d-4543-a6c6-9443d048cdcE",
                             GrupoId = 3,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 9,
                             Monedas = 175,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2590,7 +2590,7 @@ namespace AccesoDatos.Migrations
                             Id = 30,
                             EstudianteId = "dE445865-a24d-4543-a6c6-9443d048cdcF",
                             GrupoId = 3,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 8,
                             Monedas = 140,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2601,7 +2601,7 @@ namespace AccesoDatos.Migrations
                             Id = 31,
                             EstudianteId = "eF445865-a24d-4543-a6c6-9443d048cdd0",
                             GrupoId = 4,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 7,
                             Monedas = 110,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2612,7 +2612,7 @@ namespace AccesoDatos.Migrations
                             Id = 32,
                             EstudianteId = "f0445865-a24d-4543-a6c6-9443d048cdd1",
                             GrupoId = 4,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 9,
                             Monedas = 200,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2623,7 +2623,7 @@ namespace AccesoDatos.Migrations
                             Id = 33,
                             EstudianteId = "g1445865-a24d-4543-a6c6-9443d048cdd2",
                             GrupoId = 4,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 8,
                             Monedas = 150,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2634,7 +2634,7 @@ namespace AccesoDatos.Migrations
                             Id = 34,
                             EstudianteId = "h2445865-a24d-4543-a6c6-9443d048cdd3",
                             GrupoId = 4,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 9,
                             Monedas = 180,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -2645,7 +2645,7 @@ namespace AccesoDatos.Migrations
                             Id = 35,
                             EstudianteId = "i3445865-a24d-4543-a6c6-9443d048cdd4",
                             GrupoId = 4,
-                            KudosDisponiblesParaOtorgar = 0,
+                            KudosDisponiblesParaOtorgar = 3,
                             MetaCalificacion = 10,
                             Monedas = 220,
                             NombreImagenCompleta = "default/avatar_full.jpg",
@@ -3222,6 +3222,16 @@ namespace AccesoDatos.Migrations
                         {
                             Id = 2,
                             GrupoId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            GrupoId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            GrupoId = 4
                         });
                 });
 
@@ -3872,41 +3882,41 @@ namespace AccesoDatos.Migrations
                         new
                         {
                             Id = 17,
-                            Nombre = "edb98a",
+                            Nombre = "#edb98a",
                             Precio = 0,
-                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"skinColor-edb98a.png\",\"NombreImagenMiniatura\":\"skinColor-edb98a.png\"}",
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"skinColor-#edb98a.png\",\"NombreImagenMiniatura\":\"skinColor-#edb98a.png\"}",
                             AtributoAvatarId = 56
                         },
                         new
                         {
                             Id = 18,
-                            Nombre = "2c1b18",
+                            Nombre = "#2c1b18",
                             Precio = 0,
-                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"hairColor-2c1b18.png\",\"NombreImagenMiniatura\":\"hairColor-2c1b18.png\"}",
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"hairColor-#2c1b18.png\",\"NombreImagenMiniatura\":\"hairColor-#2c1b18.png\"}",
                             AtributoAvatarId = 60
                         },
                         new
                         {
                             Id = 19,
-                            Nombre = "3c4f5c",
+                            Nombre = "#3c4f5c",
                             Precio = 0,
-                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"clothesColor-3c4f5c.png\",\"NombreImagenMiniatura\":\"clothesColor-3c4f5c.png\"}",
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"clothesColor-#3c4f5c.png\",\"NombreImagenMiniatura\":\"clothesColor-#3c4f5c.png\"}",
                             AtributoAvatarId = 80
                         },
                         new
                         {
                             Id = 20,
-                            Nombre = "25557c",
+                            Nombre = "#25557c",
                             Precio = 0,
-                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"accessoriesColor-25557c.png\",\"NombreImagenMiniatura\":\"accessoriesColor-25557c.png\"}",
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"accessoriesColor-#25557c.png\",\"NombreImagenMiniatura\":\"accessoriesColor-#25557c.png\"}",
                             AtributoAvatarId = 98
                         },
                         new
                         {
                             Id = 21,
-                            Nombre = "2c1b18",
+                            Nombre = "#2c1b18",
                             Precio = 0,
-                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"beardColor-2c1b18.png\",\"NombreImagenMiniatura\":\"beardColor-2c1b18.png\"}",
+                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"beardColor-#2c1b18.png\",\"NombreImagenMiniatura\":\"beardColor-#2c1b18.png\"}",
                             AtributoAvatarId = 70
                         });
                 });
