@@ -7,7 +7,8 @@ const initialState = {
   token: null,
   role: null,
   isAuthenticated: false,
-  loggedOutManually: false, // <-- nuevo
+  loggedOutManually: false,
+  rememberMe: false,
 };
 
 const userSlice = createSlice({
@@ -20,7 +21,8 @@ const userSlice = createSlice({
       state.token = action.payload.token;
       state.role = action.payload.rol;
       state.isAuthenticated = true;
-      state.loggedOutManually = false; // reseteamos al login
+      state.loggedOutManually = false;
+      state.rememberMe = action.payload.rememberMe || false;
     },
     logout: (state) => {
       state.id = null;
@@ -28,10 +30,11 @@ const userSlice = createSlice({
       state.token = null;
       state.role = null;
       state.isAuthenticated = false;
-      state.loggedOutManually = true; // marcamos logout manual
+      state.loggedOutManually = true;
+      state.rememberMe = false;
     },
     logoutReset: (state) => {
-      state.loggedOutManually = false; // resetear flag
+      state.loggedOutManually = false;
     },
   },
 });

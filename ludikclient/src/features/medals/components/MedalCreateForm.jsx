@@ -68,7 +68,6 @@ const MedalCreateForm = ({ onClose, medalId }) => {
     nombre: "",
     descripcion: "",
     cantidadMonedasBrinda: "",
-    esAsignacionMutua: false,
     nombreIcono: "", // Cambiado a nombreIcono para el icon picker
   });
 
@@ -86,7 +85,6 @@ const MedalCreateForm = ({ onClose, medalId }) => {
         nombre: data.nombre ?? "",
         descripcion: data.descripcion ?? "",
         cantidadMonedasBrinda: String(data.cantidadMedallasBrinda ?? "0"),
-        esAsignacionMutua: data.esAsignacionMutua ?? false,
         nombreIcono: extractIconName(data.urlImagen) ?? "", // extraigo el icono guardado
       });
     }
@@ -136,7 +134,6 @@ const MedalCreateForm = ({ onClose, medalId }) => {
       nombre: medalla.nombre,
       descripcion: medalla.descripcion,
       cantidadMonedasBrinda: Number(medalla.cantidadMonedasBrinda),
-      esAsignacionMutua: medalla.esAsignacionMutua,
       nombreIcono: medalla.nombreIcono, // guardamos solo el nombre del icono
     };
 
@@ -205,16 +202,6 @@ const MedalCreateForm = ({ onClose, medalId }) => {
             Monedas otorgadas
             <input type="number" name="cantidadMonedasBrinda" value={medalla.cantidadMonedasBrinda} onChange={handleChange} placeholder="Ej: 50" disabled={isLoading} required min={0} />
           </label>
-
-          <div className={styles.asignacionMutua}>
-            <label className="switch">
-              <input type="checkbox" name="esAsignacionMutua" checked={medalla.esAsignacionMutua} onChange={handleChange} disabled={isLoading} />
-              <span className="slider"></span>
-            </label>
-            <label htmlFor="esAsignacionMutua" className={styles.recuerdame}>
-              ¿Es de asignación mutua?
-            </label>
-          </div>
 
           <div className={styles.botones}>
             <button type="submit" disabled={isLoading} className={`button-secondary ${styles.btnSubmit}`}>

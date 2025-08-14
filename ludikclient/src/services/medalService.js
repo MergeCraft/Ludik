@@ -4,7 +4,6 @@ import { handleApiError } from "../lib/apiUtils";
 
 export const crearMedalla = async (medalla) => {
   try {
-    console.log(medalla);
     const response = await api.post("/api/medalla/alta", medalla);
     return response.data;
   } catch (error) {

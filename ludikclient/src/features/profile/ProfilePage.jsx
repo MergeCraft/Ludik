@@ -2,7 +2,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { selectUserRole } from "../auth/hooks/userSlice";
 import styles from "./ProfilePage.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { usePerfilUsuario } from "./hooks/useUserProfileMutation";
 import BarLoader from "../generics/BarLoader";
 
@@ -39,13 +38,13 @@ const ProfilePage = () => {
           </div>
         )}
 
-        <div className={styles.userBox}>
+        {/* <div className={styles.userBox}>
           <div className={styles.userBoxContent}>
             <p className={styles.userText}>************</p>
             <span className={styles.userLabel}>CONTRASEÑA</span>
           </div>
           <FontAwesomeIcon icon="fa-solid fa-pen-to-square" size="lg" className={styles.editIcon} />
-        </div>
+        </div> */}
       </section>
     </main>
   );

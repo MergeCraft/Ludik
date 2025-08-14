@@ -17,12 +17,15 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
   const { mutate: setMeta } = useDefinirMetaCalificacion(perfil?.id);
 
   const [metaTemporal, setMetaTemporal] = useState(perfil.metaCalificacion);
+  const [editandoMeta, setEditandoMeta] = useState(false);
 
   useEffect(() => {
     setMetaTemporal(perfil.metaCalificacion);
   }, [perfil.metaCalificacion]);
 
   const avatarUrl = imagenPerfil?.urlCompleta;
+
+  console.log(perfil);
 
   return isLoading ? (
     <BarLoader />
@@ -67,11 +70,45 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
             </p>
             <p>Medallas obtenidas</p>
           </div>
-          <div>
-            <p>
-              <FontAwesomeIcon icon="fa fa-bullseye" /> {perfil?.metaCalificacion}
-            </p>
-            <p>Meta personal</p>
+          <div className={styles.metaDisplay}>
+            {editandoMeta ? (
+              // MODO EDICIÓN
+              <div className={styles.metaContainer}>
+                <p>¡Elige una nueva meta!</p>
+                <div className={styles.accionesSeleccionMeta}>
+                  <input
+                    type="number"
+                    value={metaTemporal}
+                    onChange={(e) => setMetaTemporal(Number(e.target.value))}
+                    className={styles.metaInput}
+                    min={barraProgreso?.calificacionMinima || 0}
+                    max={barraProgreso?.calificacionMaxima || 100}
+                  />
+                  <button
+                    className="button-secondary"
+                    onClick={() => {
+                      setMeta(metaTemporal);
+                      setEditandoMeta(false); // Vuelve a modo vista
+                    }}
+                    title="Guardar nueva meta"
+                  >
+                    <FontAwesomeIcon icon="fa fa-check" />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              // MODO VISTA
+              <div>
+                <p>
+                  <FontAwesomeIcon icon="fa fa-bullseye" /> {perfil?.metaCalificacion}
+                </p>
+                <p>Meta personal</p>
+              </div>
+            )}
+
+            <button onClick={() => setEditandoMeta(!editandoMeta)} className={styles.editIconContainer}>
+              <FontAwesomeIcon icon={editandoMeta ? "fa fa-times" : "fa fa-pen-to-square"} />
+            </button>
           </div>
         </div>
 
@@ -106,22 +143,6 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
                   />
                 ))}
               </div>
-            </div>
-          </div>
-          <div className={styles.metaContainer}>
-            <p>Meta de calificación</p>
-            <div className={styles.accionesSeleccionMeta}>
-              <input
-                type="number"
-                value={metaTemporal}
-                onChange={(e) => setMetaTemporal(Number(e.target.value))}
-                className={styles.metaInput}
-                min={barraProgreso?.calificacionMinima || 0}
-                max={barraProgreso?.calificacionMaxima || 100}
-              />
-              <button className="button-secondary" onClick={() => setMeta(metaTemporal)} title="Guardar nueva meta">
-                <FontAwesomeIcon icon="fa fa-check" />
-              </button>
             </div>
           </div>
         </div>

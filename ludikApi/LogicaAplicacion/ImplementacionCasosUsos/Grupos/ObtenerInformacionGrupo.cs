@@ -29,11 +29,6 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
            
             var grupo = resultadoGrupo.Valor!;
 
-            if (grupo.ProfesorId != profesorId)
-            {
-                return Resultado<GrupoInformacionDto>.Falla(new Error("Error.Unauthorized", "No se puede ver la informacion de un grupo de otro profesor"));
-            }
-
             
             var dto = GrupoInformacionMapper.ToDto(grupo);
 

@@ -44,8 +44,6 @@ const GroupPage = () => {
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasTienda(group?.idTienda);
   const { data: perfil, isLoadingPerfil } = usePerfilGrupo(groupId, isProfesor);
 
-  console.log(perfil);
-
   const studentsFiltrados = students?.filter((item) => item.nombreEstudiante.toLowerCase().includes(search.toLowerCase()));
 
   const handleOpenApplicationRequests = () => {
