@@ -5,92 +5,88 @@ using LogicaNegocio.Entidades;
 using LogicaNegocio.InterfacesRepositorios;
 using LogicaNegocio.Resultados;
 using Moq;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Xunit;
 
-namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo;
-
-public class PruebasObtenerKudos
+namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
 {
-
-    private readonly Mock<IRepositorioTiposKudo> _mockRepositorioKudos;
-    private readonly ObtenerKudos _casoUso;
-
-    public PruebasObtenerKudos()
+    public class PruebasObtenerKudos
     {
-        _mockRepositorioKudos = new Mock<IRepositorioTiposKudo>();
-        _casoUso = new ObtenerKudos(
-            _mockRepositorioKudos.Object
-        );
-    }
+        private readonly Mock<IRepositorioTiposKudo> _mockRepositorioKudos;
+        private readonly ObtenerKudos _casoUso;
 
-    [Fact]
-    public async Task EjecutarAsync_RepositorioFalla_DebeRetornarResultadoDeFallo()
-    {
-        // Arrange (Organizar)
-        var errorEsperado = Error.Unexpected;
-        _mockRepositorioKudos
-            .Setup(repo => repo.GetAllAsync())
-            .ReturnsAsync(Resultado<IEnumerable<TipoKudo>>.Falla(errorEsperado));
+        public PruebasObtenerKudos()
+        {
+            _mockRepositorioKudos = new Mock<IRepositorioTiposKudo>();
+            _casoUso = new ObtenerKudos(
+                _mockRepositorioKudos.Object
+            );
+        }
 
-        // Act (Actuar)
-        var resultado = await _casoUso.EjecutarAsync();
+        [Fact]
+        public async Task EjecutarAsync_RepositorioFalla_DebeRetornarResultadoDeFallo()
+        {
+            // Arrange
+            var errorEsperado = Error.Unexpected;
+            _mockRepositorioKudos
+                .Setup(repo => repo.GetAllAsync())
+                .ReturnsAsync(Resultado<IEnumerable<TipoKudo>>.Falla(errorEsperado));
 
-        // Assert (Afirmar)
-        Assert.True(resultado.EsFallo);
-        Assert.Equal(errorEsperado.Codigo, resultado.Errores.First().Codigo);
+            // Act
+            var resultado = await _casoUso.EjecutarAsync();
 
+            // Assert
+            Assert.True(resultado.EsFallo);
+            Assert.Equal(errorEsperado.Codigo, resultado.Errores.First().Codigo);
+        }
 
-    }
+        [Fact]
+        public async Task EjecutarAsync_NoExistenKudos_DebeRetornarListaVaciaExitosamente()
+        {
+            // Arrange
+            var listaVaciaDeKudos = new List<TipoKudo>();
+            _mockRepositorioKudos
+                .Setup(repo => repo.GetAllAsync())
+                .ReturnsAsync(Resultado<IEnumerable<TipoKudo>>.Exitoso(listaVaciaDeKudos));
 
-    [Fact]
-    public async Task EjecutarAsync_NoExistenKudos_DebeRetornarListaVaciaExitosamente()
-    {
-        // Arrange (Organizar)
-        // FA 1: No hay kudos configurados
-        var listaVaciaDeKudos = new List<TipoKudo>();
-        _mockRepositorioKudos
-            .Setup(repo => repo.GetAllAsync())
-            .ReturnsAsync(Resultado<IEnumerable<TipoKudo>>.Exitoso(listaVaciaDeKudos));
+            // Act
+            var resultado = await _casoUso.EjecutarAsync();
 
-        // Act (Actuar)
-        var resultado = await _casoUso.EjecutarAsync();
+            // Assert
+            Assert.True(resultado.EsExitoso);
+            Assert.NotNull(resultado.Valor);
+            Assert.Empty(resultado.Valor);
+        }
 
-        // Assert (Afirmar)
-        Assert.True(resultado.EsExitoso);
-        Assert.NotNull(resultado.Valor);
-        Assert.Empty(resultado.Valor);
-    }
-
-    [Fact]
-    public async Task EjecutarAsync_ExistenKudos_DebeRetornarListaDeDtosConUrlsGeneradas()
-    {
-        // Arrange (Organizar)
-        // Flujo Principal
-        var kudosDesdeRepo = new List<TipoKudo>
+        [Fact]
+        public async Task EjecutarAsync_ExistenKudos_DebeRetornarListaDeDtosConUrlsGeneradas()
+        {
+            // Arrange
+            // devuelvo los NombreIcono ya como URL porque no se modificará el caso de uso
+            var kudosDesdeRepo = new List<TipoKudo>
             {
-                new TipoKudo { Id = 1, Nombre = "Trabajo en Equipo", NombreIcono = "equipo.png" },
-                new TipoKudo { Id = 2, Nombre = "Gran Ayuda", NombreIcono = "ayuda.png" }
+                new TipoKudo { Id = 1, Nombre = "Trabajo en Equipo", NombreIcono = "https://storage.azure.com/equipo.png" },
+                new TipoKudo { Id = 2, Nombre = "Gran Ayuda",        NombreIcono = "https://storage.azure.com/ayuda.png" }
             };
-        _mockRepositorioKudos
-            .Setup(repo => repo.GetAllAsync())
-            .ReturnsAsync(Resultado<IEnumerable<TipoKudo>>.Exitoso(kudosDesdeRepo));
 
+            _mockRepositorioKudos
+                .Setup(repo => repo.GetAllAsync())
+                .ReturnsAsync(Resultado<IEnumerable<TipoKudo>>.Exitoso(kudosDesdeRepo));
 
+            // Act
+            var resultado = await _casoUso.EjecutarAsync();
 
-        // Act (Actuar)
-        var resultado = await _casoUso.EjecutarAsync();
+            // Assert
+            Assert.True(resultado.EsExitoso);
+            Assert.NotNull(resultado.Valor);
+            Assert.Equal(2, resultado.Valor.Count());
 
-        // Assert (Afirmar)
-        Assert.True(resultado.EsExitoso);
-        Assert.NotNull(resultado.Valor);
-        Assert.Equal(2, resultado.Valor.Count());
-
-        // Verificamos el primer kudo
-        var primerKudo = resultado.Valor.First();
-        Assert.Equal(1, primerKudo.Id);
-        Assert.Equal("Trabajo en Equipo", primerKudo.Nombre);
-        // Comprobamos que la URL fue modificada por nuestro Callback del mock
-        Assert.Equal("https://storage.azure.com/equipo.png", primerKudo.NombreIcono);
-
+            var primerKudo = resultado.Valor.First();
+            Assert.Equal(1, primerKudo.Id);
+            Assert.Equal("Trabajo en Equipo", primerKudo.Nombre);
+            Assert.Equal("https://storage.azure.com/equipo.png", primerKudo.NombreIcono);
+        }
     }
-
 }

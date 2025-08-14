@@ -42,19 +42,36 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaClasificacion
                 },
                 ProfesorId = ProfesorId,
             };
+
+            // CONFIGURACIÓN POR DEFECTO: cuando pidan el profesor, devolvemos uno con la medalla requerida.
+            var profesorPorDefecto = new LogicaNegocio.Entidades.Profesor
+            {
+                Id = ProfesorId,
+                Medallas = new List<LogicaNegocio.Entidades.Medalla>
+                {
+                    new LogicaNegocio.Entidades.Medalla { Id = MedallaId }
+                }
+            };
+
+            _repoProfesoresMock
+                .Setup(r => r.GetByStringIdAsync(ProfesorId))
+                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Profesor>.Exitoso(profesorPorDefecto));
         }
 
-        
+
         [Fact]
         public async Task EjecutarAsync_GrupoNoExiste_RetornaFalloValidation()
         {
+            // DEVOLVEMOS UN RESULTADO DE FALLA, NO null
             _repoGrupoMock
                 .Setup(r => r.GetByIdAsync(GrupoId))
-                .ReturnsAsync((Resultado<LogicaNegocio.Entidades.Grupo>)null!);
+                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Grupo>.Falla(
+                    new Error("Error.Validation", "El grupo no existe")
+                ));
 
             var dto = new TablaClasificacionAltaDto { Nombre = "TablaValida", MedallaAsociadaId = MedallaId };
 
-            var resultado = await _casoUso.EjecutarAsync(ProfesorId,GrupoId, dto);
+            var resultado = await _casoUso.EjecutarAsync(ProfesorId, GrupoId, dto);
 
             Assert.True(resultado.EsFallo);
             Assert.Contains(resultado.Errores, e =>
