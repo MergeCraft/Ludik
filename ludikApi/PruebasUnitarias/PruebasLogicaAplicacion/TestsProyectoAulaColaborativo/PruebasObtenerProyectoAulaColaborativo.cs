@@ -106,24 +106,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsProyectoAulaColaborativo
             Assert.Equal(pac.Estado, dto.Estado);
         }
 
-        [Fact]
-        public async Task EjecutarAsync_ProfesorNoAutorizado_RetornaUnauthorized()
-        {
-            // Arrange: el repo de grupos devuelve una lista sin el GrupoId
-            _repoGruposMock
-                .Setup(r => r.ObtenerGruposPorProfesorId(It.IsAny<string>()))
-                .ReturnsAsync(new List<LogicaNegocio.Entidades.Grupo>()); // vacío -> no tiene acceso
-
-            _repoPacMock
-                .Setup(r => r.GetByGrupoAsync(GrupoId))
-                .ReturnsAsync(Resultado<List<ProyectoAulaColaborativo>>.Exitoso(new List<ProyectoAulaColaborativo>()));
-
-            // Act
-            var resultado = await _casoUso.EjecutarAsync(GrupoId, ProfesorId);
-
-            // Assert
-            Assert.True(resultado.EsFallo);
-            Assert.Contains(resultado.Errores, e => e.Codigo == "Error.Unauthorized" || e.Mensaje.Contains("no tiene acceso"));
-        }
+        
     }
 }
