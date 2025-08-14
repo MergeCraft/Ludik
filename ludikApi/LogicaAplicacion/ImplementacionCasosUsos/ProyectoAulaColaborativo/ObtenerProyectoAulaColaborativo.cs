@@ -28,13 +28,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.ProyectoAulaColaborativo
             var resultadoRepo = await _repoPac.GetByGrupoAsync(grupoId);
             if (resultadoRepo.EsFallo)
                 return Resultado<IEnumerable<ProyectoAulaColaborativoDto>>.Falla(resultadoRepo.Errores);
-
-
-            var gruposProfRes = await _repoGrupos.ObtenerGruposPorProfesorId(profesorId);
-            if (gruposProfRes == null)
-                return Resultado<IEnumerable<ProyectoAulaColaborativoDto>>.Falla(new Error("Error.Validation", "Error al obtener los grupos del profesor."));
-            if (!gruposProfRes.Any(g => g.Id == grupoId))
-                return Resultado<IEnumerable<ProyectoAulaColaborativoDto>>.Falla(new Error("Error.Unauthorized", $"El profesor no tiene acceso al grupo con ID {grupoId}."));
+            
 
             var dtos = resultadoRepo.Valor
                 .Select(pac => pac.ToDto());
