@@ -12,7 +12,6 @@ namespace LogicaAplicacion.DTOs.ProyectoAulaColaborativoDTOs
         public int Id { get; set; }
         public int GrupoId { get; set; }
         public string Nombre { get; set; }
-        public MetaVisual Visual { get; set; }
         public int CantidadMedallasNecesarias { get; set; }
         public int TotalContribuciones { get; set; }
         public int RecompensaClaseId { get; set; }

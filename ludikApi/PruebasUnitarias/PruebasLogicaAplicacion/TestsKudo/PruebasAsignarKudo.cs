@@ -96,7 +96,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
                 Medalla = new LogicaNegocio.Entidades.Medalla { Id = 2 }
             };
             _mockUmbralesRepo
-                .Setup(r => r.GetAllByProfesorAndGrupoIdAsync(It.IsAny<int>(), It.IsAny<string>()))
+                .Setup(r => r.GetAllByGrupoIdAsync(1))
                 .ReturnsAsync(Resultado<IEnumerable<UmbralParaMedallaPorKudos>>.Exitoso(new[] { umbral }));
         }
 
@@ -165,7 +165,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
         public async Task ErrorAlEvaluarUmbrales_RetornaEseError()
         {
             _mockUmbralesRepo
-                .Setup(r => r.GetAllByProfesorAndGrupoIdAsync(It.IsAny<int>(), It.IsAny<string>()))
+                .Setup(r => r.GetAllByGrupoIdAsync(1))
                 .ReturnsAsync(Resultado<IEnumerable<UmbralParaMedallaPorKudos>>.Falla(new Error("Error.Validation", "Umbral inválido")));
 
             var dto = new AsignarKudoDto
@@ -185,7 +185,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
         {
             // Forzar umbrales vacíos y excepción en SaveChanges
             _mockUmbralesRepo
-                .Setup(r => r.GetAllByProfesorAndGrupoIdAsync(It.IsAny<int>(), It.IsAny<string>()))
+                .Setup(r => r.GetAllByGrupoIdAsync(1))
                 .ReturnsAsync(Resultado<IEnumerable<UmbralParaMedallaPorKudos>>.Exitoso(Array.Empty<UmbralParaMedallaPorKudos>()));
 
             _mockUnitOfWork
@@ -209,7 +209,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
         {
             // Forzar umbrales vacíos (para que RecibirKudoYEvaluarMedalla use null)
             _mockUmbralesRepo
-                .Setup(r => r.GetAllByProfesorAndGrupoIdAsync(It.IsAny<int>(), It.IsAny<string>()))
+                .Setup(r => r.GetAllByGrupoIdAsync(1))
                 .ReturnsAsync(Resultado<IEnumerable<UmbralParaMedallaPorKudos>>.Exitoso(Array.Empty<UmbralParaMedallaPorKudos>()));
 
             var dto = new AsignarKudoDto

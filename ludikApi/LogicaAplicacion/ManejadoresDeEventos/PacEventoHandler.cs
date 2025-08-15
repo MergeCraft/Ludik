@@ -35,8 +35,9 @@ namespace LogicaAplicacion.ManejadoresDeEventos
             _unitOfWork = unitOfWork;
         }
 
-        public async Task Handle(AsignacionMedallaCompletadaEvento notification,
-                                 CancellationToken cancellationToken)
+        public async Task Handle(
+            AsignacionMedallaCompletadaEvento notification,
+            CancellationToken cancellationToken)
         {
             try
             {
@@ -49,35 +50,32 @@ namespace LogicaAplicacion.ManejadoresDeEventos
                 var grupoId = perfil.GrupoId;
 
                 var grupoRes = await _repoGrupos.GetByIdAsync(grupoId);
+                
                 if (grupoRes.EsFallo)
                     return;
+                
                 var grupo = grupoRes.Valor!;
 
-                int totalMedallas = grupo.ContarMedallasTotales();
-
                 var pacsRes = await _repoPac.GetByGrupoAsync(grupoId);
+                
                 if (pacsRes.EsFallo)
                     return;
-                var pac = pacsRes.Valor!
-                                 .FirstOrDefault(p => p.Estado == EstadoPAC.Activo);
+                var pac = pacsRes.Valor.FirstOrDefault(p => p.Estado == EstadoPAC.Activo);
+                
                 if (pac == null)
                     return;
-
+                
+                int totalMedallasObtenidasEnPeriodo = grupo.ContarMedallasEnPeriodo(pac.FechaInicio, pac.FechaFin);
+                
                 bool estabaCompletado = pac.Estado == EstadoPAC.Completado;
 
-                pac.TotalContribuciones = Math.Min(
-                    totalMedallas,
-                    pac.CantidadMedallasNecesarias);
-
-                if (pac.TotalContribuciones >= pac.CantidadMedallasNecesarias)
+                if (totalMedallasObtenidasEnPeriodo >= pac.CantidadMedallasNecesarias)
                     pac.Estado = EstadoPAC.Completado;
 
                 var updPac = await _repoPac.UpdateAsync(pac);
                 if (updPac.EsFallo)
                 {
-                    _logger.LogError(
-                        "[PacEventoHandler] No se pudo actualizar PAC {PacId}: {Errores}",
-                        pac.Id, updPac.Errores);
+                    _logger.LogError("[PacEventoHandler] No se pudo actualizar PAC {PacId}: {Errores}", pac.Id, updPac.Errores);
                     return;
                 }
 
@@ -111,8 +109,7 @@ namespace LogicaAplicacion.ManejadoresDeEventos
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex,
-                    "[PacEventoHandler] Excepción interna al procesar evento PAC.");
+                _logger.LogError(ex,"[PacEventoHandler] Excepción interna al procesar evento PAC.");
             }
         }
     }

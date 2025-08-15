@@ -11,9 +11,7 @@ namespace LogicaAplicacion.DTOsMappers.ProyectoAulaColaborativoMappers
                 Id = pac.Id,
                 GrupoId = pac.GrupoId,
                 Nombre = pac.Nombre,
-                Visual = pac.Visual,
                 CantidadMedallasNecesarias = pac.CantidadMedallasNecesarias,
-                TotalContribuciones = pac.TotalContribuciones,
                 RecompensaClaseId = pac.RecompensaClaseId,
                 Estado = pac.Estado
             };

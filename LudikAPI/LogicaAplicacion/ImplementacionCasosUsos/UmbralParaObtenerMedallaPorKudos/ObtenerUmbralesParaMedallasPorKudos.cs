@@ -15,9 +15,9 @@ public class ObtenerUmbralesParaMedallasPorKudos: IObtenerUmbralesParaMedallasPo
         _repositorioUmbrales = repositorioUmbrales;
     }
 
-    public async Task<Resultado<IEnumerable<UmbralParaMedallaDto>>> EjecutarAsync(int grupoId, string profesorId)
+    public async Task<Resultado<IEnumerable<UmbralParaMedallaDto>>> EjecutarAsync(int grupoId)
     {
-        var resultadoUmbrales = await _repositorioUmbrales.GetAllByProfesorAndGrupoIdAsync(grupoId, profesorId);
+        var resultadoUmbrales = await _repositorioUmbrales.GetAllByGrupoIdAsync(grupoId);
 
         if (resultadoUmbrales.EsFallo)
             return Resultado<IEnumerable<UmbralParaMedallaDto>>.Falla(resultadoUmbrales.Errores);

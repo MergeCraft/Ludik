@@ -21,14 +21,9 @@ namespace AccesoDatos.RepositoriosEF.Configuraciones
                 .IsRequired()
                 .HasMaxLength(50);
 
-            builder.Property(p => p.Visual)
-                .IsRequired();
-
             builder.Property(p => p.CantidadMedallasNecesarias)
                 .IsRequired();
 
-            builder.Property(p => p.TotalContribuciones)
-                .IsRequired();
 
             builder.Property(p => p.Estado)
                 .IsRequired();

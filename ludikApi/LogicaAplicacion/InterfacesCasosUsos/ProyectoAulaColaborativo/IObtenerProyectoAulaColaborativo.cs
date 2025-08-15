@@ -10,6 +10,6 @@ namespace LogicaAplicacion.InterfacesCasosUsos.ProyectoAulaColaborativo
 {
     public interface IObtenerProyectoAulaColaborativo
     {
-        Task<Resultado<IEnumerable<ProyectoAulaColaborativoDto>>> EjecutarAsync(int grupoId,string profesorId);
+        Task<Resultado<ProyectoAulaColaborativoDto>> EjecutarAsync(int grupoId);
     }
 }

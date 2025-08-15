@@ -79,7 +79,7 @@ public class RepositorioUmbralesParaMedallasesPorKudosEF: IRepositorioUmbralesPa
         throw new NotImplementedException();
     }
 
-    public async Task<Resultado<IEnumerable<UmbralParaMedallaPorKudos>>> GetAllByProfesorAndGrupoIdAsync(int grupoId, string profesorId)
+    public async Task<Resultado<IEnumerable<UmbralParaMedallaPorKudos>>> GetAllByGrupoIdAsync(int grupoId)
     {
         try
         {
@@ -88,7 +88,7 @@ public class RepositorioUmbralesParaMedallasesPorKudosEF: IRepositorioUmbralesPa
                 .Include(u => u.Grupo)
                 .Include(u => u.Medalla)     
                 .Include(u => u.TipoKudo)    
-                .Where(u => u.GrupoId == grupoId && u.Grupo.ProfesorId == profesorId)
+                .Where(u => u.GrupoId == grupoId)
                 .ToListAsync();
 
 

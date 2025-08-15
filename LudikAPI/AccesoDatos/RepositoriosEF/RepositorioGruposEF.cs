@@ -20,10 +20,6 @@ namespace AccesoDatos.RepositoriosEF
 		{
 			_db = db;
 		}
-		public void aceptarSolicitud(SolicitudUnion idSolicitud)
-		{
-			throw new NotImplementedException();
-		}
 
 		public async Task<Resultado> AddAsync(Grupo unGrupo)
 		{
@@ -190,25 +186,6 @@ namespace AccesoDatos.RepositoriosEF
 
 
 
-		public Task<TablaEquivalencia> obtenerTablaDelGrupoAsync(int idGrupo)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Task<int> calcularNotaEstudianteAsync(int idAlumno, int idGrupo)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Task aceptarSolicitudAsync(SolicitudUnion idSolicitud)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Task rechazarSolicitudAsync(SolicitudUnion idSolictud)
-		{
-			throw new NotImplementedException();
-		}
 
 		public async Task<Resultado<IEnumerable<Grupo>>> obtenerGruposPorProfesorAsync(string idProfesor)
 		{
@@ -267,25 +244,7 @@ namespace AccesoDatos.RepositoriosEF
             }
         }
 
-        public Task unirseAGrupoAsync(int idAlumno, Grupo grupo)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Task<List<Estudiante>> obtenerAlumnosDelGrupoAsync(int idGrupo)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Task reiniciarLogrosDeGrupoAsync(int idGrupo)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Task<List<TablaClasificacion>> obtenerTablasDeClasificacionDeGrupoAsync(int idGrupo)
-		{
-			throw new NotImplementedException();
-		}
+      
 
 		public Task<Resultado> RemoveAsync(Grupo unObjeto)
 		{
@@ -357,6 +316,20 @@ namespace AccesoDatos.RepositoriosEF
                     p.GrupoId == grupoId
                     && p.EstudianteId == estudianteId 
                 );
+        }
+
+        public async Task<Resultado<bool>> GrupoPerteneceProfesorAsync(int grupoId, string profesorId)
+        {
+            try
+            {
+				var pertenece = await _db.Grupos
+					.AnyAsync(g => g.Id == grupoId && g.ProfesorId == profesorId);
+                return Resultado<bool>.Exitoso(pertenece);
+            }
+            catch (Exception e)
+            {
+                return Resultado<bool>.Falla(new Error("Error.Unexpected", "Ha ocurrido un error. Error: "+ e.Message));
+            }
         }
     }
 

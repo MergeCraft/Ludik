@@ -65,10 +65,10 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ObtenerUmbralesParaMedallasDeUnGrupo([FromQuery] int grupoId)
         {
-            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (string.IsNullOrEmpty(profesorId))
+            var usuarioId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(usuarioId))
                 return Unauthorized();
-            var resultado = await _obtenerUmbrales.EjecutarAsync(grupoId, profesorId);
+            var resultado = await _obtenerUmbrales.EjecutarAsync(grupoId);
             return resultado.EsExitoso ? Ok(resultado.Valor) 
                 : this.ManejarFallo(resultado);
         }
