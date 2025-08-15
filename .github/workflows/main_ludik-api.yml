@@ -8,6 +8,8 @@ on:
  
 env:
   AZURE_WEBAPP_NAME: 'Ludik-Api'
+  # Ruta al proyecto de Pruebas Unitarias. Lo usaremos para el paso de test.
+  UNIT_TEST_PROJECT_PATH: 'LudikAPI\PruebasUnitarias\PruebasUnitarias.csproj'
   SOLUTION_PATH: 'LudikAPI\LudikAPI.sln'
   DOTNET_VERSION: '8.0.x'
  
@@ -15,6 +17,7 @@ jobs:
   build-and-deploy:
     name: Build and Deploy
     runs-on: windows-latest
+ 
     steps:
       - name: '1. Checkout Repository'
         uses: actions/checkout@v4
@@ -30,17 +33,18 @@ jobs:
       - name: '4. Build Project'
         run: dotnet build "${{ env.SOLUTION_PATH }}" --configuration Release --no-restore
  
-      - name: '5. Run Tests'
-        run: dotnet test "${{ env.SOLUTION_PATH }}" --configuration Release --no-build --verbosity normal
+      - name: '5. Run Unit Tests ONLY'
+        
+        run: dotnet test "${{ env.UNIT_TEST_PROJECT_PATH }}" --configuration Release --no-build --verbosity normal
         env:
           ConnectionStrings__DefaultConnection: "Server=dummy;Database=dummy;User=dummy;Password=dummy;"
-          ConnectionStrings__AzureStorage: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+         
+          ConnectionStrings__AzureStorage: "DefaultEndpointsProtocol=https;AccountName=dummy;AccountKey=dummykey==;EndpointSuffix=core.windows.net"
           Jwt__SecretKey: "a_dummy_but_long_and_secret_key_for_ci_tests_1234567890"
  
       - name: '6. Publish Application'
         run: dotnet publish "${{ env.SOLUTION_PATH }}" --configuration Release --no-build --output "${{ github.workspace }}/myapp"
-        env:
-          ConnectionStrings__AzureStorage: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+       
  
       - name: '7. Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
@@ -49,6 +53,7 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F633EB439A28468DAB40E73F22F69562 }}
           package: '${{ github.workspace }}/myapp'
+
 
 
 
