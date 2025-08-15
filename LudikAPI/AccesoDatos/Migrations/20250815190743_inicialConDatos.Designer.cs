@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250814175455_inicial")]
-    partial class inicial
+    [Migration("20250815190743_inicialConDatos")]
+    partial class inicialConDatos
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -2951,12 +2951,6 @@ namespace AccesoDatos.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("RecompensaClaseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalContribuciones")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Visual")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

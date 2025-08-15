@@ -83,7 +83,7 @@ public class AsignarKudo: IAsignarKudo
             return resultadoOtorgar;
 
         //En caso de que se haya otorgado un kudo, se evalúa si el perfil receptor cumple con algún umbral para obtener una medalla.
-        var resultadoUmbrales = await _repositorioUmbralesParaMedallas.GetAllByProfesorAndGrupoIdAsync(perfilEstudianteReceptor.GrupoId, perfilEstudianteReceptor.Grupo.ProfesorId);
+        var resultadoUmbrales = await _repositorioUmbralesParaMedallas.GetAllByGrupoIdAsync(perfilEstudianteReceptor.GrupoId);
         if (resultadoUmbrales.EsFallo)
             return Resultado.Falla(resultadoUmbrales.Errores);
         var umbrales = resultadoUmbrales.Valor;

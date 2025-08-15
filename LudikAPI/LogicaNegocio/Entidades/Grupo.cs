@@ -46,26 +46,6 @@ namespace LogicaNegocio.Entidades
 
         public ProyectoAulaColaborativo Pac { get; set; }
 
-        public void asignarMedalla(PerfilEstudiante pEstudiante, Medalla m)
-		{
-
-		}
-
-		public void quitarMedalla(PerfilEstudiante pEstudiante, Medalla m)
-		{
-
-		}
-
-		public void aceptarSolicitud(Estudiante estudiante)
-		{
-
-		}
-
-		public void denegarSolicitud()
-		{
-
-		}
-
 		public bool estudiantePertenece(PerfilEstudiante pEstudiante)
 		{
 			return true;
@@ -131,10 +111,12 @@ namespace LogicaNegocio.Entidades
             SolicitudesPerfilMedalla.Add(solicitud);
 
         }
-        public int ContarMedallasTotales()
+        public int ContarMedallasEnPeriodo(DateTime fIni, DateTime fFin)
         {
-            return Alumnos.Sum(p => p.MedallasObtenidas.Count);
-
+            return Alumnos.Sum(p => p.MedallasObtenidas.Count(
+                    m => m.FechaObtencion >= fIni && m.FechaObtencion <= fFin
+                )
+            );
         }
     }
 

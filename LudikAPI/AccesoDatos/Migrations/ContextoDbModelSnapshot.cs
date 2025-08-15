@@ -2950,12 +2950,6 @@ namespace AccesoDatos.Migrations
                     b.Property<int>("RecompensaClaseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TotalContribuciones")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Visual")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("GrupoId")

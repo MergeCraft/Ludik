@@ -8,23 +8,10 @@ namespace InterfacesRepositorio
 {
 	public interface IRepositorioGrupos : IRepositorio<Grupo>
 	{
-        Task<TablaEquivalencia> obtenerTablaDelGrupoAsync(int idGrupo);
-
-        Task<int> calcularNotaEstudianteAsync(int idAlumno, int idGrupo);
-
-        Task aceptarSolicitudAsync(SolicitudUnion idSolicitud);
-
-        Task rechazarSolicitudAsync(SolicitudUnion idSolictud);
 
         Task<Resultado<IEnumerable<Grupo>>> obtenerGruposPorProfesorAsync(string idProfesor);
         Task<Resultado<TablaEquivalencia>> GetTablaEquivalenciaPorPerfilEstudianteAsync(int perfilEstudianteId);
-        Task unirseAGrupoAsync(int idAlumno, Grupo grupo);
 
-        Task<List<Estudiante>> obtenerAlumnosDelGrupoAsync(int idGrupo);
-
-        Task reiniciarLogrosDeGrupoAsync(int idGrupo);
-
-        Task<List<TablaClasificacion>> obtenerTablasDeClasificacionDeGrupoAsync(int idGrupo);
         Task<Grupo> ObtenerPorEnlaceAsync(string codigoBase);
 
         Task<List<Grupo>> ObtenerGruposPorEstudianteId(string idEstudiante);
@@ -32,6 +19,8 @@ namespace InterfacesRepositorio
 
         Task<Resultado<List<Grupo>>> ObtenerGruposPorIdsYProfesor(List<int> gruposIds, string profesorId);
         Task<bool> EstudiantePerteneceAlGrupoAsync(int grupoId, string estudianteId);
+
+        Task<Resultado<bool>> GrupoPerteneceProfesorAsync(int grupoId, string profesorId);
 
     }
 

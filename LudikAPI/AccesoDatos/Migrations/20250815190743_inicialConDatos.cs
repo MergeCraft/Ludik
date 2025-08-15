@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
-    public partial class inicial : Migration
+    public partial class inicialConDatos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -908,9 +908,7 @@ namespace AccesoDatos.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GrupoId = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Visual = table.Column<int>(type: "int", nullable: false),
                     CantidadMedallasNecesarias = table.Column<int>(type: "int", nullable: false),
-                    TotalContribuciones = table.Column<int>(type: "int", nullable: false),
                     RecompensaClaseId = table.Column<int>(type: "int", nullable: false),
                     Estado = table.Column<int>(type: "int", nullable: false),
                     FechaInicio = table.Column<DateTime>(type: "datetime2", nullable: false),

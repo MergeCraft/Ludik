@@ -540,6 +540,7 @@ namespace WebApi.Controllers
                     new { Mensaje = "Ocurrió un error inesperado al crear el PAC. " + ex.Message });
             }
         }
+
         [HttpGet("pac")]
         [Authorize(Policy = "EsProfesorOEstudiante")]
         [ProducesResponseType(typeof(IEnumerable<ProyectoAulaColaborativoDto>), StatusCodes.Status200OK)]
@@ -550,11 +551,11 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ObtenerProyectoAulaColaborativo([FromQuery][Required] int grupoId)
         {
-            var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (string.IsNullOrEmpty(profesorId))
-                return Unauthorized(new { Mensaje = "No se pudo identificar al usuario autenticado." });
+            var usuarioId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(usuarioId))
+                return Unauthorized(new { Mensaje = "Debes de autenticarte para acceder a esta función." });
 
-            var resultado = await _obtenerProyectoAulaColaborativo.EjecutarAsync(grupoId,profesorId);
+            var resultado = await _obtenerProyectoAulaColaborativo.EjecutarAsync(grupoId);
             if (resultado.EsFallo)
             {
                 if (resultado.Errores.Any(e => e.Codigo == Error.NotFound.Codigo))

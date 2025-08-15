@@ -8,6 +8,5 @@ public interface IRepositorioUmbralesParaMedallasPorKudos: IRepositorio<UmbralPa
 {
     Task<bool> ExisteConfiguracionAsync(int grupoId, int tipoKudoId);
 
-    public Task<Resultado<IEnumerable<UmbralParaMedallaPorKudos>>> GetAllByProfesorAndGrupoIdAsync(int grupoId,
-        string profesorId);
+    public Task<Resultado<IEnumerable<UmbralParaMedallaPorKudos>>> GetAllByGrupoIdAsync(int grupoId);
 }

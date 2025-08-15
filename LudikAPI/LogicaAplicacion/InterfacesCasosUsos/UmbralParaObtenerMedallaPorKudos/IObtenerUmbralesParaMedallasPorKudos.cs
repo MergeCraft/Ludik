@@ -5,5 +5,5 @@ namespace LogicaAplicacion.InterfacesCasosUsos.UmbralParaObtenerMedallaPorKudos;
 
 public interface IObtenerUmbralesParaMedallasPorKudos
 {
-    Task<Resultado<IEnumerable<UmbralParaMedallaDto>>> EjecutarAsync(int grupoId, string profesorId);
+    Task<Resultado<IEnumerable<UmbralParaMedallaDto>>> EjecutarAsync(int grupoId);
 }
