@@ -57,7 +57,8 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
                 EstudianteId = solicitud.EstudianteId,
                 NombreImagenCompleta = "eyebrows-defaultNatural.png",
                 NombreImagenMiniatura = "eyebrows-defaultNatural.png",
-                KudosDisponiblesParaOtorgar = 3
+                KudosDisponiblesParaOtorgar = 3,
+                GrupoId = grupo.Id
             };
 
             var resultadoPerfil = await _repoPerfilEstudianteGrupo.AddAsync(perfil);
