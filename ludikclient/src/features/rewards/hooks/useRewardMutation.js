@@ -19,6 +19,7 @@ export const useCrearRecompensa = (onSuccessCallback) => {
   return useMutation({
     mutationFn: crearRecompensa,
     onSuccess: (data) => {
+      console.log(data);
       Toast.notificarExito("Recompensa creada correctamente.");
       queryClient.invalidateQueries(["recompensas"]); // Ajusta la key según cómo cargues recompensas
       if (onSuccessCallback) onSuccessCallback(data);

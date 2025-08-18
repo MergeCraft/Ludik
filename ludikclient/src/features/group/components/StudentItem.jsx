@@ -8,7 +8,7 @@ import styles from "./StudentItem.module.css";
 import MedalActionMenu from "./MedalActionMenu.jsx";
 import { useAsignarKudo } from "../hooks/useStudentMutation";
 
-const StudentItem = ({ perfilEmisorId, student, medals, kudos, isLoadingKudos, showProfesorOptions }) => {
+const StudentItem = ({ perfilEmisorId, student, medals, kudos, isLoadingKudos, showProfesorOptions, onSelectStudent }) => {
   const [selectedKudo, setSelectedKudo] = useState("");
   const [isMedalLoading, setIsMedalLoading] = useState(false);
   const [isKudoLoading, setIsKudoLoading] = useState(false);
@@ -41,7 +41,7 @@ const StudentItem = ({ perfilEmisorId, student, medals, kudos, isLoadingKudos, s
   };
 
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={() => onSelectStudent(student)}>
       <img src={student.enlaceAvatarMiniatura || genericProfileImage} alt="avatar" className={styles.avatar} />
       <div className={styles.centrales}>
         <p className={styles.nombreEstudiante}>{student.nombreEstudiante}</p>
@@ -89,7 +89,12 @@ const StudentItem = ({ perfilEmisorId, student, medals, kudos, isLoadingKudos, s
         </div>
       </div>
 
-      <FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" size="lg" />
+      <FontAwesomeIcon
+        icon="fa-solid fa-arrow-right-from-bracket"
+        size="lg"
+        onClick={() => onSelectStudent(student)} // <--- CAMBIO
+        style={{ cursor: "pointer" }}
+      />
     </div>
   );
 };
@@ -134,6 +139,7 @@ StudentItem.propTypes = {
     })
   ).isRequired,
   showProfesorOptions: PropTypes.bool.isRequired,
+  onSelectStudent: PropTypes.func.isRequired,
 };
 
 export default StudentItem;

@@ -9,8 +9,6 @@ const MedalCard = ({ medal, cantidad = 0, onEdit, showEditOption }) => {
   const popoverTituloRef = useRef(null);
   const popoverDescRef = useRef(null);
 
-  console.log(medal);
-
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (popoverTituloRef.current && !popoverTituloRef.current.contains(e.target)) {

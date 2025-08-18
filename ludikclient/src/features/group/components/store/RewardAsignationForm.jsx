@@ -23,7 +23,6 @@ const RewardAsignationForm = ({ grupoId, gruposProfesor = [], isLoadingGroups = 
 
   // Mutación para asignar recompensa
   const { mutate: asignarRecompensa, isLoading: isLoadingAsignacion } = useAsignarRecompensaAGrupos(() => {
-    Toast.notificarInfo("Asignación completada.");
     onClose?.();
   });
 

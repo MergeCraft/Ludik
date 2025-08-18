@@ -1,5 +1,5 @@
 // GroupPage.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "./GroupPage.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BarLoader from "../generics/BarLoader.jsx";
@@ -41,14 +41,18 @@ const GroupPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [modalTitle, setModalTitle] = useState("");
-  const [selectedView, setSelectedView] = useState("alumnos"); // alumnos | tienda | solicitudes
+  const [selectedView, setSelectedView] = useState("alumnos");
+  const [perfilSeleccionado, setPerfilSeleccionado] = useState(null);
+  const [perfil, setPerfil] = useState(null);
 
   const { data: group, isLoading: isLoadingGroup } = useGrupo(groupId);
   const { data: students, isLoading: isLoadingStudents } = isProfesor ? useAlumnosGrupo(groupId) : useAlumnosGrupoParaEstudiante(groupId);
   const { data: medals, isLoading: isLoadingMedals } = useMedallasProfesor(isProfesor);
   const { data: tiposKudo, isLoading: isLoadingKudos } = useTiposKudo();
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasTienda(group?.idTienda);
-  const { data: perfil, isLoadingPerfil } = usePerfilGrupo(groupId, isProfesor);
+  const { data: perfilHook, isLoadingPerfil } = usePerfilGrupo(groupId, isProfesor);
+
+  const userProfileId = perfil?.id;
 
   const studentsFiltrados = students?.filter((item) => item.nombreEstudiante.toLowerCase().includes(search.toLowerCase()));
 
@@ -62,12 +66,21 @@ const GroupPage = () => {
 
   const getLabelClass = (view) => {
     const base = selectedView === view ? style.activeLabel : "";
-    const specific =
-      selectedView === view
-        ? style[`active${view.charAt(0).toUpperCase() + view.slice(1)}`]
-        : "";
+    const specific = selectedView === view ? style[`active${view.charAt(0).toUpperCase() + view.slice(1)}`] : "";
     return `${style.actionLabel} ${base} ${specific}`.trim();
   };
+
+  useEffect(() => {
+    if (isProfesor) {
+      setPerfil(null);
+    } else {
+      setPerfil(perfilHook);
+    }
+
+    if (perfil) {
+      setPerfilSeleccionado(perfil);
+    }
+  }, [perfil]);
 
   const actions = (
     <div className={style.acciones}>
@@ -202,12 +215,31 @@ const GroupPage = () => {
           ) : (
             <div className={style.studentsContainer}>
               {studentsFiltrados?.map((item) => (
-                <StudentItem key={item.id} perfilEmisorId={perfil?.id} student={item} medals={medals} kudos={tiposKudo} isLoadingKudos={isLoadingKudos} showProfesorOptions={isProfesor} />
+                <StudentItem
+                  key={item.id}
+                  perfilEmisorId={perfil?.id}
+                  student={item}
+                  medals={medals}
+                  kudos={tiposKudo}
+                  isLoadingKudos={isLoadingKudos}
+                  showProfesorOptions={isProfesor}
+                  onSelectStudent={(student) => {
+                    setSelectedView("perfil");
+                    setPerfilSeleccionado(student);
+                  }}
+                />
               ))}
             </div>
           )
-        ) : selectedView === "perfil" ? (
-          <GroupProfileView perfil={perfil} isLoading={isLoadingPerfil} setModalContent={setModalContent} setShowModal={setShowModal} setModalTitle={setModalTitle} />
+        ) : selectedView === "perfil" && perfilSeleccionado ? (
+          <GroupProfileView
+            perfil={perfilSeleccionado}
+            isLoading={isLoadingPerfil}
+            setModalContent={setModalContent}
+            setShowModal={setShowModal}
+            setModalTitle={setModalTitle}
+            isOwnProfile={perfilSeleccionado.id === userProfileId}
+          />
         ) : selectedView === "rankings" ? (
           <GroupRankingView
             setModalContent={setModalContent}
