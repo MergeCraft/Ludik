@@ -81,7 +81,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsProyectoAulaColaborativo
             var dto = new AltaProyectoAulaColaborativoDto
             {
                 Nombre = "P1",
-                Visual = new LogicaNegocio.ValueObject.MetaVisual(),
                 CantidadMedallasNecesarias = 1,
                 RecompensaClaseId = RecompensaId
             };
@@ -103,7 +102,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsProyectoAulaColaborativo
             var dto = new AltaProyectoAulaColaborativoDto
             {
                 Nombre = "P2",
-                Visual = new LogicaNegocio.ValueObject.MetaVisual(),
                 CantidadMedallasNecesarias = 2,
                 RecompensaClaseId = RecompensaId
             };
@@ -124,7 +122,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsProyectoAulaColaborativo
             var dto = new AltaProyectoAulaColaborativoDto
             {
                 Nombre = "P3",
-                Visual = new LogicaNegocio.ValueObject.MetaVisual(),
                 CantidadMedallasNecesarias = 3,
                 RecompensaClaseId = RecompensaId
             };
@@ -146,7 +143,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsProyectoAulaColaborativo
             var dto = new AltaProyectoAulaColaborativoDto
             {
                 Nombre = "P4",
-                Visual = new LogicaNegocio.ValueObject.MetaVisual(),
                 CantidadMedallasNecesarias = 4,
                 RecompensaClaseId = RecompensaId
             };
