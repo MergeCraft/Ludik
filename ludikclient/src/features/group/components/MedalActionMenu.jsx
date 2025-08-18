@@ -1,5 +1,6 @@
 // components/MedalActionMenu.jsx
 import React, { useState, useRef, useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 import styles from "./MedalActionMenu.module.css";
 import * as Toast from "../../../lib/toastify.js";
@@ -7,6 +8,8 @@ import * as Toast from "../../../lib/toastify.js";
 import { useAsignarMedalla, useEliminarMedalla } from "../hooks/useGrupoMutation";
 
 const MedalActionMenu = ({ items, isAssign, onLoadingChange, isLoading: externalLoading = false, perfilId }) => {
+  const queryClient = useQueryClient();
+
   const [expanded, setExpanded] = useState(false);
   const [amounts, setAmounts] = useState({});
 
@@ -76,10 +79,9 @@ const MedalActionMenu = ({ items, isAssign, onLoadingChange, isLoading: external
       { perfilId, medallaId, cantidad: amount },
       {
         onSuccess: () => {
-          setExpanded(false);
-        },
-        onError: () => {
-          setExpanded(false);
+          // ✅ invalidar el query de estudiantes para que se refetchée
+          queryClient.invalidateQueries(["students"]);
+          setAmounts((prev) => ({ ...prev, [medallaId]: "" }));
         },
       }
     );

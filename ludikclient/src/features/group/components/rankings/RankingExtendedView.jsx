@@ -6,7 +6,7 @@ import BarLoader from "../../../generics/BarLoader";
 import styles from "./RankingExtendedView.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const RankingExtendedView = ({ id, idEstudiante }) => {
+const RankingExtendedView = ({ id, idEstudiante, showTeacherOptions }) => {
   const { data: ranking, isLoading } = useRankingPorId(id);
 
   if (isLoading) return <BarLoader />;
@@ -16,7 +16,7 @@ const RankingExtendedView = ({ id, idEstudiante }) => {
     <div className={styles.extendedView}>
       <h2>{ranking.nombre}</h2>
       <p>
-        <FontAwesomeIcon icon="fa-solid fa-medal" /> Medalla asociada: <strong>{ranking.medallaAsociadaNombre}</strong>
+        <FontAwesomeIcon icon="fa-solid fa-award" /> Medalla asociada: <strong>{ranking.medallaAsociadaNombre}</strong>
       </p>
 
       <ul className={styles.participantes}>
@@ -33,7 +33,7 @@ const RankingExtendedView = ({ id, idEstudiante }) => {
           else if (i === 2) clasePosicion = styles.tercero;
 
           // Agregar clase destacado si es el estudiante actual
-          const clasesLi = [clasePosicion, p.perfilEstudianteId === idEstudiante ? styles.destacado : ""].filter(Boolean).join(" ");
+          const clasesLi = [clasePosicion, p.perfilEstudianteId === idEstudiante && !showTeacherOptions ? styles.destacado : ""].filter(Boolean).join(" ");
 
           return (
             <li key={p.perfilEstudianteId} className={clasesLi}>
@@ -61,6 +61,7 @@ const RankingExtendedView = ({ id, idEstudiante }) => {
 RankingExtendedView.propTypes = {
   id: PropTypes.number.isRequired,
   idEstudiante: PropTypes.number.isRequired,
+  showTeacherOptions: PropTypes.bool.isRequired,
 };
 
 export default RankingExtendedView;

@@ -63,15 +63,16 @@ const LoginForm = () => {
         </label>
         <input type="text" id="usuario" name="usuario" className={styles.input} value={usuario} onChange={handleChange} />
       </div>
-
-      <div className={styles.campo} style={{ position: "relative" }}>
+      <div className={styles.campo}>
         <label htmlFor="contrasena" className={styles.etiqueta}>
           Contraseña
         </label>
-        <input type={verContrasena ? "text" : "password"} id="contrasena" name="contrasena" className={styles.input} value={contrasena} onChange={handleChange} />
-        <button type="button" onClick={() => setVerContrasena((prev) => !prev)} className={styles.verContrasena} aria-label={verContrasena ? "Ocultar contraseña" : "Mostrar contraseña"}>
-          <FontAwesomeIcon icon={verContrasena ? "eye-slash" : "eye"} size="lg" />
-        </button>
+        <div className={styles.inputWrapper}>
+          <input type={verContrasena ? "text" : "password"} id="contrasena" name="contrasena" className={styles.input} value={contrasena} onChange={handleChange} />
+          <button type="button" onClick={() => setVerContrasena((prev) => !prev)} className={styles.verContrasena} aria-label={verContrasena ? "Ocultar contraseña" : "Mostrar contraseña"}>
+            <FontAwesomeIcon icon={verContrasena ? "eye-slash" : "eye"} size="lg" />
+          </button>
+        </div>
       </div>
 
       <button type="submit" className={`button ${styles.botonIniciar}`}>

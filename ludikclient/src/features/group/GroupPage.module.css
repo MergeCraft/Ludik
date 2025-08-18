@@ -39,7 +39,7 @@
 .acciones {
     display: flex;
     justify-content: space-evenly;
-    gap: 2px;
+    gap: 3px;
     background-color: var(--secundario);
     color: white;
     border-radius: 15px;
@@ -89,12 +89,13 @@
     justify-content: center;
     align-items: center;
     flex-grow: 1;
+    gap: 5px;
     min-width: 40px;
     font-size: 90%;
     background-color: transparent;
     border: none;
     color: var(--terciario);
-    padding: 0;
+    padding: 0 10px;
     border-radius: 15px;
     transition: .3s;
     cursor: pointer;
@@ -121,32 +122,32 @@
 }
 
 /* Colores personalizados por ítem seleccionado */
-.activePerfil svg {
+.activePerfil svg, .activePerfil span {
     color: #168c1e;
 }
 
-.activeAlumnos svg {
+.activeAlumnos svg, .activeAlumnos span {
     color: #167a8c;
 }
 
-.activeTienda svg {
+.activeTienda svg, .activeTienda span {
     color: #c41e3a;
     /* o el que desees */
 }
 
-.activeRankings svg {
+.activeRankings svg, .activeRankings span {
     color: #f0a500;
 }
 
-.activePac svg {
+.activePac svg, .activePac span {
     color: #8c1683;
 }
 
-.activeSolicitudes svg {
+.activeSolicitudes svg, .activeSolicitudes span {
     color: #c41e3a;
 }
 
-.activeConfigs svg {
+.activeConfigs svg, .activeConfigs span {
     color: #7d7d7d;
 }
 
@@ -163,5 +164,14 @@
 
     .acciones {
         box-shadow: 0 3px 15px rgba(0, 0, 0, 0.307);
+    }
+
+    .acciones label>span {
+        display: none;
+    }
+
+    .acciones label {
+        gap: 2px;
+        padding: 0;
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250815190743_inicialConDatos")]
+    [Migration("20250816032542_inicialConDatos")]
     partial class inicialConDatos
     {
         /// <inheritdoc />
@@ -2113,7 +2113,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Asistencia y participación en todas las clases del mes.",
                             MonedasOtorgadas = 30,
                             Nombre = "Participación Perfecta",
-                            NombreIcono = "medalla_participacion_perfecta.png",
+                            NombreIcono = "graduation-cap",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
@@ -2122,7 +2122,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Ayuda destacada a compañeros en proyectos grupales.",
                             MonedasOtorgadas = 25,
                             Nombre = "Maestro de la Colaboración",
-                            NombreIcono = "medalla_maestro_colaboracion.png",
+                            NombreIcono = "people-group",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
@@ -2131,7 +2131,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Realización de preguntas perspicaces que enriquecen la clase.",
                             MonedasOtorgadas = 15,
                             Nombre = "Mente Curiosa",
-                            NombreIcono = "medalla_mente_curiosa.png",
+                            NombreIcono = "magnifying-glass",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
@@ -2140,7 +2140,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Se otorga por ser un pilar de apoyo para tus compañeros. Demuestra que estás siempre dispuesto a ofrecer tu ayuda cuando alguien la necesita.",
                             MonedasOtorgadas = 20,
                             Nombre = "Compañerismo",
-                            NombreIcono = "medalla_companerismo.png",
+                            NombreIcono = "handshake",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
@@ -2149,7 +2149,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Premia a las mentes que nunca dejan de preguntar. Se consigue al realizar preguntas que desafían al grupo y enriquecen el aprendizaje de todos.",
                             MonedasOtorgadas = 15,
                             Nombre = "Curiosidad Insaciable",
-                            NombreIcono = "medalla_curiosidad_insaciable.png",
+                            NombreIcono = "lightbulb",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
@@ -2158,7 +2158,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Reconoce a quienes inspiran con su ejemplo. Se obtiene al demostrar una actitud y un esfuerzo que motivan a todo el grupo a superarse.",
                             MonedasOtorgadas = 25,
                             Nombre = "Faro del Grupo",
-                            NombreIcono = "medalla_faro_del_grupo.png",
+                            NombreIcono = "star",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
@@ -2167,7 +2167,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Para aquellos que no solo tienen buenas ideas, sino que construyen sobre las de los demás para crear algo aún mejor.",
                             MonedasOtorgadas = 20,
                             Nombre = "Arquitecto de Ideas",
-                            NombreIcono = "medalla_arquitecto_ideas.png",
+                            NombreIcono = "brain",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
@@ -2176,7 +2176,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Se otorga por demostrar liderazgo natural, guiando y organizando al equipo para alcanzar metas comunes de forma efectiva.",
                             MonedasOtorgadas = 25,
                             Nombre = "Capitán de Equipo",
-                            NombreIcono = "medalla_capitan_equipo.png",
+                            NombreIcono = "crown",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
@@ -2185,7 +2185,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Premia la iniciativa de buscar y compartir recursos valiosos (videos, artículos, herramientas) que benefician a toda la clase.",
                             MonedasOtorgadas = 15,
                             Nombre = "Cazador de Tesoros",
-                            NombreIcono = "medalla_cazador_tesoros.png",
+                            NombreIcono = "gem",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
@@ -2194,7 +2194,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Se consigue al fomentar activamente un ambiente de respeto e inclusión, asegurando que cada miembro del grupo se sienta valorado.",
                             MonedasOtorgadas = 20,
                             Nombre = "Espíritu de Equipo",
-                            NombreIcono = "medalla_espiritu_equipo.png",
+                            NombreIcono = "hands-clapping",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
@@ -2203,7 +2203,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Reconoce la habilidad de dar críticas constructivas que ayudan a los compañeros a mejorar su trabajo de forma positiva y amable.",
                             MonedasOtorgadas = 15,
                             Nombre = "Pulidor de Diamantes",
-                            NombreIcono = "medalla_pulidor_diamantes.png",
+                            NombreIcono = "diamond",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
@@ -2212,7 +2212,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Se otorga por aportar ideas creativas y soluciones originales que sacan al grupo de la rutina y abren nuevas posibilidades.",
                             MonedasOtorgadas = 20,
                             Nombre = "Mente Innovadora",
-                            NombreIcono = "medalla_mente_innovadora.png",
+                            NombreIcono = "wand-magic-sparkles",
                             ProfesorId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
                         },
                         new
@@ -2221,7 +2221,7 @@ namespace AccesoDatos.Migrations
                             Descripcion = "Premia la increíble habilidad de tomar un tema complejo y explicarlo de una manera tan clara y sencilla que todos puedan entenderlo.",
                             MonedasOtorgadas = 25,
                             Nombre = "El Explicador",
-                            NombreIcono = "medalla_el_explicador.png",
+                            NombreIcono = "chalkboard",
                             ProfesorId = "9e445865-a24d-4543-a6c6-9443d048cdb0"
                         });
                 });

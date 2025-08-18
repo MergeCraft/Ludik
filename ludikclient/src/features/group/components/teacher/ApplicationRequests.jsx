@@ -12,14 +12,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import RequestItem from "./RequestItem";
 import BarLoader from "../../../generics/BarLoader";
 
-const ApplicationRequests = ({ groupId, link }) => {
+const ApplicationRequests = ({ groupId = null, link = "" }) => {
   // Carga de las solicitudes de unión
   const { data: solicitudes, isLoading } = useSolicitudesUnion(groupId);
 
   const codigo = new URL(link).searchParams.get("codigo");
-
-  console.log(link);
-
+  
   const handleCopy = () => {
     navigator.clipboard.writeText(codigo);
     Toast.notificarExito("Enlace copiado!");

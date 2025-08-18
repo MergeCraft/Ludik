@@ -5,10 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMedallasProfesor } from "../../medals/hooks/useMedalMutation";
 import { useCrearTablaEquivalencia, useEditarTablaEquivalencia } from "../hooks/useEquivalenceTableMutation";
 
-import DefaultMedalImage1 from "../../../assets/DefaultMedal.png";
-import DefaultMedalImage2 from "../../../assets/DefaultMedal2.png";
-import DefaultMedalImage3 from "../../../assets/DefaultMedal3.png";
-
 /*
   Estrategia:
   - medallasNecesariasRaw: array de instancias {id,nombre,nombreIcono,esHeredada}
@@ -19,7 +15,6 @@ import DefaultMedalImage3 from "../../../assets/DefaultMedal3.png";
 */
 
 const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
-  const defaultMedalImages = [DefaultMedalImage1, DefaultMedalImage2, DefaultMedalImage3];
   const [equivalencia, setEquivalencia] = useState({ nombre: "", equivalencias: [] });
 
   const { mutateAsync: crearTablaEquivalencia } = useCrearTablaEquivalencia();
@@ -191,13 +186,14 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
 
   return (
     <form className={styles.modalForm} onSubmit={handleSave}>
-      <label>
+      <label className={styles.nombreTabla}>
         Nombre de la tabla de equivalencia
         <input type="text" name="nombre" value={equivalencia.nombre} onChange={handleChange} placeholder="Ej: Criterios de evaluación" required />
       </label>
 
-      <h4>Equivalencias</h4>
-      <div className={styles.equivalencias}>
+      <div className={(styles.equivalencias, styles.nombreTabla)}>
+        <h4>Equivalencias</h4>
+
         {equivalencia.equivalencias.map((eq, i) => (
           <div key={i} className={styles.equivalencia}>
             <button type="button" className={styles.eliminarEquivalencia} onClick={() => handleRemoveEquivalencia(i)} title="Eliminar equivalencia">
@@ -205,12 +201,12 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
             </button>
 
             <div className={styles.nota}>
-              <label>Valor (nota)</label>
+              <label>Nota</label>
               <input type="number" min="1" value={eq.nota} onChange={(e) => handleEquivalenciaChange(i, "nota", e.target.value)} required />
             </div>
 
             <div className={styles.medallasNecesarias}>
-              <h5>Medallas necesarias</h5>
+              <label>Medallas necesarias</label>
 
               <select
                 className={styles.selectMedalla}
@@ -236,7 +232,7 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
                     <div key={ui.id} className={styles.medalla}>
                       <h4>{ui.nombre}</h4>
                       <div className={styles.medallaImagenWrapper}>
-                        <img src={defaultMedalImages[ui.id % defaultMedalImages.length]} alt={ui.nombre} className={styles.medallaImagen} />
+                        <FontAwesomeIcon icon={`fa-solid fa-${ui.nombreIcono}`} />
                         {ui.cantidad > 1 && <span className={styles.medallaCantidad}>{ui.cantidad}</span>}
                       </div>
 

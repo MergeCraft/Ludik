@@ -81,7 +81,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .accionesLogin {
@@ -117,11 +117,15 @@
   width: 100%;
 }
 
+.inputWrapper {
+  position: relative;
+}
+
 .verContrasena {
   position: absolute;
   top: 50%;
   right: 15px;
-  transform: translateY(45%);
+  transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;
@@ -231,8 +235,9 @@ input:checked+.slider .switchLabel.alumno {
 }
 
 .paginacionPreguntas {
+  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   gap: 10px;
 }
 
@@ -263,8 +268,6 @@ input:checked+.slider .switchLabel.alumno {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  padding-inline: 10px;
-  max-width: 500px;
 }
 
 .formularioRecuperacion h2 {

@@ -15,18 +15,19 @@ const GroupRankingView = ({ setModalContent, setModalTitle, setShowModal, groupI
     setModalTitle("Crear nuevo Ranking");
     setModalContent(<RankingCreateForm groupId={groupId} onClose={() => setShowModal(false)} />);
     setShowModal(true);
+    showTeacherOptions;
   };
 
   const abrirDetalleRanking = (rankingId) => {
     setModalTitle("Detalle del Ranking");
-    setModalContent(<RankingExtendedView id={rankingId} idEstudiante={idPerfilEstudiante} />);
+    setModalContent(<RankingExtendedView id={rankingId} idEstudiante={idPerfilEstudiante} showTeacherOptions={showTeacherOptions} />);
     setShowModal(true);
   };
 
   return (
     <div className={styles.container}>
       {showTeacherOptions && (
-        <button className={styles.agregarRanking} onClick={abrirModalCrearRanking}>
+        <button className={`button-creator ${styles.agregarRanking}`} onClick={abrirModalCrearRanking}>
           <FontAwesomeIcon icon="fa-solid fa-ranking-star" size="xl" />
           Crear nueva tabla de clasificacion
         </button>

@@ -13,6 +13,7 @@ const StoreGroupView = ({ recompensas, isLoading, isProfesor, perfil, grupoId, s
       <RewardAsignationForm
         grupoId={grupoId} // solo pasamos este id
         gruposProfesor={[]} // sin grupos, array vacío
+        tiendaRecompensas={recompensas} // sin recompensas en la tienda, array vacío
         onClose={() => setShowModal(false)}
       />
     );
@@ -25,7 +26,7 @@ const StoreGroupView = ({ recompensas, isLoading, isProfesor, perfil, grupoId, s
     <div className={style.storeContent}>
       <div>
         {isProfesor && (
-          <button className={style.addRewardButton} onClick={handleAsignNewReward}>
+          <button className={`button-creator ${style.addRewardButton}`} onClick={handleAsignNewReward}>
             <FontAwesomeIcon icon="trophy" size="2xl" />
             Asignar nueva recompensa
           </button>

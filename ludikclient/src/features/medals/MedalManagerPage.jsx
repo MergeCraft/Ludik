@@ -22,8 +22,6 @@ const MedalManagerPage = () => {
 
   const { data: medallas, isLoading } = useMedallasProfesor();
 
-  console.log(medallas);
-
   const handleOpenCreate = () => {
     setMedalToEditId(null);
     setShowModal(true);

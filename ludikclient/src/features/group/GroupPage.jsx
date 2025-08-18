@@ -11,17 +11,25 @@ import GroupProfileView from "./components/student/GroupProfileView.jsx";
 import GroupConfigView from "./components/configs/GroupConfigView.jsx";
 import GroupPacView from "./components/pac/GroupPacView.jsx";
 import MedalThresholdView from "./components/medalThreshold/MedalThresholdView.jsx";
-import StoreGroupView from "./components/store/StoreGroupView"; // ajusta la ruta si es necesario
-
+import StoreGroupView from "./components/store/StoreGroupView";
 import { useGrupo, useAlumnosGrupo, useAlumnosGrupoParaEstudiante, useRecompensasTienda, useTiposKudo } from "./hooks/useGrupoMutation";
 import { usePerfilGrupo } from "./hooks/useStudentMutation.js";
-
 import { useMedallasProfesor } from "../medals/hooks/useMedalMutation";
 import { useParams } from "react-router-dom";
 import ApplicationRequests from "./components/teacher/ApplicationRequests";
 import GroupRankingView from "./components/rankings/GroupRankingView.jsx";
 
-// ...imports
+const tabLabels = {
+  perfil: "Perfil",
+  alumnos: "Alumnos",
+  tienda: "Tienda",
+  rankings: "Rankings",
+  pac: "Desafío",
+  threshold: "Umbral",
+  solicitudes: "Solicitudes",
+  configs: "Configuración",
+};
+
 const GroupPage = () => {
   const { id } = useParams();
   const groupId = Number(id);
@@ -35,8 +43,6 @@ const GroupPage = () => {
   const [modalTitle, setModalTitle] = useState("");
   const [selectedView, setSelectedView] = useState("alumnos"); // alumnos | tienda | solicitudes
 
-  // Cargar datos del grupo, alumnos, medallas y recompensas
-  // Usar hooks personalizados para obtener los datos necesarios
   const { data: group, isLoading: isLoadingGroup } = useGrupo(groupId);
   const { data: students, isLoading: isLoadingStudents } = isProfesor ? useAlumnosGrupo(groupId) : useAlumnosGrupoParaEstudiante(groupId);
   const { data: medals, isLoading: isLoadingMedals } = useMedallasProfesor(isProfesor);
@@ -47,6 +53,8 @@ const GroupPage = () => {
   const studentsFiltrados = students?.filter((item) => item.nombreEstudiante.toLowerCase().includes(search.toLowerCase()));
 
   const handleOpenApplicationRequests = () => {
+    // marcamos la vista de solicitudes para que la UI refleje estado (opcional)
+    setSelectedView("solicitudes");
     setModalContent(<ApplicationRequests groupId={groupId} link={group.urlCompleta} />);
     setModalTitle(`Solicitudes de unión del Grupo ${group.institucion.toUpperCase()} - ${group.nombre.toUpperCase()}`);
     setShowModal(true);
@@ -56,54 +64,63 @@ const GroupPage = () => {
     const base = selectedView === view ? style.activeLabel : "";
     const specific =
       selectedView === view
-        ? style[`active${view.charAt(0).toUpperCase() + view.slice(1)}`] // genera `activeAlumnos`, `activeTienda`, etc.
+        ? style[`active${view.charAt(0).toUpperCase() + view.slice(1)}`]
         : "";
-    return `${base} ${specific}`;
+    return `${style.actionLabel} ${base} ${specific}`.trim();
   };
 
   const actions = (
     <div className={style.acciones}>
       {!isProfesor && (
-        <label className={getLabelClass("perfil")}>
+        <label className={getLabelClass("perfil")} aria-label={tabLabels.perfil}>
           <input type="radio" value="perfil" checked={selectedView === "perfil"} onChange={() => setSelectedView("perfil")} />
           <FontAwesomeIcon icon="fa-solid fa-user" size="xl" />
+          <span className={style.actionText}>{tabLabels.perfil}</span>
         </label>
       )}
 
-      <label className={getLabelClass("alumnos")}>
+      <label className={getLabelClass("alumnos")} aria-label={tabLabels.alumnos}>
         <input type="radio" value="alumnos" checked={selectedView === "alumnos"} onChange={() => setSelectedView("alumnos")} />
         <FontAwesomeIcon icon="fa-solid fa-people-group" size="xl" />
+        <span className={style.actionText}>{tabLabels.alumnos}</span>
       </label>
 
-      <label className={getLabelClass("tienda")}>
+      <label className={getLabelClass("tienda")} aria-label={tabLabels.tienda}>
         <input type="radio" value="tienda" checked={selectedView === "tienda"} onChange={() => setSelectedView("tienda")} />
         <FontAwesomeIcon icon="fa-solid fa-store" size="xl" />
+        <span className={style.actionText}>{tabLabels.tienda}</span>
       </label>
 
-      <label className={getLabelClass("rankings")}>
+      <label className={getLabelClass("rankings")} aria-label={tabLabels.rankings}>
         <input type="radio" value="rankings" checked={selectedView === "rankings"} onChange={() => setSelectedView("rankings")} />
         <FontAwesomeIcon icon="fa-solid fa-ranking-star" size="xl" />
+        <span className={style.actionText}>{tabLabels.rankings}</span>
       </label>
 
-      <label className={getLabelClass("pac")}>
+      <label className={getLabelClass("pac")} aria-label={tabLabels.pac}>
         <input type="radio" value="pac" checked={selectedView === "pac"} onChange={() => setSelectedView("pac")} />
         <FontAwesomeIcon icon="fa-solid fa-handshake" size="xl" />
+        <span className={style.actionText}>{tabLabels.pac}</span>
       </label>
 
-      <label className={getLabelClass("threshold")}>
+      <label className={getLabelClass("threshold")} aria-label={tabLabels.threshold}>
         <input type="radio" value="threshold" checked={selectedView === "threshold"} onChange={() => setSelectedView("threshold")} />
         <FontAwesomeIcon icon="fa-solid fa-chart-bar" size="xl" />
+        <span className={style.actionText}>{tabLabels.threshold}</span>
       </label>
 
       {isProfesor && (
         <>
-          <label className={getLabelClass("solicitudes")}>
+          <label className={getLabelClass("solicitudes")} aria-label={tabLabels.solicitudes}>
             <input type="radio" value="solicitudes" checked={selectedView === "solicitudes"} onChange={handleOpenApplicationRequests} />
             <FontAwesomeIcon icon="fa-solid fa-user-plus" size="xl" />
+            <span className={style.actionText}>{tabLabels.solicitudes}</span>
           </label>
-          <label className={getLabelClass("configs")}>
+
+          <label className={getLabelClass("configs")} aria-label={tabLabels.configs}>
             <input type="radio" value="configs" checked={selectedView === "configs"} onChange={() => setSelectedView("configs")} />
             <FontAwesomeIcon icon="fa-solid fa-gear" size="xl" />
+            <span className={style.actionText}>{tabLabels.configs}</span>
           </label>
         </>
       )}

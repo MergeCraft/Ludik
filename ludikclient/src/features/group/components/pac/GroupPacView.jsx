@@ -1,3 +1,4 @@
+// GroupPacView.jsx
 import React from "react";
 import styles from "./GroupPacView.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,11 +8,11 @@ import CrearPacForm from "./CrearPacForm";
 import PacItem from "./PacItem";
 import BarLoader from "../../../generics/BarLoader";
 
-// Hook para obtener PACs del grupo (debes implementarlo según tu backend y hooks)
+// Hook para obtener PAC del grupo (ajustado para retornar un objeto en vez de lista)
 import { usePacsGrupo } from "../../hooks/useGrupoMutation";
 
 const GroupPacView = ({ recompensas, setModalContent, setModalTitle, setShowModal, groupId, showTeacherOptions }) => {
-  const { data: pacs, isLoading, isError } = usePacsGrupo(groupId);
+  const { data: pac, isLoading, isError } = usePacsGrupo(groupId);
 
   const handleOpenPacCreateForm = () => {
     setModalContent(<CrearPacForm groupId={groupId} recompensas={recompensas} onClose={() => setShowModal(false)} />);
@@ -22,17 +23,19 @@ const GroupPacView = ({ recompensas, setModalContent, setModalTitle, setShowModa
   return (
     <div className={styles.pacContainer}>
       <h4>Desafío grupal</h4>
+
       {showTeacherOptions && (
-        <button className={styles.newPacButton} onClick={handleOpenPacCreateForm}>
+        <button className={`button-creator ${styles.newPacButton}`} onClick={handleOpenPacCreateForm}>
           <FontAwesomeIcon icon="fa-solid fa-handshake" size="2xl" />
-          Crear Nuevo Desafío
+          {pac ? "Editar Desafío" : "Crear Nuevo Desafío"}
         </button>
       )}
 
       <section className={styles.pacsList}>
         {isLoading && <BarLoader />}
-        {!isLoading && !isError && pacs?.length === 0 && <p>No hay desafíos para este grupo.</p>}
-        {!isLoading && !isError && pacs?.map((pac) => <PacItem key={pac.id} pac={pac} />)}
+        {!isLoading && isError && <p>Error al cargar el desafío.</p>}
+        {(!isLoading && !isError && !pac) || (pac?.nombre == null && <p>No hay desafío creado para este grupo.</p>)}
+        {!isLoading && !isError && pac && <PacItem pac={pac} />}
       </section>
     </div>
   );

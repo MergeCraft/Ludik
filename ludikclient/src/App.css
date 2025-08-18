@@ -16,6 +16,8 @@
   --secundario-boton-terciario: #640404;
   --boton-quinario: #9b9604;
   --secundario-boton-quinario: #646204;
+  --boton-creator: #2b193f;
+  --secundario-boton-creator: #1b1324;
   --letras-secundario: #49c0f8;
   --principal: #131f24;
   --secundario: #23353c;
@@ -185,6 +187,32 @@ body {
 
 .button-quinary:active {
   box-shadow: 0 0 0 2px var(--secundario-boton-quinario);
+  transform: translateY(2px);
+  /* Simula la presión */
+  outline: none;
+}
+
+.button-creator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--boton-creator);
+  border: none;
+  box-shadow: 0 1px 0 3px var(--secundario-boton-creator);
+  border-radius: 10px;
+  color: var(--blanco-principal);
+  font-size: 16px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.22);
+  padding: 10px 26px;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  transition: transform 0.2s, box-shadow 0.2s ease;
+}
+
+.button-creator:active {
+  box-shadow: 0 0 0 2px var(--secundario-boton-creator);
   transform: translateY(2px);
   /* Simula la presión */
   outline: none;

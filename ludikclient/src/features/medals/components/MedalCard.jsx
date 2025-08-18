@@ -2,16 +2,14 @@ import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import styles from "./MedalCard.module.css";
-import DefaultMedalImage1 from "../../../assets/DefaultMedal.png";
-import DefaultMedalImage2 from "../../../assets/DefaultMedal2.png";
-import DefaultMedalImage3 from "../../../assets/DefaultMedal3.png";
 
 const MedalCard = ({ medal, cantidad = 0, onEdit, showEditOption }) => {
   const [showPopoverTitulo, setShowPopoverTitulo] = useState(false);
   const [showPopoverDesc, setShowPopoverDesc] = useState(false);
   const popoverTituloRef = useRef(null);
   const popoverDescRef = useRef(null);
-  const defaultMedalImages = [DefaultMedalImage1, DefaultMedalImage2, DefaultMedalImage3];
+
+  console.log(medal);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -30,7 +28,7 @@ const MedalCard = ({ medal, cantidad = 0, onEdit, showEditOption }) => {
     <div className={`${styles.medallaCard} ${!showEditOption ? styles.bottomPadding : ""}`}>
       <div className={styles.medallaContainer}>
         <div className={styles.medallaImagenWrapper}>
-          <img src={defaultMedalImages[Math.floor(Math.random() * defaultMedalImages.length)]} alt={medal?.nombre} className={styles.medallaImagen} />
+          <FontAwesomeIcon icon={`fa fa-${medal?.nombreIcono || medal?.icono}`} />
           {cantidad != 0 && <span className={styles.cantidadMedallas}>{cantidad}</span>}
         </div>
 
@@ -77,6 +75,7 @@ MedalCard.propTypes = {
     id: PropTypes.number.isRequired,
     nombre: PropTypes.string.isRequired,
     nombreIcono: PropTypes.string.isRequired,
+    icono: PropTypes.string.isRequired,
     descripcion: PropTypes.string.isRequired,
     cantidadMedallasBrinda: PropTypes.number.isRequired,
     esAsignacionMutua: PropTypes.bool.isRequired,

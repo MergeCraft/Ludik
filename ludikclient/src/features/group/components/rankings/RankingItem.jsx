@@ -52,7 +52,7 @@ const RankingItem = ({ tabla, showTeacherOptions, onView, idEstudiante = null })
           else if (posicionReal === 2) clasePosicion = styles.segundo;
           else if (posicionReal === 3) clasePosicion = styles.tercero;
 
-          const clasesLi = [styles.participante, p.perfilEstudianteId === idEstudiante ? styles.destacado : "", clasePosicion].filter(Boolean).join(" ");
+          const clasesLi = [styles.participante, p.perfilEstudianteId === idEstudiante && !showTeacherOptions ? styles.destacado : "", clasePosicion].filter(Boolean).join(" ");
 
           return (
             <li key={p.perfilEstudianteId} className={clasesLi}>
@@ -80,6 +80,9 @@ const RankingItem = ({ tabla, showTeacherOptions, onView, idEstudiante = null })
           </button>
         </div>
       )}
+      <button title="Ver ver el ranking completo" className={styles.verMasRanking} onClick={() => onView(tabla.id)}>
+        <FontAwesomeIcon icon="fa-solid fa-eye" size="xl" />
+      </button>
     </div>
   );
 };

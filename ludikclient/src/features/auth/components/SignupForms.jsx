@@ -3,9 +3,16 @@ import classNames from "classnames";
 import styles from "../AuthPage.module.css";
 import { useRegistro, usePreguntasSeguridad } from "../hooks/useAuthMutation.js";
 import * as Toast from "../../../lib/toastify.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import BarLoader from "../../generics/BarLoader.jsx";
 
 const SignupForm = () => {
+  const [verContrasenaProfesor, setVerContrasenaProfesor] = useState(false);
+  const [verRepetirContrasenaProfesor, setVerRepetirContrasenaProfesor] = useState(false);
+  const [verRepetirContrasenaAlumno, setVerRepetirContrasenaAlumno] = useState(false);
+  const [verContrasenaAlumno, setVerContrasenaAlumno] = useState(false);
+
   const { data: preguntasDisponibles = [], isLoading: cargandoPreguntas } = usePreguntasSeguridad();
   const [isProfesor, setIsProfesor] = useState(true);
   const { mutateAsync: registrar } = useRegistro();
@@ -116,7 +123,7 @@ const SignupForm = () => {
           className={styles.formInner}
           style={{
             transform: isProfesor ? "translateX(-50%)" : "translateX(0)",
-            height: isProfesor ? (window.innerWidth < 768 ? "595px" : "565px") : "470px",
+            height: isProfesor ? (window.innerWidth < 768 ? "575px" : "535px") : "475px",
           }}
         >
           {/* Formulario Profesor */}
@@ -185,30 +192,50 @@ const SignupForm = () => {
               <label htmlFor="contrasena_profesor" className={styles.etiqueta}>
                 Contraseña
               </label>
-              <input
-                type="password"
-                id="contrasena_profesor"
-                name="contrasena"
-                className={styles.input}
-                value={profesorData.contrasena}
-                onChange={handleChangeProfesor}
-                onBlur={() => validarContrasena(profesorData.contrasena)}
-              />
+              <div className={styles.inputWrapper}>
+                <input
+                  type={verContrasenaProfesor ? "text" : "password"}
+                  id="contrasena_profesor"
+                  name="contrasena"
+                  className={styles.input}
+                  value={profesorData.contrasena}
+                  onChange={handleChangeProfesor}
+                  onBlur={() => validarContrasena(profesorData.contrasena)}
+                />
+                <button
+                  type="button"
+                  className={styles.verContrasena}
+                  onClick={() => setVerContrasenaProfesor((prev) => !prev)}
+                  aria-label={verContrasenaProfesor ? "Ocultar contraseña" : "Mostrar contraseña"}
+                >
+                  <FontAwesomeIcon icon={verContrasenaProfesor ? "eye-slash" : "eye"} size="lg" />
+                </button>
+              </div>
             </div>
 
             <div className={styles.campo}>
               <label htmlFor="repetirContrasena_profesor" className={styles.etiqueta}>
                 Repite la contraseña
               </label>
-              <input
-                type="password"
-                id="repetirContrasena_profesor"
-                name="repetirContrasena"
-                className={styles.input}
-                value={profesorData.repetirContrasena}
-                onChange={handleChangeProfesor}
-                onBlur={() => validarContrasenasCoinciden(profesorData.contrasena, profesorData.repetirContrasena)}
-              />
+              <div className={styles.inputWrapper}>
+                <input
+                  type={verRepetirContrasenaProfesor ? "text" : "password"}
+                  id="repetirContrasena_profesor"
+                  name="repetirContrasena"
+                  className={styles.input}
+                  value={profesorData.repetirContrasena}
+                  onChange={handleChangeProfesor}
+                  onBlur={() => validarContrasenasCoinciden(profesorData.contrasena, profesorData.repetirContrasena)}
+                />
+                <button
+                  type="button"
+                  className={styles.verContrasena}
+                  onClick={() => setVerRepetirContrasenaProfesor((prev) => !prev)}
+                  aria-label={verRepetirContrasenaProfesor ? "Ocultar contraseña" : "Mostrar contraseña"}
+                >
+                  <FontAwesomeIcon icon={verRepetirContrasenaProfesor ? "eye-slash" : "eye"} size="lg" />
+                </button>
+              </div>
             </div>
           </form>
 
@@ -228,7 +255,6 @@ const SignupForm = () => {
                 onBlur={() => validarNombreApellido(alumnoData.usuario, "Nombre de usuario del alumno")}
               />
             </div>
-
             <div className={styles.campo}>
               <label htmlFor="nombre_alumno" className={styles.etiqueta}>
                 Nombre
@@ -243,7 +269,6 @@ const SignupForm = () => {
                 onBlur={() => validarNombreApellido(alumnoData.nombre, "Nombre del alumno")}
               />
             </div>
-
             <div className={styles.campo}>
               <label htmlFor="apellido_alumno" className={styles.etiqueta}>
                 Apellido
@@ -263,45 +288,72 @@ const SignupForm = () => {
               <label htmlFor="contrasena_alumno" className={styles.etiqueta}>
                 Contraseña
               </label>
-              <input
-                type="password"
-                id="contrasena_alumno"
-                name="contrasena"
-                className={styles.input}
-                value={alumnoData.contrasena}
-                onChange={handleChangeAlumno}
-                onBlur={() => validarContrasena(alumnoData.contrasena)}
-              />
+              <div className={styles.inputWrapper}>
+                <input
+                  type={verContrasenaAlumno ? "text" : "password"}
+                  id="contrasena_alumno"
+                  name="contrasena"
+                  className={styles.input}
+                  value={alumnoData.contrasena}
+                  onChange={handleChangeAlumno}
+                  onBlur={() => validarContrasena(alumnoData.contrasena)}
+                />
+                <button
+                  type="button"
+                  className={styles.verContrasena}
+                  onClick={() => setVerContrasenaAlumno((prev) => !prev)}
+                  aria-label={verContrasenaAlumno ? "Ocultar contraseña" : "Mostrar contraseña"}
+                >
+                  <FontAwesomeIcon icon={verContrasenaAlumno ? "eye-slash" : "eye"} size="lg" />
+                </button>
+              </div>
             </div>
-
             <div className={styles.campo}>
               <label htmlFor="repetirContrasena_alumno" className={styles.etiqueta}>
                 Repite la contraseña
               </label>
-              <input
-                type="password"
-                id="repetirContrasena_alumno"
-                name="repetirContrasena"
-                className={styles.input}
-                value={alumnoData.repetirContrasena}
-                onChange={handleChangeAlumno}
-                onBlur={() => validarContrasenasCoinciden(alumnoData.contrasena, alumnoData.repetirContrasena)}
-              />
+              <div className={styles.inputWrapper}>
+                <input
+                  type={verRepetirContrasenaAlumno ? "text" : "password"}
+                  id="repetirContrasena_alumno"
+                  name="repetirContrasena"
+                  className={styles.input}
+                  value={alumnoData.repetirContrasena}
+                  onChange={handleChangeAlumno}
+                  onBlur={() => validarContrasenasCoinciden(alumnoData.contrasena, alumnoData.repetirContrasena)}
+                />
+                <button
+                  type="button"
+                  className={styles.verContrasena}
+                  onClick={() => setVerRepetirContrasenaAlumno((prev) => !prev)}
+                  aria-label={verRepetirContrasenaAlumno ? "Ocultar contraseña" : "Mostrar contraseña"}
+                >
+                  <FontAwesomeIcon icon={verRepetirContrasenaAlumno ? "eye-slash" : "eye"} size="lg" />
+                </button>
+              </div>
             </div>
-
             {cargandoPreguntas ? (
               <BarLoader />
             ) : (
               preguntasDisponibles.length > 0 && (
                 <div className={styles.preguntas}>
-                  <p>Responde dos de la preguntas de seguridad</p>
+                  <p>Responde dos de las preguntas de seguridad</p>
+
                   <div className={styles.paginacionPreguntas}>
-                    {preguntasDisponibles.map((_, idx) => (
-                      <label key={idx} className={styles.puntoWrap}>
-                        <input type="radio" name="paginacion" checked={preguntaIndex === idx} onChange={() => setPreguntaIndex(idx)} />
-                        <span className={styles.punto}></span>
-                      </label>
-                    ))}
+                    {preguntasDisponibles.map((_, idx) => {
+                      // Contamos cuántas respuestas ya tienen texto
+                      const respuestasContestadas = preguntasDisponibles.map((p, i) => alumnoData[`respuesta${i + 1}`]?.trim()).filter((r) => r && r.length > 0);
+
+                      // Si ya hay dos contestadas, ocultamos todos los puntos de preguntas que aún no fueron contestadas
+                      const ocultar = respuestasContestadas.length >= 2 && !alumnoData[`respuesta${idx + 1}`];
+
+                      return !ocultar ? (
+                        <label key={idx} className={styles.puntoWrap}>
+                          <input type="radio" name="paginacion" checked={preguntaIndex === idx} onChange={() => setPreguntaIndex(idx)} />
+                          <span className={styles.punto}></span>
+                        </label>
+                      ) : null;
+                    })}
                   </div>
 
                   <div className={styles.preguntaActiva}>

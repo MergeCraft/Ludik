@@ -11,18 +11,7 @@
 }
 
 .addRewardButton {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background-color: var(--secundario);
-    border: 1px solid var(--principal);
-    border-radius: 15px;
     max-width: 130px;
-    color: var(--principal);
-    cursor: pointer;
-    padding: 10px;
     min-height: 150px;
 }
 

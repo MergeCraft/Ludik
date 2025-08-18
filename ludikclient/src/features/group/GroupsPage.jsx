@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUserRole } from "../auth/hooks/userSlice";
 import { useGruposPorRol } from "./hooks/useGrupoMutation";
+import styles from "./GroupsPage.module.css";
 import BarLoader from "../generics/BarLoader";
 
 import GroupItem from "./components/GroupItem";
@@ -45,7 +46,15 @@ const GroupsPage = () => {
     </button>
   );
 
-  const items = isLoading ? <BarLoader /> : gruposFiltrados.map((group, index) => <GroupItem key={index} {...group} />);
+  const items = isLoading ? (
+    <BarLoader />
+  ) : (
+    <div className={styles.groupList}>
+      {gruposFiltrados.map((group, index) => (
+        <GroupItem key={index} {...group} />
+      ))}
+    </div>
+  );
 
   return (
     <BaseManagerPage

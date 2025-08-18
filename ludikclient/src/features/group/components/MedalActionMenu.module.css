@@ -12,12 +12,15 @@
 
 .menuList {
     position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
     top: 100%;
     /* justo debajo del botón */
     right: 0;
     background-color: var(--secundario);
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(108, 107, 107, 0.3);
     margin-top: 6px;
     max-height: 240px;
     overflow-y: auto;

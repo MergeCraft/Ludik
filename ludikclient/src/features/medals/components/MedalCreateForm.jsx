@@ -5,6 +5,7 @@ import styles from "./MedalCreateForm.module.css";
 import * as Toast from "../../../lib/toastify.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCrearMedalla, useEditarMedalla, useObtenerMedallaPorId, useEliminarMedalla } from "../hooks/useMedalMutation.js";
+import { PulseLoader } from "../../generics/BarLoader.jsx"; // importamos tu loader
 
 const iconOptions = [
   { label: "Estrella", value: "star" },
@@ -68,10 +69,10 @@ const MedalCreateForm = ({ onClose, medalId }) => {
     nombre: "",
     descripcion: "",
     cantidadMonedasBrinda: "",
-    nombreIcono: "", // Cambiado a nombreIcono para el icon picker
+    nombreIcono: "",
   });
 
-  // Carga medalla si editamos
+  // Query si estamos editando
   const { data, isFetching } = useObtenerMedallaPorId(medalId);
 
   // Mutaciones
@@ -85,7 +86,7 @@ const MedalCreateForm = ({ onClose, medalId }) => {
         nombre: data.nombre ?? "",
         descripcion: data.descripcion ?? "",
         cantidadMonedasBrinda: String(data.cantidadMedallasBrinda ?? "0"),
-        nombreIcono: extractIconName(data.urlImagen) ?? "", // extraigo el icono guardado
+        nombreIcono: data.nombreIcono ?? extractIconName(data.urlImagen) ?? "", // priorizo nombreIcono
       });
     }
   }, [medalId, data]);
@@ -134,7 +135,7 @@ const MedalCreateForm = ({ onClose, medalId }) => {
       nombre: medalla.nombre,
       descripcion: medalla.descripcion,
       cantidadMonedasBrinda: Number(medalla.cantidadMonedasBrinda),
-      nombreIcono: medalla.nombreIcono, // guardamos solo el nombre del icono
+      nombreIcono: medalla.nombreIcono,
     };
 
     try {
@@ -205,7 +206,7 @@ const MedalCreateForm = ({ onClose, medalId }) => {
 
           <div className={styles.botones}>
             <button type="submit" disabled={isLoading} className={`button-secondary ${styles.btnSubmit}`}>
-              {medalId ? "Guardar Cambios" : "Crear Medalla"}
+              {isLoading ? <PulseLoader /> : medalId ? "Guardar Cambios" : "Crear Medalla"}
             </button>
 
             {medalId && (

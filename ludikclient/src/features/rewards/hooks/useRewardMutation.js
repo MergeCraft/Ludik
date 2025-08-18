@@ -1,19 +1,16 @@
 // src/features/reward/hooks/useRewardMutation.js
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { manejarVisualizacionDeErrores } from "../../../lib/apiUtils";
+
 import { obtenerRecompensasProfesor, crearRecompensa, editarRecompensa, eliminarRecompensa, asignarRecompensaAGrupos } from "../../../services/storeService";
 import * as Toast from "../../../lib/toastify.js";
-
-const manejarErrores = (error) => {
-  const mensajes = Array.isArray(error) ? error : [error.message];
-  mensajes.forEach((msg) => Toast.notificarError(msg));
-};
 
 export const useRecompensasProfesor = () => {
   return useQuery({
     queryKey: ["recompensasProfesor"],
     queryFn: obtenerRecompensasProfesor,
     enabled: true,
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -26,7 +23,7 @@ export const useCrearRecompensa = (onSuccessCallback) => {
       queryClient.invalidateQueries(["recompensas"]); // Ajusta la key según cómo cargues recompensas
       if (onSuccessCallback) onSuccessCallback(data);
     },
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -39,7 +36,7 @@ export const useEditarRecompensa = (onSuccessCallback) => {
       queryClient.invalidateQueries(["recompensasProfesor"]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -52,7 +49,7 @@ export const useEliminarRecompensa = (onSuccessCallback) => {
       queryClient.invalidateQueries(["recompensasProfesor"]);
       if (onSuccessCallback) onSuccessCallback();
     },
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };
 
@@ -66,6 +63,6 @@ export const useAsignarRecompensaAGrupos = (onSuccess) => {
       queryClient.invalidateQueries(["recompensas"]);
       if (onSuccess) onSuccess(data);
     },
-    onError: manejarErrores,
+    onError: manejarVisualizacionDeErrores,
   });
 };

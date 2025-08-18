@@ -1,9 +1,9 @@
 .rankingCard {
+    position: relative;
     background-color: var(--principal);
     padding: 10px 0px;
     border-radius: 1rem;
     padding-bottom: 15px;
-    cursor: pointer;
 }
 
 .rankingCard h3 {
@@ -121,4 +121,15 @@
 
 .tercero {
     font-size: 1.05em;
+}
+
+.verMasRanking {
+    position: absolute;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    padding: 20px;
+    top: -5px;
+    right: 0px;
+    color: var(--terciario);
 }

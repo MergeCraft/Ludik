@@ -117,14 +117,9 @@ select {
     overflow-y: auto;
     overflow-x: hidden;
     -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
     padding: 10px;
     border: 1px solid var(--secundario);
     border-radius: 15px;
-    background-color: #1e2a30;
-    /* un poco más oscuro que modal para buen contraste */
 }
 
 .iconGrid::-webkit-scrollbar {
