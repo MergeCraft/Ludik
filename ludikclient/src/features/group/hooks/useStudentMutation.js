@@ -71,14 +71,28 @@ export const useBarraProgresoPerfil = (perfilId) => {
   });
 };
 
-export const useDefinirMetaCalificacion = (perfilId) => {
+export const useDefinirMetaCalificacion = (perfilId, grupoId = null) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (metaCalificacion) => definirMetaCalificacion({ perfilEstudianteId: perfilId, metaCalificacion }),
-    onSuccess: () => {
+    onSuccess: (result) => {
       Toast.notificarExito("Meta de calificación actualizada.");
-      queryClient.invalidateQueries(["perfilGrupo", perfilId]);
+
+      // actualizo cache de barra para respuesta instantánea si está en el result
+      queryClient.setQueryData(["barraProgresoPerfil", perfilId], (old) => {
+        if (!old) return old;
+        return { ...old, metaCalificacion: result?.metaCalificacion ?? old.metaCalificacion };
+      });
+
+      // invalidar perfilGrupo: si tengo grupoId uso exacto, si no invalido por prefijo
+      if (grupoId) {
+        queryClient.invalidateQueries(["perfilGrupo", grupoId]);
+      } else {
+        queryClient.invalidateQueries(["perfilGrupo"]);
+      }
+
+      // invalidar la barra para forzar refetch si es necesario
       queryClient.invalidateQueries(["barraProgresoPerfil", perfilId]);
     },
     onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),

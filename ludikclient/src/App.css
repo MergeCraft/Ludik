@@ -209,6 +209,7 @@ body {
   position: relative;
   box-sizing: border-box;
   transition: transform 0.2s, box-shadow 0.2s ease;
+  gap: 5px;
 }
 
 .button-creator:active {

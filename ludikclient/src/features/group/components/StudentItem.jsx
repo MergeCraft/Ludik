@@ -41,14 +41,13 @@ const StudentItem = ({ perfilEmisorId, student, medals, kudos, isLoadingKudos, s
   };
 
   return (
-    <div className={styles.card} onClick={() => onSelectStudent(student)}>
+    <div className={styles.card}>
       <img src={student.enlaceAvatarMiniatura || genericProfileImage} alt="avatar" className={styles.avatar} />
       <div className={styles.centrales}>
         <p className={styles.nombreEstudiante}>{student.nombreEstudiante}</p>
         <div className={styles.actionsContainer}>
           {showProfesorOptions ? (
             <div className={styles.asignarMedalla}>
-              {/* Pasamos medals y medallas del estudiante a MedalActionMenu */}
               <div className={styles.menuSection}>
                 <MedalActionMenu items={medals} isAssign={true} isLoading={isMedalLoading} onLoadingChange={setIsMedalLoading} perfilId={student.id} />
               </div>
@@ -89,12 +88,9 @@ const StudentItem = ({ perfilEmisorId, student, medals, kudos, isLoadingKudos, s
         </div>
       </div>
 
-      <FontAwesomeIcon
-        icon="fa-solid fa-arrow-right-from-bracket"
-        size="lg"
-        onClick={() => onSelectStudent(student)} // <--- CAMBIO
-        style={{ cursor: "pointer" }}
-      />
+      <button onClick={() => onSelectStudent(student)} className={styles.showProfileButton}>
+        <FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" size="lg" />
+      </button>
     </div>
   );
 };

@@ -27,9 +27,6 @@ p {
     color: var(--blanco-principal);
 }
 
-.card svg {
-    cursor: pointer;
-}
 
 .centrales {
     display: flex;
@@ -73,9 +70,21 @@ p {
     background-color: var(--secundario);
 }
 
+.showProfileButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border: none;
+    background: transparent;
+    color: var(--blanco-principal);
+    cursor: pointer;
+}
+
 @media screen and (max-width: 992px) {
     .card {
-        gap: 10px
+        gap: 10px;
+        padding: 5px 10px;
     }
 
     .card svg {

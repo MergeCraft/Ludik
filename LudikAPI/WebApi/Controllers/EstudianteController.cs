@@ -186,7 +186,7 @@ namespace WebApi.Controllers
 		/// 500 Internal Server Error: Si ocurre un error inesperado.
 		/// </returns>
 		[HttpGet("perfiles/{perfilId}/recompensas")]
-		[Authorize(Policy = "EsEstudiante")]
+		[Authorize(Policy = "EsProfesorOEstudiante")]
 		[ProducesResponseType(typeof(List<RecompensaClienteDto>), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
