@@ -14,7 +14,7 @@ public class RecompensaConfiguracion : IEntityTypeConfiguration<Recompensa>
         // --- Configurar la jerarquía TPH principal para Recompensa ---
         builder.HasDiscriminator<string>("TipoRecompensa")
             .HasValue<RecompensaSimple>("Recompensa_Simple")
-            .HasValue<PersonalizacionAvatar>("Recompensa_Avatar")
+            .HasValue<RecompensaPersonalizacionAvatar>("Recompensa_Avatar")
             .HasValue<Potenciador>("Recompensa_Potenciador");
 
         // Le decimos a EF de forma explícita que la propiedad 'Representacion'

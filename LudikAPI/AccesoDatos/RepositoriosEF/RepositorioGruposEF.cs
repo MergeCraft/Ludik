@@ -31,13 +31,6 @@ namespace AccesoDatos.RepositoriosEF
 				if (unGrupo.TablaEquivalencia != null)
 					_db.Entry(unGrupo.TablaEquivalencia).State = EntityState.Unchanged;
 
-				if (unGrupo.EnlaceUnion != null)
-					_db.Entry(unGrupo.EnlaceUnion).State = EntityState.Added;
-
-				if (unGrupo.Tienda != null)
-					_db.Entry(unGrupo.Tienda).State = EntityState.Added;
-
-
 				await _db.Grupos.AddAsync(unGrupo);
 				await _db.SaveChangesAsync();
 				return Resultado.Exitoso();

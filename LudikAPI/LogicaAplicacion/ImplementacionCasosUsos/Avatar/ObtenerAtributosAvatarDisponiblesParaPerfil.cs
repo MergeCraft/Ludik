@@ -35,7 +35,7 @@ public class ObtenerAtributosAvatarDisponiblesParaPerfil : IObtenerAtributosAvat
             return Resultado<IEnumerable<AtributoAvatarDto>>.Falla(resultadoAtributosAvatar.Errores);
 
         var perfilEstudiante = resultadoPerfil.Valor;
-        IEnumerable<Entidades.PersonalizacionAvatar> itemsDisponiblesParaPersonazarAvatar = resultadoAtributosAvatar.Valor;
+        IEnumerable<Entidades.RecompensaPersonalizacionAvatar> itemsDisponiblesParaPersonazarAvatar = resultadoAtributosAvatar.Valor;
 
         if (perfilEstudiante.EstudianteId != idUsuarioAutenticado)
             return Resultado<IEnumerable<AtributoAvatarDto>>.Falla(Error.Forbidden);

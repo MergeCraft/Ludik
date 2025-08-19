@@ -107,7 +107,7 @@ public class ModificarAvatar: IModificarAvatar
     {
       
         var itemsDesbloqueadosIds = perfilEstudiante.Inventario
-            .OfType<Entidades.PersonalizacionAvatar>()
+            .OfType<Entidades.RecompensaPersonalizacionAvatar>()
             .Select(pa => pa.AtributoAvatarId)
             .ToHashSet(); //HashSet para búsquedas O(1)
 

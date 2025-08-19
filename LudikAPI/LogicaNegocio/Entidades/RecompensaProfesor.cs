@@ -3,7 +3,7 @@ using System.Security.Principal;
 
 namespace LogicaNegocio.Entidades;
 
-public class ProfesorRecompensa: IEntity
+public class RecompensaProfesor : IEntity
 {
     public int Id { get; set; }
 

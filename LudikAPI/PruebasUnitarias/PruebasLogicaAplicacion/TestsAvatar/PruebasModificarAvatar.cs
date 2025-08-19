@@ -83,7 +83,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsAvatar
         [Fact]
         public async Task ItemNoDesbloqueado_RetornaForbidden()
         {
-            var pa = new PersonalizacionAvatar { AtributoAvatarId = 100 };
+            var pa = new RecompensaPersonalizacionAvatar { AtributoAvatarId = 100 };
             var perfil = new LogicaNegocio.Entidades.PerfilEstudiante
             {
                 Id = PerfilId,
@@ -106,8 +106,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsAvatar
         [Fact]
         public async Task AtributosRepoFalla_PropagaError()
         {
-            var pa1 = new PersonalizacionAvatar { AtributoAvatarId = 100 };
-            var pa2 = new PersonalizacionAvatar { AtributoAvatarId = 200 };
+            var pa1 = new RecompensaPersonalizacionAvatar { AtributoAvatarId = 100 };
+            var pa2 = new RecompensaPersonalizacionAvatar { AtributoAvatarId = 200 };
             var perfil = new LogicaNegocio.Entidades.PerfilEstudiante
             {
                 Id = PerfilId,
@@ -131,8 +131,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsAvatar
         [Fact]
         public async Task AtributosCountMismatch_RetornaNotFound()
         {
-            var pa1 = new PersonalizacionAvatar { AtributoAvatarId = 100 };
-            var pa2 = new PersonalizacionAvatar { AtributoAvatarId = 200 };
+            var pa1 = new RecompensaPersonalizacionAvatar { AtributoAvatarId = 100 };
+            var pa2 = new RecompensaPersonalizacionAvatar { AtributoAvatarId = 200 };
             var perfil = new LogicaNegocio.Entidades.PerfilEstudiante
             {
                 Id = PerfilId,
@@ -156,8 +156,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsAvatar
         [Fact]
         public async Task AvatarRepoFalla_RetornaNotFound()
         {
-            var pa1 = new PersonalizacionAvatar { AtributoAvatarId = 100 };
-            var pa2 = new PersonalizacionAvatar { AtributoAvatarId = 200 };
+            var pa1 = new RecompensaPersonalizacionAvatar { AtributoAvatarId = 100 };
+            var pa2 = new RecompensaPersonalizacionAvatar { AtributoAvatarId = 200 };
             var perfil = new LogicaNegocio.Entidades.PerfilEstudiante
             {
                 Id = PerfilId,
@@ -184,8 +184,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsAvatar
         [Fact]
         public async Task FallaAlUpdateAvatar_PropagaError()
         {
-            var pa1 = new PersonalizacionAvatar { AtributoAvatarId = 100 };
-            var pa2 = new PersonalizacionAvatar { AtributoAvatarId = 200 };
+            var pa1 = new RecompensaPersonalizacionAvatar { AtributoAvatarId = 100 };
+            var pa2 = new RecompensaPersonalizacionAvatar { AtributoAvatarId = 200 };
             var perfil = new LogicaNegocio.Entidades.PerfilEstudiante
             {
                 Id = PerfilId,
@@ -215,8 +215,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsAvatar
         [Fact]
         public async Task FallaAlSubirImagen_PropagaError()
         {
-            var pa1 = new PersonalizacionAvatar { AtributoAvatarId = 100 };
-            var pa2 = new PersonalizacionAvatar { AtributoAvatarId = 200 };
+            var pa1 = new RecompensaPersonalizacionAvatar { AtributoAvatarId = 100 };
+            var pa2 = new RecompensaPersonalizacionAvatar { AtributoAvatarId = 200 };
             var perfil = new LogicaNegocio.Entidades.PerfilEstudiante
             {
                 Id = PerfilId,
@@ -248,8 +248,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsAvatar
         [Fact]
         public async Task CaminoFeliz_ModificaYSubeImagenCorrectamente()
         {
-            var pa1 = new PersonalizacionAvatar { AtributoAvatarId = 100 };
-            var pa2 = new PersonalizacionAvatar { AtributoAvatarId = 200 };
+            var pa1 = new RecompensaPersonalizacionAvatar { AtributoAvatarId = 100 };
+            var pa2 = new RecompensaPersonalizacionAvatar { AtributoAvatarId = 200 };
             var perfil = new LogicaNegocio.Entidades.PerfilEstudiante
             {
                 Id = PerfilId,

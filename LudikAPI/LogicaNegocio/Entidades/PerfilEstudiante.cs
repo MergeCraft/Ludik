@@ -89,9 +89,9 @@ namespace LogicaNegocio.Entidades
             
         }
 
-        public List<PersonalizacionAvatar> ObtenerItemsAvatarDisponibles()
+        public List<RecompensaPersonalizacionAvatar> ObtenerItemsAvatarDisponibles()
         {
-            return Inventario?.OfType<PersonalizacionAvatar>().ToList() ?? new List<PersonalizacionAvatar>();
+            return Inventario?.OfType<RecompensaPersonalizacionAvatar>().ToList() ?? new List<RecompensaPersonalizacionAvatar>();
         }
 
         public Resultado EstablecerMetaDeCalificacion(int nuevaMeta)

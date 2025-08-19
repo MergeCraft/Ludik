@@ -89,8 +89,7 @@ namespace AccesoDatos.RepositoriosEF
 			// ====================================================
 
 			var atributos = PrecargarAtributosAvatar(modelBuilder);
-			var atributosPorDefecto = AsignarAvatarPorDefecto(modelBuilder, atributos);
-			PrecargarInventarioInicial(modelBuilder, atributosPorDefecto);
+
 
 			// ===========================================
 			// --- PRECARGA DE PREGUNTAS DE SEGURIDAD ---
@@ -482,44 +481,44 @@ namespace AccesoDatos.RepositoriosEF
 			var profesor1Id = "8e445865-a24d-4543-a6c6-9443d048cdb9";
 			var profesor2Id = "9e445865-a24d-4543-a6c6-9443d048cdb0";
 			var medallas = new List<Medalla>
-	{
-        // Medallas de tu ejemplo original
-        new Medalla { Id = 1, Nombre = "Participación Perfecta", Descripcion = "Asistencia y participación en todas las clases del mes.", NombreIcono = "graduation-cap", MonedasOtorgadas = 30, ProfesorId = profesor1Id },
-		new Medalla { Id = 2, Nombre = "Maestro de la Colaboración", Descripcion = "Ayuda destacada a compañeros en proyectos grupales.", NombreIcono = "people-group", MonedasOtorgadas = 25, ProfesorId = profesor1Id },
-		new Medalla { Id = 3, Nombre = "Mente Curiosa", Descripcion = "Realización de preguntas perspicaces que enriquecen la clase.", NombreIcono = "magnifying-glass", MonedasOtorgadas = 15, ProfesorId = profesor1Id },
+	        {
+                // Medallas de tu ejemplo original
+                new Medalla { Id = 1, Nombre = "Participación Perfecta", Descripcion = "Asistencia y participación en todas las clases del mes.", NombreIcono = "graduation-cap", MonedasOtorgadas = 30, ProfesorId = profesor1Id },
+		        new Medalla { Id = 2, Nombre = "Maestro de la Colaboración", Descripcion = "Ayuda destacada a compañeros en proyectos grupales.", NombreIcono = "people-group", MonedasOtorgadas = 25, ProfesorId = profesor1Id },
+		        new Medalla { Id = 3, Nombre = "Mente Curiosa", Descripcion = "Realización de preguntas perspicaces que enriquecen la clase.", NombreIcono = "magnifying-glass", MonedasOtorgadas = 15, ProfesorId = profesor1Id },
 
-        // --- INICIO DE MEDALLAS ASOCIADAS A KUDOS ---
+                // --- INICIO DE MEDALLAS ASOCIADAS A KUDOS ---
 
-        // Medalla por Kudo "Gracias por la Ayuda"
-        new Medalla { Id = 4, Nombre = "Compañerismo", Descripcion = "Se otorga por ser un pilar de apoyo para tus compañeros. Demuestra que estás siempre dispuesto a ofrecer tu ayuda cuando alguien la necesita.", NombreIcono = "handshake", MonedasOtorgadas = 20, ProfesorId = profesor1Id },
+                // Medalla por Kudo "Gracias por la Ayuda"
+                new Medalla { Id = 4, Nombre = "Compañerismo", Descripcion = "Se otorga por ser un pilar de apoyo para tus compañeros. Demuestra que estás siempre dispuesto a ofrecer tu ayuda cuando alguien la necesita.", NombreIcono = "handshake", MonedasOtorgadas = 20, ProfesorId = profesor1Id },
 
-        // Medalla por Kudo "Esa Pregunta Suma"
-        new Medalla { Id = 5, Nombre = "Curiosidad Insaciable", Descripcion = "Premia a las mentes que nunca dejan de preguntar. Se consigue al realizar preguntas que desafían al grupo y enriquecen el aprendizaje de todos.", NombreIcono = "lightbulb", MonedasOtorgadas = 15, ProfesorId = profesor1Id },
+                // Medalla por Kudo "Esa Pregunta Suma"
+                new Medalla { Id = 5, Nombre = "Curiosidad Insaciable", Descripcion = "Premia a las mentes que nunca dejan de preguntar. Se consigue al realizar preguntas que desafían al grupo y enriquecen el aprendizaje de todos.", NombreIcono = "lightbulb", MonedasOtorgadas = 15, ProfesorId = profesor1Id },
 
-        // Medalla por Kudo "Inspirador"
-        new Medalla { Id = 6, Nombre = "Faro del Grupo", Descripcion = "Reconoce a quienes inspiran con su ejemplo. Se obtiene al demostrar una actitud y un esfuerzo que motivan a todo el grupo a superarse.", NombreIcono = "star", MonedasOtorgadas = 25, ProfesorId = profesor1Id },
+                // Medalla por Kudo "Inspirador"
+                new Medalla { Id = 6, Nombre = "Faro del Grupo", Descripcion = "Reconoce a quienes inspiran con su ejemplo. Se obtiene al demostrar una actitud y un esfuerzo que motivan a todo el grupo a superarse.", NombreIcono = "star", MonedasOtorgadas = 25, ProfesorId = profesor1Id },
 
-        // Medalla por Kudo "Conectando Ideas"
-        new Medalla { Id = 7, Nombre = "Arquitecto de Ideas", Descripcion = "Para aquellos que no solo tienen buenas ideas, sino que construyen sobre las de los demás para crear algo aún mejor.", NombreIcono = "brain", MonedasOtorgadas = 20, ProfesorId = profesor1Id },
+                // Medalla por Kudo "Conectando Ideas"
+                new Medalla { Id = 7, Nombre = "Arquitecto de Ideas", Descripcion = "Para aquellos que no solo tienen buenas ideas, sino que construyen sobre las de los demás para crear algo aún mejor.", NombreIcono = "brain", MonedasOtorgadas = 20, ProfesorId = profesor1Id },
 
-        // Medalla por Kudo "Líder de Equipo"
-        new Medalla { Id = 8, Nombre = "Capitán de Equipo", Descripcion = "Se otorga por demostrar liderazgo natural, guiando y organizando al equipo para alcanzar metas comunes de forma efectiva.", NombreIcono = "crown", MonedasOtorgadas = 25, ProfesorId = profesor1Id },
+                // Medalla por Kudo "Líder de Equipo"
+                new Medalla { Id = 8, Nombre = "Capitán de Equipo", Descripcion = "Se otorga por demostrar liderazgo natural, guiando y organizando al equipo para alcanzar metas comunes de forma efectiva.", NombreIcono = "crown", MonedasOtorgadas = 25, ProfesorId = profesor1Id },
 
-        // Medalla por Kudo "Recurso Valioso"
-        new Medalla { Id = 9, Nombre = "Cazador de Tesoros", Descripcion = "Premia la iniciativa de buscar y compartir recursos valiosos (videos, artículos, herramientas) que benefician a toda la clase.", NombreIcono = "gem", MonedasOtorgadas = 15, ProfesorId = profesor1Id },
+                // Medalla por Kudo "Recurso Valioso"
+                new Medalla { Id = 9, Nombre = "Cazador de Tesoros", Descripcion = "Premia la iniciativa de buscar y compartir recursos valiosos (videos, artículos, herramientas) que benefician a toda la clase.", NombreIcono = "gem", MonedasOtorgadas = 15, ProfesorId = profesor1Id },
 
-        // Medalla por Kudo "Codo a Codo"
-        new Medalla { Id = 10, Nombre = "Espíritu de Equipo", Descripcion = "Se consigue al fomentar activamente un ambiente de respeto e inclusión, asegurando que cada miembro del grupo se sienta valorado.", NombreIcono = "hands-clapping", MonedasOtorgadas = 20, ProfesorId = profesor1Id },
+                // Medalla por Kudo "Codo a Codo"
+                new Medalla { Id = 10, Nombre = "Espíritu de Equipo", Descripcion = "Se consigue al fomentar activamente un ambiente de respeto e inclusión, asegurando que cada miembro del grupo se sienta valorado.", NombreIcono = "hands-clapping", MonedasOtorgadas = 20, ProfesorId = profesor1Id },
 
-        // Medalla por Kudo "Crítica que Construye"
-        new Medalla { Id = 11, Nombre = "Pulidor de Diamantes", Descripcion = "Reconoce la habilidad de dar críticas constructivas que ayudan a los compañeros a mejorar su trabajo de forma positiva y amable.", NombreIcono = "diamond", MonedasOtorgadas = 15, ProfesorId = profesor1Id },
+                // Medalla por Kudo "Crítica que Construye"
+                new Medalla { Id = 11, Nombre = "Pulidor de Diamantes", Descripcion = "Reconoce la habilidad de dar críticas constructivas que ayudan a los compañeros a mejorar su trabajo de forma positiva y amable.", NombreIcono = "diamond", MonedasOtorgadas = 15, ProfesorId = profesor1Id },
 
-        // Medalla por Kudo "Chispa Creativa"
-        new Medalla { Id = 12, Nombre = "Mente Innovadora", Descripcion = "Se otorga por aportar ideas creativas y soluciones originales que sacan al grupo de la rutina y abren nuevas posibilidades.", NombreIcono = "wand-magic-sparkles", MonedasOtorgadas = 20, ProfesorId = profesor1Id },
+                // Medalla por Kudo "Chispa Creativa"
+                new Medalla { Id = 12, Nombre = "Mente Innovadora", Descripcion = "Se otorga por aportar ideas creativas y soluciones originales que sacan al grupo de la rutina y abren nuevas posibilidades.", NombreIcono = "wand-magic-sparkles", MonedasOtorgadas = 20, ProfesorId = profesor1Id },
 
-        // Medalla por Kudo "Einstein"
-        new Medalla { Id = 13, Nombre = "El Explicador", Descripcion = "Premia la increíble habilidad de tomar un tema complejo y explicarlo de una manera tan clara y sencilla que todos puedan entenderlo.", NombreIcono = "chalkboard", MonedasOtorgadas = 25, ProfesorId = profesor2Id }
-	};
+                // Medalla por Kudo "Einstein"
+                new Medalla { Id = 13, Nombre = "El Explicador", Descripcion = "Premia la increíble habilidad de tomar un tema complejo y explicarlo de una manera tan clara y sencilla que todos puedan entenderlo.", NombreIcono = "chalkboard", MonedasOtorgadas = 25, ProfesorId = profesor2Id }
+	        };
 			modelBuilder.Entity<Medalla>().HasData(medallas);
 			return medallas;
 		}
@@ -745,96 +744,6 @@ namespace AccesoDatos.RepositoriosEF
 			return atributos;
 		}
 
-		// --- MÉTODO PARA ASIGNAR ATRIBUTOS POR DEFECTO ---
-		private static List<AtributoAvatar> AsignarAvatarPorDefecto(ModelBuilder modelBuilder, List<AtributoAvatar> atributos)
-		{
-			var avatarPorDefecto = new
-			{
-				Pelo = "curly",
-				Ojos = "default",
-				Cejas = "defaultNatural",
-				Boca = "default",
-				Ropa = "shirtVNeck",
-				Gafas = "sunglasses",
-				Barba = "",
-				ColorPiel = "#edb98a",
-				ColorPelo = "#2c1b18",
-				ColorRopa = "#3c4f5c",
-				ColorGafas = "#25557c",
-				ColorBarba = "#2c1b18"
-			};
-
-			// 1. Encontrar y recolectar los objetos AtributoAvatar por defecto en una lista fuertemente tipada.
-			var atributosAsignados = new List<AtributoAvatar>
-			{
-				atributos.First(a => a.Tipo == TipoAtributo.Pelo && a.CodigoUnico == avatarPorDefecto.Pelo),
-				atributos.First(a => a.Tipo == TipoAtributo.Ojos && a.CodigoUnico == avatarPorDefecto.Ojos),
-				atributos.First(a => a.Tipo == TipoAtributo.Cejas && a.CodigoUnico == avatarPorDefecto.Cejas),
-				atributos.First(a => a.Tipo == TipoAtributo.Boca && a.CodigoUnico == avatarPorDefecto.Boca),
-				atributos.First(a => a.Tipo == TipoAtributo.Ropa && a.CodigoUnico == avatarPorDefecto.Ropa),
-				atributos.First(a => a.Tipo == TipoAtributo.Gafas && a.CodigoUnico == avatarPorDefecto.Gafas),
-				atributos.First(a => a.Tipo == TipoAtributo.ColorPiel && a.CodigoUnico == avatarPorDefecto.ColorPiel),
-				atributos.First(a => a.Tipo == TipoAtributo.ColorPelo && a.CodigoUnico == avatarPorDefecto.ColorPelo),
-				atributos.First(a => a.Tipo == TipoAtributo.ColorRopa && a.CodigoUnico == avatarPorDefecto.ColorRopa),
-				atributos.First(a => a.Tipo == TipoAtributo.ColorGafas && a.CodigoUnico == avatarPorDefecto.ColorGafas),
-				atributos.First(a => a.Tipo == TipoAtributo.ColorBarba && a.CodigoUnico == avatarPorDefecto.ColorBarba)
-			};
-
-			// 2. Usar la lista anterior para crear los datos de la tabla de unión (objetos anónimos).
-			var datosParaTablaDeUnion = atributosAsignados.Select(attr => new
-			{
-				AvatarId = 1,
-				AtributoSeleccionadoId = attr.Id
-			}).ToArray();
-
-			// 3. Poblar la tabla de unión con los datos correctos.
-			modelBuilder.Entity("AvatarAtributos").HasData(datosParaTablaDeUnion);
-
-			// 4. Devolver la lista de entidades AtributoAvatar, como se requiere para el siguiente paso.
-			return atributosAsignados;
-		}
-
-		private static void PrecargarInventarioInicial(ModelBuilder modelBuilder, List<AtributoAvatar> atributosPorDefecto)
-		{
-
-			int proximoIdRecompensa = 11;
-			var recompensasAvatar = new List<PersonalizacionAvatar>();
-
-			foreach (var atributo in atributosPorDefecto)
-			{
-
-				var nuevaRecompensa = new PersonalizacionAvatar
-				{
-					Id = proximoIdRecompensa++,
-					Nombre = $"{atributo.Nombre}",
-					Precio = 0, // Precio 0 porque ya los posee
-					AtributoAvatarId = atributo.Id
-				};
-
-				if (nuevaRecompensa.Representacion is RepresentacionImagen repImagen)
-				{
-					repImagen.NombreImagenCompleta = atributo.NombreImagenRecurso;
-					repImagen.NombreImagenMiniatura = atributo.NombreImagenRecurso;
-				}
-
-				recompensasAvatar.Add(nuevaRecompensa);
-			}
-
-			modelBuilder.Entity<PersonalizacionAvatar>().HasData(recompensasAvatar);
-
-			int nextSeedId = 1;
-			var inventarioInicial = recompensasAvatar
-				.Select(r => new PerfilEstudianteRecompensa
-				{
-					Id = nextSeedId++,
-					PerfilEstudianteId = 1,
-					RecompensaId = r.Id
-				})
-				.ToArray();
-
-			modelBuilder.Entity<PerfilEstudianteRecompensa>()
-						.HasData(inventarioInicial);
-		}
 
 		private static void PrecargarHitos(ModelBuilder modelBuilder)
 		{

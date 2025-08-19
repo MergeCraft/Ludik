@@ -319,7 +319,7 @@ builder.Services.AddScoped<IGeneradorUrlImagen, GeneradorUrlImagen>();
 builder.Services.AddScoped<IGeneradorUrlsParaColeccionesImagenes, GeneradorUrlsParaColeccionesImagenes>();
 builder.Services.AddScoped<IServicioCrearObjetosParaProfesor, ServicioCrearObjetosParaProfesor>();
 builder.Services.AddScoped<IRecompensaEnricher, RecompensaEnricher>();
-
+builder.Services.AddScoped<ICrearTiendaPorDefecto, CrearTiendaPorDefecto>();
 
 
 

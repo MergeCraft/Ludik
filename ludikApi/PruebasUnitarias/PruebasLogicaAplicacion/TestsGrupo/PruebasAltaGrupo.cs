@@ -9,6 +9,7 @@ using LogicaAplicacion.DTOs.GrupoDTOs;
 using LogicaAplicacion.ImplementacionCasosUsos.Grupos;
 using LogicaNegocio.Resultados;
 using LogicaAplicacion.InterfacesCasosUsos.Grupo;
+using LogicaAplicacion.Servicios;
 using Entidad = LogicaNegocio.Entidades;
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
@@ -19,6 +20,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
         private readonly Mock<IRepositorioTablasEquivalencia> _repoTablasMock;
         private readonly Mock<IGeneradorEnlaceGrupo> _generadorEnlaceMock;
         private readonly Mock<IRepositorioProfesores> _repoProfesoresMock;
+        private readonly Mock<ICrearTiendaPorDefecto> _crearTiendaPorDefectoMock;
 
         public PruebasAltaGrupo()
         {
@@ -36,7 +38,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
                 _repoGruposMock.Object,
                 _repoTablasMock.Object,
                 _generadorEnlaceMock.Object,
-                _repoProfesoresMock.Object);
+                _repoProfesoresMock.Object,
+                _crearTiendaPorDefectoMock.Object);
 
             // Act
             var resultado = await servicio.EjecutarAsync(null!, "profesor123");
@@ -63,7 +66,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
                 _repoGruposMock.Object,
                 _repoTablasMock.Object,
                 _generadorEnlaceMock.Object,
-                _repoProfesoresMock.Object);
+                _repoProfesoresMock.Object,
+                _crearTiendaPorDefectoMock.Object);
 
             // Act
             var resultado = await servicio.EjecutarAsync(dto, "profesor123");
@@ -107,7 +111,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
                 _repoGruposMock.Object,
                 _repoTablasMock.Object,
                 _generadorEnlaceMock.Object,
-                _repoProfesoresMock.Object);
+                _repoProfesoresMock.Object,
+                _crearTiendaPorDefectoMock.Object);
 
             // Act
             var resultado = await servicio.EjecutarAsync(dto, "profesor123");
@@ -149,7 +154,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
                 _repoGruposMock.Object,
                 _repoTablasMock.Object,
                 _generadorEnlaceMock.Object,
-                _repoProfesoresMock.Object);
+                _repoProfesoresMock.Object,
+                _crearTiendaPorDefectoMock.Object);
 
             // Act
             var resultado = await servicio.EjecutarAsync(dto, "");
@@ -198,7 +204,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
                 _repoGruposMock.Object,
                 _repoTablasMock.Object,
                 _generadorEnlaceMock.Object,
-                _repoProfesoresMock.Object);
+                _repoProfesoresMock.Object,
+                _crearTiendaPorDefectoMock.Object);
 
             // Act
             var resultado = await servicio.EjecutarAsync(dto, "profesor123");

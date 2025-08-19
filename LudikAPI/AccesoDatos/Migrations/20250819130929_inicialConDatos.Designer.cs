@@ -4,6 +4,7 @@ using AccesoDatos.RepositoriosEF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    partial class ContextoDbModelSnapshot : ModelSnapshot
+    [Migration("20250819130929_inicialConDatos")]
+    partial class inicialConDatos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2886,6 +2889,9 @@ namespace AccesoDatos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("TiendaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("TipoRecompensa")
                         .IsRequired()
                         .HasMaxLength(34)
@@ -2894,6 +2900,8 @@ namespace AccesoDatos.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Nombre");
+
+                    b.HasIndex("TiendaId");
 
                     b.ToTable("Recompensas");
 
@@ -3723,21 +3731,6 @@ namespace AccesoDatos.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("TokensUsuario", (string)null);
-                });
-
-            modelBuilder.Entity("RecompensaTienda", b =>
-                {
-                    b.Property<int>("RecompesasId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TiendaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RecompesasId", "TiendaId");
-
-                    b.HasIndex("TiendaId");
-
-                    b.ToTable("RecompensaTienda");
                 });
 
             modelBuilder.Entity("TablaClasificacionParticipantes", b =>
@@ -4769,6 +4762,13 @@ namespace AccesoDatos.Migrations
                     b.Navigation("RecompensaClase");
                 });
 
+            modelBuilder.Entity("LogicaNegocio.Entidades.Recompensa", b =>
+                {
+                    b.HasOne("LogicaNegocio.Entidades.Tienda", null)
+                        .WithMany("Recompesas")
+                        .HasForeignKey("TiendaId");
+                });
+
             modelBuilder.Entity("LogicaNegocio.Entidades.RecompensaProfesor", b =>
                 {
                     b.HasOne("LogicaNegocio.Entidades.Profesor", "Profesor")
@@ -5254,21 +5254,6 @@ namespace AccesoDatos.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RecompensaTienda", b =>
-                {
-                    b.HasOne("LogicaNegocio.Entidades.Recompensa", null)
-                        .WithMany()
-                        .HasForeignKey("RecompesasId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LogicaNegocio.Entidades.Tienda", null)
-                        .WithMany()
-                        .HasForeignKey("TiendaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("TablaClasificacionParticipantes", b =>
                 {
                     b.HasOne("LogicaNegocio.Entidades.PerfilEstudiante", null)
@@ -5357,6 +5342,11 @@ namespace AccesoDatos.Migrations
             modelBuilder.Entity("LogicaNegocio.Entidades.TablaEquivalencia", b =>
                 {
                     b.Navigation("Equivalencias");
+                });
+
+            modelBuilder.Entity("LogicaNegocio.Entidades.Tienda", b =>
+                {
+                    b.Navigation("Recompesas");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Estudiante", b =>

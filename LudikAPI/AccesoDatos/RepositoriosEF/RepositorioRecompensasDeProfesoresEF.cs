@@ -12,7 +12,7 @@ public class RepositorioRecompensasDeProfesoresEF: IRepositorioRecompensasDeProf
     {
         _db = db;
     }
-    public Task<Resultado> AddAsync(ProfesorRecompensa unObjeto)
+    public Task<Resultado> AddAsync(RecompensaProfesor unObjeto)
     {
         throw new NotImplementedException();
     }
@@ -22,27 +22,27 @@ public class RepositorioRecompensasDeProfesoresEF: IRepositorioRecompensasDeProf
         throw new NotImplementedException();
     }
 
-    public Task<Resultado> RemoveAsync(ProfesorRecompensa unObjeto)
+    public Task<Resultado> RemoveAsync(RecompensaProfesor unObjeto)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Resultado> UpdateAsync(ProfesorRecompensa unObjeto)
+    public Task<Resultado> UpdateAsync(RecompensaProfesor unObjeto)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Resultado<ProfesorRecompensa>> GetByIdAsync(int id)
+    public Task<Resultado<RecompensaProfesor>> GetByIdAsync(int id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Resultado<IEnumerable<ProfesorRecompensa>>> GetAllAsync()
+    public Task<Resultado<IEnumerable<RecompensaProfesor>>> GetAllAsync()
     {
         throw new NotImplementedException();
     }
 
-    public async Task<Resultado<IEnumerable<ProfesorRecompensa>>> GetByProfesorIdAsync(string profesorId)
+    public async Task<Resultado<IEnumerable<RecompensaProfesor>>> GetByProfesorIdAsync(string profesorId)
     {
         try
         {
@@ -51,11 +51,11 @@ public class RepositorioRecompensasDeProfesoresEF: IRepositorioRecompensasDeProf
                 .Where(pr => pr.ProfesorId == profesorId)
                 .ToListAsync();
 
-            return Resultado<IEnumerable<ProfesorRecompensa>>.Exitoso(listaRecompensasDelProfesor);
+            return Resultado<IEnumerable<RecompensaProfesor>>.Exitoso(listaRecompensasDelProfesor);
         }
         catch (Exception e)
         {
-            return Resultado<IEnumerable<ProfesorRecompensa>>.Falla(new Error("Error.Unexpected",
+            return Resultado<IEnumerable<RecompensaProfesor>>.Falla(new Error("Error.Unexpected",
                 "Ha ocurrido un error en la base de datos. Error: " + e.Message));
         }
     }

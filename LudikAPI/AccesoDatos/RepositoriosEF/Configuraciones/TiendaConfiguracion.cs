@@ -10,5 +10,9 @@ public class TiendaConfiguracion : IEntityTypeConfiguration<Tienda>
     {
         builder.HasKey(ti => ti.Id);
 
+        builder
+            .HasMany(t => t.Recompesas)
+            .WithMany();
+
     }
 }

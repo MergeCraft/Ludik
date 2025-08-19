@@ -15,7 +15,7 @@ namespace LogicaNegocio.Entidades
 
         public List<Grupo> Grupos { get; set; }
 
-        public ICollection<ProfesorRecompensa> RecompensasCreadas { get; private set; } = new HashSet<ProfesorRecompensa>();
+        public ICollection<RecompensaProfesor> RecompensasCreadas { get; private set; } = new HashSet<RecompensaProfesor>();
 
 
 
@@ -37,7 +37,7 @@ namespace LogicaNegocio.Entidades
                 return Resultado.Falla(Error.Conflict);
             }
 
-            var nuevaCreacion = new ProfesorRecompensa
+            var nuevaCreacion = new RecompensaProfesor
             {
                 Profesor = this,
                 ProfesorId = this.Id, 

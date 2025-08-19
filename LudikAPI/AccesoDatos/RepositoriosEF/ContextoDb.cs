@@ -25,7 +25,7 @@ namespace AccesoDatos.RepositoriosEF
         public DbSet<Profesor> Profesores { get; set; }
         public DbSet<Estudiante> Estudiantes { get; set; }
         public DbSet<Recompensa> Recompensas { get; set; }
-        public DbSet<ProfesorRecompensa> RecompensasDeProfesores { get; set; }
+        public DbSet<RecompensaProfesor> RecompensasDeProfesores { get; set; }
         public DbSet<Grupo> Grupos { get; set; }
         public DbSet<Tienda> Tiendas { get; set; }
         public DbSet<Medalla> Medallas { get; set; }

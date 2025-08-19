@@ -182,29 +182,29 @@ namespace AccesoDatos.RepositoriosEF
             }
         }
 
-        public async Task<Resultado<IEnumerable<PersonalizacionAvatar>>> ObtenerItemsAvatarAdquiridosAsync(int idPerfilEstudiante)
+        public async Task<Resultado<IEnumerable<RecompensaPersonalizacionAvatar>>> ObtenerItemsAvatarAdquiridosAsync(int idPerfilEstudiante)
 		{
             try
             {
                 var perfilExiste = await _db.PerfilesEstudiantes.AnyAsync(p => p.Id == idPerfilEstudiante);
                 if (!perfilExiste)
-                    return Resultado<IEnumerable<PersonalizacionAvatar>>.Falla(Error.NotFound);
+                    return Resultado<IEnumerable<RecompensaPersonalizacionAvatar>>.Falla(Error.NotFound);
                 
 
                 var itemsDeAvatar = await _db.PerfilesEstudiantes
                     .Where(p => p.Id == idPerfilEstudiante)
                     .SelectMany(p => p.InventarioRecompensas) 
                     .Select(per => per.Recompensa)         
-                    .OfType<PersonalizacionAvatar>()         
+                    .OfType<RecompensaPersonalizacionAvatar>()         
                     .Include(pa => pa.AtributoDesbloqueable) 
                     .ToListAsync();
 
-                return Resultado<IEnumerable<PersonalizacionAvatar>>.Exitoso(itemsDeAvatar);
+                return Resultado<IEnumerable<RecompensaPersonalizacionAvatar>>.Exitoso(itemsDeAvatar);
             }
             catch (Exception e)
             {
  
-                return Resultado<IEnumerable<PersonalizacionAvatar>>.Falla(new Error("Error.Unexpected", e.Message));
+                return Resultado<IEnumerable<RecompensaPersonalizacionAvatar>>.Falla(new Error("Error.Unexpected", e.Message));
             }
         }
 		public async Task<Resultado> SaveCambiosAsync()

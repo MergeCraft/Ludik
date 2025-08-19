@@ -12,7 +12,7 @@ namespace InterfacesRepositorio
         public Task<Resultado<List<PerfilEstudiante>>> ObtenerPorGrupoIdAsync(int grupoId);
 
         Task<Resultado<PerfilEstudiante>> GetPerfilEstudianteAsync(string estudianteId, int grupoId);
-        public Task<Resultado<IEnumerable<PersonalizacionAvatar>>> ObtenerItemsAvatarAdquiridosAsync(int idPerfilEstudiante);
+        public Task<Resultado<IEnumerable<RecompensaPersonalizacionAvatar>>> ObtenerItemsAvatarAdquiridosAsync(int idPerfilEstudiante);
         public Task<Resultado> SaveCambiosAsync();
 
         Task<Resultado<PerfilEstudiante>> GetParaAsignacionMedallaAsync(int id);

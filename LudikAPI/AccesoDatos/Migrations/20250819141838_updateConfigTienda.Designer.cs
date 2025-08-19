@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250818123650_inicial")]
-    partial class inicial
+    [Migration("20250819141838_updateConfigTienda")]
+    partial class updateConfigTienda
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -2703,74 +2703,6 @@ namespace AccesoDatos.Migrations
                     b.HasIndex("PerfilEstudianteId", "RecompensaId");
 
                     b.ToTable("PerfilEstudianteRecompensas", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            PerfilEstudianteId = 1,
-                            RecompensaId = 11
-                        },
-                        new
-                        {
-                            Id = 2,
-                            PerfilEstudianteId = 1,
-                            RecompensaId = 12
-                        },
-                        new
-                        {
-                            Id = 3,
-                            PerfilEstudianteId = 1,
-                            RecompensaId = 13
-                        },
-                        new
-                        {
-                            Id = 4,
-                            PerfilEstudianteId = 1,
-                            RecompensaId = 14
-                        },
-                        new
-                        {
-                            Id = 5,
-                            PerfilEstudianteId = 1,
-                            RecompensaId = 15
-                        },
-                        new
-                        {
-                            Id = 6,
-                            PerfilEstudianteId = 1,
-                            RecompensaId = 16
-                        },
-                        new
-                        {
-                            Id = 7,
-                            PerfilEstudianteId = 1,
-                            RecompensaId = 17
-                        },
-                        new
-                        {
-                            Id = 8,
-                            PerfilEstudianteId = 1,
-                            RecompensaId = 18
-                        },
-                        new
-                        {
-                            Id = 9,
-                            PerfilEstudianteId = 1,
-                            RecompensaId = 19
-                        },
-                        new
-                        {
-                            Id = 10,
-                            PerfilEstudianteId = 1,
-                            RecompensaId = 20
-                        },
-                        new
-                        {
-                            Id = 11,
-                            PerfilEstudianteId = 1,
-                            RecompensaId = 21
-                        });
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.PreguntaDeSeguridad", b =>
@@ -2895,33 +2827,6 @@ namespace AccesoDatos.Migrations
                         });
                 });
 
-            modelBuilder.Entity("LogicaNegocio.Entidades.ProfesorRecompensa", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ProfesorId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("RecompensaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProfesorId");
-
-                    b.HasIndex("RecompensaId");
-
-                    b.ToTable("RecompensasDeProfesores");
-                });
-
             modelBuilder.Entity("LogicaNegocio.Entidades.ProyectoAulaColaborativo", b =>
                 {
                     b.Property<int>("Id")
@@ -2984,9 +2889,6 @@ namespace AccesoDatos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TiendaId")
-                        .HasColumnType("int");
-
                     b.Property<string>("TipoRecompensa")
                         .IsRequired()
                         .HasMaxLength(34)
@@ -2996,13 +2898,38 @@ namespace AccesoDatos.Migrations
 
                     b.HasIndex("Nombre");
 
-                    b.HasIndex("TiendaId");
-
                     b.ToTable("Recompensas");
 
                     b.HasDiscriminator<string>("TipoRecompensa").HasValue("Recompensa");
 
                     b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("LogicaNegocio.Entidades.RecompensaProfesor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ProfesorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("RecompensaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfesorId");
+
+                    b.HasIndex("RecompensaId");
+
+                    b.ToTable("RecompensasDeProfesores");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.RendimientoPeriodo", b =>
@@ -3801,6 +3728,21 @@ namespace AccesoDatos.Migrations
                     b.ToTable("TokensUsuario", (string)null);
                 });
 
+            modelBuilder.Entity("RecompensaTienda", b =>
+                {
+                    b.Property<int>("RecompesasId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TiendaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RecompesasId", "TiendaId");
+
+                    b.HasIndex("TiendaId");
+
+                    b.ToTable("RecompensaTienda");
+                });
+
             modelBuilder.Entity("TablaClasificacionParticipantes", b =>
                 {
                     b.Property<int>("TablaClasificacionId")
@@ -3814,108 +3756,6 @@ namespace AccesoDatos.Migrations
                     b.HasIndex("PerfilEstudianteId");
 
                     b.ToTable("TablaClasificacionParticipantes", (string)null);
-                });
-
-            modelBuilder.Entity("LogicaNegocio.Entidades.PersonalizacionAvatar", b =>
-                {
-                    b.HasBaseType("LogicaNegocio.Entidades.Recompensa");
-
-                    b.Property<int>("AtributoAvatarId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("AtributoAvatarId");
-
-                    b.HasDiscriminator().HasValue("Recompensa_Avatar");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 11,
-                            Nombre = "Curly",
-                            Precio = 0,
-                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"top-curly.png\",\"NombreImagenMiniatura\":\"top-curly.png\"}",
-                            AtributoAvatarId = 1
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Nombre = "Default",
-                            Precio = 0,
-                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"eyes-default.png\",\"NombreImagenMiniatura\":\"eyes-default.png\"}",
-                            AtributoAvatarId = 21
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Nombre = "DefaultNatural",
-                            Precio = 0,
-                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"eyebrows-defaultNatural.png\",\"NombreImagenMiniatura\":\"eyebrows-defaultNatural.png\"}",
-                            AtributoAvatarId = 12
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Nombre = "Default",
-                            Precio = 0,
-                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"mouth-default.png\",\"NombreImagenMiniatura\":\"mouth-default.png\"}",
-                            AtributoAvatarId = 31
-                        },
-                        new
-                        {
-                            Id = 15,
-                            Nombre = "ShirtVNeck",
-                            Precio = 0,
-                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"clothing-shirtVNeck.png\",\"NombreImagenMiniatura\":\"clothing-shirtVNeck.png\"}",
-                            AtributoAvatarId = 52
-                        },
-                        new
-                        {
-                            Id = 16,
-                            Nombre = "Sunglasses",
-                            Precio = 0,
-                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"accessories-sunglasses.png\",\"NombreImagenMiniatura\":\"accessories-sunglasses.png\"}",
-                            AtributoAvatarId = 43
-                        },
-                        new
-                        {
-                            Id = 17,
-                            Nombre = "#edb98a",
-                            Precio = 0,
-                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"skinColor-#edb98a.png\",\"NombreImagenMiniatura\":\"skinColor-#edb98a.png\"}",
-                            AtributoAvatarId = 56
-                        },
-                        new
-                        {
-                            Id = 18,
-                            Nombre = "#2c1b18",
-                            Precio = 0,
-                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"hairColor-#2c1b18.png\",\"NombreImagenMiniatura\":\"hairColor-#2c1b18.png\"}",
-                            AtributoAvatarId = 60
-                        },
-                        new
-                        {
-                            Id = 19,
-                            Nombre = "#3c4f5c",
-                            Precio = 0,
-                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"clothesColor-#3c4f5c.png\",\"NombreImagenMiniatura\":\"clothesColor-#3c4f5c.png\"}",
-                            AtributoAvatarId = 80
-                        },
-                        new
-                        {
-                            Id = 20,
-                            Nombre = "#25557c",
-                            Precio = 0,
-                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"accessoriesColor-#25557c.png\",\"NombreImagenMiniatura\":\"accessoriesColor-#25557c.png\"}",
-                            AtributoAvatarId = 98
-                        },
-                        new
-                        {
-                            Id = 21,
-                            Nombre = "#2c1b18",
-                            Precio = 0,
-                            Representacion = "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"beardColor-#2c1b18.png\",\"NombreImagenMiniatura\":\"beardColor-#2c1b18.png\"}",
-                            AtributoAvatarId = 70
-                        });
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Potenciador", b =>
@@ -4021,6 +3861,18 @@ namespace AccesoDatos.Migrations
                             DuracionHoras = 168,
                             Multiplicador = 2.5
                         });
+                });
+
+            modelBuilder.Entity("LogicaNegocio.Entidades.RecompensaPersonalizacionAvatar", b =>
+                {
+                    b.HasBaseType("LogicaNegocio.Entidades.Recompensa");
+
+                    b.Property<int>("AtributoAvatarId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("AtributoAvatarId");
+
+                    b.HasDiscriminator().HasValue("Recompensa_Avatar");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.RecompensaSimple", b =>
@@ -4901,25 +4753,6 @@ namespace AccesoDatos.Migrations
                     b.Navigation("PreguntaDeSeguridad");
                 });
 
-            modelBuilder.Entity("LogicaNegocio.Entidades.ProfesorRecompensa", b =>
-                {
-                    b.HasOne("LogicaNegocio.Entidades.Profesor", "Profesor")
-                        .WithMany("RecompensasCreadas")
-                        .HasForeignKey("ProfesorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LogicaNegocio.Entidades.Recompensa", "Recompensa")
-                        .WithMany()
-                        .HasForeignKey("RecompensaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Profesor");
-
-                    b.Navigation("Recompensa");
-                });
-
             modelBuilder.Entity("LogicaNegocio.Entidades.ProyectoAulaColaborativo", b =>
                 {
                     b.HasOne("LogicaNegocio.Entidades.Grupo", "Grupo")
@@ -4939,11 +4772,23 @@ namespace AccesoDatos.Migrations
                     b.Navigation("RecompensaClase");
                 });
 
-            modelBuilder.Entity("LogicaNegocio.Entidades.Recompensa", b =>
+            modelBuilder.Entity("LogicaNegocio.Entidades.RecompensaProfesor", b =>
                 {
-                    b.HasOne("LogicaNegocio.Entidades.Tienda", null)
-                        .WithMany("Recompesas")
-                        .HasForeignKey("TiendaId");
+                    b.HasOne("LogicaNegocio.Entidades.Profesor", "Profesor")
+                        .WithMany("RecompensasCreadas")
+                        .HasForeignKey("ProfesorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LogicaNegocio.Entidades.Recompensa", "Recompensa")
+                        .WithMany()
+                        .HasForeignKey("RecompensaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Profesor");
+
+                    b.Navigation("Recompensa");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.RendimientoPeriodo", b =>
@@ -5412,6 +5257,21 @@ namespace AccesoDatos.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("RecompensaTienda", b =>
+                {
+                    b.HasOne("LogicaNegocio.Entidades.Recompensa", null)
+                        .WithMany()
+                        .HasForeignKey("RecompesasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LogicaNegocio.Entidades.Tienda", null)
+                        .WithMany()
+                        .HasForeignKey("TiendaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("TablaClasificacionParticipantes", b =>
                 {
                     b.HasOne("LogicaNegocio.Entidades.PerfilEstudiante", null)
@@ -5427,7 +5287,7 @@ namespace AccesoDatos.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LogicaNegocio.Entidades.PersonalizacionAvatar", b =>
+            modelBuilder.Entity("LogicaNegocio.Entidades.RecompensaPersonalizacionAvatar", b =>
                 {
                     b.HasOne("LogicaNegocio.Entidades.AtributoAvatar", "AtributoDesbloqueable")
                         .WithMany()
@@ -5500,11 +5360,6 @@ namespace AccesoDatos.Migrations
             modelBuilder.Entity("LogicaNegocio.Entidades.TablaEquivalencia", b =>
                 {
                     b.Navigation("Equivalencias");
-                });
-
-            modelBuilder.Entity("LogicaNegocio.Entidades.Tienda", b =>
-                {
-                    b.Navigation("Recompesas");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Entidades.Estudiante", b =>

@@ -37,8 +37,8 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PruebasAvatar
             // Setup por defecto para ObtenerItemsAvatarAdquiridosAsync
             _mockPerfilRepo
                 .Setup(r => r.ObtenerItemsAvatarAdquiridosAsync(It.IsAny<int>()))
-                .ReturnsAsync(Resultado<IEnumerable<PersonalizacionAvatar>>.Exitoso(
-                    new List<PersonalizacionAvatar>()
+                .ReturnsAsync(Resultado<IEnumerable<RecompensaPersonalizacionAvatar>>.Exitoso(
+                    new List<RecompensaPersonalizacionAvatar>()
                 ));
 
             // Mock para las URLs SAS
@@ -81,7 +81,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PruebasAvatar
             // Perfil válido por defecto, sobre escribo ObtenerItemsAvatarAdquiridosAsync
             _mockPerfilRepo
                 .Setup(r => r.ObtenerItemsAvatarAdquiridosAsync(PerfilId))
-                .ReturnsAsync(Resultado<IEnumerable<PersonalizacionAvatar>>.Falla(
+                .ReturnsAsync(Resultado<IEnumerable<RecompensaPersonalizacionAvatar>>.Falla(
                     new Error("Error.DB", "Fallo al cargar items")
                 ));
 
@@ -129,14 +129,14 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.PruebasAvatar
             };
             var items = new[]
             {
-                new PersonalizacionAvatar { AtributoDesbloqueable = attrA },
-                new PersonalizacionAvatar { AtributoDesbloqueable = attrB }
+                new RecompensaPersonalizacionAvatar { AtributoDesbloqueable = attrA },
+                new RecompensaPersonalizacionAvatar { AtributoDesbloqueable = attrB }
             };
 
             // Sobre escribo solo la llamada a ObtenerItemsAvatarAdquiridosAsync
             _mockPerfilRepo
                 .Setup(r => r.ObtenerItemsAvatarAdquiridosAsync(PerfilId))
-                .ReturnsAsync(Resultado<IEnumerable<PersonalizacionAvatar>>.Exitoso(items));
+                .ReturnsAsync(Resultado<IEnumerable<RecompensaPersonalizacionAvatar>>.Exitoso(items));
 
             var res = await _casoUso.EjecutarAsync(PerfilId, UserId);
 

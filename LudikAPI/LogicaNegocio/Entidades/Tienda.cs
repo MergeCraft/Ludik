@@ -36,7 +36,17 @@ namespace LogicaNegocio.Entidades
             return Resultado.Exitoso();
         }
 
-    }
+        /// <summary>
+        /// Agrega una recompensa precargada a la tienda, no comprueba duplicados.
+        /// </summary>
+        /// <param name="recompensa">La recompensa a agregar.</param>
+        /// <returns>Resultado que indica éxito o fallo si la recompensa ya existe.</returns>
+        public Resultado AgregarRecompensaPrecargada(Recompensa recompensa)
+        {
+            Recompesas.Add(recompensa);
+            return Resultado.Exitoso();
+        }
+}
 
 }
 

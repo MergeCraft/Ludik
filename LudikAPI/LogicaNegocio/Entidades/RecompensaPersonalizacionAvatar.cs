@@ -6,7 +6,7 @@ using LogicaNegocio.InterfacesEntidades;
 
 namespace LogicaNegocio.Entidades;
 
-public class PersonalizacionAvatar: Recompensa
+public class RecompensaPersonalizacionAvatar: Recompensa
 {
     public int AtributoAvatarId { get; set; }
 
@@ -16,7 +16,7 @@ public class PersonalizacionAvatar: Recompensa
     public virtual AtributoAvatar AtributoDesbloqueable { get; set; }
 
 
-    public PersonalizacionAvatar()
+    public RecompensaPersonalizacionAvatar()
     {
         Representacion = new RepresentacionImagen();
     }

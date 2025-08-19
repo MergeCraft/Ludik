@@ -66,7 +66,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Tienda
             var recompensaIcono = new RecompensaSimple { Id = 1, Nombre = "Icono Genial", Precio = 5 };
             ((RepresentacionIcono)recompensaIcono.Representacion).NombreIcono = "fa-icon";
 
-            var recompensaImagen = new PersonalizacionAvatar { Id = 2, Nombre = "Avatar Increíble", Precio = 10 };
+            var recompensaImagen = new RecompensaPersonalizacionAvatar { Id = 2, Nombre = "Avatar Increíble", Precio = 10 };
             ((RepresentacionImagen)recompensaImagen.Representacion).NombreImagenCompleta = "completa.png";
             ((RepresentacionImagen)recompensaImagen.Representacion).NombreImagenMiniatura = "mini.png";
 

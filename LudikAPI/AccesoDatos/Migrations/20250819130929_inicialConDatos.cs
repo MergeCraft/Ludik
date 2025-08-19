@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AccesoDatos.Migrations
 {
     /// <inheritdoc />
-    public partial class inicial : Migration
+    public partial class inicialConDatos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -716,9 +716,9 @@ namespace AccesoDatos.Migrations
                     Precio = table.Column<int>(type: "int", nullable: false),
                     TiendaId = table.Column<int>(type: "int", nullable: true),
                     TipoRecompensa = table.Column<string>(type: "nvarchar(34)", maxLength: 34, nullable: false),
-                    AtributoAvatarId = table.Column<int>(type: "int", nullable: true),
                     DuracionHoras = table.Column<int>(type: "int", nullable: true),
-                    Multiplicador = table.Column<double>(type: "float", nullable: true)
+                    Multiplicador = table.Column<double>(type: "float", nullable: true),
+                    AtributoAvatarId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1297,24 +1297,6 @@ namespace AccesoDatos.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Recompensas",
-                columns: new[] { "Id", "AtributoAvatarId", "Nombre", "Precio", "Representacion", "TiendaId", "TipoRecompensa" },
-                values: new object[,]
-                {
-                    { 11, 1, "Curly", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"top-curly.png\",\"NombreImagenMiniatura\":\"top-curly.png\"}", null, "Recompensa_Avatar" },
-                    { 12, 21, "Default", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"eyes-default.png\",\"NombreImagenMiniatura\":\"eyes-default.png\"}", null, "Recompensa_Avatar" },
-                    { 13, 12, "DefaultNatural", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"eyebrows-defaultNatural.png\",\"NombreImagenMiniatura\":\"eyebrows-defaultNatural.png\"}", null, "Recompensa_Avatar" },
-                    { 14, 31, "Default", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"mouth-default.png\",\"NombreImagenMiniatura\":\"mouth-default.png\"}", null, "Recompensa_Avatar" },
-                    { 15, 52, "ShirtVNeck", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"clothing-shirtVNeck.png\",\"NombreImagenMiniatura\":\"clothing-shirtVNeck.png\"}", null, "Recompensa_Avatar" },
-                    { 16, 43, "Sunglasses", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"accessories-sunglasses.png\",\"NombreImagenMiniatura\":\"accessories-sunglasses.png\"}", null, "Recompensa_Avatar" },
-                    { 17, 56, "#edb98a", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"skinColor-#edb98a.png\",\"NombreImagenMiniatura\":\"skinColor-#edb98a.png\"}", null, "Recompensa_Avatar" },
-                    { 18, 60, "#2c1b18", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"hairColor-#2c1b18.png\",\"NombreImagenMiniatura\":\"hairColor-#2c1b18.png\"}", null, "Recompensa_Avatar" },
-                    { 19, 80, "#3c4f5c", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"clothesColor-#3c4f5c.png\",\"NombreImagenMiniatura\":\"clothesColor-#3c4f5c.png\"}", null, "Recompensa_Avatar" },
-                    { 20, 98, "#25557c", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"accessoriesColor-#25557c.png\",\"NombreImagenMiniatura\":\"accessoriesColor-#25557c.png\"}", null, "Recompensa_Avatar" },
-                    { 21, 70, "#2c1b18", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"beardColor-#2c1b18.png\",\"NombreImagenMiniatura\":\"beardColor-#2c1b18.png\"}", null, "Recompensa_Avatar" }
-                });
-
-            migrationBuilder.InsertData(
                 table: "UsuariosRoles",
                 columns: new[] { "RolId", "UsuarioId" },
                 values: new object[,]
@@ -1583,24 +1565,6 @@ namespace AccesoDatos.Migrations
                     { 33, "#f2f2f2", 33, 0, false, 0 },
                     { 34, "#e6f7ff", 34, 0, false, 0 },
                     { 35, "#fae6ff", 35, 0, false, 0 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "PerfilEstudianteRecompensas",
-                columns: new[] { "Id", "PerfilEstudianteId", "RecompensaId" },
-                values: new object[,]
-                {
-                    { 1, 1, 11 },
-                    { 2, 1, 12 },
-                    { 3, 1, 13 },
-                    { 4, 1, 14 },
-                    { 5, 1, 15 },
-                    { 6, 1, 16 },
-                    { 7, 1, 17 },
-                    { 8, 1, 18 },
-                    { 9, 1, 19 },
-                    { 10, 1, 20 },
-                    { 11, 1, 21 }
                 });
 
             migrationBuilder.InsertData(

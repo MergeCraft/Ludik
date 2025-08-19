@@ -37,9 +37,17 @@ public class RepositorioAtributosAvatarEF: IRepositorioAtributosAvatar
         throw new NotImplementedException();
     }
 
-    public Task<Resultado<IEnumerable<AtributoAvatar>>> GetAllAsync()
+    public async Task<Resultado<IEnumerable<AtributoAvatar>>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        try
+        {
+            var atributos = await _db.AtributosAvatar.ToListAsync();
+            return Resultado<IEnumerable<AtributoAvatar>>.Exitoso(atributos);
+        }
+        catch (Exception e)
+        {
+            return Resultado<IEnumerable<AtributoAvatar>>.Falla(Error.Unexpected);
+        }
     }
 
     public async Task<Resultado<IEnumerable<AtributoAvatar>>> GetByIdsAsync(IEnumerable<int> ids)

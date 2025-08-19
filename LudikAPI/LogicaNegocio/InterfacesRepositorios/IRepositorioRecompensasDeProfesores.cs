@@ -4,7 +4,7 @@ using LogicaNegocio.Resultados;
 
 namespace LogicaNegocio.InterfacesRepositorios;
 
-public interface IRepositorioRecompensasDeProfesores: IRepositorio<ProfesorRecompensa>
+public interface IRepositorioRecompensasDeProfesores: IRepositorio<RecompensaProfesor>
 {
-    Task<Resultado<IEnumerable<ProfesorRecompensa>>> GetByProfesorIdAsync(string profesorId);
+    Task<Resultado<IEnumerable<RecompensaProfesor>>> GetByProfesorIdAsync(string profesorId);
 }
