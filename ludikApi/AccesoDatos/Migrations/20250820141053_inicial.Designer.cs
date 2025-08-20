@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250819141838_updateConfigTienda")]
-    partial class updateConfigTienda
+    [Migration("20250820141053_inicial")]
+    partial class inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,63 +38,6 @@ namespace AccesoDatos.Migrations
                     b.HasIndex("AtributoSeleccionadoId");
 
                     b.ToTable("AvatarAtributos");
-
-                    b.HasData(
-                        new
-                        {
-                            AvatarId = 1,
-                            AtributoSeleccionadoId = 1
-                        },
-                        new
-                        {
-                            AvatarId = 1,
-                            AtributoSeleccionadoId = 21
-                        },
-                        new
-                        {
-                            AvatarId = 1,
-                            AtributoSeleccionadoId = 12
-                        },
-                        new
-                        {
-                            AvatarId = 1,
-                            AtributoSeleccionadoId = 31
-                        },
-                        new
-                        {
-                            AvatarId = 1,
-                            AtributoSeleccionadoId = 52
-                        },
-                        new
-                        {
-                            AvatarId = 1,
-                            AtributoSeleccionadoId = 43
-                        },
-                        new
-                        {
-                            AvatarId = 1,
-                            AtributoSeleccionadoId = 56
-                        },
-                        new
-                        {
-                            AvatarId = 1,
-                            AtributoSeleccionadoId = 60
-                        },
-                        new
-                        {
-                            AvatarId = 1,
-                            AtributoSeleccionadoId = 80
-                        },
-                        new
-                        {
-                            AvatarId = 1,
-                            AtributoSeleccionadoId = 98
-                        },
-                        new
-                        {
-                            AvatarId = 1,
-                            AtributoSeleccionadoId = 70
-                        });
                 });
 
             modelBuilder.Entity("EquivalenciaMedallas", b =>
@@ -1312,7 +1255,6 @@ namespace AccesoDatos.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ColorFondo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PerfilEstudianteId")

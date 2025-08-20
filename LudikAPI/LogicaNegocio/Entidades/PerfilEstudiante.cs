@@ -4,6 +4,7 @@ using LogicaNegocio.InterfacesEntidades;
 using System.ComponentModel.DataAnnotations.Schema;
 using LogicaNegocio.Resultados;
 using LogicaNegocio.Entidades;
+using System.Text.RegularExpressions;
 
 namespace LogicaNegocio.Entidades
 {
@@ -55,6 +56,21 @@ namespace LogicaNegocio.Entidades
             this.KudosRecibidos = new List<KudoOtorgado>();
             this.InventarioRecompensas = new List<PerfilEstudianteRecompensa>();
             this.TablasClasificacion = new List<TablaClasificacion>();
+        }
+        public PerfilEstudiante(string estudianteId,int grupoId)
+        {
+            this.MedallasObtenidas = new List<PerfilEstudianteMedalla>();
+            this.KudosOtorgados = new List<KudoOtorgado>();
+            this.KudosRecibidos = new List<KudoOtorgado>();
+            this.InventarioRecompensas = new List<PerfilEstudianteRecompensa>();
+            this.TablasClasificacion = new List<TablaClasificacion>();
+
+            EstudianteId = estudianteId;
+            NombreImagenCompleta = "eyebrows-defaultNatural.png";
+            NombreImagenMiniatura = "eyebrows-defaultNatural.png";
+            KudosDisponiblesParaOtorgar = 3;
+            GrupoId = grupoId;
+            Avatar = new Avatar();
         }
 
         public void RecibirMedallas(Medalla medalla, int cantidad)

@@ -52,14 +52,7 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.SolicitudUnion
 
             solicitud.Estado = EstadoSolicitud.Aceptada;
 
-            var perfil = new Entidad.PerfilEstudiante
-            {
-                EstudianteId = solicitud.EstudianteId,
-                NombreImagenCompleta = "eyebrows-defaultNatural.png",
-                NombreImagenMiniatura = "eyebrows-defaultNatural.png",
-                KudosDisponiblesParaOtorgar = 3,
-                GrupoId = grupo.Id
-            };
+            var perfil = new Entidad.PerfilEstudiante(solicitud.EstudianteId, grupo.Id);
 
             var resultadoPerfil = await _repoPerfilEstudianteGrupo.AddAsync(perfil);
             if (resultadoPerfil.EsFallo) return resultadoPerfil;

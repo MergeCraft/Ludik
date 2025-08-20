@@ -11,7 +11,7 @@ namespace LogicaNegocio.Entidades
         public int Id { get; set; }
 
         // Atributos generales que no son "partes" intercambiables
-        public string ColorFondo { get; set; }
+        public string? ColorFondo { get; set; }
         public bool Voltear { get; set; }
         public int Rotacion { get; set; }
         public int Zoom { get; set; }

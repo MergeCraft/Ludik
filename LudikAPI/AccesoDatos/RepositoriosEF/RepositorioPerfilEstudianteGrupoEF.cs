@@ -88,6 +88,8 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var perfil = await _db.PerfilesEstudiantes
+                    .Include(p => p.InventarioRecompensas)
+                        .ThenInclude(pe => pe.Recompensa)
                     .Include(p => p.Grupo)
                     .Include(p => p.MedallasObtenidas)
                         .ThenInclude(pm => pm.Medalla)

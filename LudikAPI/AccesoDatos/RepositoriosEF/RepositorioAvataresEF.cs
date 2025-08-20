@@ -70,7 +70,7 @@ public class RepositorioAvataresEF: IRepositorioAvatares
     {
         try
         {
-            Avatar avatarDelPerfil = await _db.Avatares.FindAsync(idPerfilEstudiante);
+            Avatar avatarDelPerfil = await _db.Avatares.Include(p=>p.AtributosSeleccionados).FirstOrDefaultAsync(a => a.PerfilEstudianteId == idPerfilEstudiante);
             return Resultado<Avatar>.Exitoso(avatarDelPerfil);
         }
         catch (Exception e)

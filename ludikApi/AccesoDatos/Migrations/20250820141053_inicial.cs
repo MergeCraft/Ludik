@@ -115,6 +115,31 @@ namespace AccesoDatos.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Recompensas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Representacion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Precio = table.Column<int>(type: "int", nullable: false),
+                    TipoRecompensa = table.Column<string>(type: "nvarchar(34)", maxLength: 34, nullable: false),
+                    DuracionHoras = table.Column<int>(type: "int", nullable: true),
+                    Multiplicador = table.Column<double>(type: "float", nullable: true),
+                    AtributoAvatarId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Recompensas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Recompensas_AtributosAvatar_AtributoAvatarId",
+                        column: x => x.AtributoAvatarId,
+                        principalTable: "AtributosAvatar",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ReclamacionesRoles",
                 columns: table => new
                 {
@@ -255,6 +280,53 @@ namespace AccesoDatos.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Hitos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CantMedallasRequeridas = table.Column<int>(type: "int", nullable: false),
+                    RecompensaId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Hitos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Hitos_Recompensas_RecompensaId",
+                        column: x => x.RecompensaId,
+                        principalTable: "Recompensas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EstudiantePotenciadores",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EstudianteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PotenciadorId = table.Column<int>(type: "int", nullable: false),
+                    FechaActivacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EstudiantePotenciadores", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EstudiantePotenciadores_Estudiantes_EstudianteId",
+                        column: x => x.EstudianteId,
+                        principalTable: "Estudiantes",
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EstudiantePotenciadores_Recompensas_PotenciadorId",
+                        column: x => x.PotenciadorId,
+                        principalTable: "Recompensas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PreguntasRespuestasSeguridad",
                 columns: table => new
                 {
@@ -305,6 +377,33 @@ namespace AccesoDatos.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RecompensasDeProfesores",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProfesorId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RecompensaId = table.Column<int>(type: "int", nullable: false),
+                    FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RecompensasDeProfesores", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RecompensasDeProfesores_Profesores_ProfesorId",
+                        column: x => x.ProfesorId,
+                        principalTable: "Profesores",
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RecompensasDeProfesores_Recompensas_RecompensaId",
+                        column: x => x.RecompensaId,
+                        principalTable: "Recompensas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TablasEquivalencia",
                 columns: table => new
                 {
@@ -322,6 +421,30 @@ namespace AccesoDatos.Migrations
                         principalTable: "Profesores",
                         principalColumn: "UsuarioId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EstudianteHitos",
+                columns: table => new
+                {
+                    EstudianteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    HitoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EstudianteHitos", x => new { x.EstudianteId, x.HitoId });
+                    table.ForeignKey(
+                        name: "FK_EstudianteHitos_Estudiantes_EstudianteId",
+                        column: x => x.EstudianteId,
+                        principalTable: "Estudiantes",
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EstudianteHitos_Hitos_HitoId",
+                        column: x => x.HitoId,
+                        principalTable: "Hitos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -433,6 +556,37 @@ namespace AccesoDatos.Migrations
                         name: "FK_PerfilesEstudiantes_Grupos_GrupoId",
                         column: x => x.GrupoId,
                         principalTable: "Grupos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProyectosAulaColaborativo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GrupoId = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CantidadMedallasNecesarias = table.Column<int>(type: "int", nullable: false),
+                    RecompensaClaseId = table.Column<int>(type: "int", nullable: false),
+                    Estado = table.Column<int>(type: "int", nullable: false),
+                    FechaInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaFin = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProyectosAulaColaborativo", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProyectosAulaColaborativo_Grupos_GrupoId",
+                        column: x => x.GrupoId,
+                        principalTable: "Grupos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProyectosAulaColaborativo_Recompensas_RecompensaClaseId",
+                        column: x => x.RecompensaClaseId,
+                        principalTable: "Recompensas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -551,7 +705,7 @@ namespace AccesoDatos.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ColorFondo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ColorFondo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Voltear = table.Column<bool>(type: "bit", nullable: false),
                     Rotacion = table.Column<int>(type: "int", nullable: false),
                     Zoom = table.Column<int>(type: "int", nullable: false),
@@ -621,6 +775,32 @@ namespace AccesoDatos.Migrations
                         principalTable: "PerfilesEstudiantes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PerfilEstudianteRecompensas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PerfilEstudianteId = table.Column<int>(type: "int", nullable: false),
+                    RecompensaId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PerfilEstudianteRecompensas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PerfilEstudianteRecompensas_PerfilesEstudiantes_PerfilEstudianteId",
+                        column: x => x.PerfilEstudianteId,
+                        principalTable: "PerfilesEstudiantes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PerfilEstudianteRecompensas_Recompensas_RecompensaId",
+                        column: x => x.RecompensaId,
+                        principalTable: "Recompensas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -706,34 +886,27 @@ namespace AccesoDatos.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Recompensas",
+                name: "RecompensaTienda",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Representacion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Precio = table.Column<int>(type: "int", nullable: false),
-                    TiendaId = table.Column<int>(type: "int", nullable: true),
-                    TipoRecompensa = table.Column<string>(type: "nvarchar(34)", maxLength: 34, nullable: false),
-                    AtributoAvatarId = table.Column<int>(type: "int", nullable: true),
-                    DuracionHoras = table.Column<int>(type: "int", nullable: true),
-                    Multiplicador = table.Column<double>(type: "float", nullable: true)
+                    RecompesasId = table.Column<int>(type: "int", nullable: false),
+                    TiendaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Recompensas", x => x.Id);
+                    table.PrimaryKey("PK_RecompensaTienda", x => new { x.RecompesasId, x.TiendaId });
                     table.ForeignKey(
-                        name: "FK_Recompensas_AtributosAvatar_AtributoAvatarId",
-                        column: x => x.AtributoAvatarId,
-                        principalTable: "AtributosAvatar",
+                        name: "FK_RecompensaTienda_Recompensas_RecompesasId",
+                        column: x => x.RecompesasId,
+                        principalTable: "Recompensas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Recompensas_Tiendas_TiendaId",
+                        name: "FK_RecompensaTienda_Tiendas_TiendaId",
                         column: x => x.TiendaId,
                         principalTable: "Tiendas",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -825,161 +998,6 @@ namespace AccesoDatos.Migrations
                         principalTable: "RendimientosPeriodos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EstudiantePotenciadores",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EstudianteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PotenciadorId = table.Column<int>(type: "int", nullable: false),
-                    FechaActivacion = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EstudiantePotenciadores", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_EstudiantePotenciadores_Estudiantes_EstudianteId",
-                        column: x => x.EstudianteId,
-                        principalTable: "Estudiantes",
-                        principalColumn: "UsuarioId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EstudiantePotenciadores_Recompensas_PotenciadorId",
-                        column: x => x.PotenciadorId,
-                        principalTable: "Recompensas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Hitos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CantMedallasRequeridas = table.Column<int>(type: "int", nullable: false),
-                    RecompensaId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Hitos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Hitos_Recompensas_RecompensaId",
-                        column: x => x.RecompensaId,
-                        principalTable: "Recompensas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PerfilEstudianteRecompensas",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PerfilEstudianteId = table.Column<int>(type: "int", nullable: false),
-                    RecompensaId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PerfilEstudianteRecompensas", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PerfilEstudianteRecompensas_PerfilesEstudiantes_PerfilEstudianteId",
-                        column: x => x.PerfilEstudianteId,
-                        principalTable: "PerfilesEstudiantes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PerfilEstudianteRecompensas_Recompensas_RecompensaId",
-                        column: x => x.RecompensaId,
-                        principalTable: "Recompensas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProyectosAulaColaborativo",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    GrupoId = table.Column<int>(type: "int", nullable: false),
-                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CantidadMedallasNecesarias = table.Column<int>(type: "int", nullable: false),
-                    RecompensaClaseId = table.Column<int>(type: "int", nullable: false),
-                    Estado = table.Column<int>(type: "int", nullable: false),
-                    FechaInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaFin = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProyectosAulaColaborativo", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProyectosAulaColaborativo_Grupos_GrupoId",
-                        column: x => x.GrupoId,
-                        principalTable: "Grupos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProyectosAulaColaborativo_Recompensas_RecompensaClaseId",
-                        column: x => x.RecompensaClaseId,
-                        principalTable: "Recompensas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RecompensasDeProfesores",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProfesorId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RecompensaId = table.Column<int>(type: "int", nullable: false),
-                    FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RecompensasDeProfesores", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RecompensasDeProfesores_Profesores_ProfesorId",
-                        column: x => x.ProfesorId,
-                        principalTable: "Profesores",
-                        principalColumn: "UsuarioId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_RecompensasDeProfesores_Recompensas_RecompensaId",
-                        column: x => x.RecompensaId,
-                        principalTable: "Recompensas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EstudianteHitos",
-                columns: table => new
-                {
-                    EstudianteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    HitoId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EstudianteHitos", x => new { x.EstudianteId, x.HitoId });
-                    table.ForeignKey(
-                        name: "FK_EstudianteHitos_Estudiantes_EstudianteId",
-                        column: x => x.EstudianteId,
-                        principalTable: "Estudiantes",
-                        principalColumn: "UsuarioId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EstudianteHitos_Hitos_HitoId",
-                        column: x => x.HitoId,
-                        principalTable: "Hitos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
@@ -1126,36 +1144,36 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.InsertData(
                 table: "Recompensas",
-                columns: new[] { "Id", "Nombre", "Precio", "Representacion", "TiendaId", "TipoRecompensa" },
+                columns: new[] { "Id", "Nombre", "Precio", "Representacion", "TipoRecompensa" },
                 values: new object[,]
                 {
-                    { 1, "Estrella Mágica", 50, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"star\"}", null, "Recompensa_Simple" },
-                    { 2, "Regalo Sorpresa", 30, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"gift\"}", null, "Recompensa_Simple" },
-                    { 3, "Corazón Brillante", 20, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"heart\"}", null, "Recompensa_Simple" },
-                    { 4, "Medalla de Oro", 80, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"medal\"}", null, "Recompensa_Simple" },
-                    { 5, "Montón de Monedas", 100, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"coins\"}", null, "Recompensa_Simple" },
-                    { 6, "Trofeo Brillante", 70, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"trophy\"}", null, "Recompensa_Simple" },
-                    { 7, "Llama de Fuego", 40, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"fire\"}", null, "Recompensa_Simple" },
-                    { 8, "Corona Real", 90, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"crown\"}", null, "Recompensa_Simple" },
-                    { 9, "Cohete Espacial", 60, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"rocket\"}", null, "Recompensa_Simple" },
-                    { 10, "Robot Amistoso", 55, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"robot\"}", null, "Recompensa_Simple" }
+                    { 1, "Estrella Mágica", 50, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"star\"}", "Recompensa_Simple" },
+                    { 2, "Regalo Sorpresa", 30, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"gift\"}", "Recompensa_Simple" },
+                    { 3, "Corazón Brillante", 20, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"heart\"}", "Recompensa_Simple" },
+                    { 4, "Medalla de Oro", 80, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"medal\"}", "Recompensa_Simple" },
+                    { 5, "Montón de Monedas", 100, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"coins\"}", "Recompensa_Simple" },
+                    { 6, "Trofeo Brillante", 70, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"trophy\"}", "Recompensa_Simple" },
+                    { 7, "Llama de Fuego", 40, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"fire\"}", "Recompensa_Simple" },
+                    { 8, "Corona Real", 90, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"crown\"}", "Recompensa_Simple" },
+                    { 9, "Cohete Espacial", 60, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"rocket\"}", "Recompensa_Simple" },
+                    { 10, "Robot Amistoso", 55, "{\"Type\":\"RepresentacionIcono\",\"NombreIcono\":\"robot\"}", "Recompensa_Simple" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Recompensas",
-                columns: new[] { "Id", "DuracionHoras", "Multiplicador", "Nombre", "Precio", "Representacion", "TiendaId", "TipoRecompensa" },
+                columns: new[] { "Id", "DuracionHoras", "Multiplicador", "Nombre", "Precio", "Representacion", "TipoRecompensa" },
                 values: new object[,]
                 {
-                    { 101, 24, 1.5, "Bono x1.5 (24h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 102, 24, 1.6000000000000001, "Bono x1.6 (24h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 103, 48, 1.7, "Bono x1.7 (48h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 104, 48, 1.8, "Bono x1.8 (48h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 105, 72, 1.8999999999999999, "Bono x1.9 (72h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 106, 72, 2.0, "¡Doble Moneda! (72h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 107, 96, 2.1000000000000001, "Bono x2.1 (96h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 108, 96, 2.2000000000000002, "Bono x2.2 (96h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 109, 120, 2.2999999999999998, "Bono x2.3 (120h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" },
-                    { 110, 168, 2.5, "¡Super Bono x2.5! (168h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", null, "Recompensa_Potenciador" }
+                    { 101, 24, 1.5, "Bono x1.5 (24h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", "Recompensa_Potenciador" },
+                    { 102, 24, 1.6000000000000001, "Bono x1.6 (24h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", "Recompensa_Potenciador" },
+                    { 103, 48, 1.7, "Bono x1.7 (48h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", "Recompensa_Potenciador" },
+                    { 104, 48, 1.8, "Bono x1.8 (48h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", "Recompensa_Potenciador" },
+                    { 105, 72, 1.8999999999999999, "Bono x1.9 (72h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", "Recompensa_Potenciador" },
+                    { 106, 72, 2.0, "¡Doble Moneda! (72h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", "Recompensa_Potenciador" },
+                    { 107, 96, 2.1000000000000001, "Bono x2.1 (96h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", "Recompensa_Potenciador" },
+                    { 108, 96, 2.2000000000000002, "Bono x2.2 (96h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", "Recompensa_Potenciador" },
+                    { 109, 120, 2.2999999999999998, "Bono x2.3 (120h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", "Recompensa_Potenciador" },
+                    { 110, 168, 2.5, "¡Super Bono x2.5! (168h)", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":null,\"NombreImagenMiniatura\":null}", "Recompensa_Potenciador" }
                 });
 
             migrationBuilder.InsertData(
@@ -1294,24 +1312,6 @@ namespace AccesoDatos.Migrations
                 {
                     "8e445865-a24d-4543-a6c6-9443d048cdb9",
                     "9e445865-a24d-4543-a6c6-9443d048cdb0"
-                });
-
-            migrationBuilder.InsertData(
-                table: "Recompensas",
-                columns: new[] { "Id", "AtributoAvatarId", "Nombre", "Precio", "Representacion", "TiendaId", "TipoRecompensa" },
-                values: new object[,]
-                {
-                    { 11, 1, "Curly", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"top-curly.png\",\"NombreImagenMiniatura\":\"top-curly.png\"}", null, "Recompensa_Avatar" },
-                    { 12, 21, "Default", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"eyes-default.png\",\"NombreImagenMiniatura\":\"eyes-default.png\"}", null, "Recompensa_Avatar" },
-                    { 13, 12, "DefaultNatural", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"eyebrows-defaultNatural.png\",\"NombreImagenMiniatura\":\"eyebrows-defaultNatural.png\"}", null, "Recompensa_Avatar" },
-                    { 14, 31, "Default", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"mouth-default.png\",\"NombreImagenMiniatura\":\"mouth-default.png\"}", null, "Recompensa_Avatar" },
-                    { 15, 52, "ShirtVNeck", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"clothing-shirtVNeck.png\",\"NombreImagenMiniatura\":\"clothing-shirtVNeck.png\"}", null, "Recompensa_Avatar" },
-                    { 16, 43, "Sunglasses", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"accessories-sunglasses.png\",\"NombreImagenMiniatura\":\"accessories-sunglasses.png\"}", null, "Recompensa_Avatar" },
-                    { 17, 56, "#edb98a", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"skinColor-#edb98a.png\",\"NombreImagenMiniatura\":\"skinColor-#edb98a.png\"}", null, "Recompensa_Avatar" },
-                    { 18, 60, "#2c1b18", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"hairColor-#2c1b18.png\",\"NombreImagenMiniatura\":\"hairColor-#2c1b18.png\"}", null, "Recompensa_Avatar" },
-                    { 19, 80, "#3c4f5c", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"clothesColor-#3c4f5c.png\",\"NombreImagenMiniatura\":\"clothesColor-#3c4f5c.png\"}", null, "Recompensa_Avatar" },
-                    { 20, 98, "#25557c", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"accessoriesColor-#25557c.png\",\"NombreImagenMiniatura\":\"accessoriesColor-#25557c.png\"}", null, "Recompensa_Avatar" },
-                    { 21, 70, "#2c1b18", 0, "{\"Type\":\"RepresentacionImagen\",\"NombreImagenCompleta\":\"beardColor-#2c1b18.png\",\"NombreImagenMiniatura\":\"beardColor-#2c1b18.png\"}", null, "Recompensa_Avatar" }
                 });
 
             migrationBuilder.InsertData(
@@ -1585,42 +1585,6 @@ namespace AccesoDatos.Migrations
                     { 35, "#fae6ff", 35, 0, false, 0 }
                 });
 
-            migrationBuilder.InsertData(
-                table: "PerfilEstudianteRecompensas",
-                columns: new[] { "Id", "PerfilEstudianteId", "RecompensaId" },
-                values: new object[,]
-                {
-                    { 1, 1, 11 },
-                    { 2, 1, 12 },
-                    { 3, 1, 13 },
-                    { 4, 1, 14 },
-                    { 5, 1, 15 },
-                    { 6, 1, 16 },
-                    { 7, 1, 17 },
-                    { 8, 1, 18 },
-                    { 9, 1, 19 },
-                    { 10, 1, 20 },
-                    { 11, 1, 21 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "AvatarAtributos",
-                columns: new[] { "AtributoSeleccionadoId", "AvatarId" },
-                values: new object[,]
-                {
-                    { 1, 1 },
-                    { 12, 1 },
-                    { 21, 1 },
-                    { 31, 1 },
-                    { 43, 1 },
-                    { 52, 1 },
-                    { 56, 1 },
-                    { 60, 1 },
-                    { 70, 1 },
-                    { 80, 1 },
-                    { 98, 1 }
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AvatarAtributos_AtributoSeleccionadoId",
                 table: "AvatarAtributos",
@@ -1802,11 +1766,6 @@ namespace AccesoDatos.Migrations
                 column: "Nombre");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Recompensas_TiendaId",
-                table: "Recompensas",
-                column: "TiendaId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_RecompensasDeProfesores_ProfesorId",
                 table: "RecompensasDeProfesores",
                 column: "ProfesorId");
@@ -1815,6 +1774,11 @@ namespace AccesoDatos.Migrations
                 name: "IX_RecompensasDeProfesores_RecompensaId",
                 table: "RecompensasDeProfesores",
                 column: "RecompensaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RecompensaTienda_TiendaId",
+                table: "RecompensaTienda",
+                column: "TiendaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RendimientoPeriodoMedallas_MedallaId",
@@ -1975,6 +1939,9 @@ namespace AccesoDatos.Migrations
                 name: "RecompensasDeProfesores");
 
             migrationBuilder.DropTable(
+                name: "RecompensaTienda");
+
+            migrationBuilder.DropTable(
                 name: "RendimientoPeriodoMedallas");
 
             migrationBuilder.DropTable(
@@ -2011,6 +1978,9 @@ namespace AccesoDatos.Migrations
                 name: "PreguntasDeSeguridad");
 
             migrationBuilder.DropTable(
+                name: "Tiendas");
+
+            migrationBuilder.DropTable(
                 name: "RendimientosPeriodos");
 
             migrationBuilder.DropTable(
@@ -2033,9 +2003,6 @@ namespace AccesoDatos.Migrations
 
             migrationBuilder.DropTable(
                 name: "AtributosAvatar");
-
-            migrationBuilder.DropTable(
-                name: "Tiendas");
 
             migrationBuilder.DropTable(
                 name: "Estudiantes");
