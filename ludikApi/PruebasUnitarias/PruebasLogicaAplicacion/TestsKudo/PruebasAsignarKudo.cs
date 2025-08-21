@@ -35,13 +35,12 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
             _mockUmbralesRepo = new Mock<IRepositorioUmbralesParaMedallasPorKudos>();
             _mockUnitOfWork = new Mock<IUnitOfWork>();
 
-            // Alineamos la inyección al constructor real: perfil, tiposKudo, estudiantes, umbrales, unitOfWork
             _casoUso = new AsignarKudo(
                 _mockPerfilRepo.Object,
                 _mockTiposKudoRepo.Object,
-                _mockEstudiantesRepo.Object,
+               _mockEstudiantesRepo.Object,
                 _mockUmbralesRepo.Object,
-                _mockUnitOfWork.Object
+               _mockUnitOfWork.Object
             );
 
             // Default: SaveChanges devuelve 1
@@ -53,8 +52,9 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
             var perfilEmisor = new LogicaNegocio.Entidades.PerfilEstudiante
             {
                 Id = PerfilEmisorId,
+                GrupoId = 1,
                 Grupo = new LogicaNegocio.Entidades.Grupo { Id = 1, ProfesorId = "prof-1" },
-                KudosDisponiblesParaOtorgar = 5    // ← aquí le damos kudos
+                KudosDisponiblesParaOtorgar = 5
             };
             var estudianteEmisor = new LogicaNegocio.Entidades.Estudiante
             {
@@ -69,6 +69,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
             var perfilReceptor = new LogicaNegocio.Entidades.PerfilEstudiante
             {
                 Id = PerfilReceptorId,
+                GrupoId = 1,
                 Grupo = new LogicaNegocio.Entidades.Grupo { Id = 1, ProfesorId = "prof-1" }
             };
             _mockPerfilRepo
@@ -123,7 +124,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
         [Fact]
         public async Task PerfilEmisorNoExiste_RetornaErrorDominio()
         {
-            // Dominio: Estudiante sin perfiles
             var estudianteEmisor = new LogicaNegocio.Entidades.Estudiante { Id = EmisorId, Perfiles = new List<LogicaNegocio.Entidades.PerfilEstudiante>() };
             _mockEstudiantesRepo
                 .Setup(r => r.GetByStringIdAsync(EmisorId))
@@ -144,7 +144,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
         [Fact]
         public async Task TipoKudoNoExiste_RetornaErrorRepoTipos()
         {
-            // Forzamos falla al obtener tipo de kudo
             _mockTiposKudoRepo
                 .Setup(r => r.GetByIdAsync(5))
                 .ReturnsAsync(Resultado<TipoKudo>.Falla(new Error("Error.NotFound", "Tipo de kudo no encontrado")));
@@ -183,10 +182,11 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
         [Fact]
         public async Task ErrorSaveChanges_RetornaUnexpected()
         {
-            // Forzar umbrales vacíos y excepción en SaveChanges
+            // Arrange
+            var umbralNoCoincidente = new UmbralParaMedallaPorKudos { Id = 99, TipoKudoId = 999 };
             _mockUmbralesRepo
                 .Setup(r => r.GetAllByGrupoIdAsync(1))
-                .ReturnsAsync(Resultado<IEnumerable<UmbralParaMedallaPorKudos>>.Exitoso(Array.Empty<UmbralParaMedallaPorKudos>()));
+                .ReturnsAsync(Resultado<IEnumerable<UmbralParaMedallaPorKudos>>.Exitoso(new[] { umbralNoCoincidente }));
 
             _mockUnitOfWork
                 .Setup(u => u.SaveChangesAsync(It.IsAny<CancellationToken>()))
@@ -206,11 +206,16 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
 
         [Fact]
         public async Task CaminoFeliz_RetornaExitoso()
-        {
-            // Forzar umbrales vacíos (para que RecibirKudoYEvaluarMedalla use null)
+        {    // Arrange
+            var umbralNoCoincidente = new UmbralParaMedallaPorKudos
+            {
+                Id = 99,
+                TipoKudoId = 999, // Un ID que no sea 5
+                CantidadKudos = 10
+            };
             _mockUmbralesRepo
                 .Setup(r => r.GetAllByGrupoIdAsync(1))
-                .ReturnsAsync(Resultado<IEnumerable<UmbralParaMedallaPorKudos>>.Exitoso(Array.Empty<UmbralParaMedallaPorKudos>()));
+                .ReturnsAsync(Resultado<IEnumerable<UmbralParaMedallaPorKudos>>.Exitoso(new[] { umbralNoCoincidente }));
 
             var dto = new AsignarKudoDto
             {
@@ -218,11 +223,13 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsKudo
                 IdPerfilEstudianteRecibe = PerfilReceptorId,
                 Kudo = new TipoKudoDto { Id = 5 }
             };
+
+            // Act
             var res = await _casoUso.EjecutarAsync(EmisorId, dto);
 
+            // Assert
             Assert.True(res.EsExitoso);
             _mockUnitOfWork.Verify(u => u.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
         }
     }
 }
-

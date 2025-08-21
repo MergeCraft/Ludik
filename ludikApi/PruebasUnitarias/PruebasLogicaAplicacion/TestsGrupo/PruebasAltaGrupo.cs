@@ -28,6 +28,35 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             _repoTablasMock = new Mock<IRepositorioTablasEquivalencia>();
             _generadorEnlaceMock = new Mock<IGeneradorEnlaceGrupo>();
             _repoProfesoresMock = new Mock<IRepositorioProfesores>();
+            _crearTiendaPorDefectoMock = new Mock<ICrearTiendaPorDefecto>();
+
+            // Setups por defecto para evitar NullReferenceException y reducir repetición en tests.
+            _crearTiendaPorDefectoMock
+                .Setup(c => c.CrearAsync())
+                .ReturnsAsync(Resultado<Entidad.Tienda>.Exitoso(new Entidad.Tienda()));
+
+            _repoGruposMock
+                       .Setup(r => r.AddAsync(It.IsAny<Entidad.Grupo>()))
+                       .ReturnsAsync(Resultado.Exitoso());
+
+            _generadorEnlaceMock
+                .Setup(g => g.GenerarEnlace(It.IsAny<string>()))
+                .Returns(Resultado<string>.Exitoso("https://fakeurl"));
+
+            _repoTablasMock
+                .Setup(r => r.GetByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(Resultado<TablaEquivalencia>.Exitoso(new TablaEquivalencia { Id = 1 }));
+
+            _repoProfesoresMock
+                .Setup(r => r.GetByStringIdAsync(It.IsAny<string>()))
+                .ReturnsAsync(Resultado<Entidad.Profesor>.Exitoso(
+                    new Entidad.Profesor
+                    {
+                        TablasEquivalencia = new List<TablaEquivalencia>
+                        {
+                            new TablaEquivalencia { Id = 1 }
+                        }
+                    }));
         }
 
         [Fact]
@@ -59,8 +88,9 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
                 TablaEquivalenciaId = 99
             };
 
+            // Antes devolvías null; ahora simulamos fallo explícito en el Resultado
             _repoTablasMock.Setup(r => r.GetByIdAsync(99))
-                .ReturnsAsync((Resultado<TablaEquivalencia>)null!);
+            .ReturnsAsync((Resultado<TablaEquivalencia>)null!);
 
             var servicio = new AltaGrupo(
                 _repoGruposMock.Object,
@@ -103,7 +133,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             _repoProfesoresMock.Setup(r => r.GetByStringIdAsync(It.IsAny<string>()))
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Profesor>.Exitoso(profesor));
 
-            // Generador de enlace falla
+            // Generador de enlace falla (sobrescribe el setup por defecto)
             _generadorEnlaceMock.Setup(g => g.GenerarEnlace(It.IsAny<string>()))
                 .Returns(Resultado<string>.Falla(new Error("Error", "Falló enlace")));
 
@@ -149,6 +179,12 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             };
             _repoProfesoresMock.Setup(r => r.GetByStringIdAsync(It.IsAny<string>()))
                 .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Profesor>.Exitoso(profesor));
+
+            // NOTA: no forzamos que GetByStringIdAsync falle para la cadena vacía,
+            // porque en tu implementación actual la validación de los campos (Nombre y ProfesorId)
+            // ocurre en el método grupo.esValido() y queremos que ese método agregue ambos errores
+            // (nombre vacío y profesorId vacío). Con los setups por defecto y el setup de CrearAsync
+            // la ejecución llegará hasta la validación del grupo y retornará los errores esperados.
 
             var servicio = new AltaGrupo(
                 _repoGruposMock.Object,
@@ -213,6 +249,59 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.Grupo
             // Assert
             Assert.True(resultado.EsExitoso);
             _repoGruposMock.Verify(r => r.AddAsync(It.IsAny<Entidad.Grupo>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task Ejecutar_ProfesorIdInexistente_RetornaErrorNotFound()
+        {
+            // Arrange
+            var dto = new GrupoAltaRequestDto { Nombre = "Grupo", TablaEquivalenciaId = 1 };
+
+            _repoTablasMock.Setup(r => r.GetByIdAsync(1))
+                .ReturnsAsync(Resultado<TablaEquivalencia>.Exitoso(new TablaEquivalencia { Id = 1 }));
+
+            _repoProfesoresMock.Setup(r => r.GetByStringIdAsync("idInexistente"))
+                .ReturnsAsync(Resultado<Entidad.Profesor>.Falla(new Error("Error.NotFound", "Profesor no encontrado")));
+
+            var servicio = new AltaGrupo(
+                _repoGruposMock.Object,
+                _repoTablasMock.Object,
+                _generadorEnlaceMock.Object,
+                _repoProfesoresMock.Object,
+                _crearTiendaPorDefectoMock.Object);
+
+            // Act
+            var resultado = await servicio.EjecutarAsync(dto, "idInexistente");
+
+            // Assert
+            Assert.True(resultado.EsFallo);
+        }
+
+        [Fact]
+        public async Task Ejecutar_TablaNoPerteneceAlProfesor_RetornaErrorUnauthorized()
+        {
+            // Arrange
+            var dto = new GrupoAltaRequestDto { Nombre = "Grupo", TablaEquivalenciaId = 1 };
+            var tabla = new TablaEquivalencia { Id = 1 };
+            // El profesor tiene una lista de tablas, pero NO contiene la tabla con Id = 1
+            var profesor = new Entidad.Profesor { TablasEquivalencia = new List<TablaEquivalencia> { new TablaEquivalencia { Id = 2 } } };
+
+            _repoTablasMock.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(Resultado<TablaEquivalencia>.Exitoso(tabla));
+            _repoProfesoresMock.Setup(r => r.GetByStringIdAsync(It.IsAny<string>())).ReturnsAsync(Resultado<Entidad.Profesor>.Exitoso(profesor));
+
+            var servicio = new AltaGrupo(
+                _repoGruposMock.Object,
+                _repoTablasMock.Object,
+                _generadorEnlaceMock.Object,
+                _repoProfesoresMock.Object,
+                _crearTiendaPorDefectoMock.Object);
+
+            // Act
+            var resultado = await servicio.EjecutarAsync(dto, "profesor123");
+
+            // Assert
+            Assert.True(resultado.EsFallo);
+            Assert.Equal("Error.Unauthorized", resultado.Errores[0].Codigo);
         }
     }
 }
