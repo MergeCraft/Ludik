@@ -448,19 +448,30 @@ if (app.Environment.IsDevelopment())
 // Seed Roles al iniciar la app
 // -------------------------------
 
-using (var scope = app.Services.CreateScope())
+try
 {
-	var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-	var roles = new[] { "Administrador", "Profesor", "Estudiante" };
+    using (var scope = app.Services.CreateScope())
+    {
+        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        var roles = new[] { "Administrador", "Profesor", "Estudiante" };
 
-	foreach (var rolNombre in roles)
-	{
-		var existe = await roleManager.RoleExistsAsync(rolNombre);
-		if (!existe)
-		{
-			await roleManager.CreateAsync(new IdentityRole(rolNombre));
-		}
-	}
+        foreach (var rolNombre in roles)
+        {
+            var existe = await roleManager.RoleExistsAsync(rolNombre);
+            if (!existe)
+            {
+                await roleManager.CreateAsync(new IdentityRole(rolNombre));
+                logger.LogInformation("Rol '{RoleName}' creado exitosamente.", rolNombre);
+            }
+        }
+    }
+}
+catch (Exception ex)
+{
+    // Captura cualquier excepción durante el sembrado, la registra, pero permite que la aplicación continúe su inicio.
+    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "Ocurrió un error durante el sembrado de roles en el arranque.");
 }
 
 
