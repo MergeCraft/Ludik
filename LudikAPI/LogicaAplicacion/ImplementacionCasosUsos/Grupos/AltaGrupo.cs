@@ -43,6 +43,8 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.Grupos
                 return Resultado.Falla(new Error("Error.Validation", "No se encontró la tabla de equivalencia especificada."));
 
             var resultadoProfesor = await _repositorioProfesores.GetByStringIdAsync(profesorId);
+            if (resultadoProfesor.EsFallo)
+                return Resultado.Falla(resultadoProfesor.Errores);
             var profesor = resultadoProfesor.Valor;
             if(!profesor.TablasEquivalencia!.Any(g => g.Id == resultadoTabla.Valor.Id))
                 return Resultado.Falla(new Error("Error.Unauthorized", "La tabla no se encuentra dentro de las tablas del profesor logueado."));

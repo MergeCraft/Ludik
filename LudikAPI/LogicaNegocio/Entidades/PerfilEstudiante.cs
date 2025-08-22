@@ -30,7 +30,10 @@ namespace LogicaNegocio.Entidades
         public List<KudoOtorgado> KudosRecibidos { get; private set; }
 
         [NotMapped]
-        public IEnumerable<Medalla> Medallas => MedallasObtenidas.Select(pm => pm.Medalla);
+        public IEnumerable<Medalla> Medallas
+        {
+            get => MedallasObtenidas.Select(pm => pm.Medalla);
+        }
 
         public List<RendimientoPeriodo> HistorialRendimientoPeriodos { get; set; }
 

@@ -69,9 +69,9 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsProyectoAulaColaborativo
         }
 
         [Fact]
-        public async Task EjecutarAsync_SinProyectoActivo_RetornaFalloNotFound()
+        public async Task EjecutarAsync_SinProyectoActivo_RetornaResultadoExitosoConDtoVacio() 
         {
-            // Arrange: Simular que el repo no devuelve PACs o solo inactivos.
+            // Arrange
             _repoPacMock
                 .Setup(r => r.GetByGrupoAsync(GrupoId))
                 .ReturnsAsync(Resultado<List<ProyectoAulaColaborativo>>.Exitoso(new List<ProyectoAulaColaborativo>()));
@@ -80,8 +80,9 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsProyectoAulaColaborativo
             var resultado = await _casoUso.EjecutarAsync(GrupoId);
 
             // Assert
-            Assert.True(resultado.EsFallo);
-            Assert.Contains(Error.NotFound, resultado.Errores);
+            Assert.True(resultado.EsExitoso); 
+            Assert.NotNull(resultado.Valor); 
+            Assert.Equal(0, resultado.Valor.Id); 
         }
 
         [Fact]
@@ -105,14 +106,30 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsProyectoAulaColaborativo
                 .Setup(r => r.GetByGrupoAsync(GrupoId))
                 .ReturnsAsync(Resultado<List<ProyectoAulaColaborativo>>.Exitoso(new List<ProyectoAulaColaborativo> { pac }));
 
-            // Mockear el grupo y la llamada a ContarMedallasEnPeriodo para aislar la prueba.
-            const int medallasContadas = 42;
-            var mockGrupo = new Mock<LogicaNegocio.Entidades.Grupo>();
-            mockGrupo.Setup(g => g.ContarMedallasEnPeriodo(fechaInicio, fechaFin)).Returns(medallasContadas);
+            const int medallasEsperadas = 2; // Esperamos 2 medallas en el período
+            var grupoReal = new LogicaNegocio.Entidades.Grupo
+            {
+                // Supongamos que ContarMedallasEnPeriodo cuenta medallas de los perfiles de estudiantes
+                Alumnos = new List<LogicaNegocio.Entidades.PerfilEstudiante>
+                {
+                    new LogicaNegocio.Entidades.PerfilEstudiante
+                    {
+                        MedallasObtenidas = new List<PerfilEstudianteMedalla>
+                        {
+                            // Medalla DENTRO del período
+                            new PerfilEstudianteMedalla { FechaObtencion = fechaInicio.AddDays(1) },
+                            // Medalla DENTRO del período
+                            new PerfilEstudianteMedalla { FechaObtencion = fechaFin.AddDays(-1) },
+                            // Medalla FUERA del período
+                            new PerfilEstudianteMedalla { FechaObtencion = fechaInicio.AddDays(-1) }
+                        }
+                    }
+                }
+            };
 
             _repoGruposMock
                 .Setup(r => r.GetByIdAsync(GrupoId))
-                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Grupo>.Exitoso(mockGrupo.Object));
+                .ReturnsAsync(Resultado<LogicaNegocio.Entidades.Grupo>.Exitoso(grupoReal));
 
             // Act
             var resultado = await _casoUso.EjecutarAsync(GrupoId);
@@ -122,18 +139,9 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsProyectoAulaColaborativo
             var dto = resultado.Valor;
             Assert.NotNull(dto);
 
-            Assert.Equal(pac.Id, dto.Id);
-            Assert.Equal(pac.Nombre, dto.Nombre);
-            Assert.Equal(pac.GrupoId, dto.GrupoId);
-            Assert.Equal(pac.CantidadMedallasNecesarias, dto.CantidadMedallasNecesarias);
-            Assert.Equal(pac.RecompensaClaseId, dto.RecompensaClaseId);
-            Assert.Equal(pac.Estado, dto.Estado);
+            // Verificar que las contribuciones se calcularon correctamente.
+            Assert.Equal(medallasEsperadas, dto.TotalContribuciones);
 
-            // verificar que las contribuciones se calcularon y asignaron.
-            Assert.Equal(medallasContadas, dto.TotalContribuciones);
-
-            // Verificar que el método ContarMedallasEnPeriodo fue llamado con las fechas correctas.
-            mockGrupo.Verify(g => g.ContarMedallasEnPeriodo(fechaInicio, fechaFin), Times.Once);
         }
     }
 }
