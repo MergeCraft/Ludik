@@ -94,7 +94,6 @@
     max-width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
-    padding-bottom: 5px;
 }
 
 /* Línea separadora */
@@ -329,8 +328,10 @@
 
 /* Grids de medallas y recompensas */
 .medallasNecesariasNotaGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    /* display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); */
+    display: flex;
+    justify-content: center;
     gap: 10px;
     max-height: fit-content;
     overflow-y: auto;
