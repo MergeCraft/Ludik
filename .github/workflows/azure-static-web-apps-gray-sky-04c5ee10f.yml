@@ -1,3 +1,5 @@
+name: Azure Static Web Apps CI/CD
+
 on:
   push:
     branches:
@@ -6,7 +8,7 @@ on:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
- 
+
 jobs:
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
@@ -17,23 +19,22 @@ jobs:
         with:
           submodules: true
           lfs: false
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GRAY_SKY_04C5EE10F }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_DELIGHTFUL_FLOWER_06134A60F }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # usado para PR comments
           action: "upload"
           ###### Repository/Build Configurations ######
-          app_location: "/ludikclient" # App source code path
-          api_location: "" # CORREGIDO: Se deja vacío porque tu API está en otro repositorio.
-          output_location: "build" # Built app content directory
+          app_location: "/ludikclient"   # ruta de tu front
+          api_location: "/ludikApi"      # mantener igual que cuando creaste la SWA
+          output_location: "build"       # carpeta de build de React
           ###### End of Repository/Build Configurations ######
-        # --- BLOQUE AÑADIDO ---
-        # Inyecta la URL de la API como una variable de entorno DURANTE LA COMPILACIÓN.
         env:
-          REACT_APP_API_URL: ${{ secrets.PRODUCTION_API_URL }}
- 
+          REACT_APP_API_URL: ${{ secrets.PRODUCTION_API_URL }} # inyecta la URL de la API en build
+
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
@@ -43,5 +44,6 @@ jobs:
         id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GRAY_SKY_04C5EE10F }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_DELIGHTFUL_FLOWER_06134A60F }}
           action: "close"
+
