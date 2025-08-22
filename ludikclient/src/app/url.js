@@ -1,5 +1,3 @@
-/* global process */
-
 let apiUrl;
 
 if (process.env.NODE_ENV === "development") {
