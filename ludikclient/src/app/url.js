@@ -1,9 +1,1 @@
-let apiUrl;
-
-if (process.env.NODE_ENV === "development") {
-  apiUrl = "https://localhost:7215";
-} else {
-  apiUrl = process.env.PRODUCTION_API_URL;
-}
-
-export const url = apiUrl;
+export const url = process.env.PRODUCTION_API_URL || (typeof window !== "undefined" && window.PRODUCTION_API_URL) || "https://localhost:7215";
