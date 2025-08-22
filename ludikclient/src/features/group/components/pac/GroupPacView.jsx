@@ -22,8 +22,6 @@ const GroupPacView = ({ recompensas, setModalContent, setModalTitle, setShowModa
 
   return (
     <div className={styles.pacContainer}>
-      <h4>Desafío grupal</h4>
-
       {showTeacherOptions && (
         <button className={`button-creator ${styles.newPacButton}`} onClick={handleOpenPacCreateForm}>
           <FontAwesomeIcon icon="fa-solid fa-handshake" size="2xl" />
@@ -34,8 +32,8 @@ const GroupPacView = ({ recompensas, setModalContent, setModalTitle, setShowModa
       <section className={styles.pacsList}>
         {isLoading && <BarLoader />}
         {!isLoading && isError && <p>Error al cargar el desafío.</p>}
-        {(!isLoading && !isError && !pac) || (pac?.nombre == null && <p>No hay desafío creado para este grupo.</p>)}
-        {!isLoading && !isError && pac && <PacItem pac={pac} />}
+        {(!isLoading && !isError && !pac) || (pac?.nombre == null && <p>No hay un desafío creado para este grupo.</p>)}
+        {!isLoading && !isError && pac && pac.nombre && <PacItem pac={pac} />}
       </section>
     </div>
   );

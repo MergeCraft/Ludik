@@ -51,8 +51,6 @@ const StudentAvatarEditor = ({ idPerfil }) => {
   const [selecciones, setSelecciones] = useState({});
   const { data: inventario, isLoading, isError, error } = useInventarioAvatar(idPerfil);
 
-  console.log(inventario);
-
   // Controles específicos de la pestaña 'posicion'
   const [voltear, setVoltear] = useState(false);
   const [rotacion, setRotacion] = useState(0);
@@ -60,8 +58,6 @@ const StudentAvatarEditor = ({ idPerfil }) => {
 
   // Tema de ropa para query string
   const [temaRopa, setTemaRopa] = useState("");
-
-  console.log(setTemaRopa);
 
   // Estado para el SVG avatar cargado y loader
   const [avatarSvg, setAvatarSvg] = useState(null);

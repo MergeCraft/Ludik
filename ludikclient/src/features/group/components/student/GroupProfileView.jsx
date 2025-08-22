@@ -20,6 +20,8 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
   const { data: barraProgreso, isLoading: isLoadingBarra } = useBarraProgresoPerfil(perfil?.id);
   const { mutate: setMeta } = useDefinirMetaCalificacion(perfil?.id);
 
+  console.log(barraProgreso);
+
   const [metaTemporal, setMetaTemporal] = useState(perfil.metaCalificacion);
   const [editandoMeta, setEditandoMeta] = useState(false);
 
@@ -96,7 +98,7 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
           </div>
           <div>
             <p>
-              <FontAwesomeIcon icon="fa fa-award" /> {perfil.medallas.length}
+              <FontAwesomeIcon icon="fa fa-award" /> {perfil.medallas.reduce((acc, medalla) => acc + medalla.cantidad, 0)}
             </p>
             <p>Medallas obtenidas</p>
           </div>
@@ -226,6 +228,7 @@ GroupProfileView.propTypes = {
         urlImagen: PropTypes.string,
         descripcion: PropTypes.string.isRequired,
         cantidadMedallasBrinda: PropTypes.number.isRequired,
+        cantidad: PropTypes.number.isRequired,
         esAsignacionMutua: PropTypes.bool,
       })
     ).isRequired,
