@@ -1,1 +1,1 @@
-export const url = process.env.PRODUCTION_API_URL || (typeof window !== "undefined" && window.PRODUCTION_API_URL) || "https://localhost:7215";
+export const url = process.env.REACT_APP_API_URL || (typeof window !== "undefined" && window.REACT_APP_API_URL) || "https://localhost:7215";
