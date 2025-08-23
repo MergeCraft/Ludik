@@ -25,7 +25,6 @@
 
 .infoGrupo {
     display: flex;
-    justify-content: space-between;
 }
 
 .infoGrupo h3 {

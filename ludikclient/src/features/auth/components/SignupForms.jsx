@@ -4,6 +4,7 @@ import styles from "../AuthPage.module.css";
 import { useRegistro, usePreguntasSeguridad } from "../hooks/useAuthMutation.js";
 import * as Toast from "../../../lib/toastify.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { PulseLoader } from "../../generics/BarLoader.jsx";
 
 import BarLoader from "../../generics/BarLoader.jsx";
 
@@ -15,7 +16,7 @@ const SignupForm = () => {
 
   const { data: preguntasDisponibles = [], isLoading: cargandoPreguntas } = usePreguntasSeguridad();
   const [isProfesor, setIsProfesor] = useState(true);
-  const { mutateAsync: registrar } = useRegistro();
+  const { mutateAsync: registrar, isLoading: cargandoRegistro } = useRegistro();
 
   const [profesorData, setProfesorData] = useState({
     usuario: "",
@@ -380,8 +381,15 @@ const SignupForm = () => {
         </div>
       </div>
 
-      <button type="button" onClick={handleSubmit} className={classNames(styles.botonRegistro, "button")}>
-        Registrarse
+      <button type="button" onClick={handleSubmit} className={classNames(styles.botonRegistro, "button")} disabled={cargandoRegistro}>
+        {cargandoRegistro ? (
+          <>
+            <PulseLoader />
+            <span style={{ marginLeft: "8px" }}>Creando cuenta...</span>
+          </>
+        ) : (
+          "Registrarse"
+        )}
       </button>
 
       <div className={styles.acciones}>

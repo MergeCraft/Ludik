@@ -209,5 +209,5 @@ library.add(
   faAnglesUp,
   faStopwatch,
   faChevronDown,
-  faChevronUp
+  faChevronUp,
 );

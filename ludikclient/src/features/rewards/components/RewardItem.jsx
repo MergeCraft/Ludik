@@ -59,9 +59,17 @@ const RewardItem = ({ reward, redeemed, perfilId, showProfesorOptions, storeView
 
   return (
     <div className={`${styles.rewardCard} ${storeView && styles.storeViewCard}`}>
-      <h4>{reward.nombre}</h4>
+      <h4>{reward.nombre.substring(reward.nombre.indexOf(":") + 1)}</h4>
       <div className={styles.iconContainer}>
-        {reward.tipo === "Imagen" ? <img src={`${urlMiniatura}`} alt={`Recompensa ${reward?.nombre}`} /> : <FontAwesomeIcon icon={`fa-solid fa-${nombreIcono ? nombreIcono : "trophy"}`} />}
+        {reward.tipo === "Imagen" ? (
+          reward.nombre.includes("#") ? (
+            <FontAwesomeIcon icon={`fa-solid fa-palette`} color={reward.nombre.substring(reward.nombre.indexOf("#"))} />
+          ) : (
+            <img src={`${urlMiniatura}`} alt={`Recompensa ${reward?.nombre}`} />
+          )
+        ) : (
+          <FontAwesomeIcon icon={`fa-solid fa-${nombreIcono ? nombreIcono : "trophy"}`} />
+        )}
       </div>
 
       {!redeemed && (
