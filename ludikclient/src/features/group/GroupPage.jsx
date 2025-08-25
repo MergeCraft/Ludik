@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import style from "./GroupPage.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import BarLoader from "../generics/BarLoader.jsx";
+import BarLoader, { PulseLoader } from "../generics/BarLoader.jsx";
 import { useSelector } from "react-redux";
 import { selectUserRole } from "../auth/hooks/userSlice";
 import BaseManagerPage from "../generics/BaseManagerPage";
@@ -56,14 +56,6 @@ const GroupPage = () => {
 
   const studentsFiltrados = students?.filter((item) => item.nombreEstudiante.toLowerCase().includes(search.toLowerCase()));
 
-  const handleOpenApplicationRequests = () => {
-    // marcamos la vista de solicitudes para que la UI refleje estado (opcional)
-    setSelectedView("solicitudes");
-    setModalContent(<ApplicationRequests groupId={groupId} link={group.urlCompleta} />);
-    setModalTitle(`Solicitudes de unión del Grupo ${group.institucion.toUpperCase()} - ${group.nombre.toUpperCase()}`);
-    setShowModal(true);
-  };
-
   const getLabelClass = (view) => {
     const base = selectedView === view ? style.activeLabel : "";
     const specific = selectedView === view ? style[`active${view.charAt(0).toUpperCase() + view.slice(1)}`] : "";
@@ -71,16 +63,13 @@ const GroupPage = () => {
   };
 
   useEffect(() => {
-    if (isProfesor) {
-      setPerfil(null);
-    } else {
+    if (!isProfesor && perfilHook) {
       setPerfil(perfilHook);
+      setPerfilSeleccionado(perfilHook);
+    } else {
+      setPerfil(null);
     }
-
-    if (perfil) {
-      setPerfilSeleccionado(perfil);
-    }
-  }, [perfil]);
+  }, [perfilHook, isProfesor]);
 
   const actions = (
     <div className={style.acciones}>
@@ -125,7 +114,7 @@ const GroupPage = () => {
       {isProfesor && (
         <>
           <label className={getLabelClass("solicitudes")} aria-label={tabLabels.solicitudes}>
-            <input type="radio" value="solicitudes" checked={selectedView === "solicitudes"} onChange={handleOpenApplicationRequests} />
+            <input type="radio" value="solicitudes" checked={selectedView === "solicitudes"} onChange={() => setSelectedView("solicitudes")} />
             <FontAwesomeIcon icon="fa-solid fa-user-plus" size="xl" />
             <span className={style.actionText}>{tabLabels.solicitudes}</span>
           </label>
@@ -140,57 +129,41 @@ const GroupPage = () => {
     </div>
   );
 
-  const items = isLoadingGroup ? (
-    <BarLoader />
-  ) : (
+  const items = (
     <div className={style.groupContainer}>
-      <div className={style.infoGrupo}>
-        <h3>
-          <FontAwesomeIcon icon="fa-solid fa-book-bookmark" /> {group.materia.toUpperCase()}
-        </h3>
-        {isProfesor && (
+      {isLoadingGroup ? (
+        <PulseLoader />
+      ) : (
+        <div className={style.infoGrupo} style={isProfesor ? { justifyContent: "space-between" } : { justifyContent: "center" }}>
           <h3>
-            <FontAwesomeIcon icon="fa-solid fa-school" /> {group.institucion.toUpperCase()} - {group.nombre.toUpperCase()}
+            <FontAwesomeIcon icon="fa-solid fa-book-bookmark" /> {group.materia.toUpperCase()}
           </h3>
-        )}
-      </div>
+          {isProfesor && (
+            <h3>
+              <FontAwesomeIcon icon="fa-solid fa-school" /> {group.institucion.toUpperCase()} - {group.nombre.toUpperCase()}
+            </h3>
+          )}
+        </div>
+      )}
 
       <div className={style.itemsContainer}>
-        {!isProfesor &&
-          (isLoadingPerfil || !perfil ? (
-            <BarLoader />
-          ) : (
-            selectedView !== "perfil" && (
-              <div className={style.resumen}>
-                <div>
-                  <p>
-                    <FontAwesomeIcon icon="fa fa-bullseye" />
-                    {perfil.metaCalificacion}
-                  </p>
-                </div>
-                <div>
-                  <p>
-                    <FontAwesomeIcon icon="fa fa-award" />
-                    {perfil.medallas.length}
-                  </p>
-                </div>
-
-                <div>
-                  <p>
-                    <FontAwesomeIcon icon="fa fa-coins" />
-                    {perfil.monedas}
-                  </p>
-                </div>
-              </div>
-            )
-          ))}
+        {!isProfesor && selectedView == "tienda" && (
+          <div className={style.resumen}>
+            <div>
+              <p>
+                <FontAwesomeIcon icon="fa fa-coins" />
+                {perfilHook ? perfilHook?.monedas : <PulseLoader color={"var(--monedas)"} />}
+              </p>
+            </div>
+          </div>
+        )}
 
         {selectedView === "tienda" ? (
           <StoreGroupView
             recompensas={recompensas}
-            isLoading={isLoadingRecompensas}
+            isLoading={isLoadingRecompensas || isLoadingGroup}
             isProfesor={isProfesor}
-            perfil={perfil}
+            perfil={perfilHook}
             setShowModal={setShowModal}
             setModalContent={setModalContent}
             setModalTitle={setModalTitle}
@@ -205,7 +178,7 @@ const GroupPage = () => {
                 {isProfesor ? (
                   <>
                     El grupo aún no tiene alumnos. Dirígete a la sección de <strong onClick={() => setSelectedView("configs")}> configuración </strong> o
-                    <strong onClick={handleOpenApplicationRequests}> solicitudes </strong> para compartir el código de unión con tus estudiantes.
+                    <strong onClick={() => setSelectedView("solicitudes")}> solicitudes </strong> para compartir el código de unión con tus estudiantes.
                   </>
                 ) : (
                   "Aún no hay mas compañeros en este grupo"
@@ -217,7 +190,7 @@ const GroupPage = () => {
               {studentsFiltrados?.map((item) => (
                 <StudentItem
                   key={item.id}
-                  perfilEmisorId={perfil?.id}
+                  perfilEmisorId={perfilHook?.id}
                   student={item}
                   medals={medals}
                   kudos={tiposKudo}
@@ -247,19 +220,20 @@ const GroupPage = () => {
             setShowModal={setShowModal}
             groupId={groupId}
             showTeacherOptions={isProfesor}
-            idPerfilEstudiante={perfil?.id}
+            idPerfilEstudiante={perfilHook?.id}
           />
         ) : selectedView === "pac" ? (
           <GroupPacView recompensas={recompensas} setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
         ) : selectedView === "threshold" ? (
           <MedalThresholdView setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
+        ) : selectedView === "solicitudes" ? (
+          <ApplicationRequests groupId={groupId} link={group?.urlCompleta} />
         ) : selectedView === "configs" ? (
           <GroupConfigView id={groupId} group={group} setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} />
         ) : null}
       </div>
     </div>
   );
-
   return (
     <BaseManagerPage
       actions={actions}

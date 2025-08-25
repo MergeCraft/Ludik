@@ -1,9 +1,11 @@
+// ThresholdCreateForm.jsx
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./ThresholdCreateForm.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCrearUmbralMedalla, useEditarUmbralMedalla, useEliminarUmbralMedalla } from "../../hooks/useGrupoMutation";
 import { notificarError } from "../../../../lib/toastify";
+import { PulseLoader } from "../../../generics/BarLoader.jsx"; // importamos loader
 
 const ThresholdCreateForm = ({ grupoId, medallas, tiposKudo, onClose, initialValues = null }) => {
   const [medallaId, setMedallaId] = useState("");
@@ -80,7 +82,7 @@ const ThresholdCreateForm = ({ grupoId, medallas, tiposKudo, onClose, initialVal
     <form className={styles.formThreshold} onSubmit={handleSubmit}>
       <label>
         Medalla:
-        <select value={medallaId} onChange={(e) => setMedallaId(e.target.value)} required>
+        <select value={medallaId} onChange={(e) => setMedallaId(e.target.value)} required disabled={isLoading}>
           <option value="" disabled>
             Selecciona una medalla
           </option>
@@ -94,7 +96,7 @@ const ThresholdCreateForm = ({ grupoId, medallas, tiposKudo, onClose, initialVal
 
       <label>
         Tipo de Kudo:
-        <select value={tipoKudoId} onChange={(e) => setTipoKudoId(e.target.value)} required>
+        <select value={tipoKudoId} onChange={(e) => setTipoKudoId(e.target.value)} required disabled={isLoading}>
           <option value="" disabled>
             Selecciona un tipo de kudo
           </option>
@@ -108,13 +110,14 @@ const ThresholdCreateForm = ({ grupoId, medallas, tiposKudo, onClose, initialVal
 
       <label>
         Cantidad de kudos:
-        <input type="number" min={1} value={cantidadKudos} onChange={(e) => setCantidadKudos(e.target.value)} required />
+        <input type="number" min={1} value={cantidadKudos} onChange={(e) => setCantidadKudos(e.target.value)} required disabled={isLoading} />
       </label>
 
       <div className={styles.accionesThreshold}>
         <button type="submit" className="button-secondary" disabled={isLoading}>
-          {isLoading ? "Guardando..." : initialValues ? "Guardar cambios" : "Crear umbral"}
+          {isLoading ? <PulseLoader /> : initialValues ? "Guardar cambios" : "Crear umbral"}
         </button>
+
         {initialValues && (
           <button type="button" className="button-tertiary" onClick={handleDelete} disabled={isLoading} title="Eliminar umbral">
             <FontAwesomeIcon icon="fa-solid fa-trash" size="lg" />

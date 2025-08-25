@@ -20,11 +20,9 @@ const StoreGroupView = ({ recompensas, isLoading, isProfesor, perfil, grupoId, s
     setShowModal(true);
   };
 
-  if (isLoading) return <BarLoader />;
-
   return (
     <div className={style.storeContent}>
-      <div>
+      <div className={style.storeRewards}>
         {isProfesor && (
           <button className={`button-creator ${style.addRewardButton}`} onClick={handleAsignNewReward}>
             <FontAwesomeIcon icon="trophy" size="2xl" />
@@ -33,9 +31,27 @@ const StoreGroupView = ({ recompensas, isLoading, isProfesor, perfil, grupoId, s
         )}
 
         {recompensas?.length > 0 &&
-          recompensas.map((reward) => <RewardItem key={reward.id + reward.nombre} reward={reward} redeemed={false} perfilId={perfil?.id} showProfesorOptions={isProfesor} storeView={true} />)}
+          recompensas.map((reward) => (
+            <RewardItem
+              key={reward.id + reward.nombre}
+              reward={reward}
+              redeemed={false}
+              perfilId={perfil?.id}
+              showProfesorOptions={isProfesor}
+              storeView={true}
+              setShowModal={setShowModal}
+              setModalContent={setModalContent}
+              setModalTitle={setModalTitle}
+            />
+          ))}
       </div>
-      <div className={style.mensaje}>{recompensas?.length == 0 && <p>No hay recompensas disponibles.</p>}</div>
+      {isLoading ? (
+        <BarLoader />
+      ) : recompensas?.length === 0 ? (
+        <div className={style.mensaje}>
+          <p>No hay recompensas disponibles.</p>
+        </div>
+      ) : null}
     </div>
   );
 };

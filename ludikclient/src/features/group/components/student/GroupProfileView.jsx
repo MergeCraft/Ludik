@@ -3,9 +3,8 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import BarLoader from "../../../generics/BarLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { toast } from "react-toastify"; // <-- react-toastify
-// Si aún no tienes import global de estilos de toast, descomenta:
-// import "react-toastify/dist/ReactToastify.css";
+
+import { notificarExito } from "../../../../lib/toastify";
 
 import { useRecompensasPerfil, useImagenPerfil, useBarraProgresoPerfil, useDefinirMetaCalificacion } from "../../hooks/useStudentMutation";
 import RewardItem from "../../../rewards/components/RewardItem";
@@ -13,12 +12,16 @@ import MedalCard from "../../../medals/components/MedalCard";
 import StudentAvatarEditor from "./StudentAvatarEditor";
 
 import styles from "./GroupProfileView.module.css";
+import imagenDefaultPerfil from "../../../../assets/genericStudentAvatar2.png";
 
 const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, setShowModal, isOwnProfile }) => {
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasPerfil(perfil?.id);
   const { data: imagenPerfil, isLoading: isLoadingImagen, isError: isErrorImagen } = useImagenPerfil(perfil?.id);
   const { data: barraProgreso, isLoading: isLoadingBarra } = useBarraProgresoPerfil(perfil?.id);
   const { mutate: setMeta } = useDefinirMetaCalificacion(perfil?.id);
+
+  console.log(imagenPerfil);
+  console.log(perfil);
 
   const [metaTemporal, setMetaTemporal] = useState(perfil.metaCalificacion);
   const [editandoMeta, setEditandoMeta] = useState(false);
@@ -44,7 +47,7 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
         localStorage.setItem(key, "1");
 
         // --- Opción 1: Toast de felicitación ---
-        toast.success(`¡Felicidades ${perfil.nombreEstudiante}! Has alcanzado tu meta: ${meta}.`);
+        notificarExito(`¡Felicidades ${perfil.nombreEstudiante}! Has alcanzado tu meta: ${meta}.`);
       }
     } catch (err) {
       console.error(err);
@@ -61,11 +64,7 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
     <div className={styles.container}>
       <section>
         <h3>Avatar</h3>
-        {isLoadingImagen && !imagenPerfil && !isErrorImagen ? (
-          <BarLoader />
-        ) : (
-          <img src={avatarUrl || "https://cdn-icons-png.flaticon.com/512/847/847969.png"} alt={`Avatar de ${perfil.nombreEstudiante}`} className={styles.avatar} />
-        )}
+        {isLoadingImagen && !imagenPerfil && !isErrorImagen ? <BarLoader /> : <img src={avatarUrl || imagenDefaultPerfil} alt={`Avatar de ${perfil.nombreEstudiante}`} className={styles.avatar} />}
         {isOwnProfile && (
           <button
             className={styles.editIconContainer}
@@ -96,7 +95,7 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
           </div>
           <div>
             <p>
-              <FontAwesomeIcon icon="fa fa-award" /> {perfil.medallas.length}
+              <FontAwesomeIcon icon="fa fa-award" /> {perfil.medallas.reduce((acc, medalla) => acc + medalla.cantidad, 0)}
             </p>
             <p>Medallas obtenidas</p>
           </div>
@@ -226,6 +225,7 @@ GroupProfileView.propTypes = {
         urlImagen: PropTypes.string,
         descripcion: PropTypes.string.isRequired,
         cantidadMedallasBrinda: PropTypes.number.isRequired,
+        cantidad: PropTypes.number.isRequired,
         esAsignacionMutua: PropTypes.bool,
       })
     ).isRequired,

@@ -9,6 +9,8 @@ import { selectUserId } from "../../../auth/hooks/userSlice";
 import { useCrearGrupo, useEditarGrupo } from "../../hooks/useGrupoMutation.js";
 import { useTablasEquivalencia } from "../../../equivalence-table/hooks/useEquivalenceTableMutation";
 
+import { PulseLoader } from "../../../generics/BarLoader.jsx";
+
 export const GroupCreateModal = ({ onClose, idGrupo, grupoInicial }) => {
   const profesorId = useSelector(selectUserId);
 
@@ -19,8 +21,8 @@ export const GroupCreateModal = ({ onClose, idGrupo, grupoInicial }) => {
     tablaEquivalenciaId: "",
   });
 
-  const { mutateAsync: crearGrupo } = useCrearGrupo();
-  const { mutateAsync: editarGrupo } = useEditarGrupo();
+  const { mutateAsync: crearGrupo, isLoading: cargandoCreacion } = useCrearGrupo();
+  const { mutateAsync: editarGrupo, isLoading: cargandoEdicion } = useEditarGrupo();
   const { data: tablasEquivalencia, isLoading } = useTablasEquivalencia();
 
   useEffect(() => {
@@ -123,7 +125,7 @@ export const GroupCreateModal = ({ onClose, idGrupo, grupoInicial }) => {
       </label>
 
       <button type="submit" className={`${styles.btnSubmit} button-secondary`}>
-        {grupoInicial ? "Guardar cambios" : "Crear asignatura"}
+        {cargandoCreacion || cargandoEdicion ? <PulseLoader /> : grupoInicial ? "Guardar cambios" : "Crear grupo"}
       </button>
     </form>
   );

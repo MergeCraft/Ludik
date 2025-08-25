@@ -5,10 +5,15 @@ import styles from "./RankingCreateForm.module.css";
 import * as Toast from "../../../../lib/toastify";
 import { useMedallasProfesor } from "../../../medals/hooks/useMedalMutation";
 import { useCrearRanking } from "../../hooks/useGrupoMutation";
+import { PulseLoader } from "../../../generics/BarLoader.jsx"; // loader importado
 
 const RankingCreateForm = ({ onClose, groupId }) => {
   const [ranking, setRanking] = useState({ nombre: "", medallaId: "" });
-  const { data: medallas, isLoading } = useMedallasProfesor(true);
+
+  // Carga de medallas del profesor
+  const { data: medallas, isLoading: isLoadingMedallas } = useMedallasProfesor(true);
+
+  // Mutación para crear ranking
   const { mutateAsync: crearRanking, isLoading: isCreating } = useCrearRanking();
 
   const handleChange = (e) => {
@@ -51,15 +56,27 @@ const RankingCreateForm = ({ onClose, groupId }) => {
     <form className={styles.modalForm} onSubmit={handleSubmit}>
       <label>
         Nombre del ranking
-        <input type="text" name="nombre" placeholder="Ej: Ranking mensual" value={ranking.nombre} onChange={handleChange} />
+        <input
+          type="text"
+          name="nombre"
+          placeholder="Ej: Ranking mensual"
+          value={ranking.nombre}
+          onChange={handleChange}
+          disabled={isCreating} // solo deshabilita mientras se crea
+        />
       </label>
 
       <label>
         Medalla asociada
         <div className={styles.selectWrapper}>
-          <select name="medallaId" value={ranking.medallaId} onChange={handleChange} disabled={isLoading}>
+          <select
+            name="medallaId"
+            value={ranking.medallaId}
+            onChange={handleChange}
+            disabled={isLoadingMedallas || isCreating} // deshabilita mientras carga medallas o se crea
+          >
             <option value="">Seleccionar</option>
-            {isLoading ? (
+            {isLoadingMedallas ? (
               <option disabled>Cargando...</option>
             ) : (
               medallas?.map((medalla) => (
@@ -72,8 +89,8 @@ const RankingCreateForm = ({ onClose, groupId }) => {
         </div>
       </label>
 
-      <button type="submit" className={`${styles.btnSubmit} button-secondary`} disabled={isCreating}>
-        {isCreating ? "Creando..." : "Crear ranking"}
+      <button type="submit" className={`${styles.btnSubmit} button-secondary`} disabled={isCreating || isLoadingMedallas}>
+        {isCreating ? <PulseLoader /> : "Crear ranking"}
       </button>
     </form>
   );

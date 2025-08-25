@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./RewardCreateForm.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { PulseLoader } from "../../generics/BarLoader.jsx";
 import { useCrearRecompensa, useEditarRecompensa, useEliminarRecompensa } from "../hooks/useRewardMutation";
 import * as Toast from "../../../lib/toastify.js";
 
@@ -79,17 +80,16 @@ const RewardCreateForm = ({ reward, onClose }) => {
     }
   }, [reward]);
 
-  const crearRecompensaMutation = useCrearRecompensa(() => {
+  const { mutateAsync: crearRecompensa, isLoading } = useCrearRecompensa(() => {
+    setRecompensa({ id: 0, nombre: "", nombreIcono: "", precio: 0 });
+    onClose?.();
+  });
+  const { mutateAsync: editarRecompensa, isLoading: isEditing } = useEditarRecompensa(() => {
     setRecompensa({ id: 0, nombre: "", nombreIcono: "", precio: 0 });
     onClose?.();
   });
 
-  const editarRecompensaMutation = useEditarRecompensa(() => {
-    setRecompensa({ id: 0, nombre: "", nombreIcono: "", precio: 0 });
-    onClose?.();
-  });
-
-  const eliminarRecompensaMutation = useEliminarRecompensa(() => {
+  const { mutateAsync: eliminarRecompensa, isLoading: isDeleting } = useEliminarRecompensa(() => {
     setRecompensa({ id: 0, nombre: "", nombreIcono: "", precio: 0 });
     onClose?.();
   });
@@ -148,20 +148,19 @@ const RewardCreateForm = ({ reward, onClose }) => {
 
     if (recompensa.id && recompensa.id !== 0) {
       // Editar
-      editarRecompensaMutation.mutate({ recompensaId: recompensa.id, data: payload });
+      editarRecompensa({ recompensaId: recompensa.id, data: payload });
     } else {
       // Crear
-      crearRecompensaMutation.mutate(payload);
+      crearRecompensa(payload);
     }
   };
 
   const handleDelete = () => {
     if (!recompensa.id) return;
     if (window.confirm("¿Estás seguro que deseas eliminar esta recompensa?")) {
-      eliminarRecompensaMutation.mutate(recompensa.id);
+      eliminarRecompensa(recompensa.id);
     }
   };
-
   return (
     <form className={styles.modalForm} onSubmit={handleSubmit}>
       <label>
@@ -196,12 +195,13 @@ const RewardCreateForm = ({ reward, onClose }) => {
       </label>
 
       <div className={styles.acciones}>
-        <button type="submit" className={`${styles.btnSubmit} button-secondary`}>
-          {recompensa.id ? "Guardar cambios" : "Crear recompensa"}
+        <button type="submit" className={`${styles.btnSubmit} button-secondary`} disabled={isLoading || isEditing}>
+          {isLoading || isEditing ? <PulseLoader /> : recompensa.id ? "Guardar cambios" : "Crear recompensa"}
         </button>
+
         {recompensa.id !== 0 && (
-          <button type="button" className={`${styles.btnDelete} button-tertiary`} onClick={handleDelete} aria-label={`Eliminar recompensa ${recompensa.nombre}`}>
-            <FontAwesomeIcon icon="fa-solid fa-trash" />
+          <button type="button" className={`${styles.btnDelete} button-tertiary`} onClick={handleDelete} disabled={isDeleting} aria-label={`Eliminar recompensa ${recompensa.nombre}`}>
+            {isDeleting ? <PulseLoader /> : <FontAwesomeIcon icon="fa-solid fa-trash" />}
           </button>
         )}
       </div>

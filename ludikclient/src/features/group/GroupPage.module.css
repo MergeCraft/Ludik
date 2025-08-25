@@ -25,7 +25,6 @@
 
 .infoGrupo {
     display: flex;
-    justify-content: space-between;
 }
 
 .infoGrupo h3 {
@@ -58,30 +57,35 @@
     margin-bottom: 10px;
     border: 1px solid var(--terciario);
     border-radius: 15px;
-    padding: 5px 0;
+    padding: 10px 0;
 }
 
 .resumen div {
+    display: flex;
+    justify-content: center;
     text-align: center;
-    padding: 5px 0;
     border-radius: 15px;
     flex-grow: 1;
 }
 
-.resumen div:nth-child(3) p:first-of-type {
+.resumen div:nth-child(1) p:first-of-type {
     color: var(--monedas);
 }
 
-.resumen div:nth-child(2) p:first-of-type {
-    color: var(--medallas);
+.resumen div:nth-child(1) p:first-of-type div {
+    color: var(--monedas);
 }
 
-.resumen div:nth-child(1) p:first-of-type {
-    color: var(--meta-alumno);
+.resumen p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
 }
 
-.resumen div svg {
-    margin-right: 10px;
+.resumen p div {
+    width: fit-content;
 }
 
 .acciones label {

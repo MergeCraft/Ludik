@@ -16,19 +16,15 @@ const ApplicationRequests = ({ groupId = null, link = "" }) => {
   // Carga de las solicitudes de unión
   const { data: solicitudes, isLoading } = useSolicitudesUnion(groupId);
 
-  const codigo = new URL(link).searchParams.get("codigo");
-  
+  const codigo = new URL(link)?.searchParams.get("codigo");
+
   const handleCopy = () => {
     navigator.clipboard.writeText(codigo);
     Toast.notificarExito("Enlace copiado!");
   };
 
   if (isLoading) {
-    return (
-      <div>
-        <BarLoader />
-      </div>
-    );
+    return <div></div>;
   }
 
   return (
@@ -39,8 +35,9 @@ const ApplicationRequests = ({ groupId = null, link = "" }) => {
           <FontAwesomeIcon icon="fa-solid fa-copy" />
         </button>
       </div>
-
-      {solicitudes && solicitudes.length ? (
+      {isLoading ? (
+        <BarLoader />
+      ) : solicitudes && solicitudes.length ? (
         <ul>
           {solicitudes.map((item, index) => (
             <li key={index}>

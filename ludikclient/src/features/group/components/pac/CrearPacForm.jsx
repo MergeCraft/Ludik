@@ -1,7 +1,9 @@
+// CrearPacForm.jsx
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useCrearPac } from "../../hooks/useGrupoMutation";
 import styles from "./CrearPacForm.module.css";
+import { PulseLoader } from "../../../generics/BarLoader.jsx"; // importamos loader
 
 const CrearPacForm = ({ groupId, recompensas, onClose }) => {
   const [form, setForm] = useState({
@@ -15,11 +17,8 @@ const CrearPacForm = ({ groupId, recompensas, onClose }) => {
 
   const { mutate: crearPac, isLoading } = useCrearPac(onClose);
 
-  // Obtener fecha actual en formato YYYY-MM-DD para usar en min de inputs
   const hoy = new Date().toISOString().split("T")[0];
 
-  // Para calcular la fecha mínima para fechaFin, que debe ser > fechaInicio
-  // Sumamos un día a fechaInicio para que fechaFin no pueda ser igual ni menor
   const getFechaMinFin = () => {
     if (!form.fechaInicio) return hoy;
     const fechaInicioDate = new Date(form.fechaInicio);
@@ -35,7 +34,6 @@ const CrearPacForm = ({ groupId, recompensas, onClose }) => {
       [name]: name === "nombre" || name === "fechaInicio" || name === "fechaFin" ? value : Number(value),
     }));
 
-    // Opcional: si el usuario cambia fechaInicio y fechaFin es menor o igual, reseteamos fechaFin
     if (name === "fechaInicio" && form.fechaFin && value >= form.fechaFin) {
       setForm((prev) => ({ ...prev, fechaFin: "" }));
     }
@@ -55,49 +53,30 @@ const CrearPacForm = ({ groupId, recompensas, onClose }) => {
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      {/* Nombre */}
       <div className={styles.field}>
         <label className={styles.label}>Nombre del desafío</label>
-        <input type="text" name="nombre" value={form.nombre} onChange={handleChange} required className={styles.input} />
+        <input type="text" name="nombre" value={form.nombre} onChange={handleChange} required className={styles.input} disabled={isLoading} />
       </div>
 
-      {/* Medallas necesarias */}
       <div className={styles.field}>
         <label className={styles.label}>Cantidad de Medallas Necesarias</label>
-        <input type="number" name="cantidadMedallasNecesarias" min={0} value={form.cantidadMedallasNecesarias} onChange={handleChange} className={styles.input} />
+        <input type="number" name="cantidadMedallasNecesarias" min={0} value={form.cantidadMedallasNecesarias} onChange={handleChange} className={styles.input} disabled={isLoading} />
       </div>
 
-      {/* Fechas */}
       <div className={styles.fechas}>
         <div className={styles.field}>
           <label className={styles.label}>Fecha de inicio del desafío</label>
-          <input
-            type="date"
-            name="fechaInicio"
-            value={form.fechaInicio}
-            onChange={handleChange}
-            className={styles.input}
-            min={hoy} // No permite fechas anteriores a hoy
-          />
+          <input type="date" name="fechaInicio" value={form.fechaInicio} onChange={handleChange} className={styles.input} min={hoy} disabled={isLoading} />
         </div>
         <div className={styles.field}>
           <label className={styles.label}>Fecha de fin del desafío</label>
-          <input
-            type="date"
-            name="fechaFin"
-            value={form.fechaFin}
-            onChange={handleChange}
-            className={styles.input}
-            min={getFechaMinFin()} // No permite fechas antes o igual a inicio
-            disabled={!form.fechaInicio} // Deshabilitado si no hay fecha de inicio
-          />
+          <input type="date" name="fechaFin" value={form.fechaFin} onChange={handleChange} className={styles.input} min={getFechaMinFin()} disabled={!form.fechaInicio || isLoading} />
         </div>
       </div>
 
-      {/* Select de recompensa */}
       <div className={styles.field}>
         <label className={styles.label}>Recompensa de la clase</label>
-        <select name="recompensaClaseId" value={form.recompensaClaseId} onChange={handleChange} className={styles.input} required>
+        <select name="recompensaClaseId" value={form.recompensaClaseId} onChange={handleChange} className={styles.input} required disabled={isLoading}>
           <option value={0}>-- Selecciona una recompensa --</option>
           {recompensas?.map((rec) => (
             <option key={rec.id} value={rec.id}>
@@ -107,9 +86,8 @@ const CrearPacForm = ({ groupId, recompensas, onClose }) => {
         </select>
       </div>
 
-      {/* Botón */}
       <button type="submit" disabled={isLoading} className={`button-secondary ${styles.submitButton}`}>
-        {isLoading ? "Creando..." : "Crear desafío"}
+        {isLoading ? <PulseLoader /> : "Crear desafío"}
       </button>
     </form>
   );

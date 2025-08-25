@@ -108,10 +108,25 @@ export const useInventarioAvatar = (idPerfilEstudiante, enabled = true) => {
 };
 
 export const useGuardarAvatar = (idPerfilEstudiante) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: ({ avatarDto, jpegBlob }) => guardarAvatarPersonalizado(idPerfilEstudiante, avatarDto, jpegBlob),
-    onSuccess: () => {
+    onSuccess: (result) => {
       Toast.notificarExito("¡Avatar guardado correctamente!");
+
+      // 1) Actualiza inmediatamente el cache de la imagen si el result contiene la nueva URL
+      // Ajusta `result` según lo que devuelva tu API (ej: result.urlCompleta, result.urlMiniatura, etc.)
+      if (result) {
+        queryClient.setQueryData(["imagenPerfil", idPerfilEstudiante], result);
+      }
+
+      // 2) Fuerza refetch de la imagen (asegura que todo quede sincronizado)
+      queryClient.invalidateQueries(["imagenPerfil", idPerfilEstudiante]);
+
+      // 3) Si el inventario de avatar cambia (p. ej. se crea una versión nueva),
+      // invalidamos también la query del inventario para que se refresque.
+      queryClient.invalidateQueries(["inventario-avatar", idPerfilEstudiante]);
     },
     onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });
