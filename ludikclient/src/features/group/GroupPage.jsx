@@ -46,7 +46,11 @@ const GroupPage = () => {
   const [perfil, setPerfil] = useState(null);
 
   const { data: group, isLoading: isLoadingGroup } = useGrupo(groupId);
-  const { data: students, isLoading: isLoadingStudents } = isProfesor ? useAlumnosGrupo(groupId) : useAlumnosGrupoParaEstudiante(groupId);
+
+  const alumnosProfesor = useAlumnosGrupo(groupId);
+  const alumnosEstudiante = useAlumnosGrupoParaEstudiante(groupId);
+
+  const { data: students, isLoading: isLoadingStudents } = isProfesor ? alumnosProfesor : alumnosEstudiante;
   const { data: medals, isLoading: isLoadingMedals } = useMedallasProfesor(isProfesor);
   const { data: tiposKudo, isLoading: isLoadingKudos } = useTiposKudo();
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasTienda(group?.idTienda);
