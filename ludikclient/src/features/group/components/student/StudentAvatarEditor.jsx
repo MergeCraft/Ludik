@@ -255,7 +255,7 @@ const StudentAvatarEditor = ({ idPerfil }) => {
 
     const query = params.filter(Boolean).join("&");
     return `https://api.dicebear.com/9.x/avataaars/svg?${query}`;
-  }, [selecciones, voltear, rotacion, zoom, temaRopa]);
+  }, [selecciones, voltear, rotacion, zoom, temaRopa, colorParamMap]);
 
   useEffect(() => {
     const url = generarUrlAvatar();
