@@ -6,6 +6,7 @@ import { useLogin } from "../hooks/useAuthMutation.js";
 import { logoutReset } from "../hooks/userSlice.js";
 import * as Toast from "../../../lib/toastify.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { PulseLoader } from "../../generics/BarLoader.jsx";
 import styles from "../AuthPage.module.css";
 
 const LoginForm = () => {
@@ -16,7 +17,7 @@ const LoginForm = () => {
 
   const dispatch = useDispatch();
 
-  const { mutateAsync: login } = useLogin();
+  const { mutateAsync: login, isLoading } = useLogin();
 
   const [usuario, setUsuario] = useState("");
   const [contrasena, setContrasena] = useState("");
@@ -75,8 +76,8 @@ const LoginForm = () => {
         </div>
       </div>
 
-      <button type="submit" className={`button ${styles.botonIniciar}`}>
-        Iniciar sesión
+      <button type="submit" className={`button ${styles.botonIniciar}`} disabled={isLoading}>
+        {isLoading ? <PulseLoader /> : "Iniciar sesión"}
       </button>
 
       <div className={`${styles.acciones} ${styles.accionesLogin}`}>

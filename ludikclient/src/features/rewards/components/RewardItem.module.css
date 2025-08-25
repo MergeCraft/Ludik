@@ -10,17 +10,20 @@
 }
 
 .rewardCard h4 {
+    max-width: 100%;
     text-align: center;
     margin: 10px 0;
     font-size: small;
     display: -webkit-box;
     -webkit-line-clamp: 1;
-    line-clamp: 1;
+    line-clamp: 1 !important;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 0 12px;
-
+    word-wrap: break-word;
+    /* Rompe palabras largas */
+    overflow-wrap: break-word;
 }
 
 .storeViewCard {

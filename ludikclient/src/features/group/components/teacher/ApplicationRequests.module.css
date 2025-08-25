@@ -50,7 +50,7 @@
 
 .applicationRequests ul li {
     padding: 10px;
-    background: var(--secundario);
+    background: var(--principal);
     border-radius: 10px;
     margin-bottom: 10px;
     color: var(--blanco-principal);
@@ -79,7 +79,7 @@
 }
 
 .request button {
-    padding: 10px 15px;
+    padding: 5px 10px;
     transform: translateY(-2px);
 }
 

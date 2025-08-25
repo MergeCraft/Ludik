@@ -63,16 +63,13 @@ const GroupPage = () => {
   };
 
   useEffect(() => {
-    if (isProfesor) {
-      setPerfil(null);
-    } else {
+    if (!isProfesor && perfilHook) {
       setPerfil(perfilHook);
+      setPerfilSeleccionado(perfilHook);
+    } else {
+      setPerfil(null);
     }
-
-    if (perfil) {
-      setPerfilSeleccionado(perfil);
-    }
-  }, [perfil]);
+  }, [perfilHook, isProfesor]);
 
   const actions = (
     <div className={style.acciones}>
@@ -137,7 +134,7 @@ const GroupPage = () => {
       {isLoadingGroup ? (
         <PulseLoader />
       ) : (
-        <div className={style.infoGrupo}>
+        <div className={style.infoGrupo} style={isProfesor ? { justifyContent: "space-between" } : { justifyContent: "center" }}>
           <h3>
             <FontAwesomeIcon icon="fa-solid fa-book-bookmark" /> {group.materia.toUpperCase()}
           </h3>

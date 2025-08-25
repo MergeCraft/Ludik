@@ -4,7 +4,7 @@ import { useRecompensasProfesor, useAsignarRecompensaAGrupos } from "../../../re
 import * as Toast from "../../../../lib/toastify";
 import PropTypes from "prop-types";
 import styles from "./RewardAsignationForm.module.css";
-import { BarLoader } from "react-spinners";
+import BarLoader, { PulseLoader } from "../../../generics/BarLoader.jsx";
 
 /**
  * Recibe:
@@ -109,7 +109,7 @@ const RewardAsignationForm = ({ grupoId, gruposProfesor = [], isLoadingGroups = 
       )}
 
       <button onClick={handleAsignar} disabled={isLoadingAsignacion} className={`button ${styles.assignButton}`} type="button">
-        {isLoadingAsignacion ? "Asignando..." : "Asignar"}
+        {isLoadingAsignacion ? <PulseLoader /> : "Asignar"}
       </button>
     </div>
   );
