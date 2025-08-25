@@ -37,9 +37,7 @@ export const useRecompensasPerfil = (perfilId) => {
 export const useClaimReward = (perfilId, recompensaId, isProfesor) => {
   const queryClient = useQueryClient();
 
-  if (isProfesor) return { mutate: () => {}, isLoading: false };
-
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: () => canjearRecompensa({ perfilId, recompensaId }),
     onSuccess: () => {
       Toast.notificarExito("¡Recompensa canjeada exitosamente!");
@@ -47,6 +45,12 @@ export const useClaimReward = (perfilId, recompensaId, isProfesor) => {
     },
     onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });
+
+  if (isProfesor) {
+    return { mutate: () => {}, isLoading: false };
+  }
+
+  return mutation;
 };
 
 export const useImagenPerfil = (perfilId) => {

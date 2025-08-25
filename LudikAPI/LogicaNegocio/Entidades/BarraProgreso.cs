@@ -23,20 +23,7 @@ namespace LogicaNegocio.Entidades
             throw new NotImplementedException();
         }
 
-        public int hallarPosicionActual(List<Medalla> medallas)
-		{
-			return 0;
-		}
-
-		public int hallarValorMax(TablaEquivalencia te)
-		{
-			return 0;
-		}
-
-		public int hallarValorMin(TablaEquivalencia te)
-		{
-			return 0;
-		}
+       
 
 	}
 

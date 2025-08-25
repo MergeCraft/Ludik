@@ -20,9 +20,6 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
   const { data: barraProgreso, isLoading: isLoadingBarra } = useBarraProgresoPerfil(perfil?.id);
   const { mutate: setMeta } = useDefinirMetaCalificacion(perfil?.id);
 
-  console.log(imagenPerfil);
-  console.log(perfil);
-
   const [metaTemporal, setMetaTemporal] = useState(perfil.metaCalificacion);
   const [editandoMeta, setEditandoMeta] = useState(false);
 
@@ -52,7 +49,7 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
     } catch (err) {
       console.error(err);
     }
-  }, [barraProgreso?.calificacionActual, perfil?.metaCalificacion, perfil?.id, perfil?.nombreEstudiante, setModalContent, setModalTitle, setShowModal]);
+  }, [barraProgreso, barraProgreso?.calificacionActual, perfil?.metaCalificacion, perfil?.id, perfil?.nombreEstudiante, setModalContent, setModalTitle, setShowModal]);
 
   // Opcional: si quieres limpiar la clave cuando la meta cambie (por ejemplo, para permitir nueva notificación),
   // puedes remover claves viejas; en este ejemplo dejamos que la key incluya la meta, de modo que al cambiar la meta
