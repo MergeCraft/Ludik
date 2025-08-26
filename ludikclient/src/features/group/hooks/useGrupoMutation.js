@@ -129,26 +129,15 @@ export const useGrupo = (id) => {
   });
 };
 
-export const useAlumnosGrupo = (id) => {
+export const useAlumnosGrupo = (id, isProfesor) => {
   return useQuery({
     queryKey: ["alumnos", id],
-    queryFn: () => obtenerAlumnosGrupo(id),
-    enabled: !!id,
+    queryFn: isProfesor ? () => obtenerAlumnosGrupo(id) : () => obtenerAlumnosGrupoParaEstudiante(id),
     onError: manejarVisualizacionDeErrores,
     retry: (failureCount, error) => {
-      // Si la API devolvió un 400, no reintentes
       if (error?.response?.status === 400) return false;
-      return failureCount < 1; // Reintenta otras veces si no es 400
+      return failureCount < 1;
     },
-  });
-};
-
-export const useAlumnosGrupoParaEstudiante = (id) => {
-  return useQuery({
-    queryKey: ["alumnosEstudiante", id],
-    queryFn: () => obtenerAlumnosGrupoParaEstudiante(id),
-    enabled: !!id,
-    onError: manejarVisualizacionDeErrores,
   });
 };
 

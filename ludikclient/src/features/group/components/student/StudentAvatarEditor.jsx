@@ -254,6 +254,9 @@ const StudentAvatarEditor = ({ idPerfil }) => {
     params.push("radius=50");
 
     const query = params.filter(Boolean).join("&");
+
+    console.log(`https://api.dicebear.com/9.x/avataaars/svg?${query}`);
+
     return `https://api.dicebear.com/9.x/avataaars/svg?${query}`;
   }, [selecciones, voltear, rotacion, zoom, temaRopa, colorParamMap]);
 

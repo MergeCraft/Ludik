@@ -23,6 +23,9 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
   const [metaTemporal, setMetaTemporal] = useState(perfil.metaCalificacion);
   const [editandoMeta, setEditandoMeta] = useState(false);
 
+  console.log(imagenPerfil);
+  console.log(perfil);
+
   useEffect(() => {
     setMetaTemporal(perfil.metaCalificacion);
   }, [perfil.metaCalificacion]);

@@ -12,7 +12,7 @@ import GroupConfigView from "./components/configs/GroupConfigView.jsx";
 import GroupPacView from "./components/pac/GroupPacView.jsx";
 import MedalThresholdView from "./components/medalThreshold/MedalThresholdView.jsx";
 import StoreGroupView from "./components/store/StoreGroupView";
-import { useGrupo, useAlumnosGrupo, useAlumnosGrupoParaEstudiante, useRecompensasTienda, useTiposKudo } from "./hooks/useGrupoMutation";
+import { useGrupo, useAlumnosGrupo, useRecompensasTienda, useTiposKudo } from "./hooks/useGrupoMutation";
 import { usePerfilGrupo } from "./hooks/useStudentMutation.js";
 import { useMedallasProfesor } from "../medals/hooks/useMedalMutation";
 import { useParams } from "react-router-dom";
@@ -47,10 +47,7 @@ const GroupPage = () => {
 
   const { data: group, isLoading: isLoadingGroup } = useGrupo(groupId);
 
-  const alumnosProfesor = useAlumnosGrupo(groupId);
-  const alumnosEstudiante = useAlumnosGrupoParaEstudiante(groupId);
-
-  const { data: students, isLoading: isLoadingStudents } = isProfesor ? alumnosProfesor : alumnosEstudiante;
+  const { data: students, isLoading: isLoadingStudents } = useAlumnosGrupo(groupId, isProfesor);
   const { data: medals, isLoading: isLoadingMedals } = useMedallasProfesor(isProfesor);
   const { data: tiposKudo, isLoading: isLoadingKudos } = useTiposKudo();
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasTienda(group?.idTienda);
