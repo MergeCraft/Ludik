@@ -5,7 +5,7 @@ import styles from "./MedalCreateForm.module.css";
 import * as Toast from "../../../lib/toastify.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCrearMedalla, useEditarMedalla, useObtenerMedallaPorId, useEliminarMedalla } from "../hooks/useMedalMutation.js";
-import { PulseLoader } from "../../generics/BarLoader.jsx";
+import BarLoader, { PulseLoader } from "../../generics/BarLoader.jsx";
 
 const iconOptions = [
   { label: "Estrella", value: "star" },
@@ -83,7 +83,7 @@ const MedalCreateForm = ({ onClose, medalId }) => {
       setMedalla({
         nombre: data.nombre ?? "",
         descripcion: data.descripcion ?? "",
-        cantidadMonedasBrinda: String(data.cantidadMedallasBrinda ?? "0"),
+        cantidadMonedasBrinda: String(data.cantidadMonedasBrinda ?? "0"),
         nombreIcono: data.nombreIcono ?? extractIconName(data.urlImagen) ?? "",
       });
     }
@@ -131,7 +131,7 @@ const MedalCreateForm = ({ onClose, medalId }) => {
     const payload = {
       nombre: medalla.nombre,
       descripcion: medalla.descripcion,
-      cantidadMedallasBrinda: Number(medalla.cantidadMonedasBrinda),
+      cantidadMonedasBrinda: Number(medalla.cantidadMonedasBrinda),
       nombreIcono: medalla.nombreIcono,
     };
 
@@ -152,12 +152,13 @@ const MedalCreateForm = ({ onClose, medalId }) => {
     if (window.confirm("¿Estás seguro que deseas eliminar esta medalla? Esta acción no se puede deshacer.")) {
       eliminar.mutate(medalId);
     }
+    onClose?.();
   };
 
   return (
     <form className={styles.modalForm} onSubmit={handleSubmit}>
       {isFetching ? (
-        <p>Cargando...</p>
+        <BarLoader />
       ) : (
         <>
           <label>
