@@ -39,8 +39,14 @@ p {
 
 .actionsContainer {
     display: flex;
+    justify-content: end;
     gap: 10px;
-    width: 50%;
+    flex-grow: 1;
+
+}
+
+.actionsContainer>div {
+    border: 1px solid var(--secundario);
 
 }
 
@@ -48,11 +54,33 @@ p {
     flex-grow: 1;
 }
 
+.notaAlumno {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 15px;
+    padding: 10px;
+    min-width: 120px;
+}
+
+.notaAlumno p {
+    padding-bottom: 5px;
+    width: 100%;
+    font-size: smaller;
+    border-bottom: 1px solid var(--secundario);
+}
+
+.notaAlumno span {
+    font-weight: bold;
+}
+
 .asignarMedalla {
     display: flex;
     gap: 10px;
     border-radius: 15px;
-    border: 1px solid var(--secundario);
     padding: 10px;
     box-sizing: border-box;
 }

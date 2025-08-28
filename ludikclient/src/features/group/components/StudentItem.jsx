@@ -8,12 +8,14 @@ import styles from "./StudentItem.module.css";
 import MedalActionMenu from "./MedalActionMenu.jsx";
 import { useAsignarKudo } from "../hooks/useStudentMutation";
 
-const StudentItem = ({ perfilEmisorId, student, medals, kudos, isLoadingKudos, showProfesorOptions, onSelectStudent }) => {
+const StudentItem = ({ perfilEmisorId, student, medals, kudos, isLoadingKudos, showProfesorOptions, onSelectStudent, notaMax }) => {
   const [selectedKudo, setSelectedKudo] = useState("");
   const [isMedalLoading, setIsMedalLoading] = useState(false);
   const [isKudoLoading, setIsKudoLoading] = useState(false);
 
   const { mutate: asignarKudo } = useAsignarKudo();
+
+  const tramo = notaMax / 3;
 
   const handleKudoChange = (e) => {
     const kudoId = Number(e.target.value);
@@ -47,15 +49,21 @@ const StudentItem = ({ perfilEmisorId, student, medals, kudos, isLoadingKudos, s
         <p className={styles.nombreEstudiante}>{student.nombreEstudiante}</p>
         <div className={styles.actionsContainer}>
           {showProfesorOptions ? (
-            <div className={styles.asignarMedalla}>
-              <div className={styles.menuSection}>
-                <MedalActionMenu items={medals} isAssign={true} isLoading={isMedalLoading} onLoadingChange={setIsMedalLoading} perfilId={student.id} />
+            <>
+              <div className={styles.notaAlumno}>
+                <p>Nota Actual</p>
+                <span style={{ color: student.calificacionActual > tramo * 2 ? "green" : student.calificacionActual > tramo ? "orange" : "red" }}>{student.calificacionActual}</span>
               </div>
+              <div className={styles.asignarMedalla}>
+                <div className={styles.menuSection}>
+                  <MedalActionMenu items={medals} isAssign={true} isLoading={isMedalLoading} onLoadingChange={setIsMedalLoading} perfilId={student.id} />
+                </div>
 
-              <div className={styles.menuSection}>
-                <MedalActionMenu items={student.medallas || []} isAssign={false} isLoading={isMedalLoading} onLoadingChange={setIsMedalLoading} perfilId={student.id} />
+                <div className={styles.menuSection}>
+                  <MedalActionMenu items={student.medallas || []} isAssign={false} isLoading={isMedalLoading} onLoadingChange={setIsMedalLoading} perfilId={student.id} />
+                </div>
               </div>
-            </div>
+            </>
           ) : (
             <div className={styles.asignarMedalla}>
               <select
@@ -136,6 +144,7 @@ StudentItem.propTypes = {
   ).isRequired,
   showProfesorOptions: PropTypes.bool.isRequired,
   onSelectStudent: PropTypes.func.isRequired,
+  notaMax: PropTypes.number.isRequired,
 };
 
 export default StudentItem;

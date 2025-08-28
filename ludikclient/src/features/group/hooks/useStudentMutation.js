@@ -42,6 +42,7 @@ export const useClaimReward = (perfilId, recompensaId, isProfesor) => {
     onSuccess: () => {
       Toast.notificarExito("¡Recompensa canjeada exitosamente!");
       queryClient.invalidateQueries(["perfilGrupo", perfilId]);
+      queryClient.invalidateQueries(["recompensasPerfil", perfilId]);
     },
     onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });

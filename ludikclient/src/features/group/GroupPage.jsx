@@ -46,12 +46,13 @@ const GroupPage = () => {
   const [perfil, setPerfil] = useState(null);
 
   const { data: group, isLoading: isLoadingGroup } = useGrupo(groupId);
-
   const { data: students, isLoading: isLoadingStudents } = useAlumnosGrupo(groupId, isProfesor);
   const { data: medals, isLoading: isLoadingMedals } = useMedallasProfesor(isProfesor);
   const { data: tiposKudo, isLoading: isLoadingKudos } = useTiposKudo();
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasTienda(group?.idTienda);
   const { data: perfilHook, isLoadingPerfil } = usePerfilGrupo(groupId, isProfesor);
+
+  console.log(group);
 
   const userProfileId = perfil?.id;
 
@@ -201,6 +202,7 @@ const GroupPage = () => {
                     setSelectedView("perfil");
                     setPerfilSeleccionado(student);
                   }}
+                  notaMax={group?.tablaEquivalenciaNotaMaxima}
                 />
               ))}
             </div>

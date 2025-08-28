@@ -1,6 +1,6 @@
 // src/App.jsx
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store, persistor } from "./app/store";
 import { PersistGate } from "redux-persist/integration/react";
@@ -34,7 +34,7 @@ function App() {
           <Router>
             <Routes>
               {/* Rutas públicas SIN Layout */}
-              <Route index element={<AuthPage />} />
+              <Route index element={<Navigate to="/login" replace />} />
               <Route path="/login" element={<AuthPage />} />
               <Route path="/signup" element={<AuthPage />} />
               <Route path="/passwordRecovery" element={<AuthPage />} />

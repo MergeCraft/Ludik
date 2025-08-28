@@ -23,8 +23,7 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
   const [metaTemporal, setMetaTemporal] = useState(perfil.metaCalificacion);
   const [editandoMeta, setEditandoMeta] = useState(false);
 
-  console.log(imagenPerfil);
-  console.log(perfil);
+  console.log(recompensas);
 
   useEffect(() => {
     setMetaTemporal(perfil.metaCalificacion);
@@ -95,7 +94,7 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
           </div>
           <div>
             <p>
-              <FontAwesomeIcon icon="fa fa-award" /> {perfil.medallas.reduce((acc, medalla) => acc + medalla.cantidad, 0)}
+              <FontAwesomeIcon icon="fa fa-award" /> {(perfil.medallas || []).reduce((acc, medalla) => acc + (medalla.cantidad || 0), 0)}
             </p>
             <p>Medallas obtenidas</p>
           </div>
