@@ -20,6 +20,16 @@ export const obtenerMedallasProfesor = async () => {
   }
 };
 
+export const obtenerMedallasAlumno = async (grupoId) => {
+  try {
+    const response = await api.get(`/api/Medalla/grupo/${grupoId}`);
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "No se pudieron obtener las medallas del grupo.");
+    throw error; 
+  }
+};
+
 export const obtenerMedallaPorId = async (id) => {
   try {
     const response = await api.get(`/api/Medalla/${id}`);

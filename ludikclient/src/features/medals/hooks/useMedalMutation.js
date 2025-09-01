@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import * as Toast from "../../../lib/toastify.js";
 import { manejarVisualizacionDeErrores } from "../../../lib/apiUtils.js";
-import { crearMedalla, obtenerMedallasProfesor, obtenerMedallaPorId, editarMedalla, eliminarMedalla } from "../../../services/medalService.js";
+import { crearMedalla, obtenerMedallasProfesor, obtenerMedallasAlumno, obtenerMedallaPorId, editarMedalla, eliminarMedalla } from "../../../services/medalService.js";
 
 export const useCrearMedalla = (onSuccessCallback) => {
   const queryClient = useQueryClient();
@@ -22,6 +22,15 @@ export const useMedallasProfesor = (isProfesor) => {
     queryKey: ["medallas", "profesor"],
     queryFn: obtenerMedallasProfesor,
     enabled: isProfesor,
+    onError: manejarVisualizacionDeErrores,
+  });
+};
+
+export const useMedallasAlumno = (grupoId) => {
+  return useQuery({
+    queryKey: ["medallas", "grupo", grupoId],
+    queryFn: () => obtenerMedallasAlumno(grupoId),
+    enabled: !!grupoId, // evita ejecutar si no hay grupoId
     onError: manejarVisualizacionDeErrores,
   });
 };

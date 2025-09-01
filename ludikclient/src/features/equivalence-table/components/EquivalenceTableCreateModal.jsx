@@ -162,6 +162,7 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
     try {
       const idTabla = table?.id ?? 0;
       const equivalenciaToSave = {
+        id: idTabla,
         nombre: equivalencia.nombre,
         equivalencias: equivalencia.equivalencias.map((eq) => ({
           nota: eq.nota,
@@ -170,11 +171,12 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
             id: r.id,
             nombre: r.nombre,
             nombreIcono: r.nombreIcono || "",
+            descripcion: "",
           })),
         })),
       };
 
-      if (table && table.id) await editarTablaEquivalencia({ id: idTabla, data: equivalenciaToSave });
+      if (table && table.id) await editarTablaEquivalencia({ data: equivalenciaToSave });
       else await crearTablaEquivalencia(equivalenciaToSave);
 
       if (onSave) onSave(equivalenciaToSave);

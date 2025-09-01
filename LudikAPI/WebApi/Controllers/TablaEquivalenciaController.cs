@@ -75,16 +75,14 @@ namespace WebApi.Controllers
         /// <response code="400">**Solicitud Incorrecta.** Los datos proporcionados son inválidos o el ID de la ruta no coincide con el del cuerpo.</response>
         /// <response code="403">**Prohibido.** El usuario no es el propietario de la tabla.</response>
         /// <response code="404">**No Encontrado.** No se encontró una tabla con el ID especificado.</response>
-        [HttpPut("{id}")]
+        [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IEnumerable<Error>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(Error), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(Error), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> EditarTablaEquivalencia([FromRoute] int id, [FromBody] TablaEquivalenciaDto tablaDto)
+        public async Task<IActionResult> EditarTablaEquivalencia([FromBody] TablaEquivalenciaDto tablaDto)
         {
-            if (id != tablaDto.Id)
-                return BadRequest(new Error("Error.Validation", "El ID en la ruta no coincide con el ID en el cuerpo de la solicitud."));
-            
+          
             var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (string.IsNullOrEmpty(profesorId))

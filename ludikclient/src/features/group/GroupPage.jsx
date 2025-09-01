@@ -208,6 +208,7 @@ const GroupPage = () => {
         ) : selectedView === "perfil" && perfilSeleccionado ? (
           <GroupProfileView
             perfil={perfilSeleccionado}
+            groupid={groupId}
             isLoading={isLoadingPerfil}
             setModalContent={setModalContent}
             setShowModal={setShowModal}

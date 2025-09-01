@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { notificarExito, notificarWarning } from "../../../../lib/toastify";
 
 import { useRecompensasPerfil, useImagenPerfil, useBarraProgresoPerfil, useDefinirMetaCalificacion, useSolicitarMedalla } from "../../hooks/useStudentMutation";
-import { useMedallasProfesor } from "../../../medals/hooks/useMedalMutation";
+import { useMedallasAlumno } from "../../../medals/hooks/useMedalMutation";
 import RewardItem from "../../../rewards/components/RewardItem";
 import MedalCard from "../../../medals/components/MedalCard";
 import StudentAvatarEditor from "./StudentAvatarEditor";
@@ -15,11 +15,11 @@ import StudentAvatarEditor from "./StudentAvatarEditor";
 import styles from "./GroupProfileView.module.css";
 import imagenDefaultPerfil from "../../../../assets/genericStudentAvatar2.png";
 
-const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, setShowModal, isOwnProfile }) => {
+const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModalTitle, setShowModal, isOwnProfile }) => {
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasPerfil(perfil?.id);
   const { data: imagenPerfil, isLoading: isLoadingImagen, isError: isErrorImagen } = useImagenPerfil(perfil?.id);
   const { data: barraProgreso, isLoading: isLoadingBarra } = useBarraProgresoPerfil(perfil?.id);
-  const { data: medallas, isLoading: isLoadingMedallas } = useMedallasProfesor(true);
+  const { data: medallas, isLoading: isLoadingMedallas } = useMedallasAlumno(groupid);
   const { mutate: setMeta } = useDefinirMetaCalificacion(perfil?.id);
   const { mutate: solicitarMedallaMutate, isLoading: isSolicitando } = useSolicitarMedalla(perfil?.id);
 
@@ -28,6 +28,8 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
 
   const [medallaSeleccionada, setMedallaSeleccionada] = useState("");
   const [mensajeSolicitud, setMensajeSolicitud] = useState("");
+
+  console.log(perfil);
 
   useEffect(() => {
     setMetaTemporal(perfil.metaCalificacion);
@@ -281,6 +283,7 @@ GroupProfileView.propTypes = {
       })
     ).isRequired,
   }).isRequired,
+  groupid: PropTypes.number.isRequired,
   isLoading: PropTypes.bool.isRequired,
   setModalContent: PropTypes.func.isRequired,
   setModalTitle: PropTypes.func.isRequired,
