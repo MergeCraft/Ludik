@@ -154,6 +154,11 @@ export const useSolicitudesUnion = (id) => {
     queryFn: () => obtenerSolicitudesUnion(id),
     enabled: !!id,
     onError: manejarVisualizacionDeErrores,
+    staleTime: 0,
+    cacheTime: 0,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
+    refetchInterval: 30000,
   });
 };
 

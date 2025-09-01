@@ -52,8 +52,6 @@ const GroupPage = () => {
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasTienda(group?.idTienda);
   const { data: perfilHook, isLoadingPerfil } = usePerfilGrupo(groupId, isProfesor);
 
-  console.log(medals);
-
   const userProfileId = perfil?.id;
 
   const studentsFiltrados = students?.filter((item) => item.nombreEstudiante.toLowerCase().includes(search.toLowerCase()));
@@ -230,7 +228,7 @@ const GroupPage = () => {
         ) : selectedView === "threshold" ? (
           <MedalThresholdView setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
         ) : selectedView === "solicitudes" ? (
-          <RequestView grupo={group} medallas={medals} />
+          <RequestView grupo={groupId} medallas={medals} urlCompleta={group.urlCompleta} />
         ) : selectedView === "configs" ? (
           <GroupConfigView id={groupId} group={group} setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} />
         ) : null}
