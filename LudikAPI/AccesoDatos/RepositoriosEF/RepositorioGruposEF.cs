@@ -324,6 +324,27 @@ namespace AccesoDatos.RepositoriosEF
                 return Resultado<bool>.Falla(new Error("Error.Unexpected", "Ha ocurrido un error. Error: "+ e.Message));
             }
         }
+        public async Task<Resultado<IEnumerable<Medalla>>> GetMedallasDelProfesorPorGrupoAsync(int grupoId)
+        {
+            try
+            {
+                var grupo = await _db.Grupos
+                    .Where(g => g.Id == grupoId)
+                    .Include(g => g.Profesor)
+                        .ThenInclude(p => p.Medallas)
+                    .FirstOrDefaultAsync();
+
+                if (grupo == null || grupo.Profesor == null)
+                    return Resultado<IEnumerable<Medalla>>.Falla(Error.NotFound);
+
+                var medallas = grupo.Profesor.Medallas ?? new List<Medalla>();
+                return Resultado<IEnumerable<Medalla>>.Exitoso(medallas);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<IEnumerable<Medalla>>.Falla(new Error("Error.Unexpected", ex.Message));
+            }
+        }
     }
 
 }

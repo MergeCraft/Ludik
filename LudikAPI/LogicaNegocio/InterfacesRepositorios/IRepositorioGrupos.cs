@@ -22,6 +22,8 @@ namespace InterfacesRepositorio
 
         Task<Resultado<bool>> GrupoPerteneceProfesorAsync(int grupoId, string profesorId);
 
+        Task<Resultado<IEnumerable<Medalla>>> GetMedallasDelProfesorPorGrupoAsync(int grupoId);
+
     }
 
 }

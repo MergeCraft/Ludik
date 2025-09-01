@@ -11,7 +11,6 @@ namespace WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Policy = "EsProfesor")]
     public class MedallaController : ControllerBase
     {
         private IAltaMedalla _altaMedalla;
@@ -19,19 +18,22 @@ namespace WebApi.Controllers
         private readonly IObtenerMedallaPorId _obtenerMedallaPorId;
         private readonly IModificarMedalla _modificarMedalla;
         private readonly IBajaMedalla _bajaMedalla;
+        private readonly IObtenerMedallasProfesorPorGrupo _obtenerMedallasProfesorPorGrupo;
 
         public MedallaController(
             IAltaMedalla altaMedalla,
             IObtenerTodasLasMedallas obtenerTodasLasMedallas,
             IObtenerMedallaPorId obtenerMedallaPorId,
             IModificarMedalla modificarMedalla,
-            IBajaMedalla bajaMedalla)
+            IBajaMedalla bajaMedalla,
+            IObtenerMedallasProfesorPorGrupo obtenerMedallasProfesorPorGrupo)
         {
             _altaMedalla = altaMedalla;
             _obtenerTodasLasMedallas = obtenerTodasLasMedallas;
             _obtenerMedallaPorId = obtenerMedallaPorId;
             _modificarMedalla = modificarMedalla;
             _bajaMedalla = bajaMedalla;
+            _obtenerMedallasProfesorPorGrupo = obtenerMedallasProfesorPorGrupo;
         }
 
         /// <summary>
@@ -40,6 +42,7 @@ namespace WebApi.Controllers
         /// <response code="200">Devuelve la lista de medallas.</response>
         /// <response code="401">No autorizado.</response>
         /// <response code="500">Error interno del servidor.</response>
+        [Authorize(Policy = "EsProfesor")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<MedallaDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -51,7 +54,6 @@ namespace WebApi.Controllers
 
             if (resultado.EsFallo)
                 return this.ManejarFallo(resultado);
-            
 
             return Ok(resultado.Valor);
         }
@@ -65,6 +67,7 @@ namespace WebApi.Controllers
         /// <response code="401">No autorizado.</response>
         /// <response code="404">Medalla no encontrada.</response>
         /// <response code="500">Error interno del servidor.</response>
+        [Authorize(Policy = "EsProfesor")]
         [HttpGet("{id:int}")]
         [ProducesResponseType(typeof(MedallaDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
@@ -79,7 +82,6 @@ namespace WebApi.Controllers
 
             if (resultado.EsFallo)
                 return this.ManejarFallo(resultado);
-            
 
             return Ok(resultado.Valor);
         }
@@ -93,6 +95,7 @@ namespace WebApi.Controllers
         /// 401 Unauthorized: Si quien lo intenta hacer no es una persona autorizada (alguien que no sea un profesor).
         /// 500 Internal Server Error: Si ocurre un error inesperado durante el procesamiento.
         /// </returns>
+        [Authorize(Policy = "EsProfesor")]
         [HttpPost("alta")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -103,11 +106,11 @@ namespace WebApi.Controllers
             var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(profesorId))
                 return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
-            Resultado resultado = await _altaMedalla.EjecutarAsync(medallaDto,profesorId);
-                if (resultado.EsFallo)
-                    return this.ManejarFallo(resultado);
+            Resultado resultado = await _altaMedalla.EjecutarAsync(medallaDto, profesorId);
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
 
-                return StatusCode(StatusCodes.Status201Created, "Medalla creada correctamente.");
+            return StatusCode(StatusCodes.Status201Created, "Medalla creada correctamente.");
         }
 
         /// <summary>
@@ -120,6 +123,7 @@ namespace WebApi.Controllers
         /// <response code="401">No autorizado.</response>
         /// <response code="404">Medalla no encontrada.</response>
         /// <response code="500">Error interno del servidor.</response>
+        [Authorize(Policy = "EsProfesor")]
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
@@ -129,11 +133,12 @@ namespace WebApi.Controllers
         public async Task<IActionResult> Put(int id, [FromBody] MedallaEditarDto medallaDto)
         {
             var profesorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Resultado resultado = await _modificarMedalla.EjecutarAsync(id, medallaDto,profesorId);
+            Resultado resultado = await _modificarMedalla.EjecutarAsync(id, medallaDto, profesorId);
             if (resultado.EsFallo)
                 return this.ManejarFallo(resultado);
             return NoContent();
         }
+
         /// <summary>
         /// Elimina una medalla por su ID.
         /// </summary>
@@ -143,6 +148,7 @@ namespace WebApi.Controllers
         /// <response code="401">No autorizado.</response>
         /// <response code="404">Medalla no encontrada.</response>
         /// <response code="500">Error interno del servidor.</response>
+        [Authorize(Policy = "EsProfesor")]
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
@@ -155,12 +161,34 @@ namespace WebApi.Controllers
             if (string.IsNullOrEmpty(profesorId))
                 return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
 
-            Resultado resultado = await _bajaMedalla.EjecutarAsync(id,profesorId);
+            Resultado resultado = await _bajaMedalla.EjecutarAsync(id, profesorId);
 
             if (resultado.EsFallo)
                 return this.ManejarFallo(resultado);
 
             return NoContent();
+        }
+
+        /// <summary>
+        /// Obtiene las medallas del profesor asociadas al grupo indicado.
+        /// </summary>
+        /// <param name="grupoId">Id del grupo.</param>
+        /// <response code="200">Devuelve la lista de medallas del profesor para el grupo.</response>
+        /// <response code="401">No autorizado.</response>
+        /// <response code="500">Error interno del servidor.</response>
+        [Authorize(Policy = "EsProfesorOEstudiante")]
+        [HttpGet("grupo/{grupoId:int}")]
+        [ProducesResponseType(typeof(IEnumerable<MedallaDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetPorGrupo(int grupoId)
+        {
+            var resultado = await _obtenerMedallasProfesorPorGrupo.EjecutarAsync(grupoId);
+
+            if (resultado.EsFallo)
+                return this.ManejarFallo(resultado);
+
+            return Ok(resultado.Valor);
         }
     }
 }

@@ -292,6 +292,7 @@ builder.Services.AddScoped<IObtenerPerfilUsuarioLogueado, ObtenerPerfilUsuarioLo
 builder.Services.AddScoped<IObtenerPerfilesPorGrupoSinLogueado, ObtenerPerfilesDeGrupoSinIncluirUsuarioLogueado>();
 builder.Services.AddScoped<IObtenerKudos, ObtenerKudos>();
 builder.Services.AddScoped<IObtenerRecompensasDelProfesor, ObtenerRecompensasDelProfesor>();
+builder.Services.AddScoped<IObtenerMedallasProfesorPorGrupo, ObtenerMedallasProfesorPorGrupo>();
 
 
 
