@@ -25,7 +25,7 @@ const GroupPacView = ({ recompensas, setModalContent, setModalTitle, setShowModa
       {showTeacherOptions && (
         <button className={`button-creator ${styles.newPacButton}`} onClick={handleOpenPacCreateForm}>
           <FontAwesomeIcon icon="fa-solid fa-handshake" size="2xl" />
-          {pac ? "Editar Desafío" : "Crear Nuevo Desafío"}
+          Crear Nuevo Desafío
         </button>
       )}
 

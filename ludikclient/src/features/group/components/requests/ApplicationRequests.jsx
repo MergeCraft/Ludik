@@ -14,7 +14,12 @@ import BarLoader from "../../../generics/BarLoader";
 
 const ApplicationRequests = ({ groupId = null, link = "" }) => {
   // Carga de las solicitudes de unión
+
+  console.log("solicitudes" + groupId);
+
   const { data: solicitudes, isLoading } = useSolicitudesUnion(groupId);
+
+  console.log("solicitudes" + solicitudes);
 
   const [codigo, setCodigo] = useState("");
 

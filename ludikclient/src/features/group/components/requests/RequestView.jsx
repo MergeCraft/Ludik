@@ -4,26 +4,26 @@ import styles from "./RequestView.module.css";
 import ApplicationRequests from "./ApplicationRequests";
 import MedalRequests from "./MedalRequests";
 
-const RequestView = ({ grupo, medallas }) => {
+const RequestView = ({ grupo, urlCompleta, medallas }) => {
+  console.log(grupo);
+
   return (
     <div className={styles.requestView}>
       <div>
         <h3>Solicitudes de unión</h3>
-        <ApplicationRequests grupo={grupo?.id} link={grupo?.urlCompleta} />
+        <ApplicationRequests groupId={grupo} link={urlCompleta} />
       </div>
       <div>
         <h3>Solicitudes de medalla</h3>
-        <MedalRequests grupoId={grupo?.id} medallas={medallas} />
+        <MedalRequests grupoId={grupo} medallas={medallas} />
       </div>
     </div>
   );
 };
 
 RequestView.propTypes = {
-  grupo: PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    urlCompleta: PropTypes.string.isRequired,
-  }),
+  grupo: PropTypes.number.isRequired,
+  urlCompleta: PropTypes.string.isRequired,
   medallas: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
