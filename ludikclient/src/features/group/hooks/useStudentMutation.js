@@ -11,6 +11,7 @@ import {
   obtenerInventarioAvatar,
   guardarAvatarPersonalizado,
   asignarKudo,
+  solicitarMedalla,
 } from "../../../services/studentService";
 import { canjearRecompensa } from "../../../services/storeService";
 import { obtenerImagenPerfil } from "../../../services/imagesService";
@@ -145,6 +146,19 @@ export const useAsignarKudo = () => {
     onSuccess: (_, { idPerfilEstudianteRecibe }) => {
       Toast.notificarExito("¡Kudo asignado exitosamente!");
       queryClient.invalidateQueries(["perfilGrupo", idPerfilEstudianteRecibe]);
+    },
+    onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
+  });
+};
+
+export const useSolicitarMedalla = (perfilId) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ medallaId, descripcion }) => solicitarMedalla({ perfilEstudianteId: perfilId, medallaId, descripcion }),
+    onSuccess: () => {
+      Toast.notificarExito("¡Solicitud de medalla enviada al profesor!");
+      queryClient.invalidateQueries(["perfilGrupo", perfilId]);
     },
     onError: (error) => manejarVisualizacionDeErrores(error, Toast.notificarError),
   });

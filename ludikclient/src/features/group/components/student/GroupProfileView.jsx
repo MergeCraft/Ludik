@@ -4,9 +4,10 @@ import PropTypes from "prop-types";
 import BarLoader from "../../../generics/BarLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { notificarExito } from "../../../../lib/toastify";
+import { notificarExito, notificarWarning } from "../../../../lib/toastify";
 
-import { useRecompensasPerfil, useImagenPerfil, useBarraProgresoPerfil, useDefinirMetaCalificacion } from "../../hooks/useStudentMutation";
+import { useRecompensasPerfil, useImagenPerfil, useBarraProgresoPerfil, useDefinirMetaCalificacion, useSolicitarMedalla } from "../../hooks/useStudentMutation";
+import { useMedallasProfesor } from "../../../medals/hooks/useMedalMutation";
 import RewardItem from "../../../rewards/components/RewardItem";
 import MedalCard from "../../../medals/components/MedalCard";
 import StudentAvatarEditor from "./StudentAvatarEditor";
@@ -18,12 +19,15 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasPerfil(perfil?.id);
   const { data: imagenPerfil, isLoading: isLoadingImagen, isError: isErrorImagen } = useImagenPerfil(perfil?.id);
   const { data: barraProgreso, isLoading: isLoadingBarra } = useBarraProgresoPerfil(perfil?.id);
+  const { data: medallas, isLoading: isLoadingMedallas } = useMedallasProfesor(true);
   const { mutate: setMeta } = useDefinirMetaCalificacion(perfil?.id);
+  const { mutate: solicitarMedallaMutate, isLoading: isSolicitando } = useSolicitarMedalla(perfil?.id);
 
   const [metaTemporal, setMetaTemporal] = useState(perfil.metaCalificacion);
   const [editandoMeta, setEditandoMeta] = useState(false);
 
-  console.log(recompensas);
+  const [medallaSeleccionada, setMedallaSeleccionada] = useState("");
+  const [mensajeSolicitud, setMensajeSolicitud] = useState("");
 
   useEffect(() => {
     setMetaTemporal(perfil.metaCalificacion);
@@ -53,9 +57,26 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
     }
   }, [barraProgreso, barraProgreso?.calificacionActual, perfil?.metaCalificacion, perfil?.id, perfil?.nombreEstudiante, setModalContent, setModalTitle, setShowModal]);
 
-  // Opcional: si quieres limpiar la clave cuando la meta cambie (por ejemplo, para permitir nueva notificación),
-  // puedes remover claves viejas; en este ejemplo dejamos que la key incluya la meta, de modo que al cambiar la meta
-  // la key cambia y se notificará de nuevo cuando la nueva meta sea alcanzada.
+  const handleSolicitarMedalla = () => {
+    var error = false;
+
+    if (medallaSeleccionada === "") {
+      notificarWarning("Debes seleccionar una medalla");
+      error = true;
+    }
+
+    if (mensajeSolicitud.length == 0) {
+      notificarWarning("El mensaje de solicitud no puede estar vacío");
+      error = true;
+    }
+
+    if (error) return;
+
+    solicitarMedallaMutate({
+      medallaId: Number(medallaSeleccionada),
+      descripcion: mensajeSolicitud || "Sin descripción",
+    });
+  };
 
   return isLoading ? (
     <BarLoader />
@@ -177,7 +198,7 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
       </section>
 
       {/* Inventario de Medallas */}
-      <section>
+      <section className={styles.inventorySection}>
         <h3>Inventario de Medallas</h3>
         <div className={styles.medallasGrid}>
           {perfil.medallas.length === 0 ? (
@@ -186,8 +207,39 @@ const GroupProfileView = ({ perfil, isLoading, setModalContent, setModalTitle, s
             perfil.medallas.map((medalla) => <MedalCard key={medalla.medallaId + medalla.nombre} medal={medalla} cantidad={medalla.cantidad} onEdit={() => {}} showEditOption={false} />)
           )}
         </div>
+        <hr />
+        <div>
+          <h3>Solicitar medalla al profesor</h3>
+          <div className={styles.solicitarMedallaContainer}>
+            <div className={styles.medallasSeleccionContainer}>
+              <select name="medallas" id="medallas" className="button" onChange={(e) => setMedallaSeleccionada(e.target.value)} value={medallaSeleccionada || ""}>
+                {isLoadingMedallas ? (
+                  <option value="">Cargando medallas...</option>
+                ) : (
+                  <>
+                    <option value="">Selecciona una medalla</option>
+                    {medallas?.map((medalla) => (
+                      <option key={medalla.id} value={medalla.id}>
+                        {medalla.nombre}
+                      </option>
+                    ))}
+                  </>
+                )}
+              </select>
+
+              <button className="button-secondary" disabled={isLoadingMedallas || medallaSeleccionada === "" || isSolicitando} onClick={handleSolicitarMedalla}>
+                {isSolicitando ? "Enviando..." : "Solicitar"}
+              </button>
+            </div>
+
+            {medallaSeleccionada !== "" && (
+              <textarea name="mensaje" id="mensaje" value={mensajeSolicitud} onChange={(e) => setMensajeSolicitud(e.target.value)} placeholder="Creo que merezco esta medalla porque..." />
+            )}
+          </div>
+        </div>
       </section>
 
+      {/* Recompensas canjeadas */}
       <section>
         <h3>Recompensas</h3>
         {isLoadingRecompensas ? (

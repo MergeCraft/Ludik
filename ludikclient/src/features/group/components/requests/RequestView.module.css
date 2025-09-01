@@ -1,0 +1,19 @@
+.requestView {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.requestView h3 {
+    text-align: center;
+}
+
+.requestView>div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 50%;
+    border: 1px solid var(--terciario);
+    border-radius: 15px;
+    padding: 10px;
+}

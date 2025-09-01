@@ -97,7 +97,7 @@
 }
 
 /* Línea separadora */
-.progressBarManager hr {
+.progressBarManager hr, .inventorySection hr {
     margin: 10px 0;
     border: none;
     height: 1px;
@@ -336,6 +336,22 @@
     max-height: fit-content;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+.solicitarMedallaContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.medallasSeleccionContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.medallasSeleccionContainer textarea {
+    width: 100%;
 }
 
 .medallasGrid,

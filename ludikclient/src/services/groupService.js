@@ -131,6 +131,43 @@ export const rechazarSolicitud = async (solicitudId) => {
 };
 
 // ─────────────────────────────────────────────
+// 📩 SOLICITUDES DE MEDALLAS
+// ─────────────────────────────────────────────
+
+export const obtenerSolicitudesMedallas = async (grupoId) => {
+  try {
+    const response = await api.get("/api/Profesor/solicitudes-medallas", {
+      params: { grupoId },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "Error al obtener solicitudes de medallas.");
+  }
+};
+
+export const aceptarSolicitudMedalla = async (solicitudId) => {
+  try {
+    const response = await api.post("/api/Profesor/aceptar-solicitud-medalla", null, {
+      params: { solicitudId },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "Error al aceptar la solicitud de medalla.");
+  }
+};
+
+export const rechazarSolicitudMedalla = async (solicitudId) => {
+  try {
+    const response = await api.post("/api/Profesor/rechazar-solicitud-medalla", null, {
+      params: { solicitudId },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "Error al rechazar la solicitud de medalla.");
+  }
+};
+
+// ─────────────────────────────────────────────
 // 🏅 MEDALLAS
 // ─────────────────────────────────────────────
 

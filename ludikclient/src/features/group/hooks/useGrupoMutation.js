@@ -25,6 +25,9 @@ import {
   crearUmbralMedalla,
   editarUmbralMedalla,
   eliminarUmbralMedalla,
+  obtenerSolicitudesMedallas,
+  aceptarSolicitudMedalla,
+  rechazarSolicitudMedalla,
 } from "../../../services/groupService";
 import { obtenerTiposKudo } from "../../../services/medalService";
 import { obtenerRecompensasTienda } from "../../../services/storeService";
@@ -191,6 +194,46 @@ export const useRechazarSolicitud = (onSuccessCallback) => {
   });
 };
 
+// ─────────────────────────────────────────────
+// 📩 SOLICITUDES DE MEDALLAS
+// ─────────────────────────────────────────────
+
+export const useSolicitudesMedallas = (grupoId) => {
+  return useQuery({
+    queryKey: ["solicitudesMedallas", grupoId],
+    queryFn: () => obtenerSolicitudesMedallas(grupoId),
+    enabled: !!grupoId, // solo hace la llamada si hay grupoId
+    onError: manejarVisualizacionDeErrores,
+  });
+};
+
+export const useAceptarSolicitudMedalla = (onSuccessCallback) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: aceptarSolicitudMedalla,
+    onSuccess: () => {
+      Toast.notificarExito("Solicitud de medalla aceptada.");
+      queryClient.invalidateQueries(["solicitudesMedallas"]);
+      if (onSuccessCallback) onSuccessCallback();
+    },
+    onError: manejarVisualizacionDeErrores,
+  });
+};
+
+export const useRechazarSolicitudMedalla = (onSuccessCallback) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: rechazarSolicitudMedalla,
+    onSuccess: () => {
+      Toast.notificarExito("Solicitud de medalla rechazada.");
+      queryClient.invalidateQueries(["solicitudesMedallas"]);
+      if (onSuccessCallback) onSuccessCallback();
+    },
+    onError: manejarVisualizacionDeErrores,
+  });
+};
 // ─────────────────────────────────────────────
 // 🏅 MEDALLAS
 // ─────────────────────────────────────────────

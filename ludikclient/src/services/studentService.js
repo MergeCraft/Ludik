@@ -91,3 +91,16 @@ export const asignarKudo = async ({ idPerfilEstudianteRecibe, idPerfilEstudiante
     handleApiError(error, "No se pudo asignar el kudo.");
   }
 };
+
+export const solicitarMedalla = async ({ perfilEstudianteId, medallaId, descripcion }) => {
+  try {
+    const response = await api.post(`/api/Estudiante/solicitudes-medalla`, {
+      perfilEstudianteId,
+      medallaId,
+      descripcion,
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "No se pudo solicitar la medalla.");
+  }
+};

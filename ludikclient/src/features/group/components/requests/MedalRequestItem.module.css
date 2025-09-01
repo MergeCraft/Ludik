@@ -1,0 +1,48 @@
+.medalRequestItem {
+    display: flex;
+    background-color: var(--principal);
+    border-radius: 15px;
+    padding: 15px;
+    gap: 15px;
+}
+
+.medalRequestItem>div {
+    flex-grow: 1;
+}
+
+.requestInfo {
+    position: relative;
+    display: flex;
+    gap: 10px;
+}
+
+.requestInfo>div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.requestDate {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.requestState {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+.requestActions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 120px;
+}
+
+.requestActions>button {
+    width: 100%;
+    flex-grow: 1;
+
+}

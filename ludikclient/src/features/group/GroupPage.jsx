@@ -16,7 +16,7 @@ import { useGrupo, useAlumnosGrupo, useRecompensasTienda, useTiposKudo } from ".
 import { usePerfilGrupo } from "./hooks/useStudentMutation.js";
 import { useMedallasProfesor } from "../medals/hooks/useMedalMutation";
 import { useParams } from "react-router-dom";
-import ApplicationRequests from "./components/teacher/ApplicationRequests";
+import RequestView from "./components/requests/RequestView.jsx";
 import GroupRankingView from "./components/rankings/GroupRankingView.jsx";
 
 const tabLabels = {
@@ -52,7 +52,7 @@ const GroupPage = () => {
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasTienda(group?.idTienda);
   const { data: perfilHook, isLoadingPerfil } = usePerfilGrupo(groupId, isProfesor);
 
-  console.log(group);
+  console.log(medals);
 
   const userProfileId = perfil?.id;
 
@@ -138,11 +138,11 @@ const GroupPage = () => {
       ) : (
         <div className={style.infoGrupo} style={isProfesor ? { justifyContent: "space-between" } : { justifyContent: "center" }}>
           <h3>
-            <FontAwesomeIcon icon="fa-solid fa-book-bookmark" /> {group.materia.toUpperCase()}
+            <FontAwesomeIcon icon="fa-solid fa-book-bookmark" /> {group?.materia.toUpperCase()}
           </h3>
           {isProfesor && (
             <h3>
-              <FontAwesomeIcon icon="fa-solid fa-school" /> {group.institucion.toUpperCase()} - {group.nombre.toUpperCase()}
+              <FontAwesomeIcon icon="fa-solid fa-school" /> {group?.institucion.toUpperCase()} - {group?.nombre.toUpperCase()}
             </h3>
           )}
         </div>
@@ -230,7 +230,7 @@ const GroupPage = () => {
         ) : selectedView === "threshold" ? (
           <MedalThresholdView setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
         ) : selectedView === "solicitudes" ? (
-          <ApplicationRequests groupId={groupId} link={group?.urlCompleta} />
+          <RequestView grupo={group} medallas={medals} />
         ) : selectedView === "configs" ? (
           <GroupConfigView id={groupId} group={group} setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} />
         ) : null}
