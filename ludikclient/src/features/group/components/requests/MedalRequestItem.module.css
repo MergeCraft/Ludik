@@ -44,5 +44,27 @@
 .requestActions>button {
     width: 100%;
     flex-grow: 1;
+}
+
+@media screen and (max-width: 992px) {
+    .medalRequestItem {
+        flex-direction: column;
+    }
+
+    .requestActions {
+        flex-direction: row;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .medalRequestItem strong, .medalRequestItem span {
+        font-size: smaller;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
 }

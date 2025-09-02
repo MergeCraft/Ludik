@@ -87,12 +87,10 @@ export const obtenerAlumnosGrupoParaEstudiante = async (id) => {
 // ─────────────────────────────────────────────
 
 export const obtenerSolicitudesUnion = async (id) => {
-  console.log("id: " + id);
   try {
     const response = await api.get("/api/Profesor/solicitudes-union", {
       params: { grupoId: id },
     });
-    console.log("respuesta: " + response.data);
     return response.data;
   } catch (error) {
     handleApiError(error, "Error al obtener las solicitudes de unión.");

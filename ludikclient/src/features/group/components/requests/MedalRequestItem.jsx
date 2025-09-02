@@ -36,7 +36,7 @@ const MedalRequestItem = ({ solicitud, medallas }) => {
           {medalla ? <MedalCard medal={medalla} showEditOption={false} /> : <p>Cargando medalla...</p>}
         </div>
         <div className={styles.requestDetails}>
-          <strong>Argumento:</strong> {solicitud.descripcion} <br />
+          <strong>Argumento</strong> {solicitud.descripcion}
         </div>
       </div>
       <div className={styles.requestActions}>

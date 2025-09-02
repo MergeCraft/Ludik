@@ -146,4 +146,8 @@ p {
         font-size: xx-small;
     }
 
+    .notaAlumno {
+        min-width: 50px;
+    }
+
 }

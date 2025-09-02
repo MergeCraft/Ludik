@@ -102,6 +102,7 @@ import {
   faStopwatch,
   faChevronDown,
   faChevronUp,
+  faInbox,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { faUser as farUser, faEye as farEye } from "@fortawesome/free-regular-svg-icons";
@@ -210,4 +211,5 @@ library.add(
   faStopwatch,
   faChevronDown,
   faChevronUp,
+  faInbox
 );

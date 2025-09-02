@@ -115,7 +115,7 @@ const GroupPage = () => {
         <>
           <label className={getLabelClass("solicitudes")} aria-label={tabLabels.solicitudes}>
             <input type="radio" value="solicitudes" checked={selectedView === "solicitudes"} onChange={() => setSelectedView("solicitudes")} />
-            <FontAwesomeIcon icon="fa-solid fa-user-plus" size="xl" />
+            <FontAwesomeIcon icon="fa-solid fa-inbox" size="xl" />
             <span className={style.actionText}>{tabLabels.solicitudes}</span>
           </label>
 
@@ -229,7 +229,7 @@ const GroupPage = () => {
         ) : selectedView === "threshold" ? (
           <MedalThresholdView setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} groupId={groupId} showTeacherOptions={isProfesor} />
         ) : selectedView === "solicitudes" ? (
-          <RequestView grupo={groupId} medallas={medals} urlCompleta={group.urlCompleta} />
+          <RequestView grupo={groupId} medallas={medals} urlCompleta={group?.urlCompleta} />
         ) : selectedView === "configs" ? (
           <GroupConfigView id={groupId} group={group} setModalContent={setModalContent} setModalTitle={setModalTitle} setShowModal={setShowModal} />
         ) : null}

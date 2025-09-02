@@ -156,9 +156,6 @@
 }
 
 @media screen and (max-width: 992px) {
-    .studentsContainer {
-        grid-template-columns: 1fr;
-    }
 
     .infoGrupo {
         flex-direction: column;
@@ -177,5 +174,11 @@
     .acciones label {
         gap: 2px;
         padding: 0;
+    }
+}
+
+@media screen and (max-width: 1520px) {
+    .studentsContainer {
+        grid-template-columns: 1fr;
     }
 }
