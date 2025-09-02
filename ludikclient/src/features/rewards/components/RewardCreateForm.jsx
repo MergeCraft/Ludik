@@ -80,16 +80,16 @@ const RewardCreateForm = ({ reward, onClose }) => {
     }
   }, [reward]);
 
-  const { mutateAsync: crearRecompensa, isLoading } = useCrearRecompensa(() => {
+  const { mutateAsync: crearRecompensa, isPending: isCreating } = useCrearRecompensa(() => {
     setRecompensa({ id: 0, nombre: "", nombreIcono: "", precio: 0 });
     onClose?.();
   });
-  const { mutateAsync: editarRecompensa, isLoading: isEditing } = useEditarRecompensa(() => {
+  const { mutateAsync: editarRecompensa, isPending: isEditing } = useEditarRecompensa(() => {
     setRecompensa({ id: 0, nombre: "", nombreIcono: "", precio: 0 });
     onClose?.();
   });
 
-  const { mutateAsync: eliminarRecompensa, isLoading: isDeleting } = useEliminarRecompensa(() => {
+  const { mutateAsync: eliminarRecompensa, isPending: isDeleting } = useEliminarRecompensa(() => {
     setRecompensa({ id: 0, nombre: "", nombreIcono: "", precio: 0 });
     onClose?.();
   });
@@ -195,8 +195,8 @@ const RewardCreateForm = ({ reward, onClose }) => {
       </label>
 
       <div className={styles.acciones}>
-        <button type="submit" className={`${styles.btnSubmit} button-secondary`} disabled={isLoading || isEditing}>
-          {isLoading || isEditing ? <PulseLoader /> : recompensa.id ? "Guardar cambios" : "Crear recompensa"}
+        <button type="submit" className={`${styles.btnSubmit} button-secondary`} disabled={isCreating || isEditing}>
+          {isCreating || isEditing ? <PulseLoader /> : recompensa.id ? "Guardar cambios" : "Crear recompensa"}
         </button>
 
         {recompensa.id !== 0 && (

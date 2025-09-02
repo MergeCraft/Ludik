@@ -17,7 +17,7 @@ const LoginForm = () => {
 
   const dispatch = useDispatch();
 
-  const { mutateAsync: login, isLoading } = useLogin();
+  const { mutateAsync: login, isPending } = useLogin();
 
   const [usuario, setUsuario] = useState("");
   const [contrasena, setContrasena] = useState("");
@@ -76,8 +76,8 @@ const LoginForm = () => {
         </div>
       </div>
 
-      <button type="submit" className={`button ${styles.botonIniciar}`} disabled={isLoading}>
-        {isLoading ? <PulseLoader /> : "Iniciar sesión"}
+      <button type="submit" className={`button ${styles.botonIniciar}`} disabled={isPending}>
+        {isPending ? <PulseLoader /> : "Iniciar sesión"}
       </button>
 
       <div className={`${styles.acciones} ${styles.accionesLogin}`}>

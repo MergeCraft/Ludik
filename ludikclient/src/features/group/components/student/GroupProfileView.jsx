@@ -14,14 +14,15 @@ import StudentAvatarEditor from "./StudentAvatarEditor";
 
 import styles from "./GroupProfileView.module.css";
 import imagenDefaultPerfil from "../../../../assets/genericStudentAvatar2.png";
+import { PulseLoader } from "../../../generics/BarLoader";
 
 const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModalTitle, setShowModal, isOwnProfile }) => {
   const { data: recompensas, isLoading: isLoadingRecompensas } = useRecompensasPerfil(perfil?.id);
   const { data: imagenPerfil, isLoading: isLoadingImagen, isError: isErrorImagen } = useImagenPerfil(perfil?.id);
   const { data: barraProgreso, isLoading: isLoadingBarra } = useBarraProgresoPerfil(perfil?.id);
   const { data: medallas, isLoading: isLoadingMedallas } = useMedallasAlumno(groupid);
-  const { mutate: setMeta } = useDefinirMetaCalificacion(perfil?.id);
-  const { mutate: solicitarMedallaMutate, isLoading: isSolicitando } = useSolicitarMedalla(perfil?.id);
+  const { mutate: setMeta, isPending: isSettingMeta } = useDefinirMetaCalificacion(perfil?.id);
+  const { mutate: solicitarMedallaMutate, isPending: isSolicitando } = useSolicitarMedalla(perfil?.id);
 
   const [metaTemporal, setMetaTemporal] = useState(perfil.metaCalificacion);
   const [editandoMeta, setEditandoMeta] = useState(false);
@@ -29,15 +30,12 @@ const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModa
   const [medallaSeleccionada, setMedallaSeleccionada] = useState("");
   const [mensajeSolicitud, setMensajeSolicitud] = useState("");
 
-  console.log(perfil);
-
   useEffect(() => {
     setMetaTemporal(perfil.metaCalificacion);
   }, [perfil.metaCalificacion]);
 
   const avatarUrl = imagenPerfil?.urlCompleta;
 
-  // ---- NUEVA LÓGICA: notificar una sola vez cuando alcance la meta ----
   useEffect(() => {
     try {
       if (!perfil?.id || typeof perfil?.metaCalificacion !== "number" || !barraProgreso) return;
@@ -46,12 +44,9 @@ const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModa
       const meta = Number(perfil.metaCalificacion);
       const key = `metaReached_${perfil.id}_${meta}`;
 
-      // Si actual >= meta y no hemos mostrado aún la notificación para esta meta
       if (actual >= meta && !localStorage.getItem(key)) {
-        // Marca como mostrado para que no vuelva a aparecer
         localStorage.setItem(key, "1");
 
-        // --- Opción 1: Toast de felicitación ---
         notificarExito(`¡Felicidades ${perfil.nombreEstudiante}! Has alcanzado tu meta: ${meta}.`);
       }
     } catch (err) {
@@ -144,7 +139,7 @@ const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModa
                       }}
                       title="Guardar nueva meta"
                     >
-                      <FontAwesomeIcon icon="fa fa-check" />
+                      {isSettingMeta ? <PulseLoader /> : <FontAwesomeIcon icon="fa fa-check" />}
                     </button>
                   </div>
                 </div>
@@ -230,7 +225,7 @@ const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModa
               </select>
 
               <button className="button-secondary" disabled={isLoadingMedallas || medallaSeleccionada === "" || isSolicitando} onClick={handleSolicitarMedalla}>
-                {isSolicitando ? "Enviando..." : "Solicitar"}
+                {isSolicitando ? <PulseLoader /> : "Solicitar"}
               </button>
             </div>
 

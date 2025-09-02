@@ -22,7 +22,7 @@ const RewardAsignationForm = ({ grupoId, gruposProfesor = [], isLoadingGroups = 
   const { data: recompensasProfesor = [], isLoading: isLoadingRecompensas } = useRecompensasProfesor();
 
   // Mutación para asignar recompensa
-  const { mutate: asignarRecompensa, isLoading: isLoadingAsignacion } = useAsignarRecompensaAGrupos(() => {
+  const { mutate: asignarRecompensa, isPending: isLoadingAsignacion } = useAsignarRecompensaAGrupos(() => {
     onClose?.();
   });
 

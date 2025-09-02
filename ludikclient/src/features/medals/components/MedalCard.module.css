@@ -114,17 +114,24 @@
 
 .cantidadMedallas {
     position: absolute;
-    bottom: 5px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 0;
+    right: 0px;
     display: flex;
-    gap: 5px;
+    align-items: center;
+    /* centra vertical */
+    justify-content: center;
+    /* centra horizontal */
     background-color: var(--boton-secundario);
     color: white;
     font-size: 0.6rem;
-    padding: 6px 7px;
-    border-radius: 10px;
     font-weight: bold;
+
+    width: 25px;
+    /* ancho fijo */
+    height: 25px;
+    /* alto fijo, igual que ancho */
+    border-radius: 50%;
+    /* círculo perfecto */
 }
 
 .editBtn {

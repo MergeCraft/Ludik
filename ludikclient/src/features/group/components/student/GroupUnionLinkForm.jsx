@@ -5,10 +5,12 @@ import styles from "./GroupUnionLinkForm.module.css";
 
 import { useSolicitarUnirseGrupo } from "../../hooks/useGrupoMutation";
 
+import { PulseLoader } from "../../../generics/BarLoader";
+
 const GroupUnionLinkModal = ({ onClose }) => {
   const [codigo, setCodigo] = useState("");
 
-  const { mutate: unirse, isLoading } = useSolicitarUnirseGrupo(onClose);
+  const { mutate: unirse, isPending: isUnirsePending } = useSolicitarUnirseGrupo(onClose);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,11 +27,11 @@ const GroupUnionLinkModal = ({ onClose }) => {
     <form className={styles.modalFormLink} onSubmit={handleSubmit}>
       <label>
         Código del Grupo
-        <input type="text" name="codigo" value={codigo} onChange={(e) => setCodigo(e.target.value)} disabled={isLoading} placeholder="Ingrese el código del grupo" />
+        <input type="text" name="codigo" value={codigo} onChange={(e) => setCodigo(e.target.value)} disabled={isUnirsePending} placeholder="Ingrese el código del grupo" />
       </label>
 
-      <button type="submit" disabled={isLoading || codigo.trim().length < 5} className="button-secondary">
-        Unirme al Grupo
+      <button type="submit" disabled={isUnirsePending || codigo.trim().length < 5} className="button-secondary">
+        {isUnirsePending ? <PulseLoader /> : "Unirme al Grupo"}
       </button>
     </form>
   );

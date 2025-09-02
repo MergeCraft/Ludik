@@ -72,7 +72,7 @@ const MedalCreateForm = ({ onClose, medalId }) => {
     nombreIcono: "",
   });
 
-  const { data, isFetching } = useObtenerMedallaPorId(medalId);
+  const { data, isLoading } = useObtenerMedallaPorId(medalId);
 
   const crear = useCrearMedalla(() => onClose?.());
   const editar = useEditarMedalla(() => onClose?.());
@@ -83,7 +83,7 @@ const MedalCreateForm = ({ onClose, medalId }) => {
       setMedalla({
         nombre: data.nombre ?? "",
         descripcion: data.descripcion ?? "",
-        cantidadMonedasBrinda: String(data.cantidadMonedasBrinda ?? "0"),
+        cantidadMonedasBrinda: String(data.cantidadMedallasBrinda ?? "0"),
         nombreIcono: data.nombreIcono ?? extractIconName(data.urlImagen) ?? "",
       });
     }
@@ -157,7 +157,7 @@ const MedalCreateForm = ({ onClose, medalId }) => {
 
   return (
     <form className={styles.modalForm} onSubmit={handleSubmit}>
-      {isFetching ? (
+      {isLoading ? (
         <BarLoader />
       ) : (
         <>
@@ -169,7 +169,7 @@ const MedalCreateForm = ({ onClose, medalId }) => {
               value={medalla.nombre}
               onChange={handleChange}
               placeholder="Ej: Estrella de participación"
-              disabled={crear.isLoading || editar.isLoading || eliminar.isLoading}
+              disabled={crear.isPending || editar.isPending || eliminar.isPending}
               required
             />
           </label>
@@ -182,7 +182,7 @@ const MedalCreateForm = ({ onClose, medalId }) => {
               value={medalla.descripcion}
               onChange={handleChange}
               placeholder="Ej: Se otorga por participar activamente"
-              disabled={crear.isLoading || editar.isLoading || eliminar.isLoading}
+              disabled={crear.isPending || editar.isPending || eliminar.isPending}
               required
             />
           </label>
@@ -193,7 +193,7 @@ const MedalCreateForm = ({ onClose, medalId }) => {
               type="button"
               className={`button ${styles.iconSelectButton}`}
               onClick={() => setShowIconPicker((prev) => !prev)}
-              disabled={crear.isLoading || editar.isLoading || eliminar.isLoading}
+              disabled={crear.isPending || editar.isPending || eliminar.isPending}
             >
               {medalla.nombreIcono ? <FontAwesomeIcon icon={`fa-solid fa-${medalla.nombreIcono}`} size="xl" /> : "Seleccionar ícono"}
             </button>
@@ -205,7 +205,7 @@ const MedalCreateForm = ({ onClose, medalId }) => {
                     type="button"
                     className={`${styles.iconOption} ${medalla.nombreIcono === icon.value ? styles.iconSelected : ""}`}
                     onClick={() => handleIconSelect(icon.value)}
-                    disabled={crear.isLoading || editar.isLoading || eliminar.isLoading}
+                    disabled={crear.isPending || editar.isPending || eliminar.isPending}
                     aria-pressed={medalla.nombreIcono === icon.value}
                     title={icon.label}
                   >
@@ -224,20 +224,20 @@ const MedalCreateForm = ({ onClose, medalId }) => {
               value={medalla.cantidadMonedasBrinda}
               onChange={handleChange}
               placeholder="Ej: 50"
-              disabled={crear.isLoading || editar.isLoading || eliminar.isLoading}
+              disabled={crear.isPending || editar.isPending || eliminar.isPending}
               required
               min={0}
             />
           </label>
 
           <div className={styles.botones}>
-            <button type="submit" disabled={crear.isLoading || editar.isLoading} className={`button-secondary ${styles.btnSubmit}`}>
-              {crear.isLoading ? <PulseLoader /> : editar.isLoading ? <PulseLoader /> : medalId ? "Guardar Cambios" : "Crear Medalla"}
+            <button type="submit" disabled={crear.isPending || editar.isPending} className={`button-secondary ${styles.btnSubmit}`}>
+              {crear.isPending ? <PulseLoader /> : editar.isPending ? <PulseLoader /> : medalId ? "Guardar Cambios" : "Crear Medalla"}
             </button>
 
             {medalId && (
-              <button type="button" disabled={eliminar.isLoading} onClick={handleDelete} className={`button-tertiary ${styles.btnDelete}`} aria-label={`Eliminar medalla ${medalla.nombre}`}>
-                {eliminar.isLoading ? <PulseLoader /> : <FontAwesomeIcon icon="fa-solid fa-trash" />}
+              <button type="button" disabled={eliminar.isPending} onClick={handleDelete} className={`button-tertiary ${styles.btnDelete}`} aria-label={`Eliminar medalla ${medalla.nombre}`}>
+                {eliminar.isPending ? <PulseLoader /> : <FontAwesomeIcon icon="fa-solid fa-trash" />}
               </button>
             )}
           </div>

@@ -14,7 +14,7 @@ const RankingCreateForm = ({ onClose, groupId }) => {
   const { data: medallas, isLoading: isLoadingMedallas } = useMedallasProfesor(true);
 
   // Mutación para crear ranking
-  const { mutateAsync: crearRanking, isLoading: isCreating } = useCrearRanking();
+  const { mutateAsync: crearRanking, isPending: isCreating } = useCrearRanking();
 
   const handleChange = (e) => {
     const { name, value } = e.target;

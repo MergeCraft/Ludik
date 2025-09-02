@@ -16,7 +16,7 @@ const SignupForm = () => {
 
   const { data: preguntasDisponibles = [], isLoading: cargandoPreguntas } = usePreguntasSeguridad();
   const [isProfesor, setIsProfesor] = useState(true);
-  const { mutateAsync: registrar, isLoading: cargandoRegistro } = useRegistro();
+  const { mutateAsync: registrar, isPending: cargandoRegistro } = useRegistro();
 
   const [profesorData, setProfesorData] = useState({
     usuario: "",

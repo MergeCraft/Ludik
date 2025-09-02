@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./StudentAvatarEditor.module.css";
 import BarLoader from "../../../generics/BarLoader";
 import { useInventarioAvatar, useGuardarAvatar } from "../../hooks/useStudentMutation";
+import { PulseLoader } from "../../../generics/BarLoader";
 
 const iconosPorTipo = {
   posicion: "arrow-right-arrow-left",
@@ -437,7 +438,7 @@ const StudentAvatarEditor = ({ idPerfil }) => {
         </div>
 
         <button className={`${styles.confirmButton} button-secondary`} title="Confirmar selección" onClick={handleGuardarAvatar} disabled={guardarAvatarMutation.isLoading}>
-          <FontAwesomeIcon icon="floppy-disk" />
+          {guardarAvatarMutation.isPending ? <PulseLoader /> : <FontAwesomeIcon icon="floppy-disk" />}
         </button>
       </div>
 

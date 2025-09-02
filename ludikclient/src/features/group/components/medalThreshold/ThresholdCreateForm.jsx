@@ -20,15 +20,15 @@ const ThresholdCreateForm = ({ grupoId, medallas, tiposKudo, onClose, initialVal
     }
   }, [initialValues]);
 
-  const { mutate: crearUmbral, isLoading: isLoadingCrear } = useCrearUmbralMedalla(() => {
+  const { mutate: crearUmbral, isPending: isLoadingCrear } = useCrearUmbralMedalla(() => {
     onClose?.();
   });
 
-  const { mutate: editarUmbral, isLoading: isLoadingEditar } = useEditarUmbralMedalla(() => {
+  const { mutate: editarUmbral, isPending: isLoadingEditar } = useEditarUmbralMedalla(() => {
     onClose?.();
   });
 
-  const { mutate: eliminarUmbral, isLoading: isLoadingEliminar } = useEliminarUmbralMedalla(() => {
+  const { mutate: eliminarUmbral, isPending: isLoadingEliminar } = useEliminarUmbralMedalla(() => {
     onClose?.();
   });
 

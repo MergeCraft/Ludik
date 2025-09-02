@@ -15,7 +15,7 @@ const CrearPacForm = ({ groupId, recompensas, onClose }) => {
     fechaFin: "",
   });
 
-  const { mutate: crearPac, isLoading } = useCrearPac(onClose);
+  const { mutate: crearPac, isPending: isLoading } = useCrearPac(onClose);
 
   const hoy = new Date().toISOString().split("T")[0];
 

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Toast from "../../../../lib/toastify";
 import { useEliminarGrupo, useReiniciarLogrosGrupo } from "../../hooks/useGrupoMutation";
 import GroupCreateForm from "../teacher/GroupCreateForm";
+import { PulseLoader } from "../../../generics/BarLoader.jsx";
 
 const GroupConfigView = ({ id, group, setModalContent, setModalTitle, setShowModal }) => {
   const { nombre, materia, institucion, fCreacion, urlCompleta } = group;
@@ -69,7 +70,7 @@ const GroupConfigView = ({ id, group, setModalContent, setModalTitle, setShowMod
             Editar grupo
           </button>
           <button className="button-quinary" onClick={handleReiniciarLogros}>
-            Reiniciar logros
+            {reiniciarLogros.isPending ? <PulseLoader /> : "Reiniciar logros"}
           </button>
           <button className="button-tertiary" onClick={handleEliminar}>
             Eliminar grupo

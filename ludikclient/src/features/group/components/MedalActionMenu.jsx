@@ -4,6 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 import styles from "./MedalActionMenu.module.css";
 import * as Toast from "../../../lib/toastify.js";
+import { PulseLoader } from "../../generics/BarLoader.jsx";
 
 import { useAsignarMedalla, useEliminarMedalla } from "../hooks/useGrupoMutation";
 
@@ -13,8 +14,8 @@ const MedalActionMenu = ({ items, isAssign, onLoadingChange, isLoading: external
   const [expanded, setExpanded] = useState(false);
   const [amounts, setAmounts] = useState({});
 
-  const { mutate: asignar, isLoading: loadingAsignar } = useAsignarMedalla();
-  const { mutate: eliminar, isLoading: loadingEliminar } = useEliminarMedalla();
+  const { mutate: asignar, isPending: loadingAsignar } = useAsignarMedalla();
+  const { mutate: eliminar, isPending: loadingEliminar } = useEliminarMedalla();
 
   const wrapperRef = useRef(null);
 
@@ -117,7 +118,16 @@ const MedalActionMenu = ({ items, isAssign, onLoadingChange, isLoading: external
         aria-expanded={expanded}
         aria-haspopup="listbox"
       >
-        {isAssign ? "Asignar medallas" : "Eliminar medallas"}
+        {
+          // ✅ mostrar PulseLoader solo si esta cargando esta medalla
+          (isAssign && loadingAsignar) || (!isAssign && loadingEliminar) ? (
+            <PulseLoader size={8} /> // ✅ loader dentro del botón
+          ) : isAssign ? (
+            "Asignar medalla"
+          ) : (
+            "Eliminar medalla"
+          )
+        }
       </button>
 
       {expanded && (
@@ -148,10 +158,10 @@ const MedalActionMenu = ({ items, isAssign, onLoadingChange, isLoading: external
                   <button
                     className={styles.confirmButton}
                     onClick={() => handleConfirmClick(medalla.id, Number(amount))}
-                    disabled={isLoading || !isValidAmount}
+                    disabled={!isValidAmount}
                     style={{
-                      cursor: !isLoading && isValidAmount ? "pointer" : "not-allowed",
-                      opacity: !isLoading && isValidAmount ? 1 : 0.5,
+                      cursor: isValidAmount ? "pointer" : "not-allowed",
+                      opacity: isValidAmount ? 1 : 0.5,
                     }}
                   >
                     {isAssign ? "Asignar" : "Eliminar"}

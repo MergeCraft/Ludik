@@ -21,8 +21,8 @@ export const GroupCreateModal = ({ onClose, idGrupo, grupoInicial }) => {
     tablaEquivalenciaId: "",
   });
 
-  const { mutateAsync: crearGrupo, isLoading: cargandoCreacion } = useCrearGrupo();
-  const { mutateAsync: editarGrupo, isLoading: cargandoEdicion } = useEditarGrupo();
+  const { mutateAsync: crearGrupo, isPending: cargandoCreacion } = useCrearGrupo();
+  const { mutateAsync: editarGrupo, isPending: cargandoEdicion } = useEditarGrupo();
   const { data: tablasEquivalencia, isLoading } = useTablasEquivalencia();
 
   useEffect(() => {

@@ -4,7 +4,7 @@ import styles from "./EquivalenceTableCreateModal.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMedallasProfesor } from "../../medals/hooks/useMedalMutation";
 import { useCrearTablaEquivalencia, useEditarTablaEquivalencia } from "../hooks/useEquivalenceTableMutation";
-
+import { PulseLoader } from "../../generics/BarLoader";
 /*
   Estrategia:
   - medallasNecesariasRaw: array de instancias {id,nombre,nombreIcono,esHeredada}
@@ -17,8 +17,8 @@ import { useCrearTablaEquivalencia, useEditarTablaEquivalencia } from "../hooks/
 const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
   const [equivalencia, setEquivalencia] = useState({ nombre: "", equivalencias: [] });
 
-  const { mutateAsync: crearTablaEquivalencia } = useCrearTablaEquivalencia();
-  const { mutateAsync: editarTablaEquivalencia } = useEditarTablaEquivalencia();
+  const { mutateAsync: crearTablaEquivalencia, isPending: isCreating } = useCrearTablaEquivalencia();
+  const { mutateAsync: editarTablaEquivalencia, isPending: isEditing } = useEditarTablaEquivalencia();
   const { data: medallas, isLoading } = useMedallasProfesor();
 
   const groupRawToUI = (raw) => {
@@ -257,7 +257,7 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
           Agregar Equivalencia
         </button>
         <button type="submit" className="button-secondary">
-          {table ? "Guardar cambios" : "Crear tabla"}
+          {isCreating || isEditing ? <PulseLoader /> : table ? "Guardar cambios" : "Crear tabla"}
         </button>
       </div>
     </form>
