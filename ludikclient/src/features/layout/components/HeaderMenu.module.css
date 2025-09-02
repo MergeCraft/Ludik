@@ -24,16 +24,13 @@
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.4);
-  /* fondo oscuro semitransparente */
   z-index: 998;
   pointer-events: none;
-  /* evita clics cuando está oculto */
 }
 
 .overlay.show {
   opacity: 1;
   pointer-events: all;
-  /* permite interacción cuando está visible */
 }
 
 /* Sidebar */
@@ -41,19 +38,17 @@
   position: fixed;
   top: 0;
   left: 0;
-  /* CAMBIADO: antes estaba en right: 0 */
-  height: 100vh;
+  height: 96vh;
   width: 250px;
   background-color: var(--principal);
   box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
-  /* CAMBIADO: sombra a la derecha */
   padding: 20px 15px;
   transform: translateX(-100%);
-  /* CAMBIADO: oculto a la izquierda */
   transition: transform 0.3s ease;
   z-index: 999;
   box-sizing: content-box;
-
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebarMenu.show {
@@ -64,6 +59,9 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebarMenu li {
@@ -141,10 +139,8 @@
 }
 
 .cerrarSesion {
-  position: absolute;
-  bottom: 50px;
-  left: 0;
-  right: 0;
+
+  margin-top: auto;
+  /* NUEVO → empuja este bloque al final del menú */
   padding: 0 15px;
-  /* mismo padding lateral que el sidebarMenu */
 }
