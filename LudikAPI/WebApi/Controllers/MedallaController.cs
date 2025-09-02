@@ -183,6 +183,10 @@ namespace WebApi.Controllers
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetPorGrupo(int grupoId)
         {
+            var usuarioId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(usuarioId))
+                return this.ManejarFallo(Resultado.Falla(Error.Unauthorized));
+
             var resultado = await _obtenerMedallasProfesorPorGrupo.EjecutarAsync(grupoId);
 
             if (resultado.EsFallo)

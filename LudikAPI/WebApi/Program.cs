@@ -213,7 +213,6 @@ builder.Services.AddScoped<IRepositorioRecompensasDeProfesores, RepositorioRecom
 builder.Services.AddAzureClients(clientBuilder =>
 {
 
-	// TODO: La cadena de conexión debe estar en secretos de usuario o Azure Key Vault en producción.
 	if (!builder.Environment.IsDevelopment())
 	{
 		var connectionString = builder.Configuration.GetConnectionString("AzureStorage");
