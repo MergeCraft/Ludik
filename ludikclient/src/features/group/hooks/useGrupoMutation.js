@@ -32,6 +32,7 @@ import {
 import { obtenerTiposKudo } from "../../../services/medalService";
 import { obtenerRecompensasTienda } from "../../../services/storeService";
 import { obtenerRankings, crearRanking, eliminarRanking, obtenerRankingPorId } from "../../../services/rankingsService";
+import { useNavigate } from "react-router-dom";
 
 // ─────────────────────────────────────────────
 // 🔄 PREFETCH
@@ -92,9 +93,12 @@ export const useEditarGrupo = (onSuccessCallback) => {
 
 export const useEliminarGrupo = (onSuccessCallback) => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate(); // 👈 correcto
+
   return useMutation({
     mutationFn: eliminarGrupo,
     onSuccess: (_, id) => {
+      navigate("/groups"); // 👈 usar navigate, no Navigate
       Toast.notificarExito("Grupo eliminado correctamente.");
       queryClient.invalidateQueries(["grupos"]);
       if (onSuccessCallback) onSuccessCallback(id);
@@ -158,7 +162,7 @@ export const useSolicitudesUnion = (id) => {
     cacheTime: 0,
     refetchOnMount: true,
     refetchOnWindowFocus: true,
-    refetchInterval: 30000,
+    refetchInterval: 10000,
   });
 };
 

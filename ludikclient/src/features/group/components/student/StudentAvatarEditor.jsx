@@ -55,7 +55,7 @@ const agruparPorTipoConColores = (items) => {
   return agrupados;
 };
 
-const StudentAvatarEditor = ({ idPerfil }) => {
+const StudentAvatarEditor = ({ idPerfil, onClose }) => {
   const [selectedTab, setSelectedTab] = useState("posicion");
   const [selecciones, setSelecciones] = useState({});
   const { data: inventario, isLoading, isError, error } = useInventarioAvatar(idPerfil);
@@ -106,7 +106,15 @@ const StudentAvatarEditor = ({ idPerfil }) => {
             AtributosIds: atributosSeleccionados,
           };
 
-          guardarAvatarMutation.mutate({ avatarDto, jpegBlob });
+          guardarAvatarMutation.mutate(
+            { avatarDto, jpegBlob },
+            {
+              onSuccess: () => {
+                // Cierra el modal al guardar correctamente
+                if (onClose) onClose();
+              },
+            }
+          );
           URL.revokeObjectURL(url);
         },
         "image/jpeg",
@@ -461,6 +469,7 @@ const StudentAvatarEditor = ({ idPerfil }) => {
 
 StudentAvatarEditor.propTypes = {
   idPerfil: PropTypes.number.isRequired,
+  onClose: PropTypes.func.isRequired
 };
 
 export default StudentAvatarEditor;

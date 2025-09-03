@@ -21,11 +21,20 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
   const { mutateAsync: editarTablaEquivalencia, isPending: isEditing } = useEditarTablaEquivalencia();
   const { data: medallas, isLoading } = useMedallasProfesor();
 
-  const groupRawToUI = (raw) => {
+  const groupRawToUI = (raw = []) => {
     const map = new Map();
     for (const r of raw) {
-      if (!map.has(r.id)) map.set(r.id, { id: r.id, nombre: r.nombre, nombreIcono: r.nombreIcono || "", cantidad: 1 });
-      else map.get(r.id).cantidad += 1;
+      const key = String(r.id); // normalizamos la clave
+      if (!map.has(key)) {
+        map.set(key, {
+          id: r.id,
+          nombre: r.nombre,
+          nombreIcono: r.nombreIcono || "",
+          cantidad: 1,
+        });
+      } else {
+        map.get(key).cantidad += 1;
+      }
     }
     return Array.from(map.values());
   };
@@ -35,7 +44,14 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
 
     if (table && table.equivalencias) {
       const built = table.equivalencias.map((eq) => {
-        const raw = (eq.medallasNecesarias || []).flatMap((m) => Array(m.cantidad || 1).fill({ id: m.id, nombre: m.nombre, nombreIcono: m.nombreIcono || "", esHeredada: false }));
+        const raw = (eq.medallasNecesarias || []).flatMap((m) =>
+          Array.from({ length: m.cantidad || 1 }, () => ({
+            id: m.id,
+            nombre: m.nombre,
+            nombreIcono: m.nombreIcono || "",
+            esHeredada: false,
+          }))
+        );
         return {
           nota: eq.nota,
           medallasNecesariasRaw: raw,
@@ -89,16 +105,24 @@ const EquivalenceTableCreateModal = ({ onClose, onSave, table }) => {
   // Después sincronizamos herencia desde equIndex (para recalcular correctamente posteriores)
   const handleAddMedalla = (equIndex, medallaId) => {
     if (!medallaId || !medallas) return;
-    const med = medallas.find((m) => m.id === medallaId);
+    const med = medallas.find((m) => Number(m.id) === Number(medallaId));
     if (!med) return;
 
     setEquivalencia((prev) => {
-      const copy = prev.equivalencias.map((eq) => ({ ...eq, medallasNecesariasRaw: [...eq.medallasNecesariasRaw] }));
-      // añadir instancia no heredada en equIndex
-      copy[equIndex].medallasNecesariasRaw.push({ id: med.id, nombre: med.nombre, nombreIcono: med.nombreIcono || "", esHeredada: false });
+      const copy = prev.equivalencias.map((eq) => ({
+        ...eq,
+        medallasNecesariasRaw: [...eq.medallasNecesariasRaw],
+      }));
+
+      copy[equIndex].medallasNecesariasRaw.push({
+        id: Number(med.id),
+        nombre: med.nombre,
+        nombreIcono: med.nombreIcono || "",
+        esHeredada: false,
+      });
+
       copy[equIndex].medallasNecesariasUI = groupRawToUI(copy[equIndex].medallasNecesariasRaw);
 
-      // Recalcular herencia para posteriores (esto garantizará consistencia)
       const synced = syncInheritanceFrom(equIndex, copy);
       return { ...prev, equivalencias: synced };
     });

@@ -97,7 +97,7 @@ namespace WebApi.Controllers
 			if (resultado.EsFallo)
 				return this.ManejarFallo(resultado);
 
-			return StatusCode(StatusCodes.Status204NoContent, "El grupo se ha eliminado de forma exitosa.");
+			return StatusCode(StatusCodes.Status200OK, "El grupo se ha eliminado de forma exitosa.");
 		}
 
 		[HttpGet("info/{grupoId:int}")]

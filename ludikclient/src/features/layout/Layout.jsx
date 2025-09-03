@@ -1,6 +1,6 @@
 // src/features/layout/Layout.jsx
 import React from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import styles from "./Layout.module.css";
 import HeaderMenu from "./components/HeaderMenu";
 import EnhancerView from "./components/EnhancerView.jsx";
@@ -12,8 +12,6 @@ import { useGruposPorRol } from "../group/hooks/useGrupoMutation";
 import { usePerfilGrupo } from "../group/hooks/useStudentMutation.js";
 
 function Layout() {
-  const navigate = useNavigate();
-
   const isLoggedIn = useSelector(selectIsAuthenticated);
   const role = useSelector(selectUserRole);
 
@@ -27,7 +25,7 @@ function Layout() {
     <div className={styles.layoutContainer}>
       <header className={styles.header}>
         <div className={styles.logoArea}>
-          <img src={logo} alt="Ludik Logo" className={styles.logoImage} onClick={() => navigate("/")} style={{ cursor: "pointer" }} />
+          <img src={logo} alt="Ludik Logo" className={styles.logoImage} style={{ cursor: "pointer" }} />
         </div>
 
         {isLoggedIn && (
@@ -36,7 +34,7 @@ function Layout() {
 
             {!isProfesor && perfil?.multiplicadorPotenciador != null && (
               <EnhancerView enhancerX={perfil.multiplicadorPotenciador} enhancerTime={perfil.tiempoRestantePotenciador} isLoading={isLoadingPerfil} />
-            )} 
+            )}
           </>
         )}
       </header>

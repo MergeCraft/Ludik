@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./GroupConfigView.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,25 +8,45 @@ import GroupCreateForm from "../teacher/GroupCreateForm";
 import { PulseLoader } from "../../../generics/BarLoader.jsx";
 
 const GroupConfigView = ({ id, group, setModalContent, setModalTitle, setShowModal }) => {
-  const { nombre, materia, institucion, fCreacion, urlCompleta } = group;
+  const [grupo, setGrupo] = useState({
+    nombre: "",
+    materia: "",
+    institucion: "",
+    fCreacion: "",
+    urlCompleta: "",
+  });
 
-  const codigo = new URL(urlCompleta).searchParams.get("codigo");
+  const [codigo, setCodigo] = useState("");
+
+  useEffect(() => {
+    if (group) {
+      setGrupo({
+        nombre: group.nombre || "",
+        materia: group.materia || "",
+        institucion: group.institucion || "",
+        fCreacion: group.fCreacion || "",
+        urlCompleta: group.urlCompleta || "",
+      });
+
+      setCodigo(new URL(group.urlCompleta).searchParams.get("codigo") || "");
+    }
+  }, [group]);
 
   const eliminarGrupo = useEliminarGrupo();
   const reiniciarLogros = useReiniciarLogrosGrupo();
 
   const handleEliminar = () => {
-    const confirmado = window.confirm(`¿Seguro que quieres eliminar el grupo "${nombre}"?`);
+    const confirmado = window.confirm(`¿Seguro que quieres eliminar el grupo "${grupo.nombre}"?`);
     if (confirmado) eliminarGrupo.mutate(id);
   };
 
   const handleReiniciarLogros = () => {
-    const confirmado = window.confirm(`¿Deseas reiniciar los logros del grupo "${nombre}"?`);
+    const confirmado = window.confirm(`¿Deseas reiniciar los logros del grupo "${grupo.nombre}"?`);
     if (confirmado) reiniciarLogros.mutate(id);
   };
 
   const handleEditar = () => {
-    setModalContent(<GroupCreateForm grupoInicial={group} idGrupo={id} onClose={() => setShowModal(false)} />);
+    setModalContent(<GroupCreateForm grupoInicial={grupo} idGrupo={id} onClose={() => setShowModal(false)} />);
     setModalTitle("Editar grupo");
     setShowModal(true);
   };
@@ -42,16 +62,16 @@ const GroupConfigView = ({ id, group, setModalContent, setModalTitle, setShowMod
         <h3>Información</h3>
         <div className={styles.props}>
           <label>
-            <strong>Nombre</strong> {nombre}
+            <strong>Nombre</strong> {grupo.nombre}
           </label>
           <label>
-            <strong>Materia</strong> {materia}
+            <strong>Materia</strong> {grupo.materia}
           </label>
           <label>
-            <strong>Institución</strong> {institucion}
+            <strong>Institución</strong> {grupo.institucion}
           </label>
           <label>
-            <strong>Fecha de creación</strong> {new Date(fCreacion).toLocaleDateString()}
+            <strong>Fecha de creación</strong> {new Date(grupo.fCreacion).toLocaleDateString()}
           </label>
           <label className={styles.linkContainer}>
             <strong>Enlace de invitación</strong>
@@ -73,7 +93,7 @@ const GroupConfigView = ({ id, group, setModalContent, setModalTitle, setShowMod
             {reiniciarLogros.isPending ? <PulseLoader /> : "Reiniciar logros"}
           </button>
           <button className="button-tertiary" onClick={handleEliminar}>
-            Eliminar grupo
+            {eliminarGrupo.isPending ? <PulseLoader /> : "Eliminar grupo"}
           </button>
         </div>
       </div>

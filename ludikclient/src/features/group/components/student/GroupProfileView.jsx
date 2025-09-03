@@ -86,7 +86,7 @@ const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModa
           <button
             className={styles.editIconContainer}
             onClick={() => {
-              setModalContent(<StudentAvatarEditor idPerfil={perfil.id} />);
+              setModalContent(<StudentAvatarEditor idPerfil={perfil.id} onClose={() => setShowModal(false)}/>);
               setModalTitle("Personalizar avatar");
               setShowModal(true);
             }}

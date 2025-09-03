@@ -110,14 +110,7 @@ const MedalActionMenu = ({ items, isAssign, onLoadingChange, isLoading: external
 
   return (
     <div className={styles.menuWrapper} ref={wrapperRef}>
-      <button
-        type="button"
-        className={`${styles.menuButton} ${isAssign ? "button" : "button-tertiary"}`}
-        onClick={() => setExpanded((prev) => !prev)}
-        disabled={isLoading}
-        aria-expanded={expanded}
-        aria-haspopup="listbox"
-      >
+      <button type="button" className={`${styles.menuButton} ${isAssign ? "button" : "button-tertiary"}`} onClick={() => setExpanded((prev) => !prev)} aria-expanded={expanded} aria-haspopup="listbox">
         {
           // ✅ mostrar PulseLoader solo si esta cargando esta medalla
           (isAssign && loadingAsignar) || (!isAssign && loadingEliminar) ? (
@@ -146,7 +139,7 @@ const MedalActionMenu = ({ items, isAssign, onLoadingChange, isLoading: external
                     type="number"
                     min={0}
                     max={!isAssign ? cantidadDisponible : undefined}
-                    value={amount}
+                    value={amount ?? ""}
                     onChange={(e) => handleAmountChange(medalla.id, e.target.value, cantidadDisponible)}
                     className={styles.amountInput}
                     aria-label={`Cantidad de ${medalla.nombre}`}
