@@ -69,10 +69,17 @@ const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModa
 
     if (error) return;
 
-    solicitarMedallaMutate({
-      medallaId: Number(medallaSeleccionada),
-      descripcion: mensajeSolicitud || "Sin descripción",
-    });
+    solicitarMedallaMutate(
+      {
+        medallaId: Number(medallaSeleccionada),
+        descripcion: mensajeSolicitud || "Sin descripción",
+      },
+      {
+        onSuccess: () => {
+          setMedallaSeleccionada("");
+        },
+      }
+    );
   };
 
   return isLoading ? (
@@ -86,7 +93,7 @@ const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModa
           <button
             className={styles.editIconContainer}
             onClick={() => {
-              setModalContent(<StudentAvatarEditor idPerfil={perfil.id} onClose={() => setShowModal(false)}/>);
+              setModalContent(<StudentAvatarEditor idPerfil={perfil.id} />);
               setModalTitle("Personalizar avatar");
               setShowModal(true);
             }}

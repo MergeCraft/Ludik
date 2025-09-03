@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styles from "./MedalRequestItem.module.css";
 import MedalCard from "../../../medals/components/MedalCard";
 import { useAceptarSolicitudMedalla, useRechazarSolicitudMedalla } from "../../hooks/useGrupoMutation";
+import { PulseLoader } from "../../../generics/BarLoader";
 
 const MedalRequestItem = ({ solicitud, medallas }) => {
   const [medalla, setMedalla] = useState(null);
@@ -41,10 +42,10 @@ const MedalRequestItem = ({ solicitud, medallas }) => {
       </div>
       <div className={styles.requestActions}>
         <button className="button-secondary" onClick={handleAceptar} disabled={aceptarMutation.isLoading || solicitud.estado !== "Pendiente"}>
-          Aprobar
+          {aceptarMutation.isPending ? <PulseLoader /> : "Aprobar"}
         </button>
         <button className="button-tertiary" onClick={handleRechazar} disabled={rechazarMutation.isLoading || solicitud.estado !== "Pendiente"}>
-          Rechazar
+          {rechazarMutation.isPending ? <PulseLoader /> : "Rechazar"}
         </button>
       </div>
     </div>
