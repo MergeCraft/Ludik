@@ -41,10 +41,10 @@ const MedalRequestItem = ({ solicitud, medallas }) => {
         </div>
       </div>
       <div className={styles.requestActions}>
-        <button className="button-secondary" onClick={handleAceptar} disabled={aceptarMutation.isLoading || solicitud.estado !== "Pendiente"}>
+        <button className="button-secondary" onClick={handleAceptar} disabled={aceptarMutation.isPending || solicitud.estado !== "Pendiente"}>
           {aceptarMutation.isPending ? <PulseLoader /> : "Aprobar"}
         </button>
-        <button className="button-tertiary" onClick={handleRechazar} disabled={rechazarMutation.isLoading || solicitud.estado !== "Pendiente"}>
+        <button className="button-tertiary" onClick={handleRechazar} disabled={rechazarMutation.isPending || solicitud.estado !== "Pendiente"}>
           {rechazarMutation.isPending ? <PulseLoader /> : "Rechazar"}
         </button>
       </div>

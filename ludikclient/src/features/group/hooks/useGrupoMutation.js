@@ -162,7 +162,7 @@ export const useSolicitudesUnion = (id) => {
     cacheTime: 0,
     refetchOnMount: true,
     refetchOnWindowFocus: true,
-    refetchInterval: 10000,
+    refetchInterval: 5000,
   });
 };
 
@@ -184,6 +184,7 @@ export const useAceptarSolicitud = (onSuccessCallback) => {
     onSuccess: (data) => {
       Toast.notificarExito("Solicitud aceptada.");
       queryClient.invalidateQueries(["solicitudesUnion"]);
+      queryClient.invalidateQueries(["alumnos"]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
     onError: manejarVisualizacionDeErrores,
@@ -197,6 +198,7 @@ export const useRechazarSolicitud = (onSuccessCallback) => {
     onSuccess: (data) => {
       Toast.notificarExito("Solicitud rechazada.");
       queryClient.invalidateQueries(["solicitudesUnion"]);
+      queryClient.invalidateQueries(["alumnos"]);
       if (onSuccessCallback) onSuccessCallback(data);
     },
     onError: manejarVisualizacionDeErrores,

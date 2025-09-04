@@ -110,7 +110,6 @@ input:checked+.slider .switchLabel.medalla {
 
 .formulario.oculto {
     opacity: 1;
-    pointer-events: none;
     transform: scale(1);
 }
 
@@ -139,6 +138,7 @@ input:checked+.slider .switchLabel.medalla {
     .formulario.oculto {
         opacity: 0;
         transform: scale(0.9);
+        pointer-events: none;
     }
 
     .formulario h3 {
