@@ -56,7 +56,7 @@ namespace AccesoDatos.RepositoriosEF
 		private const string Estudiante35Id = "i3445865-a24d-4543-a6c6-9443d048cdd4";
 
 		// Contraseñas comunes para simplificar la precarga.
-		private const string CommonPasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg=="; // Cecilia1.
+		private const string CommonPasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==";
 
 		/// <summary>
 		/// Método principal que orquesta toda la siembra de datos.
@@ -130,7 +130,7 @@ namespace AccesoDatos.RepositoriosEF
 					Email = "cecilia@gmail.com",
 					NormalizedEmail = "CECILIA@GMAIL.COM",
 					EmailConfirmed = true,
-					PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==", //Cecilia1.
+					PasswordHash = CommonPasswordHash,
 					SecurityStamp = "STATIC_SECURITY_STAMP_1",
 					ConcurrencyStamp = "b0c8b6a8-8e6b-4e6a-9e1e-2e0b166a9c76"
 				},
@@ -142,7 +142,7 @@ namespace AccesoDatos.RepositoriosEF
 					Email = "laura.fernandez@ludik.edu.uy",
 					NormalizedEmail = "LAURA.FERNANDEZ@LUDIK.EDU.UY",
 					EmailConfirmed = true,
-					PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
+					PasswordHash = CommonPasswordHash,
 					SecurityStamp = "STATIC_SECURITY_STAMP_2",
 					ConcurrencyStamp = "a1d3b5e7-9f2d-4b8c-8a1e-3f0e2d5b4a6b"
 				}
@@ -152,27 +152,27 @@ namespace AccesoDatos.RepositoriosEF
 		private static void PrecargarEstudiantes(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<Estudiante>().HasData(
-				new Estudiante { Id = Estudiante1Id, UserName = "santiago", NormalizedUserName = "SANTIAGO", PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==", SecurityStamp = "STATIC_SECURITY_STAMP_3", ConcurrencyStamp = "c4b6e8a0-1d3f-4e9a-9c8e-5d2a4f6b8c0d" },
-				new Estudiante { Id = Estudiante2Id, UserName = "valentina", NormalizedUserName = "VALENTINA", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_4", ConcurrencyStamp = "d5c7f9b1-2e4g-5f0b-a0d9-6e3b5g7c9d1e" },
-				new Estudiante { Id = Estudiante3Id, UserName = "matias", NormalizedUserName = "MATIAS", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_5", ConcurrencyStamp = "e6d80ac2-3f5h-6g1c-b1e0-7f4c6h8d0e2f" },
-				new Estudiante { Id = Estudiante4Id, UserName = "camila", NormalizedUserName = "CAMILA", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_6", ConcurrencyStamp = "f7e91bd3-4g6i-7h2d-c2f1-8g5d7i9e1f3g" },
-				new Estudiante { Id = Estudiante5Id, UserName = "lucas", NormalizedUserName = "LUCAS", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_7", ConcurrencyStamp = "g8f02ce4-5h7j-8i3e-d3g2-9h6e8j0f2g4h" },
+				new Estudiante { Id = Estudiante1Id, UserName = "usuario1", NormalizedUserName = "USUARIO1", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_3", ConcurrencyStamp = "c4b6e8a0-1d3f-4e9a-9c8e-5d2a4f6b8c0d" },
+				new Estudiante { Id = Estudiante2Id, UserName = "usuario2", NormalizedUserName = "USUARIO2", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_4", ConcurrencyStamp = "d5c7f9b1-2e4g-5f0b-a0d9-6e3b5g7c9d1e" },
+				new Estudiante { Id = Estudiante3Id, UserName = "usuario3", NormalizedUserName = "USUARIO3", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_5", ConcurrencyStamp = "e6d80ac2-3f5h-6g1c-b1e0-7f4c6h8d0e2f" },
+				new Estudiante { Id = Estudiante4Id, UserName = "usuario4", NormalizedUserName = "USUARIO4", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_6", ConcurrencyStamp = "f7e91bd3-4g6i-7h2d-c2f1-8g5d7i9e1f3g" },
+				new Estudiante { Id = Estudiante5Id, UserName = "usuario5", NormalizedUserName = "USUARIO5", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_7", ConcurrencyStamp = "g8f02ce4-5h7j-8i3e-d3g2-9h6e8j0f2g4h" },
 
-				new Estudiante { Id = Estudiante6Id, UserName = "sofia", NormalizedUserName = "SOFIA", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_8", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c06" },
-				new Estudiante { Id = Estudiante7Id, UserName = "juan", NormalizedUserName = "JUAN", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_9", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c07" },
-				new Estudiante { Id = Estudiante8Id, UserName = "lucia", NormalizedUserName = "LUCIA", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_10", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c08" },
-				new Estudiante { Id = Estudiante9Id, UserName = "diego", NormalizedUserName = "DIEGO", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_11", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c09" },
-				new Estudiante { Id = Estudiante10Id, UserName = "martina", NormalizedUserName = "MARTINA", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_12", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0a" },
-				new Estudiante { Id = Estudiante11Id, UserName = "agustin", NormalizedUserName = "AGUSTIN", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_13", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0b" },
-				new Estudiante { Id = Estudiante12Id, UserName = "maria", NormalizedUserName = "MARIA", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_14", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0c" },
-				new Estudiante { Id = Estudiante13Id, UserName = "nicolas", NormalizedUserName = "NICOLAS", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_15", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0d" },
-				new Estudiante { Id = Estudiante14Id, UserName = "paula", NormalizedUserName = "PAULA", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_16", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0e" },
-				new Estudiante { Id = Estudiante15Id, UserName = "federico", NormalizedUserName = "FEDERICO", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_17", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0f" },
-				new Estudiante { Id = Estudiante16Id, UserName = "florencia", NormalizedUserName = "FLORENCIA", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_18", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c10" },
-				new Estudiante { Id = Estudiante17Id, UserName = "sebastian", NormalizedUserName = "SEBASTIAN", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_19", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c11" },
-				new Estudiante { Id = Estudiante18Id, UserName = "victoria", NormalizedUserName = "VICTORIA", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_20", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c12" },
-				new Estudiante { Id = Estudiante19Id, UserName = "joaquin", NormalizedUserName = "JOAQUIN", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_21", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c13" },
-				new Estudiante { Id = Estudiante20Id, UserName = "julieta", NormalizedUserName = "JULIETA", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_22", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c14" },
+				new Estudiante { Id = Estudiante6Id, UserName = "usuario6", NormalizedUserName = "USUARIO6", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_8", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c06" },
+				new Estudiante { Id = Estudiante7Id, UserName = "usuario7", NormalizedUserName = "USUARIO7", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_9", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c07" },
+				new Estudiante { Id = Estudiante8Id, UserName = "usuario8", NormalizedUserName = "USUARIO8", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_10", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c08" },
+				new Estudiante { Id = Estudiante9Id, UserName = "usuario9", NormalizedUserName = "USUARIO9", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_11", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c09" },
+				new Estudiante { Id = Estudiante10Id, UserName = "usuario10", NormalizedUserName = "USUARIO10", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_12", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0a" },
+				new Estudiante { Id = Estudiante11Id, UserName = "usuario11", NormalizedUserName = "USUARIO11", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_13", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0b" },
+				new Estudiante { Id = Estudiante12Id, UserName = "usuario12", NormalizedUserName = "USUARIO12", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_14", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0c" },
+				new Estudiante { Id = Estudiante13Id, UserName = "usuario13", NormalizedUserName = "USUARIO13", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_15", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0d" },
+				new Estudiante { Id = Estudiante14Id, UserName = "usuario14", NormalizedUserName = "USUARIO14", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_16", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0e" },
+				new Estudiante { Id = Estudiante15Id, UserName = "usuario15", NormalizedUserName = "USUARIO15", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_17", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0f" },
+				new Estudiante { Id = Estudiante16Id, UserName = "usuario16", NormalizedUserName = "USUARIO16", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_18", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c10" },
+				new Estudiante { Id = Estudiante17Id, UserName = "usuario17", NormalizedUserName = "USUARIO17", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_19", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c11" },
+				new Estudiante { Id = Estudiante18Id, UserName = "usuario18", NormalizedUserName = "USUARIO18", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_20", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c12" },
+				new Estudiante { Id = Estudiante19Id, UserName = "usuario19", NormalizedUserName = "USUARIO19", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_21", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c13" },
+				new Estudiante { Id = Estudiante20Id, UserName = "usuario20", NormalizedUserName = "USUARIO20", PasswordHash = CommonPasswordHash, SecurityStamp = "STATIC_SECURITY_STAMP_22", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c14" },
 				new Estudiante { Id = Estudiante21Id, UserName = "manuel", NormalizedUserName = "MANUEL", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_23", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c15" },
 				new Estudiante { Id = Estudiante22Id, UserName = "ana", NormalizedUserName = "ANA", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_24", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c16" },
 				new Estudiante { Id = Estudiante23Id, UserName = "facundo", NormalizedUserName = "FACUNDO", PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==", SecurityStamp = "STATIC_SECURITY_STAMP_25", ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c17" },
@@ -384,7 +384,6 @@ namespace AccesoDatos.RepositoriosEF
 				new() { Id = 8, Nota = 8, TablaEquivalenciaId = 1 },
 				new() { Id = 9, Nota = 9, TablaEquivalenciaId = 1 },
 				new() { Id = 10, Nota = 10, TablaEquivalenciaId = 1 },
-
 				new() { Id = 11, Nota = 1, TablaEquivalenciaId = 2 },
 			};
 			modelBuilder.Entity<Equivalencia>().HasData(equivalencias);
