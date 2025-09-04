@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccesoDatos.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20250901073211_InicialConDatos")]
-    partial class InicialConDatos
+    [Migration("20250904135328_inicialConDatos")]
+    partial class inicialConDatos
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -3910,12 +3910,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "c4b6e8a0-1d3f-4e9a-9c8e-5d2a4f6b8c0d",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "SANTIAGO",
+                            NormalizedUserName = "USUARIO1",
                             PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_3",
                             TwoFactorEnabled = false,
-                            UserName = "santiago"
+                            UserName = "usuario1"
                         },
                         new
                         {
@@ -3924,12 +3924,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "d5c7f9b1-2e4g-5f0b-a0d9-6e3b5g7c9d1e",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "VALENTINA",
-                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            NormalizedUserName = "USUARIO2",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_4",
                             TwoFactorEnabled = false,
-                            UserName = "valentina"
+                            UserName = "usuario2"
                         },
                         new
                         {
@@ -3938,12 +3938,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "e6d80ac2-3f5h-6g1c-b1e0-7f4c6h8d0e2f",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "MATIAS",
-                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            NormalizedUserName = "USUARIO3",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_5",
                             TwoFactorEnabled = false,
-                            UserName = "matias"
+                            UserName = "usuario3"
                         },
                         new
                         {
@@ -3952,12 +3952,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "f7e91bd3-4g6i-7h2d-c2f1-8g5d7i9e1f3g",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "CAMILA",
-                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            NormalizedUserName = "USUARIO4",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_6",
                             TwoFactorEnabled = false,
-                            UserName = "camila"
+                            UserName = "usuario4"
                         },
                         new
                         {
@@ -3966,12 +3966,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "g8f02ce4-5h7j-8i3e-d3g2-9h6e8j0f2g4h",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "LUCAS",
-                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            NormalizedUserName = "USUARIO5",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_7",
                             TwoFactorEnabled = false,
-                            UserName = "lucas"
+                            UserName = "usuario5"
                         },
                         new
                         {
@@ -3980,12 +3980,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c06",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "SOFIA",
-                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            NormalizedUserName = "USUARIO6",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_8",
                             TwoFactorEnabled = false,
-                            UserName = "sofia"
+                            UserName = "usuario6"
                         },
                         new
                         {
@@ -3994,12 +3994,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c07",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "JUAN",
-                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            NormalizedUserName = "USUARIO7",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_9",
                             TwoFactorEnabled = false,
-                            UserName = "juan"
+                            UserName = "usuario7"
                         },
                         new
                         {
@@ -4008,12 +4008,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c08",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "LUCIA",
-                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            NormalizedUserName = "USUARIO8",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_10",
                             TwoFactorEnabled = false,
-                            UserName = "lucia"
+                            UserName = "usuario8"
                         },
                         new
                         {
@@ -4022,12 +4022,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c09",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "DIEGO",
-                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            NormalizedUserName = "USUARIO9",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_11",
                             TwoFactorEnabled = false,
-                            UserName = "diego"
+                            UserName = "usuario9"
                         },
                         new
                         {
@@ -4036,12 +4036,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0a",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "MARTINA",
-                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            NormalizedUserName = "USUARIO10",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_12",
                             TwoFactorEnabled = false,
-                            UserName = "martina"
+                            UserName = "usuario10"
                         },
                         new
                         {
@@ -4050,12 +4050,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0b",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "AGUSTIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            NormalizedUserName = "USUARIO11",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_13",
                             TwoFactorEnabled = false,
-                            UserName = "agustin"
+                            UserName = "usuario11"
                         },
                         new
                         {
@@ -4064,12 +4064,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0c",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "MARIA",
-                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            NormalizedUserName = "USUARIO12",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_14",
                             TwoFactorEnabled = false,
-                            UserName = "maria"
+                            UserName = "usuario12"
                         },
                         new
                         {
@@ -4078,12 +4078,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0d",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "NICOLAS",
-                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            NormalizedUserName = "USUARIO13",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_15",
                             TwoFactorEnabled = false,
-                            UserName = "nicolas"
+                            UserName = "usuario13"
                         },
                         new
                         {
@@ -4092,12 +4092,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0e",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "PAULA",
-                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            NormalizedUserName = "USUARIO14",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_16",
                             TwoFactorEnabled = false,
-                            UserName = "paula"
+                            UserName = "usuario14"
                         },
                         new
                         {
@@ -4106,12 +4106,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c0f",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "FEDERICO",
-                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            NormalizedUserName = "USUARIO15",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_17",
                             TwoFactorEnabled = false,
-                            UserName = "federico"
+                            UserName = "usuario15"
                         },
                         new
                         {
@@ -4120,12 +4120,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c10",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "FLORENCIA",
-                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            NormalizedUserName = "USUARIO16",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_18",
                             TwoFactorEnabled = false,
-                            UserName = "florencia"
+                            UserName = "usuario16"
                         },
                         new
                         {
@@ -4134,12 +4134,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c11",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "SEBASTIAN",
-                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            NormalizedUserName = "USUARIO17",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_19",
                             TwoFactorEnabled = false,
-                            UserName = "sebastian"
+                            UserName = "usuario17"
                         },
                         new
                         {
@@ -4148,12 +4148,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c12",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "VICTORIA",
-                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            NormalizedUserName = "USUARIO18",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_20",
                             TwoFactorEnabled = false,
-                            UserName = "victoria"
+                            UserName = "usuario18"
                         },
                         new
                         {
@@ -4162,12 +4162,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c13",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "JOAQUIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            NormalizedUserName = "USUARIO19",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_21",
                             TwoFactorEnabled = false,
-                            UserName = "joaquin"
+                            UserName = "usuario19"
                         },
                         new
                         {
@@ -4176,12 +4176,12 @@ namespace AccesoDatos.Migrations
                             ConcurrencyStamp = "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c14",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "JULIETA",
-                            PasswordHash = "AQAAAAIAAYagAAAAENuS3fE5d1k/aN2zV8mY9wR8cI7qU5kY4tL6wP9eO3bF0dG1sS5nC2vX3jJ4oP7eWw==",
+                            NormalizedUserName = "USUARIO20",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICeFSdiFCtz68TPDuBQMzkt7RT8ecvoXx3nTwJev5fDDu098ITlRrx8fymingA8Mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC_SECURITY_STAMP_22",
                             TwoFactorEnabled = false,
-                            UserName = "julieta"
+                            UserName = "usuario20"
                         },
                         new
                         {
