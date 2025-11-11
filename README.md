@@ -1,6 +1,6 @@
 # Ludik — Plataforma web de ludificación para educación secundaria
 
-> **TL;DR**: Proyecto full-stack que convierte participación y logros de estudiantes en **medallas, monedas, rankings y recompensas**, con **barra de progreso** y **tabla de equivalencias (GPS de calificaciones)**, para dar **feedback inmediato** y elevar la motivación. Backend **ASP.NET Core 8 (Clean Architecture)**, frontend **React**, y despliegue en **Azure**.
+>  Proyecto full-stack que convierte participación y logros de estudiantes en **medallas, monedas, rankings y recompensas**, con **barra de progreso** y **tabla de equivalencias (GPS de calificaciones)**, para dar **feedback inmediato** y elevar la motivación. Backend **ASP.NET Core 8 (Clean Architecture)**, frontend **React**, y despliegue en **Azure**.
 
 ---
 
