@@ -40,6 +40,7 @@ namespace AccesoDatos.RepositoriosEF
                 var lista = await _db.PerfilEstudianteRecompensas
                     .Include(x => x.PerfilEstudiante)
                     .Include(x => x.Recompensa)
+                    .AsSplitQuery()
                     .ToListAsync();
 
                 return Resultado<IEnumerable<PerfilEstudianteRecompensa>>.Exitoso(lista);
@@ -57,6 +58,7 @@ namespace AccesoDatos.RepositoriosEF
                 var item = await _db.PerfilEstudianteRecompensas
                     .Include(x => x.PerfilEstudiante)
                     .Include(x => x.Recompensa)
+                    .AsSplitQuery()
                     .FirstOrDefaultAsync(x => x.Id == id);
 
                 if (item == null)

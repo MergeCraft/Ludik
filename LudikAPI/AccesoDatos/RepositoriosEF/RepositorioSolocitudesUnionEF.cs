@@ -87,6 +87,7 @@ namespace AccesoDatos.RepositoriosEF
                 .Include(s => s.Estudiante)
                 .Include(s => s.Grupo)
                     .ThenInclude(g => g.Alumnos)
+                .AsSplitQuery()
                 .FirstOrDefaultAsync(s => s.Id == id);
         }
     }

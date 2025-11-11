@@ -67,6 +67,7 @@ namespace AccesoDatos.RepositoriosEF
 							.ThenInclude(tm => tm.MedallasNecesarias)
                     .Include(g => g.EnlaceUnion)
                     .Include(g => g.Tienda)
+                    .AsSplitQuery()
                     .FirstOrDefaultAsync(g => g.Id == id);
 
                 if (grupo == null)
@@ -142,7 +143,8 @@ namespace AccesoDatos.RepositoriosEF
 					.Include(g => g.TablasClasificacion)
 					.Include(g => g.EnlaceUnion)
 					.Include(g => g.Tienda)
-					.FirstOrDefaultAsync(g => g.Id == id);
+                    .AsSplitQuery()
+                    .FirstOrDefaultAsync(g => g.Id == id);
 
 				if (grupo == null)
 				{
@@ -202,6 +204,7 @@ namespace AccesoDatos.RepositoriosEF
                         .ThenInclude(te => te.Equivalencias)
                             .ThenInclude(eq => eq.MedallasNecesarias)
                     .Where(g => g.ProfesorId == idProfesor)
+                    .AsSplitQuery()
                     .ToListAsync();
 
                 return Resultado<IEnumerable<Grupo>>.Exitoso(grupos);
@@ -222,6 +225,7 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(p => p.Grupo.TablaEquivalencia.Equivalencias)
                     .ThenInclude(e => e.MedallasNecesarias)
                     .Select(p => p.Grupo.TablaEquivalencia)
+                    .AsSplitQuery()
                     .FirstOrDefaultAsync();
 
                 if (tablaEquivalencia == null)
@@ -332,6 +336,7 @@ namespace AccesoDatos.RepositoriosEF
                     .Where(g => g.Id == grupoId)
                     .Include(g => g.Profesor)
                         .ThenInclude(p => p.Medallas)
+                    .AsSplitQuery()
                     .FirstOrDefaultAsync();
 
                 if (grupo == null || grupo.Profesor == null)

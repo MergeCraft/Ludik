@@ -45,6 +45,7 @@ namespace AccesoDatos.RepositoriosEF
                         .ThenInclude(p => p.Estudiante)
                     .Include(tc => tc.Participantes)
                         .ThenInclude(p => p.MedallasObtenidas)
+                    .AsSplitQuery()
                     .ToListAsync();
 
                 return Resultado<IEnumerable<TablaClasificacion>>.Exitoso(tablas);
@@ -70,6 +71,7 @@ namespace AccesoDatos.RepositoriosEF
                         .ThenInclude(p => p.Estudiante)
                     .Include(tc => tc.Participantes)
                         .ThenInclude(p => p.MedallasObtenidas)
+                    .AsSplitQuery()
                     .ToListAsync();
 
                 return Resultado<IEnumerable<TablaClasificacion>>.Exitoso(tablas);
@@ -92,7 +94,8 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(tc => tc.Participantes)           
                         .ThenInclude(p => p.Estudiante)       
                     .Include(tc => tc.Participantes)
-                        .ThenInclude(p => p.MedallasObtenidas)   
+                        .ThenInclude(p => p.MedallasObtenidas)
+                    .AsSplitQuery()
                     .FirstOrDefaultAsync(tc => tc.Id == id);
 
                 if (tabla == null)

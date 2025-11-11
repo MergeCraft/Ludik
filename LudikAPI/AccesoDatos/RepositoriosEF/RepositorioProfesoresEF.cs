@@ -47,6 +47,7 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(p => p.Medallas)
                     .Include(p => p.TablasEquivalencia)
                     .Include(p => p.Grupos)
+                    .AsSplitQuery()
                     .FirstOrDefaultAsync(p => p.Id == id.ToString());
 
                 if (profesor == null)
@@ -70,6 +71,7 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(p => p.TablasEquivalencia)
                     .Include(p => p.Grupos)
                     .Include(p => p.RecompensasCreadas )
+                    .AsSplitQuery()
                     .FirstOrDefaultAsync(p => p.Id == id);
 
                 if (profesor == null)
@@ -92,6 +94,7 @@ namespace AccesoDatos.RepositoriosEF
                 Profesor profesor = await _db.Profesores
                     .Include(p => p.RecompensasCreadas)
                     .ThenInclude(rp => rp.Recompensa)
+                    .AsSplitQuery()
                     .FirstOrDefaultAsync(p => p.Id == profesorId);
 
                 return Resultado<Profesor>.Exitoso(profesor);

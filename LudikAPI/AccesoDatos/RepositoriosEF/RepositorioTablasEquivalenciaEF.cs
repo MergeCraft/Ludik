@@ -46,6 +46,7 @@ namespace AccesoDatos.RepositoriosEF
                     .Where(t => t.ProfesorId == profesorId)
                     .Include(t => t.Equivalencias)
                     .ThenInclude(e => e.MedallasNecesarias)
+                    .AsSplitQuery()
                     .AsNoTracking()
                     .ToListAsync();
 
@@ -68,6 +69,7 @@ namespace AccesoDatos.RepositoriosEF
                 var tablaEquivalencia = await _db.TablasEquivalencia
                     .Include(t => t.Equivalencias)
                     .ThenInclude(e => e.MedallasNecesarias)
+                    .AsSplitQuery()
                     .FirstOrDefaultAsync(t => t.Id == id);
 
                 if (tablaEquivalencia == null)
