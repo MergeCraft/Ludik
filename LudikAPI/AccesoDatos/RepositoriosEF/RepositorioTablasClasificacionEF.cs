@@ -41,10 +41,6 @@ namespace AccesoDatos.RepositoriosEF
                 var tablas = await _db.TablasClasificacion
                     .AsNoTracking()
                     .Include(tc => tc.MedallaAsociada)
-                    .Include(tc => tc.Participantes)
-                        .ThenInclude(p => p.Estudiante)
-                    .Include(tc => tc.Participantes)
-                        .ThenInclude(p => p.MedallasObtenidas)
                     .AsSplitQuery()
                     .ToListAsync();
 
@@ -67,10 +63,6 @@ namespace AccesoDatos.RepositoriosEF
                     .Where(p => p.GrupoId == grupoId)
                     .AsNoTracking()
                     .Include(tc => tc.MedallaAsociada)
-                    .Include(tc => tc.Participantes)
-                        .ThenInclude(p => p.Estudiante)
-                    .Include(tc => tc.Participantes)
-                        .ThenInclude(p => p.MedallasObtenidas)
                     .AsSplitQuery()
                     .ToListAsync();
 
@@ -91,10 +83,6 @@ namespace AccesoDatos.RepositoriosEF
                 var tabla = await _db.TablasClasificacion
                     .AsNoTracking()                           
                     .Include(tc => tc.MedallaAsociada)
-                    .Include(tc => tc.Participantes)           
-                        .ThenInclude(p => p.Estudiante)       
-                    .Include(tc => tc.Participantes)
-                        .ThenInclude(p => p.MedallasObtenidas)
                     .AsSplitQuery()
                     .FirstOrDefaultAsync(tc => tc.Id == id);
 

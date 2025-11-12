@@ -109,8 +109,8 @@ public class PruebasObtenerTodasLasTablasClasificacionGrupo
             var grupo = new Entidades.Grupo { Id = grupoId, ProfesorId = profesorId, Alumnos = new List<Entidades.PerfilEstudiante>() };
             var tablas = new List<Entidades.TablaClasificacion>
             {
-                new Entidades.TablaClasificacion { Id = 10, Nombre = "Ranking 1", MedallaAsociadaId = 1, MedallaAsociada = new Entidades.Medalla { Id = 1, Nombre = "Medalla Oro" }, Participantes = new List<Entidades.PerfilEstudiante>() },
-                new Entidades.TablaClasificacion { Id = 11, Nombre = "Ranking 2", MedallaAsociadaId = 2, MedallaAsociada = new Entidades.Medalla { Id = 2, Nombre = "Medalla Plata" }, Participantes = new List<Entidades.PerfilEstudiante>() }
+                new Entidades.TablaClasificacion { Id = 10, Nombre = "Ranking 1", MedallaAsociadaId = 1, MedallaAsociada = new Entidades.Medalla { Id = 1, Nombre = "Medalla Oro" } },
+                new Entidades.TablaClasificacion { Id = 11, Nombre = "Ranking 2", MedallaAsociadaId = 2, MedallaAsociada = new Entidades.Medalla { Id = 2, Nombre = "Medalla Plata" } }
             };
 
             _mockRepositorioGrupos
@@ -155,7 +155,6 @@ public class PruebasObtenerTodasLasTablasClasificacionGrupo
                     Nombre = "Ranking General",
                     MedallaAsociadaId = 1,
                     MedallaAsociada = new Entidades.Medalla{ Id = 1, Nombre="Medalla Default"},
-                    Participantes = new List<Entidades.PerfilEstudiante>()
                 }
             };
 

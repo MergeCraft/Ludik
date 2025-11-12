@@ -63,29 +63,7 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaClasificacion
                 Nombre = "TablaX",
                 MedallaAsociadaId = medalla.Id,
                 MedallaAsociada = medalla,
-                Participantes = new List<LogicaNegocio.Entidades.PerfilEstudiante>
-                {
-                    new LogicaNegocio.Entidades.PerfilEstudiante {
-                        Id = 1,
-                        Estudiante = new LogicaNegocio.Entidades.Estudiante
-                        {
-                            NombreCompleto = nombreAna
-                        },
-                        MedallasObtenidas = new List<PerfilEstudianteMedalla>
-                        {
-                            new PerfilEstudianteMedalla { MedallaId = medalla.Id },
-                            new PerfilEstudianteMedalla { MedallaId = medalla.Id }
-                        }
-                    },
-                    new LogicaNegocio.Entidades.PerfilEstudiante {
-                        Id = 2,
-                        Estudiante = new LogicaNegocio.Entidades.Estudiante
-                        {
-                            NombreCompleto = nombreLuis
-                        },
-                        MedallasObtenidas = new List<PerfilEstudianteMedalla>()
-                    }
-                }
+               
             };
             _repoMock.Setup(r => r.GetByIdAsync(TablaId))
                      .ReturnsAsync(Resultado<TablaClasificacion>.Exitoso(tabla));

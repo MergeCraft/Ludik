@@ -17,17 +17,12 @@ namespace LogicaNegocio.Entidades
         public int MedallaAsociadaId { get; set; }
         public Medalla MedallaAsociada { get; set; }
 
-        public List<PerfilEstudiante> Participantes { get; set; }
+        //public List<PerfilEstudiante> Participantes { get; set; }
 
         public int GrupoId { get; set; } 
         public Grupo Grupo { get; set; }
 
-
-        public void actualizar()
-		{
-
-		}
-
+/*
         public void OrdenarParticipantesPorMedallaAsociada()
         {
             if (Participantes == null || !Participantes.Any())
@@ -39,6 +34,7 @@ namespace LogicaNegocio.Entidades
                 )
                 .ToList();
         }
+*/
         public Resultado esValido()
         {
             var errores = new List<Error>();
