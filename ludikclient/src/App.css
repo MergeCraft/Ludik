@@ -1,4 +1,82 @@
+/* :root {
+  --potenciador: #93049b;
+  --monedas: #c1a100;
+  --medallas: #8c4b16;
+  --color-oro: #FFC107;
+  --color-plata: #B0B0B0;
+  --color-bronce: #B86B25;
+  --meta-alumno: #3aa232;
+  --blanco-principal: #d9d9d9;
+  --blanco-secundario: #c8c8c8;
+  --boton-principal: #046e9b;
+  --secundario-boton-princial: #004f70;
+  --boton-secundario: #079b04;
+  --secundario-boton-secundario: #076404;
+  --boton-terciario: #9B0404;
+  --secundario-boton-terciario: #640404;
+  --boton-quinario: #9b9604;
+  --secundario-boton-quinario: #646204;
+  --boton-creator: #2b193f;
+  --secundario-boton-creator: #1b1324;
+  --letras-secundario: #49c0f8;
+  --principal: #131f24;
+  --secundario: #23353c;
+  --terciario: #375662;
+  --verde-acento: #5fbf82;
+} */
+
 :root {
+  /* 🎮 Paleta base lúdica */
+  --principal: #1E1E2F;
+  /* Fondo principal oscuro azulado */
+  --secundario: #2A2A40;
+  /* Bloques o contenedores */
+  --terciario: #3A3A55;
+  /* Bordes y fondos suaves */
+  --verde-acento: #00C6A7;
+  /* Éxito / acento positivo */
+  --potenciador: #7C3AED;
+  /* Color primario (botones principales, acentos) */
+  --letras-secundario: #A5B4FC;
+  /* Texto secundario con tono violeta claro */
+  --meta-alumno: #3ED67F;
+  /* Verde brillante para metas */
+
+  /* ✨ Colores especiales */
+  --monedas: #FFB400;
+  /* Amarillo cálido y brillante */
+  --medallas: #FF7B54;
+  /* Coral anaranjado para resaltar recompensas */
+  --color-oro: #FFD700;
+  --color-plata: #C0C0C0;
+  --color-bronce: #CD7F32;
+
+  /* 🧩 Botones */
+  --boton-principal: #7C3AED;
+  --secundario-boton-princial: #5B21B6;
+
+  --boton-secundario: #00C6A7;
+  --secundario-boton-secundario: #039E86;
+
+  --boton-terciario: #F43F5E;
+  --secundario-boton-terciario: #BE123C;
+
+  --boton-quinario: #FFB400;
+  --secundario-boton-quinario: #C78C00;
+
+  --boton-creator: #2b193f;
+  --secundario-boton-creator: #1b1324;
+
+  /* 💬 Texto */
+  --blanco-principal: #F5F6FA;
+  --blanco-secundario: #E5E7EB;
+
+  /* 🎨 Efectos */
+  --sombra: rgba(0, 0, 0, 0.25);
+  --sombra-hover: rgba(124, 58, 237, 0.4);
+}
+
+.tema-sorbrio {
   --potenciador: #93049b;
   --monedas: #c1a100;
   --medallas: #8c4b16;
@@ -24,6 +102,7 @@
   --terciario: #375662;
   --verde-acento: #5fbf82;
 }
+
 
 * {
   box-sizing: border-box;

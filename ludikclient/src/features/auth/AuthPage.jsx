@@ -26,6 +26,15 @@ const AuthPage = () => {
     }
   }, [token, isAuthenticated, navigate]);
 
+  useEffect(() => {
+    document.body.classList.add("tema-sorbrio");
+
+    // Limpieza al salir de AuthPage para evitar dejar el tema activo
+    return () => {
+      document.body.classList.remove("tema-sorbrio");
+    };
+  }, []);
+
   return (
     <main className={styles.container}>
       <div className={styles.cerrarIcono} onClick={() => navigate("/")}>

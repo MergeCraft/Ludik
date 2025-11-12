@@ -2,10 +2,20 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./BaseManagerPage.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSelector } from "react-redux";
+import { selectUserRole } from "../auth/hooks/userSlice.js";
+import { useEffect } from "react";
 
 import Modal from "../generics/Modal.jsx";
 
 export const BaseManagerPage = ({ actions, modalTitle, modalContent, searchValue, onSearchChange, items, searchPlaceholder, showModal, setShowModal }) => {
+  const role = useSelector(selectUserRole);
+
+  useEffect(() => {
+    const isProfesor = role === "Profesor";
+    document.body.classList.toggle("tema-sorbrio", isProfesor);
+  }, [role]);
+
   return (
     <div className={styles.userItems}>
       <div className={styles.acciones}>
