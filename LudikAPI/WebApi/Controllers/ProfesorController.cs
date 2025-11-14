@@ -41,12 +41,13 @@ namespace WebApi.Controllers
         private readonly IAltaProyectoAulaColaborativo _altaPac;
         private readonly IObtenerProyectoAulaColaborativo _obtenerProyectoAulaColaborativo;
         private readonly IObtenerRecompensasReclamadasAlumnos _obtenerRecompensasReclamadasAlumnos;
+        private readonly IConfirmarRecompensaReclamadaAlumno _confirmarRecompensaReclamadaAlumno;
         public ProfesorController(IAltaProfesor altaProfesor, 
             IObtenerGruposDeProfesor obtenerGruposDeProfesor,
             IObtenerSolicitudesUnionDelGrupo obtenerSolicitudesUnionDelGrupo,
             IAceptarSolicitudUnion aceptarSolicitudUnion,
             IRechazarSolicitudUnion rechazarSolicitudUnion,
-            ILoginUsuario loginUsuario, IReinicioLogrosDeUnGrupo reinicioLogrosDeUnGrupo, IReinicioLogrosDeTodosLosGrupos reinicioLogrosDeTodosLosGrupos, IObtenerSolicitudPerfilMedalla obtenerSolicitudPerfilMedalla, IAceptarSolicitudPerfilMedalla aceptarSolicitudPerfilMedalla, IRechazarSolicitudPerfilMedalla rechazarSolicitudPerfilMedalla, IAltaProyectoAulaColaborativo altaProyectoAulaColaborativo, IObtenerProyectoAulaColaborativo obtenerProyectoAulaColaborativo, IObtenerRecompensasReclamadasAlumnos obtenerRecompensasReclamadasAlumnos)
+            ILoginUsuario loginUsuario, IReinicioLogrosDeUnGrupo reinicioLogrosDeUnGrupo, IReinicioLogrosDeTodosLosGrupos reinicioLogrosDeTodosLosGrupos, IObtenerSolicitudPerfilMedalla obtenerSolicitudPerfilMedalla, IAceptarSolicitudPerfilMedalla aceptarSolicitudPerfilMedalla, IRechazarSolicitudPerfilMedalla rechazarSolicitudPerfilMedalla, IAltaProyectoAulaColaborativo altaProyectoAulaColaborativo, IObtenerProyectoAulaColaborativo obtenerProyectoAulaColaborativo, IObtenerRecompensasReclamadasAlumnos obtenerRecompensasReclamadasAlumnos, IConfirmarRecompensaReclamadaAlumno confirmarRecompensaReclamadaAlumno)
         {
             _altaProfesor = altaProfesor;
             _obtenerGruposDeProfesor = obtenerGruposDeProfesor;
@@ -62,6 +63,7 @@ namespace WebApi.Controllers
             _altaPac = altaProyectoAulaColaborativo;
             _obtenerProyectoAulaColaborativo = obtenerProyectoAulaColaborativo;
             _obtenerRecompensasReclamadasAlumnos = obtenerRecompensasReclamadasAlumnos;
+            _confirmarRecompensaReclamadaAlumno = confirmarRecompensaReclamadaAlumno;
         }
         /// <summary>
         /// Este endpoint permite registrar un nuevo Profesor en el sistema.
@@ -621,6 +623,56 @@ namespace WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new
                 {
                     Mensaje = "Ocurrió un error inesperado al obtener las recompensas reclamadas. " + ex.Message
+                });
+            }
+        }
+        /// <summary>
+        /// Confirma la reclamación de una recompensa por parte de un estudiante, 
+        /// eliminando la entrada de su inventario. Solo el profesor del grupo puede ejecutarlo.
+        /// </summary>
+        /// <param name="perfilEstudianteId">ID del PerfilEstudiante que reclamó la recompensa (string, pero representa int).</param>
+        /// <param name="recompensaId">ID de la Recompensa que se reclamó (string, pero representa int).</param>
+        /// <returns>
+        /// 200 OK: Recompensa confirmada y eliminada del inventario.
+        /// 400 Bad Request: IDs inválidos, o error de validación/lógica de negocio.
+        /// 401 Unauthorized: Si el usuario no está autenticado como profesor.
+        /// 403 Forbidden: Si el profesor no es el propietario del grupo.
+        /// 404 Not Found: Si la relación PerfilEstudianteRecompensa no existe (no está en el inventario).
+        /// 500 Internal Server Error: Si ocurre un error inesperado.
+        /// </returns>
+        [HttpPost("confirmar-recompensa")]
+        [Authorize(Policy = "EsProfesor")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ConfirmarRecompensaReclamada([FromQuery][Required] string perfilEstudianteId,[FromQuery][Required] string recompensaId)
+        {
+            try
+            {
+                var idProfesorAutenticado = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(idProfesorAutenticado))
+                    return Unauthorized(new { Mensaje = "No se pudo identificar al profesor autenticado." });
+
+                Resultado resultado = await _confirmarRecompensaReclamadaAlumno.EjecutarAsync(perfilEstudianteId, recompensaId);
+
+                if (resultado.EsFallo)
+                {
+                    if (resultado.Errores.Any(e => e.Codigo == Error.NotFound.Codigo))
+                        return NotFound(resultado.Errores.ToList());
+
+                    return BadRequest(resultado.Errores.ToList());
+                }
+
+                return Ok(new { Mensaje = "Recompensa confirmada y eliminada del inventario del estudiante." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    Mensaje = "Ocurrió un error inesperado al confirmar la recompensa reclamada. " + ex.Message
                 });
             }
         }
