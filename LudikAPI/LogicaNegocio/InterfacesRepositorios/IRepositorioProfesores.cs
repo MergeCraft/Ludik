@@ -13,6 +13,7 @@ namespace InterfacesRepositorio
         Task<Resultado<Profesor>> ObtenerRecompensasPorProfesorIdAsync(string profesorId);
 
         Task<bool> EsRecompensaDeAsync(string profesorId, int recompensaId);
+
     }
 
 }

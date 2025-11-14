@@ -292,6 +292,8 @@ builder.Services.AddScoped<IObtenerPerfilesPorGrupoSinLogueado, ObtenerPerfilesD
 builder.Services.AddScoped<IObtenerKudos, ObtenerKudos>();
 builder.Services.AddScoped<IObtenerRecompensasDelProfesor, ObtenerRecompensasDelProfesor>();
 builder.Services.AddScoped<IObtenerMedallasProfesorPorGrupo, ObtenerMedallasProfesorPorGrupo>();
+builder.Services.AddScoped<IObtenerRecompensasReclamadasAlumnos, ObtenerRecompensasReclamadasAlumnos>();
+builder.Services.AddScoped<IConfirmarRecompensaReclamadaAlumno, ConfirmarRecompensaReclamadaAlumno>();
 
 
 

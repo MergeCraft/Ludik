@@ -129,5 +129,27 @@ namespace AccesoDatos.RepositoriosEF
                 return false;
             }
         }
+        public async Task<Resultado<PerfilEstudianteRecompensa>> GetByPerfilAndRecompensaIdAsync(int perfilId, int recompensaId)
+        {
+            try
+            {
+                var item = await _db.PerfilEstudianteRecompensas
+                    .AsSplitQuery()
+                    .FirstOrDefaultAsync(x => x.PerfilEstudianteId == perfilId && x.RecompensaId == recompensaId);
+
+                if (item == null)
+                {
+                    return Resultado<PerfilEstudianteRecompensa>.Falla(new Error("Error.NotFound",
+                        $"La relación PerfilEstudianteRecompensa para Perfil ID {perfilId} y Recompensa ID {recompensaId} no existe."));
+                }
+
+                return Resultado<PerfilEstudianteRecompensa>.Exitoso(item);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<PerfilEstudianteRecompensa>.Falla(
+                    new Error("Error.Unexpected", $"Error al buscar relación en la BD: {ex.Message}"));
+            }
+        }
     }
 }

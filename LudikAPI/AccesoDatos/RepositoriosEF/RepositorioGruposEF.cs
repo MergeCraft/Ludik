@@ -350,6 +350,32 @@ namespace AccesoDatos.RepositoriosEF
                 return Resultado<IEnumerable<Medalla>>.Falla(new Error("Error.Unexpected", ex.Message));
             }
         }
+        public async Task<Resultado<Grupo>> GetGrupoConPerfilesYRecompensasAsync(string grupoId)
+        {
+            try
+            {
+                var grupo = await _db.Grupos
+            .Where(g => g.Id.ToString() == grupoId)
+            .Include(g => g.Alumnos)
+                .ThenInclude(pe => pe.Estudiante) 
+            .Include(g => g.Alumnos)
+                .ThenInclude(pe => pe.InventarioRecompensas)
+                    .ThenInclude(per => per.Recompensa) 
+            .AsSplitQuery()
+            .FirstOrDefaultAsync();
+
+                if (grupo == null)
+                {
+                    return Resultado<Grupo>.Falla(new Error("Error.NotFound", "Grupo no encontrado."));
+                }
+
+                return Resultado<Grupo>.Exitoso(grupo);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<Grupo>.Falla(new Error("Error.Unexpected", ex.Message));
+            }
+        }
     }
 
 }
