@@ -2,7 +2,7 @@
 using LogicaAplicacion.DTOs.TablaClasificacionDTOs;
 using LogicaAplicacion.DTOsMappers.TablaClasificacionMappers;
 using LogicaAplicacion.InterfacesCasosUsos.TablaClasificacion;
-using LogicaNegocio.Entidades;
+using Entidades = LogicaNegocio.Entidades;
 using LogicaNegocio.Resultados;
 using System;
 using System.Collections.Generic;
@@ -29,25 +29,15 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion
 
             var tabla = res.Valor;
 
-            //solo deberia poder obtener la informacion de una tabla si el profesor id de el grupo de la tabla es igual al logueado
-            if (tabla == null)
-                return Resultado<TablaClasificacionInfoDto>.Falla(
-                    new Error("Error.NotFound", "No existe la tabla especificada.")
-                );
+            var participantes = tabla.Grupo?.Alumnos ?? new List<Entidades.PerfilEstudiante>();
 
-
-            var participantes = tabla.Grupo.Alumnos;
-            if (participantes == null || !participantes.Any())
-                //No seria un error, es un resultado esperado que no halla un ranking creado
-                return Resultado<TablaClasificacionInfoDto>.Falla(Error.NotFound);
-
-            participantes = participantes
+            var participantesOrdenados = participantes
                 .OrderByDescending(p =>
-                    p.MedallasObtenidas.Count(pm => pm.MedallaId == tabla.MedallaAsociadaId)
+                    p.MedallasObtenidas?.Count(pm => pm.MedallaId == tabla.MedallaAsociadaId) ?? 0
                 )
                 .ToList();
 
-            var dto = TablaClasificacionInfoMapper.Map(tabla, participantes);
+            var dto = TablaClasificacionInfoMapper.Map(tabla, participantesOrdenados);
 
             return Resultado<TablaClasificacionInfoDto>.Exitoso(dto);
         }

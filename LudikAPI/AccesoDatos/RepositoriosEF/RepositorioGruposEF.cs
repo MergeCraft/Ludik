@@ -57,14 +57,22 @@ namespace AccesoDatos.RepositoriosEF
             {
                 var grupo = await _db.Grupos
                     .Include(g => g.Profesor)
+                    
                     .Include(g => g.Alumnos)
 						.ThenInclude(a => a.HistorialRendimientoPeriodos)
+                    
                     .Include(g => g.Alumnos)
                         .ThenInclude(al => al.MedallasObtenidas)
                             .ThenInclude(pm => pm.Medalla)
+                    
                     .Include(g => g.TablaEquivalencia)
                         .ThenInclude(t => t.Equivalencias)
 							.ThenInclude(tm => tm.MedallasNecesarias)
+
+                    .Include(g => g.Alumnos)
+                    .ThenInclude(al => al.Estudiante)
+                    .ThenInclude(e => e.NombreCompleto)
+
                     .Include(g => g.EnlaceUnion)
                     .Include(g => g.Tienda)
                     .AsSplitQuery()

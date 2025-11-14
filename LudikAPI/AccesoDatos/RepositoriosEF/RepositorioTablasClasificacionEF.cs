@@ -81,10 +81,22 @@ namespace AccesoDatos.RepositoriosEF
             try
             {
                 var tabla = await _db.TablasClasificacion
-                    .AsNoTracking()                           
+                    .AsNoTracking()
+                    .Where(tc => tc.Id == id)
+
                     .Include(tc => tc.MedallaAsociada)
+
+                    .Include(tc => tc.Grupo)
+                        .ThenInclude(g => g.Alumnos)
+                        .ThenInclude(pe => pe.MedallasObtenidas)
+
+                    .Include(tc => tc.Grupo)
+                        .ThenInclude(g => g.Alumnos)
+                            .ThenInclude(pe => pe.Estudiante)
+                                .ThenInclude(e => e.NombreCompleto)
+
                     .AsSplitQuery()
-                    .FirstOrDefaultAsync(tc => tc.Id == id);
+                    .FirstOrDefaultAsync();
 
                 if (tabla == null)
                     return Resultado<TablaClasificacion>.Falla(
