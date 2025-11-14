@@ -30,9 +30,41 @@ const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModa
   const [medallaSeleccionada, setMedallaSeleccionada] = useState("");
   const [mensajeSolicitud, setMensajeSolicitud] = useState("");
 
+  console.log("perfil en GroupProfileView:", perfil);
+
+  const [editandoEstilo, setEditandoEstilo] = useState(false);
+  const [matrizEstilos, setMatrizEstilos] = useState([
+    {
+      id: 1,
+      estilo: "Aventura Épica",
+      niveles: ["Novato", "Explorador", "Aventurero", "Guerrero", "Héroe", "Campeón", "Señor", "Maestro", "Sabio", "Leyenda"],
+    },
+    {
+      id: 2,
+      estilo: "Ciencia / Tecnología",
+      niveles: ["Observador", "Investigador", "Técnico", "Analista", "Desarrollador", "Innovador", "Experto", "Arquitecto", "Pionero", "Visionario"],
+    },
+    {
+      id: 3,
+      estilo: "Creativo / Artístico",
+      niveles: ["Soñador", "Aprendiz", "Creador", "Diseñador", "Artista", "Inspirador", "Curador", "Maestro", "Genio", "Icono"],
+    },
+  ]);
+
+  const [estiloSeleccionado, setEstiloSeleccionado] = useState(() => {
+    const guardado = localStorage.getItem(`estiloSeleccionado_${perfil.id}`);
+    return guardado ? Number(JSON.parse(guardado)) : 1;
+  });
+
+  const [estiloSeleccionadoTemporal, setEstiloSeleccionadoTemporal] = useState(estiloSeleccionado);
+
   useEffect(() => {
     setMetaTemporal(perfil.metaCalificacion);
   }, [perfil.metaCalificacion]);
+
+  useEffect(() => {
+    localStorage.setItem(`estiloSeleccionado_${perfil.id}`, JSON.stringify(estiloSeleccionado));
+  }, [perfil.id, estiloSeleccionado]);
 
   const avatarUrl = imagenPerfil?.urlCompleta;
 
@@ -170,22 +202,50 @@ const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModa
         {isOwnProfile && (
           <div className={styles.progressBarManager}>
             <div className={styles.progressBarContainer}>
+              <button onClick={() => setEditandoEstilo(!editandoEstilo)} className={`button-secondary`}>
+                <span>{editandoEstilo ? "Ver tu Camino" : "Elige tu Camino"}</span> <FontAwesomeIcon icon={editandoEstilo ? "fa fa-map" : "fa fa-route"} />
+              </button>
               <p>Progreso actual</p>
-              {!isLoadingBarra && barraProgreso && (
-                <div className={styles.progressBar}>
-                  {Array.from({ length: barraProgreso?.calificacionMaxima }, (_, index) => {
-                    const numero = index + barraProgreso?.calificacionMinima;
-                    const alcanzado = numero <= barraProgreso?.calificacionActual;
-                    const esMeta = numero === perfil?.metaCalificacion;
+              {!isLoadingBarra &&
+                barraProgreso &&
+                (!editandoEstilo ? (
+                  <div className={styles.progressBar}>
+                    {Array.from({ length: barraProgreso?.calificacionMaxima }, (_, index) => {
+                      const numero = index + barraProgreso?.calificacionMinima;
+                      const alcanzado = numero <= barraProgreso?.calificacionActual;
+                      const esMeta = numero === perfil?.metaCalificacion;
+                      const estiloActual = matrizEstilos.find((estilo) => estilo.id === Number(estiloSeleccionado));
 
-                    return (
-                      <label key={`progreso-${numero}`} htmlFor={`progreso-${numero}`} className={`${styles.label} ${alcanzado ? styles.alcanzado : styles.noAlcanzado}`}>
-                        {esMeta ? <FontAwesomeIcon icon="fa fa-bullseye" className={styles.icono} /> : <p>{index + 1}</p>}
-                      </label>
-                    );
-                  })}
-                </div>
-              )}
+                      return (
+                        <label key={`progreso-${numero}`} htmlFor={`progreso-${numero}`} className={`${styles.label} ${alcanzado ? styles.alcanzado : styles.noAlcanzado}`}>
+                          {esMeta ? <FontAwesomeIcon icon="fa fa-bullseye" className={styles.icono} /> : <p>{estiloActual?.niveles[index] ?? ""}</p>}
+                        </label>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className={styles.medallasSeleccionContainer}>
+                    <select name="medallas" id="medallas" className="button" onChange={(e) => setEstiloSeleccionadoTemporal(Number(e.target.value))} value={estiloSeleccionadoTemporal}>
+                      <option value="">Selecciona una estilo de progreso</option>
+
+                      {matrizEstilos?.map((estilo) => (
+                        <option key={estilo.id} value={estilo.id}>
+                          {estilo.estilo}
+                        </option>
+                      ))}
+                    </select>
+
+                    <button
+                      className={`button-secondary ${styles.confirmButton}`}
+                      onClick={() => {
+                        setEstiloSeleccionado(estiloSeleccionadoTemporal);
+                        setEditandoEstilo(false);
+                      }}
+                    >
+                      ¡Elegir Camino!
+                    </button>
+                  </div>
+                ))}
               <hr />
               {/* Medallas necesarias para la siguiente nota */}
               <div className={styles.medallasNecesariasNotaContainer}>
@@ -211,36 +271,40 @@ const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModa
             perfil.medallas.map((medalla) => <MedalCard key={medalla.medallaId + medalla.nombre} medal={medalla} cantidad={medalla.cantidad} onEdit={() => {}} showEditOption={false} />)
           )}
         </div>
-        <hr />
-        <div>
-          <h3>Solicitar medalla al profesor</h3>
-          <div className={styles.solicitarMedallaContainer}>
-            <div className={styles.medallasSeleccionContainer}>
-              <select name="medallas" id="medallas" className="button" onChange={(e) => setMedallaSeleccionada(e.target.value)} value={medallaSeleccionada || ""}>
-                {isLoadingMedallas ? (
-                  <option value="">Cargando medallas...</option>
-                ) : (
-                  <>
-                    <option value="">Selecciona una medalla</option>
-                    {medallas?.map((medalla) => (
-                      <option key={medalla.id} value={medalla.id}>
-                        {medalla.nombre}
-                      </option>
-                    ))}
-                  </>
+        {isOwnProfile && (
+          <>
+            <hr />
+            <div>
+              <h3>Solicitar medalla al profesor</h3>
+              <div className={styles.solicitarMedallaContainer}>
+                <div className={styles.medallasSeleccionContainer}>
+                  <select name="medallas" id="medallas" className="button" onChange={(e) => setMedallaSeleccionada(e.target.value)} value={medallaSeleccionada || ""}>
+                    {isLoadingMedallas ? (
+                      <option value="">Cargando medallas...</option>
+                    ) : (
+                      <>
+                        <option value="">Selecciona una medalla</option>
+                        {medallas?.map((medalla) => (
+                          <option key={medalla.id} value={medalla.id}>
+                            {medalla.nombre}
+                          </option>
+                        ))}
+                      </>
+                    )}
+                  </select>
+
+                  <button className="button-secondary" disabled={isLoadingMedallas || medallaSeleccionada === "" || isSolicitando} onClick={handleSolicitarMedalla}>
+                    {isSolicitando ? <PulseLoader /> : "Solicitar"}
+                  </button>
+                </div>
+
+                {medallaSeleccionada !== "" && (
+                  <textarea name="mensaje" id="mensaje" value={mensajeSolicitud} onChange={(e) => setMensajeSolicitud(e.target.value)} placeholder="Creo que merezco esta medalla porque..." />
                 )}
-              </select>
-
-              <button className="button-secondary" disabled={isLoadingMedallas || medallaSeleccionada === "" || isSolicitando} onClick={handleSolicitarMedalla}>
-                {isSolicitando ? <PulseLoader /> : "Solicitar"}
-              </button>
+              </div>
             </div>
-
-            {medallaSeleccionada !== "" && (
-              <textarea name="mensaje" id="mensaje" value={mensajeSolicitud} onChange={(e) => setMensajeSolicitud(e.target.value)} placeholder="Creo que merezco esta medalla porque..." />
-            )}
-          </div>
-        </div>
+          </>
+        )}
       </section>
 
       {/* Recompensas canjeadas */}

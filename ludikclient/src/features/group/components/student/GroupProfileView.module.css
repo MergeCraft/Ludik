@@ -91,9 +91,31 @@
 }
 
 .progressBarContainer {
+    position: relative;
     max-width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
+}
+
+.progressBarContainer>button:first-of-type {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 5px;
+}
+
+.progressBarContainer button:first-of-type span {
+    font-size: small;
+}
+
+.confirmButton {
+    font-size: small;
+    padding: 5px 0px;
+    flex-grow: 1;
 }
 
 /* Línea separadora */
@@ -169,6 +191,8 @@
     gap: 6px;
     flex-wrap: nowrap;
 }
+
+
 
 .progressBar label {
     border: none;

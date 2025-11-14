@@ -133,3 +133,7 @@
     right: 0px;
     color: var(--terciario);
 }
+
+.verMasRanking svg {
+    padding-left: 10px;
+}

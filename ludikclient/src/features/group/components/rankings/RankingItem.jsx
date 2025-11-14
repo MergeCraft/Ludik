@@ -81,6 +81,7 @@ const RankingItem = ({ tabla, showTeacherOptions, onView, idEstudiante = null })
         </div>
       )}
       <button title="Ver ver el ranking completo" className={styles.verMasRanking} onClick={() => onView(tabla.id)}>
+        Ranking Completo
         <FontAwesomeIcon icon="fa-solid fa-eye" size="xl" />
       </button>
     </div>
