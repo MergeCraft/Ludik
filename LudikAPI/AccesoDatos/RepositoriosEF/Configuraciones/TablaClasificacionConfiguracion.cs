@@ -25,25 +25,5 @@ public class TablaClasificacionConfiguracion : IEntityTypeConfiguration<TablaCla
             .HasForeignKey(t => t.GrupoId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // Relación M:N con PerfilEstudiante (Participantes)
-        builder.HasMany(t => t.Participantes)
-            .WithMany(p => p.TablasClasificacion)
-            .UsingEntity<Dictionary<string, object>>(
-                "TablaClasificacionParticipantes",
-                j => j
-                    .HasOne<PerfilEstudiante>()
-                    .WithMany()
-                    .HasForeignKey("PerfilEstudianteId")
-                    .OnDelete(DeleteBehavior.Restrict),
-                j => j
-                    .HasOne<TablaClasificacion>()
-                    .WithMany()
-                    .HasForeignKey("TablaClasificacionId")
-                    .OnDelete(DeleteBehavior.Cascade),
-                j =>
-                {
-                    j.HasKey("TablaClasificacionId", "PerfilEstudianteId");
-                    j.ToTable("TablaClasificacionParticipantes");
-                });
     }
 }

@@ -145,7 +145,6 @@ namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaClasificacion
             Assert.Equal(dto.MedallaAsociadaId, capturada.MedallaAsociadaId);
             Assert.Equal(_grupo.Id, capturada.GrupoId);
             Assert.Equal(_grupo, capturada.Grupo);
-            Assert.Equal(_grupo.Alumnos.Count, capturada.Participantes.Count);
         }
     }
 }
