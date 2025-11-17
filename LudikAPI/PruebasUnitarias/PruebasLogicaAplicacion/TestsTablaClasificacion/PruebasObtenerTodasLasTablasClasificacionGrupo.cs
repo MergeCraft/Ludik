@@ -1,10 +1,11 @@
 ﻿using InterfacesRepositorio;
 using LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion;
 using LogicaAplicacion.InterfacesCasosUsos.TablaClasificacion;
-using Entidades = LogicaNegocio.Entidades;
 using LogicaNegocio.Resultados;
+using LogicaNegocio.ValueObjects;
 using Microsoft.Extensions.Azure;
 using Moq;
+using Entidades = LogicaNegocio.Entidades;
 
 namespace PruebasUnitarias.PruebasLogicaAplicacion.TestsTablaClasificacion;
 
@@ -106,7 +107,25 @@ public class PruebasObtenerTodasLasTablasClasificacionGrupo
             // Arrange
             var grupoId = 1;
             var profesorId = "profesor-1";
-            var grupo = new Entidades.Grupo { Id = grupoId, ProfesorId = profesorId, Alumnos = new List<Entidades.PerfilEstudiante>() };
+
+            // Aunque este test es para un profesor, si el grupo TIENE alumnos,
+            // debemos simularlos correctamente para que el mapper no falle.
+            var alumnoMock = new Entidades.PerfilEstudiante
+            {
+                Id = 1,
+                EstudianteId = "alumno-1",
+                Estudiante = new Entidades.Estudiante { NombreCompleto = NombreCompleto.Crear("Alumno", "Test").Valor },
+                MedallasObtenidas = new List<Entidades.PerfilEstudianteMedalla>() // Lista vacía, NO nula
+            };
+
+            var grupo = new Entidades.Grupo
+            {
+                Id = grupoId,
+                ProfesorId = profesorId,
+                Alumnos = new List<Entidades.PerfilEstudiante> { alumnoMock } // Asignamos el alumno mockeado
+            };
+     
+
             var tablas = new List<Entidades.TablaClasificacion>
             {
                 new Entidades.TablaClasificacion { Id = 10, Nombre = "Ranking 1", MedallaAsociadaId = 1, MedallaAsociada = new Entidades.Medalla { Id = 1, Nombre = "Medalla Oro" } },
@@ -137,15 +156,35 @@ public class PruebasObtenerTodasLasTablasClasificacionGrupo
             // Arrange
             var grupoId = 1;
             var profesorId = "profesor-1";
-            var alumnoId = "alumno-que-pertenece"; 
-            var alumnoEnGrupo = new Entidades.PerfilEstudiante { EstudianteId = alumnoId, GrupoId = grupoId };
+            var alumnoId = "alumno-que-pertenece";
+
+            // --- INICIO CORRECCIÓN ---
+            // Creamos un PerfilEstudiante simulado que incluya las propiedades
+            // que el caso de uso y el mapper van a necesitar.
+            var alumnoEnGrupo = new Entidades.PerfilEstudiante
+            {
+                EstudianteId = alumnoId,
+                GrupoId = grupoId,
+                Id = 5, // ID de ejemplo para el PerfilEstudiante
+
+                // 1. Soluciona 'p.MedallasObtenidas.Count' en el OrderByDescending
+                MedallasObtenidas = new List<Entidades.PerfilEstudianteMedalla>(),
+
+                // 2. Soluciona 'p.Estudiante.NombreCompleto' en el Mapper
+                Estudiante = new Entidades.Estudiante
+                {
+                    Id = alumnoId,
+                    NombreCompleto = NombreCompleto.Crear("Alumno", "Prueba").Valor
+                }
+            };
+            // --- FIN CORRECCIÓN ---
 
             // Inicializamos el grupo correctamente
             var grupo = new Entidades.Grupo
             {
                 Id = grupoId,
                 ProfesorId = profesorId,
-                Alumnos = new List<Entidades.PerfilEstudiante> { alumnoEnGrupo }
+                Alumnos = new List<Entidades.PerfilEstudiante> { alumnoEnGrupo } // Usamos el objeto completo
             };
 
             var tablas = new List<Entidades.TablaClasificacion>
@@ -173,6 +212,9 @@ public class PruebasObtenerTodasLasTablasClasificacionGrupo
             Assert.True(resultado.EsExitoso);
             Assert.NotNull(resultado.Valor);
             Assert.Single(resultado.Valor);
+            // Verificamos que el participante (alumno) se mapeó correctamente
+            Assert.Single(resultado.Valor.First().Participantes);
+            Assert.Equal("Alumno Prueba", resultado.Valor.First().Participantes.First().NombreEstudiante);
         }
 
         [Fact]
