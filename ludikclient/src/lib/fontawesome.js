@@ -104,6 +104,8 @@ import {
   faChevronUp,
   faInbox,
   faRoute,
+  faSun,
+  faMoon,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { faUser as farUser, faEye as farEye } from "@fortawesome/free-regular-svg-icons";
@@ -213,5 +215,7 @@ library.add(
   faChevronDown,
   faChevronUp,
   faInbox,
-  faRoute
+  faRoute,
+  faSun,
+  faMoon
 );

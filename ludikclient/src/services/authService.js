@@ -3,6 +3,7 @@ import api from "../lib/axios";
 import { loginSuccess, logout } from "../features/auth/hooks/userSlice";
 import { persistor } from "../app/store";
 import { handleApiError } from "../lib/apiUtils"; // 👈 importar handleApiError
+import { loadUserUiConfig } from "../features/generics/hooks/iuSlice";
 
 export const iniciarSesion = async (credenciales, dispatch) => {
   try {
@@ -12,10 +13,15 @@ export const iniciarSesion = async (credenciales, dispatch) => {
     });
 
     const data = response.data;
+
+    // 1) Auth
     dispatch(loginSuccess(data));
+
+    // 2) Config visual por usuario (usa lo ya guardado en Redux)
+    dispatch(loadUserUiConfig(credenciales.usuario));
+
     return data;
   } catch (error) {
-    // handleApiError lanza un array de mensajes, convertimos a Error con primer mensaje
     try {
       handleApiError(error, "Credenciales inválidas o error al iniciar sesión.");
     } catch (mensajes) {

@@ -217,6 +217,16 @@
     background-color: rgba(0, 0, 0, 0.06);
 }
 
+.progressBar label p {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+
 .progressBar label:first-child::before {
     display: none;
 }
@@ -352,8 +362,6 @@
 
 /* Grids de medallas y recompensas */
 .medallasNecesariasNotaGrid {
-    /* display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); */
     display: flex;
     justify-content: center;
     gap: 10px;
@@ -472,4 +480,16 @@
         border-radius: 0px 20px 20px 0px;
     }
 
+    .progressBarContainer>button:first-of-type {
+        top: 8px;
+
+    }
+
+    .progressBar label p {
+        font-size: x-small;
+    }
+
+    .editStyleButton, .editStyleButton span {
+        font-size: xx-small !important;
+    }
 }

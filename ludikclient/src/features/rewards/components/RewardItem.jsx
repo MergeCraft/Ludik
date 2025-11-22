@@ -74,10 +74,10 @@ const RewardItem = ({ reward, redeemed, perfilId, showProfesorOptions, storeView
 
       {!redeemed && (
         <>
-          <p className={styles.monedas}>
+          {/* <p className={styles.monedas}>
             <FontAwesomeIcon icon="fa-solid fa-coins" />
             {reward.precio}
-          </p>
+          </p> */}
           {showProfesorOptions ? (
             !storeView && (
               <button className={`${styles.editarRecompensa} ${storeView && styles.storeViewButton}`} onClick={handleEditClick} type="button" aria-label={`Editar recompensa ${reward.nombre}`}>
@@ -86,7 +86,7 @@ const RewardItem = ({ reward, redeemed, perfilId, showProfesorOptions, storeView
             )
           ) : (
             <button className={styles.canjearRecompensa} onClick={handleClaimClick} disabled={isClaiming} type="button" aria-label={`Canjear recompensa ${reward.nombre}`}>
-              <FontAwesomeIcon icon="fa-solid fa-cart-shopping" />
+              Canjear por <FontAwesomeIcon style={{ color: "var(--monedas)" }} icon="fa-solid fa-coins" /> {reward.precio}
             </button>
           )}
         </>

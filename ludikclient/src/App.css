@@ -25,7 +25,60 @@
   --verde-acento: #5fbf82;
 } */
 
-:root {
+.light {
+  /* ☀️ Paleta base light */
+  --principal: #F4F4FA;
+  /* Fondo general, ligeramente lavanda para suavizar el blanco */
+  --secundario: #c8cbd5;
+  /* Bloques o secciones */
+  --terciario: #aaadbc;
+  /* Bordes o paneles interiores */
+  --verde-acento: #00A68F;
+  /* Éxito / acento positivo */
+  --potenciador: #6C3ADE;
+  /* Color primario (botones principales, acentos) */
+  --letras-secundario: #4C51BF;
+  /* Texto secundario, violeta más profundo */
+  --meta-alumno: #2FA96B;
+  /* Verde brillante pero legible en fondo claro */
+
+  /* ✨ Colores especiales */
+  --monedas: #E0A800;
+  /* Amarillo cálido pero no saturado */
+  --medallas: #FF8B6B;
+  /* Coral pastel */
+  --color-oro: #E6B800;
+  --color-plata: #B0B0B0;
+  --color-bronce: #B86B25;
+
+  /* 🧩 Botones */
+  --boton-principal: #6C3ADE;
+  --secundario-boton-princial: #4B26A8;
+
+  --boton-secundario: #00A68F;
+  --secundario-boton-secundario: #007C6D;
+
+  --boton-terciario: #E53855;
+  --secundario-boton-terciario: #B91C3B;
+
+  --boton-quinario: #E0A800;
+  --secundario-boton-quinario: #B38500;
+
+  --boton-creator: #C3B3E5;
+  --secundario-boton-creator: #A38AD6;
+
+  /* 💬 Texto */
+  --blanco-principal: #464650;
+  /* Texto principal oscuro */
+  --blanco-secundario: #949494;
+  /* Texto secundario más suave */
+
+  /* 🎨 Efectos */
+  --sombra: rgba(0, 0, 0, 0.08);
+  --sombra-hover: rgba(108, 58, 222, 0.25);
+}
+
+.dark {
   /* 🎮 Paleta base lúdica */
   --principal: #1E1E2F;
   /* Fondo principal oscuro azulado */
@@ -76,7 +129,7 @@
   --sombra-hover: rgba(124, 58, 237, 0.4);
 }
 
-.tema-sorbrio {
+/* .tema-sorbrio {
   --potenciador: #93049b;
   --monedas: #c1a100;
   --medallas: #8c4b16;
@@ -101,7 +154,7 @@
   --secundario: #23353c;
   --terciario: #375662;
   --verde-acento: #5fbf82;
-}
+} */
 
 
 * {

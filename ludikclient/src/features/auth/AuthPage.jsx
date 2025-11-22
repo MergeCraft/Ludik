@@ -27,12 +27,8 @@ const AuthPage = () => {
   }, [token, isAuthenticated, navigate]);
 
   useEffect(() => {
-    document.body.classList.add("tema-sorbrio");
-
-    // Limpieza al salir de AuthPage para evitar dejar el tema activo
-    return () => {
-      document.body.classList.remove("tema-sorbrio");
-    };
+    document.body.classList.remove("light", "dark");
+    document.body.classList.add("light");
   }, []);
 
   return (

@@ -49,7 +49,7 @@
 
 .userText {
     font-size: 1.25rem;
-    color: #d9d9d9;
+    color: var(--blanco-principal);
     margin: 0;
 }
 

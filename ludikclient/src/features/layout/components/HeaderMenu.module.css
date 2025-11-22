@@ -78,6 +78,19 @@
   background-color: var(--secundario);
 }
 
+.sidebarMenu p {
+  text-align: center;
+  font-size: small;
+  margin: 5px 0;
+  color: var(--terciario);
+}
+
+.sidebarMenu hr {
+  border: none;
+  border-top: 1px solid var(--terciario);
+  margin-top: 10px;
+}
+
 .sidebarMenu svg {
   margin-right: 10px;
   width: 25px;

@@ -6,6 +6,7 @@ import { selectUserRole } from "../../auth/hooks/userSlice.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./HeaderMenu.module.css";
 import { cerrarSesion } from "../../../services/authService";
+import { selectTheme, setTheme } from "../../generics/hooks/iuSlice.js";
 
 const HeaderMenu = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,8 @@ const HeaderMenu = () => {
   const location = useLocation(); // nuevo
   const role = useSelector(selectUserRole);
   const isProfesor = role === "Profesor";
+
+  const theme = useSelector(selectTheme);
 
   const [showOptions, setShowOptions] = useState(false);
 
@@ -28,6 +31,13 @@ const HeaderMenu = () => {
   const goTo = (path) => {
     navigate(path);
     setShowOptions(false);
+  };
+
+  const handleThemeChange = () => {
+    const nextTheme = theme === "light" ? "dark" : "light";
+
+    // Actualiza Redux (y el efecto global se encarga del body)
+    dispatch(setTheme(nextTheme));
   };
 
   // Helper para marcar el ítem activo
@@ -67,6 +77,13 @@ const HeaderMenu = () => {
                 </li>
               </>
             )}
+
+            <hr />
+            <p>Configuraciones</p>
+
+            <li onClick={handleThemeChange}>
+              <FontAwesomeIcon icon={`fa-solid fa-${theme === "light" ? "moon" : "sun"}`} size="lg" /> {theme === "light" ? "Modo Oscuro" : "Modo Claro"}
+            </li>
 
             {/* <li onClick={() => goTo("/configuraciones")} className={isActive("/configuraciones") ? styles.activeConfiguraciones : ""}>
               <FontAwesomeIcon icon="fa-solid fa-cogs" size="lg" /> Configuraciones

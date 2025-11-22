@@ -1,5 +1,6 @@
 // GroupProfileView.jsx
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import BarLoader from "../../../generics/BarLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,6 +12,7 @@ import { useMedallasAlumno } from "../../../medals/hooks/useMedalMutation";
 import RewardItem from "../../../rewards/components/RewardItem";
 import MedalCard from "../../../medals/components/MedalCard";
 import StudentAvatarEditor from "./StudentAvatarEditor";
+import { selectPathChosed, setPathChosed } from "../../../generics/hooks/iuSlice";
 
 import styles from "./GroupProfileView.module.css";
 import imagenDefaultPerfil from "../../../../assets/genericStudentAvatar2.png";
@@ -30,41 +32,45 @@ const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModa
   const [medallaSeleccionada, setMedallaSeleccionada] = useState("");
   const [mensajeSolicitud, setMensajeSolicitud] = useState("");
 
-  console.log("perfil en GroupProfileView:", perfil);
+  const dispatch = useDispatch();
 
   const [editandoEstilo, setEditandoEstilo] = useState(false);
-  const [matrizEstilos, setMatrizEstilos] = useState([
+
+  const [matrizEstilos] = useState([
     {
       id: 1,
       estilo: "Aventura Épica",
+      metaTitulo: "Camino del héroe",
       niveles: ["Novato", "Explorador", "Aventurero", "Guerrero", "Héroe", "Campeón", "Señor", "Maestro", "Sabio", "Leyenda"],
     },
     {
       id: 2,
-      estilo: "Ciencia / Tecnología",
+      estilo: "Científico Loco",
+      metaTitulo: "Ruta del conocimiento",
       niveles: ["Observador", "Investigador", "Técnico", "Analista", "Desarrollador", "Innovador", "Experto", "Arquitecto", "Pionero", "Visionario"],
     },
     {
       id: 3,
-      estilo: "Creativo / Artístico",
+      estilo: "Artista Creativo",
+      metaTitulo: "Viaje creativo",
       niveles: ["Soñador", "Aprendiz", "Creador", "Diseñador", "Artista", "Inspirador", "Curador", "Maestro", "Genio", "Icono"],
     },
   ]);
 
-  const [estiloSeleccionado, setEstiloSeleccionado] = useState(() => {
-    const guardado = localStorage.getItem(`estiloSeleccionado_${perfil.id}`);
-    return guardado ? Number(JSON.parse(guardado)) : 1;
-  });
+  // 👇 lo traemos de Redux (por usuario)
+  const pathChosed = useSelector(selectPathChosed); // 1 | 2 | 3 | null
+  const estiloSeleccionado = pathChosed ?? 1; // si no hay nada, usamos 1 por defecto
 
   const [estiloSeleccionadoTemporal, setEstiloSeleccionadoTemporal] = useState(estiloSeleccionado);
+
+  // si cambia en Redux (ej, al loguear y cargar config), sincronizamos el temporal
+  useEffect(() => {
+    setEstiloSeleccionadoTemporal(estiloSeleccionado);
+  }, [estiloSeleccionado]);
 
   useEffect(() => {
     setMetaTemporal(perfil.metaCalificacion);
   }, [perfil.metaCalificacion]);
-
-  useEffect(() => {
-    localStorage.setItem(`estiloSeleccionado_${perfil.id}`, JSON.stringify(estiloSeleccionado));
-  }, [perfil.id, estiloSeleccionado]);
 
   const avatarUrl = imagenPerfil?.urlCompleta;
 
@@ -87,14 +93,14 @@ const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModa
   }, [barraProgreso, barraProgreso?.calificacionActual, perfil?.metaCalificacion, perfil?.id, perfil?.nombreEstudiante, setModalContent, setModalTitle, setShowModal]);
 
   const handleSolicitarMedalla = () => {
-    var error = false;
+    let error = false;
 
     if (medallaSeleccionada === "") {
       notificarWarning("Debes seleccionar una medalla");
       error = true;
     }
 
-    if (mensajeSolicitud.length == 0) {
+    if (mensajeSolicitud.length === 0) {
       notificarWarning("El mensaje de solicitud no puede estar vacío");
       error = true;
     }
@@ -186,9 +192,10 @@ const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModa
                 // MODO VISTA
                 <div>
                   <p>
-                    <FontAwesomeIcon icon="fa fa-bullseye" /> {perfil?.metaCalificacion}
+                    <FontAwesomeIcon icon="fa fa-bullseye" /> {perfil?.metaCalificacion} -{" "}
+                    {matrizEstilos.find((estilo) => estilo.id === Number(estiloSeleccionado))?.niveles[perfil?.metaCalificacion - 1] || "Nivel desconocido"}
                   </p>
-                  <p>Meta personal</p>
+                  <p>{matrizEstilos.find((estilo) => estilo.id === Number(estiloSeleccionado))?.metaTitulo ?? "Reto personal"}</p>
                 </div>
               )}
 
@@ -202,10 +209,10 @@ const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModa
         {isOwnProfile && (
           <div className={styles.progressBarManager}>
             <div className={styles.progressBarContainer}>
-              <button onClick={() => setEditandoEstilo(!editandoEstilo)} className={`button-secondary`}>
+              <button onClick={() => setEditandoEstilo(!editandoEstilo)} className={`button-secondary ${styles.editStyleButton}`}>
                 <span>{editandoEstilo ? "Ver tu Camino" : "Elige tu Camino"}</span> <FontAwesomeIcon icon={editandoEstilo ? "fa fa-map" : "fa fa-route"} />
               </button>
-              <p>Progreso actual</p>
+              <p>{matrizEstilos.find((estilo) => estilo.id === Number(estiloSeleccionado))?.metaTitulo}</p>
               {!isLoadingBarra &&
                 barraProgreso &&
                 (!editandoEstilo ? (
@@ -238,7 +245,8 @@ const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModa
                     <button
                       className={`button-secondary ${styles.confirmButton}`}
                       onClick={() => {
-                        setEstiloSeleccionado(estiloSeleccionadoTemporal);
+                        // Guardamos el camino elegido en Redux (y por usuario)
+                        dispatch(setPathChosed(estiloSeleccionadoTemporal));
                         setEditandoEstilo(false);
                       }}
                     >
@@ -266,7 +274,7 @@ const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModa
         <h3>Inventario de Medallas</h3>
         <div className={styles.medallasGrid}>
           {perfil.medallas.length === 0 ? (
-            <p>No tienes medallas aún.</p>
+            <p>¡Tu inventario está listo! Gana tu primera medalla para verla aquí.</p>
           ) : (
             perfil.medallas.map((medalla) => <MedalCard key={medalla.medallaId + medalla.nombre} medal={medalla} cantidad={medalla.cantidad} onEdit={() => {}} showEditOption={false} />)
           )}
