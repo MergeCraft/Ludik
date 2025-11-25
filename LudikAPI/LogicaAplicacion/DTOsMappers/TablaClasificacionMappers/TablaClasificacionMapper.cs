@@ -20,7 +20,6 @@ namespace LogicaAplicacion.DTOsMappers.TablaClasificacionMappers
                 MedallaAsociadaId = dto.MedallaAsociadaId,
                 GrupoId = grupo.Id,
                 Grupo = grupo,
-                Participantes = grupo.Alumnos.ToList() ?? new List<PerfilEstudiante>()
             };
         }
     }

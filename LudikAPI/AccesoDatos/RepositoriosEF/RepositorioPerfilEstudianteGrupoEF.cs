@@ -35,6 +35,7 @@ namespace AccesoDatos.RepositoriosEF
                         .ThenInclude(rp => rp.RendimientoMedallas)
                             .ThenInclude(rpm => rpm.Medalla)
                     .Where(p => p.GrupoId == grupoId)
+                    .AsSplitQuery()
                     .ToListAsync();
 
 				if (perfiles == null || !perfiles.Any())
@@ -98,6 +99,7 @@ namespace AccesoDatos.RepositoriosEF
 							.ThenInclude(te => te.Equivalencias) //No eliminar estos includes, solucionan el problema que se daba en la seleccion de la meta del estudiante
 					.Include(p => p.Estudiante)
                         .ThenInclude(e => e.EstPotenciador)
+                    .AsSplitQuery()
                     .FirstOrDefaultAsync(p => p.Id == id);
 
 				if (perfil == null)
@@ -170,6 +172,7 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(p => p.Estudiante)
                         .ThenInclude(e => e.EstPotenciador)
                             .ThenInclude(pe => pe.Potenciador)
+                    .AsSplitQuery()
                     .FirstOrDefaultAsync(p => p.EstudianteId == estudianteId && p.GrupoId == grupoId);
 
                 if (perfil == null)
@@ -235,7 +238,9 @@ namespace AccesoDatos.RepositoriosEF
                             .Include(p => p.Estudiante)
                                 .ThenInclude(e => e.EstPotenciador)
                                     .ThenInclude(ep => ep.Potenciador)
+                                    .AsSplitQuery()
                             .FirstOrDefaultAsync(p => p.Id == id);
+
 
                 if (perfil == null)
                 {
@@ -268,6 +273,7 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(p => p.InventarioRecompensas) 
                     .Include(p => p.Estudiante)
                         .ThenInclude(e => e.EstPotenciador)
+                    .AsSplitQuery()
                     .ToListAsync();
 
                 return Resultado<List<PerfilEstudiante>>.Exitoso(perfiles);

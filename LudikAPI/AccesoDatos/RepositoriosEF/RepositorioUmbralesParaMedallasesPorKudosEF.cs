@@ -89,6 +89,7 @@ public class RepositorioUmbralesParaMedallasesPorKudosEF: IRepositorioUmbralesPa
                 .Include(u => u.Medalla)     
                 .Include(u => u.TipoKudo)    
                 .Where(u => u.GrupoId == grupoId)
+                .AsSplitQuery()
                 .ToListAsync();
 
 

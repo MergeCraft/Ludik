@@ -57,16 +57,25 @@ namespace AccesoDatos.RepositoriosEF
             {
                 var grupo = await _db.Grupos
                     .Include(g => g.Profesor)
+                    
                     .Include(g => g.Alumnos)
 						.ThenInclude(a => a.HistorialRendimientoPeriodos)
+                    
                     .Include(g => g.Alumnos)
                         .ThenInclude(al => al.MedallasObtenidas)
                             .ThenInclude(pm => pm.Medalla)
+                    
                     .Include(g => g.TablaEquivalencia)
                         .ThenInclude(t => t.Equivalencias)
 							.ThenInclude(tm => tm.MedallasNecesarias)
+
+                    .Include(g => g.Alumnos)
+                    .ThenInclude(al => al.Estudiante)
+                    .ThenInclude(e => e.NombreCompleto)
+
                     .Include(g => g.EnlaceUnion)
                     .Include(g => g.Tienda)
+                    .AsSplitQuery()
                     .FirstOrDefaultAsync(g => g.Id == id);
 
                 if (grupo == null)
@@ -142,7 +151,8 @@ namespace AccesoDatos.RepositoriosEF
 					.Include(g => g.TablasClasificacion)
 					.Include(g => g.EnlaceUnion)
 					.Include(g => g.Tienda)
-					.FirstOrDefaultAsync(g => g.Id == id);
+                    .AsSplitQuery()
+                    .FirstOrDefaultAsync(g => g.Id == id);
 
 				if (grupo == null)
 				{
@@ -202,6 +212,7 @@ namespace AccesoDatos.RepositoriosEF
                         .ThenInclude(te => te.Equivalencias)
                             .ThenInclude(eq => eq.MedallasNecesarias)
                     .Where(g => g.ProfesorId == idProfesor)
+                    .AsSplitQuery()
                     .ToListAsync();
 
                 return Resultado<IEnumerable<Grupo>>.Exitoso(grupos);
@@ -222,6 +233,7 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(p => p.Grupo.TablaEquivalencia.Equivalencias)
                     .ThenInclude(e => e.MedallasNecesarias)
                     .Select(p => p.Grupo.TablaEquivalencia)
+                    .AsSplitQuery()
                     .FirstOrDefaultAsync();
 
                 if (tablaEquivalencia == null)
@@ -332,6 +344,7 @@ namespace AccesoDatos.RepositoriosEF
                     .Where(g => g.Id == grupoId)
                     .Include(g => g.Profesor)
                         .ThenInclude(p => p.Medallas)
+                    .AsSplitQuery()
                     .FirstOrDefaultAsync();
 
                 if (grupo == null || grupo.Profesor == null)
@@ -343,6 +356,32 @@ namespace AccesoDatos.RepositoriosEF
             catch (Exception ex)
             {
                 return Resultado<IEnumerable<Medalla>>.Falla(new Error("Error.Unexpected", ex.Message));
+            }
+        }
+        public async Task<Resultado<Grupo>> GetGrupoConPerfilesYRecompensasAsync(string grupoId)
+        {
+            try
+            {
+                var grupo = await _db.Grupos
+            .Where(g => g.Id.ToString() == grupoId)
+            .Include(g => g.Alumnos)
+                .ThenInclude(pe => pe.Estudiante) 
+            .Include(g => g.Alumnos)
+                .ThenInclude(pe => pe.InventarioRecompensas)
+                    .ThenInclude(per => per.Recompensa) 
+            .AsSplitQuery()
+            .FirstOrDefaultAsync();
+
+                if (grupo == null)
+                {
+                    return Resultado<Grupo>.Falla(new Error("Error.NotFound", "Grupo no encontrado."));
+                }
+
+                return Resultado<Grupo>.Exitoso(grupo);
+            }
+            catch (Exception ex)
+            {
+                return Resultado<Grupo>.Falla(new Error("Error.Unexpected", ex.Message));
             }
         }
     }

@@ -66,7 +66,8 @@ namespace AccesoDatos.RepositoriosEF
                 var estudiante = await _db.Estudiantes
                     .Include(e => e.Perfiles)             
                     .Include(e => e.Hitos)                
-                    .Include(e => e.PreguntasSeguridad)   
+                    .Include(e => e.PreguntasSeguridad)
+                    .AsSplitQuery()
                     .FirstOrDefaultAsync(e => e.Id == id);
 
                 if (estudiante == null)
@@ -151,6 +152,7 @@ namespace AccesoDatos.RepositoriosEF
                             .ThenInclude(pm => pm.Medalla)
                     // si persistes PotenciadorActivo, inclúyelo también:
                     .Include(e => e.Perfiles)
+                    .AsSplitQuery()
                     .FirstOrDefaultAsync();
 
                 if (estudiante == null)
@@ -179,6 +181,7 @@ namespace AccesoDatos.RepositoriosEF
                     .Include(e => e.Perfiles)   
                     .Include(e => e.EstPotenciador)
                         .ThenInclude(ep => ep.Potenciador)
+                    .AsSplitQuery()
                     .FirstOrDefaultAsync(e => e.Id == id);
 
                 if (estudiante == null)

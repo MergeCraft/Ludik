@@ -1,13 +1,14 @@
-﻿using System;
+﻿using InterfacesRepositorio;
+using LogicaAplicacion.DTOs.TablaClasificacionDTOs;
+using LogicaAplicacion.DTOsMappers.TablaClasificacionMappers;
+using LogicaAplicacion.InterfacesCasosUsos.TablaClasificacion;
+using Entidades = LogicaNegocio.Entidades;
+using LogicaNegocio.Resultados;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using InterfacesRepositorio;
-using LogicaAplicacion.DTOs.TablaClasificacionDTOs;
-using LogicaAplicacion.DTOsMappers.TablaClasificacionMappers;
-using LogicaAplicacion.InterfacesCasosUsos.TablaClasificacion;
-using LogicaNegocio.Resultados;
 
 namespace LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion
 {
@@ -28,13 +29,15 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion
 
             var tabla = res.Valor;
 
-            //solo deberia poder obtener la informacion de una tabla si el profesor id de el grupo de la tabla es igual al logueado
-            if (tabla == null)
-                return Resultado<TablaClasificacionInfoDto>.Falla(
-                    new Error("TablaClasificacion.NoEncontrada", "No existe la tabla especificada.")
-                );
-            tabla.OrdenarParticipantesPorMedallaAsociada();
-            var dto = TablaClasificacionInfoMapper.Map(tabla);
+            var participantes = tabla.Grupo?.Alumnos ?? new List<Entidades.PerfilEstudiante>();
+
+            var participantesOrdenados = participantes
+                .OrderByDescending(p =>
+                    p.MedallasObtenidas?.Count(pm => pm.MedallaId == tabla.MedallaAsociadaId) ?? 0
+                )
+                .ToList();
+
+            var dto = TablaClasificacionInfoMapper.Map(tabla, participantesOrdenados);
 
             return Resultado<TablaClasificacionInfoDto>.Exitoso(dto);
         }

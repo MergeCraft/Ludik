@@ -46,11 +46,27 @@ namespace LogicaAplicacion.ImplementacionCasosUsos.TablaClasificacion
             if (resultadoTablas.EsFallo)
                 return Resultado<IEnumerable<TablaClasificacionInfoDto>>.Falla(resultadoTablas.Errores);
             IEnumerable <Entidades.TablaClasificacion > tablas = resultadoTablas.Valor;
+
+
+            var participantesActuales = grupo.Alumnos;
+
+            var dtos = new List<TablaClasificacionInfoDto>();
+
             foreach (var tabla in tablas)
             {
-                tabla.OrdenarParticipantesPorMedallaAsociada();
+                var participantesOrdenados = new List<Entidades.PerfilEstudiante>();
+                if (participantesActuales != null)
+                {
+                    participantesOrdenados = participantesActuales
+                        .OrderByDescending(p =>
+                            p.MedallasObtenidas.Count(pm => pm.MedallaId == tabla.MedallaAsociadaId)
+                        )
+                        .ToList();
+                }
+
+                var dto = TablaClasificacionInfoMapper.Map(tabla, participantesOrdenados);
+                dtos.Add(dto);
             }
-            var dtos = tablas.Select(TablaClasificacionInfoMapper.Map).ToList();
 
             return Resultado<IEnumerable<TablaClasificacionInfoDto>>.Exitoso(dtos);
         }

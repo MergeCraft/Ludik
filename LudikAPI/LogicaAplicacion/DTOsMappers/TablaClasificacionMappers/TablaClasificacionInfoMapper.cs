@@ -10,7 +10,7 @@ namespace LogicaAplicacion.DTOsMappers.TablaClasificacionMappers
 {
     public static class TablaClasificacionInfoMapper
     {
-        public static TablaClasificacionInfoDto Map(TablaClasificacion tabla)
+        public static TablaClasificacionInfoDto Map(TablaClasificacion tabla, List<PerfilEstudiante> participantes)
         {
             
 
@@ -20,7 +20,7 @@ namespace LogicaAplicacion.DTOsMappers.TablaClasificacionMappers
                 Nombre = tabla.Nombre,
                 MedallaAsociadaId = tabla.MedallaAsociadaId,
                 MedallaAsociadaNombre = tabla.MedallaAsociada.Nombre,
-                Participantes = tabla.Participantes
+                Participantes = participantes
                     .Select(p => new ParticipanteTablaDto
                     {
                         PerfilEstudianteId = p.Id,
