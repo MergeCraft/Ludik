@@ -393,8 +393,8 @@ namespace AccesoDatos.RepositoriosEF
 		private static void VincularEquivalenciasYMedallas(ModelBuilder modelBuilder, IEnumerable<Equivalencia> equivalencias, IEnumerable<Medalla> medallas)
 		{
 			modelBuilder.Entity("EquivalenciaMedallas").HasData(
-				// Medalla para la Tabla 2 (se mantiene igual)
-				new { EquivalenciaId = 3, MedallaId = 13 },
+				
+				
 
 				// --- Vinculaciones para Tabla 1 (Calificaciones Estándar) ---
 
@@ -405,29 +405,41 @@ namespace AccesoDatos.RepositoriosEF
 				new { EquivalenciaId = 2, MedallaId = 1 },
 				new { EquivalenciaId = 2, MedallaId = 4 },
 
-				// Nota 3: Requiere medallas de Nota 2 + 1 nueva
-				new { EquivalenciaId = 4, MedallaId = 1 },
+                new { EquivalenciaId = 3, MedallaId = 1 },
+                new { EquivalenciaId = 3, MedallaId = 4 },
+                new { EquivalenciaId = 3, MedallaId = 5 },
+
+
+
+
+                // Nota 3: Requiere medallas de Nota 2 + 1 nueva
+                new { EquivalenciaId = 4, MedallaId = 1 },
 				new { EquivalenciaId = 4, MedallaId = 4 },
-				new { EquivalenciaId = 4, MedallaId = 6 },
+                new { EquivalenciaId = 4, MedallaId = 5 },
+                new { EquivalenciaId = 4, MedallaId = 6 },
 
 				// Nota 4: Requiere medallas de Nota 3 + 1 nueva
 				new { EquivalenciaId = 5, MedallaId = 1 },
 				new { EquivalenciaId = 5, MedallaId = 4 },
-				new { EquivalenciaId = 5, MedallaId = 6 },
+                new { EquivalenciaId = 5, MedallaId = 5 },
+                new { EquivalenciaId = 5, MedallaId = 6 },
 				new { EquivalenciaId = 5, MedallaId = 8 },
 
 				// Nota 5: Requiere medallas de Nota 4 + 1 nueva
 				new { EquivalenciaId = 6, MedallaId = 1 },
 				new { EquivalenciaId = 6, MedallaId = 4 },
 				new { EquivalenciaId = 6, MedallaId = 6 },
-				new { EquivalenciaId = 6, MedallaId = 8 },
+                new { EquivalenciaId = 6, MedallaId = 5 },
+
+                new { EquivalenciaId = 6, MedallaId = 8 },
 				new { EquivalenciaId = 6, MedallaId = 10 },
 
 				// Nota 6: Requiere medallas de Nota 5 + 1 nueva
 				new { EquivalenciaId = 7, MedallaId = 1 },
 				new { EquivalenciaId = 7, MedallaId = 4 },
 				new { EquivalenciaId = 7, MedallaId = 6 },
-				new { EquivalenciaId = 7, MedallaId = 8 },
+                new { EquivalenciaId = 7, MedallaId = 5 },
+                new { EquivalenciaId = 7, MedallaId = 8 },
 				new { EquivalenciaId = 7, MedallaId = 10 },
 				new { EquivalenciaId = 7, MedallaId = 12 },
 
@@ -435,7 +447,8 @@ namespace AccesoDatos.RepositoriosEF
 				new { EquivalenciaId = 8, MedallaId = 1 },
 				new { EquivalenciaId = 8, MedallaId = 4 },
 				new { EquivalenciaId = 8, MedallaId = 6 },
-				new { EquivalenciaId = 8, MedallaId = 8 },
+                new { EquivalenciaId = 8, MedallaId = 5 },
+                new { EquivalenciaId = 8, MedallaId = 8 },
 				new { EquivalenciaId = 8, MedallaId = 10 },
 				new { EquivalenciaId = 8, MedallaId = 12 },
 				new { EquivalenciaId = 8, MedallaId = 2 },
@@ -444,7 +457,8 @@ namespace AccesoDatos.RepositoriosEF
 				new { EquivalenciaId = 9, MedallaId = 1 },
 				new { EquivalenciaId = 9, MedallaId = 4 },
 				new { EquivalenciaId = 9, MedallaId = 6 },
-				new { EquivalenciaId = 9, MedallaId = 8 },
+                new { EquivalenciaId = 9, MedallaId = 5 },
+                new { EquivalenciaId = 9, MedallaId = 8 },
 				new { EquivalenciaId = 9, MedallaId = 10 },
 				new { EquivalenciaId = 9, MedallaId = 12 },
 				new { EquivalenciaId = 9, MedallaId = 2 },
@@ -460,9 +474,13 @@ namespace AccesoDatos.RepositoriosEF
 				new { EquivalenciaId = 10, MedallaId = 2 },
 				new { EquivalenciaId = 10, MedallaId = 3 },
 				new { EquivalenciaId = 10, MedallaId = 5 },
+                new { EquivalenciaId = 10, MedallaId = 7 },
 
-				// Nota 10: Requiere medallas de Nota 9 + 1 nueva
-				new { EquivalenciaId = 11, MedallaId = 1 },
+
+
+
+                // Nota 10: Requiere medallas de Nota 9 + 1 nueva
+                new { EquivalenciaId = 11, MedallaId = 1 },
 				new { EquivalenciaId = 11, MedallaId = 4 },
 				new { EquivalenciaId = 11, MedallaId = 6 },
 				new { EquivalenciaId = 11, MedallaId = 8 },
@@ -471,8 +489,11 @@ namespace AccesoDatos.RepositoriosEF
 				new { EquivalenciaId = 11, MedallaId = 2 },
 				new { EquivalenciaId = 11, MedallaId = 3 },
 				new { EquivalenciaId = 11, MedallaId = 5 },
-				new { EquivalenciaId = 11, MedallaId = 7 }
-			);
+				new { EquivalenciaId = 11, MedallaId = 7 },
+                new { EquivalenciaId = 11, MedallaId = 9 }
+
+
+            );
 		}
 
 		private static IEnumerable<Medalla> PrecargaDeMedallas(ModelBuilder modelBuilder)
