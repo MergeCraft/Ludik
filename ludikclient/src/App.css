@@ -27,7 +27,7 @@
 
 .light {
   /* ☀️ Paleta base light */
-  --principal: #F4F4FA;
+  --principal: #e6e6f4;
   /* Fondo general, ligeramente lavanda para suavizar el blanco */
   --secundario: #c8cbd5;
   /* Bloques o secciones */
@@ -76,6 +76,13 @@
   /* 🎨 Efectos */
   --sombra: rgba(0, 0, 0, 0.08);
   --sombra-hover: rgba(108, 58, 222, 0.25);
+
+  --hero-glow-center: rgba(255, 201, 74, 0.95);
+  --hero-glow-halo: rgba(255, 201, 74, 0.35);
+  --hero-glow-fade: rgba(255, 201, 74, 0.0);
+
+  --hero-shadow-weak: rgba(255, 201, 74, 0.45);
+  --hero-shadow-strong: rgba(255, 201, 74, 0.9);
 }
 
 .dark {
@@ -127,35 +134,17 @@
   /* 🎨 Efectos */
   --sombra: rgba(0, 0, 0, 0.25);
   --sombra-hover: rgba(124, 58, 237, 0.4);
+
+  --hero-glow-center: rgba(255, 215, 106, 0.95);
+  --hero-glow-halo: rgba(255, 215, 106, 0.32);
+  --hero-glow-fade: rgba(255, 215, 106, 0.0);
+
+  --hero-shadow-weak: rgba(255, 215, 106, 0.4);
+  --hero-shadow-strong: rgba(255, 215, 106, 0.95);
+
+  --hero-shadow-weak-goal: rgba(126, 255, 106, 0.4);
+  --hero-shadow-strong-goal: rgba(133, 255, 106, 0.95);
 }
-
-/* .tema-sorbrio {
-  --potenciador: #93049b;
-  --monedas: #c1a100;
-  --medallas: #8c4b16;
-  --color-oro: #FFC107;
-  --color-plata: #B0B0B0;
-  --color-bronce: #B86B25;
-  --meta-alumno: #3aa232;
-  --blanco-principal: #d9d9d9;
-  --blanco-secundario: #c8c8c8;
-  --boton-principal: #046e9b;
-  --secundario-boton-princial: #004f70;
-  --boton-secundario: #079b04;
-  --secundario-boton-secundario: #076404;
-  --boton-terciario: #9B0404;
-  --secundario-boton-terciario: #640404;
-  --boton-quinario: #9b9604;
-  --secundario-boton-quinario: #646204;
-  --boton-creator: #2b193f;
-  --secundario-boton-creator: #1b1324;
-  --letras-secundario: #49c0f8;
-  --principal: #131f24;
-  --secundario: #23353c;
-  --terciario: #375662;
-  --verde-acento: #5fbf82;
-} */
-
 
 * {
   box-sizing: border-box;

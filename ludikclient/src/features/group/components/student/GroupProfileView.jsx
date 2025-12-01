@@ -15,6 +15,16 @@ import StudentAvatarEditor from "./StudentAvatarEditor";
 import { selectPathChosed, setPathChosed } from "../../../generics/hooks/iuSlice";
 
 import styles from "./GroupProfileView.module.css";
+import lvl1 from "../../../../assets/lvl1.PNG";
+import lvl2 from "../../../../assets/lvl2.PNG";
+import lvl3 from "../../../../assets/lvl3.PNG";
+import lvl4 from "../../../../assets/lvl4.PNG";
+import lvl5 from "../../../../assets/lvl5.PNG";
+import lvl6 from "../../../../assets/lvl6.PNG";
+import lvl7 from "../../../../assets/lvl7.PNG";
+import lvl8 from "../../../../assets/lvl8.PNG";
+import lvl9 from "../../../../assets/lvl9.PNG";
+import lvl10 from "../../../../assets/lvl10.PNG";
 import imagenDefaultPerfil from "../../../../assets/genericStudentAvatar2.png";
 import { PulseLoader } from "../../../generics/BarLoader";
 
@@ -62,6 +72,8 @@ const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModa
   const estiloSeleccionado = pathChosed ?? 1; // si no hay nada, usamos 1 por defecto
 
   const [estiloSeleccionadoTemporal, setEstiloSeleccionadoTemporal] = useState(estiloSeleccionado);
+
+  const levelImages = [lvl1, lvl2, lvl3, lvl4, lvl5, lvl6, lvl7, lvl8, lvl9, lvl10];
 
   // si cambia en Redux (ej, al loguear y cargar config), sincronizamos el temporal
   useEffect(() => {
@@ -216,20 +228,37 @@ const GroupProfileView = ({ perfil, groupid, isLoading, setModalContent, setModa
               {!isLoadingBarra &&
                 barraProgreso &&
                 (!editandoEstilo ? (
-                  <div className={styles.progressBar}>
-                    {Array.from({ length: barraProgreso?.calificacionMaxima }, (_, index) => {
-                      const numero = index + barraProgreso?.calificacionMinima;
-                      const alcanzado = numero <= barraProgreso?.calificacionActual;
-                      const esMeta = numero === perfil?.metaCalificacion;
-                      const estiloActual = matrizEstilos.find((estilo) => estilo.id === Number(estiloSeleccionado));
+                  <>
+                    <div className={styles.progressBar}>
+                      {Array.from({ length: barraProgreso?.calificacionMaxima }, (_, index) => {
+                        const numero = index + barraProgreso?.calificacionMinima;
+                        const alcanzado = numero <= barraProgreso?.calificacionActual;
+                        const esMeta = numero === perfil?.metaCalificacion;
+                        const estiloActual = matrizEstilos.find((estilo) => estilo.id === Number(estiloSeleccionado));
 
-                      return (
-                        <label key={`progreso-${numero}`} htmlFor={`progreso-${numero}`} className={`${styles.label} ${alcanzado ? styles.alcanzado : styles.noAlcanzado}`}>
-                          {esMeta ? <FontAwesomeIcon icon="fa fa-bullseye" className={styles.icono} /> : <p>{estiloActual?.niveles[index] ?? ""}</p>}
-                        </label>
-                      );
-                    })}
-                  </div>
+                        return (
+                          <label key={`progreso-${numero}`} htmlFor={`progreso-${numero}`} className={`${styles.label} ${alcanzado ? styles.alcanzado : styles.noAlcanzado}`}>
+                            {esMeta ? <FontAwesomeIcon icon="fa fa-bullseye" className={styles.icono} /> : <p>{estiloActual?.niveles[index] ?? ""}</p>}
+                          </label>
+                        );
+                      })}
+                    </div>
+
+                    <div className={styles.progressBar}>
+                      {Array.from({ length: barraProgreso?.calificacionMaxima }, (_, index) => {
+                        const numero = index + barraProgreso?.calificacionMinima;
+                        const alcanzado = numero <= barraProgreso?.calificacionActual;
+                        const esMeta = numero === perfil?.metaCalificacion;
+
+
+                        return (
+                          <label key={`progreso-${numero}`} htmlFor={`progreso-${numero}`} className={`${styles.labelVisual} ${alcanzado ? styles.visualAlcanzado : styles.visualNoAlcanzado}`}>
+                            <img src={levelImages[index]} alt={`Nivel ${index + 1}`}  className={esMeta ? styles.visualMeta : ""}/>
+                          </label>
+                        );
+                      })}
+                    </div>
+                  </>
                 ) : (
                   <div className={styles.medallasSeleccionContainer}>
                     <select name="medallas" id="medallas" className="button" onChange={(e) => setEstiloSeleccionadoTemporal(Number(e.target.value))} value={estiloSeleccionadoTemporal}>

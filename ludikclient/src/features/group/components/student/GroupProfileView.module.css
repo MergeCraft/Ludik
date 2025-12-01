@@ -194,7 +194,7 @@
 
 
 
-.progressBar label {
+.progressBar .label {
     border: none;
     position: relative;
     padding: 15px 0;
@@ -206,7 +206,7 @@
     padding: 20px;
 }
 
-.progressBar label::before {
+.progressBar .label::before {
     content: "";
     position: absolute;
     left: 0;
@@ -217,7 +217,7 @@
     background-color: rgba(0, 0, 0, 0.06);
 }
 
-.progressBar label p {
+.progressBar .label p {
     display: block;
     width: 100%;
     overflow: hidden;
@@ -227,15 +227,15 @@
 }
 
 
-.progressBar label:first-child::before {
+.progressBar .label:first-child::before {
     display: none;
 }
 
-.progressBar label:first-child {
+.progressBar .label:first-child {
     border-radius: 20px 10px 10px 20px;
 }
 
-.progressBar label:last-child {
+.progressBar .label:last-child {
     border-radius: 10px 20px 20px 10px;
 }
 
@@ -249,7 +249,7 @@
     background-position: center;
     background-size: 80%;
     transform-origin: center;
-    animation: pulseMeta 2.4s ease-in-out infinite;
+    animation: pulseMeta 3s ease-in-out infinite;
 }
 
 .alcanzado::after {
@@ -284,7 +284,7 @@
     opacity: 1;
 }
 
-.progressBar label p {
+.progressBar .label p {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -295,16 +295,16 @@
     transition: color .2s ease, transform .2s ease;
 }
 
-.progressBar label:has(input[type="radio"]:checked) {
+.progressBar .label:has(input[type="radio"]:checked) {
     background-color: var(--secundario);
     transform: translateY(-6px);
 }
 
-.progressBar label[data-animate="once"] {
+.progressBar .label[data-animate="once"] {
     animation: pulseMeta 850ms ease-in-out 1 both;
 }
 
-.progressBar label[data-animate="once"]::after {
+.progressBar .label[data-animate="once"]::after {
     animation: shine 900ms ease-in-out 1 both;
 }
 
@@ -313,13 +313,97 @@
     .alcanzado,
     .alcanzado::after,
     .icono.visible,
-    .progressBar label:hover,
-    .progressBar label[data-animate="once"] {
+    .progressBar .label:hover,
+    .progressBar .label[data-animate="once"] {
         animation: none !important;
         transition: none !important;
         transform: none !important;
     }
 }
+
+.labelVisual {
+    border: none;
+    position: relative;
+    padding: 15px 0;
+    flex-grow: 1;
+    min-width: 34px;
+    border-radius: 10px;
+    overflow: visible;
+    /* para que se vea el brillo si se expande */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.labelVisual img {
+    z-index: 1;
+    /* por encima del halo */
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: block;
+    position: relative;
+}
+
+.visualAlcanzado {
+    background:
+        radial-gradient(circle at center,
+            var(--hero-glow-center) 0%,
+            var(--hero-glow-halo) 40%,
+            var(--hero-glow-fade) 70%);
+    /* se desvanece */
+    background-repeat: no-repeat;
+    background-size: 50% 50%;
+    background-position-x: 50%;
+    background-position-y: 50%;
+    /* hace el halo más grande que el label */
+    animation: heroGlow 3s ease-in-out infinite;
+}
+
+.visualNoAlcanzado {
+    transition: background-color .28s ease, transform .18s ease;
+}
+
+.visualMeta {
+    animation:
+        heroGlowGoal 3s ease-in-out infinite,
+        pulseMeta 1.5s ease-in-out infinite;
+}
+
+@keyframes heroGlow {
+    0% {
+        background-size: 15% 15%;
+        filter: drop-shadow(0 0 4px var(--hero-shadow-weak));
+    }
+
+    50% {
+        background-size: 20% 20%;
+        filter: drop-shadow(0 0 16px var(--hero-shadow-strong));
+    }
+
+    100% {
+        background-size: 15% 15%;
+        filter: drop-shadow(0 0 4px var(--hero-shadow-weak));
+    }
+}
+
+@keyframes heroGlowGoal {
+    0% {
+        background-size: 15% 15%;
+        filter: drop-shadow(0 0 4px var(--hero-shadow-weak-goal));
+    }
+
+    50% {
+        background-size: 20% 20%;
+        filter: drop-shadow(0 0 16px var(--hero-shadow-strong-goal));
+    }
+
+    100% {
+        background-size: 15% 15%;
+        filter: drop-shadow(0 0 4px var(--hero-shadow-weak-goal));
+    }
+}
+
+
 
 /* ===========================
    Meta container y edición
@@ -467,16 +551,16 @@
         overflow-x: auto;
     }
 
-    .progressBar label {
+    .progressBar .label {
         border-radius: 0;
         min-width: 28px;
     }
 
-    .progressBar label:first-child {
+    .progressBar .label:first-child {
         border-radius: 20px 0px 0px 20px;
     }
 
-    .progressBar label:last-child {
+    .progressBar .label:last-child {
         border-radius: 0px 20px 20px 0px;
     }
 
@@ -485,7 +569,7 @@
 
     }
 
-    .progressBar label p {
+    .progressBar .label p {
         font-size: x-small;
     }
 
